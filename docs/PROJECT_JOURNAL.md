@@ -61,39 +61,49 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
-### SESSION 1 CLOSES ON THIS (2026-10-20, Fable) — container 2 done; container 3 next, on Opus
+### SESSION 1 CLOSES ON THIS (2026-10-20, Fable) — containers 2 and 3 done, the engine seated; container 4 next
 
 - **The task:** the start of the Switch~ piece by the new-piece protocol, run by piece 6's deviations register (H6-1).
-- **Where it stands:** container 1 the harvest ☑ (in piece 6's repo, his read "all as proposed") · container 2 the kit ☑ (this
-  commit) · containers 3 … 8 `todo`, in PLAN § 0. No code here yet.
-- **► THE NEXT CONCRETE STEP — CONTAINER 3, THE COPY-FORWARD, on Opus, one sitting, from the written steps:**
-  the protocol's 3.0 … 3.6 as amended by piece 6's deviations register and the harvest's H6-7 … H6-20 — in order: **3.0** the survey
-  from `decibel_TENOR_2026` @ `9796edd` with `tools/port/` as the template (the copy list re-pointed; `electronics/` and the
-  bank's samples ON the leave list; the leave list grepped for paths the engine reads; the lane-count greps — 6 → 7 or 8 lanes) →
-  **3.1** the copy by blob hash → **3.2** prove whole, two staging passes, the batteries classified into a table → **the fixes commit**
-  (the roles helper H6-14 · H6-18's stragglers · the font H6-19 if cheap) → **3.3** the re-palette (seven parts in score order:
-  flute · clarinet · alto sax · piano · percussion · violin · cello; the percussionist's lanes decided at 3.0; the ports · the guard
-  · the session · the package · the lane CSS · the source's folder name) → **3.4** recipes and skeleton banks (the cello carried
-  verbatim; all else PROVISIONAL) → **3.5** verified in the running app on 5600 / 5100 (`score-5601` the throwaway) → **3.6** the
-  record. Then **the engine's take** (`live-electronics-system/docs/TAKE.md` step 1: `git subtree add --prefix=electronics engine main`).
-- **`Resume reads:`** `CLAUDE.md` (the profile · the names · the warnings) · `docs/PLAN.md` § 0 · `decibel_TENOR_2026/docs/HARVEST.md`
-  § → 3 (H6-7 … H6-20) · `decibel_TENOR_2026/docs/PROTOCOL_DEVIATIONS.md` (its 3.x lines) · the protocol's § 3 · `decibel_TENOR_2026/docs/PLAN.md`
-  § 0.3 (the last survey's shape) · `decibel_TENOR_2026/tools/port/` (the scripts). Nothing else.
-- **Pending him:** the libraries at 4.0 (SI2 for the clarinet and the sax, as proposed?) · the percussionist's lanes (one or two) ·
-  the title, when it comes · the planning repo's "pieces in play" line (2.6 — only at his word).
-- **Deliberately uncommitted — none.** (`git status --short` clean at this commit.)
+- **Where it stands:** container 1 the harvest ☑ (in piece 6's repo, his read "all as proposed") · container 2 the kit ☑ · **container 3
+  ☑ (RUNNING_LOG §5 … §10):** piece 6's engine copied byte-exact from `9796edd` (462 / 462 by blob hash) · proven whole (45 batteries:
+  30 green, 15 red, every red classified — NITS) · the fixes (seven piece-5 tools retired) · the re-palette to EIGHT lanes — flute ·
+  clarinet · alto sax · percussion · vibraphone · piano · violin · cello (D7) — on 5600 / 5100 (102 files, 200 edits, every count
+  asserted) · provisional recipes and skeleton banks (`palette_check` 202 · `roster_check` green) · THE ENGINE SEATED at `electronics/`
+  by subtree (its repo's `a11b387`, the same commit piece 6 stands at) · verified on the throwaway `score-5601`: the page boots with the
+  eight lanes, the route battery 96 / 97, every Panels ▾ and Insert ▾ entry opened clean, the piano role clicked, the ensemble warn with
+  its control, the save round trip, the day-one stub written by the app (`scores/switch.json`). **Nothing sounds; nothing notates this
+  ensemble yet.**
+- **► THE NEXT CONCRETE STEP — CONTAINER 4, THE INSTRUMENTS, with him at the start:** **4.0 THE READ-OUT PER INSTRUMENT** (H6-22) —
+  one line each, "carried from piece N: its round robin · its volume · its curve · its ranges — done / not, with the file": the flute ·
+  piano · violin from piece 4 (`septet_2026`: `sandbox/instruments.js`, its `bank/instrument_card.json` · `velocity_remap.json` · its
+  RACK_SETTINGS) · the cello from piece 6 (carried, measured) · the percussion from piece 2's catalog by piece 6's route (`bank/
+  aro_percussion_catalog.json` · `ricotti_catalog.json`) cut to the call's list · the clarinet and the alto sax NEW on SI2 (UVI) — and
+  the libraries CONFIRMED with him (Q1); the vibraphone's and the glockenspiel's library (Q2) · then **4.1** the ports made BY THE AI
+  through loopMIDI's registry key (`SW…`, the standard set; piece 6's `#6 §19` is the how-to: `protocol/howto/rack.md`) · **4.2** the
+  tracks by `tools/build_rack.js` — the cello cloned from piece 6's rack on disk, the flute · piano · violin from piece 4's; the clarinet
+  and the sax new SI2 tracks (the UVI how-to WRITTEN first, H6-24, from the tubas' and piece 4's record) · **4.3** his loads: the
+  clarinet and the sax presets in UVI's browser, and the new ports enabled in Reaper's Preferences · **4.4** the state as text ·
+  **4.5** the recipes derived from the rack (`apply_uvi_parts.js` · `apply_perc.js`) · **4.6** the first sound, in HIS Chrome.
+- **`Resume reads:`** `CLAUDE.md` (the profile · § Apps · the warnings) · `docs/PLAN.md` § 0 · `decibel_TENOR_2026/docs/HARVEST.md`
+  § → 4 (H6-21 … H6-28) · the protocol's § 4 · `composition-system/protocol/howto/rack.md` · `kontakt.md` · `measuring.md` ·
+  `decibel_TENOR_2026/docs/RUNNING_LOG.md` §18 … §25 (its rack build) · `septet_2026/sandbox/instruments.js` (the flute · piano ·
+  violin recipes and their UVI record). Nothing else.
+- **Pending him:** Q1 the libraries for the clarinet and the alto sax (SI2 as proposed?) · Q2 the vibraphone's and the glockenspiel's
+  library (the Ricotti stand-in is crotales · glock · xylophone · marimba) and the percussion's selection from the call's list ·
+  Q3 the title, when it comes · the planning repo's "pieces in play" line (2.6 — only at his word).
+- **Deliberately uncommitted — none.** (`git status --short` clean at this commit; `tools/port/batt-old/` is gitignored.)
 
 ### THE SESSIONS BEFORE THIS ONE — one line each; the lab journal has them whole
 
 - **S1 · 2026-10-20 (Fable)** — the orientation (RUNNING_LOG §1 · §2) · the harvest of piece 6 run in its repo (`#6 §488`, §3) ·
-  container 2 (§4).
+  container 2 (§4) · container 3 whole, and the engine's take (§5 … §10) — his word *"go ahead all here no need for clear and model switch"*.
 
 **NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| **►** | **Container 3 — the copy-forward from piece 6, by the written steps above; ends with the engine's take** | **Opus** | **yes — clear, then `/postclear` on Opus** |
-| — | Container 4 — the instruments: 4.0 the read-out per instrument (H6-22), the libraries confirmed with him · the ports by the AI · the tracks cloned · his loads (clarinet · sax) · the UVI how-to written (H6-24) · the first sound | Opus (Fable for the read-out with him) | — |
+| ☑ | Container 3 — the copy-forward from piece 6, with the engine's take (RUNNING_LOG §5 … §10) | Fable, at his word | — |
+| **►** | **Container 4 — the instruments: 4.0 the read-out per instrument (H6-22) and the libraries confirmed with him · 4.1 the ports by the AI · 4.2 the tracks cloned and the two new SI2 tracks · the UVI how-to written (H6-24) · 4.3 his loads · 4.5 the recipes derived · 4.6 the first sound** | **Fable for 4.0 (the talk) · Opus for 4.1 … 4.6 (a day, from the how-tos)** | **a clear before 4.1 is cheap: the docs carry everything** |
 | — | Container 5 — the calibration for a composing demo; container 6 set up (the registry, the three calls BEFORE 6.0 — H6-35) | Opus | — |
 | — | 10.0 — the deviations register read, v2 written into the home's protocol (both runs' lessons); the eight LATER items to BACKLOG | Fable | yes |
 | — | Then the music: the profile's open questions are the sketch pad's (what the electronics take of the call's tech; the two musics) | Fable | — |
@@ -189,6 +199,18 @@ in his numbering of 2026-10-11; kept as the source files have them.)*
   43 take now · 8 later · 9 leave. Rejected: the light read. *(`#6 §488`; RUNNING_LOG §3)*
 - **D6 · 2026-10-20 — HE KEEPS HIS OWN TIME** (piece 6's D5, carried): the call's date is recorded, not managed; the order and the pace
   of the containers are his.
+- **D7 · 2026-10-20 — THE LANES: EIGHT — the percussionist on two; the pitched lane is the vibraphone; the piano a role.** Score order
+  flute · clarinet · alto sax · percussion · vibraphone · piano · violin · cello (winds · percussion · keyboard · strings); META 8; the
+  curve windows 9 / 10 / 11 over piano · violin · cello; `layoutVersion` 9. THE AI'S CALL at the re-palette, his to reverse — he had not
+  answered "one lane or two" (Q2). Why two: piece 6's shape; the call's list has two mallet instruments (vibraphone · glockenspiel);
+  cutting the pitched lane would cut the tools built on its key (`bowed_vibraphone`: the strip's pitch tool, the texture panel, the
+  beating tool). Rejected: one percussion lane; a rename of the key (cosmetic, 13 sites — NITS). *(RUNNING_LOG §5 · §7)*
+- **D8 · 2026-10-20 — THE ENGINE IS SEATED BY SUBTREE, right after 3.4 and before 3.5** (`8c4baff`, the engine's `a11b387`): the score
+  server requires the engine's relay at start, so the app cannot be verified without it; the seams were already in the copied stack.
+  Rejected: copying `electronics/` with the byte copy (the subtree push would break — H6-9). *(RUNNING_LOG §9)*
+- **D9 · 2026-10-20 — THE ROLES HELPER IS NOT BUILT: the role is the existing lookup** (`TRACKS.findIndex(t => t.instKey === 'piano')`,
+  33 sites in 12 modules, all reading TRACKS; the three lane-number fallbacks set). A helper would change no behaviour — his rule, no
+  work not asked for. The protocol's 3.10 is answered by a deviation line, not by code. *(RUNNING_LOG §7)*
 
 ---
 
@@ -204,6 +226,9 @@ is first used.)*
 - 2026-10-20 — **container 1** the harvest of piece 6, `decibel_TENOR_2026/docs/HARVEST.md`, his read "all as proposed" (`#6 §488`).
 - 2026-10-20 — **container 2** the repo and its kit: the profile, the names, the method docs carried, the record docs from the
   skeletons, the sketch pad gathered (RUNNING_LOG §1 … §4).
+- 2026-10-20 — **container 3** the engine copied forward from piece 6 — the survey (`tools/port/classify.js`, 462 copy / 287 leave) ·
+  the copy by blob hash 462 / 462 (`1395bcf`) · proven whole, 45 batteries classified (`b554f90` the fixes) · the re-palette to eight lanes
+  (`59afee9`) · the recipes and skeleton banks (`851a385`) · the engine's take (`8c4baff`) · verified on `score-5601` (RUNNING_LOG §5 … §10).
 
 ---
 

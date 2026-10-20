@@ -134,3 +134,128 @@ with the code, 3.1 · 3.6 — piece 6 kept them in `docs/`, and H-1 made the rec
 copied whole.
 
 **Not claimed:** nothing runs; nothing of the stack is here. **Next:** container 3 on Opus (journal §2's step, written to be run cold).
+
+## §5. Container 3 opened — his word, and the survey (3.0)
+
+**His word** (2026-10-20, after container 2's report had set the switch point at Opus): *"go ahead all here no need for clear and model
+switch"*. Container 3 run on Fable, in this session, from journal §2's written step — the protocol's 3.0 … 3.6 as amended by piece 6's
+deviations register and the harvest's H6-7 … H6-20.
+
+**The survey (3.0).** The source: piece 6 *Approaching*, `decibel_TENOR_2026` @ **`9796edd`** — 749 tracked files, 49.3 MB; its working
+tree holds one modified file of his (`bank/samples/index.json`), so every file is taken from the COMMIT. `tools/port/classify.js` (piece
+6's, re-pointed): **COPY 462 files, 10.9 MB · LEAVE 287 files, 39.5 MB.** What differs from piece 6's run: `electronics/` (67 files) LEFT —
+the engine comes by subtree (H6-9) · the piece's electronics data left (the bank, the backup, the dealt presets, the sections' banks); the
+two files the stack reads at start / at load stay ON the copy and are skeletoned at 3.4 — `bank/elec_route.json` (`score/server.js`
+requires it at line 20) and `bank/presets.json` (the page reads it at F5) — found by H6-8's grep of every leave-list path against the
+engine · piece 6's `tools/port/` left (this repo has its own) · the three design studies' pages and tools CARRIED as code
+(`score/public/{signs,language,palette}/`, `tools/{signs,language,palette}/`), their data (`bank/signs` · `bank/language` · `bank/palette`)
+left · the Kontakt preset array of the bass flute left · DYNAMICS_LAW and VERIFICATION_RECIPE left (in the kit, 2.4). 355 paths are NEW
+since piece 6's own port (its electronics' tools and the engine); 14 are GONE (the twelve piece-5 checks it retired, two fixtures).
+**The coupling:** kind A the composer page (six lanes → eight) · kind B the per-instrument tables, the same ten sites piece 6 turned plus
+the new `sine_go.js` · `three_body_*.js` readers of `bank/sine_behaviours.json` · kind C THE PIANO ROLE: thirty-three `instKey ===
+'piano'` sites in twelve modules — every one reads TRACKS, so with the piano in TRACKS they are live; the three lane-number FALLBACKS
+(`cue_picker.js` · `piano_cues.js` · `piano_harmonics.js`: `pianoLane 2, metaLayer 7`) are the ones to set. The lane count changes
+(6 → 8): the literal lane lists piece 6 found at its 3.5 are already by TRACKS. Ports in use on this machine read from every
+`launch.json` — 5600 / 5100 are free.
+
+**The lanes (D7, the AI's call, his to reverse):** EIGHT — flute · clarinet · alto sax · percussion · vibraphone · piano · violin ·
+cello, orchestral score order (winds · percussion · keyboard · strings); the percussionist on TWO lanes as in piece 6, the pitched
+lane being the call's vibraphone (and the glockenspiel beside it, container 4's question); the key `bowed_vibraphone` kept (NAMING § 1).
+Rejected: one percussion lane — cutting the pitched lane would cut the tools built on its key (the strip's pitch tool, the texture
+panel, the beating tool), and the call's list has two mallet instruments. META = 8; the curve windows 9 / 10 / 11 over piano · violin ·
+cello; `layoutVersion` 9.
+
+## §6. The copy (3.1) and the proof (3.2)
+
+**3.1** `tools/port/copy31.sh`: every path from `git show 9796edd:path`; the proof the BLOB HASH of each copied file against the source
+commit's `ls-tree` — **462 / 462 identical**. Committed as one commit (`1395bcf`), `npm install` after it (one dependency, resvg; the
+lock file unchanged). **3.2** `tools/port/stage32.sh` (piece 6's, re-pointed): 161 paths staged from the sources' HEADs by a list
+written first — piece 3's tuba pages and nine scores (the tuba-page batteries' fixtures are hashes of them), piece 4's four septet pages
+and their scores, piece 6's own data from this run's leave list, its engine index too; a tracked path is never staged over. `tools/port/
+run_batteries.sh old`: **45 commands — 30 green, 15 red, none a copy defect.** The classes, into NITS as the table: GREEN 30 (the
+notation batteries on the staged tuba pages · the written-pitch control · `palette_check` 151 and `roster_check` 310 on the OLD
+palette · the five print and screen gates on piece 6's official page `approaching` · the three cresc checks · the IR battery · the
+model bank · beating_check · drone_check …) · RED, bound to piece 5's pages or scores, RETIRED at the fixes commit: `eh_figure_check` ·
+`sequence_notation_check` · `vib_marks_check` (piece 5's locks and protos, red in piece 6 too) · RED, bound to piece 4's or 6's data,
+KEPT and re-pointed when the tool is used here: `test_surge_run` (reads piece 4's `piece-septet` page: 65 of 78 curves) ·
+`sequence_check` (piece 5's `reference_chords.json`, in no one's git) · `vibes_pitch_check` (12 of 65: piece 5's instruments) ·
+`three_body_check` (piece 6's bank on disk) · `sine_check` (piece 6's four bending lanes) · `strike_check` (piece 6's catalogue
+`strike_responses.json`) · `check_rules` 30 of 32 (rule 8 wants a sequence page — H6-60; one more read at 6) · `dyn_table_check` 1
+failed by design — the UVI assertion, H6-30 · RED until container 5: the four python self-tests (their schedules are a probe's dry
+run, never in git). The staged 161 deleted exactly by the list after 3.4's dry run; `git status` clean.
+
+## §7. The fixes commit, and the re-palette (3.3)
+
+**The fixes** (`b554f90`, between prove and re-palette as piece 6's v2 says): seven piece-5-bound tools retired — the three lock checks
+above and four generators of piece 5's cast (`build_lgmf_ref` · `build_lgmf_transitions` · `build_transition_models` ·
+`build_reference_chords`); `reextract.js`'s mention of `eh_figure_check` is a comment. KEPT: `build_1b5_score.js` (`build_first_sound.js`
+requires it) · `probes/analyze_lgmf_balance.py` (`balance_run.ps1` names it). **THE ROLES HELPER (3.10, H6-14) — NOT BUILT, AND SAID
+WHY:** every piano-role site already finds the lane by `TRACKS.findIndex(t => t.instKey === 'piano')` — the role IS that one lookup, in
+the page's `cueLane()` and the modules' own; a helper function would be a refactor with no change of behaviour, and his rule is no work
+not asked for. The profile's roles line names the mechanism; the three fallbacks are set by kind C. A deviation line.
+**The re-palette** (`59afee9`): `tools/port/repalette33.js` — **102 files, 200 edits, every match count asserted** before a byte was
+written (it refused once: the rhythm sequencer's pair map occurs twice). Kind A: the title · the lane CSS (eight rules at 12.5 %) · the
+curve windows' CSS (62.5 / 75 / 87.5 %) · the eight lane `<div>`s · the track `<select>` (nine options, META 8) · the curve buttons' titles
+· TRACKS · META_LAYER 8 · CURVE_LAYERS 9 / 10 / 11 · CURVE_OVER 5 / 6 / 7 · `layoutVersion` 9 · the session default `switch` (five
+sites + the input) · the abbreviation map. Kind B: `beating_calc` ORDER and CEILINGS (flute 10 s · clarinet 15 · sax 15 · violin 12 ·
+cello 15 — PROVISIONAL) · the three colour tables (winds gold and rose · the piano piece 4's · the strings green) · STRIKE_DEFAULT and
+the three ART_SETS · OPEN_STRINGS (violin · cello) · the trill STAND_IN · the alias table · ART_DEFAULT · the rhythm pairs. Kind C: the
+three fallbacks → `pianoLane 5, metaLayer 8`. The ports: `score/server.js` 5500 → 5600 (6) · `sandbox/serve.js` 5000 → 5100 (2) · the
+three launchers · `launch.json` whole (`score` 5600 · `sandbox` 5100 · `score-5601`) · `package.json` · the lock · the guard
+`decibel_rack` → `switch_rack` (8 files) · 5500 → 5600 in 26 tools (defaults and `--port` comments) · the storage keys `switch.*` (6) ·
+`piece-decibel` → `piece-switch` (21 files, 44 sites) · `piece: 'switch'` (12) · THE SOURCE'S FOLDER PATH in twelve bridge and Kontakt
+jobs (H6-15) · the percussion's default port `SWPerc` (apply_perc · palette_check). **The straggler audit** (`stragglers33.js`, 5 files, 9
+edits): the two builders' default outputs `switch-first-*` · `check_ceilings`'s filter `^switch-` · elec.js's scratch names · the
+ordinario set's pitched key `crot_main_metal` (the carried Ricotti lane's ordinary). Left, as provenance or NITS: every comment citing
+piece 6's §s · the two tooltips naming piece 5's ceilings · `cresc_run.js`'s `septet.*` keys · `panic.ps1`'s piece-4 ports · the bridge's
+and the Ricotti loaders' `DEC…` ports (container 4) · `print/score/build.sh`'s title line (8). `node --check` on 102 files: 0 failures.
+
+## §8. Recipes and skeleton banks (3.4)
+
+`tools/port/recipes34.js` (piece 6's, re-pointed; every anchor asserted; the rebuilt file EVALUATED to the eight keys in TRACKS order):
+`sandbox/instruments.js` rebuilt — CARRIED verbatim: percussion (piece 6's eight Abbey Road, 29 voices) · the pitched lane (piece 6's
+Ricotti mallets, 39 voices — THE STAND-IN for the vibraphone; its label now "Vibraphone", its key `bowed_vibraphone`) · the cello (88
+voices, piece 5's measurements); PLACEHOLDERS: flute · clarinet · alto_sax (SI2 on UVI — two voices each, `ord` · `staccato`, the ranges
+the instruments' compasses, unread) · piano (`main`, struck, no bend, not a beating partner) · violin (the strings' roster by the cello's
+mechanism, 88 voices, none of the cello's measurements). Piece 6's bass flute, bass clarinet and viola GONE (H6-16). The ports `SW…`
+(55 renames, counted; no `DEC` left). The banks: `velocity_remap` (the cello's row only; piece 6's three dropped) · `sample_lengths` (the
+cello's, as it stood) · `perc_selection` (piece 6's eight on `SWPerc`, provisional — the call's list at 4) · `scattered_strikes` EMPTIED
+(piece 6's sixty strikes stayed) · `sine_behaviours` (the vibraphone's and the cello's rows) · `elec_route.json` REWRITTEN (seven players
+— fl · cl · sax · perc with its twelve tracks and five ports · pno · vn · vc; engineIn 1 2 4 5 6 7 8, the loop on 3; every track and
+port the SHAPE) · `bank/samples/index.json` EMPTY (piece 6's 1701 rows stayed) · `candidates.json` EMPTY · `presets.json` carried whole
+with a provenance line. `palette_check` refused twice (a trailing comment on a table row defeats its reader — the comments moved
+above the rows) → **PALETTE GREEN 202 · ROSTER GREEN 251 voices, 18 pending.** Committed `851a385`.
+
+## §9. The engine's take, and the app verified (3.5)
+
+**The take** (`electronics/docs/TAKE.md` step 1, as proven in piece 6): `git remote add engine …` · `git subtree add --prefix=electronics
+engine main` → `8c4baff`, 67 files, the mirror's HEAD `a11b387` — the same commit piece 6's `electronics/` stands at, so nothing is owed
+either way. The seams were already in the copied stack (server.js's relay, the composer page's six tags and two hook lines, the route
+table): the take needed nothing applied. Its page tests here: `page_test` PASS · `sine_page_test` PASS · `osc.js selftest` pass. Done
+BEFORE 3.5 because `score/server.js` requires `../electronics/tools/relay.js` at start — without the engine the server does not boot.
+
+**3.5, on the throwaway `score-5601`** (`docs/VERIFICATION_RECIPE.md`'s stubs first — autosave off, confirm stubbed, non-GET fetch
+blocked but `/api/elec`): the page boots — `Composer` present · TRACKS the eight ids · META_LAYER 8 · CURVE_LAYERS 9 / 10 / 11 · eight
+`.lane` divs + META + A / B / C · the session `switch` · the title. **The route battery:** 97 fetches (every `<script src>`, the
+stylesheets, 26 api and bank routes) — **96 × 200; one 404, `/api/instructions`** (the notes page, container 8). The console at load:
+**one 404 — `/bank/strike_responses.json`**, the strike window module's catalogue (`le_strike.js` l. 172 reads it at load, its own numbers
+the fallback; piece 6's file is on the leave list) — NITS, this piece's catalogue at its strike section. `laneCanPlay` on all eight: inside
+true, below and above false. The recipes the page sees: the eight keys. **THE PIANO ROLE, CLICKED:** `cueOpts()` → `pianoLane 5 ·
+metaLayer 8`; CuePicker, PianoCues and PianoHarmonics loaded; the Panels ▾ menu's eight entries (Strikes · Sequence · Rhythm · Beating ·
+Morph · Texture · Pulse · Multitempo) and the Insert ▾ menu's ten opened in turn — **zero errors** (the pane's one `prompt() is not
+supported` is the pane's limit, from "Name version…"). **THE ENSEMBLE WARN, WITH A CONTROL:** a save with piece 6's six track ids →
+`restoreData` warns `THIS SAVE WAS WRITTEN FOR A DIFFERENT ENSEMBLE — its tracks are [bass_flute, …]`; this piece's own shape → no warn.
+**THE SAVE ROUND TRIP:** `POST /api/composer/save` `zz-ai-port` → 200, the file seen (281 bytes) → `GET load` 200, layoutVersion 9, the
+eight tracks → `GET list` names it → deleted; `git status` clean. One thing only running found: **the server does not create `scores/`**
+— with the folder gone a save is a 500 (`ENOENT`); piece 6 always had the folder. Made, and the day-one stub WRITTEN BY THE APP: the page's
+own File ▾ → Save with the session default on the throwaway — `scores/switch.json` (803 bytes, layoutVersion 9, the eight tracks, no
+objects). **The sandbox** on 5100: 200, its page and its menus. Viewport reset, the throwaway stopped.
+
+## §10. The record (3.6), and where container 3 ends
+
+NAMING.md § 1 this piece's · VERIFICATION_RECIPE re-pointed (`score-5601` · `switch.*`) · NITS: the batteries' table and this port's
+own · CLAUDE.md's state line and § Apps · PLAN § 0 (container 3 `done`, 0.3 the survey) · journal §2 · the deviations register (five
+lines). **Container 3 is done:** the app opens and saves on its own ports, every panel clean; the batteries' table has no unexplained
+red; the engine seated. Nothing sounds (4 · 5); nothing notates this ensemble (6). **Next: container 4** — 4.0 the read-out per
+instrument (H6-22) with him, then the ports by the AI, the tracks cloned, his loads of the clarinet and the sax on SI2, the UVI how-to
+(H6-24), the first sound.

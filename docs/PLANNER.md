@@ -5,10 +5,10 @@
 > `COMPOSITION_NOTES.md` verbatim first and get folded into a tier here. Engineering
 > detail stays in `PLAN.md`. Rewritten freely; the sketch pad is the append-only record.
 
-**NOW ►** 2026-10-20 — the kit is in (container 2); nothing runs. Next: container 3, the copy-forward from piece 6, on Opus from
-journal §2's written step; journal §2's "SESSION 1 CLOSES ON THIS" is the cold-start block.
+**NOW ►** 2026-10-20 — container 3 done: the stack is here, eight lanes on 5600 / 5100, the engine seated, nothing sounds. Next: container 4,
+the instruments — 4.0 the read-out per instrument with him, then the rack; journal §2's "SESSION 1 CLOSES ON THIS" is the cold-start block.
 
-*Before it —* 2026-10-20 — the repo was two files; the protocol found, the notes gathered, the harvest of piece 6 read.
+*Before it —* 2026-10-20 — the kit in (container 2); before that the repo was two files; the protocol found, the notes gathered, the harvest of piece 6 read.
 
 ---
 

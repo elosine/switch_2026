@@ -49,9 +49,7 @@ the harmonics piano) · the percussion from piece 2's Abbey Road catalog by piec
 piece 4's Xsample strings · the cello from piece 6's, measured. Xsample on this machine is the bass clarinet and the solo strings
 ONLY (checked 2026-10-20): its clarinet and sax are not owned.
 
-**State of the piece (keep this line ONE line — H6-4; the history is the logs):** **► 2026-10-20 (Fable, RUNNING_LOG §1 … §4):
-CONTAINER 2 DONE — the kit in, the names fixed, the harvest of piece 6 read ("all as proposed"). NEXT: container 3, the copy-forward,
-on Opus from the written steps (journal §2 is the cold-start block).**
+**State of the piece (keep this line ONE line — H6-4; the history is the logs):** **► 2026-10-20 (Fable, RUNNING_LOG §5 … §10): CONTAINER 3 DONE — piece 6's engine is here and is THIS piece's: copied byte-exact (462 / 462 by blob hash), proven whole, the fixes made, turned to EIGHT LANES on 5600 / 5100, provisional recipes, THE ENGINE SEATED at `electronics/` (its repo's `a11b387`), verified in the running app. Nothing sounds yet (4 · 5); nothing notates this ensemble yet (6). NEXT: container 4 — 4.0 the read-out per instrument with him (journal §2 is the cold-start block).**
 
 ## READ FIRST — how to work here
 
@@ -229,20 +227,18 @@ routing advice is also credit advice, and these bind every Fable turn:
 
 ## Apps
 
-*Nothing runs yet — the code arrives at container 3. The names are fixed (journal §1, D4) and take effect then:*
+*The code is here since 2026-10-20 (container 3, RUNNING_LOG §5 … §10); the names are journal §1's (D4), `docs/NAMING.md` § 1:*
 
-- **The composer score — `http://localhost:5600/composer.html`** (`score/server.js`; launch name `score`) · **the sandbox —
-  `http://localhost:5100`** (`sandbox/serve.js`; launch name `sandbox`) · **`score-5601`** the THROWAWAY for verification
-  (`docs/VERIFICATION_RECIPE.md`). The pair 5600 / 5100 is the next in the lineage (3 5100/4600 · tubas 5200/4700 · 4 5300/4800 ·
+- **The composer score — `http://localhost:5600/composer.html`** (`score/server.js`; launch name `score`; he starts his own with `start_score_server.bat`). EIGHT lanes: flute · clarinet · alto sax · percussion · vibraphone · piano · violin · cello (D7); META 8, the curve windows 9 / 10 / 11; `layoutVersion` 9; the day-one empty score `scores/switch.json`. **The server needs `scores/` to exist** (RUNNING_LOG §9). **Nothing sounds yet** (containers 4 · 5). · **the sandbox — `http://localhost:5100`** (`sandbox/serve.js`; launch name `sandbox`) — one instrument, one technique at a time · **`score-5601`** the THROWAWAY for verification (`docs/VERIFICATION_RECIPE.md`). The pair 5600 / 5100 is the next in the lineage (3 5100/4600 · tubas 5200/4700 · 4 5300/4800 ·
   5 5400/4900 · 6 5500/5000); 5100 was piece 3's old score port — nothing binds it today (checked 2026-10-20).
-- **`.claude/launch.json`:** arrives with the code (3.3). NO `<prev>-<port>` entry: piece 6 is finished (his word 2026-10-20); add
+- **`.claude/launch.json`:** `score` 5600 · `sandbox` 5100 · `score-5601` the throwaway. NO `<prev>-<port>` entry: piece 6 is finished (his word 2026-10-20); add
   `decibel-5500` only at his word.
 - **The MIDI ports:** the prefix **`SW`** (D4) — made BY THE AI through loopMIDI's registry key at 4.1 (piece 6's way, H6-21); his one
   hand step: enabling them as inputs in Reaper's Preferences. loopMIDI ports are machine-global: piece 4's (bare names), piece 5's
   (`LG…`) and piece 6's (`DEC…`) are live beside them; `palette_check` refuses every earlier set.
-- **The rack — `reaper/switch_rack.rpp`** (the guard `switch_rack`), built as text by `tools/build_rack.js` at 4.2: the cello cloned
+- **The rack — `reaper/switch_rack.rpp`** (the guard `switch_rack`) — NOT MADE YET; built as text by `tools/build_rack.js` at 4.2: the cello cloned
   from piece 6's rack on disk, the flute · piano · violin from piece 4's; the clarinet and the sax loaded by him (SI2, UVI).
-- **The live electronics — `electronics/`**, seated by `git subtree add` at the engine's take (after container 3); SuperCollider on
+- **The live electronics — `electronics/`**, SEATED 2026-10-20 by `git subtree add` (the engine's `a11b387`; `git remote` `engine`); its page code served at `/electronics/`, its relay required by the score server at start; `node tools/elec.js` the piece's start tool (piece 6's, carried); SuperCollider on
   **UDP 57210**, its language on **57211**, fed by the rack over ReaRoute — the engine's numbers, the same in every piece: ONE engine
   runs at a time on this machine.
 - **The notation app · print · video** — this piece's from container 6.
@@ -255,8 +251,7 @@ a lane added to `TRACKS` needs its `<div>` and its CSS rule · a lane NUMBER wri
 (H6-13) · never end an engine with a kill while it holds ReaRoute (`/le/leave` first) · a note sender killed mid-note leaves a stuck
 note in Kontakt.
 
-**Checks this piece owns:** ‹arrive with the code — `palette_check` · `roster_check` · `model_bank --validate` · `unsaved_check` · THE
-SHIELD; the engine's batteries by `tools/port/run_batteries.sh`; each with its count once run here›.
+**Checks this piece owns:** `node tools/palette_check.js` (**202**) · `node tools/roster_check.js` (**251** voices, 18 pending) · `node tools/model_bank.js --validate` · `node tools/unsaved_check.js` (before a commit of scores) · the port's battery `bash tools/port/run_batteries.sh <tag>` (45 commands; the staged data by `stage32.sh` first; the classes in NITS) · the engine's: `node electronics/tools/page_test.js` · `sine_page_test.js` · `osc.js selftest` (and its `sclang` batteries, CLAUDE.md there) · THE SHIELD (`tools/layout_shield.js` — before and after ANY layout change; it needs pages, container 6).
 
 ## Reference repos (read-only context)
 

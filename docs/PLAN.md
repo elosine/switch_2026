@@ -52,8 +52,8 @@ spectral chords* · *the flute's higher partials made audible* — and the brief
 | Container | Taken? | Status | Record |
 |---|---|---|---|
 | 2 The repo and its kit | yes — every piece | `done` 2026-10-20 | RUNNING_LOG §1 … §4 |
-| 3 The engine copied forward | yes — from piece 6 | `todo` — Opus; the steps in journal §2; the harvest's H6-7 … H6-20 | |
-| 4 The instruments | yes | `todo` — 4.0 the read-out per instrument first (H6-22); H6-21 … H6-28 | |
+| 3 The engine copied forward | yes — from piece 6 | `done` 2026-10-20 — the copy 462 / 462 by blob hash · proven whole (45 batteries, 15 red classified) · the fixes (seven piece-5 tools retired) · EIGHT lanes (D7) on 5600 / 5100 · provisional recipes · the engine seated by subtree (D8) · verified in the running app (the throwaway 5601) | RUNNING_LOG §5 … §10 · § 0.3 below |
+| 4 The instruments | yes | `► next` — 4.0 the read-out per instrument first (H6-22), the libraries confirmed with him; H6-21 … H6-28; the UVI how-to (H6-24) | journal §2 |
 | 5 The calibration | yes | `todo` — H6-29 … H6-34 | |
 | 7 The composing tools made the piece's | yes — one at a time, at compositional need | `todo` — H6-39 … H6-41 | |
 | 6 The notation set-up — the animated scrolling score | yes | `todo` — the three calls BEFORE 6.0 (H6-35); H6-36 … H6-38 | |
@@ -79,9 +79,31 @@ ask) · NITS · SWEEP_LIST · PERFORMANCE_NOTES · PROTOCOL_DEVIATIONS (2.5) · 
 finished); the planning repo untouched (2.6, at his word only) · the AI's memory notes of piece 6 copied whole into this repo's
 memory (H6-2).
 
-### 0.3 Container 3 — this run's survey, copy list and leave list (3.0)
+### 0.3 Container 3 — this run's survey, copy list and leave list (3.0, 2026-10-20 — RUNNING_LOG §5)
 
-*To be written at the survey, on Opus — piece 6's PLAN § 0.3 is the shape; `tools/port/copy_list.txt` · `leave_list.txt` the start.*
+**The source:** piece 6 *Approaching* `decibel_TENOR_2026` @ **`9796edd`** — 749 tracked files, 49.3 MB; one modified file of his in its tree
+(`bank/samples/index.json`), so every file is taken from the COMMIT. **Copy: 462 files, 10.9 MB. Leave: 287 files, 39.5 MB.** The lists:
+`tools/port/copy_list.txt` · `leave_list.txt`, written by `tools/port/classify.js` (the reasons are in it), from `src_ls.txt` (`git
+ls-tree -r -l HEAD`); the blobs `src_blobs.txt`.
+
+| Verdict · reason | files | KB |
+|---|---|---|
+| COPY the composer app (`score/`, the three design studies' pages included) | 82 | 4205 |
+| COPY the tools (piece 6's section builders included — CARRY ALL, USE SOME) | 209 | 2522 |
+| COPY the notation engine (`notation/app` · `lib` · `registry` · `fonts`) | 49 | 1648 |
+| COPY the bank's models, presets, libraries, templates | 19 | 1201 |
+| COPY the two bank files read at start / at load, skeletoned at 3.4 (`elec_route` · `presets`) | 2 | 230 |
+| COPY the tool docs (19) · `instrument_map.json` · the probes (33) · the bridge and the Kontakt scripts (34) · print (4) · sandbox (4) · the launchers and the package (5) · `launch.json` | 101 | 1111 |
+| LEAVE the engine `electronics/` — by subtree (H6-9) | 67 | 1152 |
+| LEAVE the scores (63) · the IR pages (11) · the rack (1, 16.7 MB) · the rack as text (8) · the film's and the takes' records (3) · the printed cover and print (3) | 89 | 30 385 |
+| LEAVE piece 6's records (33) · the instructions page (27, the START at 8.5) · the kit docs (8) · the root kit (5) · the commands (2) | 75 | 5679 |
+| LEAVE the piece data / measurement banks (24) · the engine's index (1) · the probes' outputs (9) · the design studies' data (10) · piece 6's port scripts (11) · one `.nka` | 56 | 2306 |
+
+**The coupling (3.0):** kind A the composer page — six lanes → eight · kind B the per-instrument tables, piece 6's ten sites and the
+readers of `sine_behaviours.json` · kind C THE PIANO ROLE — 33 `instKey === 'piano'` sites in 12 modules, every one reading TRACKS; the
+three lane-number fallbacks set. The lane COUNT changes (6 → 8): the literal lane lists piece 6 found are by TRACKS already.
+**What the run changed in the protocol's steps:** the harvest's fixes commit between prove and re-palette · the engine's take between
+3.4 and 3.5 (the server requires it) · the roles helper not built (D9) — `docs/PROTOCOL_DEVIATIONS.md`.
 
 ---
 

@@ -1,3 +1,5 @@
+> **Provenance (switch 2026, 2026-10-20):** copied from piece 6 *Approaching* `decibel_TENOR_2026/docs/NAMING.md` @ `9796edd` (the new-piece protocol's 3.1 · 3.6); § 1's first table rewritten for this piece, the rest unchanged.
+
 > **Provenance (decibel TENOR 2026, 2026-10-04):** copied from piece #6 `septet_LGMF_2026/docs/NAMING.md` @ `0d70fda` (the new-piece protocol's 3.1 · 3.6). The text below is unchanged: it describes the tool as built for the EARLIER pieces — the instrument names, the lanes, the measurements and every `§N` are theirs (`#6 §N`, or `#5` where it says so). It is tidied when the tool is next used here (his word 2026-10-04, RUNNING_LOG §11). **§ 1 opens with THIS piece's names** — the one part edited beyond this line.
 
 > **Provenance (septet LGMF 2026, 2026-09-17):** from piece #5 `septet_2026/docs/NAMING.md` (itself from piece #4) with the port. **This is the one carried doc edited beyond its provenance line**, because its §1 is a table of THIS repo's real file names: the stub is `lgmf`, the piece chain will be `piece-lgmf`, there is no MAIN notation file yet, and the trill / strike capture files listed further down are piece #5's, not this piece's — they are left in place as the shape to expect when this piece makes its own. §2, the S1 conventions the extractor depends on, is unchanged and still governs.
@@ -12,24 +14,25 @@
 
 ## 1. Score files (`scores/`)
 
-### THIS PIECE'S NAMES — decibel TENOR 2026 (fixed at the protocol's 2.3; confirmed against the code at the re-palette, 2026-10-04)
+### THIS PIECE'S NAMES — switch 2026 (fixed at the protocol's 2.3, his "3a"; confirmed against the code at the re-palette, 2026-10-20)
 
 | Name | Value | Where it lives |
 |---|---|---|
-| the session default — the day-one empty score | `decibel` → `scores/decibel.json` (written by the app, 2026-10-04) | `composer.html` (six sites) |
-| the piece chain | `piece-decibel` — a save named `piece-…` is the piece; the write guards refuse it without `--force` | the tools' defaults and guards |
-| the main notation file | `notation/ir/piece-decibel.ir.json` — not made yet (container 6) | the notation and print tools' default `--ir` |
-| the package | `decibel-tenor-2026` | `package.json` · `package-lock.json` |
-| the Reaper project guard | `decibel_rack` → `reaper/decibel_rack.rpp` (the rack is container 4's) | `tools/reaper_job.js` · `render_reaper.js` · `export_midi.js` |
-| the ports | the composer score **5500** · the sandbox **5000** · the throwaway **5501** | `score/server.js` · `sandbox/serve.js` · `.claude/launch.json` |
-| the loopMIDI ports — MADE 2026-10-04 (4.1, by the AI; RUNNING_LOG §19) | `DECBassFlute` · `DECBassClar` · `DECPerc` · `DECCrotales` · `DECGlock` · `DECMarimba` · `DECXylo` · `DECViola` · `DECCello` — one port per instrument, the four Ricotti mallet instruments a port each. `DECVibes` (the stand-in's, never made) leaves the recipe at 4.5 | loopMIDI's registry key · `sandbox/instruments.js` · `bank/perc_selection.json` · `reaper/bridge/jobs/make_tracks.lua` |
-| the pitched percussion lane | reads **Mallets** (short `Mal`); its INTERNAL recipe key is `bowed_vibraphone` and its track id `vibraphone` — piece #6's, kept (RUNNING_LOG §34; NITS). Its technique keys: `crot_…` · `glock_…` · `xylo_…` · `mar_…` | `composer.html` TRACKS · `sandbox/instruments.js` · `tools/apply_ricotti.js` |
-| the rack's tracks | `Bass Flute XS` · `Bass Clarinet XS` · the percussion `Bongos ARO` · `Shime Daiko ARO` · `Bass Drum Alt ARO` · `Wood Blocks ARO` · `China Cymbal ARO` · `Spring Coil ARO` · `Suspended Cymbals ARO` · `Toms ARO` (channels 1 … 8 of `DECPerc`) · `Crotales RM` · `Glockenspiel RM` · `Xylophone RM` · `Marimba RM` · `Viola XS` · `Cello XS` (`XS` = Xsample · `ARO` = Abbey Road Orchestra · `RM` = Ricotti Mallets) | `tools/build_rack.js` · `make_tracks.lua` · `peakwatch.lua` |
-| the page's storage keys | `decibel.sequenceDrawer.v1` · `decibel.rhythmSequence.v1` · `decibel.textureRow.v1` · `decibel.vibesPitch.v1` | four modules |
-| the generated reference scores | `decibel-*` (`tools/check_ceilings.js --all`) — none yet (container 5) | |
-| the sketch pad's notes | `DEC-N` (journal D6) | `docs/COMPOSITION_NOTES.md` |
+| the session default — the day-one empty score | `switch` → `scores/switch.json` (written by the app on the throwaway, 2026-10-20 — RUNNING_LOG §9) | `composer.html` (six sites) |
+| the piece chain | `piece-switch` — a save named `piece-…` is the piece; the write guards refuse it without `--force` | the tools' defaults and guards (21 files) |
+| the main notation file | `notation/ir/piece-switch.ir.json` — not made yet (container 6) | the notation and print tools' default `--ir` |
+| the package | `switch-2026` | `package.json` · `package-lock.json` |
+| the Reaper project guard | `switch_rack` → `reaper/switch_rack.rpp` (the rack is container 4's) | `tools/reaper_job.js` · `render_reaper.js` · `export_midi.js` · `build_rack.js` · `take.js` · `elec.js` · `make_tracks.lua` |
+| the ports | the composer score **5600** · the sandbox **5100** · the throwaway **5601** | `score/server.js` · `sandbox/serve.js` · `.claude/launch.json` · the launchers |
+| the loopMIDI ports — THE SHAPE (4.1 makes them) | `SWFlute` · `SWClar` · `SWSax` · `SWPerc` · `SWCrotales` · `SWGlock` · `SWXylo` · `SWMarimba` (the Ricotti stand-in's four) · `SWPiano` · `SWViolin` · `SWCello` | `sandbox/instruments.js` · `bank/elec_route.json` · `bank/perc_selection.json` |
+| the lanes | EIGHT, score order: flute · clarinet · alto_sax · percussion · vibraphone · piano · violin · cello; META 8; the curve windows A / B / C = 9 / 10 / 11 over piano · violin · cello; `layoutVersion` 9 (journal D7) | `composer.html` TRACKS |
+| the pitched percussion lane | reads **Vibraphone** (short `Vib`, track id `vibraphone`); its INTERNAL recipe key is `bowed_vibraphone` — piece 5's, kept through piece 6 (the engine's tools know the pitched lane by it); its roster is piece 6's Ricotti mallets, THE STAND-IN until container 4 | `sandbox/instruments.js` · the tables |
+| the piano | a ROLE: every piano-role module finds its lane by `instKey === 'piano'` (lane 5); the fallbacks `pianoLane 5, metaLayer 8` | `cue_picker.js` · `piano_cues.js` · `piano_harmonics.js` · the page's `cueLane()` |
+| the page's storage keys | `switch.sequenceDrawer.v1` · `switch.rhythmSequence.v1` · `switch.textureRow.v1` · `switch.vibesPitch.v1` (and `strike_take.js` · `build_drone_section.js`) | six modules |
+| the generated reference scores | `switch-*` (`tools/check_ceilings.js --all`) — none yet (container 5); the two first-sound builders write `switch-first-*` | |
+| the sketch pad's notes | `SW-N` (journal D4) | `docs/COMPOSITION_NOTES.md` |
 
-*The table below is piece #6's, kept as the pattern; read `lgmf` as `decibel`.*
+*The two tables below are piece 6's and piece 5's, kept as the pattern; read `decibel` and `lgmf` as `switch`.*
 
 | Pattern | What it is |
 |---|---|
