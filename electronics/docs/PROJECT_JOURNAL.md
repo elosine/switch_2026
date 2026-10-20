@@ -1,0 +1,283 @@
+# PROJECT JOURNAL — live-electronics-system (the shared live-electronics engine)
+
+> One file. Seven sections. Everything important lives here.
+> §2 is read at every session start — keep it ~40 lines; trim old sessions to one line each.
+> The lab journal (`RUNNING_LOG.md`) is the raw trail underneath; this is the curated state.
+
+---
+
+## §1 Quick-Start
+
+- **What this is:** ONE live-electronics engine, with its notation and graphics, for THREE pieces (the Decibel piece · the Switch~
+  piece · his improvisation with live electronics). Not a piece. A module set with named seams, taken by each piece as a git submodule.
+- **Lineage:** the custom-composition-system pieces #1 … #6 (`composition-system/INDEX.md`). A port of `live-electronics-engine`
+  (the sandbox) into the stack of pieces #4 … #6 (the composer score · the notation engine · the Reaper rack).
+- **The kind of start:** a port from a sandbox into a module set — not a piece's profile; the new-piece protocol's universal layer
+  applied to the repo (its 2.2 for the name, the visibility, the push rule), its containers 3 … 8 not.
+- **The stack:** none of its own — the engine runs inside a piece's apps. Code arrives with part 2.
+- **The plan:** `docs/PLAN.md` — twelve parts and the rule (the parts are containers; sub-parts at need). Made in piece #6's lab
+  journal, `septet_LGMF_2026/docs/RUNNING_LOG.md` §805 … §814; his words there, COMPOSITION_NOTES LG-348 … LG-351.
+- **Reference repos** (read-only): the sandbox `live-electronics-engine` · the pieces by `composition-system/INDEX.md` · piece #2's
+  cells. Consult per named question only.
+
+### Where the record of the start lives
+
+- `#6 §805 … §814` (the pre-conversation, the twelve parts, part 1's build) · this repo's RUNNING_LOG §1.
+
+---
+
+## §2 Resume Here
+
+**FIRST — HIS STANDING RULE (2026-09-11):** after `/clear` + `/postclear`:
+play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
+reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
+
+### 2026-10-08 — THE TRACKER: A SINE THAT IS A WINDOW ON A PLAYER, in the Decibel piece (Opus; RUNNING_LOG §62)
+
+- **Built, proven offline, NOT RUN on a living engine:** `sc/track.scd` (new) — `\leSineTrack` (the ear and the voice in one synth), `\leTrackSim` (a told level on a player's sim bus), `\leTrackProbe` (the sound check); `/le/sine … gate 1 · player · [ear · follow · capDb]` · `/le/simlevel`; `LE_TRACK`; two lines in `sc/sine.scd` `sinePlay`, one in `sineStop`; the hear and the guard in `sc/session.scd` inside a `try` (a fault there is said and the sines sound plain); `sc/calibrate.scd` with `LE_CAL_SINE`; `score/le_sine.js` — `track`, the panel rows, `gliss.overS`, the simulated ear. The proof: `sc/track_test.scd` (17) · `tools/sine_page_test.js` (51).
+- **The first run on a server is the composer's restart in the Decibel piece** (its journal §2's first block). If its window shows a red line at a `/le/sine` with `gate 1`: `trackFor` is the only part that touches the server (`Bus.control` · `Bus.audio` · the `/c_set`) — the `try` in `sinePlay` turns a fault there into a plain sine and one line.
+- **What a second piece gets:** a window on any generated voice of this kind needs nothing of the piece but a player's name in the message; the simulated ear needs a page that tells its notes (`le_sine.js` does it for any host whose notes are `waveCurve` objects with `sonifyNote`).
+- **OPEN, a hall's (NITS):** the `mic` ear on real instruments · an instrument that rings on between attacks never falls under a threshold (the gliss's entry) · the monitors as a second bleed path.
+
+### 2026-10-08 — A SHAPED RETURN'S BRICK IS AS LONG AS ITS SHAPE, in the Decibel piece (Fable; RUNNING_LOG §61)
+
+`score/le_objects.js` `shapeMs` · `redraw`: a return brick whose variant is `<key>-shape` and whose preset ends by a shape is drawn as long as the preset's `durMs`; every other plain return as long as its sample, as before. Found when the piece's drone bricks shrank to their recordings' lengths at the index read and a save kept it. `tools/page_test.js` PASS; seen in the composer's own save (37 bricks whole). **A brick whose length is its own is a new kind here: the next such object is checked against `redraw()` when it is built.** Nothing in hand in the engine; the piece's journal §2 (checkpoint #19) is the cold-start block.
+
+### 2026-10-08 — THE DRONE SECTION'S ADDITIONS; THE ICY STAGE VETTED AGAINST HIS ORIGINAL, in the Decibel piece (Fable; RUNNING_LOG §60)
+
+- **What exists:** the regions of a capture (`sc/bank.scd` `regionsDefaults` · `regionsFind` · `regionsText` · `regionsOf`; the row's `regions`; `LE_REGIONS` in `session.scd`) · a start as a fraction of the longest region (`sc/process.scd` `regionStart`, `icFromMs:region@F`) · the chain's write buffer sized to the source (`\icBufS.ir`; the icy stage's clip to it) · the loop mode silent until its start (`icGate`; the render longer by the start) · the shaped plan row (`planTake` fields 12 · 13, `durX` as `<ms>ms`; `planNext`) · the late rule for a shaped variant (`sampleFor` `lateSilent`) · the page's `planRows` · `sendPlan` for a shape envelope and a `region@` value · `sc/drone_test.scd`.
+- **Proven:** `drone_test` (seven checks) · `process_test` (53) · `level_test` · `tools/page_test.js` — all offline. **Not claimed:** a living engine (the composer's engine predates it; his pass of the piece's `drone-section` is the first run) · the regions on real multiphonics (the piece's 15.1 d).
+- **Measured, for the record (the piece's §249):** the port of `icy` is his 2015 `\icy` within 1.5 dB on every row; a stretch of a steady tone flutters 3 … 8 dB at 40 ms and wanders 5 … 13 dB; a 20 s render's banking costs the language 0.35 s.
+- **Next, here:** nothing until the piece's pass — then whatever its engine window says.
+
+### 2026-10-08 — THE LIVE ROAD GUARDED, in the Decibel piece (Fable; RUNNING_LOG §58 · §59)
+
+- **What exists:** the clock check at every start (`sc/session.scd`) · the plan's hold (`sc/process.scd` `planHoldS` · `planTouch`; `LE_PLAN_HOLD`) · the live petals made with the as-played level, the mark at `/le/play` (`sc/petals_live.scd`) · `heard · … INSIDE / OUTSIDE the window` · `/le/tree` · InFeedback in the two readers.
+- **Heard:** the live petals in the Decibel piece, thirty-four hits, the composer's word. **Not claimed:** a hall.
+- **Next:** by the Decibel piece's need. Open in `docs/NITS.md`: why ReaRoute free-runs after a close; the measure on the server.
+
+### 2026-10-07 — THE PETALS LIVE, in the Decibel piece (Opus; RUNNING_LOG §57; parts 6 · 11)
+
+- **What exists:** `sc/petals_live.scd` — `\lePetalsLive` (a player's bus through a window into the composer's bank of resonators, in real time), the rule at `/le/open` and `/le/play`, the level from the latest render of the same variant · `~le[\petalsGraph]` in `sc/process.scd` (one graph, two SynthDefs; the offline render unchanged to the sample) · `/le/process preMs` · a render's row `driveDb` · `outGainDb` · `preMs`, a capture's `leadMs` · `LE_LIVE` · the label `· LIVE` (`score/le_objects.js` `isLive`).
+- **Proven:** offline — `sc/petals_live_test.scd` (new) and the four batteries. **Not claimed:** a living engine; the composer's ear; a hall.
+- **Next:** by the Decibel piece's need — its journal §2's first block (his restart, his ear). Open in `docs/NITS.md`: the window hears the room; only the petals are live; a behaviour'd return is not.
+
+### 2026-10-06 — A GENERATED VOICE, THE SINE, in the Decibel piece (Opus; RUNNING_LOG §47 · §48; part 11.4)
+
+- **What exists:** `sc/sine.scd` (loaded by `boot.scd` after `level.scd`; `session.scd` wires `sineHear` with or without a bank) · `\leSine` in `sc/synths.scd` · `/le/sine` · `/le/sinestop` · `score/le_sine.js` (a mixin on `LEObjects`; `le_objects.js` hands it the key, the label, the panel, the fire and the tick's "inside") · `sc/sine_test.scd` · `tools/sine_page_test.js` · `docs/SEAMS.md` § the fourth object, the two kinds, rows 2c · 3.
+- **The level is exact:** a mark → `markDb + 0.691 − K(f)` = the sine's peak (`kGainDb` from `level.scd`'s own filters). One ladder for the samples and the generated voices.
+- **A level that follows a drawn curve** is read through the HOST's reader, handed in at attach (`opts.curveAt`) — the module leans on no file of a piece's.
+- **The stop:** `stopPlay` wrapped → `/le/sinestop`; a restart or a jump by `pass` on each message; each sine remembered by its own node (`~le[\sines]`).
+- **NOT CLAIMED:** `sinePlay` · `sineLetGo` through a living server (parsed, never run — the Decibel piece's composer restarts his engine for the first run); his ear.
+- **NEXT, by a piece's need:** other generated voices beside the sine; the sine's drawn kind in the notation (part 7 — a device sheet).
+
+### 2026-10-05 — TWO GRANULAR VOICES, in the Decibel piece (Fable; RUNNING_LOG §36 · §37; part 6.3)
+
+- **What exists:** `sc/process.scd` — the stage `cloud` (GrainBuf: asynchronous grains from one moment of the chain's signal, written into a
+  LocalBuf while the source plays) and the stage `icy` (the composer's own freeze, `github.com/elosine/freeze` 2015 … 2016: Warp1 over that
+  buffer, a crawling read point, long windows, many grains; `icEnv` 1 … 10 = `sc/grainEnv/gEnv_*.aif`, read into buffers 1 … 10 by every
+  offline render; no gate — the mix decides the attack) · the resonator bank's four pitches as controls · `score/le_process.js`: the rows
+  `cloud` · `icy` (four presets: his three versions · held) and the bank's four pitch dials.
+- **Not claimed:** the composer's ear on the presets a piece draws from them; the speeds read from his `rate` maps.
+- **Next, by the piece's need:** `\grainArticulate` · the cloud's envelopes across its length · the spectral freeze's tuning · a stereo bank.
+
+### 2026-10-05 — THE PLAN IS BUILT, in the Decibel piece (Opus; RUNNING_LOG §35; parts 6.2 · 11.2)
+
+- **What exists:** a return brick may ask for a VARIANT of its sample (`elec.variants`, `<sample>~<key>-<env>`: one effect of the
+  chain under an envelope, from the piece's presets file) · the page tells the engine every variant its bricks will ask for
+  (`/le/plan`, in parts that share a stamp) · the engine renders a sample's variants right after its capture, the soonest-needed
+  first, two at a time (`sc/process.scd` `planTake` · `planRender` · `planNext`; `/le/planrender`) · a variant asked for too early
+  falls back to the earlier render or to the sample, raw (`sc/bank.scd` `sampleFor`) · `/le/process` takes `durX`.
+  `docs/SEAMS.md` § the processed return has the field, the file and the two message kinds; no stack line.
+- **Not claimed:** a plan through a living engine; the composer's ear; what a machine carries beside a performance (`planWidth`).
+- **Next, by the piece's need:** as below — the granular voices · the pedals of resonance · a stereo bank.
+
+### 2026-10-05 — THE PROCESSING IS BUILT, in the Decibel piece (Opus; RUNNING_LOG §26; parts 2 · 6.1 · 11.3)
+
+- **What exists:** `sc/process.scd` — the sandbox's chain as `\leProcess`, rendered OFFLINE from a banked sample's file into a new
+  banked sample (`/le/process`; `end` = `shape` | `tail`; `match` · `gainDb`) · `score/le_process.js` — the process brick, a mixin on
+  `LEObjects`, with the catalogue of eighteen effects · `sc/process_test.scd` — the headless proof. `docs/SEAMS.md` has the kind,
+  the object and the page's one new tag.
+- **Not claimed:** the composer's ear; a render through a living engine (an engine started before this build does not hear `/le/process`).
+- **Next, by the piece's need:** the granular voices (`\roadsCloudBuf` · `\grainArticulate`) · the pedals of resonance (a port to a
+  buffer input) · a cascade · a stereo bank. The cold-start block for work on them is the Decibel piece's journal §2.
+
+### THE REPO OPENS ON THIS (2026-10-03, Fable) — PART 1 DONE; the next part is HIS to name
+
+- **UPDATE 8 · 2026-10-04 (RUNNING_LOG §14, Opus) — 4.3 · 4.3b · 4.4 · THE INDEX · PART 11's FIRST TWO OBJECTS: BUILT AND PROVEN**, in
+  the Decibel piece (its 6.3 … 6.6). **The engine now does its first whole thing:** a brick in a score opens a microphone → the window is
+  recorded, cropped to its attack, saved under its name, indexed → a second brick returns it, at unity, where it is placed.
+  `sc/bank.scd` (the capture · the crop · the index · the sample player) · `leCapture` · `leSample` · `session.scd` (`LE_BANK` · `LE_CROP`;
+  a player's own sound no longer goes to the master — `LE_PASS` · `LE_ECHO` are route checks) · `score/le_objects.js` (the mic opening
+  and the return: zones with a model of their own) · `selftest.scd` F · G — SEVEN tests, all pass. **A fault of the runner found and
+  closed:** a window closed by its X left the server alive and every later start refused — `tools/sc.js` now knows a server's OWNER and
+  clears an ownerless one before a start; a piece's start tool ends its engine on the window's close. `docs/SEAMS.md` is whole for
+  both. **NOT CLAIMED: the composer's ear** — on the return, and on the crop's numbers. **► NEXT: nothing in hand here; the next object
+  comes when the Decibel piece's music reaches it (its running order, steps 8 … 10).**
+- **UPDATE 7 · 2026-10-04 (RUNNING_LOG §13, Fable) — 4.3 · 4.3b · 4.4 · THE INDEX LAID OUT**, as ONE build in the Decibel piece (its
+  PLAN.md 1.1, 6.3 … 6.6; `docs/PLAN.md` part 4 has the generic forms, part 11 is `doing`): `/le/open` → the capture from the message to
+  the window's end → the crop in the language by a rule his ear tunes → `<bank>/<name>.wav` and a row in `<bank>/index.json` → `/le/play`
+  → `leSample` at unity, scheduled on the engine's clock. The bank's folder from `LE_BANK`. **NOT BUILT. ► NEXT: the build, in the
+  Decibel piece, on Opus (its journal §2, checkpoint #4).**
+- **UPDATE 6 · 2026-10-04 (RUNNING_LOG §11, Opus) — 4.2 BUILT: THE MESSAGE ROUTE**, in the Decibel piece (its 6.2). A piece's score
+  page → its score server (`POST /api/elec`) → OSC over UDP → the engine's LANGUAGE on **UDP 57211** (pinned; the server stays 57210) —
+  the same road in concert and in simulation (the piece's D10). New here: `sc/boot.scd` the ear (`openEar` · `hear`) and the onset
+  probe (`onsetOn`) · `sc/session.scd` shows `/le/onset` and times the player's sound against it · `tools/osc.js` · `tools/relay.js` ·
+  `score/le_msg.js` (the first file of the composer-score seam). A message is `/le/<kind>` + NAME, VALUE pairs. `selftest.scd` passes
+  with two new cases (D · E). `docs/SEAMS.md` lists the five lines a piece's stack changes. **PROVEN, and the lead MEASURED on his Chrome: 114.2 ms
+  (RUNNING_LOG §12) — 4.2 is DONE.** **► NEXT: 4.3 the capture to a bank and 4.3b the crop —
+  a talk first, in the Decibel piece (its 6.3 · 6.3b).**
+- **UPDATE 5 · 2026-10-04 (RUNNING_LOG §8, Opus) — 4.1 DONE: THE CROSSING PROVEN** in the Decibel piece (ReaRoute installed, Reaper on
+  ASIO): unity through the engine; the round trip two DAW blocks (23.22 ms at 512); ReaRoute's channels sit at hardware index 512 …
+  527 in Reaper (`docs/SEAMS.md` has the three facts a piece's job needs). **HEARD by him the same day (RUNNING_LOG §10)**; the runner's fault that killed his engine found and fixed (§9). **► NEXT: 4.2, the message
+  — a talk first, in the Decibel piece (its 6.2; its RUNNING_LOG §56 has the notes toward it).**
+- **UPDATE 4 · 2026-10-04 (RUNNING_LOG §7, Opus) — THE SEAT MADE, 4.1 BUILT, THE CROSSING UNPROVEN.** **Where you are reading this:**
+  if the path is `…/decibel_TENOR_2026/electronics/docs/`, you are in the place of work — edit HERE; if it is the stand-alone clone,
+  it is a MIRROR (`docs/TAKE.md`: pull before reading, never edit while a piece is at work). The code: `sc/` (boot · synths ·
+  selftest · check_route · latency · session · devices) and `tools/sc.js`; the server on UDP 57210. `selftest.scd` passes — the
+  pass-through sample-exact, the safety under full scale, the latency probe to the sample. **ReaRoute is NOT on his machine and his
+  Reaper is on WASAPI** — two hand steps of his; until then the `\sim` boot refuses (exit 2) and 4.1 (e) is open. The master is the
+  sandbox's BROWSER chain translated (high-pass and glue OFF until he has heard them). **► NEXT: when ReaRoute is there, the Decibel
+  piece runs `node tools/elec.js probe → route → check → latency`; a fault in the crossing is fixed here. Then 4.2, the message
+  (a talk first: a loopMIDI port or OSC).**
+
+- **UPDATE 3 · 2026-10-04 (RUNNING_LOG §5 · §6) — Q1 ANSWERED; PART 4 IN HAND.** The sandbox read: SuperCollider 3.14.1 (offline
+  renders) + a Web Audio layer (labs); NO live-input path anywhere; his pedals of resonance is an SC SynthDef on `SoundIn`. His word:
+  the sound process is SC REAL-TIME, fed by a piece's Reaper over ReaRoute; SC's master IS the output live; in simulation the DAW is only
+  the players and ONE FLAT RETURN TRACK. Part 4 `doing`, **4.1 the audio route laid out** (PLAN.md); parts 2 · 3 each carry one line.
+  The first run is the Decibel piece's running order 6.1 … 6.6 (its PLAN.md 1.1) — the build is THERE, on Opus; the code comes here by
+  `git subtree push` once `electronics/` exists. The pedals and the recent engine's processing: his phase 2.
+
+- **UPDATE 2 · 2026-10-04 (RUNNING_LOG §4; `#6 §819`) — THE SEAT REFINED at his word: a git SUBTREE at `electronics/` inside each
+  piece, not a submodule — he never touches it; the AI pushes at every wrap. Part 5 re-read: the first sound is a note CAPTURED and
+  RETURNED; the filter third. Part 11's first two members named (the mic opening · the return). The Decibel piece's running order
+  (its journal §2, steps 6 … 10) is where the engine's first code will be built. Q2 answered in principle.
+- **UPDATE 2026-10-04 (RUNNING_LOG §3; `#6 §816 … §818`) — 9.1: THE DECIBEL PIECE'S REPO EXISTS,** `decibel_TENOR_2026` (public;
+  the protocol's container 2 done — the kit only, no code). Next THERE: container 3, the copy-forward. Here nothing is in hand:
+  the first take needs that copy-forward and parts 3 · 4 laid out.
+- **UPDATE 2026-10-03 (`#6 §815`) — HIS PICK: PART 9's FIRST RUN**, the Decibel piece's repo by the new-piece protocol, begun in a
+  new session from piece #6's checkpoint #5 (`septet_LGMF_2026/docs/PROJECT_JOURNAL.md` §2, the block CHECKPOINT #5 AFTER THE CLOSE).
+  That run's record lives in the Decibel piece's repo. Here nothing is in hand until the first take (parts 3 · 4 · 5 · 8).
+  The route's structural shape he was given (not an order): the Decibel repo · one read of the sandbox · parts 3 and 4 laid out ·
+  part 5 the first sound, where part 8's recipe is written and proven · then parts 6 and 11 by need, 7 and 12 when notating comes.
+
+- **The task:** the shared live-electronics engine — `docs/PLAN.md`, twelve parts.
+- **Where it stands · the deliverable:** part 1 done — this repo, public, pushing after every commit; the kit in; the plan
+  written. Parts 2 … 12 top line only. No code.
+- **► THE NEXT CONCRETE STEP:** the part HE names (the order and the timing are his, `#6 §806`); lay it out under the planning
+  method — the goal ("N. Title. Result when done: …"), his word, the sub-steps into PLAN at once. Structurally first: 9's first
+  run (the Decibel piece's repo by the protocol — in ITS repo, not here) before 5; 3 and 4 before 5. Before part 4 is put to him:
+  read `live-electronics-engine`'s CLAUDE.md — what it is built on decides the sound seam's shape.
+- **`Resume reads:`** `docs/PLAN.md` (whole — it is short) · for part 9, `composition-system/protocol/NEW_PIECE_PROTOCOL.md`
+  § 2 · for part 2 or 4, the sandbox's CLAUDE.md. Nothing else beyond §2.
+- **Pending him:** which part first · the planning repo's lists (a line for this repo; a line for the Decibel piece) — at his word only.
+- **Deliberately uncommitted — none.** Nothing of the pieces touched.
+
+### THE SESSIONS BEFORE THIS ONE — one line each; the lab journal has them whole
+
+- *(none — the repo opened 2026-10-03; the talk that made it is piece #6's §805 … §814)*
+
+**NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
+
+| # | Step | Model | Clear first? |
+|---|---|---|---|
+| **►** | **4.2 — the message: a talk** (a loopMIDI port read by `MIDIIn`, or OSC through the piece's score server to UDP 57210), in the Decibel piece at its 6.2. 4.1 is done (RUNNING_LOG §8) | Fable (the talk) · Opus (the build) | — |
+| — | 4.3 the capture → 4.4 the playback → the sample index — as the Decibel piece reaches 6.3 … 6.5 | Fable (each talk) · Opus (the builds) | — |
+| 9.1 | part 9's first run — the Decibel piece: its repo `decibel_TENOR_2026` MADE 2026-10-04 (container 2). Next there: container 3, the copy-forward (in ITS repo and chat) | Opus | — |
+
+**Open questions:** Q1 — ANSWERED 2026-10-04 (RUNNING_LOG §5): SuperCollider + a Web Audio lab layer, no live-input path; the seam = SC real-time fed over ReaRoute. **Q3 — where the SAMPLE INDEX sits in the twelve parts** (part 4, part 11, or its own). **Q4 — the message route: a loopMIDI port or OSC** (decided at the Decibel piece's 6.2). Q2 — whether the pieces take the
+engine as a git submodule exactly, or by a copy at a tag with the commit recorded (`#6 §807` chose the submodule; proven at part 8).
+
+**Blockers:** none.
+
+**Standing warnings for this repo:** PUBLIC — nothing personal · never edit the sandbox or the pieces · the engine never binds a
+piece's loopMIDI ports · verify in a piece on its throwaway server, never his port.
+
+**Checks this repo owns:** `node tools/sc.js run sc/selftest.scd` — the engine's three tests, no hardware, no sound (exit 0).
+
+---
+
+## §3 Principles
+
+*(Lessons never to repeat. Numbered, append-only. **1–23 are inherited** — one line each here; the full text,
+dates and lab-journal sections are in `septet_2026/docs/PROJECT_JOURNAL.md` §3 (1–18) and
+`septet_LGMF_2026/docs/PROJECT_JOURNAL.md` §3 (19–23). Most bite only once the code is here.
+Verified in this repo only when they bite.)*
+
+1. Check Reaper input monitoring before blaming the instrument (#3 P1).
+2. When a working reference exists, diff the files; don't iterate guesses (#3 P2).
+3. The IR schema is a gate on the file — a new overlay kind enters the schema in the same
+   commit or the page is rejected and deleted. Snapshot first (#4).
+4. Never `git add -A` — stage explicit paths (#4 D30).
+5. Only delete IDs you created in the same breath (#4).
+6. MIDI thru must never listen to the loopMIDI output ports (#4).
+7. Schedule playback with a ~150 ms lead (#4).
+8. Object ids are per save — never delete or replace by id alone (#5).
+9. Verify against the composer's running server; never hold his port, never save from the
+   AI's pane; a hidden pane never fires `requestAnimationFrame` (#5).
+10. When downstream meters freeze at identical values, dump mute / solo / routing first (#5).
+11. Learn a plugin's vocabulary by diffing the GUI's change, not by guessing from strings (#5).
+12. Measure the layer that reaches the INSTRUMENT, not the layer you built. Print the MIDI (#5).
+13. Never queue what cannot be un-queued; Chrome does not implement `MIDIOutput.clear()` (#5).
+14. Where a note is started by one piece of routing, it is stopped by the same one (#5).
+15. Write the assertion after the number, never before it (#5).
+16. Build on a `zz-ai-` copy from the FIRST command, not the second (#5).
+17. The notehead's left edge is the moment; the go line marks displacement (#5 D49).
+18. A checker that tests one half of a rule is worse than no checker. When a rule names two
+    classes, the gate tests both or says in writing which it does not (#5).
+19. A copy-forward carries the standing RULES whole, not only the code — check the new CLAUDE.md
+    against the source's, heading by heading (#6).
+20. Prove the copy whole BEFORE changing it — commit the byte-exact copy, run everything against it,
+    then patch; after that every red has one possible cause (#6).
+21a. The file, the app's intent and the rack's layout are each necessary; only the RECORDING of the
+    rack is the proof. When he says it sounds wrong and the text says it is right, record the rack (#6).
+21b. `cmp` proves a file was copied; it cannot prove the LIST was right. Run what you copied (#6).
+22. A rule that names a part by ID must be checked against the parts that EXIST — when a palette
+    changes, grep the registries for the old instrument names, not just the code (#6).
+23. When a measurement and an assertion disagree, find out which is wrong before editing either (#6).
+
+*This repo's own:*
+
+24. **Additive or it is a patch.** A shared module that must rewrite its host's files is not shared — it is three divergent copies
+    waiting to happen. Every line a host file must change is listed in `docs/SEAMS.md` (`#6 §806`).
+
+---
+
+## §4 Decisions
+
+*(Append-only: ID, date, decision, why, what was rejected.)*
+
+- **D1 · 2026-10-03 — The engine is a repo of its own**, not a module inside the first piece. Why: three pieces live at once and the
+  engine grows during the first; one source, one history, one tag. Rejected: inside the first piece, copy-forwarded to the others
+  (divergence) · the whole stack moved into one shared repo (more than a modest enhancement; his to reopen). *(`#6 §806 · §808`)*
+- **D2 · 2026-10-03 — The engine's files live ONCE on disk, inside every piece** (a git submodule): built in the first piece where he
+  hears it, landing here as built; each piece pulls at its own moment and records the commit; a piece's lock pins it. Rejected: a
+  copy back by hand (the step that gets skipped) · a Windows junction (nothing of the engine in the piece's git; one deleted its
+  target before). *(`#6 §807`)*
+- **D3 · 2026-10-03 — ADDITIVE.** New files, registry rows, one hook line each; the seams listed; the piece's save the ground truth, the
+  engine the generic machinery. *(`#6 §806`)*
+- **D4 · 2026-10-03 — The plan's rule:** the parts are containers with stable numbers; sub-parts at compositional need; nothing detailed
+  before it is needed; the order and the timing his. *(`#6 §811 · §812`)*
+- **D5 · 2026-10-03 — `live-electronics-system`, PUBLIC, push after every commit** — his three words. *(`#6 §813`)*
+- **D6 · 2026-10-03 — Not carried into an engine's kit:** the sketch pad (a musical idea about the electronics is an LG note in the
+  piece that has it) · the performance notes · the sweep list · the deviations register · the morph notes. His to reverse. *(§1)*
+
+---
+
+## §5 Playbooks
+
+*(Mode-specific procedures and gotchas. Piece #6's §5 holds the stack's playbooks; bring one across when its system lands here.)*
+
+---
+
+## §6 Done
+
+- 2026-10-03 — **1** the engine repo made, the kit in, the plan written (`#6 §814` · RUNNING_LOG §1).
+
+---
+
+## §7 Human Notes
+
+*(The composer's own to-dos and reminders. Reviewed at session end.)*
+
+- *(none yet)*

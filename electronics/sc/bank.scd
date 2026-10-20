@@ -1,0 +1,587 @@
+// bank.scd — THE BANK: a window of a player's sound CAPTURED, CROPPED to its attack, NAMED, INDEXED and PLAYED BACK
+// (the engine plan's 4.3 · 4.3b · 4.4 · the index). Loaded by boot.scd; nothing here runs until a session calls bankOn.
+//
+//   ~le.bankOn(dir, cropOpts)   the bank's folder (made if it is not there, with raw/ inside it); the index read; every
+//                               sample it lists loaded into a buffer. Answers how many. The folder comes from the piece
+//                               at the engine's START (LE_BANK) — never from a message.
+//   ~le.bankHear                the two message kinds, on the ear (boot.scd):
+//
+//   /le/open  player · lane · id · name · category · t · lengthMs · dueMs
+//       THE MIC OPENING. The player's bus is recorded from NOW until the window's end — dueMs (how far ahead of the
+//       window's own start the message left) + lengthMs. Early is right: the crop finds the attack. Then:
+//         <bank>/raw/<id>.wav    the whole recording, kept for a re-crop
+//         <bank>/<name>.wav      THE SAMPLE — cropped to the attack, mono, the engine's sample rate
+//         <bank>/index.json      a row for it; a name taken twice REPLACES its row and its file — the latest take wins
+//       and the sample is in a buffer, ready to be played.
+//       THE MODES (§71, 2026-10-05): bankOn(dir, crop, source, record) — the buffers are FILLED at start from `source` (the bank itself,
+//       or the BACKUP bank the players recorded in rehearsal); captures are WRITTEN to `dir`; with record = false an opening changes
+//       nothing. THE SAFETY NET: a capture with no attack above the floor leaves the buffer as it was (the backup, or the earlier take)
+//       and says so — the analysis that decides this must be made foolproof before the concert (the piece's NITS).
+//   /le/play  name · id · lane · t · dueMs · [dyn · env · envCurve]
+//       THE RETURN. The sample is played to the master, dueMs from now ON THE ENGINE'S CLOCK — it lands where
+//       the score's brick is, with no clock shared between the score and the engine. AS LOUD AS IT WAS CAPTURED unless the
+//       message says a DYNAMIC (level.scd): dyn  played | mark:mf | rel:+1[:floor:p][:ceil:f]   ·   env  0:mf,end:ff  (a hairpin,
+//       a step, a line — ms:level from the sample's own start). A chain's and a pattern's samples each take it from their own start.
+//       A name may be a VARIANT of the plan, <base>~<key>-<env> (process.scd): played before its render is in, it falls back to
+//       the earlier render or to its base, raw — ~le.sampleFor, said in the window.
+//       THE PETALS LIVE (petals_live.scd, 2026-10-07): a petals variant whose first use sits AT ITS OWN OPENING is not a buffer at
+//       all — /le/open starts the bank of resonators on the player's microphone, and this message only sets its level.
+//
+// THE CROP'S RULE (~le.cropFind — on the recording's samples, in the language, so the engine is whole without a score server):
+//   the level is read in steps of one millisecond (the loudest sample of each);
+//   THE ATTACK   the first sample above  attackDb (-30) under the recording's peak  AND above  floorDb (-50 dBFS) —
+//                silence is not an attack — stepped back preMs (5) of pre-roll;
+//   THE END      where the level falls under  endDb (-45) below the peak  and stays there holdMs (50), or the recording's end;
+//   the fades    fadeInMs (2) · fadeOutMs (10).
+//   Each is a DEFAULT, overridden by the piece (bankOn's cropOpts; a session's LE_CROP) — the composer's ear tunes them.
+//   A recording whose peak is under floorDb has no attack in it: it is REPORTED, and nothing is saved under the name.
+//
+// THE INDEX'S SCHEMA is the engine's; the file is the piece's (docs/SEAMS.md):
+//   { "schema": 1, "samples": [ { id · name · player · lane · category · scoreTime · lengthMs · peakDb · file · raw ·
+//                                 openingId · windowMs · attackMs · captured } ] }
+//   file · raw are relative to the bank's folder, with forward slashes. attackMs is where in the raw recording the attack
+//   was found — how early the window opened before the sound.
+//
+// A NAME IS A FILE NAME: ~le.safeName keeps letters, digits, - _ and ~ and drops the rest, so nothing a message carries
+// can write outside the bank's folder. (~ since 2026-10-05: a PROCESSED sample is <root>~<n> — process.scd.)
+(
+~le[\cropDefaults] = (attackDb: -30, floorDb: -50, preMs: 5, endDb: -45, holdMs: 50, fadeInMs: 2, fadeOutMs: 10);
+
+~le[\safeName] = { |self, name|
+	(name ? "").asString.select({ |c| c.isAlphaNum or: { "-_~".includes(c) } }).keep(64)
+};
+
+~le[\nowIso] = { |self|
+	var t = Date.localtime, z = { |n| n.asInteger.asString.padLeft(2, "0") };
+	t.year.asString ++ "-" ++ z.(t.month) ++ "-" ++ z.(t.day) ++ "T" ++ z.(t.hour) ++ ":" ++ z.(t.minute) ++ ":" ++ z.(t.second)
+};
+
+// a FloatArray as a mono 24-bit WAV, written by the language
+~le[\wavWrite] = { |self, path, data, sr|
+	var f = SoundFile.new.headerFormat_("WAV").sampleFormat_("int24").numChannels_(1).sampleRate_(sr.asInteger), ok;
+	ok = f.openWrite(path);
+	if(ok) { f.writeData(data); f.close };
+	ok
+};
+
+// ---- the crop ---------------------------------------------------------------------------------------------------------
+// where the attack and the end are, in samples: (start, end, attack, peak) — or nil when there is nothing to crop
+~le[\cropFind] = { |self, data, sr, opts|
+	var o = self[\cropDefaults].copy, hop, n, env, peak, thrOn, thrOff, a, at, start, end, hold, low, k, found;
+	if(opts.notNil) { o.putAll(opts) };
+	hop = (sr / 1000).round.asInteger.max(1);
+	n = data.size div: hop;
+	env = Array.fill(n, { |b| var m = 0.0, i0 = b * hop; hop.do({ |j| m = max(m, data[i0 + j].abs) }); m });
+	peak = if(n > 0) { env.maxItem } { 0 };
+	if((peak < o[\floorDb].dbamp) or: { ((o[\roomAmp] ? 0) * 2) > peak }) { nil } {   // nothing over the floor — or nothing 6 dB over the ROOM (11.7 c)
+		thrOn = max(max(peak * o[\attackDb].dbamp, o[\floorDb].dbamp), (o[\roomAmp] ? 0) * 2);   // roomAmp: what already sounded when the window opened — an attack stands 6 dB over it
+		a = env.detectIndex({ |v| v >= thrOn });
+		at = a * hop;
+		while { data[at].abs < thrOn } { at = at + 1 };   // the sample, inside that millisecond
+		start = (at - (o[\preMs] * sr / 1000).round.asInteger).max(0);
+		thrOff = peak * o[\endDb].dbamp;
+		hold = o[\holdMs].asInteger.max(1);
+		low = 0; k = a;
+		while { found.isNil and: { k < n } } {
+			if(env[k] < thrOff) { low = low + 1; if(low >= hold) { found = k - hold + 1 } } { low = 0 };
+			k = k + 1;
+		};
+		end = if(found.notNil) { found * hop } { data.size };
+		(start: start, end: end, attack: at, peak: peak)
+	}
+};
+
+// the cropped samples themselves, faded in and out
+~le[\cropTake] = { |self, data, sr, c, opts|
+	var o = self[\cropDefaults].copy, out, n, nIn, nOut;
+	if(opts.notNil) { o.putAll(opts) };
+	out = data.copyRange(c[\start], c[\end] - 1);
+	n = out.size;
+	nIn = (o[\fadeInMs] * sr / 1000).round.asInteger.min(n div: 2);
+	nOut = (o[\fadeOutMs] * sr / 1000).round.asInteger.min(n div: 2);
+	nIn.do({ |i| out[i] = out[i] * (i / nIn) });
+	nOut.do({ |i| out[n - 1 - i] = out[n - 1 - i] * (i / nOut) });
+	out
+};
+
+// ---- THE REGIONS (the Decibel piece's drone section, PLAN 15.2 a, 2026-10-08): where a long capture SOUNDS ------------------
+// A 6 … 9 s multiphonic has breaths in it; a stretch that starts its read in one plays a breath for thirty seconds. On the cropped
+// sample: the level in blocks of blockMs (RMS, in dB under the loudest block); a GAP is a quiet run (under gateDb) at least gapMs
+// long; a REGION is a sounding run between gaps at least minMs long — a quiet run shorter than a gap is part of the region around it,
+// a sounding run shorter than minMs is dropped. A sample with no region that long keeps the WHOLE as its one region, said in the
+// window. The numbers are the engine's defaults; a piece's come by LE_REGIONS (session.scd; bank/elec_route.json bank.regions). The
+// row carries them as "0-2340,2910-6100" (ms); the plan's stretch draws its start inside the longest (process.scd regionStart).
+~le[\regionsDefaults] = (blockMs: 20, gateDb: -40, gapMs: 150, minMs: 500);
+~le[\regionsFind] = { |self, data, sr, opts|
+	var o = self[\regionsDefaults].copy, hop, n, env, top, thr, quiet, runs = List.new, merged = List.new, regions = List.new, gapBlocks, minBlocks, lenMs;
+	if(opts.notNil) { o.putAll(opts) };
+	hop = (sr * o[\blockMs] / 1000).round.asInteger.max(1);
+	n = (data.size / hop).ceil.asInteger;
+	lenMs = (data.size / sr * 1000).round(1);
+	env = Array.fill(n, { |b| var acc = 0.0, i0 = b * hop, m = min(hop, data.size - i0); m.do({ |j| acc = acc + (data[i0 + j] * data[i0 + j]) }); if(m > 0) { (acc / m).sqrt } { 0 } });
+	top = if(n > 0) { env.maxItem } { 0 };
+	if(top <= 0) { (list: [[0, lenMs]], whole: true) } {
+		thr = top * o[\gateDb].dbamp;
+		gapBlocks = (o[\gapMs] / o[\blockMs]).round.asInteger.max(1);
+		minBlocks = (o[\minMs] / o[\blockMs]).round.asInteger.max(1);
+		quiet = env.collect({ |v| v < thr });
+		// the runs, [sounding, first block, last block]
+		n.do({ |b| var s = quiet[b].not; if((runs.size > 0) and: { runs.last[0] == s }) { runs.last[2] = b } { runs.add([s, b, b]) } });
+		// a quiet run shorter than a gap, after a sounding run, is absorbed — and so is the sounding run after it
+		runs.do({ |r|
+			var open = (merged.size > 0) and: { merged.last[0] } and: { merged.last[3] };
+			case
+			{ r[0].not and: { (r[2] - r[1] + 1) < gapBlocks } and: { merged.size > 0 } and: { merged.last[0] } } { merged.last[2] = r[2]; merged.last[3] = true }
+			{ r[0] and: { open } } { merged.last[2] = r[2]; merged.last[3] = false }
+			{ true } { if(merged.size > 0) { merged.last[3] = false }; merged.add([r[0], r[1], r[2], false]) };
+		});
+		merged.do({ |r| if(r[0] and: { (r[2] - r[1] + 1) >= minBlocks }) { regions.add([(r[1] * o[\blockMs]).round(1), ((r[2] + 1) * o[\blockMs]).min(lenMs).round(1)]) } });
+		if(regions.size == 0) { (list: [[0, lenMs]], whole: true) } { (list: regions.asArray, whole: false) }
+	}
+};
+~le[\regionsText] = { |self, list| (list ? []).collect({ |r| r[0].asInteger.asString ++ "-" ++ r[1].asInteger }).join(",") };
+// a row's "0-2340,2910-6100" back to pairs of ms; nil when the row has none
+~le[\regionsOf] = { |self, row|
+	var t = if(row.notNil) { row[\regions] }, out;
+	if(t.isNil or: { t.asString.size == 0 }) { nil } {
+		out = t.asString.split($,).collect({ |p| var b = p.split($-); if(b.size == 2) { [b[0].asFloat, b[1].asFloat] } }).reject(_.isNil);
+		if(out.size == 0) { nil } { out }
+	}
+};
+
+// ---- the room (the Decibel piece's 11.7 c — the bleed guard): what was ALREADY sounding when the window opened ----------
+// A window opens before its note (the message's lead, and the opening's own pre-roll), so the first 60 ms of a recording are
+// THE ROOM: the hall, the other players in this microphone. room = their loudest sample · overDb = how far the recording's own
+// peak stands over it · bleed = under the piece's bleedDb (LE_LEVEL; 12): the "attack" is then mostly someone else's sound.
+// A silent room — the simulation — never flags. The crop's attack must stand 6 dB over the room too (cropFind's roomAmp), or a
+// hall's murmur would be taken for the attack and the sample would begin with it.
+~le[\bleedOf] = { |self, data, sr|
+	var n = (0.06 * sr).asInteger.min(data.size), room = 0, peak = if(data.size > 0) { data.abs.maxItem } { 0 }, over;
+	var need = if(self[\levelOf].notNil) { self.levelOf[\bleedDb] } { 12 };
+	n.do({ |i| room = max(room, data[i].abs) });
+	over = if((room > 1e-6) and: { peak > 0 }) { (peak / room).ampdb.round(0.1) } { 200 };
+	(room: room, floorDb: if(room > 0) { room.ampdb.round(0.1) } { -150 }, overDb: over, bleed: over < need, needDb: need)
+};
+
+// ---- the index --------------------------------------------------------------------------------------------------------
+// (a JSON file read by the language comes back all strings: the numbers of the schema are made numbers again here)
+~le[\indexRead] = { |self|
+	var path = self[\bankDir] +/+ "index.json", doc, rows = List.new, numbers = [\scoreTime, \lengthMs, \peakDb, \windowMs, \attackMs, \loudDb, \loudIntDb, \floorDb, \overDb, \leadMs, \driveDb, \outGainDb, \preMs];
+	self[\indexBroken] = false;
+	if(File.exists(path)) {
+		try { doc = path.parseJSONFile } { doc = nil };
+		if(doc.isNil or: { doc["samples"].isNil }) {
+			self[\indexBroken] = true;
+			self.say("LE_ERROR", "the bank's index could not be read and will NOT be written over: " ++ path);
+		} {
+			doc["samples"].do({ |d|
+				var row = ();
+				d.keysValuesDo({ |k, v|
+					var key = k.asSymbol;
+					row[key] = case { key == \lane } { v.asInteger } { numbers.includes(key) } { v.asFloat } { true } { v };
+				});
+				rows.add(row);
+			});
+		};
+	};
+	self[\indexRows] = rows;
+	rows
+};
+
+// the rows of ANY folder's index, read without touching the write bank's state — the source the buffers are filled from (§71)
+~le[\indexRowsOf] = { |self, dir|
+	var path = dir.asString +/+ "index.json", doc, rows = List.new, numbers = [\scoreTime, \lengthMs, \peakDb, \windowMs, \attackMs, \loudDb, \loudIntDb, \floorDb, \overDb, \leadMs, \driveDb, \outGainDb, \preMs];
+	if(File.exists(path)) {
+		try { doc = path.parseJSONFile } { doc = nil };
+		if(doc.notNil and: { doc["samples"].notNil }) {
+			doc["samples"].do({ |d|
+				var row = ();
+				d.keysValuesDo({ |k, v| var key = k.asSymbol; row[key] = case { key == \lane } { v.asInteger } { numbers.includes(key) } { v.asFloat } { true } { v } });
+				rows.add(row);
+			});
+		};
+	};
+	rows
+};
+
+~le[\indexWrite] = { |self|
+	var path = self[\bankDir] +/+ "index.json", f, ok = false;
+	if(self[\indexBroken] != true) {
+		f = File(path, "w");
+		if(f.isOpen) {
+			f.write("{\n \"schema\": 1,\n \"_what\": \"THE SAMPLE INDEX — a row per sample in this folder, written by the engine after each capture (electronics/sc/bank.scd). GENERATED: do not hand-edit while the engine is up.\",\n \"samples\": [\n  "
+				++ self[\indexRows].collect({ |r| self.json(r) }).join(",\n  ") ++ "\n ]\n}\n");
+			f.close;
+			ok = true;
+		};
+	};
+	ok
+};
+
+// THE INDEX OFF THE HOT PATH (the Decibel piece's RUNNING_LOG §227 · §228, 2026-10-07): one write of the index held the language
+// 200 ms (1538 rows, 930 KB, built and written in one go on the message thread), and a capture and its render each wrote it —
+// a /le/play landing inside was heard late (his: "the petal at 161.27 is late if I play the bass flute's first"). indexWriteSoon:
+// ONE write, indexDebounceS (2 s) after the LAST change, not one per capture and per render; indexWriteBreathing builds the rows'
+// JSON a hundred at a time with a breath between (inside a Routine; synchronous outside one — the tests) — a message waits a few
+// milliseconds at most. indexWrite above stays as it was: the tests, and leave flushes a pending write with it (boot.scd).
+~le[\indexWriteSoon] = { |self|
+	var my;
+	self[\indexPending] = (self[\indexPending] ? 0) + 1; my = self[\indexPending];
+	self[\indexDirty] = true;
+	{
+		(self[\indexDebounceS] ? 2).wait;
+		if((self[\indexPending] == my) and: { self[\indexDirty] == true }) { self.indexWriteBreathing };
+	}.fork(SystemClock);
+	true
+};
+~le[\indexWriteBreathing] = { |self|
+	var path = self[\bankDir] +/+ "index.json", f, ok = false, parts = List.new, rows = self[\indexRows].copy, breathing = thisThread.isKindOf(Routine);
+	if(self[\indexBroken] != true) {
+		rows.do({ |r, i| parts.add(self.json(r)); if(breathing and: { ((i + 1) % 100) == 0 }) { 0.002.wait } });
+		f = File(path, "w");
+		if(f.isOpen) {
+			f.write("{\n \"schema\": 1,\n \"_what\": \"THE SAMPLE INDEX — a row per sample in this folder, written by the engine after each capture (electronics/sc/bank.scd). GENERATED: do not hand-edit while the engine is up.\",\n \"samples\": [\n  "
+				++ parts.join(",\n  ") ++ "\n ]\n}\n");
+			f.close;
+			ok = true;
+			self[\indexDirty] = false;
+		} {
+			self.say("LE_INFO", "the index was NOT written — the rows hold until this engine stops");
+		};
+	};
+	ok
+};
+
+// ---- the bank ---------------------------------------------------------------------------------------------------------
+~le[\bankOn] = { |self, dir, cropOpts, source, record|
+	var s = self[\server];
+	self[\bankDir] = dir.asString;                      // where captures are WRITTEN — files and index
+	self[\sourceDir] = (source ? dir).asString;         // where the buffers are FILLED FROM at start — the bank itself, or the backup (§71)
+	self[\record] = (record ? true);                    // false: an opening records nothing; the buffers keep what the files gave them
+	File.mkdir(self[\bankDir]);
+	File.mkdir(self[\bankDir] +/+ "raw");
+	self[\cropOpts] = cropOpts;
+	self[\samples] = IdentityDictionary.new;
+	self.indexRead;                                      // the WRITE bank's rows — a capture's row joins them
+	self.indexRowsOf(self[\sourceDir]).do({ |row|
+		var p = self[\sourceDir] +/+ row[\file].asString;
+		if(File.exists(p)) { self[\samples][row[\name].asSymbol] = (row: row, buf: Buffer.read(s, p), from: \loaded) };
+	});
+	self[\samples].size
+};
+
+~le[\bankHear] = { |self|
+	self.hear(\open, { |le, d| le.captureOpen(d) });
+	self.hear(\play, { |le, d| le.samplePlay(d) });
+	if(self[\processRender].notNil) { self.hear(\process, { |le, d| le.processRender(d) }) };   // process.scd: a sample through the chain, banked again
+	if(self[\planTake].notNil) {   // process.scd: the score's plan of variants, and the button that renders them all
+		self.hear(\plan, { |le, d| le.planTake(d) });
+		self.hear(\planrender, { |le, d| le.planRenderAll });
+	};
+	self
+};
+
+// ---- the capture: /le/open --------------------------------------------------------------------------------------------
+~le[\captureOpen] = { |self, d|
+	var s = self[\server], sr = s.sampleRate, who = (d[\player] ? '?').asSymbol, p = self[\players][who];
+	var name = self.safeName(d[\name]), id = self.safeName(d[\id]);
+	var winMs = (d[\lengthMs] ? 500).asFloat.clip(20, 30000), lead = ((d[\dueMs] ? 0).asFloat / 1000).clip(0, 5);
+	var total = lead + (winMs / 1000), buf;
+	if(self[\planTouch].notNil) { self.planTouch };   // the music is on: the plan's renders wait (process.scd, the hold)
+	// the Decibel piece's 10.14 (2026-10-07): a petals return AT this opening is made LIVE, from the player's microphone, whatever the capture
+	// below does or does not do — petals_live.scd. Its own try: a fault there is not a fault of the capture.
+	if(self[\liveOpen].notNil) { try { self.liveOpen(d) } { |err| self.say("LE_ERROR", "live · " ++ name ++ " — the live petals was NOT started · " ++ err.errorString) } };
+	case
+	{ self[\bankDir].isNil } { self.say("LE_INFO", "open · " ++ who ++ " — the engine was started with no bank folder: nothing is recorded") }
+	{ p.isNil } { self.say("LE_INFO", "open · " ++ who ++ " — the engine has no such player: nothing is recorded") }
+	{ name.size == 0 } { self.say("LE_INFO", "open · " ++ who ++ " — the opening has no name: nothing is recorded") }
+	{ self[\record] == false } { self.say("LE_INFO", "open · " ++ who ++ " · " ++ name ++ " — recording is OFF: the buffer keeps what it holds" ++ if(self[\samples][name.asSymbol].notNil) { "" } { " (nothing yet)" }) }
+	{ true } {
+		if(id.size == 0) { id = name };
+		self.say("LE_INFO", "open · " ++ who ++ " · " ++ name ++ " · " ++ winMs.round(1).asInteger ++ " ms");
+		// the recorder starts in the same breath as the buffer is made: no round trip between the message and the recording
+		buf = Buffer.alloc(s, (total * sr).ceil.asInteger, 1, { |b|
+			Synth.basicNew(\leCapture, s).newMsg(self[\grpFx], [\in, p[\bus].index, \buf, b.bufnum], \addToTail)
+		});
+		SystemClock.sched(total + 0.25, {
+			buf.loadToFloatArray(action: { |data|
+				// FORKED (§195): the crop, the loudness and the index write run in a Routine that breathes (level.scd loudOf), so the
+				// next /le/open is heard on time while this one is banked
+				{ self.captureDone(d, who, name, id, winMs, data); buf.free }.fork(SystemClock);
+			});
+			nil
+		});
+	};
+	self
+};
+
+~le[\captureDone] = { |self, d, who, name, id, winMs, data|
+	var s = self[\server], sr = s.sampleRate, dir = self[\bankDir], rawRel = "raw/" ++ id ++ ".wav", rel = name ++ ".wav";
+	var rawMs = (data.size / sr * 1000).round(1).asInteger, rawPeak = if(data.size > 0) { data.abs.maxItem } { 0 };
+	var c, out, row, old, lenMs, atMs, loud, room, refused = false, cropOpts, regs;
+	self.wavWrite(dir +/+ rawRel, data, sr);
+	self.say("LE_INFO", "captured · " ++ name ++ " · raw · " ++ rawMs ++ " ms · peak " ++ self.db(rawPeak) ++ " dB");
+	// 11.7 c: the room this window opened on — the crop's attack must stand over it; a capture that barely does is BLEED, and in a
+	// concert it is REFUSED (refuseBleed, session.scd): the buffer keeps the backup, as it does when nothing was caught at all
+	room = if(self[\bleedOf].notNil) { try { self.bleedOf(data, sr) } { nil } };
+	cropOpts = (self[\cropOpts] ? ()).copy;
+	if(room.notNil) { cropOpts[\roomAmp] = room[\room] };
+	c = self.cropFind(data, sr, cropOpts);
+	refused = c.notNil and: { room.notNil } and: { room[\bleed] } and: { self[\refuseBleed] == true };
+	if(c.isNil or: { refused }) {
+		old = self[\samples][name.asSymbol];
+		self.say("LE_INFO", if(refused) { "BLEED · " ++ name ++ " — its attack stands only " ++ room[\overDb] ++ " dB over the room (" ++ room[\needDb] ++ " asked): REFUSED; the sample was not saved" }
+			{ "nothing to crop · " ++ name ++ " — no attack in the window" ++ if(room.notNil and: { room[\room] > 1e-6 }) { " over the room (" ++ room[\floorDb] ++ " dB)" } { "" } ++ "; the sample was not saved" }
+			++ if(old.notNil) { " · THE BUFFER KEEPS ITS " ++ if(old[\from] == \loaded) { "LOADED" } { "EARLIER" } ++ " TAKE (the safety net, §71)" } { " · the buffer is empty" });
+		self.say("LE_RESULT", self.json((msg: "captured", name: name, player: who, openingId: id, cropped: false,
+			rawMs: rawMs, rawPeakDb: self.db(rawPeak), raw: rawRel, kept: old.notNil, bleed: refused)));
+	} {
+		out = self.cropTake(data, sr, c, self[\cropOpts]);
+		self.wavWrite(dir +/+ rel, out, sr);
+		// §74 (2026-10-05): a sample file was once written with NO ROW (bfl-impulse-1, 08:29:23) and the window said nothing — whatever throws
+		// between the file and the index now says so, in the window and in the result the page gets.
+		try {
+			lenMs = (out.size / sr * 1000).round(0.1);
+			atMs = (c[\attack] / sr * 1000).round(0.1);
+			old = self[\samples][name.asSymbol];
+			row = (id: "smp_" ++ self.nowIso.select(_.isDecDigit), name: name, player: who.asString, lane: (d[\lane] ? -1).asInteger,
+				category: (d[\category] ? "").asString, scoreTime: (d[\t] ? 0).asFloat.round(0.001), lengthMs: lenMs,
+				peakDb: self.db(c[\peak]), file: rel, raw: rawRel, openingId: id, windowMs: winMs, attackMs: atMs, leadMs: (d[\dueMs] ? 0).asFloat.clip(0, 5000).round(0.1), captured: self.nowIso);   // leadMs (10.14): how far ahead of its window the recording began — attackMs less this is where the note stood in the window
+			// the Decibel piece's 11.1: HOW LOUD it is, on the players' scale (level.scd) — its own try: a figure that cannot be made
+			// costs the figure, never the row
+			if(self[\loudOf].notNil) { loud = try { self.loudOf(out, sr) } { nil }; if(loud.notNil) { self.loudInto(row, loud) } };
+			// 11.7 c: what the room was, where there was one — and the flag, when the attack barely stood over it
+			if(room.notNil and: { room[\room] > 1e-6 }) { row[\floorDb] = room[\floorDb]; row[\overDb] = room[\overDb]; if(room[\bleed]) { row[\bleed] = true } };
+			// 15.2 a (the Decibel piece's drone section): where the capture SOUNDS — a stretch's start is drawn inside a region (process.scd)
+			if(self[\regionsFind].notNil) {
+				regs = try { self.regionsFind(out, sr, self[\regionOpts]) } { nil };
+				if(regs.notNil) {
+					row[\regions] = self.regionsText(regs[\list]);
+					self.say("LE_INFO", "regions · " ++ name ++ " · " ++ if(regs[\whole]) { "none of " ++ (self[\regionOpts] ? self[\regionsDefaults])[\minMs].asInteger ++ " ms or more: the whole (" ++ row[\regions] ++ ") as one" }
+						{ regs[\list].size.asString ++ " — " ++ regs[\list].collect({ |r| r[0].asInteger.asString ++ "-" ++ r[1].asInteger }).join(" · ") ++ " ms" });
+				};
+			};
+			// §84: a FIRST take lost its row every time, a re-take never did — reject() hands back a collection of exactly the size left,
+			// and add() on a full Array returns a NEW array that was being thrown away. A List adds in place: made one, every time.
+			self[\indexRows] = self[\indexRows].reject({ |r| r[\name].asString == name }).asList;
+			self[\indexRows].add(row);
+			self.indexWriteSoon;   // §228: off the hot path — one breathing write 2 s after the last change (the sample is saved as rel already)
+			Buffer.read(s, dir +/+ rel, action: { |b|
+				self[\samples][name.asSymbol] = (row: row, buf: b, from: \captured);
+				if(old.notNil) { SystemClock.sched(10, { old[\buf].free; nil }) };
+			});
+			self.say("LE_INFO", "cropped · " ++ name ++ " · " ++ lenMs.round(1).asInteger ++ " ms of " ++ rawMs
+				++ " · the attack at " ++ atMs.round(1).asInteger ++ " ms · peak " ++ self.db(c[\peak]) ++ " dB"
+				++ if(loud.notNil) { " · loud " ++ loud[\loudDb] ++ " LUFS (" ++ row[\played] ++ ")" } { "" }
+				++ if(room.notNil and: { room[\bleed] }) { " · BLEED? only " ++ room[\overDb] ++ " dB over the room" } { "" }
+				++ if(old.notNil) { " · REPLACES the earlier take" } { "" });
+			self.say("LE_RESULT", self.json(row.copy.putAll((msg: "captured", cropped: true, rawMs: rawMs, replaced: old.notNil))));
+			// the Decibel piece's 10.8: the take is in its file and its row — the variants the score PLANNED for this sample are rendered
+			// from it now, the soonest-needed first (process.scd planRender). Its own try: a fault there is not a fault of the row.
+			if(self[\planRender].notNil) {
+				try { self.planRender(name) } { |err2| self.say("LE_ERROR", "plan · " ++ name ++ " — its variants were NOT queued · " ++ err2.errorString) };
+			};
+		} { |err|
+			self.say("LE_ERROR", "the row of " ++ name ++ " was NOT made — the sample is saved as " ++ rel ++ " · " ++ err.errorString);
+			self.say("LE_RESULT", self.json((msg: "captured", name: name, player: who, openingId: id, cropped: true, rowError: err.errorString, file: rel, raw: rawRel)));
+		};
+	};
+	self
+};
+
+// the sample a NAME plays (the Decibel piece's 10.8 · DEC-21 · 22). Itself — or, for a VARIANT of the plan (<base>~<key>-<env>,
+// process.scd) whose render is not in yet: the EARLIER render if a buffer still holds one (the take before, or the backup's — it is
+// played and said), else its BASE, raw, said too. A score never waits on a render, and a return is never silent for one.
+~le[\sampleFor] = { |self, name|
+	var nm = (name ? "").asString, e = if(self[\samples].notNil) { self[\samples][nm.asSymbol] }, cut = nm.indexOf($~), base, planRow;
+	self[\lateSilent] = nil;
+	if(cut.notNil) {
+		if(e.isNil) {
+			base = nm.keep(cut);
+			// 15.2 d (the Decibel piece's drone section): a SHAPED stretch asked for before its render plays NOTHING — a 7 s multiphonic in
+			// place of a 30 s drone is worse than silence; the plan's row says the ending
+			planRow = if(self[\plan].notNil) { self[\plan].detect({ |r| (r[\base] ++ "~" ++ r[\suffix]) == nm }) };
+			if(planRow.notNil and: { planRow[\end].asString == "shape" }) {
+				self.say("LE_INFO", "late · " ++ nm ++ " is not rendered yet — a shaped stretch: NOTHING played (its recording would be wrong in its place)");
+				self[\lateSilent] = nm;
+			} {
+				e = if(self[\samples].notNil) { self[\samples][base.asSymbol] };
+				if(e.notNil) { self.say("LE_INFO", "late · " ++ nm ++ " is not rendered yet — " ++ base ++ " played raw") };
+			};
+		} {
+			if(self[\planStale].notNil and: { self[\planStale].includes(nm.asSymbol) }) {
+				self.say("LE_INFO", "late · " ++ nm ++ " — this take's render is not in yet: the earlier render played");
+			};
+		};
+	};
+	e
+};
+
+// ---- the behaviours of a return (the Decibel piece's step 9, 2026-10-05; the engine plan's part 11) --------------------
+// 'ar' — ANTICIPATION-REACTION: the sample lands BEFORE or AFTER the brick's centre (the live note), as a LISTENING player
+// would who does not know when the other will play: just before (a guess) · just after (a reaction) · lazily after · FAR after
+// (a fifth tier, the Decibel piece's DEC-30 — its share 0 by default) · near unison; a guess can MISS (late, or far too early). Rolled HERE at every playback, never in the page — the composer score
+// stays still and the simulation runs the same dice (the piece's D15). Each value is a DEFAULT, overridden by the piece
+// (LE_AR, session.scd; the piece letters them A the shares · B the ranges, ms, drawn skewed to the fast edge by `skew` ·
+// C the miss). No leanings per player: fresh dice at every note (his word).
+~le[\arDefaults] = (before: 0.35, after: 0.35, lazy: 0.15, far: 0, unison: 0.15,
+	afterLo: 100, afterHi: 180, beforeLo: 60, beforeHi: 150, lazyLo: 180, lazyHi: 400, farLo: 500, farHi: 750, unisonLo: 10, unisonHi: 40, skew: 2,
+	missRate: 0.10, missLateShare: 0.67, missLateLo: 0, missLateHi: 80, missEarlyLo: 150, missEarlyHi: 300);
+~le[\arRoll] = { |self|
+	var o = self[\arDefaults].copy, u = 1.0.rand, stance, off, draw;
+	if(self[\arOpts].notNil) { o.putAll(self[\arOpts]) };
+	draw = { |lo, hi| lo + ((hi - lo) * (1.0.rand ** o[\skew])) };   // most rolls near lo, a tail to hi
+	stance = case { u < o[\before] } { \before }
+		{ u < (o[\before] + o[\after]) } { \after }
+		{ u < (o[\before] + o[\after] + o[\lazy]) } { \lazy }
+		{ u < (o[\before] + o[\after] + o[\lazy] + (o[\far] ? 0)) } { \far }
+		{ true } { \unison };
+	off = switch(stance,
+		\before, { draw.(o[\beforeLo], o[\beforeHi]).neg },
+		\after,  { draw.(o[\afterLo], o[\afterHi]) },
+		\lazy,   { draw.(o[\lazyLo], o[\lazyHi]) },
+		\far,    { draw.(o[\farLo], o[\farHi]) },
+		\unison, { draw.(o[\unisonLo], o[\unisonHi]) * [1, -1].choose });
+	if((stance == \before) and: { 1.0.rand < o[\missRate] }) {
+		if(1.0.rand < o[\missLateShare]) { stance = \missLate; off = draw.(o[\missLateLo], o[\missLateHi]) }
+		{ stance = \missEarly; off = draw.(o[\missEarlyLo], o[\missEarlyHi]).neg };
+	};
+	(stance: stance, offsetMs: off.round(0.1))
+};
+
+// 'chain' — his FLOCKING redesigned (DEC-10): the samples named by the brick, one after another — the first follows the LIVE
+// note (the brick's start), each next one follows the sample before it; whispers: the error accumulates. A follower's stances
+// (G) have no "before"; the ranges and the draw are ar's (B); no miss. H: whom a link listens to (1 = the previous, always;
+// 0 = the live note; between = a coin per link). I: the order shuffled at every roll (his word) or as named.
+~le[\chainDefaults] = (after: 0.70, lazy: 0.20, far: 0.0, unison: 0.10, before: 0.0, follow: 1.0, shuffle: 1);
+~le[\chainRoll] = { |self, names, arFirst = false|
+	var o = self[\chainDefaults].copy, a = self[\arDefaults].copy, order, links = List.new, prevAt = 0;
+	if(self[\chainOpts].notNil) { o.putAll(self[\chainOpts]) };
+	if(self[\arOpts].notNil) { a.putAll(self[\arOpts]) };
+	order = if(o[\shuffle] > 0.5) { names.scramble } { names };
+	order.do({ |name, i|
+		var u = 1.0.rand, draw = { |lo, hi| lo + ((hi - lo) * (1.0.rand ** a[\skew])) }, usePrev, ref, stance, off, at, first;
+		if((i == 0) and: { arFirst }) {   // arChain (DEC-11): the first sample anticipates or reacts to the LIVE note — the ar roll, its miss included
+			first = self.arRoll; stance = first[\stance]; off = first[\offsetMs]; usePrev = false; ref = 0;
+		} {
+			usePrev = (links.size > 0) and: { 1.0.rand < o[\follow] };
+			ref = if(usePrev) { prevAt } { 0 };
+			stance = case { u < o[\before] } { \before }
+				{ u < (o[\before] + o[\after]) } { \after }
+				{ u < (o[\before] + o[\after] + o[\lazy]) } { \lazy }
+				{ u < (o[\before] + o[\after] + o[\lazy] + (o[\far] ? 0)) } { \far }
+				{ true } { \unison };
+			off = switch(stance,
+				\before, { draw.(a[\beforeLo], a[\beforeHi]).neg },
+				\after,  { draw.(a[\afterLo], a[\afterHi]) },
+				\lazy,   { draw.(a[\lazyLo], a[\lazyHi]) },
+				\far,    { draw.(a[\farLo], a[\farHi]) },
+				\unison, { draw.(a[\unisonLo], a[\unisonHi]) * [1, -1].choose });
+		};
+		at = ref + off;
+		links.add((name: name, stance: stance, offsetMs: off.round(0.1), atMs: at.round(0.1), ref: if(usePrev) { "previous" } { "live" }));
+		prevAt = at;
+	});
+	links.asArray
+};
+
+// the names a chain plays, from the message's "a,b,c": each scrubbed to a file name — except "*", which is EVERY sample the bank
+// holds at this moment — every CAPTURED one: a PROCESSED sample (process.scd, its row's kind) is played by its own brick or by its
+// name, and a render does not change what "everything" plays; (§89 · §94: the scrub turned "*" into "" before the check saw it, and the chain was empty).
+~le[\chainNames] = { |self, names|
+	var raw = (names ? "").asString.split($,).collect({ |x| x.asString.stripWhiteSpace });
+	if(raw.any({ |x| x == "*" })) {   // by content: an Array's includes() is identity, and no two Strings are identical
+		if(self[\samples].notNil) {
+			self[\samples].keys.asArray.select({ |k|
+				var e = self[\samples][k], r = if(e.notNil) { e[\row] };
+				r.isNil or: { (r[\kind] ? "").asString != "processed" }
+			}).collect(_.asString).sort
+		} { [] }
+	} {
+		raw.collect({ |x| self.safeName(x) }).reject({ |x| x.size == 0 })
+	}
+};
+
+// the onsets of a COMPOSED rhythm, from the message's "name:atMs,name:atMs:db,…" (behaviour pattern, 2026-10-05): each name
+// scrubbed to a file name, each atMs a number of milliseconds from the live note (never below 0); a pair without a time lands AT
+// the note; a third field is a LEVEL in dB from unity (a run's ramp, the piece's §98) — absent = unity, clipped at +12.
+// No dice here — the composer arranged it in the page, and it plays the same in concert and in simulation (the piece's D10).
+~le[\patternOnsets] = { |self, pattern|
+	(pattern ? "").asString.split($,).collect({ |x|
+		var b = x.asString.stripWhiteSpace.split($:), nm = self.safeName(b[0]);
+		(name: nm, atMs: if(b.size > 1) { b[1].asString.asFloat.max(0) } { 0 },
+			db: if(b.size > 2) { b[2].asString.asFloat.clip(-90, 12) } { 0 })
+	}).reject({ |k| k[\name].size == 0 })
+};
+
+// ---- the return: /le/play ---------------------------------------------------------------------------------------------
+//   /le/play … behaviour chain names a,b   the brick's start is the live note; the links roll above, each scheduled from it
+//   /le/play … behaviour arChain names a,b,c   t · dueMs point at the live note; the first link is an ar roll, the rest a chain
+//   names *   every sample the bank holds at that moment (all players, all impulses so far), shuffled by I
+//   /le/play … behaviour ar   the brick's centre is the live note (t · dueMs point at it); the roll above moves the sample
+//   /le/play … behaviour pattern pattern a:0,b:250,c:610   the brick's start is the live note; each sample atMs after it, as composed
+~le[\samplePlay] = { |self, d|
+	var s = self[\server], name = self.safeName(d[\name]), due = ((d[\dueMs] ? 0).asFloat / 1000).clip(0, 5);
+	var smp, beh = (d[\behaviour] ? "").asString, roll, at = due, clipped = false, live = false;   // smp: looked up where ONE sample is played — sampleFor says a late variant
+	// the Decibel piece's 11.3 · 11.6: each sample is played AT ITS DYNAMIC — the message's dyn · env against the sample's OWN loudness
+	// (level.scd levelFor) — and EARLIER by the master's look-ahead (masterDelay), so it still lands where the brick is
+	var la = (self[\masterDelay] ? 0), lvOne;
+	var lvl = { |e, extra = 0| if(self[\levelFor].notNil) { self.levelFor(e[\row], d, extra) } };
+	var envArgs = { |lv| if(lv.notNil) { self.levelArgs(lv) } { [] } }, said = { |lv| if(lv.notNil) { self.levelSaid(lv) } { "" } };
+	if(beh == "pattern") {   // §97 (the piece's): a COMPOSED rhythm — the page's onsets, each from the live note; no roll
+		var onsets = self.patternOnsets(d[\pattern]);
+		onsets.do({ |k|
+			var sk = self.sampleFor(k[\name]), when = (due + (k[\atMs] / 1000) - la).max(0), lv = if(sk.notNil) { lvl.(sk) };
+			if(sk.isNil) { self.say("LE_INFO", "pattern · " ++ k[\name] ++ " — no such sample in the bank") } {
+				s.makeBundle(if(when > 0.005) { when }, {
+					Synth(\leSample, [\out, self[\busMaster].index, \buf, sk[\buf].bufnum, \amp, k[\db].dbamp] ++ envArgs.(lv), self[\grpFx], \addToTail);
+				});
+				self.say("LE_INFO", "pattern · " ++ k[\name] ++ " · in " ++ (when * 1000).round(1).asInteger ++ " ms · "
+					++ k[\atMs].round(1).asInteger ++ " ms after the live note" ++ if(k[\db] != 0) { " · " ++ k[\db].round(0.1) ++ " dB" } { "" } ++ said.(lv));
+			};
+		});
+		if(onsets.size == 0) { self.say("LE_INFO", "pattern · nothing to play — the message carried no onsets") };
+		self.say("LE_RESULT", self.json((msg: "play", behaviour: beh, id: (d[\id] ? "").asString, dueMs: (due * 1000).round(0.1),
+			onsets: onsets.size, pattern: onsets.collect({ |k| k[\name].asString ++ ":" ++ k[\atMs] }).join(","))));
+	} {
+	if((beh == "chain") or: { beh == "arChain" }) {   // §82 · §87: the samples named, rolled as a chain from the live note (arChain: the first by the ar roll)
+		var list = self.chainNames(d[\names] ? name), links;   // §94: the names resolved in one place — "*" before the scrub, see chainNames
+		links = self.chainRoll(list, beh == "arChain");
+		links.do({ |k|
+			var sk = self.sampleFor(k[\name]), when = (due + (k[\atMs] / 1000) - la).max(0), lv = if(sk.notNil) { lvl.(sk) };
+			if(sk.isNil) { self.say("LE_INFO", "chain · " ++ k[\name] ++ " — no such sample in the bank") } {
+				s.makeBundle(if(when > 0.005) { when }, {
+					Synth(\leSample, [\out, self[\busMaster].index, \buf, sk[\buf].bufnum] ++ envArgs.(lv), self[\grpFx], \addToTail);
+				});
+				self.say("LE_INFO", "chain · " ++ k[\name] ++ " · in " ++ (when * 1000).round(1).asInteger ++ " ms · " ++ k[\stance] ++ " "
+					++ k[\offsetMs].round(1).asInteger ++ " ms after the " ++ k[\ref] ++ said.(lv));
+			};
+		});
+		self.say("LE_RESULT", self.json((msg: "play", behaviour: beh, id: (d[\id] ? "").asString, dueMs: (due * 1000).round(0.1),
+			links: links.collect({ |k| k[\name].asString ++ ":" ++ k[\stance] ++ ":" ++ k[\atMs] }).join(","))));
+	} {
+		// the Decibel piece's 10.14: a variant that is being made LIVE at its own opening — its level is set and NO buffer is played (petals_live.scd)
+		live = (beh.size == 0) and: { self[\livePlay].notNil } and: { self.livePlay(d, name, due) };
+		smp = if(live) { nil } { self.sampleFor(name) };
+		if(smp.isNil) {
+			if(live.not and: { self[\lateSilent] != name }) { self.say("LE_INFO", "play · " ++ name ++ " — no such sample in the bank") };   // a late shaped stretch was said already (sampleFor)
+		} {
+			if(beh == "ar") {   // the roll: the sample moves from the centre by the offset; a "before" the message came too late for lands now
+				roll = self.arRoll; at = due + (roll[\offsetMs] / 1000); clipped = at < 0; at = at.max(0);
+			};
+			at = (at - la).max(0); lvOne = lvl.(smp);
+			s.makeBundle(if(at > 0.005) { at }, {
+				Synth(\leSample, [\out, self[\busMaster].index, \buf, smp[\buf].bufnum] ++ envArgs.(lvOne), self[\grpFx], \addToTail);
+			});
+			self.say("LE_INFO", "play · " ++ name ++ " · in " ++ (at * 1000).round(1).asInteger ++ " ms · "
+				++ smp[\row][\lengthMs].round(1).asInteger ++ " ms long"
+				++ if(roll.notNil) { " · AR " ++ roll[\stance] ++ " " ++ roll[\offsetMs].round(1).asInteger ++ " ms" ++ if(clipped) { " (too late to be early: now)" } { "" } } { "" } ++ said.(lvOne));
+			self.say("LE_RESULT", self.json((msg: "play", name: name, id: (d[\id] ? "").asString, dueMs: (at * 1000).round(0.1),
+				lengthMs: smp[\row][\lengthMs], peakDb: smp[\row][\peakDb], behaviour: beh,
+				stance: if(roll.notNil) { roll[\stance].asString } { "" }, offsetMs: if(roll.notNil) { roll[\offsetMs] } { 0 })));
+		};
+	};
+	};
+	self
+};
+)

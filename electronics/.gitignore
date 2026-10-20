@@ -1,0 +1,21 @@
+# live-electronics-system is PUBLIC. Nothing personal lands here: no call screenshots, no account details,
+# no licensed fonts (a piece's `notation/app/fonts/` is the piece's business).
+
+# Node
+node_modules/
+
+# Reaper — a project file (.rpp) may be committed; these are not
+*.rpp-bak
+*.reapeaks
+
+# Fonts are licensed software — never committed (pieces #4 … #6 rule)
+/fonts/
+
+# Derivable audio and video
+**/*.wav
+**/*.mp4
+**/*.png
+
+# OS noise
+Thumbs.db
+.DS_Store
