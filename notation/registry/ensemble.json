@@ -1,0 +1,98 @@
+{
+ "_doc": "THE ENSEMBLE — the Decibel piece's parts as notation data (container 6, 6.0, 2026-10-04 — RUNNING_LOG §45; the shape and every mechanism are piece #5's and #6's). Indexed by the composer score's LAYER, which is the IR's \"part\". Read by layout.js (clef, written pitch, staves), coords.js (the frame, the joined lane) and tools/notate_section.js.",
+ "_check": "tools/notate_section.js refuses to extract when a part's `id` or `short` differs from the score's tracks[part] — the registry cannot drift from the composer score silently. The ids and shorts below are composer.html's TRACKS exactly; tools/palette_check.js guards the other direction.",
+ "metaLayer": 6,
+ "curveLayers": [
+  7,
+  8,
+  9
+ ],
+ "_layersNote": "composer.html: META_LAYER = 6 (= tracks.length), CURVE_LAYERS = [7, 8, 9] (the curve windows A / B / C, over the last three lanes — Mallets · Viola · Cello). Neither is a part; the extractor's default parts are 0 … 5. layoutVersion 8.",
+ "_transposeConvention": "WRITTEN = SOUNDING + transpose semitones (layout.js line 75, and applied at line 965 — read in the code, not taken from a comment, during the port). The IR is always SOUNDING pitch (#5's D9); the shift happens at layout only, and the note is spelled from the written pitch. Piece #5's bass clarinet (+14, written a major ninth above sounding) is the precedent that fixes the sign.",
+ "_pitchForm": "A TRANSPOSED score — the lineage's form, carried (piece #5: the bass clarinet in B♭, treble clef, his word 2026-09-11). Put to him 2026-10-04 as the one call of 6.0; his to reverse: \"in C\" is `transpose` removed from parts 0 and 1.",
+ "parts": [
+  {
+   "part": 0,
+   "id": "bass_flute",
+   "short": "BFl",
+   "clef": "treble",
+   "transpose": 12,
+   "_transposeNote": "The bass flute sounds an OCTAVE below written: written = sounding + 12, treble clef — the instrument's standard notation. Sounding range C3–D6 (MIDI 48–86, measured 2026-10-04) = written C4–D7."
+  },
+  {
+   "part": 1,
+   "id": "bass_clarinet",
+   "short": "BCl",
+   "clef": "treble",
+   "transpose": 14,
+   "_transposeNote": "B♭ bass clarinet in treble clef (the French notation — his word in piece #5, 2026-09-11, its RUNNING_LOG §382): written a major ninth (14 semitones) above sounding. The IR keeps SOUNDING pitch; the shift is applied at layout only."
+  },
+  {
+   "part": 2,
+   "id": "percussion",
+   "short": "Perc",
+   "clef": "treble",
+   "staff": {
+    "noClef": true,
+    "hidden": true,
+    "lines": [
+     {
+      "short": "Perc",
+      "match": "*",
+      "instrument": "every unpitched instrument — NO STAFF (DEC-88): one hidden line at the lane's middle"
+     }
+    ]
+   },
+   "_staffNote": "NO UNPITCHED STAFF (his word 2026-10-09, COMPOSITION_NOTES DEC-88: \"no non pitched perc staff, just the single staff for pitched percussion and re adjust all the lane heights\"; RUNNING_LOG §300 · §302). The eight-line staff of container 6 (§45, after piece #6's Bone Alphabet staff) is OUT. The part keeps a LINED staff of ONE line, `hidden` — never drawn, no line name in the gutter — so the extractor still treats it as unpitched (a note sits on the line, at the lane's middle, never at a pitch) until its graphic signs are designed (PLAN 2.3). `lines` stays a LIST: the stack tells an unpitched part by it (tools/notate_section.js · tools/check_rules.js); `match` \"*\" takes every technique."
+  },
+  {
+   "part": 3,
+   "id": "vibraphone",
+   "short": "Mal",
+   "clef": "treble",
+   "_clefNote": "THE MALLETS — crotales · glockenspiel · xylophone · marimba, all four on this ONE five-line staff (his word, DEC-5). Treble clef, NO transposition in the registry: the Ricotti library maps every one of the four at its WRITTEN pitch (crotales C4–C6 · glockenspiel G3–C6 · xylophone F3–B6 · marimba C2–C7 as keyed), so the key the score sends IS the note to write — the crotales and the glockenspiel SOUND two octaves higher, the xylophone one, the marimba as written. Which instrument a note is for, and two at once (\"opposite beaming or something like that\"), is a DEVICE SHEET when the music reaches it (6.7). The marimba below middle C wants a bass clef; he is unlikely to use it. The part id is still \"vibraphone\" and the recipe key \"bowed_vibraphone\" — piece #6's, kept (docs/NAMING.md § 1).",
+   "noLabel": true,
+   "_labelNote": "The percussionist's lane carries ONE label, the percussion part's \"Perc\" (the lead of the overlaid group); `noLabel` keeps this part's \"Mal\" out of the gutter. Its `short` stays the score's (tools/notate_section.js checks it against tracks[3])."
+  },
+  {
+   "part": 4,
+   "id": "viola",
+   "short": "Va",
+   "clef": "alto",
+   "_clefNote": "Alto clef, as piece #5. A treble clef for a high stretch is the clefs-by-register item (the protocol's 6.10), not built."
+  },
+  {
+   "part": 5,
+   "id": "cello",
+   "short": "Vc",
+   "clef": "bass",
+   "_clefNote": "Bass clef, as pieces #5 and #6. A tenor clef for a high stretch: 6.10, not built."
+  }
+ ],
+ "groups": [
+  {
+   "kind": "bracket",
+   "parts": [
+    0,
+    1
+   ]
+  },
+  {
+   "kind": "lane",
+   "parts": [
+    2,
+    3
+   ],
+   "joined": true,
+   "overlay": true
+  },
+  {
+   "kind": "bracket",
+   "parts": [
+    4,
+    5
+   ]
+  }
+ ],
+ "_groupsNote": "Score order top to bottom: the two winds in a bracket · the ONE percussionist's two parts (Percussion, Mallets) JOINED AND OVERLAID — one lane of the frame, one staff position, the mallets' treble staff, the unpitched part on its hidden line at the same middle (PLAN 2.1, RUNNING_LOG §302; kind \"lane\" draws no bracket and no brace) · the two strings in a bracket. FIVE LANES, all of weight 1. NO STAFF FOR THE ELECTRONICS (journal D8): every electronic sound is drawn on the lane of the player it comes from."
+}

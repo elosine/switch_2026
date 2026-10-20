@@ -1,0 +1,584 @@
+// animobj.js — V2: THE ANIMATED OBJECT LAYER (D46; the animated sibling of
+// the glyph extension contract — see notation/GLYPH_EXTENSION_CONTRACT.md).
+//
+// THE CONTRACT: every animated object is a pure function
+//     state(inst, view, t, style) -> array of SVG strings
+// No wall-clock reads, no frame-to-frame state — enforced by source scan
+// and by the determinism test (cold-seek T === play-through T) in
+// tools/test_animobj.js. That single property is why the same objects run
+// in the live app (rAF loop) and the V4 frame-by-frame video export with
+// zero divergence.
+//
+// V2 ports (V0.11 inventory, all five composer-confirmed):
+//   gc            — the gravitational conductor ball: falls under gravity,
+//                   lands exactly on its anchor (IR chunk devices kind
+//                   'gc'); predictive — arrival readable from trajectory.
+//   curveFollower — a dot riding a morph-bend curve (S1 morphBend) at the
+//                   sounding pitch height. Glissandi.
+//   envFollower   — a dot riding a layer-10 META level envelope across the
+//                   full parts area. Crescendo shapes.
+//   lineWedge     — a filling ring over a long-held note (progress through
+//                   the hold). Derived from note duration in V2; authored
+//                   bindings can come later.
+//   motivePie     — a pie filling over a score GROUP's span (gesture
+//                   groups are this piece's motive instances). Piece #1/#2
+//                   pie, rebound to group data.
+//
+// Data bindings live in collect() — each instance records which stratum
+// fed it. New device kinds: register(kind, stateFn) + a collect source +
+// styling in container.json `animated`. See the contract doc.
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('./gc.js'), require('./edge_rules.js'));
+  else root.NotationAnimObj = factory(root.NotationGC, root.NotationEdgeRules);
+})(typeof self !== 'undefined' ? self : this, function (GC, EdgeRules) {
+
+  const REG = {};
+  // [LGMF 2e.2, §411] a kind's INK BOX at t — [left, right] px — so the one edge function can push it at a page start (optional:
+  // a kind with no box is never pushed); the numbers are the state function's own
+  const BOX = {};
+  function register(kind, stateFn, boxFn) { REG[kind] = stateFn; if (boxFn) BOX[kind] = boxFn; }
+  function kinds() { return Object.keys(REG); }
+
+  // ---------- shared helpers (pure) ----------
+  const STEP_IDX = { C: 0, D: 1, E: 2, F: 3, G: 4, A: 5, B: 6 };
+  const MIDDLE_BASS = 3 * 7 + 1; // D3 (mirrors layout.staffPosBass — asserted equal in tests)
+  const STEPS = [['C',0],['C',1],['D',0],['D',1],['E',0],['F',0],['F',1],['G',0],['G',1],['A',0],['A',1],['B',0]];
+  function staffPosOfMidi(midi) {
+    const pc = ((midi % 12) + 12) % 12, oct = Math.floor(midi / 12) - 1;
+    const idx = oct * 7 + STEP_IDX[STEPS[pc][0]];
+    return (idx - MIDDLE_BASS) * 0.5;
+  }
+  function bendAt(mb, startSeconds, t) {
+    if (!mb || !mb.length) return 0;
+    const dt = t - startSeconds;
+    if (dt <= mb[0][0]) return mb[0][1];
+    for (let i = 1; i < mb.length; i++) {
+      if (dt <= mb[i][0]) {
+        const [t0, v0] = mb[i - 1], [t1, v1] = mb[i];
+        return t1 === t0 ? v1 : v0 + (v1 - v0) * (dt - t0) / (t1 - t0);
+      }
+    }
+    return mb[mb.length - 1][1];
+  }
+  function lvlAt(nodes, frac) {
+    if (!nodes || !nodes.length) return 0;
+    if (frac <= nodes[0].pos) return nodes[0].lvl;
+    for (let i = 1; i < nodes.length; i++) {
+      if (frac <= nodes[i].pos) {
+        const a = nodes[i - 1], b = nodes[i];
+        return b.pos === a.pos ? b.lvl : a.lvl + (b.lvl - a.lvl) * (frac - a.pos) / (b.pos - a.pos);
+      }
+    }
+    return nodes[nodes.length - 1].lvl;
+  }
+  function arcPath(cx, cy, r, frac) { // pie slice from 12 o'clock, clockwise
+    if (frac <= 0) return '';
+    if (frac >= 1) return '<circle cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="' + r.toFixed(1) + '"/>';
+    const a = -Math.PI / 2 + frac * 2 * Math.PI;
+    const x = cx + r * Math.cos(a), y = cy + r * Math.sin(a);
+    const large = frac > 0.5 ? 1 : 0;
+    return '<path d="M ' + cx.toFixed(1) + ' ' + cy.toFixed(1) + ' L ' + cx.toFixed(1) + ' ' + (cy - r).toFixed(1) +
+      ' A ' + r.toFixed(1) + ' ' + r.toFixed(1) + ' 0 ' + large + ' 1 ' + x.toFixed(1) + ' ' + y.toFixed(1) + ' Z"/>';
+  }
+
+  // ---------- the five state functions ----------
+  // gc: THE BALL OF THE GC OBJECT (day 23, ported whole from piece #1 —
+  // physics + look in notation/lib/gc.js, ONE copy shared with render.js,
+  // which draws the static arc + impact marker). inst {part, at, preset?};
+  // active over [at − duration·descentRatio, at + duration·(1−descentRatio)].
+  // The ball TRAVELS IN TIME along the drawn arc (x = xOfSeconds(t), as
+  // piece #1's calculateBallPositionForPage), arriving at the impact marker
+  // on the go line exactly at impact. Sizes are piece #1's px at the 1080
+  // frame, scaled by the view's magnification (PP-6).
+  register('gc', (inst, view, t, st) => {
+    const s = GC.systemOf(view, inst.part);   // §401e: the first staff of a multi-staff part (one copy with render.js)
+    const lookM = Object.assign({}, st.look, inst.geom ? { geom: inst.geom } : {}, inst.staffTop != null ? { staffTopSs: inst.staffTop } : {}, inst.impactSs != null ? { impactSs: inst.impactSs } : {}, inst.spread > 0 ? { spread: inst.spread } : {});   // [§592] the GC's geometry from its device ('beatBall') · [§650] 'staffTop' · [§653] a named impact · [§656] a hand's aperture
+    const P = GC.params(GC.presetFor(st.preset || {}, (inst && inst.preset) || {}, lookM));   // [§593] the aperture by the geometry
+    const frac = GC.heightFrac(P, t - inst.at);
+    if (frac === null) return [];
+    const G = GC.laneGeom(s, view, lookM);
+    const x = view.xOfSeconds(t);
+    const y = G.impactY - frac * G.h;
+    const r = G.look.ballRadiusPx * G.k;
+    return ['<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r.toFixed(1) +
+      '" fill="' + (st.color || G.look.color) + '"' + (st.opacity != null && st.opacity < 1 ? ' opacity="' + st.opacity + '"' : '') + '/>'];
+  });
+
+  // [§567, LG-145] beatBall: THE SHOWN BEAT's ball — the GC's physics and size (GC.params · heightFrac, the 5 px ball), the duration
+  // line's colour and opacity (the style's); it lands on the TOP of its beat's grid line (the staff's edge + rules.json
+  // objects.tick.gridOverhangSs) and bounces the room from there to the lane top. inst {part, at, preset: {duration = the beat}}.
+  register('beatBall', (inst, view, t, st) => {
+    const s = GC.systemOf(view, inst.part);
+    const P = GC.params(Object.assign({}, st.preset || {}, (inst && inst.preset) || {}));
+    const frac = GC.heightFrac(P, t - inst.at);
+    if (frac === null) return [];
+    const G = GC.laneGeom(s, view, st.look);
+    // [§568 · §570] the landing: 'lineBottom' (his word, §570 — the ball bounces from the grid line's TOP to its BOTTOM: the impact at the
+    // line's foot, the drop the line's height) · 'laneBottom' (the tuba's own geometry: the lane's bottom, the whole lane's height) · 'lineTop'
+    const STAFF_HALF = 2, over = inst.noOverhang ? 0 : (st.overhangSs != null ? st.overhangSs : 0.4);   // RULES MIRROR (rules.json objects.tick.gridOverhangSs) · [§651] none on a lined staff's inset lines
+    const land = st.land || 'lineBottom';
+    // [§645] the staff's OWN outer lines (the percussion's seven-line staff ±6) — on the instance from opts.staffExtentOf, else five lines
+    const TOP = inst.staffTop != null ? inst.staffTop : STAFF_HALF, BOT = inst.staffBot != null ? inst.staffBot : -STAFF_HALF;
+    const impactY = land === 'lineTop' ? s.yOfSs(TOP + over) : land === 'lineBottom' ? s.yOfSs(BOT - over) : G.impactY;
+    const rise = st.riseSs != null ? st.riseSs : 2;   // [§571] his "leave from slightly higher … about two staff spaces above" — RULES MIRROR (engraving.animated.beatBall.riseSs)
+    // [RUNNING_LOG §653, his "at its normal size, for example, in the English horn, there's a nice smooth motion. But at its expanded size,
+    // it doesn't look like the ball motion was accounted for … a similar motion to the original, but with the longer lines"] THE BALL'S DROP IS
+    // THE FIVE-LINE STAFF'S ON EVERY STAFF: on a lined staff's longer line (noOverhang) the ball still falls the standard span (4 ss + the
+    // two overhangs + the rise) onto the line's foot — the same distance in the same time as on the English horn, so the same motion; the
+    // line is longer than the ball's flight. (Scaled to the line it fell 10 … 15 ss in a beat — over twice the speed.)
+    const stdOver = st.overhangSs != null ? st.overhangSs : 0.4;   // RULES MIRROR (rules.json objects.tick.gridOverhangSs)
+    const span = inst.noOverhang ? 2 * STAFF_HALF + 2 * stdOver : (TOP - BOT) + 2 * over;
+    const h = land === 'lineTop' ? Math.max(1, impactY - (s.yTopPx + G.look.heightInsetPx * G.k)) : land === 'lineBottom' ? (span + rise) * s.ssPx : G.h;
+    const x = view.xOfSeconds(t), y = impactY - frac * h, r = G.look.ballRadiusPx * G.k;
+    // [§578] the ball in its FRAME's colour — the frames on a part alternate through st.colours (rules.json objects.beatBall.colours:
+    // the navy, then the vibraphone's olive) by inst.frame, the frame's index on the part; one colour (st.color) when no list
+    const frameColor = st.colours && st.colours.length && inst.frame != null ? st.colours[inst.frame % st.colours.length] : null;
+    return ['<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r.toFixed(1) +
+      '" fill="' + (inst.color || frameColor || st.color || G.look.color) + '"' + (st.opacity != null && st.opacity < 1 ? ' opacity="' + st.opacity + '"' : '') + '/>'];
+  });
+
+  // curveFollower: inst {part, t0, t1, midi, morphBend}; dot at the
+  // SOUNDING pitch height while the morph plays (0.25 ss/semitone approx).
+  register('curveFollower', (inst, view, t, st) => {
+    if (t < inst.t0 || t > inst.t1) return [];
+    // [2a] inst.pos = the layout's positionResolver (collect's
+    // opts.posOfMidi): the pitch's own system and staff position in its
+    // part's clef. Absent = the tuba's bass-clef lane, as before.
+    const s = view.system(inst.pos ? inst.pos.key : inst.part);
+    const ySs = (inst.pos ? inst.pos.ySs : staffPosOfMidi(inst.midi)) + bendAt(inst.morphBend, inst.t0, t) * 0.25;
+    return ['<circle cx="' + view.xOfSeconds(t).toFixed(1) + '" cy="' + s.yOfSs(ySs).toFixed(1) +
+      '" r="' + (st.radiusSs * s.ssPx).toFixed(1) + '" fill="' + st.color + '" opacity="' + st.opacity + '"/>'];
+  });
+
+  // [2e.2] the boxes — the dots and the meters trail the cursor; the wedge and the group pie sit at their note's start
+  const meterBox = (inst, view, t, st) => { const w = st.wPx || 8, x = view.xOfSeconds(t) - w - (st.gapPx != null ? st.gapPx : 3), h = (st.outlineWPx || 1.5) / 2; return [x - h, x + w + h]; };
+  const dotBox = r => (inst, view, t, st) => { const x = view.xOfSeconds(t), rr = r(inst, view, st); return [x - rr, x + rr]; };
+  BOX.curveFollower = dotBox((inst, view, st) => st.radiusSs * view.system(inst.pos ? inst.pos.key : inst.part).ssPx);
+  BOX.envFollower = dotBox((inst, view, st) => st.radiusPx);
+  BOX.glissMeter = meterBox; BOX.crescMeter = meterBox; BOX.curveMeter = meterBox;
+  BOX.lineWedge = (inst, view, t, st) => { const cx = view.xOfSeconds(inst.t0), r = st.radiusSs * view.system(inst.part).ssPx; return [cx - r - 0.5, cx + r + 0.5]; };
+  BOX.motivePie = (inst, view, t, st) => {
+    if (inst.countdown && inst.part !== undefined) {
+      const r = st.radiusPx || 9, meter = (st.meterWPx != null ? st.meterWPx : 8) + (st.meterGapPx != null ? st.meterGapPx : 3);
+      const cx = view.xOfSeconds(t) - meter - (st.gapPx != null ? st.gapPx : 2) - r;
+      return [cx - r - 0.5, cx + r + 0.5];
+    }
+    const cx = view.xOfSeconds(inst.t0), r = st.radiusPx;
+    return [cx - r - 0.5, cx + r + 0.5];
+  };
+
+  // glissMeter (day 35, composer: "give it its own curve follower, just the
+  // top half bright orange and then everything else the same as the existing
+  // one"): curveMeter's mechanism exactly — an outlined meter + fill riding a
+  // fixed offset LEFT of the cursor, fill height = the current drawn level —
+  // but confined to the TOP HALF of the lane, which is the glissando's half.
+  // [D42 · §448] ALL THREE METERS draw as piece #2's _drawCurveFollower does: the FILL first, then the full-scale OUTLINE over it
+  // (the order changes how the outline composites over the fill); fill opacity = the registry's (0.3, #2's globalAlpha).
+  register('glissMeter', (inst, view, t, st) => {
+    if (t < inst.t0 || t > inst.t1) return [];
+    const s = view.system(inst.part);
+    const yT = s.yTopPx, yMid = (s.yTopPx + s.yBotPx) / 2, H = yMid - yT;
+    const frac = (t - inst.t0) / Math.max(1e-9, inst.t1 - inst.t0);
+    const smp = inst.samples;
+    const fi = frac * (smp.length - 1), i0 = Math.floor(fi);
+    const lvl = i0 >= smp.length - 1 ? smp[smp.length - 1]
+      : smp[i0] + (smp[i0 + 1] - smp[i0]) * (fi - i0);
+    const w = st.wPx || 8;
+    const x = view.xOfSeconds(t) - w - (st.gapPx != null ? st.gapPx : 3);
+    return [
+      '<rect x="' + x.toFixed(1) + '" y="' + (yMid - lvl * H).toFixed(1) + '" width="' + w + '" height="' + (lvl * H).toFixed(1) +
+        '" fill="' + st.color + '" opacity="' + (st.fillOpacity != null ? st.fillOpacity : 0.3) + '"/>',
+      '<rect x="' + x.toFixed(1) + '" y="' + yT.toFixed(1) + '" width="' + w + '" height="' + H.toFixed(1) +
+        '" fill="none" stroke="' + st.color + '" stroke-width="' + (st.outlineWPx || 1.5) + '" opacity="' + (st.outlineOpacity != null ? st.outlineOpacity : 0.8) + '"/>',
+    ];
+  });
+
+  // crescMeter (day 35): the glissMeter's twin — the same curveMeter
+  // mechanism and numbers, confined to the BOTTOM HALF of the lane, which is
+  // the crescendo's half, and coloured limeGreen.
+  register('crescMeter', (inst, view, t, st) => {
+    if (t < inst.t0 || t > inst.t1) return [];
+    const s = view.system(inst.part);
+    // day 36: `full` follows the drawn curve. Where the crescendo takes the
+    // WHOLE lane (the trance section, which has no glissando above it), its
+    // meter has to as well, or the follower reads half the level the page
+    // shows. Absent = the morph pages' bottom half, unchanged.
+    const yMid = inst.full ? s.yTopPx : (s.yTopPx + s.yBotPx) / 2, yB = s.yBotPx, H = yB - yMid;
+    const frac = (t - inst.t0) / Math.max(1e-9, inst.t1 - inst.t0);
+    const smp = inst.samples;
+    const fi = frac * (smp.length - 1), i0 = Math.floor(fi);
+    const lvl = i0 >= smp.length - 1 ? smp[smp.length - 1]
+      : smp[i0] + (smp[i0 + 1] - smp[i0]) * (fi - i0);
+    const w = st.wPx || 8;
+    const x = view.xOfSeconds(t) - w - (st.gapPx != null ? st.gapPx : 3);
+    // Day 40, THE TUBE (composer ruling — see curveMeter): the full-scale
+    // frame in BOTH variants; the top of the tube = max loudness.
+    return [
+      '<rect x="' + x.toFixed(1) + '" y="' + (yB - lvl * H).toFixed(1) + '" width="' + w + '" height="' + (lvl * H).toFixed(1) +
+        '" fill="' + st.color + '" opacity="' + (st.fillOpacity != null ? st.fillOpacity : 0.3) + '"/>',
+      '<rect x="' + x.toFixed(1) + '" y="' + yMid.toFixed(1) + '" width="' + w + '" height="' + H.toFixed(1) +
+        '" fill="none" stroke="' + st.color + '" stroke-width="' + (st.outlineWPx || 1.5) + '" opacity="' + (st.outlineOpacity != null ? st.outlineOpacity : 0.8) + '"/>',
+    ];
+  });
+
+  // envFollower: inst {t0, t1, nodes[{pos,lvl 0..1}], color}; dot riding
+  // the META level envelope over the FULL parts area (like the overlay).
+  register('envFollower', (inst, view, t, st) => {
+    if (t < inst.t0 || t > inst.t1) return [];
+    const yTop = view.systems[0].yTopPx, yBot = view.systems[view.systems.length - 1].yBotPx;
+    const frac = (t - inst.t0) / (inst.t1 - inst.t0);
+    const y = yBot - lvlAt(inst.nodes, frac) * (yBot - yTop);
+    return ['<circle cx="' + view.xOfSeconds(t).toFixed(1) + '" cy="' + y.toFixed(1) +
+      '" r="' + st.radiusPx + '" fill="' + (inst.color || st.color) + '" opacity="' + st.opacity + '"/>'];
+  });
+
+  // curveMeter (day 22, THE piece-#2 curve follower, ported mechanism):
+  // while an event with a drawn level curve plays, an outlined meter +
+  // fill rect ride a fixed offset LEFT of the cursor in that part's lane;
+  // the fill's height IS the current level (grows from the lane bottom).
+  // p2 numbers: 8 px wide, 3 px gap, fill 0.3, outline 1.5 @ 0.8.
+  register('curveMeter', (inst, view, t, st) => {
+    if (t < inst.t0 || t > inst.t1) return [];
+    const s = view.system(inst.part);
+    const yT = s.yTopPx, yB = s.yBotPx, H = yB - yT;
+    const frac = (t - inst.t0) / Math.max(1e-9, inst.t1 - inst.t0);
+    const smp = inst.samples;
+    const fi = frac * (smp.length - 1), i0 = Math.floor(fi);
+    const lvl = i0 >= smp.length - 1 ? smp[smp.length - 1]
+      : smp[i0] + (smp[i0 + 1] - smp[i0]) * (fi - i0);
+    const w = st.wPx || 8;
+    const x = view.xOfSeconds(t) - w - (st.gapPx != null ? st.gapPx : 3);
+    // Day 40, THE TUBE (composer ruling, verbatim: "tube back, that was
+    // always supposed to be there, players can judge where they are in
+    // relation to the whole, if the top is max loudness, they can see at any
+    // instant how loud they should be in relation to max"): the outline
+    // spans the FULL scale deliberately. The fill rides the DRAWN curve
+    // (drawnOf), so the bar top sits ON the band edge — congruent by
+    // construction; the earlier "shadow" was the fill overshooting the page.
+    return [
+      '<rect x="' + x.toFixed(1) + '" y="' + (yB - lvl * H).toFixed(1) + '" width="' + w + '" height="' + (lvl * H).toFixed(1) +
+        '" fill="' + st.color + '" opacity="' + (st.fillOpacity != null ? st.fillOpacity : 0.3) + '"/>',
+      '<rect x="' + x.toFixed(1) + '" y="' + yT.toFixed(1) + '" width="' + w + '" height="' + H.toFixed(1) +
+        '" fill="none" stroke="' + st.color + '" stroke-width="' + (st.outlineWPx || 1.5) + '" opacity="' + (st.outlineOpacity != null ? st.outlineOpacity : 0.8) + '"/>',
+    ];
+  });
+
+  // lineWedge: inst {part, t0, t1, ySs}; a ring above the note filling
+  // with progress through the hold.
+  register('lineWedge', (inst, view, t, st) => {
+    if (t < inst.t0 || t > inst.t1) return [];
+    const s = view.system(inst.part);
+    const frac = (t - inst.t0) / (inst.t1 - inst.t0);
+    const cx = view.xOfSeconds(inst.t0), cy = s.yOfSs(st.ySs), r = st.radiusSs * s.ssPx;
+    return [
+      '<circle cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="' + r.toFixed(1) +
+        '" fill="none" stroke="' + st.color + '" stroke-width="1" opacity="0.4"/>',
+      '<g fill="' + st.color + '" opacity="' + st.opacity + '">' + arcPath(cx, cy, r, frac) + '</g>',
+    ];
+  });
+
+  // motivePie: inst {t0, t1, color}; a pie at the group's start, top of
+  // the frame, filling over the group's span (gesture groups = this
+  // piece's motive instances).
+  // [LGMF PLAN 2d.4, 2026-09-25 — RUNNING_LOG §385; CURVE_LOOK §7, piece #2's `_drawMotivePie`] THE BREATH'S CLOCK: an instance
+  // with `countdown` (a sequence breath, inst {part, t0 onset, t1 release}) is drawn PER LANE AT THE CURSOR — at the lane's top, just
+  // left of the crescendo's follower (2 px), the registry's radius and colour — counting the breath DOWN: the REMAINING sector filled
+  // (full at the onset, empty at the release), the hand from the centre to the progress angle, black 1 px, round cap.
+  function remainPath(cx, cy, r, frac) { // the sector from the progress angle round to 12 o'clock, clockwise
+    if (frac >= 1) return '';
+    if (frac <= 0) return '<circle cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="' + r.toFixed(1) + '"/>';
+    // [§529] ARCS OF AT MOST 90°, never one: an SVG arc takes its circle from its two END POINTS and the radius, not from (cx, cy). At a
+    // breath's first instant the remaining sector is almost the whole circle, its two ends a fraction of a pixel apart, and their rounding to
+    // 0.1 px moved that circle by pixels (piece-lgmf p7 @476.017: the pie's ink at 108.6, its lane pushed to 112 — check_screen_edges page
+    // 41); a half is no cure, a near-semicircle is as ill-conditioned. Each piece ≤ 90°: the rounding moves the ink < 0.1 px.
+    const a = -Math.PI / 2 + frac * 2 * Math.PI, n = Math.max(1, Math.ceil((1 - frac) * 4)), step = (1 - frac) * 2 * Math.PI / n;
+    const P = ang => (cx + r * Math.cos(ang)).toFixed(1) + ' ' + (cy + r * Math.sin(ang)).toFixed(1), R = ' A ' + r.toFixed(1) + ' ' + r.toFixed(1) + ' 0 0 1 ';
+    let d = 'M ' + cx.toFixed(1) + ' ' + cy.toFixed(1) + ' L ' + P(a);
+    for (let k = 1; k <= n; k++) d += R + (k === n ? cx.toFixed(1) + ' ' + (cy - r).toFixed(1) : P(a + k * step));
+    return '<path d="' + d + ' Z"/>';
+  }
+  register('motivePie', (inst, view, t, st) => {
+    if (t < inst.t0 || t > inst.t1) return [];
+    if (inst.countdown && inst.part !== undefined) {
+      const s = view.system(inst.part), r = st.radiusPx || 9;
+      const frac = Math.max(0, Math.min(1, (t - inst.t0) / Math.max(1e-9, inst.t1 - inst.t0)));
+      const meter = (st.meterWPx != null ? st.meterWPx : 8) + (st.meterGapPx != null ? st.meterGapPx : 3);
+      const cx = view.xOfSeconds(t) - meter - (st.gapPx != null ? st.gapPx : 2) - r, cy = s.yTopPx + (st.laneTopPx != null ? st.laneTopPx : 1) + r;
+      const a = -Math.PI / 2 + frac * 2 * Math.PI;
+      return [
+        '<circle cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="' + r.toFixed(1) + '" fill="none" stroke="' + st.color + '" stroke-width="1" opacity="0.5"/>',
+        '<g class="breath-pie" fill="' + st.color + '" opacity="' + st.opacity + '">' + remainPath(cx, cy, r, frac) + '</g>',
+        '<line class="breath-hand" x1="' + cx.toFixed(1) + '" y1="' + cy.toFixed(1) + '" x2="' + (cx + r * Math.cos(a)).toFixed(1) + '" y2="' + (cy + r * Math.sin(a)).toFixed(1) +
+          '" stroke="#000" stroke-width="1" stroke-linecap="round"/>',
+      ];
+    }
+    const frac = (t - inst.t0) / (inst.t1 - inst.t0);
+    const cx = view.xOfSeconds(inst.t0), cy = st.topPx, r = st.radiusPx;
+    return [
+      '<circle cx="' + cx.toFixed(1) + '" cy="' + cy + '" r="' + r + '" fill="none" stroke="' + (inst.color || st.color) + '" stroke-width="1" opacity="0.5"/>',
+      '<g fill="' + (inst.color || st.color) + '" opacity="' + st.opacity + '">' + arcPath(cx, cy, r, frac) + '</g>',
+    ];
+  });
+
+  // ---------- data bindings: strata → instances ----------
+  // Each instance records its source stratum. score may be null (IR-only).
+  // opts (day 22, the collapse): { parts, meta }. Instances are SCOPED TO
+  // THE SAVE — the ten-lane frame exposed every score-wide object (phantom
+  // pies, other parts' wedges). Part-bearing kinds filter to the save's
+  // parts; motivePie qualifies only when its WHOLE group lives inside them
+  // (a lone member isn't the group); envFollower rides the META overlay's
+  // visibility (opts.meta).
+  function collect(ir, score, style, opts) {
+    const O = opts || {};
+    // day 35: an IR may switch OFF animated kinds it does not want — the morph
+    // page wants its two METERS and none of the dots (composer: "I want the
+    // meters. I don't want the dots."). Opt-in: absent = every kind as before.
+    const offKinds = (ir && ir.animated) || {};
+    // [§401m] ...and a registry block with enabled:false switches its kind off — the tuba's day-24 pie cure,
+    // for every kind (the composer: 'make sure those are hidden or shut off. They don't play a part here.')
+    const kindOn = k => (offKinds[k] !== false) && !(style && style[k] && style[k].enabled === false);
+    const partList = O.parts || (ir && ir.source && ir.source.parts) || null;
+    const allowed = partList ? new Set(partList) : null;   // null = unscoped
+    const has = l => !allowed || allowed.has(l);
+    const metaOn = O.meta !== false;
+    // [2a] the score's META layer (the septet's is 7; absent = the tuba's 10)
+    const ML = O.metaLayer != null ? O.metaLayer : 10;
+    const out = [];
+    const evById = new Map(((ir && ir.events) || []).map(e => [e.id, e]));
+    // per-NOTE GC (day 23, wc-29): the engraving device may put a ball on a
+    // single note — its impact is the note's go time, so the ball lands on
+    // the go line. The resolver comes from the caller (layout.deviceResolver)
+    // so this module keeps no second copy of the membership rules (D50).
+    const devOf = typeof O.deviceOf === 'function' ? O.deviceOf : null;
+    // day 40: the drawn-curve source (layout.drawnLevelSamples via the
+    // caller) — the meters ride the PAGE's curve, not the raw envelope.
+    const drawnOf = typeof O.drawnOf === 'function' ? O.drawnOf : null;
+    // W1b (day 37, composer: "there is still bleed in the meters"): spans where
+    // a SECTION meter owns the part's lane — any gliss overlay, or any cresc
+    // overlay. Inside these, per-event curveMeters stand down (below).
+    // Day 40 (PROOFREAD_LEDGER #4 RETRY, composer: "the meters are still not
+    // correct, overshoots"): the day-37 version EXCLUDED fullHeight cresc, so
+    // at the final crescendo (709.4-751.4) every note's own meter rode ON TOP
+    // of the section follower — two fills at the same x, the per-event one
+    // poking above the wedge (probed t=730: 9 of 10 parts doubled, 0.62 vs
+    // 0.56). The section follower is THE follower; per-event meters now stand
+    // down under fullHeight cresc too.
+    const owned = new Map();   // part -> [[t0,t1], ...]
+    for (const ov of ((ir && ir.overlays) || [])) {
+      const tg = ov.target || {};
+      if (tg.part === undefined || !tg.span) continue;
+      // [LGMF 2d.3] a sequence's line owns its lane the same way: its follower is the section follower
+      // [LGMF 2g.5, §464] the vibraphone's bows own theirs with NO follower: the marks are the level — no meter, no pie on the lane
+      if (ov.kind === 'gliss' || ov.kind === 'cresc' || ov.kind === 'sequence' || ov.kind === 'vibBows') {
+        if (!owned.has(tg.part)) owned.set(tg.part, []);
+        owned.get(tg.part).push(tg.span);
+      }
+    }
+    const laneOwned = (part, a, b) =>
+      (owned.get(part) || []).some(s2 => a < s2[1] && b > s2[0]);
+    // [§567, LG-145] THE BEAT BALL — one instance per BEAT of a beatGrid overlay (the IR's, notate_section --beatGrid), with
+    // preset.duration = the beat, so consecutive balls abut and the lane has one ball in flight for exactly as long as the grid's
+    // lines show, and nowhere else (the trance section's trick of day 36)
+    if (kindOn('beatBall')) {
+      // [§578] each frame's index on its part (in time order) — the ball's colour alternates by it, as the frame's lines do (layout.js)
+      const grids = ((ir && ir.overlays) || []).filter(ov => ov.kind === 'beatGrid' && ov.target && ov.target.part !== undefined && ov.target.span && ov.value && ov.value.unit > 0);
+      const frameOf = new Map(); const byPart = new Map();
+      for (const ov of grids) { if (ov.value.cue) continue; if (!byPart.has(ov.target.part)) byPart.set(ov.target.part, []); byPart.get(ov.target.part).push(ov); }   // [§651] a cue line is not a frame
+      for (const list of byPart.values()) list.sort((a, b) => a.target.span[0] - b.target.span[0]).forEach((ov, i) => frameOf.set(ov, i));
+      for (const ov of grids) {
+        const tg = ov.target, v = ov.value;
+        if (!has(tg.part)) continue;
+        const n = v.beatEvery >= 1 ? Math.round(v.beatEvery) : 1, beat = v.unit * n, frame = v.cue ? 0 : (v.colourIx != null ? v.colourIx : frameOf.get(ov));   // [§651] a cue's ball in the first colour (the blue-grey) · [§653] a frame's named colour
+        const k0 = Math.ceil((tg.span[0] - v.phase) / v.unit - 1e-9), k1 = Math.floor((tg.span[1] - v.phase) / v.unit + 1e-9);
+        // [§645] a staff that is not the five-line ±2 hands the ball its outer lines (opts.staffExtentOf = layout's staffExtentResolver)
+        // [§651] on a LINED staff the lines run between inner lines (style.beatBall.insetLines ← rules.json objects.tick.gridInsetLines), no overhang
+        const ext = O.staffExtentOf ? O.staffExtentOf(tg.part) : null, ins = style && style.beatBall && style.beatBall.insetLines > 0 ? Math.round(style.beatBall.insetLines) : 0;
+        const extra = ext && ext.lines && ins && ext.lines.length > 2 * ins ? { staffTop: ext.lines[ins], staffBot: ext.lines[ext.lines.length - 1 - ins], noOverhang: true }
+          : ext && (ext.top !== 2 || ext.bot !== -2) ? { staffTop: ext.top, staffBot: ext.bot } : {};
+        for (let k = k0; k <= k1; k++) if (((k % n) + n) % n === 0) out.push(Object.assign({ kind: 'beatBall', part: tg.part, at: +(v.phase + k * v.unit).toFixed(6), preset: { duration: beat }, frame, _src: 'ir-beatGrid' }, extra));
+      }
+    }
+    for (const c of (ir && ir.chunks) || []) {
+      for (const d of c.devices || []) {
+        // day 36: a chunk gc device may carry its own PRESET — the trance
+        // section's per-part ball is one instance per beat with
+        // preset.duration = that part's step, so consecutive balls abut and
+        // the lane always has exactly one ball in flight. Without the
+        // passthrough every instance took the registry's 0.6 s and the balls
+        // overlapped (or gapped) wherever the part's tempo was not 100 bpm.
+        if (d.kind === 'gc') out.push(Object.assign({ kind: 'gc', part: c.part, at: d.at, _src: 'ir-device' },
+          d.preset ? { preset: d.preset } : {}));
+      }
+      if (devOf) for (const id of c.events || []) {
+        const e = evById.get(id);
+        if (!e) continue;
+        const dv = devOf(e) || {};
+        if (dv.gc) out.push(Object.assign({ kind: 'gc', part: c.part, at: e.onset, _src: 'device' }, (dv.gcGeom || dv.gcStyle) ? { geom: dv.gcGeom || (dv.gcStyle === 3 ? 'staffTop' : dv.gcStyle === 2 ? 'beatBall' : 'lane') } : {},   // [§592] · [§594] gcStyle 1 | 2 · [§650] 3
+          (dv.gcGeom === 'staffTop' || (!dv.gcGeom && dv.gcStyle === 3)) ? { staffTop: O.staffExtentOf ? O.staffExtentOf(c.part).top : 2 } : {},   // [§650] the staff's own top line
+          (dv.gcImpact === 'lineBelow' && O.staffExtentOf) ? (x => ({ impactSs: x.bot - (x.gapSs || 1) }))(O.staffExtentOf(c.part)) : {},   // [§653] the staff's next line below its bottom line
+          (dv.gcImpact === 'spaceBelow') ? { impactSs: (O.staffExtentOf ? O.staffExtentOf(c.part).bot : -2) - 1 } : {},   // [§656] one staff space below the bottom line
+          dv.gcSpread > 0 ? { spread: dv.gcSpread } : {},   // [§656] a hand's aperture
+          typeof dv.gc === 'object' ? { preset: dv.gc } : {}));
+      }
+      // curveMeter rides every event that carries its drawn level (stratum
+      // 3 data — no side files, per the A21b strata rule).
+      // W1b exception: curveMeter is FULL-LANE (piece #2's device), so where a
+      // morph section's half-lane meters own the lane it drew a THIRD meter at
+      // the same x whose green fill crossed the midline into the glissando's
+      // half whenever the event's level passed 0.5 — seen by the composer at
+      // t≈302 (T1's event ends 302.91: "then it just blinks off"). The note's
+      // own envcurve stays drawn; only the animated follower stands down.
+      for (const id of c.events || []) {
+        const e = evById.get(id);
+        if (e && e.level && e.level.samples && e.level.samples.length >= 2) {
+          if (laneOwned(c.part, e.onset, e.onset + e.duration)) continue;
+          // [decibel RUNNING_LOG §402, DEC-171 — his "no curve meter in this section, in the multiphonic section … the only place we're using that
+          // meter is in the trill curves"] A LEVEL THAT IS NOT DRAWN HAS NO METER: an event whose device says curve false (a silent note — the
+          // cutter's --silent · --gcOnly) keeps its level in the IR and rides nothing; the meter rides a curve that is on the page
+          if (devOf) { const dvm = devOf(e); if (dvm && dvm.curve === false) continue; }
+          out.push({ kind: 'curveMeter', part: c.part, t0: e.onset, t1: e.onset + e.duration, samples: (drawnOf && drawnOf(e)) || e.level.samples, _src: 'ir-level' });
+        }
+      }
+    }
+    // the glissando's own meter, one per `gliss` overlay (day 35)
+    for (const ov of ((ir && ir.overlays) || [])) {
+      const tg = ov.target || {};
+      if (ov.kind === 'gliss' && tg.part !== undefined && tg.span && ov.value && ov.value.samples && has(tg.part)) {
+        out.push({ kind: 'glissMeter', part: tg.part, t0: tg.span[0], t1: tg.span[1], samples: ov.value.samples, _src: 'ir-gliss' });
+      }
+      if (ov.kind === 'cresc' && tg.part !== undefined && tg.span && ov.value && ov.value.samples && has(tg.part)) {
+        out.push({ kind: 'crescMeter', part: tg.part, t0: tg.span[0], t1: tg.span[1], samples: ov.value.samples,
+          full: !!ov.value.fullHeight, _src: 'ir-cresc' });
+      }
+      // [LGMF PLAN 2d.3] a sequence's level curve (the `sequence` overlay's value.level, the fixed scale): the crescendo's follower
+      // rides it in the bottom half of the lane, over the level's own span — the same samples the page draws
+      const LV = ov.kind === 'sequence' && ov.value && ov.value.level;
+      if (LV && tg.part !== undefined && Array.isArray(LV.samples) && LV.samples.length >= 2 && LV.t1 > LV.t0 && has(tg.part)) {
+        out.push({ kind: 'crescMeter', part: tg.part, t0: LV.t0, t1: LV.t1, samples: LV.samples, _src: 'ir-sequence' });
+      }
+      // [LGMF PLAN 2d.4] THE BREATHS' CLOCK: with the registry's motivePie `source: 'breaths'` the pie counts each breath of a sequence
+      // down — the entry's, then every breath's. [§455, the composer at 2e.7: "the pie should last from go line to go line. The new go
+      // line is the time the pie refills"] `until: 'nextGo'` (the pie row) ends each breath's pie at the NEXT breath's onset, the last
+      // at its release; `until: 'release'` (or absent) is 2d.4's onset → release, nothing between a release and the next onset.
+      if (ov.kind === 'sequence' && tg.part !== undefined && has(tg.part) && style && style.motivePie && style.motivePie.source === 'breaths') {
+        const V = ov.value || {}, list = [].concat(V.entry ? [{ onset: V.entry.t, release: V.entry.release }] : [], V.breaths || [])
+          .slice().sort((a, b) => a.onset - b.onset);
+        const toNextGo = style.motivePie.until === 'nextGo';
+        list.forEach((b, i) => {
+          const t1 = toNextGo && list[i + 1] ? list[i + 1].onset : b.release;
+          if (t1 > b.onset) out.push({ kind: 'motivePie', part: tg.part, t0: b.onset, t1, countdown: true, _src: 'ir-sequence-breath' });
+        });
+      }
+    }
+    // notes whose device already visualizes progress (a drawn level curve →
+    // envcurve + curveMeter) don't get the generic hold-wedge on top
+    // (composer, day 22: "still a pie at the go cursor — take that away")
+    const leveled = new Set(((ir && ir.events) || [])
+      .filter(e => e.level && e.level.samples)
+      .map(e => e.source && e.source.objectId).filter(Boolean));
+    if (score && score.objects) {
+      const groups = new Map();
+      for (const o of score.objects) {
+        if (o.type !== 'waveCurve') continue;
+        if (o.morphBend && o.layer <= 9 && has(o.layer)) {
+          out.push(Object.assign({ kind: 'curveFollower', part: o.layer, t0: o.startSeconds, t1: o.endSeconds, midi: o.sonifyNote, morphBend: o.morphBend, _src: 's1-morph' },
+            O.posOfMidi ? { pos: O.posOfMidi(o.layer, o.sonifyNote) } : {}));
+        }
+        if (metaOn && o.layer === ML && o.nodes && o.nodes.length) {
+          out.push({
+            kind: 'envFollower', t0: o.startSeconds, t1: o.endSeconds, color: o.color,
+            nodes: o.nodes.map(n => ({ pos: n.pos, lvl: Math.min(10, Math.max(0, n.y)) / 10 })), _src: 's1-meta',
+          });
+        }
+        if (o.layer <= 9 && !o.morphBend && has(o.layer) && !leveled.has(o.id)
+          && (o.endSeconds - o.startSeconds) >= style.lineWedge.minHoldSeconds) {
+          out.push({ kind: 'lineWedge', part: o.layer, t0: o.startSeconds, t1: o.endSeconds, _src: 's1-hold' });
+        }
+        if (o.groupId) {
+          const g = groups.get(o.groupId) || { t0: Infinity, t1: -Infinity, color: o.color, layers: new Set() };
+          g.t0 = Math.min(g.t0, o.startSeconds); g.t1 = Math.max(g.t1, o.endSeconds);
+          if (o.layer <= 9) g.layers.add(o.layer);
+          groups.set(o.groupId, g);
+        }
+      }
+      for (const [id, g] of groups) {
+        if (style.motivePie && style.motivePie.enabled === false) break;   // registry off-switch (day 24)
+        if (style.motivePie && style.motivePie.source && style.motivePie.source !== 'groups') break;   // [LGMF 2d.4] re-pointed to the breaths
+        if (![...g.layers].every(has)) continue;   // the whole group or no pie
+        out.push({ kind: 'motivePie', t0: g.t0, t1: g.t1, color: g.color, groupId: id, _src: 's1-group' });
+      }
+    }
+    return out.filter(i => kindOn(i.kind));
+  }
+
+  // one frame: every active instance's state at t, plus the cursor.
+  // opts.cursor === false suppresses the cursor line — the per-part solo
+  // (day 24) draws the frame in two passes (soloed at full opacity, the
+  // rest inside a dimming group) and only the first pass owns the cursor.
+  // [LGMF 2e.2 — RUNNING_LOG §409 … §411, §449] opts.edge = page_rules.edge on a tiled screen page: every animated kind obeys the ONE
+  // edge system — `anim:<kind>` names its class. `clamp` (the meters, the pies, the dots): a device whose ink reaches left of x(t0) is
+  // PUSHED RIGHT by the difference — one push per LANE, so a pie keeps its place beside its meter — and slides back as the cursor
+  // advances (his: "cursor moves across meters, when cursor reaches the x where everything is lined up as standard, meters start moving
+  // with cursor"); `cut` (the GC ball rides its arc): clipped at x(t0) like paper; `atomic` (the cursor): never moved. Without
+  // opts.edge the frame is drawn exactly as before.
+  function frameSvg(instances, view, t, style, opts) {
+    const [w0, w1] = view.window;
+    const parts = [];
+    const EDGE = (opts && opts.edge) || null;
+    if ((!opts || opts.cursor !== false) && t >= w0 && t <= w1) {
+      const yTop = view.systems[0].yTopPx, yBot = view.systems[view.systems.length - 1].yBotPx;
+      const x = view.xOfSeconds(t);
+      const cur = '<line x1="' + x.toFixed(1) + '" y1="' + yTop.toFixed(1) + '" x2="' + x.toFixed(1) + '" y2="' + yBot.toFixed(1) +
+        '" stroke="' + style.cursor.color + '" stroke-width="' + style.cursor.wPx + '" opacity="' + style.cursor.opacity + '"/>';
+      parts.push(EDGE ? '<g data-anim="cursor" data-edge="' + (EdgeRules.screenClassOf(EDGE, 'cursor', true) || 'none') + '">' + cur + '</g>' : cur);
+    }
+    if (EDGE) return parts.concat(edgeFrame(instances, view, t, style, EDGE)).join('\n');
+    for (const inst of instances) {
+      const fn = REG[inst.kind];
+      if (!fn) continue;
+      const st = style[inst.kind] || {};
+      try {
+        if (inst.part !== undefined) view.system(inst.part); // part not in view → skip
+        for (const s of fn(inst, view, t, st)) parts.push(s);
+      } catch (e) { /* instance outside this view's parts */ }
+    }
+    return parts.join('\n');
+  }
+  // the frame under the edge rules: draw every device, measure the clamp devices, push each lane's once, clip the cut ones at x(t0)
+  function edgeFrame(instances, view, t, style, EDGE) {
+    const [w0] = view.window, X0 = view.xOfSeconds(w0);
+    const drawn = [];
+    instances.forEach((inst, i) => {
+      const fn = REG[inst.kind];
+      if (!fn) return;
+      const st = style[inst.kind] || {};
+      try {
+        if (inst.part !== undefined) view.system(inst.part); // part not in view → skip
+        const svg = fn(inst, view, t, st);
+        if (!svg.length) return;
+        const cls = EdgeRules.screenClassOf(EDGE, inst.kind, true);
+        const box = cls === 'clamp' && BOX[inst.kind] ? BOX[inst.kind](inst, view, t, st) : null;
+        drawn.push({ kind: inst.kind, unit: inst.part !== undefined ? 'p' + inst.part : 'i' + i, svg, cls, box });
+      } catch (e) { /* instance outside this view's parts */ }
+    });
+    const lefts = new Map();
+    for (const d of drawn) if (d.cls === 'clamp' && d.box) lefts.set(d.unit, Math.min(lefts.has(d.unit) ? lefts.get(d.unit) : Infinity, d.box[0]));
+    const shifts = EdgeRules.unitShifts(lefts, X0);
+    const out = [];
+    const clipId = 'anim-cut-' + Math.round(w0 * 1000);
+    if (drawn.some(d => d.cls === 'cut')) {
+      const x1 = view.musicX1Px != null ? view.musicX1Px : view.widthPx;
+      out.push('<defs><clipPath id="' + clipId + '"><rect x="' + X0.toFixed(2) + '" y="0" width="' + (x1 - X0).toFixed(2) + '" height="' + view.heightPx + '"/></clipPath></defs>');
+    }
+    for (const d of drawn) {
+      const s = d.cls === 'clamp' ? (shifts.get(d.unit) || 0) : 0;
+      out.push('<g data-anim="' + d.kind + '" data-edge="' + (d.cls || 'none') + '"' + (s ? ' data-shift="' + s.toFixed(2) + '" transform="translate(' + s.toFixed(2) + ',0)"' : '') +
+        (d.cls === 'cut' ? ' clip-path="url(#' + clipId + ')"' : '') + '>' + d.svg.join('\n') + '</g>');
+    }
+    return out;
+  }
+  // the ink box of one device at t (for the gate's frame probe and the tests) — null for a kind with none
+  function boxOf(inst, view, t, st) { return BOX[inst.kind] ? BOX[inst.kind](inst, view, t, st || {}) : null; }
+
+  return { register, kinds, collect, frameSvg, boxOf, staffPosOfMidi, bendAt, lvlAt, arcPath, _registry: REG };
+});

@@ -1,0 +1,7 @@
+{
+  "_doc": "THE COVER'S WORDS (piece #6's PLAN 2b-P step 2; this piece's PLAN 2.16 step 3, RUNNING_LOG §478). print/cover/make_cover.ps1 draws print/cover/cover-<format>.svg from these three in the house style. `title` and `subtitle` are each ONE string or a LIST of lines (drawn stacked, centred). Edit, then run:  powershell -ExecutionPolicy Bypass -File print/cover/make_cover.ps1",
+  "_words": "HIS, 2026-10-11 ('d yes'): Approaching / for bass flute, bass clarinet, percussion, viola, cello and electronics / Justin Yang. The title is TENTATIVE (DEC-87) and the ensemble is NOT named (DEC-197) — the instruments' line is the performance instructions page's own. On TWO rows here, as he chose for piece #6's cover (a long line on one row shrinks the title); the one-row cover is made for the proof beside it.",
+  "title": "Approaching",
+  "subtitle": ["for bass flute, bass clarinet, percussion,", "viola, cello and electronics"],
+  "name": "Justin Yang"
+}

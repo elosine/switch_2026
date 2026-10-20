@@ -1,0 +1,341 @@
+#!/usr/bin/env python3
+"""analyze_card.py - PLAN 1b.2 (2026-09-19): the INSTRUMENT CARD, measured off the rack.
+
+    python probes/analyze_card.py <recording.wav> [--schedule probes/card_schedule.json]
+                                  [--out bank/instrument_card.json]
+
+Every level here is ABSOLUTE dBFS AT THE MASTER: REC has been at unity since 1b.0 and 1b.1 proved the
+chain to three decimals (bank/reference.json). That is what makes these numbers comparable with the
+K-20 target 1b.3 will set, and with any other studio's.
+
+PER NOTE, FOUR THINGS - and the first two are the point of the step:
+
+  maxMomentary   the loudest 400 ms, K-weighted: HOW IT SPEAKS. 0d measured only this, on a 1.2 s note.
+  integrated     K-weighted RMS over the whole sounding note: HOW LOUD IT IS. For a wind these are
+                 nearly equal; for the bowed vibraphone, whose bow is 20 dB down 7.4 s after its peak
+                 (RUNNING_LOG §69), they are far apart - and balancing on the first is exactly why he
+                 said "vibraphone is quiet".
+  soundingS      onset to 40 dB below its own peak: the note's real life, measured rather than assumed.
+  cents          f0 against the written pitch, by autocorrelation searched within +/-6 semitones of the
+                 note that was asked for - so an octave error reads as an octave error, not as silence.
+                 It is the check that would have caught the double bass a day earlier (1a.0 iv).
+
+Bend notes (+50 % of full bend) are differenced against the unbent note of the same pitch and velocity
+to give each instrument's REAL bend range in semitones - inferred until now for five of the seven (§74).
+"""
+import argparse, json, os, sys, datetime
+import numpy as np
+import soundfile as sf
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, 'probes'))
+from analyze_balance import k_weight, level
+try: sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+except Exception: pass
+
+DROP_DB = 40.0          # the note has stopped sounding once it is this far under its own peak
+F0_WIN_S = 0.5
+F0_AT_S = 0.6           # into the note: past the attack, inside the steady part
+
+
+def dbv(x): return 20.0 * np.log10(max(float(x), 1e-12))
+
+
+def env_db(x, sr, hop_ms=10):
+    hop = max(1, int(sr * hop_ms / 1000)); n = len(x) // hop
+    if n == 0: return np.array([-200.0]), hop
+    e = np.sqrt(np.mean(x[:n * hop].reshape(n, hop) ** 2, axis=1) + 1e-18)
+    return 20 * np.log10(e), hop
+
+
+def kweighted_rms_db(seg, sr):
+    """K-weighted RMS over the whole segment (Parseval on the plain spectrum, as analyze_balance.level does)"""
+    if len(seg) < 64: return -200.0
+    w = np.fft.rfftfreq(len(seg), 1 / sr)
+    spec = np.fft.rfft(seg)
+    p = np.sum((np.abs(spec) * k_weight(w)) ** 2) / len(seg)
+    return dbv(np.sqrt(2 * p / len(seg) + 1e-18))
+
+
+def f0_spectral(seg, sr, pitch):
+    """the strongest spectral peak within +/-6 semitones of the written note, parabolically refined.
+
+    TWO DETECTORS, 2026-09-19 (1b.3a). Autocorrelation alone called the bowed vibraphone 440 cents sharp
+    at F3 and 75 at B-flat3, and the spectrum says otherwise: every one of its nine pitches puts its
+    strongest partial at x1.00 of the written fundamental. A bowed bar is close to a pure tone with a slow
+    beat between two near-coincident modes, and that envelope modulation is exactly what a normalised
+    autocorrelation over half a second can lock onto instead of the period. So both are computed; the
+    spectral peak is believed when it is strong, because for a near-pure tone it cannot be fooled the same
+    way, and the two are kept side by side so a disagreement is visible rather than silently resolved."""
+    if len(seg) < int(sr * 0.05): return None, None, None
+    want = 440.0 * 2 ** ((pitch - 69) / 12.0)
+    w = seg * np.hanning(len(seg))
+    S = np.abs(np.fft.rfft(w)); f = np.fft.rfftfreq(len(w), 1 / sr)
+    band = (f >= want * 2 ** (-6 / 12.0)) & (f <= want * 2 ** (6 / 12.0))
+    if not np.any(band) or S.max() <= 0: return None, None, None
+    idx = np.where(band)[0]
+    k = idx[int(np.argmax(S[idx]))]
+    if k <= 0 or k >= len(S) - 1: return None, None, None
+    a, b, c = S[k - 1], S[k], S[k + 1]
+    d = a - 2 * b + c
+    kk = k + (0.5 * (a - c) / d) if abs(d) > 1e-12 else k
+    fpk = float(kk * sr / len(w))
+    # PROMINENCE WITHIN THE BAND, not against the whole spectrum. Measured against the whole spectrum this
+    # test failed on the vibraphone's bottom bar: a vibraphone is TUNED so that its fourth partial, two
+    # octaves up, is strong, and that partial lies outside the +/-6 semitone band, so the real fundamental
+    # scored 'weak' and the autocorrelation's 440-cent error was believed instead. What matters is whether
+    # a clear tone stands above the noise IN THE BAND WHERE THE WRITTEN NOTE SHOULD BE.
+    med = float(np.median(S[idx])) or 1e-18
+    strength = float(b / med)
+    return round(fpk, 3), round(float(1200 * np.log2(fpk / want)), 1), round(strength, 2)
+
+
+def f0_cents(seg, sr, pitch):
+    """f0 by autocorrelation with parabolic interpolation, searched only within +/-6 semitones of the
+    written note - the constraint that makes an octave error legible instead of plausible"""
+    if len(seg) < int(sr * 0.05): return None, None
+    want = 440.0 * 2 ** ((pitch - 69) / 12.0)
+    lo, hi = want * 2 ** (-6 / 12.0), want * 2 ** (6 / 12.0)
+    x = seg - np.mean(seg)
+    if np.sqrt(np.mean(x * x)) < 1e-6: return None, None
+    n = 1 << int(np.ceil(np.log2(len(x) * 2)))
+    S = np.fft.rfft(x, n)
+    ac = np.fft.irfft(S * np.conj(S), n)[:len(x)]
+    if ac[0] <= 0: return None, None
+    ac /= ac[0]
+    t_lo, t_hi = int(sr / hi), min(len(ac) - 2, int(sr / lo))
+    if t_hi <= t_lo + 1: return None, None
+    k = int(np.argmax(ac[t_lo:t_hi])) + t_lo
+    a, b, c = ac[k - 1], ac[k], ac[k + 1]
+    d = a - 2 * b + c
+    k_ref = k + (0.5 * (a - c) / d) if abs(d) > 1e-12 else k
+    f = sr / k_ref
+    return round(float(f), 3), round(float(1200 * np.log2(f / want)), 1)
+
+
+ap = argparse.ArgumentParser()
+ap.add_argument('wav')
+ap.add_argument('--schedule', default=os.path.join(ROOT, 'probes', 'card_schedule.json'))
+ap.add_argument('--out', default=os.path.join(ROOT, 'bank', 'instrument_card.json'))
+ap.add_argument('--merge', default=None,
+                help='an existing card JSON whose measurements this run adds to. A row measured again '
+                     '(same instrument, role, pitch and velocity) is REPLACED by the new one, so the card '
+                     'stays one file across several runs and 1b.6 has one thing to diff.')
+a = ap.parse_args()
+
+S = json.load(open(a.schedule, encoding='utf-8'))
+notes = S['notes']
+x, sr = sf.read(a.wav, always_2d=True, dtype='float64')
+mono = x.mean(axis=1)
+E, hop = env_db(mono, sr)
+floor = float(np.percentile(E, 5))
+thresh = floor + 12.0
+
+first = np.argmax(E > thresh) if np.any(E > thresh) else 0
+offset = first * hop / sr - notes[0]['tOnMs'] / 1000.0
+print(f"{os.path.basename(a.wav)} — {len(x)/sr:.1f} s, {sr} Hz · noise floor {floor:.1f} dBFS · "
+      f"schedule found at {offset:+.3f} s · {len(notes)} notes")
+
+rows = []
+for i, n in enumerate(notes):
+    t0 = offset + n['tOnMs'] / 1000.0
+    slot_end = offset + ((notes[i + 1]['tPreMs'] if i + 1 < len(notes) else S['totalMs']) / 1000.0) - 0.05
+    i0, i1 = max(0, int(t0 * sr)), min(len(mono), int(slot_end * sr))
+    if i1 - i0 < int(sr * 0.1):
+        rows.append({**{k: n[k] for k in ('inst', 'label', 'role', 'pitch', 'vel', 'port', 'ch')}, 'found': False})
+        continue
+    seg = mono[i0:i1]
+    e, h = env_db(seg, sr)
+    on = int(np.argmax(e > thresh)) if np.any(e > thresh) else 0
+    s0 = on * h
+    body = seg[s0:]
+    if len(body) < int(sr * 0.05) or np.max(np.abs(body)) < 10 ** (thresh / 20):
+        rows.append({**{k: n[k] for k in ('inst', 'label', 'role', 'pitch', 'vel', 'port', 'ch')}, 'found': False})
+        continue
+    peak = float(np.max(np.abs(body)))
+    eb, hb = env_db(body, sr)
+    live = np.where(eb > dbv(peak) - DROP_DB)[0]
+    end = min(len(body), (int(live[-1]) + 1) * hb) if len(live) else len(body)
+    sounding = body[:end]
+    flat_m, k_m = level(sounding, sr, True, win_s=0.4)
+    # unpitched percussion has no f0: autocorrelation on a cymbal or a castanet returns the period of
+    # whatever noise it locks onto, which reads as a huge 'pitch error' that means nothing. Only pitched notes.
+    f0 = cents = fpk = cents_pk = pk_strength = None
+    if n['role'] != 'perc':
+        win = body[int(sr * F0_AT_S):int(sr * (F0_AT_S + F0_WIN_S))]
+        f0, cents = f0_cents(win, sr, n['pitch'])
+        fpk, cents_pk, pk_strength = f0_spectral(win, sr, n['pitch'])
+        # the spectral peak wins when it is clearly the loudest thing in band; otherwise the
+        # autocorrelation stands (a weak fundamental is where autocorrelation is the better tool)
+        if cents_pk is not None and pk_strength is not None and pk_strength > 8.0:
+            cents = cents_pk
+    rows.append({**{k: n[k] for k in ('inst', 'label', 'role', 'pitch', 'vel', 'port', 'ch')},
+                 'found': True, 'onsetS': round(i0 / sr + s0 / sr, 3),
+                 'maxMomentaryDb': round(k_m, 2), 'maxMomentaryFlatDb': round(flat_m, 2),
+                 'integratedDb': round(kweighted_rms_db(sounding, sr), 2),
+                 'peakDbfs': round(dbv(peak), 2), 'soundingS': round(end / sr, 3),
+                 'f0Hz': f0, 'centsOffWritten': cents,
+                 'centsByAutocorrelation': None if f0 is None else round(1200 * np.log2(f0 / (440.0 * 2 ** ((n['pitch'] - 69) / 12.0))), 1),
+                 'centsBySpectralPeak': cents_pk, 'spectralPeakStrength': pk_strength,
+                 **({'bendFraction': n['fraction']} if n.get('fraction') is not None else {})})
+
+# ---- THE TRIM IN FORCE NOW, stamped on every row THIS run measured (the harvest's H-17; piece #6's RUNNING_LOG §87) ----
+# compute_trims.js computes  new trim = trim + (target - measured), which is only right when `trim` is the one that was in
+# force when `measured` was taken. So each row carries it: pitched from the recipe's balanceDb, percussion from
+# bank/perc_rack.json - read through tools/current_trims.js, the same two sources compute_trims.js calls "current".
+# A row merged in from an earlier card keeps whatever it carries (nothing, if it predates this).
+TRIMS = None
+try:
+    import subprocess
+    p = subprocess.run(['node', os.path.join(ROOT, 'tools', 'current_trims.js')], capture_output=True, text=True, timeout=30)
+    if p.returncode == 0: TRIMS = json.loads(p.stdout)
+    else: print(f'  WARNING: tools/current_trims.js failed ({p.stderr.strip()[:120]}) - rows carry no trimAtMeasurementDb')
+except Exception as e:
+    print(f'  WARNING: could not read the current trims ({e}) - rows carry no trimAtMeasurementDb')
+
+def one_trim(rs):
+    """the trim ALL of these rows were measured under; None when they disagree or one carries none"""
+    ts = {r.get('trimAtMeasurementDb') for r in rs}
+    if len(ts) == 1:
+        (t,) = ts
+        return t
+    return None
+
+for r in rows:
+    r['run'] = os.path.basename(a.wav)
+    r['trimAtMeasurementDb'] = None if TRIMS is None else TRIMS.get(r['inst'])
+
+if a.merge:
+    try:
+        prior = json.load(open(a.merge, encoding='utf-8')).get('notes', [])
+    except Exception as e:
+        print(f'could not read {a.merge}: {e}'); sys.exit(2)
+    key = lambda r: (r['inst'], r['role'], r['pitch'], r['vel'])
+    fresh = {key(r) for r in rows}
+    kept = [r for r in prior if key(r) not in fresh]
+    print(f'  merging: {len(kept)} rows kept from {os.path.basename(a.merge)}, '
+          f'{len(prior) - len(kept)} replaced, {len(rows)} measured now')
+    rows = kept + rows
+
+# ---- the card, per instrument ----
+BAL = {}
+for f in ('balance.json', 'balance_brass.json'):
+    try:
+        for I in json.load(open(os.path.join(ROOT, 'bank', f), encoding='utf-8'))['instruments']:
+            BAL.setdefault(I['inst'], I)
+    except Exception: pass
+OFF = S.get('comparison', {}).get('expectedOffsetDb', 12.0)
+
+card = {}
+for r in rows:
+    if not r['found']: continue
+    c = card.setdefault(r['inst'], {'label': r['label'], 'port': r['port'], 'notes': [], 'bend': None})
+    if r['role'] == 'bend': c['bend'] = r
+    else: c['notes'].append(r)
+
+print(f"\n{'instrument':17}{'vel':>5}{'maxMom':>9}{'integ':>8}{'M−I':>6}{'sound':>7}{'cents':>7}   0d+{OFF:.0f}  Δ")
+out_inst = {}
+for key, c in card.items():
+    vels = sorted({r['vel'] for r in c['notes']})
+    per_vel = {}
+    for v in vels:
+        sel = [r for r in c['notes'] if r['vel'] == v and r['role'] in ('card', 'perc', 'vibreg', 'vibrepeat')]
+        if not sel: continue
+        # AVERAGE THE REPEATS AT EACH PITCH, and carry their spread. A dict comprehension keyed on pitch
+        # kept only the LAST reading, which is wrong for any sampler with a round robin: 0d recorded a
+        # scatter SD of 5.99 dB on this vibraphone and 1.7-3.2 dB on the other Xsample instruments, and a
+        # repeat test (1b.3a) found the SAME note at the SAME velocity spanning 13.8 dB across a 3-sample
+        # cycle. A per-pitch figure from one strike is that cycle's luck, not the instrument's level.
+        by_pitch = {}
+        for r in sel: by_pitch.setdefault(r['pitch'], []).append(r)
+        pp = {}
+        for pitch, rs in by_pitch.items():
+            mm = [r['maxMomentaryDb'] for r in rs]; ii = [r['integratedDb'] for r in rs]
+            pp[str(pitch)] = {'maxMomentaryDb': round(float(np.mean(mm)), 2),
+                              'integratedDb': round(float(np.mean(ii)), 2),
+                              'soundingS': round(float(np.mean([r['soundingS'] for r in rs])), 2),
+                              'n': len(rs), 'spreadDb': round(float(max(mm) - min(mm)), 2),
+                              'centsOffWritten': rs[-1]['centsOffWritten']}
+        spreads = [d['spreadDb'] for d in pp.values() if d['n'] > 1]
+        per_vel[str(v)] = {
+            'maxMomentaryDb': round(float(np.mean([d['maxMomentaryDb'] for d in pp.values()])), 2),
+            'integratedDb': round(float(np.mean([d['integratedDb'] for d in pp.values()])), 2),
+            'soundingS': round(float(np.mean([d['soundingS'] for d in pp.values()])), 2),
+            'nPerPitch': {p: d['n'] for p, d in pp.items()},
+            'worstRepeatSpreadDb': round(max(spreads), 2) if spreads else None,
+            'trimAtMeasurementDb': one_trim(sel),   # H-17: None = the rows of this velocity were measured under different trims, or carry none
+            'perPitch': pp,
+        }
+        if per_vel[str(v)]['trimAtMeasurementDb'] is None and any(r.get('trimAtMeasurementDb') is not None for r in sel):
+            print(f"  WARNING  {c['label']} vel {v}: its rows were measured under DIFFERENT trims - re-measure the instrument in one run")
+    b = BAL.get(key, {})
+    old64, old127 = b.get('anchorDb'), b.get('fullDb')
+    rec = {'label': c['label'], 'port': c['port'], 'byVelocity': per_vel,
+           'compare0d': {'anchorDb': old64, 'fullDb': old127, 'expectedOffsetDb': OFF}}
+    # the bend range, from the +50 % note against the unbent note of the same pitch and velocity
+    if c['bend'] and c['bend'].get('centsOffWritten') is not None:
+        ref = next((r for r in c['notes'] if r['pitch'] == c['bend']['pitch'] and r['vel'] == c['bend']['vel']
+                    and r['centsOffWritten'] is not None), None)
+        if ref:
+            d = c['bend']['centsOffWritten'] - ref['centsOffWritten']
+            rec['bend'] = {'pitch': c['bend']['pitch'], 'fraction': c['bend'].get('bendFraction', 0.5),
+                           'centsMoved': round(d, 1), 'rangeSt': round(abs(d) / (100 * c['bend'].get('bendFraction', 0.5)), 3),
+                           'unbentCents': ref['centsOffWritten'], 'bentCents': c['bend']['centsOffWritten']}
+    out_inst[key] = rec
+
+    for v in vels:
+        pv = per_vel.get(str(v))
+        if not pv: continue
+        cts = [r['centsOffWritten'] for r in c['notes'] if r['vel'] == v and r['centsOffWritten'] is not None]
+        cs = f"{np.mean(cts):+.0f}" if cts else '  —'
+        cmp_s = ''
+        if v == 64 and old64 is not None:
+            cmp_s = f"  {old64 + OFF:+7.2f} {pv['maxMomentaryDb'] - (old64 + OFF):+6.2f}"
+        elif v == 127 and old127 is not None:
+            cmp_s = f"  {old127 + OFF:+7.2f} {pv['maxMomentaryDb'] - (old127 + OFF):+6.2f}"
+        print(f"{(c['label'] if v == vels[0] else ''):17}{v:>5}{pv['maxMomentaryDb']:>9.2f}{pv['integratedDb']:>8.2f}"
+              f"{pv['maxMomentaryDb'] - pv['integratedDb']:>6.1f}{pv['soundingS']:>7.2f}{cs:>7}{cmp_s}")
+
+# ---- the register report: is the spread a smooth trend or a sample-zone step? (1b.3a) ----
+for key, c in card.items():
+    reg = sorted([r for r in c['notes'] if r['role'] == 'vibreg'], key=lambda r: (r['vel'], r['pitch']))
+    if not reg: continue
+    print(f"\nREGISTER — {c['label']}, across its range (maxMomentary / integrated, dB):")
+    for v in sorted({r['vel'] for r in reg}):
+        sel = [r for r in reg if r['vel'] == v]
+        print(f"  vel {v:>3}  " + '  '.join(f"{r['pitch']}: {r['maxMomentaryDb']:.1f}/{r['integratedDb']:.1f}" for r in sel))
+        vals = [r['maxMomentaryDb'] for r in sel]
+        print(f"          spread {max(vals) - min(vals):.1f} dB   "
+              f"loudest {sel[int(np.argmax(vals))]['pitch']}   quietest {sel[int(np.argmin(vals))]['pitch']}")
+        steps = [(sel[i + 1]['pitch'], round(vals[i + 1] - vals[i], 1)) for i in range(len(sel) - 1)]
+        print('          step to each next pitch: ' + '  '.join(f"{p}:{d:+.1f}" for p, d in steps))
+
+print('\nBEND RANGE, measured (+50 % of full bend against the same note unbent):')
+for key, r in out_inst.items():
+    if 'bend' in r:
+        print(f"  {r['label']:17} {r['bend']['centsMoved']:+7.1f} c  →  {r['bend']['rangeSt']:.2f} semitones")
+
+print('\nPITCH: any note more than 40 cents off its written pitch (0 expected; a bend note is excluded):')
+bad = [r for r in rows if r['found'] and r['role'] != 'bend' and r['centsOffWritten'] is not None
+       and abs(r['centsOffWritten']) > 40]
+print('  none — every note sounds the pitch it was sent.' if not bad else
+      '\n'.join(f"  {r['label']:17} note {r['pitch']:3} vel {r['vel']:3}  {r['centsOffWritten']:+.0f} c" for r in bad))
+
+missing = [r for r in rows if not r['found']]
+if missing:
+    print(f"\nNOT FOUND ({len(missing)}): " + ', '.join(f"{r['label']} {r['pitch']}/{r['vel']}" for r in missing[:12]))
+
+out = {'generatedAt': datetime.datetime.now().isoformat(timespec='seconds'), 'planItem': '1b.2', 'piece': 'decibel',
+       'recording': os.path.basename(a.wav), 'schedule': os.path.basename(a.schedule),
+       'scheduleGeneratedAt': S.get('generatedAt'), 'sampleRate': sr,
+       'scale': 'absolute dBFS at the master (REC at unity since 1b.0; the chain proven in bank/reference.json)',
+       'reference': 'bank/reference.json', 'standard': S.get('standard'),
+       'method': {'maxMomentary': 'loudest 400 ms, K-weighted (BS.1770 pre-filter) — how it speaks',
+                  'integrated': 'K-weighted RMS over the whole sounding note — how loud it is',
+                  'soundingS': f'onset to {DROP_DB:.0f} dB below the note\'s own peak',
+                  'cents': 'f0 by autocorrelation, searched within ±6 semitones of the written pitch',
+                  'noiseFloorDb': round(floor, 2), 'scheduleOffsetS': round(offset, 3)},
+       'instruments': out_inst, 'notes': rows}
+os.makedirs(os.path.dirname(a.out), exist_ok=True)
+json.dump(out, open(a.out, 'w', encoding='utf-8'), indent=1)
+print(f"\nwrote {os.path.relpath(a.out, ROOT)} — {sum(1 for r in rows if r['found'])}/{len(rows)} notes measured")

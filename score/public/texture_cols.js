@@ -1,0 +1,708 @@
+// texture_cols.js — THE COLUMNS: every ON mark of the top row orchestrated with the drawer's left side (LGMF PLAN 1m.2, 2026-09-21;
+// RUNNING_LOG §224 … §233; COMPOSITION_NOTES LG-66 … LG-72). THE THIRD FORM (§232 · §233), after his *"what do we need to get this
+// working right?"* — ONE RULE:
+//
+//   A COLUMN'S PLAYERS ARE ITS TICKS. Tick = on = dealt = sounds. One switch, shown in two places: the circles in the column and the
+//   boxes in the players list (the list shows the column clicked last — the PRIMARY). A fresh column has NO players. Tick one and it
+//   gets a note from the harmony at once (an unassigned pitch that fits, chosen by the seed); untick one and its note leaves — nobody
+//   else moves. Shuffle re-deals the column's players. Several columns selected share the HARMONY and the SHUFFLE, each dealt on its
+//   OWN players; a harmony picked or a take loaded goes to all of them, each dealt on its own players. `Hear orchestrated` = the primary
+//   column's players; SPACE = the pattern; `all on` · `all off` = the column's players.
+//
+// Why (§232): the drawer has ONE set of ticks and they belong to the playhead, not to a strike; the columns need players of their
+// own. Two earlier forms bridged that with the one drawer (§227: the circles WERE the drawer's ticks — one set for every column;
+// §228 · §231: who sounds apart from the ticks — a tick then meant nothing to him). Here the drawer is a VIEW of one column at a time:
+// selecting a column puts its harmony, its deal and its players on the drawer; anything done there is written back into it; the
+// other columns are dealt OFFLINE by the same drawer code (`txWithColumn`), so one rule holds everywhere.
+//
+// A mixin on texture_row.js (a mixin on the strikes drawer); `strike_drawer.js` is not changed. A column is
+//   { state: the drawer's `state()` — the harmony's id, the cfg, the voices with their players (THE DEAL) · players: [drawer rows] ·
+//     notes: the deal as notes, each player · pitch once · take: the name of the harmony take it came from }
+// remembered with the pattern (localStorage, as 1m.1). `hear` is STRIKE here (§228 · §230). UNDO: ↶ · CTRL+Z (§228).
+//
+// 1m.3 DURATION (§234 … §237, LG-73): every note has a length he chose, or THE STANDARD SHORT — `short` in the bar, 120 ms, kept with
+// the pattern — for the column notes, the claves, and the drawer's `hear: strike` while a texture take is on (so the column preview
+// and the pattern agree; the strike mode keeps the strike's own lengths; `long tone` is long_tone_ui's and still wins). A column takes
+// a `length` in seconds from the bar (blank = the short), shared by a multi-selection as the harmony is; one player takes a length of
+// their own in the `len` box on their row of the players list (1m.4.5 — it was a double-click on the circle; blank = the column's).
+// Stored in the column: `len` (s) and `lens` {row: s}; the notes stored in a column carry NO length — it is read at play time. SEEN:
+// from each lit circle a bar to the right, the note's length at the zoom; the short = the circle alone. Under the DYNAMICS LAW these
+// stay STRUCK notes held N seconds.
+//
+// 1m.4.5 THE COLUMN AS A PASSIVE INDICATOR (LG-83, RUNNING_LOG §252): the column takes ONE gesture — a click SELECTS it (1m.4.6 names
+// the modifiers). The circle's click as a tick and 1m.3's double-click are gone: every control is in the orchestration panel, in two
+// kinds kept apart — what a take carries (harmony · deal · articulations) and what the column alone carries (plays · length, per row
+// and per column). The column SHOWS: a lit or grey circle per row (plays or not) · a bar from a lit circle for the length · a dynamic
+// mark reserved for 1n.
+(function (root) {
+'use strict';
+const D = root.StrikeDrawer;
+if (!D || typeof D.txRender !== 'function') { console.warn('[texture_cols] texture_row.js is not loaded'); return; }
+const E_ = () => (typeof MorphEmit !== 'undefined' ? MorphEmit : (root.MorphEmit || null));
+const TRK = () => (typeof D.tracks === 'function' ? D.tracks() : (typeof TRACKS !== 'undefined' ? TRACKS : [])) || [];
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const nm = m => ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'][((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1);
+const escH = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const ROW_TOP = 24, MARK_H = 18, COL_TOP = ROW_TOP + MARK_H + 6, CIRC_R = 4.5, BAND_MIN = 10, PICK_PX = 6, UNDO_MAX = 40;
+const ANCHOR_MF = 100, SHORT_MS = 120, SHORT_MIN = 10, SHORT_MAX = 5000, LEN_MIN = 0.01, LEN_MAX = 600;   // 1m.3: the standard short (ms) and a length's bounds (s)
+const INP = 'background:#111114;color:#ddd;border:1px solid #444;padding:0 2px;font-size:10px';
+const ON_COL = '#E8CF9A', OFF_FILL = '#55555f', SEL_BG = 'rgba(201,160,90,.16)', SEL_LINE = '#C9A05A';
+const BTN = 'background:#2a2a30;color:#ddd;border:1px solid #555;border-radius:3px;padding:0 4px;font-size:10px;cursor:pointer';
+const NOT_APPLIED = ['hearMode', 'longS'];   // the drawer's `hear` menu is the page's, not a column's
+const rowOf = n => (n.row != null ? n.row : n.lane);
+const lcg = seed => { let s = (seed >>> 0) || 1; return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; };
+const shuffled = (a, rnd) => { const o = a.slice(); for (let i = o.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [o[i], o[j]] = [o[j], o[i]]; } return o; };
+const SHARED = st => (st ? st.strikeId + '|' + (st.cfg && st.cfg.oSeedShuffle) : '');   // what a multi-selection shares: the harmony and the shuffle
+const isEnter = ev => ev.key === 'Enter' || ev.code === 'Enter' || ev.code === 'NumpadEnter' || ev.keyCode === 13;   // by name or by code: an automated key can come with no name
+const isEsc = ev => ev.key === 'Escape' || ev.code === 'Escape' || ev.keyCode === 27;
+
+Object.assign(D, {
+    _txApplying: false, _txFromBtn: false, _txSavedOff: null, _txSavedHear: null, _txPersistT: null, _txUndo: [], _txHearSet: false, _txHeld: null,   // _txHeld: the column the drawer shows now (set by a recall) — the only one written back
+
+    // the pattern's columns and selection — older forms brought forward: `on` (§228) or `off` (§227) → `players`, the deal cut to them
+    txCols() {
+        const p = this.txPat(); if (!p) return null;
+        if (!p.cols) p.cols = {}; if (!Array.isArray(p.sel)) p.sel = [];
+        Object.keys(p.cols).forEach(k => {
+            const c = p.cols[k]; if (!c || Array.isArray(c.players)) return;
+            const all = TRK().map((t, i) => i);
+            c.players = Array.isArray(c.on) ? c.on.slice() : Array.isArray(c.off) ? all.filter(i => !c.off.includes(i)) : [];
+            const keep = new Set(c.players);
+            if (c.state && Array.isArray(c.state.voices)) c.state.voices.forEach(v => { if (v.lane >= 0 && !keep.has(v.lane)) { v.lane = -1; v.fold = 0; v.standIn = null; v.skip = false; v.piano = false; } v.also = (v.also || []).filter(r => keep.has(r.lane)); });
+            c.notes = (c.notes || []).filter(n => keep.has(n.row));
+            delete c.on; delete c.off;
+        });
+        if (p.lenV !== 1) { Object.keys(p.cols).forEach(k => { const c = p.cols[k]; ((c && c.notes) || []).forEach(n => { delete n.durMs; }); }); p.lenV = 1; }   // 1m.3: a stored note carries no length — it is read at play time
+        return p;
+    },
+    txSel() { const p = this.txCols(); return p ? p.sel : []; },
+    txPrimary() { const p = this.txCols(); return p && p.sel.length ? p.sel[0] : null; },
+    txClavesOn() { return this._txS.claves !== false; },
+    txPersistSoon() { clearTimeout(this._txPersistT); this._txPersistT = setTimeout(() => this.txPersist(), 150); },
+    txTakeName() { const b = this.el && this.el.querySelector('#skTakeName'); return b ? String(b.value || '').trim() : ''; },
+    txSetTakeName(v) { const b = this.el && this.el.querySelector('#skTakeName'); if (b) b.value = v || ''; },
+    // `hear` = STRIKE while a texture take is on the page (§228 · §230)
+    txHearStrike() {
+        if (this._txHearSet) return; this._txHearSet = true;
+        if (!this._txSavedHear) this._txSavedHear = { hearMode: this.cfg.hearMode, longS: this.cfg.longS };
+        if (this.cfg.hearMode !== 'strike') { this.cfg.hearMode = 'strike'; this.save(); }
+        if (typeof this.paintLongUI === 'function') try { this.paintLongUI(); } catch (e) {}
+    },
+    txH() {
+        const view = this.el && this.el.querySelector('#txView');
+        const rows = this.txRowsY();
+        return Math.max(ROW_TOP + MARK_H + 14, (view && view.clientHeight) || 0, rows.length ? rows[rows.length - 1] + CIRC_R + 8 : 0);
+    },
+    // the players' rows, lined up with the drawer's list (`#skRows .skRow`, one per TRK row); evenly spaced when the list is not drawn
+    txRowsY() {
+        const T = TRK(), svg = this.el && this.el.querySelector('#txSvg'); if (!svg) return [];
+        const rows = this.el.querySelectorAll('#skRows .skRow');
+        if (rows.length === T.length) { const top = svg.getBoundingClientRect().top; return [...rows].map(r => { const b = r.getBoundingClientRect(); return b.top + b.height / 2 - top; }); }
+        const view = this.el.querySelector('#txView'), H = Math.max(200, (view && view.clientHeight) || 0), step = (H - COL_TOP - 10) / Math.max(1, T.length);
+        return T.map((t, i) => COL_TOP + step * (i + 0.5));
+    },
+
+    // ---------------------------------------------------------------- duration (1m.3)
+    txShortMs() { const p = this.txPat(), v = p ? +p.short : NaN; return isFinite(v) && v > 0 ? v : SHORT_MS; },
+    // a player's length in a column: their own (`lens`) over the column's (`len`); null = the standard short
+    txLenS(c, lane) {
+        const o = c && c.lens ? +c.lens[lane] : NaN; if (isFinite(o) && o > 0) return { s: o, own: true };
+        const l = c ? +c.len : NaN; if (isFinite(l) && l > 0) return { s: l, own: false };
+        return null;
+    },
+    txLenMs(c, lane) { const l = this.txLenS(c, lane); return l ? Math.round(l.s * 1000) : this.txShortMs(); },
+    // 1n.1 (RUNNING_LOG §277, his B): ONE PLAYER, ONE SOUND — a length that runs into that player's NEXT ON onset is CUT there: the note
+    // ends at the next attack, the bar is drawn to the cut, the stored length is untouched (turn the next mark off and the whole length
+    // is back). `tx` is the document's own texture (a saved entry's, when Insert counts hand edits). Different players never cut each other.
+    txNextOnset(p, tx, k, lane) {
+        const dots = (tx && tx.dots) || [], on = new Set(p.on || []), me = dots.find(d => d.k === k), t0 = me ? me.t : 0; let best = Infinity;
+        dots.forEach(d => { if (d.k === k || !on.has(d.k) || d.t <= t0 + 1e-6 || d.t >= best) return; const c = (p.cols || {})[d.k]; if (c && (c.players || []).includes(lane)) best = d.t; });
+        return isFinite(best) ? best : null;
+    },
+    txPlayLenMs(p, tx, c, k, lane) {
+        const full = this.txLenMs(c, lane), nx = this.txNextOnset(p, tx, k, lane); if (nx == null) return { ms: full, cut: false };
+        const me = ((tx && tx.dots) || []).find(d => d.k === k), gap = Math.round((nx - (me ? me.t : 0)) * 1000);
+        return gap < full ? { ms: Math.max(1, gap), cut: true } : { ms: full, cut: false };
+    },
+    txReachS(c) {   // §284: the longest bar a column can draw, seconds — its `len` or any player's own; 0 when every note is the short
+        let m = isFinite(+c.len) && +c.len > 0 ? +c.len : 0;
+        if (c.lens) Object.keys(c.lens).forEach(k => { const v = +c.lens[k]; if (isFinite(v) && v > m) m = v; });
+        return m;
+    },
+    txLenWord(c, lane) { const l = this.txLenS(c, lane); return l ? l.s + ' s' + (l.own ? ' (their own)' : '') : 'the short, ' + this.txShortMs() + ' ms'; },
+    // ---------------------------------------------------------------- 1p.1 (RUNNING_LOG §302): `len | end`
+    // An END TIME on the pattern's clock is the length said the other way round — `end = onset + len` — so the document keeps `len` ·
+    // `lens` exactly as before; the switch (`_txS.end`, beside `claves`) lives in the browser, never in the document. In `end` mode a
+    // box SHOWS onset + len and a typed end WRITES the length behind it, each selected column from its OWN onset: one end over several
+    // columns is a release together.
+    // the column's box follows the bar's menu (`_txS.end`); each ROW has a menu of its own beside its box (`_txS.endRows[lane]` — his A, §304:
+    // *"the length option is meant to be in the orch panel per instrument"*)
+    txEndMode(lane) { const S = this._txS || {}; return lane != null ? !!(S.endRows && S.endRows[lane]) : !!S.end; },
+    txOnsetOf(k) { const d = k != null ? this.txDot(k) : null; return d ? +d.t : 0; },
+    txEndOf(k, s) { return +(this.txOnsetOf(k) + s).toFixed(2); },
+    // a typed end → column k's length, or null with the reason: at or before the onset · under the short · past LEN_MAX
+    txLenFrom(k, end) {
+        const s = +(end - this.txOnsetOf(k)).toFixed(3), sh = this.txShortMs() / 1000;
+        if (!(s > 0)) return { s: null, why: 'at or before its onset' };
+        if (s < sh) return { s: null, why: 'under the short' };
+        if (s > LEN_MAX) return { s: null, why: 'more than ' + LEN_MAX + ' s long' };
+        return { s: Math.max(s, LEN_MIN) };
+    },
+    // the end typed in the column's box (lane null → `len`) or in a row's box (→ `lens[lane]`), over the selected columns; the ones it
+    // cannot reach are refused by name and the rest take it
+    txSetEnd(end, lane) {
+        const p = this.txCols(), t = lane != null ? TRK()[lane] : null, who = lane != null ? (t ? t.label : 'row ' + lane) + ': ' : '';
+        const ok = [], no = [];
+        p.sel.forEach(k => { const c = p.cols[k]; if (!c) return; const r = this.txLenFrom(k, end); if (r.s == null) no.push(this.txOnsetOf(k).toFixed(2) + ' s ' + r.why); else ok.push({ k, c, s: r.s }); });
+        if (!ok.length) { if (lane != null) this.txPaintRowLens(); else this.txPaintLenUI(); this.setStatus(who + 'an end of ' + end.toFixed(2) + ' s reaches no selected column — ' + no.join(' · '), true); return; }
+        this.txPushUndo();
+        ok.forEach(o => { if (lane == null) o.c.len = o.s; else { o.c.lens = o.c.lens || {}; o.c.lens[lane] = o.s; } });
+        this.txPersistSoon(); this.txRender();
+        this.setStatus(who + (ok.length === 1 ? 'the column at ' + this.txOnsetOf(ok[0].k).toFixed(2) + ' s ends' : ok.length + ' columns end') + ' at ' + end.toFixed(2) + ' s — length ' + ok.map(o => o.s.toFixed(2)).join(' · ') + ' s' + (lane != null ? ', their own' : '') + (no.length ? ' · refused: ' + no.join(' · ') : ''));
+    },
+    txSetShort(raw) {
+        const p = this.txPat(); if (!p) return;
+        const s = String(raw == null ? '' : raw).trim(), v = s === '' ? SHORT_MS : clamp(Math.round(+s) || SHORT_MS, SHORT_MIN, SHORT_MAX);
+        if (v === SHORT_MS) delete p.short; else p.short = v;
+        this.txPersist(); this.txRender(); this.setStatus('the standard short: ' + v + ' ms — every note where nothing longer is set, the claves, and hear: strike');
+    },
+    // `length` for the SELECTED column(s): blank = the short; seconds otherwise — set with several selected → all of them
+    txSetLen(raw) {
+        const p = this.txCols(); if (!p || !p.sel.length) { this.txPaintLenUI(); this.setStatus('select a column first — length is the selected column(s)\'', true); return; }
+        const s = String(raw == null ? '' : raw).trim();
+        if (s !== '' && this.txEndMode()) { if (!isFinite(+s)) { this.txPaintLenUI(); this.setStatus('end: seconds on the pattern\'s clock, or blank for the short', true); return; } return this.txSetEnd(+s, null); }   // 1p.1
+        const v = s === '' ? null : clamp(+s, LEN_MIN, LEN_MAX);
+        if (s !== '' && !(v > 0)) { this.txPaintLenUI(); this.setStatus('length: seconds, or blank for the short', true); return; }
+        this.txPushUndo();
+        p.sel.forEach(k => { const c = p.cols[k]; if (!c) return; if (v == null) delete c.len; else c.len = v; });
+        this.txPersistSoon(); this.txRender();
+        this.setStatus((p.sel.length === 1 ? 'the column at ' + this.txDot(p.sel[0]).t.toFixed(2) + ' s' : p.sel.length + ' columns') + (v == null ? ': the short again (' + this.txShortMs() + ' ms)' : ': ' + v + ' s' + (p.sel.length === 1 ? ' · ends ' + this.txEndOf(p.sel[0], v).toFixed(2) + ' s' : '') + ' — a player\'s own length still stands over it'));
+    },
+    // one player's own length in one column: blank = the column's
+    txSetOverride(k, lane, raw) {
+        const p = this.txCols(), c = p && p.cols[k], t = TRK()[lane]; if (!c || !t) return;
+        const s = String(raw == null ? '' : raw).trim(), v = s === '' ? null : clamp(+s, LEN_MIN, LEN_MAX);
+        if (s !== '' && !(v > 0)) { this.setStatus('a length of their own: seconds, or blank for the column\'s', true); return; }
+        this.txPushUndo();
+        if (v == null) this.txClearOverride(c, lane); else { c.lens = c.lens || {}; c.lens[lane] = v; }
+        this.txPersistSoon(); this.txRender();
+        this.setStatus(t.label + ' at ' + this.txDot(k).t.toFixed(2) + ' s: ' + (v == null ? 'the column\'s length again (' + this.txLenWord(c, lane) + ')' : v + ' s, their own'));
+    },
+    txClearOverride(c, lane) { if (c && c.lens) { delete c.lens[lane]; if (!Object.keys(c.lens).length) delete c.lens; } },
+    // 1m.4.5: the `len` box on each row of the players list (texture mode only) — a player's own length in the SELECTED column(s); blank =
+    // the column's. Set with several selected, all of them take it; the box shows the primary's, dashed where they differ.
+    txPaintRowLens() {
+        const orch = this.el && this.el.querySelector('#skOrch'); if (!orch) return;
+        const on = this.txIsOn(), p = on ? this.txCols() : null, k = p && this.txPrimary(), c = k ? p.cols[k] : null;
+        const cols = p && p.sel.length > 1 ? p.sel.map(kk => p.cols[kk]).filter(Boolean) : [];
+        orch.querySelectorAll('.skRow').forEach(row => {
+            const lane = +row.dataset.lane; let box = row.querySelector('.txRowLen'), sel = row.querySelector('.txRowLenMode');
+            if (!on) { if (box) box.remove(); if (sel) sel.remove(); return; }   // THE SHIELD: the strike mode's rows do not change
+            if (!box) {
+                box = document.createElement('input'); box.className = 'txRowLen'; box.type = 'number'; box.step = '0.05'; box.min = LEN_MIN; box.max = LEN_MAX; box.placeholder = 'len';
+                box.style.cssText = INP + ';width:44px;margin-left:4px;flex:none';
+                box.addEventListener('change', e => this.txSetRowLen(lane, e.target.value));
+                box.addEventListener('keydown', ev => { ev.stopPropagation(); if (isEnter(ev)) { ev.preventDefault(); box.blur(); } else if (isEsc(ev)) { ev.preventDefault(); this.txPaintRowLens(); box.blur(); } });
+                row.appendChild(box);
+            }
+            if (!sel) {   // 1p.1 (his A, §304): this row's own `len | end` menu, beside its box — a browser preference per row, never in the pattern
+                sel = document.createElement('select'); sel.className = 'txRowLenMode'; sel.innerHTML = '<option value="len">len</option><option value="end">end</option>';
+                sel.style.cssText = INP + ';width:46px;margin-left:6px;flex:none';
+                sel.title = 'this row\'s box: len — a length in seconds from the onset · end — the time the note ENDS on the pattern\'s clock (the readout beside ⏮); the length is written behind it, each selected column from its own onset. Remembered in this browser, not in the pattern';
+                sel.addEventListener('change', e => { const S = this._txS; S.endRows = S.endRows || {}; if (e.target.value === 'end') S.endRows[lane] = true; else delete S.endRows[lane]; this.txPersist(); this.txPaintRowLens(); this.setStatus((TRK()[lane] ? TRK()[lane].label : 'row ' + lane) + (e.target.value === 'end' ? ': the box reads the time the note ENDS on the pattern\'s clock — type one and the length is written behind it' : ': the box reads seconds from the onset again')); });
+                sel.addEventListener('keydown', ev => ev.stopPropagation());
+                row.insertBefore(sel, box);
+            }
+            const own = c && c.lens ? +c.lens[lane] : NaN, colLen = c ? +c.len : NaN, em = this.txEndMode(lane);   // 1p.1: in `end` mode the box reads onset + len
+            if (document.activeElement !== sel) sel.value = em ? 'end' : 'len'; sel.disabled = !k; sel.style.opacity = k ? '' : 0.45;
+            box.disabled = !k; box.style.opacity = k ? '' : 0.45;
+            if (document.activeElement !== box) box.value = isFinite(own) && own > 0 ? (em ? this.txEndOf(k, own).toFixed(2) : own) : '';
+            box.placeholder = k ? (isFinite(colLen) && colLen > 0 ? (em ? this.txEndOf(k, colLen).toFixed(2) : colLen) + ' s' : 'short') : '—';
+            if (em) { box.removeAttribute('min'); box.removeAttribute('max'); } else { box.min = LEN_MIN; box.max = LEN_MAX; }
+            const vals = (cols.length > 1 ? p.sel : []).map(kk => { const cc = p.cols[kk], o = cc && cc.lens ? +cc.lens[lane] : NaN; return isFinite(o) && o > 0 ? (em ? this.txEndOf(kk, o) : o) : null; }), mixed = vals.length > 1 && new Set(vals.map(String)).size > 1;
+            box.style.outline = mixed ? '1px dashed #C9A05A' : '';
+            box.title = (TRK()[lane] ? TRK()[lane].label : 'row ' + lane) + (em ? ' — the END of their own note in the selected column(s), seconds on the pattern\'s clock (the length is written behind it, each column from its own onset); blank = the column\'s (' : ' — a length of their own in the selected column(s), seconds; blank = the column\'s (') + (c ? this.txLenWord(c, -1) : 'the short') + ')' + (mixed ? ' · mixed: ' + vals.map(v => v == null ? 'column\'s' : v + ' s').join(' · ') : '') + '. ENTER sets · ESC puts it back';
+        });
+    },
+    txSetRowLen(lane, raw) {
+        const p = this.txCols(); if (!p || !p.sel.length) { this.txPaintRowLens(); this.setStatus('select a column first — len is the selected column(s)\'', true); return; }
+        const s = String(raw == null ? '' : raw).trim(), t = TRK()[lane];
+        if (s !== '' && this.txEndMode(lane)) { if (!isFinite(+s)) { this.txPaintRowLens(); this.setStatus('end: seconds on the pattern\'s clock, or blank for the column\'s', true); return; } return this.txSetEnd(+s, lane); }   // 1p.1
+        const v = s === '' ? null : clamp(+s, LEN_MIN, LEN_MAX);
+        if (s !== '' && !(v > 0)) { this.txPaintRowLens(); this.setStatus('a length of their own: seconds, or blank for the column\'s', true); return; }
+        this.txPushUndo();
+        p.sel.forEach(k => { const c = p.cols[k]; if (!c) return; if (v == null) this.txClearOverride(c, lane); else { c.lens = c.lens || {}; c.lens[lane] = v; } });
+        this.txPersistSoon(); this.txRender(); this.txPaintRowLens();
+        this.setStatus((t ? t.label : 'row ' + lane) + (p.sel.length === 1 ? ' at ' + this.txDot(p.sel[0]).t.toFixed(2) + ' s' : ' → ' + p.sel.length + ' columns') + ': ' + (v == null ? 'the column\'s length again' : v + ' s, their own' + (p.sel.length === 1 ? ' · ends ' + this.txEndOf(p.sel[0], v).toFixed(2) + ' s' : '')));
+    },
+    // 1m.3's box on the spot — kept for a browser gesture no longer bound (1m.4.5: the `len` box on the row replaced it)
+    txOpenLenBox(k, lane, cx, cy) {
+        this.txCloseLenBox();
+        const view = this.el && this.el.querySelector('#txView'), p = this.txCols(), c = p && p.cols[k], t = TRK()[lane]; if (!view || !c || !t) return;
+        const own = c.lens ? +c.lens[lane] : NaN, col = +c.len;
+        const box = document.createElement('input'); box.id = 'txLenBox'; box.type = 'number'; box.step = '0.05'; box.min = LEN_MIN; box.max = LEN_MAX;
+        box.value = isFinite(own) && own > 0 ? own : ''; box.placeholder = isFinite(col) && col > 0 ? col + ' s' : 'short';
+        box.title = t.label + ' at ' + this.txDot(k).t.toFixed(2) + ' s — a length of their own, in seconds; blank = the column\'s. ENTER sets · ESC leaves it';
+        box.style.cssText = 'position:absolute;left:' + Math.round(cx + CIRC_R + 4) + 'px;top:' + Math.round(cy - 9) + 'px;width:56px;z-index:3;' + INP;
+        view.appendChild(box);
+        let done = false;
+        const end = ok => { if (done) return; done = true; const v = box.value; box.remove(); if (ok) this.txSetOverride(k, lane, v); else this.setStatus(t.label + ': length left as it was'); };
+        box.addEventListener('keydown', ev => { ev.stopPropagation(); if (isEnter(ev)) { ev.preventDefault(); end(true); } else if (isEsc(ev)) { ev.preventDefault(); end(false); } });
+        box.addEventListener('blur', () => end(true));
+        box.focus(); box.select();
+        this.setStatus(t.label + ' at ' + this.txDot(k).t.toFixed(2) + ' s — their own length in seconds; blank = the column\'s (' + this.txLenWord(c, -1) + ')');
+    },
+    txCloseLenBox() { const b = this.el && this.el.querySelector('#txLenBox'); if (b) b.remove(); },
+    // the bar's two boxes follow the pattern and the selection
+    txPaintLenUI() {
+        const sb = this.el && this.el.querySelector('#txShort'), lb = this.el && this.el.querySelector('#txLen'); if (!sb || !lb || !this.txIsOn()) return;
+        const p = this.txCols(), k = this.txPrimary(), c = p && k ? p.cols[k] : null, l = c ? +c.len : NaN, em = this.txEndMode();   // 1p.1
+        if (document.activeElement !== sb) sb.value = this.txShortMs();
+        lb.disabled = !k; lb.style.opacity = k ? '' : 0.45;
+        if (document.activeElement !== lb) lb.value = isFinite(l) && l > 0 ? (em ? this.txEndOf(k, l).toFixed(2) : l) : '';
+        lb.placeholder = k ? 'short' : '—';
+        if (em) { lb.removeAttribute('min'); lb.removeAttribute('max'); } else { lb.min = LEN_MIN; lb.max = LEN_MAX; }
+        const lm = this.el.querySelector('#txLenMode'); if (lm && document.activeElement !== lm) lm.value = em ? 'end' : 'len';
+        lb.title = (em ? 'the END of the SELECTED column(s)\' notes, seconds on the pattern\'s clock (1p.1) — the length is written behind it, each column from its own onset (one end over several columns: a release together); blank: the standard short' : 'the length of the SELECTED column(s), in seconds — blank: the standard short; set with several selected, all of them take it') + (p && p.sel.length > 1 ? ' (' + p.sel.length + ' selected; the box shows the first)' : '') + '. A player\'s own (the box on their row) stands over it';
+    },
+
+    // ---------------------------------------------------------------- undo (§228)
+    txUndoSnap() { const p = this.txCols(); return p ? JSON.stringify({ on: p.on, cols: p.cols, sel: p.sel, range: p.range }) : null; },
+    txPushUndo() { const s = this.txUndoSnap(); if (s == null) return null; if (this._txUndo[this._txUndo.length - 1] !== s) { this._txUndo.push(s); if (this._txUndo.length > UNDO_MAX) this._txUndo.shift(); } return s; },
+    txDropUndoIfSame(s) { if (s != null && this._txUndo.length && this._txUndo[this._txUndo.length - 1] === s && this.txUndoSnap() === s) this._txUndo.pop(); },
+    txRestore(s) {
+        const p = this.txCols(); if (!p) return;
+        const e = E_(); if (e && e._playing) { e.panic(); this.onStopped(); }
+        const o = JSON.parse(s); p.on = o.on; p.cols = o.cols; p.sel = o.sel; p.range = o.range;
+        if (p.sel.length && p.cols[p.sel[0]]) this.txRecall(p.sel[0], true);
+        this.txPersistSoon(); this.txRender();
+    },
+    txUndo() {
+        const p = this.txCols(); if (!p) return;
+        const now = this.txUndoSnap(); let s = this._txUndo.pop(); if (s === now) s = this._txUndo.pop();
+        if (s == null) { this.setStatus('nothing to undo'); return; }
+        this.txRestore(s); this.setStatus('undone · ' + this._txUndo.length + ' more');
+    },
+    // the last change taken back exactly — the second press of a double-click undoes the first press's tick (1m.3)
+    txRevertLast() {
+        const now = this.txUndoSnap(), top = this._txUndo[this._txUndo.length - 1]; if (top == null || top === now) return false;
+        while (this._txUndo.length && this._txUndo[this._txUndo.length - 1] === top) this._txUndo.pop();
+        this.txRestore(top); return true;
+    },
+
+    // ---------------------------------------------------------------- the drawer as a VIEW of one column
+    txPlayersNow() { const off = this.laneOff || {}; return TRK().map((t, i) => i).filter(i => !off[i]); },
+    txSetPlayersNow(players) { const keep = new Set(players || []); this.laneOff = {}; TRK().forEach((t, i) => { if (!keep.has(i)) this.laneOff[i] = true; }); },
+    txColNotes() {   // the deal as notes: each player · pitch once, no timing
+        if (!this.strike) return [];
+        const seen = new Set(), out = [];
+        let ns = []; try { ns = this.notesFor('orch') || []; } catch (e) { ns = []; }
+        ns.forEach(n => { const k = rowOf(n) + '|' + n.tech + '|' + n.midi; if (seen.has(k)) return; seen.add(k); const o = Object.assign({}, n, { row: rowOf(n), onMs: 0 }); delete o.durMs; out.push(o); });   // 1m.3: no length stored — read at play time
+        return out;
+    },
+    txCapture() { return { state: this.state(), players: this.txPlayersNow(), notes: this.txColNotes(), take: this.txTakeName() }; },
+    txClearedState() { const st = this.state(); (st.voices || []).forEach(v => { v.lane = -1; v.also = []; v.fold = 0; v.standIn = null; v.skip = false; v.piano = false; }); st.rowKeys = {}; return st; },   // 1m.4.3: no by-key voice either
+    txFresh() { return { state: this.txClearedState(), players: [], notes: [], take: this.txTakeName() }; },
+    // RECALL: a column onto the drawer — its harmony and deal (`applyState`, the take machinery), its players as the ticks, its take's name
+    txRecall(k, quiet) {
+        const p = this.txCols(), c = p && p.cols[k]; if (!c) return false;
+        if (!c.state || !this.strikeById(c.state.strikeId)) { this.setStatus('that column\'s harmony is no longer in this score\'s list — pick one and shuffle', true); return false; }
+        this._txApplying = true;
+        try { if (!quiet) this.snapshot(); this.txSetPlayersNow(c.players); this.applyState(c.state); this.txSetTakeName(c.take); this._txHeld = k; }
+        finally { this._txApplying = false; }
+        if (!quiet) this.txWriteBack();
+        return true;
+    },
+    // ANY column worked on by the drawer's own code, OFFLINE: the drawer takes the column (or `base`, another column's harmony) with the
+    // column's players, `fn` runs on it, the result is stored, and the drawer is put back as it was. One rule for every column.
+    txWithColumn(k, fn, base) {
+        const p = this.txCols(), c = p && p.cols[k]; if (!c) return false;
+        const st = base || c.state; if (!st || !this.strikeById(st.strikeId)) return false;
+        const saved = this.strike ? { state: this.state(), off: Object.assign({}, this.laneOff), take: this.txTakeName() } : null;
+        this._txApplying = true;
+        try {
+            this.txSetPlayersNow(c.players); this.applyState(st);
+            if (base) { this.rowKeys = Object.assign({}, (c.state && c.state.rowKeys) || {}); this.rowTechs = Object.assign({}, (c.state && c.state.rowTechs) || {}); }   // 1m.4.3 · 1m.4.4: another column's harmony, this column's own by-key voices and row articulations
+            fn.call(this, c);
+            const cap = this.txCapture(); c.state = cap.state; c.players = cap.players; c.notes = cap.notes; if (!base) c.take = cap.take;
+        } finally {
+            if (saved) { this.laneOff = saved.off; this.applyState(saved.state); this.txSetTakeName(saved.take); }
+            this._txApplying = false;
+        }
+        return true;
+    },
+    // THE MINI-DEAL: one player ticked → an unassigned pitch of the harmony that fits (in range first, folded if `may fold`), chosen by
+    // the seed; none free → a pitch already held is doubled. Nobody else moves. Answers the voice, or null with nothing changed.
+    txDealTo(lane) {
+        if (this.rowKeys && this.rowKeys[lane]) return null;   // 1m.4.3: a by-key row voice is dealt NO pitch — its note is the key
+        const rnd = lcg((+this.cfg.oSeedShuffle || 1) * 7919 + lane * 31 + 1);
+        const free = shuffled(this.voices.filter(v => v.lane < 0 && !v.piano), rnd);
+        const tryOn = v => { this.assign(v, lane); if (!v.skip && (v.fold === 0 || this.cfg.mayFold)) return true; v.lane = -1; v.fold = 0; v.standIn = null; v.skip = false; return false; };
+        for (const v of free) if (tryOn(v)) return v;
+        const held = shuffled(this.voices.filter(v => v.lane >= 0 && v.lane !== lane && !this.reals(v).some(r => r.lane === lane)), rnd);
+        for (const v of held) {
+            const r = { lane, tech: this.defaultTech(lane), fold: 0, standIn: null, skip: false }; v.also = v.also || []; v.also.push(r);
+            if (this.fitReal(v, r) && !r.skip && (r.fold === 0 || this.cfg.mayFold)) return v;
+            v.also.pop();
+        }
+        return null;
+    },
+    txDropLane(lane) { this.onLane(lane).slice().forEach(({ v, r }) => this.dropReal(v, r)); if (this.rowKeys) delete this.rowKeys[lane]; },   // the player's notes leave (a by-key voice too, 1m.4.3); nobody else moves
+    txOnDrawer(k) { const p = this.txCols(); return k === this.txPrimary() && !!this.strike && !!p.cols[k] && this.strike.id === (p.cols[k].state || {}).strikeId; },
+    // TICK: a player of one column on or off — on the drawer when the column is the primary, offline otherwise; the selection untouched
+    txTick(k, lane, on) {
+        const p = this.txCols(); if (!p) return;
+        const T = TRK(), t = T[lane]; if (!t) return;
+        const e = E_(); if (e && e._playing) { e.panic(); this.onStopped(); }
+        this.txPushUndo();
+        if (!p.cols[k]) { if (!this.strike) { this.setStatus('load a harmony first — a column is orchestrated from one', true); return; } p.cols[k] = this.txFresh(); }
+        let dealt = null, word = '';
+        const fn = function (c) {
+            if (on) { delete this.laneOff[lane]; if (this.rowKeys && this.rowKeys[lane]) word = ' · ' + this.rowKeyLabel(lane); else { dealt = this.txDealTo(lane); if (!dealt) word = ' — no pitch of this harmony fits ' + t.label + ' (may fold, or another harmony)'; } }   // 1m.4.3: a by-key row voice is the note
+            else { this.laneOff[lane] = true; this.txDropLane(lane); this.txClearOverride(c, lane); }   // 1m.3: their own length leaves with them
+        };
+        if (this.txOnDrawer(k)) { fn.call(this, p.cols[k]); this.save(); this.render(); }   // the render writes it back
+        else if (!this.txWithColumn(k, fn)) { this.setStatus('that column\'s harmony is no longer in this score\'s list — select it, pick one and shuffle', true); return; }
+        this.txPersistSoon(); this.txRender();
+        this.setStatus(t.label + (on ? ' on' : ' off') + ' at ' + this.txDot(k).t.toFixed(2) + ' s' + (on && dealt ? ' · ' + nm(dealt.pitch) : '') + word);
+    },
+    txAllPlayers(on) {
+        const k = this.txPrimary(); if (!k) { this.setStatus('select a column first', true); return; }
+        const p = this.txCols(); this.txPushUndo();
+        if (!p.cols[k]) p.cols[k] = this.txFresh();
+        const fn = function (c) { TRK().forEach((t, lane) => { if (on) { delete this.laneOff[lane]; this.txDealTo(lane); } else { this.laneOff[lane] = true; this.txDropLane(lane); this.txClearOverride(c, lane); } }); };
+        if (this.txOnDrawer(k)) { fn.call(this, p.cols[k]); this.save(); this.render(); }
+        else this.txWithColumn(k, fn);
+        this.txPersistSoon(); this.txRender(); this.setStatus(on ? 'every player on in this column, each dealt a pitch that fits' : 'every player off in this column');
+    },
+    // LINKED: after every render of the drawer the PRIMARY column takes the drawer as it stands; what a multi-selection SHARES (the
+    // harmony, the shuffle, a take loaded) goes to the other selected columns, each dealt on its own players
+    txWriteBack() {
+        if (!this.txIsOn() || !this._tx || this._txApplying || !this.strike) return;
+        const p = this.txCols(), k = this.txPrimary(); if (!p || !k || this._txHeld !== k) return;   // the drawer must be SHOWING the primary
+        const prev = p.cols[k], cap = this.txCapture();
+        // a harmony picked in the list leaves every voice unassigned: the column's players are dealt it at once
+        if (prev && prev.state && prev.state.strikeId !== cap.state.strikeId && cap.players.length && !(this.voices || []).some(v => v.lane >= 0)) {
+            this.txSetPlayersNow(cap.players); this.shuffleOrch(); this._txApplying = true; try { this.render(); } finally { this._txApplying = false; }
+            Object.assign(cap, this.txCapture());
+        }
+        // a take loaded is a deal on ITS players: the ticks follow it
+        if (prev && prev.take !== cap.take && cap.take) {
+            const played = new Set(); (this.voices || []).forEach(v => this.reals(v).forEach(r => { if (r.lane >= 0) played.add(r.lane); })); Object.keys(this.rowKeys || {}).forEach(l => played.add(+l));   // 1m.4.3: a by-key row voice is a player too
+            if (played.size) { this.txSetPlayersNow([...played]); this._txApplying = true; try { this.renderOrch(); } finally { this._txApplying = false; } cap.players = this.txPlayersNow(); }
+        }
+        const next = Object.assign({}, prev || {}, cap);
+        if (JSON.stringify(next) === JSON.stringify(prev)) return;
+        const before = this.txUndoSnap(); this._txUndo.push(before); if (this._txUndo.length > UNDO_MAX) this._txUndo.shift();
+        p.cols[k] = next;
+        const shareMoved = !prev || SHARED(prev.state) !== SHARED(next.state) || prev.take !== next.take;
+        if (shareMoved && p.sel.length > 1) {
+            const base = next.state;
+            p.sel.slice(1).forEach(kk => { if (!p.cols[kk]) p.cols[kk] = this.txFresh(); this.txWithColumn(kk, function () { this.shuffleOrch(); }, base); p.cols[kk].take = next.take; });
+        }
+        this.txPersistSoon(); this.txRender();
+    },
+    // SELECT: plain = this column alone, recalled (a fresh one: the harmony with nobody on) · `add` (CTRL+click since 1m.4.6; it was SHIFT) =
+    // added or removed, kept as it is until the next shuffle or harmony, which it then shares
+    txSelect(k, add) {
+        const p = this.txCols(); if (!p) return;
+        const e = E_(); if (e && e._playing) { e.panic(); this.onStopped(); }
+        this.txPushUndo();
+        if (add && p.sel.length) {
+            const at = p.sel.indexOf(k);
+            if (at >= 0) { p.sel.splice(at, 1); if (at === 0 && p.sel.length) this.txRecall(p.sel[0], true); this.txPersistSoon(); this.txRender(); this.setStatus('column at ' + this.txDot(k).t.toFixed(2) + ' s left the selection · ' + p.sel.length + ' selected'); return; }
+            if (!p.cols[k]) p.cols[k] = this.txFresh();
+            p.sel.push(k); this.txPersistSoon(); this.txRender(); this.setStatus(this.txColLine()); return;
+        }
+        p.sel = [k];
+        if (!p.cols[k]) { if (!this.strike) { this.setStatus('load a harmony first — a column is orchestrated from one', true); p.sel = []; return; } p.cols[k] = this.txFresh(); }
+        if (!this.txRecall(k)) this.txRender();
+        this.txPersistSoon(); this.txRender(); this.setStatus(this.txColLine());
+    },
+    txClearSel() { const p = this.txCols(); if (!p || !p.sel.length) return; this.txPushUndo(); p.sel = []; this._txHeld = null; this.txPersistSoon(); this.txRender(); this.setStatus('no column selected — the drawer is on its own'); },
+    txDot(k) { return this._tx.dots.find(d => d.k === k) || { t: 0 }; },
+    txColLine() {
+        const p = this.txCols(), T = TRK(); if (!p.sel.length) return 'no column selected';
+        const c = p.cols[p.sel[0]], who = c ? (c.notes || []).map(n => (T[n.row] ? T[n.row].short : '?') + ' ' + (n.keyLabel || nm(n.midi))).join(' · ') : '';   // 1m.4.3: a by-key note by its key's name
+        const len = c && isFinite(+c.len) && +c.len > 0 ? ' · length ' + c.len + ' s' : '', own = c && c.lens && Object.keys(c.lens).length ? ' · ' + Object.keys(c.lens).length + ' with a length of their own' : '';
+        return (p.sel.length === 1 ? 'column at ' + this.txDot(p.sel[0]).t.toFixed(2) + ' s' : p.sel.length + ' columns') + ' selected — the drawer is theirs' + (c && c.take ? ' · take ' + c.take : '') + len + own + (who ? ' · ' + who : ' · nobody on yet: tick players');
+    },
+
+    // ---------------------------------------------------------------- the drawing, over the row's
+    txRenderCols() {
+        const svg = this.el && this.el.querySelector('#txSvg'), run = svg && svg.querySelector('#txRun'); if (!svg || !run || !this._tx) return;
+        const p = this.txCols(), T = TRK(), W = this.txW(), H = this.txH(), ys = this.txRowsY(), mw = this.txMarkW(), sel = new Set(p.sel), on = new Set(p.on), px = this._txV ? this._txV.px : 0;
+        const bw = Math.max(mw, BAND_MIN); let bands = '', bars = '', circs = '';
+        const col = typeof this.txCollisions === 'function' ? this.txCollisions(p) : null, WARN = (root.TextureDyn && root.TextureDyn.WARN) || '#e88';   // 1n.1: the flag (§277)
+        this._txCol = col;
+        this._tx.dots.forEach(d => {
+            if (!on.has(d.k)) return;
+            const x = this.txX(d.t), cx = x + mw / 2, x0 = cx - bw / 2; if (x0 > W + bw) return;
+            const c = p.cols[d.k], isSel = sel.has(d.k), players = new Set(c ? c.players : []);
+            // §284: a column off the LEFT edge is kept while a length bar of its still reaches into the view — the note is still sounding
+            // there; its band and circles land at a negative x and the svg clips them, the bar clipped at the left edge as at the right
+            if (x0 + bw < -bw && !(c && cx + this.txReachS(c) * px > 0)) return;
+            bands += '<rect class="txCol" data-k="' + d.k + '" x="' + x0.toFixed(1) + '" y="' + COL_TOP + '" width="' + bw.toFixed(1) + '" height="' + Math.max(0, H - COL_TOP) + '" fill="' + (isSel ? SEL_BG : 'rgba(255,255,255,.02)') + '" stroke="' + (isSel ? SEL_LINE : 'none') + '" stroke-width="1"/>';
+            ys.forEach((cy, lane) => {
+                const t = T[lane], isOn = players.has(lane), mine = c ? (c.notes || []).filter(n => n.row === lane) : [], L = isOn && mine.length ? this.txLenS(c, lane) : null;
+                const cut = L ? this.txPlayLenMs(p, this._tx, c, d.k, lane) : null, flag = !!(col && col.flagged.has(d.k + '|' + lane));   // 1n.1: the bar to the CUT; the circle in the warning colour when flagged
+                // 1m.3: a length set = a bar to the right, the note's length at the zoom (a player's own outlined); the short = the circle alone
+                if (L) { const w = Math.min(Math.max(1, (cut.ms / 1000) * px), W - cx + 12); bars += '<rect class="txLen" x="' + cx.toFixed(1) + '" y="' + (cy - 3).toFixed(1) + '" width="' + w.toFixed(1) + '" height="6" rx="2" fill="' + ON_COL + '" fill-opacity="' + (L.own ? 0.5 : 0.3) + '" stroke="' + (L.own ? ON_COL : 'none') + '" stroke-width="1" pointer-events="none"/>'; }
+                const title = (t ? t.label : 'row ' + lane) + ' · ' + d.t.toFixed(2) + ' s · ' + (isOn ? 'ON' : 'off') + (!c ? ' · no column yet' : mine.length ? ' · ' + mine.map(n => (n.keyLabel || nm(n.midi)) + (n.cents ? (n.cents > 0 ? ' +' : ' ') + Math.round(n.cents) + '¢' : '')).join(' ') + ' · ' + this.txLenWord(c, lane) + (cut && cut.cut ? ' — CUT at their next onset, ' + (cut.ms / 1000).toFixed(2) + ' s (the length stands)' : '') : isOn ? ' · no pitch fits (may fold, or another harmony)' : '') + (flag ? ' · TOO CLOSE to their neighbour for this instrument — flagged, not moved' : '') + ' · click: select the column (the panel edits it)';   // 1m.4.5: an indicator
+                circs += '<circle class="txCirc" data-k="' + d.k + '" data-lane="' + lane + '" cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="' + CIRC_R + '" fill="' + (isOn ? (mine.length ? (flag ? WARN : ON_COL) : 'none') : OFF_FILL) + '" stroke="' + (isOn ? (flag ? WARN : ON_COL) : OFF_FILL) + '" stroke-width="1.3" style="cursor:pointer"><title>' + escH(title) + '</title></circle>';
+            });
+        });
+        run.insertAdjacentHTML('beforebegin', bands + bars + circs);
+        const i = this.el.querySelector('#txI'); if (i) i.title = (p.sel.length ? this.txColLine() + String.fromCharCode(10) : '') + (col && col.n && typeof this.txCollisionText === 'function' ? this.txCollisionText(col).replace(/^ · /, '') + String.fromCharCode(10) : '') + i.title;
+        this.txPaintLenUI();
+    },
+
+    // ---------------------------------------------------------------- the hand
+    // a click in the columns' area: on a circle = that player of that column · in a column's band = select (SHIFT: add) · else the row's own
+    txColHit(ev) {   // what is under the pointer in the columns' area: the nearest ON mark's column, and the player's row if on a circle
+        const svg = this.el.querySelector('#txSvg'), rect = svg.getBoundingClientRect(), x = ev.clientX - rect.left, y = ev.clientY - rect.top;
+        if (y < COL_TOP) return null;
+        const p = this.txCols(), mw = this.txMarkW(), bw = Math.max(mw, BAND_MIN), on = new Set(p.on);
+        let best = null, bd = 1e9;
+        this._tx.dots.forEach(d => { if (!on.has(d.k)) return; const dx = Math.abs(x - (this.txX(d.t) + mw / 2)); if (dx < bd) { bd = dx; best = d; } });
+        if (!best || bd > Math.max(PICK_PX, bw / 2)) return null;
+        const ys = this.txRowsY(); let lane = -1; ys.forEach((cy, i) => { if (Math.abs(y - cy) <= CIRC_R + 3) lane = i; });
+        return { d: best, lane, cx: this.txX(best.t) + mw / 2, cy: lane >= 0 ? ys[lane] : y };
+    },
+    // the circle the FIRST press of a double-click landed on, kept for the second press and the `dblclick`: a tick re-renders the
+    // drawer and the list's rows change height, so the circle has moved under the pointer by then
+    txLastCirc() { const h = this._txLastCirc; return h && performance.now() - h.at < 700 ? h : null; },
+    txColDown(ev) {
+        if (!this._tx || ev.button !== 0) return false;
+        const hit = this.txColHit(ev);
+        if (!hit) return false;
+        ev.preventDefault();
+        // 1m.4.5: ONE gesture — a press anywhere in the column's band, a circle included, SELECTS the column; a second press of a
+        // double-click does nothing more. (1m.3's tick-on-the-circle and its double-click for a length are gone: the players list has
+        // the box and the `len` box, and the lens puts them on every selected column.)
+        if (ev.detail >= 2) return true;
+        // 1m.4.6 SELECTING A STRETCH (the sequence drawer's idiom, 1d.12): click = that column alone · SHIFT+click = every ON column between
+        // the primary and it, by time · CTRL+click = add or remove one
+        if (ev.shiftKey) this.txSelectRange(hit.d.k); else this.txSelect(hit.d.k, !!(ev.ctrlKey || ev.metaKey));
+        return true;
+    },
+    // SHIFT+click: the primary stays the primary; every ON mark between it and the clicked one (by time, both ends in) joins, in time order
+    txSelectRange(k) {
+        const p = this.txCols(); if (!p) return;
+        const prim = this.txPrimary(); if (!prim || prim === k) return this.txSelect(k, false);
+        const e = E_(); if (e && e._playing) { e.panic(); this.onStopped(); }
+        this.txPushUndo();
+        const t0 = this.txDot(prim).t, t1 = this.txDot(k).t, lo = Math.min(t0, t1), hi = Math.max(t0, t1), on = new Set(p.on);
+        const between = this._tx.dots.filter(d => on.has(d.k) && d.k !== prim && d.t >= lo - 1e-6 && d.t <= hi + 1e-6).sort((a, b) => a.t - b.t).map(d => d.k);
+        between.forEach(kk => { if (!p.cols[kk]) p.cols[kk] = this.txFresh(); });
+        p.sel = [prim].concat(between);
+        this.txPersistSoon(); this.txRender();
+        this.setStatus('the stretch ' + lo.toFixed(2) + '–' + hi.toFixed(2) + ' s: ' + p.sel.length + ' columns selected (every ON mark between), the primary at ' + t0.toFixed(2) + ' s — CTRL+click adds or removes one · ESC clears');
+    },
+    // that player's own length in that column — the box on the spot, where the circle is NOW (after the revert's redraw)
+    txOwnLength(k, lane) {
+        const c = this.txCols().cols[k], t = TRK()[lane];
+        if (!c || !c.players.includes(lane)) { this.setStatus((t ? t.label : 'that player') + ' is off in this column — tick them first, then double-click for a length of their own', true); return; }
+        const ys = this.txRowsY(), d = this.txDot(k);
+        this.txOpenLenBox(k, lane, this.txX(d.t) + this.txMarkW() / 2, ys[lane] != null ? ys[lane] : COL_TOP);
+    },
+    // 1m.4.5: a double-click in the columns' area opens nothing (the ruler's own double-click, above the columns, is texture_row's)
+    txColDbl(ev) {
+        if (!this._tx || !this.txIsOn()) return false;
+        const hit = this.txColHit(ev); if (!hit) return false;
+        ev.preventDefault(); ev.stopImmediatePropagation();
+        return true;
+    },
+
+    // ---------------------------------------------------------------- the ear
+    // ONE LIST (1o.5): the notes of the ON marks between `from` and `to` in `doc` (the open pattern unless given), each at its column's deal
+    // with its length (1m.3), `onMs` counted from `from` — what SPACE plays from the cursor and what Insert writes from the range's left line,
+    // so the two agree note for note by construction. `cols[i]` names the column of `notes[i]` (null for a claves note).
+    txNotesBetween(from, to, withClaves, doc) {
+        const p = doc || this.txCols(), tx = p && p.texture ? p.texture : this._tx; if (!p || !tx) return { notes: [], cols: [], dots: [], pitched: 0, bare: 0 };
+        const on = new Set(p.on || []), lane = this.txPercLane(), short = (isFinite(+p.short) && +p.short > 0) ? +p.short : SHORT_MS;
+        const T = root.TexturePanel, cl = (T && T.CLAVES) || { tech: 'wood_blocks_hard_mallets', midi: 41 };
+        const dots = tx.dots.filter(d => on.has(d.k) && d.t >= from - 1e-6 && d.t <= to + 1e-6);
+        const notes = [], cols = []; let pitched = 0, bare = 0;
+        dots.forEach(d => {
+            const onMs = Math.round((d.t - from) * 1000), c = (p.cols || {})[d.k], mine = c ? (c.notes || []) : [];
+            mine.forEach(n => { notes.push(Object.assign({}, n, { onMs, durMs: this.txPlayLenMs(p, tx, c, d.k, n.row).ms })); cols.push(d.k); });   // 1m.3: the column's length, a player's own over it, else the short — 1n.1: CUT at that player's next onset (§277)
+            if (mine.length) pitched++; else bare++;
+            if (withClaves && lane >= 0) { notes.push({ lane, tech: cl.tech, midi: cl.midi, vel: ANCHOR_MF, cents: 0, onMs, durMs: short }); cols.push(null); }
+        });
+        const L = { notes, cols, dots, pitched, bare };
+        if (typeof this.txDress === 'function') this.txDress(L, p);   // 1n.1: THE ONE HELPER (texture_dyn.js) — every column note's velAbs · cc7Abs · heights · seat, for SPACE and for Insert alike
+        return L;
+    },
+    async txPlay() {   // THE RHYTHM PREVIEW
+        if (!this._tx) { this.setStatus('choose a rhythm take first', true); return; }
+        const p = this.txCols(), r = this.txRange(), on = new Set(p.on), lane = this.txPercLane(), claves = this.txClavesOn();
+        const c0 = +p.cursor || 0, from = (c0 > r[0] && c0 < r[1]) ? c0 : r[0];
+        // §285: a note that began BEFORE the cursor and is still sounding there plays from the cursor for what is left of it — a play from
+        // mid-way hears what the display shows (its bar running in from the left edge); the claves are the onset's alone, none for these
+        const held = [], heldCols = [];
+        this._tx.dots.forEach(d => {
+            if (!on.has(d.k) || d.t >= from - 1e-6) return;
+            const c = p.cols[d.k]; ((c && c.notes) || []).forEach(n => { const full = this.txPlayLenMs(p, this._tx, c, d.k, n.row).ms, left = Math.round((d.t - from) * 1000) + full; if (left > 0) { held.push(Object.assign({}, n, { onMs: 0, durMs: left, dynFullMs: full })); heldCols.push(d.k); } });   // 1n.1: the cut length; the whole note kept for its fader's shape
+        });
+        const L = this.txNotesBetween(from, r[1], claves && lane >= 0), dots = L.dots, pitched = L.pitched, bare = L.bare, short = this.txShortMs();
+        if (!dots.length && !held.length) { this.setStatus(p.on.length ? 'no ON mark between ' + from.toFixed(2) + ' s and ' + r[1].toFixed(2) + ' s — move the cursor or the range' : 'every mark is off — click some on (or all on)', true); return; }
+        const notes = held.concat(L.notes), cols = heldCols.concat(L.cols);
+        if (!notes.length) { this.setStatus('nothing to hear: no column has a player on and the claves are off', true); return; }
+        if (typeof this.txDress === 'function') this.txDress({ notes, cols }, p);   // 1n.1: the whole list dressed as one — the curve seats rotate over it
+        await this.playNotes(notes, 'the rhythm · ' + pitched + ' marks with players · ' + bare + ' bare' + (held.length ? ' · ' + held.length + (held.length === 1 ? ' note' : ' notes') + ' still sounding at the cursor' : '') + (claves ? ' · the claves under them' : '') + ' · short ' + short + ' ms · from ' + from.toFixed(2) + ' s');
+        const e = E_(); if (e && e._playing) { this.txStartRun(from, r[1]); if (typeof this.txScheduleDyn === 'function') { this.txScheduleDyn(notes); const s = this.el.querySelector('#skStatus'); this.setStatus((s ? s.textContent : '') + this.txDynText(notes)); } }   // 1n.1: the faders, after playNotes — as the sequence's Hear
+    },
+    async txHearColumn() {   // THE COLUMN PREVIEW: the primary column's players, read from the drawer LIVE (the `hear` menu applies at once)
+        const k = this.txPrimary();
+        if (!this.strike) { this.setStatus('load a harmony first — a column is orchestrated from one', true); return; }
+        const seen = new Set(), all = [];
+        (this.notesFor('orch') || []).forEach(n => { const row = rowOf(n), key = row + '|' + n.tech + '|' + n.midi; if (seen.has(key)) return; seen.add(key); all.push(Object.assign({}, n, { row, onMs: 0, durMs: Math.max(30, +n.durMs || 0) })); });   // 1m.3: the lengths come through notesFor (hook 7) — the column's, or the short; `long tone` its own
+        if (!all.length) { this.setStatus(k ? 'nobody is on in this column — tick players' : 'nothing dealt — tick players and shuffle', true); return; }
+        if (k && typeof this.txDress === 'function') this.txDress({ notes: all, cols: all.map(() => k) }, this.txCols());   // 1n.1: the column's notes on the one scale, as SPACE and Insert have them
+        await this.playNotes(all, k ? 'the column at ' + this.txDot(k).t.toFixed(2) + ' s · ' + all.length + ' players' : 'the deal · ' + all.length);
+        const e = E_(); if (k && e && e._playing && typeof this.txScheduleDyn === 'function') { this.txScheduleDyn(all); const s = this.el.querySelector('#skStatus'); this.setStatus((s ? s.textContent : '') + this.txDynText(all)); }
+    },
+});
+
+// ---------------------------------------------------------------- the hooks
+// 1 · the drawing: the columns over the row's; the `claves` toggle and ↶ in the bar; the players list's tick boxes
+const _txRender = D.txRender;
+D.txRender = function () { const r = _txRender.apply(this, arguments); try { this.txRenderCols(); this.txPaintLenUI(); this.txPaintRowLens(); } catch (e) { console.warn('[texture_cols] render:', e); } return r; };
+const _txEnsureUI = D.txEnsureUI;
+D.txEnsureUI = function () {
+    const r = _txEnsureUI.apply(this, arguments);
+    const bar = this.el && this.el.querySelector('#txBar');
+    if (bar && !bar.querySelector('#txClaves')) {
+        const zoom = bar.querySelector('#txZoom');
+        const undo = document.createElement('button'); undo.id = 'txUndoBtn'; undo.className = 'txOnly'; undo.style.cssText = BTN; undo.title = 'undo — the marks, the columns, the selection, the range (CTRL+Z)'; undo.innerHTML = '&#8630;';
+        undo.addEventListener('click', () => this.txUndo()); bar.insertBefore(undo, zoom);
+        const lab = document.createElement('label'); lab.className = 'txOnly'; lab.style.cssText = 'display:inline-flex;align-items:center;gap:3px';
+        lab.title = 'the claves under every ON mark in the rhythm preview (SPACE) — off once the rhythm is decided';
+        lab.innerHTML = '<input id="txClaves" type="checkbox"' + (this.txClavesOn() ? ' checked' : '') + '> claves';
+        bar.insertBefore(lab, zoom);
+        lab.querySelector('#txClaves').addEventListener('change', e => { this._txS.claves = !!e.target.checked; this.txPersist(); this.setStatus(this._txS.claves ? 'claves under every ON mark' : 'claves off — the pitches alone'); });
+        // 1m.3: `short` (ms, the pattern's) and `length` (s, the selected column(s)') beside the claves; ENTER sets, ESC puts the value back
+        const len = document.createElement('span'); len.className = 'txOnly'; len.style.cssText = 'display:inline-flex;align-items:center;gap:6px';
+        len.innerHTML = '<label style="display:inline-flex;align-items:center;gap:3px" title="THE STANDARD SHORT (1m.3): the length of every note where nothing longer is set — the column notes, the claves, and hear: strike while a texture take is on. 120 ms unless you say; kept with the pattern"><span style="color:#9a9">short</span><input id="txShort" type="number" min="' + SHORT_MIN + '" max="' + SHORT_MAX + '" step="10" style="' + INP + ';width:46px"><span style="color:#777">ms</span></label>' +
+            '<label style="display:inline-flex;align-items:center;gap:3px"><select id="txLenMode" style="' + INP + ';width:58px" title="1p.1 (2026-09-24): what the COLUMN\'s box means (each row\'s box has a menu of its own) — length: seconds from the note\'s onset · end: the time the note ENDS on the pattern\'s clock (seconds from its start, the readout beside ⏮); the length is written behind it, each selected column from its own onset, so one end over several columns is a release together. Remembered in this browser, not in the pattern"><option value="len">length</option><option value="end">end</option></select><input id="txLen" type="number" min="' + LEN_MIN + '" max="' + LEN_MAX + '" step="0.1" style="' + INP + ';width:52px" placeholder="short"><span style="color:#777">s</span></label>';
+        bar.insertBefore(len, zoom);
+        const sb = len.querySelector('#txShort'), lb = len.querySelector('#txLen');
+        sb.addEventListener('change', e => this.txSetShort(e.target.value));
+        lb.addEventListener('change', e => this.txSetLen(e.target.value));
+        const lm = len.querySelector('#txLenMode'); lm.value = this.txEndMode() ? 'end' : 'len';   // 1p.1: the switch, a browser preference
+        lm.addEventListener('change', e => { this._txS.end = e.target.value === 'end'; this.txPersist(); this.txPaintLenUI(); this.txPaintRowLens(); this.setStatus(this._txS.end ? 'end: the column\'s box reads the time its notes END on the pattern\'s clock — type one and the length is written behind it, each selected column from its own onset' : 'length: the column\'s box reads seconds from the onset again'); });
+        lm.addEventListener('keydown', ev => ev.stopPropagation());
+        [sb, lb].forEach(b => b.addEventListener('keydown', ev => { ev.stopPropagation(); if (isEnter(ev)) { ev.preventDefault(); b.blur(); } else if (isEsc(ev)) { ev.preventDefault(); this.txPaintLenUI(); b.blur(); } }));
+        const svg = this.el.querySelector('#txSvg');
+        if (svg && !svg._txColDbl) { svg._txColDbl = true; svg.addEventListener('dblclick', ev => { try { this.txColDbl(ev); } catch (e) { console.warn('[texture_cols] dblclick:', e); } }); }
+        const hearO = this.el.querySelector('#skHearO'); if (hearO && !hearO._txBound) { hearO._txBound = true; hearO.addEventListener('click', () => { this._txFromBtn = true; }, true); }
+        // the players list's tick boxes, while a texture take is on and a column is selected, are the column's players (rule 4): one
+        // rule, not the drawer's own untick (which moves a note to another player)
+        const orch = this.el.querySelector('#skOrch');
+        if (orch && !orch._txBound) { orch._txBound = true; orch.addEventListener('click', ev => {
+            const cb = ev.target && ev.target.closest && ev.target.closest('.skTick'); if (!cb || !this.txIsOn() || !this.txPrimary()) return;
+            ev.preventDefault(); ev.stopImmediatePropagation();
+            const lane = +cb.dataset.lane, c = this.txCols().cols[this.txPrimary()];
+            this.txTick(this.txPrimary(), lane, !(c && c.players.includes(lane)));
+        }, true); }
+    }
+    return r;
+};
+// 1b · the mode on the page: a texture take active (at load as on the switch) → `hear` is strike
+const _txApply = D.txApply;
+D.txApply = function () { const r = _txApply.apply(this, arguments); try { if (this.txIsOn()) this.txHearStrike(); } catch (e) {} return r; };
+// 2 · the hand: the columns first, then the row's own click (one undo step, dropped if only the cursor moved)
+const _txDown = D.txDown;
+D.txDown = function (ev) {
+    try { if (this.txIsOn() && this.txColDown(ev)) return; } catch (e) { console.warn('[texture_cols] click:', e); }
+    const p = this.txCols(), snap = p ? this.txPushUndo() : null, before = p ? p.on.slice() : null;
+    const r = _txDown.apply(this, arguments);
+    if (p && before) { const now = new Set(p.on); const left = p.sel.filter(k => !now.has(k)); if (left.length) { p.sel = p.sel.filter(k => now.has(k)); this.txPersistSoon(); this.txRender(); } }
+    this.txDropUndoIfSame(snap);
+    return r;
+};
+['txAll', 'txCrop', 'txSnap'].forEach(name => { const orig = D[name]; if (typeof orig !== 'function') return; D[name] = function () { const s = this.txPushUndo(); const r = orig.apply(this, arguments); this.txDropUndoIfSame(s); return r; }; });
+const _txDragGrip = D.txDragGrip;
+D.txDragGrip = function () { this.txPushUndo(); return _txDragGrip.apply(this, arguments); };
+// 3 · LINKED: after every render of the drawer the primary column takes it, and what is shared goes to the others
+const _render = D.render;
+D.render = function () { const r = _render.apply(this, arguments); try { this.txWriteBack(); } catch (e) { console.warn('[texture_cols] link:', e); } return r; };
+// 3b · `all on` · `all off` for the ticks in the orchestration panel: the column's players while a column is selected, the drawer's
+//      own ticks otherwise (§231)
+const _renderOrch = D.renderOrch;
+D.renderOrch = function () {
+    const r = _renderOrch.apply(this, arguments);
+    try { this.txPaintRowLens(); } catch (e) { console.warn('[texture_cols] row lens:', e); }   // 1m.4.5: the `len` box per row, texture mode only
+    try {
+        const fc = this.el && this.el.querySelector('#skFreeCount');
+        if (fc && !fc.parentNode.querySelector('#skTickAll')) {
+            const b = 'background:#2a2a30;color:#ddd;border:1px solid #555;border-radius:3px;padding:1px 6px;font-size:11px;cursor:pointer';
+            const span = document.createElement('span'); span.style.cssText = 'display:inline-flex;gap:4px;margin-left:6px';
+            span.innerHTML = '<button id="skTickAll" style="' + b + '" title="tick every player (in a column: every player on, each dealt a pitch that fits)">all on</button><button id="skTickNone" style="' + b + '" title="untick every player (in a column: every player off; in the strike mode their notes fall silent now — back undoes it)">all off</button>';
+            fc.parentNode.insertBefore(span, fc.nextSibling);
+            span.querySelector('#skTickAll').addEventListener('click', () => { if (this.txIsOn() && this.txPrimary()) return this.txAllPlayers(true); this.laneOff = {}; this.renderOrch(); this.setStatus('every player ticked'); });
+            span.querySelector('#skTickNone').addEventListener('click', () => {
+                if (this.txIsOn() && this.txPrimary()) return this.txAllPlayers(false);
+                this.snapshot(); TRK().forEach((t, l) => { this.laneOff[l] = true; });
+                this.voices.forEach(v => { v.lane = -1; v.also = []; v.piano = false; v.fold = 0; v.standIn = null; v.skip = false; });
+                this.save(); this.render(); this.setStatus('every player unticked — every note silent; tick some and shuffle, or assign (back undoes it)');
+            });
+        }
+    } catch (e) { console.warn('[texture_cols] ticks:', e); }
+    return r;
+};
+// 3c · a harmony TAKE loaded while a texture take is on keeps the page's `hear` (§231)
+const _applyState = D.applyState;
+D.applyState = function (st) {
+    if (this.txIsOn() && st && st.cfg) { const cfg = Object.assign({}, st.cfg); NOT_APPLIED.forEach(key => { if (this.cfg[key] != null) cfg[key] = this.cfg[key]; else delete cfg[key]; }); st = Object.assign({}, st, { cfg }); }
+    return _applyState.call(this, st);
+};
+// 3d · a harmony take LOADED names the box only after its own promise resolves: the write-back waits for it
+const _loadTake = D.loadTake;
+D.loadTake = function () {
+    const r = _loadTake.apply(this, arguments), after = () => { try { if (this.txIsOn()) this.txWriteBack(); } catch (e) {} };
+    if (r && typeof r.then === 'function') return r.then(v => { after(); return v; });
+    after(); return r;
+};
+// 4 · Hear orchestrated is the COLUMN; SPACE is the rhythm. Both reach play('orch'); the button's own capture listener says which
+const _play = D.play;
+D.play = async function (mode) {
+    const fromBtn = this._txFromBtn; this._txFromBtn = false;
+    if (mode === 'orch' && this.txIsOn() && fromBtn) return this.txHearColumn();
+    return _play.apply(this, arguments);   // texture_row's wrap: on a texture take → txPlay (the rhythm preview above)
+};
+// 4b · a take re-read: a selection that names marks the take no longer has is dropped; the undo stack is that take's
+const _txLoad = D.txLoad;
+D.txLoad = function () { const r = _txLoad.apply(this, arguments); try { this._txUndo = []; this._txHeld = null; const p = this.txCols(); if (p) p.sel = []; } catch (e) {} return r; };   // a take (re)read: no column selected until he clicks one
+// 5 · the strike mode keeps its own ticks and its own `hear`; here `hear` is STRIKE (§228 · §230)
+const _txSetMode = D.txSetMode;
+D.txSetMode = function (m) {
+    const was = this.txIsOn();
+    if (m === 'texture' && !was) { this._txSavedOff = Object.assign({}, this.laneOff || {}); this.txHearStrike(); }
+    const r = _txSetMode.apply(this, arguments);
+    if (m === 'strike' && was) {
+        if (this._txSavedOff) { this.laneOff = this._txSavedOff; this._txSavedOff = null; if (this.strike) this.renderOrch(); }
+        if (this._txSavedHear) { Object.assign(this.cfg, this._txSavedHear); this._txSavedHear = null; this.save(); if (typeof this.paintLongUI === 'function') try { this.paintLongUI(); } catch (e) {} }
+        this._txHearSet = false;
+    }
+    return r;
+};
+// 7 · 1m.3: `hear: strike` while a texture take is on = the lengths of the column the drawer shows (its `len`, a player's own) or THE
+//     STANDARD SHORT; the strike mode keeps the strike's own lengths; `long tone` (long_tone_ui.js) keeps its own, whichever wraps last
+const _notesFor = D.notesFor;
+D.notesFor = function (mode) {
+    const out = _notesFor.apply(this, arguments);
+    if (mode !== 'orch' || !this.txIsOn() || this._txApplying || (this.isLong && this.isLong()) || !Array.isArray(out)) return out;
+    const p = this.txCols(), k = this._txHeld, c = p && k && p.cols[k] && this.txOnDrawer(k) ? p.cols[k] : null;
+    return out.map(n => Object.assign({}, n, { durMs: this.txLenMs(c, rowOf(n)) }));
+};
+// 6 · ESC clears the selection; CTRL+Z undoes (the row's [ · ] keys live in texture_row.js)
+window.addEventListener('keydown', ev => {
+    if (!D.el || D.el.style.display === 'none' || !D.txIsOn() || !D._tx) return;
+    const t = ev.target; if (t && t.matches && t.matches('textarea, input, select')) return;
+    if (ev.key === 'Escape') { if (D.txSel().length) D.txClearSel(); return; }   // no stopPropagation: a sound card or a takes menu closes on the same key
+    if ((ev.key === 'z' || ev.key === 'Z') && (ev.ctrlKey || ev.metaKey) && !ev.shiftKey && !ev.altKey) { ev.preventDefault(); ev.stopPropagation(); D.txUndo(); }
+}, true);
+
+}(typeof self !== 'undefined' ? self : this));

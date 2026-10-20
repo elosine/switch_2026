@@ -1,0 +1,220 @@
+{
+  "_what": "THE ELECTRONICS' ROUTE in this rack — this piece's USE of the engine's sound seam (electronics/docs/SEAMS.md). Which instrument track stands for which player's microphone, and the one flat track the engine's master returns on. Read by tools/elec.js; put into the rack through the bridge (reaper/bridge/jobs/elec_route.lua). Channels are ReaRoute's, counted from 1 as Reaper names them.",
+  "_made": "2026-10-04, PLAN 1.1 · 6.1 (RUNNING_LOG §51): one player for the first proof. 2026-10-05 (RUNNING_LOG §71, impulse 1): the other four — the percussion's microphone is the shime daiko's track for now (one track per player row; the other seven percussion tracks get a send as the music uses them). engineIn 3 is the latency loop.",
+  "players": [
+    {
+      "name": "bcl",
+      "track": "Bass Clarinet XS",
+      "engineIn": 1,
+      "port": "DECBassClar",
+      "testNote": 50
+    },
+    {
+      "name": "bfl",
+      "track": "Bass Flute XS",
+      "engineIn": 2,
+      "port": "DECBassFlute",
+      "testNote": 67
+    },
+    {
+      "name": "perc",
+      "track": "Shime Daiko ARO",
+      "engineIn": 4,
+      "port": "DECPerc",
+      "testNote": 43,
+      "_lanes": "ONE MICROPHONE, TWO LANES (DEC-9c; RUNNING_LOG §78 · §88): the percussionist is one player — ALL twelve of his tracks (eight Abbey Road, four Ricotti) SEND into engineIn 4, every port here is his. In concert the one mic; in simulation the same input, no sixth.",
+      "tracks": [
+        "Shime Daiko ARO",
+        "Bongos ARO",
+        "Bass Drum Alt ARO",
+        "Wood Blocks ARO",
+        "China Cymbal ARO",
+        "Spring Coil ARO",
+        "Suspended Cymbals ARO",
+        "Toms ARO",
+        "Crotales RM",
+        "Glockenspiel RM",
+        "Xylophone RM",
+        "Marimba RM"
+      ],
+      "ports": [
+        "DECPerc",
+        "DECCrotales",
+        "DECGlock",
+        "DECXylo",
+        "DECMarimba"
+      ]
+    },
+    {
+      "name": "va",
+      "track": "Viola XS",
+      "engineIn": 5,
+      "port": "DECViola",
+      "testNote": 70
+    },
+    {
+      "name": "vc",
+      "track": "Cello XS",
+      "engineIn": 6,
+      "port": "DECCello",
+      "testNote": 56
+    }
+  ],
+  "return": {
+    "track": "ELEC RETURN",
+    "engineOut": 1,
+    "ar": {
+      "A_shares": {
+        "before": 0.35,
+        "after": 0.35,
+        "lazy": 0.15,
+        "far": 0.15,
+        "unison": 0
+      },
+      "B_rangesMs": {
+        "after": [
+          175,
+          300
+        ],
+        "before": [
+          105,
+          240
+        ],
+        "lazy": [
+          300,
+          500
+        ],
+        "far": [
+          500,
+          750
+        ],
+        "unison": [
+          10,
+          40
+        ],
+        "skew": 2,
+        "_2026_10_05c": "his ear (DEC-30, RUNNING_LOG §135): \"get rid of unison and create a tier after lazily after … make lazily after 300 to 500, and then after that, 500 to 750. But then keep that longest one similarly 10% … like the unison was\" — unison's share 0 (its range kept, unused); lazy 300–500; the new tier FAR 500–750 takes unison's share: 10 % in a chain (G), 15 % in ar (A). Shared by ar · chain · arChain. From the engine's next start.",
+        "_2026_10_05": "his ear (DEC-11): \"the immediate after, the soon after, is a little bit too close. Let's make it like 50% longer and then push the rest out from there\" — after 100–180 → 150–270; before, lazy and the miss pushed out by the same factor; unison untouched (it is meant to be close). Shared by ar, chain and arChain.",
+        "_2026_10_05b": "his ear again (§92): the minimum of just-after 150 → 175 (and the band to 300), just-before 90 → 105 (to 240) in the same proportion; lazy and the early miss pushed out from there (300–650 · 250–480); unison untouched. Shared by ar · chain · arChain. From the engine's next start."
+      },
+      "C_miss": {
+        "rate": 0.1,
+        "lateShare": 0.67,
+        "lateMs": [
+          0,
+          120
+        ],
+        "earlyMs": [
+          250,
+          480
+        ]
+      },
+      "D_leanings": "none — fresh dice at every note",
+      "E_reference": "the brick's centre — the player's own note; any opening by name later",
+      "F_page": {
+        "regionMs": 400
+      }
+    },
+    "chain": {
+      "G_shares": {
+        "after": 0.7,
+        "lazy": 0.2,
+        "far": 0.1,
+        "unison": 0,
+        "before": 0
+      },
+      "H_follow": 1,
+      "I_order": "shuffled",
+      "_page": "the brick starts at the live note and runs 0.5 s per sample"
+    },
+    "live": {
+      "_what": "THE PETALS LIVE (PLAN 10.14; RUNNING_LOG §232; electronics/sc/petals_live.scd): a return that sits AT its own mic opening and is processed by a petals preset (effect petalsOrig, the ring version) is made LIVE — the player's microphone straight into the bank of resonators as the note is played; no buffer. on: 1 | 0 (0 = such a return plays its earlier render, as before 2026-10-07). windowMs: how far after the opening's START the return may sit and still be live (the note is 100 ms into an opening made with M, so 300 = up to 200 ms after the note). Read at the engine's START (tools/elec.js start → LE_LIVE).",
+      "on": 1,
+      "windowMs": 300
+    }
+  },
+  "latencyLoop": {
+    "engineIn": 3
+  },
+  "_message": "THE MESSAGE ROUTE (PLAN 1.1 · 6.2; RUNNING_LOG §60): where the score server sends the page's messages — the engine's LANGUAGE port, UDP 57211 (its server is 57210). In concert and in simulation the same road; this address is the one thing that may differ. testOnsets: A ROUTE CHECK, off since the mic opening is a brick of its own (6.3, RUNNING_LOG §64) — the hook that sent it is out of the composer page; the engine still shows an /le/onset a tool sends. Read at every request: no restart needed.",
+  "message": {
+    "host": "127.0.0.1",
+    "port": 57211,
+    "testOnsets": false
+  },
+  "_bank": "THE BANK (PLAN 1.1 · 6.3 … 6.5; RUNNING_LOG §64): dir = where the engine keeps this piece's samples — <dir>/<name>.wav the cropped samples (COMMITTED: the samples are the piece's), <dir>/raw/ the whole recordings (gitignored, kept for a re-crop), <dir>/index.json a row per sample (the engine writes it; the composer page reads it at /bank/samples/index.json). crop = THE CROP'S RULE where this piece overrides the engine's defaults (electronics/sc/bank.scd): attackDb -30 · floorDb -50 · preMs 5 · endDb -45 · holdMs 50 · fadeInMs 2 · fadeOutMs 10 — HIS EAR TUNES THEM; a number written here is used from the engine's next start. Both are given to the engine at its START (tools/elec.js start), never by a message.",
+  "bank": {
+    "dir": "bank/samples",
+    "crop": {
+      "fadeOutMs": 80,
+      "fadeInMs": 3,
+      "_fade": "2026-10-05 (DEC-13, his word): a standard short release on every cropped sample — the window cuts the ring and a 10 ms fade clicked; 80 ms out, 3 ms in; applies to every capture from the engine's next start (a re-take re-crops)"
+    },
+    "regions": {
+      "_what": "THE REGIONS of a capture (PLAN 15.2 a, the drone section; RUNNING_LOG §249): where a long recording SOUNDS, so a drone never starts its read in a breath. On the cropped sample: the level in blocks of blockMs; a GAP is a run under gateDb (dB under the loudest block) at least gapMs long; a REGION is a sounding run between gaps at least minMs long. The engine writes them in the index row as regions (\"0-2340,2910-6100\", ms); a plan row's icFromMs:region@0.37 is resolved along the longest. Read at the engine's START (tools/elec.js start → LE_REGIONS).",
+      "blockMs": 20,
+      "gateDb": -40,
+      "gapMs": 150,
+      "minMs": 500
+    }
+  },
+  "_level": "THE LEVEL (PLAN 1.4, step 11; RUNNING_LOG §154 … §161; D17): THE LADDER the electronics are scored on — the players' own law (docs/DYNAMICS_LAW.md Rule 2). reference = the loudness, in LUFS, of the electronics' fff: the AI'S START is the trims' per-voice target (bank/trims.json, −29.54 — the electronics as the tenth voice); HIS EAR MOVES THIS ONE NUMBER and the whole ladder moves with it. stepDb = one written step (4). So mf = reference − 12, ppp = reference − 28. liftCapDb = a sample is never raised by more than this (a whisper is not lifted into the room's noise). floorDb = a sample quieter than this is never raised at all. driveRef (11.4) = the loudness a sample is brought to BEFORE an effect when its drive is 'normalized'. bleedDb (11.7) = how far over the room a capture's attack must stand, in concert. Read at the engine's START (tools/elec.js start → LE_LEVEL).",
+  "level": {
+    "reference": -17.54,
+    "stepDb": 4,
+    "liftCapDb": 20,
+    "floorDb": -60,
+    "driveRef": -20,
+    "bleedDb": 12
+  },
+  "_master": "THE BUS (PLAN 1.4 · 11.6; RUNNING_LOG §164; his 'A': the bus is SuperCollider's): the engine's master is a mastering bus, live — a high-pass, a low-pass, the glue (a soft-knee RMS compressor), a look-ahead limiter, the clip. Reaper's ELEC RETURN stays FLAT. hpfHz · lpfHz: 0 = that filter is off. glue: on true | false · thresholdDb · ratio · kneeDb · attackMs · releaseMs · makeupDb. ceilingDb: the limiter's ceiling (a sample's peak; the decibel above it is room for what lies between samples). lookaheadMs: how far the limiter looks ahead — the bus runs that much late and the engine plays its samples that much early. releaseMs: the limiter's. THE NUMBERS ARE A START (the sandbox's ensemble bus) — HIS EAR MOVES THEM: here, used from the engine's next start; or on the running engine with  node tools/elec.js bus glue=off lpf=6000 …",
+  "master": {
+    "hpfHz": 30,
+    "lpfHz": 0,
+    "glue": {
+      "on": true,
+      "thresholdDb": -18,
+      "ratio": 2,
+      "kneeDb": 6,
+      "attackMs": 30,
+      "releaseMs": 250,
+      "makeupDb": 0
+    },
+    "ceilingDb": -1,
+    "lookaheadMs": 5,
+    "releaseMs": 100
+  },
+  "_venue": "THE HOUSE (PLAN 1.4 · 11.7; RUNNING_LOG §165): the name of a file in bank/venue/ — a hall's numbers for each microphone (its trim, written by the sound check's calibration; a high-pass; two bands of EQ). Empty = every microphone flat: the simulation, where the 'microphones' are the rack's own tracks. Read at the engine's START;  --venue <name>  on the command line stands for it.",
+  "venue": "",
+  "_listenEcho": "A ROUTE CHECK (RUNNING_LOG §55): above 0, `start` returns each note this many seconds LATER, so the route is heard as a second sound. 0 since the playback brick exists (6.5, RUNNING_LOG §64): the engine returns what it MAKES — a sample played back — and nothing of the player's own sound.",
+  "listenEchoSeconds": 0,
+  "_mode": "THE MODE (RUNNING_LOG §71, 2026-10-05; his design): one word that names which bank FILLS the engine's buffers at start, where captures are WRITTEN, and whether an opening records. compose = bank/samples both ways, openings record (the latest take wins) · compose-locked = the same samples, openings change nothing · rehearsal = the players record the BACKUP bank (bank/backup) · concert = buffers full from the backup, a live capture replaces one only when it caught a sound, the captures kept in bank/live/<date>. The bricks in the score are the same in every mode. Read at the engine's START (tools/elec.js start).",
+  "mode": "compose",
+  "backupDir": "bank/backup",
+  "liveDir": "bank/live",
+  "_return_ar": "THE RETURN'S BEHAVIOUR 'ar' — ANTICIPATION-REACTION (step 9; DEC-9 … 9c; RUNNING_LOG §77 · §78). A return brick with behaviour ar is ROLLED BY THE ENGINE at every playback: the sample lands BEFORE or AFTER the brick's CENTRE (the live note), as a listening player would. The dials, LETTERED AS HE NAMES THEM BY EAR; these values override the engine's defaults (electronics/sc/bank.scd) and are used from the engine's next start (tools/elec.js start → LE_AR). A: the stances' shares. B: each stance's range in ms, drawn skewed to its fast edge (skew 2: most rolls near the low end). C: the miss — a just-before that lands late (0 … 80 after) or far too early. D: no leanings, fresh dice at every note (his word). E: the reference is the brick's centre. F: the page draws the brick as a region regionMs either side of its centre.",
+  "_return_chain": "THE RETURN'S BEHAVIOUR 'chain' — his FLOCKING redesigned as a chain, \"Chinese whispers\" (DEC-10 · 10b; RUNNING_LOG §82). A return brick with behaviour chain names its samples; the engine rolls which sample follows the LIVE note (the brick's start) and the rest follow the sample before them, each link with the listening player's imprecision — the error accumulates. G: a follower's stances (no before: you cannot follow what has not sounded). H: whom a link listens to — 1 = the sample just before it, always (his chain); 0 = the live note (a fan); between = a coin per link (piece #2's cascade was 0.5). I: the order — shuffled at every roll (his word) or as named. The ranges and the draw are ar's B; no miss (the lazy band is the fumbled reaction). Used from the engine's next start (LE_CHAIN).",
+  "_return_arChain": "THE RETURN'S BEHAVIOUR 'arChain' (DEC-11; RUNNING_LOG §87): ONE sample anticipates or reacts to the LIVE note (an ar roll, A · B · C), the others chain after IT (G · H · I) — which sample takes the ar role is rolled (I shuffled). The brick: a region from 400 ms before the live note to 400 ms after it plus 0.5 s per further sample.",
+  "_remote": "LISTENING FROM AFAR (RUNNING_LOG §209): `node tools/elec.js start --remote` (start_electronics_remote.bat) puts the engine on these Windows devices instead of ReaRoute, so Chrome Remote Desktop carries its sound beside Reaper's (Reaper then on WASAPI shared, its output the Windows default). The names as `node electronics/tools/sc.js devices` prints them; the Microsoft Sound Mapper IS the Windows default, whatever it is. The microphones are off in this mode.",
+  "remote": {
+    "inDevice": "MME : Microsoft Sound Mapper - Input",
+    "outDevice": "MME : Microsoft Sound Mapper - Output"
+  },
+  "_sine_track": "THE TRACKER (PLAN 1.8 · 16.1; RUNNING_LOG §260; electronics/sc/track.scd): a sine brick whose Follow is ON is a WINDOW on its player — armed for its span, silent until the player sounds at the written pitch, in with them at the written dynamic, FOLLOWING their rise and fall, held through a breath, gone when they stop. THE NUMBERS ARE THE AI'S START — HIS EAR MOVES THEM; read at the engine's START (tools/elec.js start → LE_TRACK; `node tools/elec.js env` shows it). ear: who the engine listens to when a brick does not say — sim = the score TELLS it each simulated note and its dynamic (the simulation) · mic = the player's microphone (the concert; in the simulation, the rack's own sound coming in where the microphone would). follow: how much of the player's CHANGE the sine takes — 1 all · 0.5 half · 0 none (the sine enters and leaves with the player and never moves: the fixed level). capDb: the most it moves, either way. holdMs: how long the player may be silent before the sine leaves (a re-breath is 750 ms). refMs: how long after their entry their level is taken as the reference the change is counted from. attackMs · releaseMs: how quickly the follower takes a rise · a fall. riseMs · fallMs: the sine's own fade in · out. floorDb: for a MICROPHONE with nothing measured — the level in the band at the written pitch over which the player is taken to be sounding (the rack's tracks are digital silence when no note plays; a hall measures its own: the sound check, `node tools/elec.js calibrate --sine-bleed`). gateDb · bandRelDb: how far over a measured room the threshold stands · the band's share of a broadband room figure. The rest are the engine's (track.scd trackDefaults): rq · openMs · downDb · dropDbS · backMs · reMs · glissLeadMs · bleedUnderDb · bleedOverRoomDb.",
+  "sine": {
+    "track": {
+      "ear": "sim",
+      "follow": 1,
+      "capDb": 8,
+      "holdMs": 1500,
+      "refMs": 300,
+      "attackMs": 100,
+      "releaseMs": 500,
+      "riseMs": 50,
+      "fallMs": 300,
+      "floorDb": -60,
+      "gateDb": 10,
+      "bandRelDb": -20
+    }
+  }
+}

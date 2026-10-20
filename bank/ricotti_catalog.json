@@ -1,0 +1,342 @@
+{
+ "_doc": "The Ricotti Mallets as this piece loads them: one Kontakt per instrument (track, port), one slot per patch, the patch on its own MIDI channel. Written once by tools/ricotti_loaders.js --scan from the library folder; a channel is never re-dealt. `label` is the library's patch name; `slot` is the name the loader gives the Kontakt slot. After a change: node tools/ricotti_loaders.js, then the loader run again in that Kontakt (it only adds what is missing).",
+ "library": "Spitfire Ricotti Mallets (PP006-007) — a Kontakt library, full Kontakt required",
+ "root": "C:/Users/jwloy/Spitfire/Spitfire Ricotti Mallets library/Instruments",
+ "instruments": [
+  {
+   "slug": "crotales",
+   "name": "Crotales",
+   "track": "Crotales RM",
+   "port": "DECCrotales",
+   "full": "Crotales.nki",
+   "patches": [
+    {
+     "channel": 1,
+     "label": "Main (Felt)",
+     "slot": "Crotales - Main (Felt)",
+     "file": "_Individual patches_/c - Crotales - Main (Felt).nki"
+    },
+    {
+     "channel": 2,
+     "label": "Main (Metal damped)",
+     "slot": "Crotales - Main (Metal damped)",
+     "file": "_Individual patches_/c - Crotales - Main (Metal damped).nki"
+    },
+    {
+     "channel": 3,
+     "label": "Main (Metal)",
+     "slot": "Crotales - Main (Metal)",
+     "file": "_Individual patches_/c - Crotales - Main (Metal).nki"
+    },
+    {
+     "channel": 4,
+     "label": "Main (Plastic damped)",
+     "slot": "Crotales - Main (Plastic damped)",
+     "file": "_Individual patches_/c - Crotales - Main (Plastic damped).nki"
+    },
+    {
+     "channel": 5,
+     "label": "Main (Plastic)",
+     "slot": "Crotales - Main (Plastic)",
+     "file": "_Individual patches_/c - Crotales - Main (Plastic).nki"
+    },
+    {
+     "channel": 6,
+     "label": "Bowed",
+     "slot": "Crotales - Bowed",
+     "file": "_Individual patches_/c - Crotales - Bowed.nki",
+     "cc1": "vel",
+     "cc1Note": "2026-10-08 (RUNNING_LOG §273): this patch takes its DYNAMIC from CC1, the mod wheel, not from the velocity (the library's manual: the bowed patches, rolls and tremolos, 'as it is with the longs') — he changed a note's dynamic and heard no change. cc1: vel = the page sends CC1 at the note's own velocity with every note (playback and the live keyboard), so the written dynamic is heard."
+    },
+    {
+     "channel": 7,
+     "label": "Rolls (Metal)",
+     "slot": "Crotales - Rolls (Metal)",
+     "file": "_Individual patches_/c - Crotales - Rolls (Metal).nki"
+    },
+    {
+     "channel": 8,
+     "label": "Rolls (Plastic)",
+     "slot": "Crotales - Rolls (Plastic)",
+     "file": "_Individual patches_/c - Crotales - Rolls (Plastic).nki"
+    },
+    {
+     "channel": 9,
+     "label": "Rolls (Rubber)",
+     "slot": "Crotales - Rolls (Rubber)",
+     "file": "_Individual patches_/c - Crotales - Rolls (Rubber).nki"
+    }
+   ],
+   "range": {
+    "low": 60,
+    "high": 84,
+    "kontakt": "C3–C5",
+    "source": "his screenshot of Kontakt's keyboard + his word \"same range for all crotales\", 2026-10-04; the edges proven by meter: 59 silent · 60 and 84 sound · 85 silent"
+   }
+  },
+  {
+   "slug": "glockenspiel",
+   "name": "Glockenspiel",
+   "track": "Glockenspiel RM",
+   "port": "DECGlock",
+   "full": "Glockenspiel.nki",
+   "patches": [
+    {
+     "channel": 1,
+     "label": "Main (Extra Soft)",
+     "slot": "Glockenspiel - Main (Extra Soft)",
+     "file": "_Individual patches_/b - Glock - Main (Extra Soft).nki"
+    },
+    {
+     "channel": 2,
+     "label": "Main (Hard)",
+     "slot": "Glockenspiel - Main (Hard)",
+     "file": "_Individual patches_/b - Glock - Main (Hard).nki"
+    },
+    {
+     "channel": 3,
+     "label": "Main (Medium Soft)",
+     "slot": "Glockenspiel - Main (Medium Soft)",
+     "file": "_Individual patches_/b - Glock - Main (Medium Soft).nki"
+    },
+    {
+     "channel": 4,
+     "label": "Main (Medium)",
+     "slot": "Glockenspiel - Main (Medium)",
+     "file": "_Individual patches_/b - Glock - Main (Medium).nki"
+    },
+    {
+     "channel": 5,
+     "label": "Main (Soft)",
+     "slot": "Glockenspiel - Main (Soft)",
+     "file": "_Individual patches_/b - Glock - Main (Soft).nki"
+    },
+    {
+     "channel": 6,
+     "label": "Glisses",
+     "slot": "Glockenspiel - Glisses",
+     "file": "_Individual patches_/b - Glock - Glisses.nki",
+     "byKey": true,
+     "keys": "pending",
+     "note": "BY KEY, three blocks — his words 2026-10-04: \"first range is ascending, second range is descending, third range I think is both\". Read from his screenshot, NOT verified: C1–E2 (36–52) · C3–E4 (60–76) · C5–B6 (84–107). NO KEY MAP, at his word: \"Let's not worry about the key map for this one. I may not use glisses. We'll get proper key map if I use the glisses.\""
+    },
+    {
+     "channel": 7,
+     "label": "Rolls (Hard)",
+     "slot": "Glockenspiel - Rolls (Hard)",
+     "file": "_Individual patches_/b - Glock - Rolls (Hard).nki"
+    },
+    {
+     "channel": 8,
+     "label": "Rolls (Soft)",
+     "slot": "Glockenspiel - Rolls (Soft)",
+     "file": "_Individual patches_/b - Glock - Rolls (Soft).nki"
+    },
+    {
+     "channel": 9,
+     "label": "Shorts (Hard)",
+     "slot": "Glockenspiel - Shorts (Hard)",
+     "file": "_Individual patches_/b - Glock - Shorts (Hard).nki"
+    },
+    {
+     "channel": 10,
+     "label": "Shorts (Medium Soft)",
+     "slot": "Glockenspiel - Shorts (Medium Soft)",
+     "file": "_Individual patches_/b - Glock - Shorts (Medium Soft).nki"
+    },
+    {
+     "channel": 11,
+     "label": "Tremolo (Hard)",
+     "slot": "Glockenspiel - Tremolo (Hard)",
+     "file": "_Individual patches_/b - Glock - Tremolo (Hard).nki"
+    },
+    {
+     "channel": 12,
+     "label": "Tremolo (Soft)",
+     "slot": "Glockenspiel - Tremolo (Soft)",
+     "file": "_Individual patches_/b - Glock - Tremolo (Soft).nki"
+    }
+   ],
+   "range": {
+    "low": 55,
+    "high": 84,
+    "kontakt": "G2–C5",
+    "source": "his screenshot of Kontakt's keyboard + his word \"glock range for all\", 2026-10-04; the edges proven by meter on channel 2: 54 silent · 55 and 84 sound · 85 silent"
+   }
+  },
+  {
+   "slug": "xylophone",
+   "name": "Xylophone",
+   "track": "Xylophone RM",
+   "port": "DECXylo",
+   "full": "Xylophone.nki",
+   "patches": [
+    {
+     "channel": 1,
+     "label": "Main",
+     "slot": "Xylophone - Main",
+     "file": "_Individual patches_/d - Xylophone - Main.nki"
+    },
+    {
+     "channel": 2,
+     "label": "Main - (Hot Rods)",
+     "slot": "Xylophone - Main - (Hot Rods)",
+     "file": "_Individual patches_/d - Xylophone - Main - (Hot Rods).nki",
+     "range": {
+      "low": 53,
+      "high": 91,
+      "kontakt": "F2–G5",
+      "source": "his second screenshot (\"hot r, extra s, rolls hot ro\"); proven by the sweep: 91 sounds, 92 and 95 silent"
+     }
+    },
+    {
+     "channel": 3,
+     "label": "Main (Extra Soft)",
+     "slot": "Xylophone - Main (Extra Soft)",
+     "file": "_Individual patches_/d - Xylophone - Main (Extra Soft).nki",
+     "range": {
+      "low": 53,
+      "high": 91,
+      "kontakt": "F2–G5",
+      "source": "his second screenshot (\"hot r, extra s, rolls hot ro\"); proven by the sweep: 91 sounds, 92 and 95 silent"
+     }
+    },
+    {
+     "channel": 4,
+     "label": "Main (Hard)",
+     "slot": "Xylophone - Main (Hard)",
+     "file": "_Individual patches_/d - Xylophone - Main (Hard).nki"
+    },
+    {
+     "channel": 5,
+     "label": "Main (Medium)",
+     "slot": "Xylophone - Main (Medium)",
+     "file": "_Individual patches_/d - Xylophone - Main (Medium).nki"
+    },
+    {
+     "channel": 6,
+     "label": "Main (Soft)",
+     "slot": "Xylophone - Main (Soft)",
+     "file": "_Individual patches_/d - Xylophone - Main (Soft).nki"
+    },
+    {
+     "channel": 7,
+     "label": "Glisses",
+     "slot": "Xylophone - Glisses",
+     "file": "_Individual patches_/d - Xylophone - Glisses.nki",
+     "byKey": true,
+     "keys": "pending",
+     "note": "BY KEY, four blocks. Read from his screenshot, NOT verified: C1–D2 (36–50) · C3–A4 (60–81) · C5–F5 (84–89) · C6–A6 (96–105). NO KEY MAP, at his word 2026-10-04: \"Same principle, sort out glisses, key map if I use them.\""
+    },
+    {
+     "channel": 8,
+     "label": "Rolls (Hard)",
+     "slot": "Xylophone - Rolls (Hard)",
+     "file": "_Individual patches_/d - Xylophone - Rolls (Hard).nki"
+    },
+    {
+     "channel": 9,
+     "label": "Rolls (Hot Rods)",
+     "slot": "Xylophone - Rolls (Hot Rods)",
+     "file": "_Individual patches_/d - Xylophone - Rolls (Hot Rods).nki",
+     "range": {
+      "low": 53,
+      "high": 91,
+      "kontakt": "F2–G5",
+      "source": "his second screenshot (\"hot r, extra s, rolls hot ro\"); proven by the sweep: 91 sounds, 92 and 95 silent"
+     }
+    },
+    {
+     "channel": 10,
+     "label": "Rolls (Soft)",
+     "slot": "Xylophone - Rolls (Soft)",
+     "file": "_Individual patches_/d - Xylophone - Rolls (Soft).nki"
+    }
+   ],
+   "range": {
+    "low": 53,
+    "high": 95,
+    "kontakt": "F2–B5",
+    "source": "his screenshot of Kontakt's keyboard (\"xylo main\"), 2026-10-04; every patch's edges proven by tools/key_sweep.js: 52 and 96 silent on all nine"
+   }
+  },
+  {
+   "slug": "marimba",
+   "name": "Marimba",
+   "track": "Marimba RM",
+   "port": "DECMarimba",
+   "full": "Marimba.nki",
+   "patches": [
+    {
+     "channel": 1,
+     "label": "Main",
+     "slot": "Marimba - Main",
+     "file": "_Individual patches_/a - Marimba - Main.nki"
+    },
+    {
+     "channel": 2,
+     "label": "Main - Full (Hard)",
+     "slot": "Marimba - Main - Full (Hard)",
+     "file": "_Individual patches_/a - Marimba - Main - Full (Hard).nki"
+    },
+    {
+     "channel": 3,
+     "label": "Main - Full (Soft)",
+     "slot": "Marimba - Main - Full (Soft)",
+     "file": "_Individual patches_/a - Marimba - Main - Full (Soft).nki"
+    },
+    {
+     "channel": 4,
+     "label": "Main - Rubber",
+     "slot": "Marimba - Main - Rubber",
+     "file": "_Individual patches_/a - Marimba - Main - Rubber.nki",
+     "range": {
+      "low": 36,
+      "high": 76,
+      "kontakt": "C1–E4",
+      "source": "his third screenshot (\"rubber\"); proven by the sweep: 76 sounds, 77 silent"
+     }
+    },
+    {
+     "channel": 5,
+     "label": "Main - Trems",
+     "slot": "Marimba - Main - Trems",
+     "file": "_Individual patches_/a - Marimba - Main - Trems.nki"
+    },
+    {
+     "channel": 6,
+     "label": "FX - Bows",
+     "slot": "Marimba - FX - Bows",
+     "file": "_Individual patches_/a - Marimba - FX - Bows.nki",
+     "range": {
+      "low": 36,
+      "high": 93,
+      "kontakt": "C1–A5",
+      "source": "his first screenshot (\"bows\"); proven by the sweep with a 2.5 s hold (a bowed note speaks slowly): 35 silent · 36 sounds · 93 sounds · 94 … 96 silent"
+     }
+    },
+    {
+     "channel": 7,
+     "label": "Hotrod",
+     "slot": "Marimba - Hotrod",
+     "file": "_Individual patches_/a - Marimba - Hotrod.nki"
+    },
+    {
+     "channel": 8,
+     "label": "Hotrod (Flams)",
+     "slot": "Marimba - Hotrod (Flams)",
+     "file": "_Individual patches_/a - Marimba - Hotrod (Flams).nki"
+    }
+   ],
+   "range": {
+    "low": 36,
+    "high": 96,
+    "kontakt": "C1–C6",
+    "source": "his screenshot of Kontakt's keyboard (\"main\"), 2026-10-04; proven by tools/key_sweep.js on channels 1 · 2 · 3 · 5 · 7 · 8: 35 and 97 silent, 36 and 96 sound"
+   },
+   "note": "His words 2026-10-04: \"I probably won't use marimba. And if I do, I'll just use the bows.\""
+  }
+ ],
+ "_ranges": "A range is MIDI keys, sounding as the library maps them. Kontakt's keyboard names middle C \"C3\" = MIDI 60 (proven on the crotales, RUNNING_LOG §30). The field \"range\" on an instrument holds for every patch of it unless a patch carries its own.",
+ "_rule": "HIS RULE for the ranges (2026-10-04, RUNNING_LOG §33): the range he gave as \"main\" holds for EVERY patch of the instrument, except a patch he named as an exception — which carries its own \"range\" here."
+}

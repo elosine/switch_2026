@@ -1,0 +1,10 @@
+{
+  "_what": "A VENUE — a hall's numbers for each microphone (PLAN 1.4 · 11.7; RUNNING_LOG §165). Copy this file to bank/venue/<name>.json and name it in bank/elec_route.json \"venue\" (or  node tools/elec.js start --venue <name> ). trimDb: the microphone's trim inside the engine — WRITTEN BY THE CALIBRATION (node tools/elec.js calibrate --venue <name>: each player plays one mf on cue; the trim puts that reading on the ladder's mf, so that 'as played' means what the player meant). hpfHz: a high-pass on the microphone, 0 = off — THE AI'S START, by each instrument's lowest note: bass flute and viola 90, bass clarinet and cello 50, the percussion 40. eq: up to two corrective bands { hz, db, q } — a hall's boom, a microphone's edge; empty until an ear asks. A player not named is flat. The simulation uses no venue.",
+  "players": {
+    "bfl": { "trimDb": 0, "hpfHz": 90, "eq": [] },
+    "bcl": { "trimDb": 0, "hpfHz": 50, "eq": [] },
+    "perc": { "trimDb": 0, "hpfHz": 40, "eq": [] },
+    "va": { "trimDb": 0, "hpfHz": 90, "eq": [] },
+    "vc": { "trimDb": 0, "hpfHz": 50, "eq": [] }
+  }
+}
