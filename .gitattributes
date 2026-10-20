@@ -1,0 +1,6 @@
+# Shell scripts must stay LF: with core.autocrlf=true a fresh checkout would rewrite them
+# to CRLF and bash fails on the carriage returns (print/score/build.sh). Added 2026-09-03.
+*.sh text eol=lf
+
+# a Kontakt preset array is read by the sampler byte for byte — never let git touch its line endings (RUNNING_LOG §37)
+*.nka -text
