@@ -1,0 +1,15 @@
+{
+ "type": "scattered_strike_db",
+ "version": 1,
+ "created": "2026-10-20",
+ "description": "The strike bank — THIS PIECE'S since 2026-10-09: the composer's 60 strikes, played by him on the mallets lane (marimba) and saved as scores/strikes.json, ingested by tools/strike_db.js (RUNNING_LOG §290). In piece #5 this held his recorded piano strikes, the seed of that piece's opening. The Strikes drawer and the harmony bank 'strikes' read this file live.",
+ "_provenance": "Skeleton written by the port from piece 6 (decibel_TENOR_2026 @ 9796edd), 2026-10-20 — the new-piece protocol's 3.4. The strike bank is EMPTY: piece 6's 60 strikes (his marimba takes) stayed in its repo. Recorded strikes are a piece's own.",
+ "defaults": {
+  "strikeGapMs": 500,
+  "simultaneityMs": 60
+ },
+ "ingestions": [],
+ "sequences": {},
+ "strikes": {},
+ "updated": "2026-10-20"
+}

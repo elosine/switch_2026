@@ -1,0 +1,45 @@
+0	node tools/test_animobj.js	2s	ANIMOBJ GREEN: contract + 5 ports + transport + boundaries + preset passthrough
+0	node tools/test_graphic.js	0s	GRAPHIC GREEN: censuses exact, D28 law hand-checked (F2 pair peak 5.93 Hz), render sane
+0	node tools/test_identity.js --score piece-Draft01d	1s	ALL PASS · piece-Draft01d · 0.4 s
+0	node tools/test_layout.js	2s	LAYOUT GREEN: staff math + A3 census + beaming + parachute + section smoke + snapshot + per-part tempo/curveZero/chunk tick
+0	node tools/test_pattern_fit.js	2s	PATTERN_FIT GREEN: 85 checks — calibration + unit range + T7 guard + validation agreement + 8g segmentation (T1 golden, no-shatter, words) + 8h seam
+0	node tools/test_render.js	0s	RENDER GREEN: census + clipping + snapshot stable
+0	node tools/test_snapshots.js	0s	SNAPSHOTS GREEN: 30 checks
+0	node tools/test_splice.js	0s	SPLICE GREEN: 6 section pages, multi-part stamp-atomic proven, material-extent reshow, guards in place
+0	node tools/test_stamps.js	0s	STAMPS GREEN: parity + anchors-compose + snapshot stable
+0	node tools/test_step_dynamics.js	0s	PASS — 13 pass, 0 fail
+1	node tools/test_surge_run.js	1s	Node.js v24.12.0
+0	node tools/test_written_pitch.js	0s	WRITTEN-PITCH GREEN: 10 cases + the control
+0	node tools/accel_calc_check.js	0s	PASS — every check passed
+1	node tools/dyn_table_check.js	0s	DYN TABLE RED: 1 failed
+1	node tools/eh_figure_check.js	0s	Node.js v24.12.0
+0	node tools/palette_check.js --quiet	0s	PALETTE GREEN: 151 checks
+0	node tools/roster_check.js --quiet	0s	ROSTER GREEN: 3 checks, 310 voices, 32 pending
+1	node tools/sequence_check.js	0s	Node.js v24.12.0
+1	node tools/sequence_notation_check.js	0s	Node.js v24.12.0
+0	node tools/spectrum_check.js	0s	SPECTRUM GREEN: 35 checks
+0	node tools/unsaved_check.js	0s	no working copies in scores/ — nothing unsaved
+1	node tools/vib_marks_check.js	1s	Node.js v24.12.0
+1	node tools/vibes_pitch_check.js	0s	53 passed, 12 failed
+0	node tools/check_ceilings.js --all	0s	CEILING GREEN scores/decibel-first-sound.json — 16 notes, longest per instrument: bass 2/8 · bass 2/12 · viola 2/12 · cello 2/15
+1	node tools/check_rules.js	6s	RULES RED: 2 of 32 checks failed
+0	node tools/check_screen_edges.js --ir approaching	2s	check_screen_edges: PASS
+0	node tools/check_print_edges.js --ir approaching	1s	check_print_edges: PASS
+0	node tools/check_print_frame.js --ir approaching	1s	PASS — 4 moments, the print frame is the video frame
+0	node tools/check_print_front.js --ir approaching	1s	PASS — the front matter fits, nothing clipped
+0	node tools/check_print_pages.js --ir approaching	1s	PASS — all 77 music pages carry the full frame; the piece ends once
+0	node score/tools/check_containers.js	0s	all checks passed
+0	node score/tools/check_cresc_deck.js	1s	all checks passed
+0	node score/tools/check_cresc_panel.js	0s	all green
+0	node tools/ir_validate_battery.js	1s	BATTERY GREEN: 30 red + 6 green cases all behaved (36 total)
+0	node tools/model_bank.js --validate	1s	  VALID (with warnings)
+0	node tools/decisions_needed.js	0s	approaching-strikes: 0 unit(s) left rung 0
+0	node tools/beating_check.js	0s	BEATING_CHECK PASS
+1	node tools/three_body_check.js	0s	Node.js v24.12.0
+1	node tools/sine_check.js	0s	Node.js v24.12.0
+0	node tools/drone_check.js	0s	DRONE_CHECK PASS
+1	node tools/strike_check.js	0s	Node.js v24.12.0
+1	python probes/selftest_bend.py	0s	FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\jwloy\\GitHub\\switch_2026\\probes\\bend_schedule.json'
+1	python probes/selftest_bend_analyzer.py	1s	no schedule � run: powershell -File probes\bend_probe.ps1 -Probe all -DryRun
+1	python probes/selftest_ranges.py	0s	FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\jwloy\\GitHub\\switch_2026\\probes\\ranges_schedule.json'
+1	python probes/selftest_sweep.py	0s	FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\jwloy\\GitHub\\switch_2026\\probes\\sweep_schedule.json'

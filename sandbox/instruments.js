@@ -1,4 +1,4 @@
-// Rendering-recipe config — decibel TENOR 2026 (the port from piece #6, the new-piece protocol's 3.4, 2026-10-04;
+// Rendering-recipe config — switch 2026 (the port from piece 6 *Approaching*, the new-piece protocol's 3.4, 2026-10-20;
 // container 4 fills it in). One entry per TRACK (score/public/composer.html TRACKS[].instKey).
 //
 // Schema, inherited from pieces #3/#4/#5: { label, port, rangeLow, rangeHigh, mechanism?,
@@ -19,48 +19,47 @@
 //     names any such entry.
 //
 // ============================ STATUS: PROVISIONAL ============================
-// **Nothing here has been heard in this piece.** Written during the port so that the six lanes exist, material can be
+// **Nothing here has been heard in this piece.** Written during the port so that the eight lanes exist, material can be
 // assigned to them, the placement engines can route around them and the notation can lay them out. Container 4 (the
 // instruments) and container 5 (the calibration) replace every value, with the composer at the machine.
 //
-//   CARRIED from piece #6, verbatim — its measurements are ITS rack's, re-measured at container 5:
-//     percussion        Spitfire Abbey Road Orchestra Percussion. The selection (bank/perc_selection.json) is piece
-//                       #6's fourteen; WHICH instruments this piece uses is the composer's, at container 4.
-//     bowed_vibraphone  Xsample Mallets Extended — the STAND-IN for the pitched percussion lane (journal D9).
-//     cello             Xsample Contemporary Solo Strings.
-//   PLACEHOLDERS — no library chosen (container 4 opens with that talk):
-//     bass_flute · bass_clarinet   one ordinary voice each, so the lane is real.
-//     viola                        the strings' roster by the cello's mechanism; none of the cello's measurements.
+//   CARRIED from piece 6, verbatim — its measurements are ITS rack's, re-measured at container 5:
+//     percussion        Spitfire Abbey Road Orchestra Percussion. The selection (bank/perc_selection.json) is piece 6's
+//                       eight; WHICH instruments this piece uses is the composer's, from the call's list, at container 4.
+//     bowed_vibraphone  piece 6's Ricotti mallets (crotales · glockenspiel · xylophone · marimba) — the STAND-IN for the
+//                       VIBRAPHONE lane (the call's list; journal D7). The key is piece 5's, kept (docs/NAMING.md § 1).
+//     cello             Xsample Contemporary Solo Strings — measured in piece 5's rack, carried through piece 6.
+//   PLACEHOLDERS — one or two voices each, so the lane is real (container 4 opens with the read-out per instrument, H6-22):
+//     flute · clarinet · alto_sax   IRCAM Solo Instruments 2 (UVI), installed whole on this machine — the flute was piece 4's;
+//                                   the clarinet and the sax are new instruments of that known family. Nothing read from it yet.
+//     piano                         piece 4's and piece 2's record (8Dio Steinway · IRCAM Prepared Piano 2 · the plucked piano).
+//     violin                        the strings' roster by the cello's mechanism; none of the cello's measurements.
 //
-// PORT NAMES carry a `DEC` prefix (journal D6): loopMIDI ports are machine-global, and piece #6's rack (`LG…`) and piece
-// #5's (bare names) may still be live on this machine. These names are the SHAPE; container 4 (4.1) fixes them.
+// PORT NAMES carry an `SW` prefix (journal D4): loopMIDI ports are machine-global, and piece 6's rack (`DEC…`), piece 5's
+// (`LG…`) and piece 4's (bare names) may still be live on this machine. These names are the SHAPE; container 4 (4.1) makes them.
 //
 // TECHNIQUE KEYS are the notation registry's names (notation/registry/techniques.json) wherever one exists, so a key that
 // reaches the IR is already drawable; tools/palette_check.js lists the recipe keys the registry does not know yet.
 
 const INSTRUMENTS = {
 
-  // ---- BASS FLUTE — Xsample (Kontakt), CC#0 selects the preset — container 4, 2026-10-04 (RUNNING_LOG §26 · §34) ----
-  // The library is his, installed 2026-10-04 (XL_Woodwinds_Bass_Flute); the rack's track "Bass Flute XS" holds it in the four
-  // slots of D11 (reaper/kontakt/load_bass_flute.lua). The roster is the Preset Menu AS HIS KONTAKT SHOWS IT (his screenshots):
-  // 32 factory presets — the manual lists 30 — then Free Presets from 33. CC#0 = preset number − 1.
-  // `ordinary` = vib_vel (#15 Vibrato Velocity), HIS CHOICE 2026-10-04: the list has no plain non-vibrato sustain.
-  // RANGE 48–86 (C3–D6 sounding; Kontakt's keyboard calls it C2–D5): MEASURED on #15 by tools/key_sweep.js — 47 silent, 48 … 86
-  // sound, 87 on silent. Every other preset is given that zone until it is read (the preset loaded by default stops at 64;
-  // the pseudo contrabass pair surely differs). NOT yet measured: the bend range, the loudness (container 5), the by-key voices' keys.
-  bass_flute: { balanceDb: -7.52, ordinary: "vib_vel", playerBendSt: 1, bendRangeSt: 1,   /* the bend MEASURED 2026-10-04: +49.8 cents at half bend = 1.00 st (the card, RUNNING_LOG §42) */ label: "Bass Flute", port: "DECBassFlute", rangeLow: 48, rangeHigh: 86, mechanism: "cc0", channels: { main: 1, curve: [2, 3, 4] }, techniques: xsBassFluteTechs(48, 86) },
+  // ---- FLUTE — IRCAM Solo Instruments 2 (UVI), PLACEHOLDER (container 4) ----
+  // Two voices so the lane and the tables are real: nothing here was read from the library or heard. Piece 4's flute recipe
+  // (septet_2026/sandbox/instruments.js — SI2 "Flute in C", 19 presets by keyswitch, three ordinario copies on a `b` port) is
+  // container 4's source. Range 60–96 (C4–C7 sounding), NOT measured; the bend range is MIDI's default, unread.
+  flute: { ordinary: "ord", playerBendSt: 1, bendRangeSt: 2, label: "Flute", port: "SWFlute", rangeLow: 60, rangeHigh: 96, channels: { main: 1, curve: [2, 3, 4] },
+    techniques: [{ key: "ord", label: "Ordinario", channel: 1, kind: "pitched", loud: "vel" }, { key: "staccato", label: "Staccato", channel: 1, kind: "pitched", loud: "vel" }] },
 
-  // ---- BASS CLARINET — Xsample (Kontakt), CC#0 selects the preset — PIECE #5'S ENTRY, CARRIED (2026-10-04, RUNNING_LOG §34) ----
-  // The rack's track "Bass Clarinet XS" is the CLONE of piece #5's (the Tempus septet's) as saved 2026-09-17: the same Kontakt,
-  // the same four D11 slots — so its roster, its zones and its bend are piece #5's, read there from his Kontakt (its screenshots
-  // R5, 2026-09-03) and from piece #3's deep map (XSAMPLE_BASSCL_map.md). 33 factory presets + #34, his "Flutter LOCK" of piece
-  // #3. CC#0 = preset − 1. THE FLOOR RULE: nothing below MIDI 34 is ever sent as a note (21–33 are switches and function keys).
-  // Standard zone A#0–F4 on Kontakt's keyboard = 34–65.
-  // NOT carried: piece #5's balance (−9 dB — relative to THAT ensemble; re-levelled at container 5) · its strike lane — the slap
-  // sat on channel 5 → a second Kontakt output → a "BassCl strikes" track; this engine has no strike lane, so the slap plays on
-  // channel 1 like every other preset (the strike slot is still inside the clone, idle; NITS).
-  // The bend: piece #5 MEASURED 0.98 st on this very instance — 1 here, provisional until container 5 writes its row.
-  bass_clarinet: { balanceDb: -13.16, ordinary: "senza_vel", playerBendSt: 1, bendRangeSt: 1, label: "Bass Clarinet", port: "DECBassClar", rangeLow: 34, rangeHigh: 65, mechanism: "cc0", channels: { main: 1, curve: [2, 3, 4] }, techniques: xsBassClarinetTechs() },
+  // ---- CLARINET in B♭ — IRCAM Solo Instruments 2 (UVI), PLACEHOLDER (container 4) ----
+  // SI2 holds a "Clarinet in Bb" (its manual, piece 3's extracted copy: Layers & Keyswitches — Clarinet); no piece has used it.
+  // Range 50–94 (D3–B♭6 sounding), NOT measured.
+  clarinet: { ordinary: "ord", playerBendSt: 1, bendRangeSt: 2, label: "Clarinet", port: "SWClar", rangeLow: 50, rangeHigh: 94, channels: { main: 1, curve: [2, 3, 4] },
+    techniques: [{ key: "ord", label: "Ordinario", channel: 1, kind: "pitched", loud: "vel" }, { key: "staccato", label: "Staccato", channel: 1, kind: "pitched", loud: "vel" }] },
+
+  // ---- ALTO SAXOPHONE in E♭ — IRCAM Solo Instruments 2 (UVI), PLACEHOLDER (container 4) ----
+  // SI2 holds an "Alto Saxophone" (Claude Delangle); no piece has used it. Range 49–81 (D♭3–A5 sounding), NOT measured.
+  alto_sax: { ordinary: "ord", playerBendSt: 1, bendRangeSt: 2, label: "Alto Sax", port: "SWSax", rangeLow: 49, rangeHigh: 81, channels: { main: 1, curve: [2, 3, 4] },
+    techniques: [{ key: "ord", label: "Ordinario", channel: 1, kind: "pitched", loud: "vel" }, { key: "staccato", label: "Staccato", channel: 1, kind: "pitched", loud: "vel" }] },
 
   // ---- PERCUSSION — ONE PLAYER, ONE LANE (P4) ----
   // Spitfire Abbey Road Orchestra Percussion (D6 — piece #2's library, its journal decision 4:
@@ -85,7 +84,7 @@ const INSTRUMENTS = {
   // Choosing an instrument = one line in the selection + one Reaper track filtering on its channel +
   // the tool + palette_check — and its technique keys registered (principle 3) before material uses them.
   percussion: {
-    label: "Percussion", port: "DECPerc", rangeLow: 21, rangeHigh: 108,
+    label: "Percussion", port: "SWPerc", rangeLow: 21, rangeHigh: 108,
     ordinary: "main", beating: false, playerBendSt: 0, bendRangeSt: 0,
     // curveTechniques: [] — NO percussion voice may use the curve channels (2026-10-04, RUNNING_LOG §35): on DECPerc channels 2 … 4 are
     // OTHER INSTRUMENTS (the shime daiko, the bass drum, the wood blocks), not curve copies. Without the gate a HELD note on this lane was
@@ -116,17 +115,24 @@ const INSTRUMENTS = {
   // take their dynamic from CC1 in this library (its manual) — NOT wired: they sound at the wheel's resting value (NITS).
   bowed_vibraphone: {
     ordinary: "crot_main_metal", beating: false, playerBendSt: 0, bendRangeSt: 2,
-    label: "Mallets", port: "DECCrotales", rangeLow: 36, rangeHigh: 96,
+    label: "Vibraphone", port: "SWCrotales", rangeLow: 36, rangeHigh: 96,
     channels: { main: 1, curve: [2, 3, 4], curveTechniques: [] },
     techniques: [{ key: "crot_main_metal", label: "Crotales · Main (Metal)", channel: 3, kind: "pitched", loud: "vel" }],   // replaced whole by applyRicotti()
   },
 
-  // ---- VIOLA — by the CELLO's mechanism, PROVISIONAL (container 4) ----
+  // ---- PIANO — PLACEHOLDER (container 4; THE PIANO IS A ROLE — the profile's roles line) ----
+  // One struck voice so the lane and the piano-role modules are real. Piece 4's recipe (8Dio Steinway + IRCAM Prepared Piano 2,
+  // two ports Piano1 · Piano2) and piece 2's record (the harmonics piano, the plucked piano, the CC120 secco cutoff) are
+  // container 4's sources. Struck: the velocity IS the dynamic; no breath, no bow, no bend — not a beating partner.
+  piano: { ordinary: "main", beating: false, playerBendSt: 0, bendRangeSt: 0, label: "Piano", port: "SWPiano", rangeLow: 21, rangeHigh: 108, channels: { main: 1, curve: [2, 3, 4], curveTechniques: [] },
+    techniques: [{ key: "main", label: "struck, plain (the placeholder)", channel: 1, kind: "pitched", loud: "vel" }] },
+
+  // ---- VIOLIN — by the CELLO's mechanism, PROVISIONAL (container 4) ----
   // The roster is generated by the strings' helper, so the key set is the cello's (Xsample Contemporary Solo Strings: 88
-  // presets, CC#0 = preset − 1; Sul C / G / D / A) — piece #5's viola was this library and this helper. NOTHING of the
+  // presets, CC#0 = preset − 1; Sul G / D / A / E) — piece 4's violins were this library and this helper. NOTHING of the
   // cello's MEASUREMENTS is shared: no balanceDb, no measured ranges, no measured bend — a shared mechanism never shares a
-  // measurement. Range 48–93 (C3–A6 sounding) is piece #5's figure, not re-measured. The preset numbers are VERIFY at 4.
-  viola: { balanceDb: -5.23, ordinary: "senza_vel", playerBendSt: 1, bendRangeSt: 1, label: "Viola", port: "DECViola", rangeLow: 48, rangeHigh: 93, mechanism: "cc0", channels: { main: 1, curve: [2, 3, 4] }, techniques: xsStringTechs(["C", "G", "D", "A"], 48, 93) },
+  // measurement. Range 55–100 (G3–E7 sounding) is the instrument's compass, not re-measured. The preset numbers are VERIFY at 4.
+  violin: { ordinary: "senza_vel", playerBendSt: 1, bendRangeSt: 1, label: "Violin", port: "SWViolin", rangeLow: 55, rangeHigh: 100, mechanism: "cc0", channels: { main: 1, curve: [2, 3, 4] }, techniques: xsStringTechs(["G", "D", "A", "E"], 55, 100) },
 
   // ---- CELLO — Xsample Contemporary Solo Strings (Kontakt), CC#0 selects the preset ----
   // PIECE #5'S ENTRY, CARRIED VERBATIM (D6) — the one recipe in this file that has been heard,
@@ -134,7 +140,7 @@ const INSTRUMENTS = {
   // name changes, and only because loopMIDI ports are machine-global (see the header).
   // The full Xsample roster is 88 presets, identical across the instruments except the string
   // names; CC#0 = preset − 1. Channels per D11: 1 main · 2–4 curve A/B/C.
-  cello: { balanceDb: -3.87, ordinary: "senza_vel", playerBendSt: 12, /* the PLAYER's reach, his (2026-10-08, RUNNING_LOG §263): a cellist slides along the string — a tritone for the beating section; the sampler's ±1 st is re-keyed by the GO */ bendRangeSt: 2, label: "Cello", port: "DECCello", rangeLow: 36, rangeHigh: 83, mechanism: "cc0", channels: { main: 1, curve: [2, 3, 4] }, techniques: xsStringTechs(["C", "G", "D", "A"], 36, 83) },
+  cello: { balanceDb: -3.87, ordinary: "senza_vel", playerBendSt: 12, /* the PLAYER's reach, his (2026-10-08, RUNNING_LOG §263): a cellist slides along the string — a tritone for the beating section; the sampler's ±1 st is re-keyed by the GO */ bendRangeSt: 2, label: "Cello", port: "SWCello", rangeLow: 36, rangeHigh: 83, mechanism: "cc0", channels: { main: 1, curve: [2, 3, 4] }, techniques: xsStringTechs(["C", "G", "D", "A"], 36, 83) },
 };
 
 // The composer's practice (R8): the VELOCITY presets by default — the MW ones "sound different" and are
@@ -402,9 +408,9 @@ applyUviParts(INSTRUMENTS, UVI_PARTS);
 
 // ---- ARO PERCUSSION (generated by tools/apply_perc.js from bank/perc_selection.json — do not edit by hand) ----
 const ARO_PERC = {   // 8 instrument(s) selected 2026-10-04: bongos ch1 · shime_daiko ch2 · bass_drum_alt ch3 · wood_blocks ch4 · china_cymbals ch5 · small_metals_spring_coil ch6 · susp_cymbals_bright ch7 · toms_high ch8
-  port: "DECPerc",
+  port: "SWPerc",
   instruments: [
-    { slug: "bongos", name: "Bongos", library: "ARO High Percussion", status: "verified", port: "DECPerc", channel: 1, techniques: [
+    { slug: "bongos", name: "Bongos", library: "ARO High Percussion", status: "verified", port: "SWPerc", channel: 1, techniques: [
       { key: "bongos_hands", label: "Bongos — Hands", channel: 1, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 52,
         keys: [{"midi":36,"label":"Low · Low Hand Hit L"},{"midi":38,"label":"Low · Low Hand Hit R"},{"midi":40,"label":"Low · Low Hand Roll"},{"midi":48,"label":"High · High Hand Hit L"},{"midi":49,"label":"High · High Hand Hit Closed L"},{"midi":50,"label":"High · High Hand Hit R"},{"midi":51,"label":"High · High Hand Hit Closed R"},{"midi":52,"label":"High · High Hand Roll"}] },
       { key: "bongos_fingers", label: "Bongos — Fingers", channel: 1, kind: "key", loud: "vel", rangeLow: 41, rangeHigh: 57,
@@ -412,7 +418,7 @@ const ARO_PERC = {   // 8 instrument(s) selected 2026-10-04: bongos ch1 · shime
       { key: "bongos_sticks", label: "Bongos — Sticks", channel: 1, kind: "key", loud: "vel", rangeLow: 60, rangeHigh: 79,
         keys: [{"midi":60,"label":"Low · Low Stick Hit L"},{"midi":62,"label":"Low · Low Stick Hit R"},{"midi":64,"label":"Low · Low Stick Roll"},{"midi":65,"label":"Low · Low Rim Shot L"},{"midi":67,"label":"Low · Low Rim Shot R"},{"midi":72,"label":"High · High Stick Hit L"},{"midi":74,"label":"High · High Stick Hit R"},{"midi":76,"label":"High · High Stick Roll"},{"midi":77,"label":"High · High Rim Shot L"},{"midi":79,"label":"High · High Rim Shot R"}] },
     ] },
-    { slug: "shime_daiko", name: "Shime Daiko", library: "ARO High Percussion", status: "verified", port: "DECPerc", channel: 2, techniques: [
+    { slug: "shime_daiko", name: "Shime Daiko", library: "ARO High Percussion", status: "verified", port: "SWPerc", channel: 2, techniques: [
       { key: "shime_daiko_hands", label: "Shime Daiko — Hands", channel: 2, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 38,
         keys: [{"midi":36,"label":"Hit L"},{"midi":38,"label":"Hit R"}] },
       { key: "shime_daiko_taiko_sticks", label: "Shime Daiko — Taiko Sticks", channel: 2, kind: "key", loud: "vel", rangeLow: 41, rangeHigh: 45,
@@ -420,7 +426,7 @@ const ARO_PERC = {   // 8 instrument(s) selected 2026-10-04: bongos ch1 · shime
       { key: "shime_daiko_rods", label: "Shime Daiko — Rods", channel: 2, kind: "key", loud: "vel", rangeLow: 48, rangeHigh: 57,
         keys: [{"midi":48,"label":"Hit L"},{"midi":50,"label":"Hit R"},{"midi":52,"label":"Roll"},{"midi":53,"label":"Rim Hit L"},{"midi":55,"label":"Rim Hit R"},{"midi":57,"label":"Rim Roll"}] },
     ] },
-    { slug: "bass_drum_alt", name: "Bass Drum (Alt)", library: "ARO Low Percussion", status: "verified", port: "DECPerc", channel: 3, techniques: [
+    { slug: "bass_drum_alt", name: "Bass Drum (Alt)", library: "ARO Low Percussion", status: "verified", port: "SWPerc", channel: 3, techniques: [
       { key: "bass_drum_alt_sticks", label: "Bass Drum (Alt) — Sticks", channel: 3, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 45,
         keys: [{"midi":36,"label":"Single Hit L"},{"midi":37,"label":"Hand Damped Hit L"},{"midi":38,"label":"Single Hit R"},{"midi":39,"label":"Hand Damped Hit R"},{"midi":40,"label":"Roll"},{"midi":41,"label":"Rim Hit L"},{"midi":43,"label":"Rim Hit R"},{"midi":45,"label":"Rim Roll"}] },
       { key: "bass_drum_alt_hard_felt", label: "Bass Drum (Alt) — Hard Felt", channel: 3, kind: "key", loud: "vel", rangeLow: 48, rangeHigh: 52,
@@ -434,13 +440,13 @@ const ARO_PERC = {   // 8 instrument(s) selected 2026-10-04: bongos ch1 · shime
       { key: "bass_drum_alt_brushes", label: "Bass Drum (Alt) — Brushes", channel: 3, kind: "key", loud: "vel", rangeLow: 72, rangeHigh: 88,
         keys: [{"midi":72,"label":"Center Hit Open L"},{"midi":73,"label":"Center Hit Closed L"},{"midi":74,"label":"Center Hit Open R"},{"midi":75,"label":"Center Hit Closed R"},{"midi":76,"label":"Roll"},{"midi":77,"label":"Edge Hit Open L"},{"midi":78,"label":"Edge Hit Closed L"},{"midi":79,"label":"Edge Hit Open R"},{"midi":80,"label":"Edge Hit Closed R"},{"midi":84,"label":"Short Sweep L"},{"midi":85,"label":"Long Sweep L"},{"midi":86,"label":"Short Sweep R"},{"midi":87,"label":"Long Sweep R"},{"midi":88,"label":"Swirling"}] },
     ] },
-    { slug: "wood_blocks", name: "Wood Blocks", library: "ARO High Percussion", status: "verified", port: "DECPerc", channel: 4, techniques: [
+    { slug: "wood_blocks", name: "Wood Blocks", library: "ARO High Percussion", status: "verified", port: "SWPerc", channel: 4, techniques: [
       { key: "wood_blocks_hard_mallets", label: "Wood Blocks — Hard Mallets", channel: 4, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 44,
         keys: [{"midi":36,"label":"Block 4 · Hit L"},{"midi":37,"label":"Block 3 · Hit L"},{"midi":38,"label":"Block 4 · Hit R"},{"midi":39,"label":"Block 3 · Hit R"},{"midi":41,"label":"Block 2 · Hit L"},{"midi":42,"label":"Block 1 · Hit L"},{"midi":43,"label":"Block 2 · Hit R"},{"midi":44,"label":"Block 1 · Hit R"}] },
       { key: "wood_blocks_soft_mallets", label: "Wood Blocks — Soft Mallets", channel: 4, kind: "key", loud: "vel", rangeLow: 48, rangeHigh: 56,
         keys: [{"midi":48,"label":"Block 4 · Hit L"},{"midi":49,"label":"Block 3 · Hit L"},{"midi":50,"label":"Block 4 · Hit R"},{"midi":51,"label":"Block 3 · Hit R"},{"midi":53,"label":"Block 2 · Hit L"},{"midi":54,"label":"Block 1 · Hit L"},{"midi":55,"label":"Block 2 · Hit R"},{"midi":56,"label":"Block 1 · Hit R"}] },
     ] },
-    { slug: "china_cymbals", name: "China Cymbals", library: "ARO Metal Percussion", status: "verified", port: "DECPerc", channel: 5, techniques: [
+    { slug: "china_cymbals", name: "China Cymbals", library: "ARO Metal Percussion", status: "verified", port: "SWPerc", channel: 5, techniques: [
       { key: "china_cymbals_felt_mallet", label: "China Cymbals — Felt Mallet", channel: 5, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 44,
         keys: [{"midi":36,"label":"Single Hit"},{"midi":37,"label":"Single Hit Choked"},{"midi":38,"label":"Single Hit"},{"midi":39,"label":"Single Hit Choked"},{"midi":41,"label":"Roll"},{"midi":42,"label":"Swells"},{"midi":43,"label":"Roll Choked"},{"midi":44,"label":"Swells Choked"}] },
       { key: "china_cymbals_bow", label: "China Cymbals — Bow", channel: 5, kind: "key", loud: "vel", rangeLow: 48, rangeHigh: 57,
@@ -450,11 +456,11 @@ const ARO_PERC = {   // 8 instrument(s) selected 2026-10-04: bongos ch1 · shime
       { key: "china_cymbals_stick", label: "China Cymbals — Stick", channel: 5, kind: "key", loud: "vel", rangeLow: 72, rangeHigh: 75,
         keys: [{"midi":72,"label":"Single Hit L"},{"midi":73,"label":"Single Hit Choked"},{"midi":74,"label":"Single Hit"},{"midi":75,"label":"Single Hit Choked"}] },
     ] },
-    { slug: "small_metals_spring_coil", name: "Spring Coil", library: "ARO Metal Percussion", status: "verified", port: "DECPerc", channel: 6, techniques: [
+    { slug: "small_metals_spring_coil", name: "Spring Coil", library: "ARO Metal Percussion", status: "verified", port: "SWPerc", channel: 6, techniques: [
       { key: "small_metals_spring_coil", label: "Spring Coil", channel: 6, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 68,
         keys: [{"midi":36,"label":"Open Hit L"},{"midi":37,"label":"Muted Hit L"},{"midi":38,"label":"Open Hit R"},{"midi":39,"label":"Muted Hit R"},{"midi":41,"label":"Open Rake Fast"},{"midi":42,"label":"Muted Rake Fast"},{"midi":43,"label":"Open Rake Slow"},{"midi":44,"label":"Muted Rake Slow"},{"midi":60,"label":"Open Hit L"},{"midi":61,"label":"Muted Hit L"},{"midi":62,"label":"Open Hit R"},{"midi":63,"label":"Muted Hit R"},{"midi":65,"label":"Open Rake Fast"},{"midi":66,"label":"Muted Rake Fast"},{"midi":67,"label":"Open Rake Slow"},{"midi":68,"label":"Muted Rake Slow"}] },
     ] },
-    { slug: "susp_cymbals_bright", name: "Suspended Cymbals Bright", library: "ARO Metal Percussion", status: "verified", port: "DECPerc", channel: 7, techniques: [
+    { slug: "susp_cymbals_bright", name: "Suspended Cymbals Bright", library: "ARO Metal Percussion", status: "verified", port: "SWPerc", channel: 7, techniques: [
       { key: "susp_cymbals_bright_felt_mallet", label: "Suspended Cymbals Bright — Felt Mallet", channel: 7, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 44,
         keys: [{"midi":36,"label":"16\" Bright Single Hit"},{"midi":37,"label":"16\" Bright Single Hit Choked"},{"midi":38,"label":"16\" Bright Single Hit"},{"midi":39,"label":"16\" Bright Single Hit Choked"},{"midi":41,"label":"16\" Bright Roll"},{"midi":42,"label":"16\" Bright Swells"},{"midi":43,"label":"16\" Bright Roll Choked"},{"midi":44,"label":"16\" Bright Swells Choked"}] },
       { key: "susp_cymbals_bright_brush", label: "Suspended Cymbals Bright — Brush", channel: 7, kind: "key", loud: "vel", rangeLow: 48, rangeHigh: 56,
@@ -466,7 +472,7 @@ const ARO_PERC = {   // 8 instrument(s) selected 2026-10-04: bongos ch1 · shime
       { key: "susp_cymbals_bright_bow", label: "Suspended Cymbals Bright — Bow", channel: 7, kind: "key", loud: "vel", rangeLow: 84, rangeHigh: 93,
         keys: [{"midi":84,"label":"16\" Bright Half Bow 1"},{"midi":85,"label":"16\" Bright Half Bow 2"},{"midi":86,"label":"16\" Bright Half Bow 3"},{"midi":87,"label":"16\" Bright Half Bow 4"},{"midi":89,"label":"16\" Bright Full Bow 1"},{"midi":90,"label":"16\" Bright Full Bow 2"},{"midi":91,"label":"16\" Bright Full Bow 3"},{"midi":92,"label":"16\" Bright Full Bow 4"},{"midi":93,"label":"16\" Bright Long Continuous Bowing"}] },
     ] },
-    { slug: "toms_high", name: "Toms High", library: "ARO Low Percussion", status: "verified", port: "DECPerc", channel: 8, techniques: [
+    { slug: "toms_high", name: "Toms High", library: "ARO Low Percussion", status: "verified", port: "SWPerc", channel: 8, techniques: [
       { key: "toms_high_sticks", label: "Toms High — Sticks", channel: 8, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 70,
         keys: [{"midi":36,"label":"12\" Stick Damped Single Hit L"},{"midi":38,"label":"12\" Stick Damped Single Hit R"},{"midi":40,"label":"12\" Stick Damped Roll"},{"midi":41,"label":"12\" Stick Single Hit L"},{"midi":42,"label":"12\" Stick Rim Hit L"},{"midi":43,"label":"12\" Stick Single Hit R"},{"midi":44,"label":"12\" Stick Rim Hit R"},{"midi":45,"label":"12\" Stick Roll"},{"midi":46,"label":"12\" Stick Rim Roll"},{"midi":60,"label":"10\" Stick Damped Single Hit L"},{"midi":62,"label":"10\" Stick Damped Single Hit R"},{"midi":64,"label":"10\" Stick Damped Roll"},{"midi":65,"label":"10\" Stick Single Hit L"},{"midi":66,"label":"10\" Stick Rim Hit L"},{"midi":67,"label":"10\" Stick Single Hit R"},{"midi":68,"label":"10\" Stick Rim Hit R"},{"midi":69,"label":"10\" Stick Roll"},{"midi":70,"label":"10\" Stick Rim Roll"}] },
       { key: "toms_high_felt", label: "Toms High — Felt", channel: 8, kind: "key", loud: "vel", rangeLow: 48, rangeHigh: 76,
@@ -493,51 +499,51 @@ applyAroPerc(INSTRUMENTS, ARO_PERC);
 const RICOTTI = {   // Crotales 9 @DECCrotales 60–84 · Glockenspiel 12 @DECGlock 55–84 · Xylophone 10 @DECXylo 53–95 · Marimba 8 @DECMarimba 36–96 — generated 2026-10-09
   lane: "bowed_vibraphone",
   instruments: [
-    {slug: "crotales", name: "Crotales", port: "DECCrotales", track: "Crotales RM", rangeLow: 60, rangeHigh: 84, patches: 9},
-    {slug: "glockenspiel", name: "Glockenspiel", port: "DECGlock", track: "Glockenspiel RM", rangeLow: 55, rangeHigh: 84, patches: 12},
-    {slug: "xylophone", name: "Xylophone", port: "DECXylo", track: "Xylophone RM", rangeLow: 53, rangeHigh: 95, patches: 10},
-    {slug: "marimba", name: "Marimba", port: "DECMarimba", track: "Marimba RM", rangeLow: 36, rangeHigh: 96, patches: 8},
+    {slug: "crotales", name: "Crotales", port: "SWCrotales", track: "Crotales RM", rangeLow: 60, rangeHigh: 84, patches: 9},
+    {slug: "glockenspiel", name: "Glockenspiel", port: "SWGlock", track: "Glockenspiel RM", rangeLow: 55, rangeHigh: 84, patches: 12},
+    {slug: "xylophone", name: "Xylophone", port: "SWXylo", track: "Xylophone RM", rangeLow: 53, rangeHigh: 95, patches: 10},
+    {slug: "marimba", name: "Marimba", port: "SWMarimba", track: "Marimba RM", rangeLow: 36, rangeHigh: 96, patches: 8},
   ],
   techniques: [
-    { key: "crot_main_felt", label: "Crotales · Main (Felt)", port: "DECCrotales", channel: 1, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel" },
-    { key: "crot_main_metal_damped", label: "Crotales · Main (Metal damped)", port: "DECCrotales", channel: 2, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel" },
-    { key: "crot_main_metal", label: "Crotales · Main (Metal)", port: "DECCrotales", channel: 3, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel" },
-    { key: "crot_main_plastic_damped", label: "Crotales · Main (Plastic damped)", port: "DECCrotales", channel: 4, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel" },
-    { key: "crot_main_plastic", label: "Crotales · Main (Plastic)", port: "DECCrotales", channel: 5, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel" },
-    { key: "crot_bowed", label: "Crotales · Bowed", port: "DECCrotales", channel: 6, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel", cc1: "vel" },
-    { key: "crot_rolls_metal", label: "Crotales · Rolls (Metal)", port: "DECCrotales", channel: 7, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel" },
-    { key: "crot_rolls_plastic", label: "Crotales · Rolls (Plastic)", port: "DECCrotales", channel: 8, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel" },
-    { key: "crot_rolls_rubber", label: "Crotales · Rolls (Rubber)", port: "DECCrotales", channel: 9, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel" },
-    { key: "glock_main_extra_soft", label: "Glockenspiel · Main (Extra Soft)", port: "DECGlock", channel: 1, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
-    { key: "glock_main_hard", label: "Glockenspiel · Main (Hard)", port: "DECGlock", channel: 2, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
-    { key: "glock_main_medium_soft", label: "Glockenspiel · Main (Medium Soft)", port: "DECGlock", channel: 3, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
-    { key: "glock_main_medium", label: "Glockenspiel · Main (Medium)", port: "DECGlock", channel: 4, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
-    { key: "glock_main_soft", label: "Glockenspiel · Main (Soft)", port: "DECGlock", channel: 5, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
-    { key: "glock_glisses", label: "Glockenspiel · Glisses", port: "DECGlock", channel: 6, rangeLow: 36, rangeHigh: 107, kind: "key", loud: "vel", keys: "pending" },
-    { key: "glock_rolls_hard", label: "Glockenspiel · Rolls (Hard)", port: "DECGlock", channel: 7, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
-    { key: "glock_rolls_soft", label: "Glockenspiel · Rolls (Soft)", port: "DECGlock", channel: 8, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
-    { key: "glock_shorts_hard", label: "Glockenspiel · Shorts (Hard)", port: "DECGlock", channel: 9, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
-    { key: "glock_shorts_medium_soft", label: "Glockenspiel · Shorts (Medium Soft)", port: "DECGlock", channel: 10, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
-    { key: "glock_tremolo_hard", label: "Glockenspiel · Tremolo (Hard)", port: "DECGlock", channel: 11, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
-    { key: "glock_tremolo_soft", label: "Glockenspiel · Tremolo (Soft)", port: "DECGlock", channel: 12, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
-    { key: "xylo_main", label: "Xylophone · Main", port: "DECXylo", channel: 1, rangeLow: 53, rangeHigh: 95, kind: "pitched", loud: "vel" },
-    { key: "xylo_main_hot_rods", label: "Xylophone · Main - (Hot Rods)", port: "DECXylo", channel: 2, rangeLow: 53, rangeHigh: 91, kind: "pitched", loud: "vel" },
-    { key: "xylo_main_extra_soft", label: "Xylophone · Main (Extra Soft)", port: "DECXylo", channel: 3, rangeLow: 53, rangeHigh: 91, kind: "pitched", loud: "vel" },
-    { key: "xylo_main_hard", label: "Xylophone · Main (Hard)", port: "DECXylo", channel: 4, rangeLow: 53, rangeHigh: 95, kind: "pitched", loud: "vel" },
-    { key: "xylo_main_medium", label: "Xylophone · Main (Medium)", port: "DECXylo", channel: 5, rangeLow: 53, rangeHigh: 95, kind: "pitched", loud: "vel" },
-    { key: "xylo_main_soft", label: "Xylophone · Main (Soft)", port: "DECXylo", channel: 6, rangeLow: 53, rangeHigh: 95, kind: "pitched", loud: "vel" },
-    { key: "xylo_glisses", label: "Xylophone · Glisses", port: "DECXylo", channel: 7, rangeLow: 36, rangeHigh: 107, kind: "key", loud: "vel", keys: "pending" },
-    { key: "xylo_rolls_hard", label: "Xylophone · Rolls (Hard)", port: "DECXylo", channel: 8, rangeLow: 53, rangeHigh: 95, kind: "pitched", loud: "vel" },
-    { key: "xylo_rolls_hot_rods", label: "Xylophone · Rolls (Hot Rods)", port: "DECXylo", channel: 9, rangeLow: 53, rangeHigh: 91, kind: "pitched", loud: "vel" },
-    { key: "xylo_rolls_soft", label: "Xylophone · Rolls (Soft)", port: "DECXylo", channel: 10, rangeLow: 53, rangeHigh: 95, kind: "pitched", loud: "vel" },
-    { key: "mar_main", label: "Marimba · Main", port: "DECMarimba", channel: 1, rangeLow: 36, rangeHigh: 96, kind: "pitched", loud: "vel" },
-    { key: "mar_main_full_hard", label: "Marimba · Main - Full (Hard)", port: "DECMarimba", channel: 2, rangeLow: 36, rangeHigh: 96, kind: "pitched", loud: "vel" },
-    { key: "mar_main_full_soft", label: "Marimba · Main - Full (Soft)", port: "DECMarimba", channel: 3, rangeLow: 36, rangeHigh: 96, kind: "pitched", loud: "vel" },
-    { key: "mar_main_rubber", label: "Marimba · Main - Rubber", port: "DECMarimba", channel: 4, rangeLow: 36, rangeHigh: 76, kind: "pitched", loud: "vel" },
-    { key: "mar_main_trems", label: "Marimba · Main - Trems", port: "DECMarimba", channel: 5, rangeLow: 36, rangeHigh: 96, kind: "pitched", loud: "vel" },
-    { key: "mar_fx_bows", label: "Marimba · FX - Bows", port: "DECMarimba", channel: 6, rangeLow: 36, rangeHigh: 93, kind: "pitched", loud: "vel" },
-    { key: "mar_hotrod", label: "Marimba · Hotrod", port: "DECMarimba", channel: 7, rangeLow: 36, rangeHigh: 96, kind: "pitched", loud: "vel" },
-    { key: "mar_hotrod_flams", label: "Marimba · Hotrod (Flams)", port: "DECMarimba", channel: 8, rangeLow: 36, rangeHigh: 96, kind: "pitched", loud: "vel" },
+    { key: "crot_main_felt", label: "Crotales · Main (Felt)", port: "SWCrotales", channel: 1, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel" },
+    { key: "crot_main_metal_damped", label: "Crotales · Main (Metal damped)", port: "SWCrotales", channel: 2, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel" },
+    { key: "crot_main_metal", label: "Crotales · Main (Metal)", port: "SWCrotales", channel: 3, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel" },
+    { key: "crot_main_plastic_damped", label: "Crotales · Main (Plastic damped)", port: "SWCrotales", channel: 4, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel" },
+    { key: "crot_main_plastic", label: "Crotales · Main (Plastic)", port: "SWCrotales", channel: 5, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel" },
+    { key: "crot_bowed", label: "Crotales · Bowed", port: "SWCrotales", channel: 6, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel", cc1: "vel" },
+    { key: "crot_rolls_metal", label: "Crotales · Rolls (Metal)", port: "SWCrotales", channel: 7, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel" },
+    { key: "crot_rolls_plastic", label: "Crotales · Rolls (Plastic)", port: "SWCrotales", channel: 8, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel" },
+    { key: "crot_rolls_rubber", label: "Crotales · Rolls (Rubber)", port: "SWCrotales", channel: 9, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel" },
+    { key: "glock_main_extra_soft", label: "Glockenspiel · Main (Extra Soft)", port: "SWGlock", channel: 1, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
+    { key: "glock_main_hard", label: "Glockenspiel · Main (Hard)", port: "SWGlock", channel: 2, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
+    { key: "glock_main_medium_soft", label: "Glockenspiel · Main (Medium Soft)", port: "SWGlock", channel: 3, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
+    { key: "glock_main_medium", label: "Glockenspiel · Main (Medium)", port: "SWGlock", channel: 4, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
+    { key: "glock_main_soft", label: "Glockenspiel · Main (Soft)", port: "SWGlock", channel: 5, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
+    { key: "glock_glisses", label: "Glockenspiel · Glisses", port: "SWGlock", channel: 6, rangeLow: 36, rangeHigh: 107, kind: "key", loud: "vel", keys: "pending" },
+    { key: "glock_rolls_hard", label: "Glockenspiel · Rolls (Hard)", port: "SWGlock", channel: 7, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
+    { key: "glock_rolls_soft", label: "Glockenspiel · Rolls (Soft)", port: "SWGlock", channel: 8, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
+    { key: "glock_shorts_hard", label: "Glockenspiel · Shorts (Hard)", port: "SWGlock", channel: 9, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
+    { key: "glock_shorts_medium_soft", label: "Glockenspiel · Shorts (Medium Soft)", port: "SWGlock", channel: 10, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
+    { key: "glock_tremolo_hard", label: "Glockenspiel · Tremolo (Hard)", port: "SWGlock", channel: 11, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
+    { key: "glock_tremolo_soft", label: "Glockenspiel · Tremolo (Soft)", port: "SWGlock", channel: 12, rangeLow: 55, rangeHigh: 84, kind: "pitched", loud: "vel" },
+    { key: "xylo_main", label: "Xylophone · Main", port: "SWXylo", channel: 1, rangeLow: 53, rangeHigh: 95, kind: "pitched", loud: "vel" },
+    { key: "xylo_main_hot_rods", label: "Xylophone · Main - (Hot Rods)", port: "SWXylo", channel: 2, rangeLow: 53, rangeHigh: 91, kind: "pitched", loud: "vel" },
+    { key: "xylo_main_extra_soft", label: "Xylophone · Main (Extra Soft)", port: "SWXylo", channel: 3, rangeLow: 53, rangeHigh: 91, kind: "pitched", loud: "vel" },
+    { key: "xylo_main_hard", label: "Xylophone · Main (Hard)", port: "SWXylo", channel: 4, rangeLow: 53, rangeHigh: 95, kind: "pitched", loud: "vel" },
+    { key: "xylo_main_medium", label: "Xylophone · Main (Medium)", port: "SWXylo", channel: 5, rangeLow: 53, rangeHigh: 95, kind: "pitched", loud: "vel" },
+    { key: "xylo_main_soft", label: "Xylophone · Main (Soft)", port: "SWXylo", channel: 6, rangeLow: 53, rangeHigh: 95, kind: "pitched", loud: "vel" },
+    { key: "xylo_glisses", label: "Xylophone · Glisses", port: "SWXylo", channel: 7, rangeLow: 36, rangeHigh: 107, kind: "key", loud: "vel", keys: "pending" },
+    { key: "xylo_rolls_hard", label: "Xylophone · Rolls (Hard)", port: "SWXylo", channel: 8, rangeLow: 53, rangeHigh: 95, kind: "pitched", loud: "vel" },
+    { key: "xylo_rolls_hot_rods", label: "Xylophone · Rolls (Hot Rods)", port: "SWXylo", channel: 9, rangeLow: 53, rangeHigh: 91, kind: "pitched", loud: "vel" },
+    { key: "xylo_rolls_soft", label: "Xylophone · Rolls (Soft)", port: "SWXylo", channel: 10, rangeLow: 53, rangeHigh: 95, kind: "pitched", loud: "vel" },
+    { key: "mar_main", label: "Marimba · Main", port: "SWMarimba", channel: 1, rangeLow: 36, rangeHigh: 96, kind: "pitched", loud: "vel" },
+    { key: "mar_main_full_hard", label: "Marimba · Main - Full (Hard)", port: "SWMarimba", channel: 2, rangeLow: 36, rangeHigh: 96, kind: "pitched", loud: "vel" },
+    { key: "mar_main_full_soft", label: "Marimba · Main - Full (Soft)", port: "SWMarimba", channel: 3, rangeLow: 36, rangeHigh: 96, kind: "pitched", loud: "vel" },
+    { key: "mar_main_rubber", label: "Marimba · Main - Rubber", port: "SWMarimba", channel: 4, rangeLow: 36, rangeHigh: 76, kind: "pitched", loud: "vel" },
+    { key: "mar_main_trems", label: "Marimba · Main - Trems", port: "SWMarimba", channel: 5, rangeLow: 36, rangeHigh: 96, kind: "pitched", loud: "vel" },
+    { key: "mar_fx_bows", label: "Marimba · FX - Bows", port: "SWMarimba", channel: 6, rangeLow: 36, rangeHigh: 93, kind: "pitched", loud: "vel" },
+    { key: "mar_hotrod", label: "Marimba · Hotrod", port: "SWMarimba", channel: 7, rangeLow: 36, rangeHigh: 96, kind: "pitched", loud: "vel" },
+    { key: "mar_hotrod_flams", label: "Marimba · Hotrod (Flams)", port: "SWMarimba", channel: 8, rangeLow: 36, rangeHigh: 96, kind: "pitched", loud: "vel" },
   ],
 };
 function applyRicotti(all, gen) {   // the lane's roster IS the generated one; the lane entry above carries only what is the lane's (label, ordinary, channels)

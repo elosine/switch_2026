@@ -84,13 +84,15 @@ const STRIKE_DEFAULT = { flute: 'staccato', clarinet: 'staccato', alto_sax: 'sta
 const ART_SETS = {
     percussive: STRIKE_DEFAULT,
     // the two winds are on their one placeholder voice in every set — their short voices come with their recipes (container 4)
-    spiccato: { flute: 'staccato', clarinet: 'staccato', alto_sax: 'staccato', percussion: 'main', piano: 'main', violin: 'spicc_vel', cello: 'spicc_vel' },   // the winds' and the piano's short voices come with their recipes (container 4)
+    // the winds' and the piano's short voices come with their recipes (container 4)
+    spiccato: { flute: 'staccato', clarinet: 'staccato', alto_sax: 'staccato', percussion: 'main', piano: 'main', violin: 'spicc_vel', cello: 'spicc_vel' },
     staccato: { flute: 'staccato', clarinet: 'staccato', alto_sax: 'staccato', percussion: 'main', piano: 'main', violin: 'stac_vel', cello: 'stac_vel' },
     // LGMF, stage 1 of the drawer's adaptation (composer, 2026-09-19): the voices the reference scores play — each instrument's
     // `ordinary` in sandbox/instruments.js (read back from scores/lgmf-ref.json). The vibraphone was on its standard mallets for stage 1
     // at his word; PLAN 1c.2 (the long tones, the same day) put it on the BOWED voice the reference scores play — his "this would
     // involve adding the bowed vibraphone to the Ordinario set". The three sets above are untouched; this one is a fourth button.
-    ordinario: { flute: 'ord', clarinet: 'ord', alto_sax: 'ord', percussion: 'main', bowed_vibraphone: 'crot_main_metal', piano: 'main', violin: 'senza_vel', cello: 'senza_vel' },   // the pitched lane's key is the carried Ricotti lane's ordinary (the stand-in until container 4)
+    // the pitched lane's key is the carried Ricotti lane's ordinary (the stand-in until container 4)
+    ordinario: { flute: 'ord', clarinet: 'ord', alto_sax: 'ord', percussion: 'main', bowed_vibraphone: 'crot_main_metal', piano: 'main', violin: 'senza_vel', cello: 'senza_vel' },
 };
 
 function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }

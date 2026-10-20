@@ -113,3 +113,6 @@ __pycache__/
 notation/audio/takes/
 reaper/*_take.rpp
 reaper/*_take.rpp-bak
+
+# the port's battery logs (tools/port/batt-<tag>.tsv is the table, committed; the logs are not)
+tools/port/batt-*/

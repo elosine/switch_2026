@@ -1,0 +1,6 @@
+{
+ "schema": 1,
+ "_what": "THE SAMPLE INDEX — a row per sample in this folder, written by the engine after each capture (electronics/sc/bank.scd). GENERATED: do not hand-edit while the engine is up.",
+ "_provenance": "Skeleton written by the port from piece 6 (decibel_TENOR_2026 @ 9796edd), 2026-10-20 — the new-piece protocol's 3.4. EMPTY: piece 6's 1701 rows stayed in its repo; the engine writes this file after each capture.",
+ "samples": []
+}

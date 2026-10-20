@@ -1,0 +1,6 @@
+{
+ "_about": "THE SHELF (RUNNING_LOG §109 · §113) — the process-brick settings he has heard and wants kept. The data; docs/CANDIDATES.md is rendered from it by `node tools/candidates.js`. A row is added by the AI at his 'keep this' / a screenshot, or by the brick's 'keep → shelf' button (POST /api/candidates). `setting` is pasted whole into a brick's JSON box (or picked from the panel's Shelf menu); the source is left out on purpose — a candidate is a treatment.",
+ "_provenance": "Skeleton written by the port from piece 6 (decibel_TENOR_2026 @ 9796edd), 2026-10-20 — the new-piece protocol's 3.4. EMPTY: piece 6's 11 rows and its deals stayed in its repo.",
+ "rows": [],
+ "deals": {}
+}

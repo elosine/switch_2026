@@ -1,0 +1,54 @@
+{
+ "_doc": "Which ARO percussion instruments THIS PIECE uses, and the channel each sits on. `slug` is a key of bank/aro_percussion_catalog.json `instruments`; only entries the catalog has keys for (status verified / partial / predicted) can be selected. One Spitfire instance per instrument = one Reaper track per entry, filtering on its channel on the port (Spitfire cannot switch instruments by MIDI — piece #2's decision 5). Up to 16 per port; give an entry its own `port` (`LGPerc2`) beyond that. `beaters` (optional) keeps only those beater blocks. After ANY change: node tools/apply_perc.js, then node tools/palette_check.js — and register the new technique keys in notation/registry/techniques.json before material uses them.",
+ "_example": [
+  {
+   "slug": "brake_drums",
+   "channel": 1
+  },
+  {
+   "slug": "susp_cymbals_dark",
+   "channel": 2,
+   "beaters": [
+    "Bow",
+    "Scrape"
+   ]
+  }
+ ],
+ "port": "SWPerc",
+ "instruments": [
+  {
+   "slug": "bongos",
+   "channel": 1
+  },
+  {
+   "slug": "shime_daiko",
+   "channel": 2
+  },
+  {
+   "slug": "bass_drum_alt",
+   "channel": 3
+  },
+  {
+   "slug": "wood_blocks",
+   "channel": 4
+  },
+  {
+   "slug": "china_cymbals",
+   "channel": 5
+  },
+  {
+   "slug": "small_metals_spring_coil",
+   "channel": 6
+  },
+  {
+   "slug": "susp_cymbals_bright",
+   "channel": 7
+  },
+  {
+   "slug": "toms_high",
+   "channel": 8
+  }
+ ],
+ "_selected": "2026-10-04 — HIS TENTATIVE LIST (COMPOSITION_NOTES DEC-6; RUNNING_LOG §21 … §25): bongos · shime daiko (the samples; a snare drum the alternate in the performance notes) · bass drum alt · wood blocks · China cymbal · spring coil · suspended cymbals (he loaded and chose the BRIGHT All-in-One) · toms (he chose the HIGH All-in-One). One Abbey Road instance per instrument, the track \"<Name> ARO\" on this channel of DECPerc (reaper/bridge/jobs/make_perc_tracks.lua). Every slug was confirmed against the loaded preset: the All-in-One's top key = the catalog's last key.",
+ "_provenance": "Skeleton written by the port from piece 6 (decibel_TENOR_2026 @ 9796edd), 2026-10-20 — the new-piece protocol's 3.4. The selection is PIECE 6's (8 instruments) on this piece's port, kept so the recipe's ARO_PERC block and the selection agree (tools/palette_check.js § 6). WHICH percussion this piece uses — from the call's list — is the composer's at container 4; then tools/apply_perc.js."
+}

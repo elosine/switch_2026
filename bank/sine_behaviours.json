@@ -1,0 +1,66 @@
+{
+ "_doc": "THE SINE TONES — who bends against a sine, with which voice, and how (PLAN.md 1.5 · 12.4; DEC-35 · 35b; RUNNING_LOG §179). HIS DATA: every number here is a start of the AI's, his ear's to move. Read by score/public/sine_sim.js (the draw) through score/public/sine_go.js (the GO — the ∿ sines button on the harmony strip, and tools/sine_go.js). A LANE is keyed by its instrument (TRACKS[lane].instKey); a lane that is not here is left alone by the GO (the unpitched percussion: it has no pitch to beat against).",
+ "_lanes": "voice = the technique the simulated player holds the long tone on (sandbox/instruments.js). who = WHO MOVES: `player` — the sine holds the pitch and the player's note is bent (a line of cents on the note, played by the stack's own note player through the instrument's measured bend range) · `sine` — the player holds and the SINE glisses (the bowed crotales: a struck or bowed bar cannot bend). cents = the range a player's offset is drawn from, in cents. beatHz = the same range in BEATS A SECOND (his: 'up to about 30 Hz, depending on frequency'), turned into cents at the note's own pitch — the same beat is more cents the lower the pitch; for a bending player (the cello) as for a gliding sine (the crotales). A player's offset is capped by the PLAYER's range (the recipe's playerBendSt, sandbox/instruments.js); past the SAMPLER's measured range (bendRangeSt, ±1 st on the Xsample strings) the GO re-keys the note (sine_go.js, the string quartet's rule) — no cap there. side = `over` | `under`: which side of the pitch the offset is on (absent: a coin; a gliding sine with a side never crosses). sineOctave · sineCents = where the sine sits against the note's KEY — the sounding pitch.",
+ "lanes": {
+  "bowed_vibraphone": {
+   "voice": "crot_bowed",
+   "who": "sine",
+   "beatHz": [
+    3,
+    30
+   ],
+   "sineOctave": 24,
+   "sineCents": 17,
+   "_measured": "MEASURED 2026-10-06 on bank/samples/perc-crot-bow-1.wav (the bowed crotale, key 67, captured through the engine): its strongest partial 1583.4 Hz = G6 +17 cents — the key + 24.17 semitones. So a Ricotti crotale SOUNDS TWO OCTAVES ABOVE ITS KEY (as the instrument does above its written pitch), and this one stands 17 cents over equal temperament. ONE KEY was measured: the other 24 may differ by some cents — the sine's unison is then that far off, heard as a slow beating where the draw says none. A sweep of the 25 keys is one pass of his rack, at his word. IN CONCERT the real crotales have their own tuning: the offset is a rehearsal's measure (docs/PERFORMANCE_NOTES.md)."
+  },
+  "cello": {
+   "voice": "senza_vel",
+   "who": "player",
+   "beatHz": [
+    25,
+    35
+   ],
+   "side": "over",
+   "_who": "HIS, 2026-10-08 (RUNNING_LOG §262 · §263; DEC-59 · 59b): the beating in BEATS A SECOND, by the pitch — around 30 — and THE CELLO BENDS, the sine static ('we have long established pitch bend for the cello … since piece number one'). On a D2 that is ~550 … 670 cents, a tritone, past the sampler's ±1 st: the GO RE-KEYS the note — the string quartet's rule (#1; #5 §150): the key moves, the bend re-based, the seam a 5 ms overlap (sine_go.js rekeyChain). side over: the cello bends UP (down a tritone from D2 is below its C string)."
+  }
+ },
+ "_player": "kinds = how often each behaviour is drawn (weights). toUnison: the player starts off the pitch and FINDS it — arriving at a fraction of the length drawn from `settle`, then holding the unison · fromUnison: holds the unison for a fraction drawn from `leave`, then drifts off · through: from one side across the unison to the other (the far side 30 … 100 % as far) · hold: a steady offset, small — a steady slow beating · waver: around the unison, a third of the range at the most. Above or below: a coin. ease = the shape in time: linear · in (slow, then quick) · out (quick, then slow).",
+ "player": {
+  "kinds": {
+   "toUnison": 4,
+   "fromUnison": 2,
+   "through": 2,
+   "hold": 1,
+   "waver": 1
+  },
+  "settle": [
+   0.55,
+   0.9
+  ],
+  "leave": [
+   0.1,
+   0.4
+  ],
+  "ease": {
+   "linear": 2,
+   "in": 1,
+   "out": 1
+  }
+ },
+ "_sine": "For a lane whose `who` is `sine`: the sine brick's gliss. to: it starts off (above or below, a coin) and ARRIVES at the player's pitch · from: starts on it and leaves · through: from one side to the other · around: out and back.",
+ "sine": {
+  "kinds": {
+   "to": 4,
+   "from": 2,
+   "through": 2,
+   "around": 2
+  }
+ },
+ "_level": "the dynamic a new sine brick is given (the players' ladder, ppp … fff); a brick's own panel changes it — flat, a hairpin, or a drawn curve.",
+ "level": "mf",
+ "_track": "THE WINDOW (PLAN 1.8 · 16.1; DEC-58c; RUNNING_LOG §260): what the GO gives a NEW sine brick's Follow. on true = the brick is a window on its player — silent until they sound at its pitch, in with them, following their rise and fall, held through a breath, gone when they stop; false = it sounds for its whole span, as before 2026-10-08. A brick's own panel changes it (Follow · how much · who it hears); a brick that is already there keeps what it has. The tracker's dials are bank/elec_route.json sine.track.",
+ "track": {
+  "on": true
+ },
+ "_provenance": "Skeleton written by the port from piece 6 (decibel_TENOR_2026 @ 9796edd), 2026-10-20 — the new-piece protocol's 3.4. Only the carried lanes' rows are kept — bowed_vibraphone, cello (his rules of piece 6 for those instruments). Dropped: bass_flute, bass_clarinet, viola. A lane with no row takes the file's defaults; the winds', the piano's and the violin's rows are written when the sine tool is first used here (container 7)."
+}

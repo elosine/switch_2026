@@ -1,0 +1,2085 @@
+{
+ "generatedAt": "2026-09-20T19:27:33.000Z",
+ "planItem": "1b.4",
+ "piece": "lgmf",
+ "source": "bank/instrument_card.json",
+ "cardGeneratedAt": "2026-09-19T12:04:34",
+ "supersedes": "tools/build_remap.js from bank/balance.json (0d) — see RUNNING_LOG §76, §85",
+ "standard": "K-20 (Katz / SMPTE RP 200); loudness ITU-R BS.1770 (LUFS), ceiling dBTP",
+ "method": "Per instrument and register: the measured velocity→loudness curve (the INTEGRATED figure, K-weighted RMS over the whole sounding note), normalised to that instrument’s own velocity-127 mean, made non-decreasing by pooling adjacent violators, then inverted against the ensemble target. D13 stands: VELOCITY is the dynamic; CC7 is left at 127 and keeps its one job, shaping a held note.",
+ "anchor": {
+  "kind": "absolute",
+  "note": "the target is the 1b.3 figure — a 9-voice tutti at -20 LUFS-S, so each voice at -31.84 dB on the card’s scale at fff. 0d anchored on the ensemble MEDIAN because it had no absolute reference; 1b.1 gave it one."
+ },
+ "scale": {
+  "lo": 65,
+  "hi": 127,
+  "spanDb": 12,
+  "note": "a drawn height h means anchor velocity 65 + 62·h, and the tables are indexed by (anchorVel − lo). The whole written range pp→fff spans 12 dB — widened from ~10 at his word (option C, 2026-09-19); the narrowest instrument, the cello, has 17.7 dB to give."
+ },
+ "targetDb": [
+  -43.84,
+  -43.65,
+  -43.45,
+  -43.26,
+  -43.07,
+  -42.87,
+  -42.68,
+  -42.49,
+  -42.29,
+  -42.1,
+  -41.9,
+  -41.71,
+  -41.52,
+  -41.32,
+  -41.13,
+  -40.94,
+  -40.74,
+  -40.55,
+  -40.36,
+  -40.16,
+  -39.97,
+  -39.78,
+  -39.58,
+  -39.39,
+  -39.19,
+  -39,
+  -38.81,
+  -38.61,
+  -38.42,
+  -38.23,
+  -38.03,
+  -37.84,
+  -37.65,
+  -37.45,
+  -37.26,
+  -37.07,
+  -36.87,
+  -36.68,
+  -36.49,
+  -36.29,
+  -36.1,
+  -35.9,
+  -35.71,
+  -35.52,
+  -35.32,
+  -35.13,
+  -34.94,
+  -34.74,
+  -34.55,
+  -34.36,
+  -34.16,
+  -33.97,
+  -33.78,
+  -33.58,
+  -33.39,
+  -33.19,
+  -33,
+  -32.81,
+  -32.61,
+  -32.42,
+  -32.23,
+  -32.03,
+  -31.84
+ ],
+ "instruments": {
+  "cello": {
+   "label": "Cello",
+   "port": "SWCello",
+   "trimDb": -3.87,
+   "referenceDb": -32.65,
+   "offsetAppliedDb": 0.81,
+   "measuredSpanDb": 20.52,
+   "pitches": [
+    {
+     "pitch": 42,
+     "measured": [
+      {
+       "v": 24,
+       "db": -46.83
+      },
+      {
+       "v": 64,
+       "db": -39.96
+      },
+      {
+       "v": 100,
+       "db": -29.47
+      },
+      {
+       "v": 127,
+       "db": -26.31
+      }
+     ],
+     "normalised": [
+      {
+       "v": 24,
+       "db": -46.02
+      },
+      {
+       "v": 64,
+       "db": -39.15
+      },
+      {
+       "v": 100,
+       "db": -28.66
+      },
+      {
+       "v": 127,
+       "db": -25.5
+      }
+     ],
+     "monotone": [
+      {
+       "v": 24,
+       "db": -46.02
+      },
+      {
+       "v": 64,
+       "db": -39.15
+      },
+      {
+       "v": 100,
+       "db": -28.66
+      },
+      {
+       "v": 127,
+       "db": -25.5
+      }
+     ],
+     "table": [
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      63,
+      64,
+      65,
+      65,
+      66,
+      67,
+      67,
+      68,
+      68,
+      69,
+      70,
+      70,
+      71,
+      72,
+      72,
+      73,
+      74,
+      74,
+      75,
+      76,
+      76,
+      77,
+      78,
+      78,
+      79,
+      80,
+      80,
+      81,
+      82,
+      82,
+      83,
+      84,
+      84,
+      85,
+      86,
+      86,
+      87,
+      88,
+      88,
+      89
+     ],
+     "clampedLow": 0,
+     "clampedHigh": 0,
+     "spanDb": 20.52
+    },
+    {
+     "pitch": 45,
+     "measured": [
+      {
+       "v": 24,
+       "db": -50.31
+      },
+      {
+       "v": 64,
+       "db": -43.44
+      },
+      {
+       "v": 100,
+       "db": -32.95
+      },
+      {
+       "v": 127,
+       "db": -29.79
+      }
+     ],
+     "normalised": [
+      {
+       "v": 24,
+       "db": -49.5
+      },
+      {
+       "v": 64,
+       "db": -42.63
+      },
+      {
+       "v": 100,
+       "db": -32.14
+      },
+      {
+       "v": 127,
+       "db": -28.98
+      }
+     ],
+     "monotone": [
+      {
+       "v": 24,
+       "db": -49.5
+      },
+      {
+       "v": 64,
+       "db": -42.63
+      },
+      {
+       "v": 100,
+       "db": -32.14
+      },
+      {
+       "v": 127,
+       "db": -28.98
+      }
+     ],
+     "table": [
+      57,
+      58,
+      59,
+      60,
+      61,
+      63,
+      64,
+      64,
+      65,
+      66,
+      67,
+      67,
+      68,
+      68,
+      69,
+      70,
+      70,
+      71,
+      72,
+      72,
+      73,
+      74,
+      74,
+      75,
+      76,
+      76,
+      77,
+      78,
+      78,
+      79,
+      80,
+      80,
+      81,
+      82,
+      82,
+      83,
+      84,
+      84,
+      85,
+      86,
+      86,
+      87,
+      88,
+      88,
+      89,
+      90,
+      90,
+      91,
+      92,
+      92,
+      93,
+      94,
+      94,
+      95,
+      96,
+      96,
+      97,
+      98,
+      98,
+      99,
+      100,
+      101,
+      103
+     ],
+     "clampedLow": 0,
+     "clampedHigh": 0,
+     "spanDb": 20.52
+    },
+    {
+     "pitch": 48,
+     "measured": [
+      {
+       "v": 24,
+       "db": -50.55
+      },
+      {
+       "v": 64,
+       "db": -43.68
+      },
+      {
+       "v": 100,
+       "db": -33.19
+      },
+      {
+       "v": 127,
+       "db": -30.03
+      }
+     ],
+     "normalised": [
+      {
+       "v": 24,
+       "db": -49.74
+      },
+      {
+       "v": 64,
+       "db": -42.87
+      },
+      {
+       "v": 100,
+       "db": -32.38
+      },
+      {
+       "v": 127,
+       "db": -29.22
+      }
+     ],
+     "monotone": [
+      {
+       "v": 24,
+       "db": -49.74
+      },
+      {
+       "v": 64,
+       "db": -42.87
+      },
+      {
+       "v": 100,
+       "db": -32.38
+      },
+      {
+       "v": 127,
+       "db": -29.22
+      }
+     ],
+     "table": [
+      58,
+      59,
+      61,
+      62,
+      63,
+      64,
+      65,
+      65,
+      66,
+      67,
+      67,
+      68,
+      69,
+      69,
+      70,
+      71,
+      71,
+      72,
+      73,
+      73,
+      74,
+      75,
+      75,
+      76,
+      77,
+      77,
+      78,
+      79,
+      79,
+      80,
+      81,
+      81,
+      82,
+      83,
+      83,
+      84,
+      85,
+      85,
+      86,
+      87,
+      87,
+      88,
+      89,
+      89,
+      90,
+      91,
+      91,
+      92,
+      93,
+      93,
+      94,
+      95,
+      95,
+      96,
+      97,
+      97,
+      98,
+      99,
+      99,
+      100,
+      101,
+      103,
+      105
+     ],
+     "clampedLow": 0,
+     "clampedHigh": 0,
+     "spanDb": 20.52
+    },
+    {
+     "pitch": 51,
+     "measured": [
+      {
+       "v": 24,
+       "db": -51.03
+      },
+      {
+       "v": 64,
+       "db": -44.02
+      },
+      {
+       "v": 100,
+       "db": -34.35
+      },
+      {
+       "v": 127,
+       "db": -31.17
+      }
+     ],
+     "normalised": [
+      {
+       "v": 24,
+       "db": -50.22
+      },
+      {
+       "v": 64,
+       "db": -43.21
+      },
+      {
+       "v": 100,
+       "db": -33.54
+      },
+      {
+       "v": 127,
+       "db": -30.36
+      }
+     ],
+     "monotone": [
+      {
+       "v": 24,
+       "db": -50.22
+      },
+      {
+       "v": 64,
+       "db": -43.21
+      },
+      {
+       "v": 100,
+       "db": -33.54
+      },
+      {
+       "v": 127,
+       "db": -30.36
+      }
+     ],
+     "table": [
+      60,
+      61,
+      63,
+      64,
+      65,
+      65,
+      66,
+      67,
+      67,
+      68,
+      69,
+      70,
+      70,
+      71,
+      72,
+      72,
+      73,
+      74,
+      75,
+      75,
+      76,
+      77,
+      78,
+      78,
+      79,
+      80,
+      80,
+      81,
+      82,
+      83,
+      83,
+      84,
+      85,
+      85,
+      86,
+      87,
+      88,
+      88,
+      89,
+      90,
+      90,
+      91,
+      92,
+      93,
+      93,
+      94,
+      95,
+      96,
+      96,
+      97,
+      98,
+      98,
+      99,
+      100,
+      101,
+      103,
+      105,
+      106,
+      108,
+      110,
+      111,
+      113,
+      114
+     ],
+     "clampedLow": 0,
+     "clampedHigh": 0,
+     "spanDb": 19.86
+    },
+    {
+     "pitch": 54,
+     "measured": [
+      {
+       "v": 24,
+       "db": -47.51
+      },
+      {
+       "v": 64,
+       "db": -40.36
+      },
+      {
+       "v": 100,
+       "db": -31.51
+      },
+      {
+       "v": 127,
+       "db": -28.31
+      }
+     ],
+     "normalised": [
+      {
+       "v": 24,
+       "db": -46.7
+      },
+      {
+       "v": 64,
+       "db": -39.55
+      },
+      {
+       "v": 100,
+       "db": -30.7
+      },
+      {
+       "v": 127,
+       "db": -27.5
+      }
+     ],
+     "monotone": [
+      {
+       "v": 24,
+       "db": -46.7
+      },
+      {
+       "v": 64,
+       "db": -39.55
+      },
+      {
+       "v": 100,
+       "db": -30.7
+      },
+      {
+       "v": 127,
+       "db": -27.5
+      }
+     ],
+     "table": [
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      61,
+      62,
+      63,
+      64,
+      65,
+      65,
+      66,
+      67,
+      68,
+      69,
+      69,
+      70,
+      71,
+      72,
+      73,
+      73,
+      74,
+      75,
+      76,
+      76,
+      77,
+      78,
+      79,
+      80,
+      80,
+      81,
+      82,
+      83,
+      84,
+      84,
+      85,
+      86,
+      87,
+      87,
+      88,
+      89,
+      90,
+      91,
+      91,
+      92,
+      93,
+      94,
+      95,
+      95
+     ],
+     "clampedLow": 0,
+     "clampedHigh": 0,
+     "spanDb": 19.2
+    },
+    {
+     "pitch": 57,
+     "measured": [
+      {
+       "v": 24,
+       "db": -50.78
+      },
+      {
+       "v": 64,
+       "db": -43.48
+      },
+      {
+       "v": 100,
+       "db": -35.45
+      },
+      {
+       "v": 127,
+       "db": -32.23
+      }
+     ],
+     "normalised": [
+      {
+       "v": 24,
+       "db": -49.97
+      },
+      {
+       "v": 64,
+       "db": -42.67
+      },
+      {
+       "v": 100,
+       "db": -34.64
+      },
+      {
+       "v": 127,
+       "db": -31.42
+      }
+     ],
+     "monotone": [
+      {
+       "v": 24,
+       "db": -49.97
+      },
+      {
+       "v": 64,
+       "db": -42.67
+      },
+      {
+       "v": 100,
+       "db": -34.64
+      },
+      {
+       "v": 127,
+       "db": -31.42
+      }
+     ],
+     "table": [
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      104,
+      106,
+      107,
+      109,
+      110,
+      112,
+      114,
+      115,
+      117,
+      119,
+      120,
+      122,
+      123
+     ],
+     "clampedLow": 0,
+     "clampedHigh": 0,
+     "spanDb": 18.55
+    },
+    {
+     "pitch": 60,
+     "measured": [
+      {
+       "v": 24,
+       "db": -49.27
+      },
+      {
+       "v": 64,
+       "db": -41.83
+      },
+      {
+       "v": 100,
+       "db": -34.62
+      },
+      {
+       "v": 127,
+       "db": -31.38
+      }
+     ],
+     "normalised": [
+      {
+       "v": 24,
+       "db": -48.46
+      },
+      {
+       "v": 64,
+       "db": -41.02
+      },
+      {
+       "v": 100,
+       "db": -33.81
+      },
+      {
+       "v": 127,
+       "db": -30.57
+      }
+     ],
+     "monotone": [
+      {
+       "v": 24,
+       "db": -48.46
+      },
+      {
+       "v": 64,
+       "db": -41.02
+      },
+      {
+       "v": 100,
+       "db": -33.81
+      },
+      {
+       "v": 127,
+       "db": -30.57
+      }
+     ],
+     "table": [
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      102,
+      104,
+      105,
+      107,
+      108,
+      110,
+      112,
+      113,
+      115,
+      116
+     ],
+     "clampedLow": 0,
+     "clampedHigh": 0,
+     "spanDb": 17.89
+    },
+    {
+     "pitch": 63,
+     "measured": [
+      {
+       "v": 24,
+       "db": -51.64
+      },
+      {
+       "v": 64,
+       "db": -44.3
+      },
+      {
+       "v": 100,
+       "db": -37.21
+      },
+      {
+       "v": 127,
+       "db": -33.82
+      }
+     ],
+     "normalised": [
+      {
+       "v": 24,
+       "db": -50.83
+      },
+      {
+       "v": 64,
+       "db": -43.49
+      },
+      {
+       "v": 100,
+       "db": -36.4
+      },
+      {
+       "v": 127,
+       "db": -33.01
+      }
+     ],
+     "monotone": [
+      {
+       "v": 24,
+       "db": -50.83
+      },
+      {
+       "v": 64,
+       "db": -43.49
+      },
+      {
+       "v": 100,
+       "db": -36.4
+      },
+      {
+       "v": 127,
+       "db": -33.01
+      }
+     ],
+     "table": [
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      104,
+      105,
+      107,
+      109,
+      110,
+      112,
+      113,
+      115,
+      116,
+      118,
+      119,
+      121,
+      122,
+      124,
+      126,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127
+     ],
+     "clampedLow": 0,
+     "clampedHigh": 6,
+     "spanDb": 17.82
+    },
+    {
+     "pitch": 66,
+     "measured": [
+      {
+       "v": 24,
+       "db": -48.45
+      },
+      {
+       "v": 64,
+       "db": -41.22
+      },
+      {
+       "v": 100,
+       "db": -34.23
+      },
+      {
+       "v": 127,
+       "db": -30.7
+      }
+     ],
+     "normalised": [
+      {
+       "v": 24,
+       "db": -47.64
+      },
+      {
+       "v": 64,
+       "db": -40.41
+      },
+      {
+       "v": 100,
+       "db": -33.42
+      },
+      {
+       "v": 127,
+       "db": -29.89
+      }
+     ],
+     "monotone": [
+      {
+       "v": 24,
+       "db": -47.64
+      },
+      {
+       "v": 64,
+       "db": -40.41
+      },
+      {
+       "v": 100,
+       "db": -33.42
+      },
+      {
+       "v": 127,
+       "db": -29.89
+      }
+     ],
+     "table": [
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      102,
+      103,
+      105,
+      106,
+      108,
+      109,
+      111,
+      112
+     ],
+     "clampedLow": 0,
+     "clampedHigh": 0,
+     "spanDb": 17.75
+    },
+    {
+     "pitch": 69,
+     "measured": [
+      {
+       "v": 24,
+       "db": -53.11
+      },
+      {
+       "v": 64,
+       "db": -45.98
+      },
+      {
+       "v": 100,
+       "db": -39.11
+      },
+      {
+       "v": 127,
+       "db": -35.43
+      }
+     ],
+     "normalised": [
+      {
+       "v": 24,
+       "db": -52.3
+      },
+      {
+       "v": 64,
+       "db": -45.17
+      },
+      {
+       "v": 100,
+       "db": -38.3
+      },
+      {
+       "v": 127,
+       "db": -34.62
+      }
+     ],
+     "monotone": [
+      {
+       "v": 24,
+       "db": -52.3
+      },
+      {
+       "v": 64,
+       "db": -45.17
+      },
+      {
+       "v": 100,
+       "db": -38.3
+      },
+      {
+       "v": 127,
+       "db": -34.62
+      }
+     ],
+     "table": [
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      101,
+      102,
+      103,
+      105,
+      106,
+      108,
+      109,
+      110,
+      112,
+      113,
+      115,
+      116,
+      118,
+      119,
+      120,
+      122,
+      123,
+      125,
+      126,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127
+     ],
+     "clampedLow": 0,
+     "clampedHigh": 15,
+     "spanDb": 17.68
+    },
+    {
+     "pitch": 72,
+     "measured": [
+      {
+       "v": 24,
+       "db": -52.72
+      },
+      {
+       "v": 64,
+       "db": -45.66
+      },
+      {
+       "v": 100,
+       "db": -38.87
+      },
+      {
+       "v": 127,
+       "db": -35.09
+      }
+     ],
+     "normalised": [
+      {
+       "v": 24,
+       "db": -51.91
+      },
+      {
+       "v": 64,
+       "db": -44.85
+      },
+      {
+       "v": 100,
+       "db": -38.06
+      },
+      {
+       "v": 127,
+       "db": -34.28
+      }
+     ],
+     "monotone": [
+      {
+       "v": 24,
+       "db": -51.91
+      },
+      {
+       "v": 64,
+       "db": -44.85
+      },
+      {
+       "v": 100,
+       "db": -38.06
+      },
+      {
+       "v": 127,
+       "db": -34.28
+      }
+     ],
+     "table": [
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      102,
+      103,
+      104,
+      106,
+      107,
+      109,
+      110,
+      111,
+      113,
+      114,
+      115,
+      117,
+      118,
+      120,
+      121,
+      122,
+      124,
+      125,
+      126,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127
+     ],
+     "clampedLow": 0,
+     "clampedHigh": 13,
+     "spanDb": 17.63
+    },
+    {
+     "pitch": 75,
+     "measured": [
+      {
+       "v": 24,
+       "db": -56.13
+      },
+      {
+       "v": 64,
+       "db": -49.07
+      },
+      {
+       "v": 100,
+       "db": -42.28
+      },
+      {
+       "v": 127,
+       "db": -38.5
+      }
+     ],
+     "normalised": [
+      {
+       "v": 24,
+       "db": -55.32
+      },
+      {
+       "v": 64,
+       "db": -48.26
+      },
+      {
+       "v": 100,
+       "db": -41.47
+      },
+      {
+       "v": 127,
+       "db": -37.69
+      }
+     ],
+     "monotone": [
+      {
+       "v": 24,
+       "db": -55.32
+      },
+      {
+       "v": 64,
+       "db": -48.26
+      },
+      {
+       "v": 100,
+       "db": -41.47
+      },
+      {
+       "v": 127,
+       "db": -37.69
+      }
+     ],
+     "table": [
+      87,
+      88,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      104,
+      105,
+      107,
+      108,
+      109,
+      111,
+      112,
+      114,
+      115,
+      116,
+      118,
+      119,
+      120,
+      122,
+      123,
+      125,
+      126,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127
+     ],
+     "clampedLow": 0,
+     "clampedHigh": 30,
+     "spanDb": 17.63
+    },
+    {
+     "pitch": 78,
+     "measured": [
+      {
+       "v": 24,
+       "db": -50.29
+      },
+      {
+       "v": 64,
+       "db": -43.23
+      },
+      {
+       "v": 100,
+       "db": -36.44
+      },
+      {
+       "v": 127,
+       "db": -32.66
+      }
+     ],
+     "normalised": [
+      {
+       "v": 24,
+       "db": -49.48
+      },
+      {
+       "v": 64,
+       "db": -42.42
+      },
+      {
+       "v": 100,
+       "db": -35.63
+      },
+      {
+       "v": 127,
+       "db": -31.85
+      }
+     ],
+     "monotone": [
+      {
+       "v": 24,
+       "db": -49.48
+      },
+      {
+       "v": 64,
+       "db": -42.42
+      },
+      {
+       "v": 100,
+       "db": -35.63
+      },
+      {
+       "v": 127,
+       "db": -31.85
+      }
+     ],
+     "table": [
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      104,
+      105,
+      106,
+      108,
+      109,
+      111,
+      112,
+      113,
+      115,
+      116,
+      117,
+      119,
+      120,
+      122,
+      123,
+      124,
+      126,
+      127
+     ],
+     "clampedLow": 0,
+     "clampedHigh": 0,
+     "spanDb": 17.63
+    },
+    {
+     "pitch": 81,
+     "measured": [
+      {
+       "v": 24,
+       "db": -55.74
+      },
+      {
+       "v": 64,
+       "db": -48.68
+      },
+      {
+       "v": 100,
+       "db": -41.89
+      },
+      {
+       "v": 127,
+       "db": -38.11
+      }
+     ],
+     "normalised": [
+      {
+       "v": 24,
+       "db": -54.93
+      },
+      {
+       "v": 64,
+       "db": -47.87
+      },
+      {
+       "v": 100,
+       "db": -41.08
+      },
+      {
+       "v": 127,
+       "db": -37.3
+      }
+     ],
+     "monotone": [
+      {
+       "v": 24,
+       "db": -54.93
+      },
+      {
+       "v": 64,
+       "db": -47.87
+      },
+      {
+       "v": 100,
+       "db": -41.08
+      },
+      {
+       "v": 127,
+       "db": -37.3
+      }
+     ],
+     "table": [
+      85,
+      86,
+      87,
+      88,
+      89,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      104,
+      105,
+      107,
+      108,
+      109,
+      111,
+      112,
+      114,
+      115,
+      116,
+      118,
+      119,
+      120,
+      122,
+      123,
+      125,
+      126,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127
+     ],
+     "clampedLow": 0,
+     "clampedHigh": 28,
+     "spanDb": 17.63
+    },
+    {
+     "pitch": 82,
+     "measured": [
+      {
+       "v": 24,
+       "db": -53.88
+      },
+      {
+       "v": 64,
+       "db": -46.82
+      },
+      {
+       "v": 100,
+       "db": -40.03
+      },
+      {
+       "v": 127,
+       "db": -36.25
+      }
+     ],
+     "normalised": [
+      {
+       "v": 24,
+       "db": -53.07
+      },
+      {
+       "v": 64,
+       "db": -46.01
+      },
+      {
+       "v": 100,
+       "db": -39.22
+      },
+      {
+       "v": 127,
+       "db": -35.44
+      }
+     ],
+     "monotone": [
+      {
+       "v": 24,
+       "db": -53.07
+      },
+      {
+       "v": 64,
+       "db": -46.01
+      },
+      {
+       "v": 100,
+       "db": -39.22
+      },
+      {
+       "v": 127,
+       "db": -35.44
+      }
+     ],
+     "table": [
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      102,
+      103,
+      104,
+      106,
+      107,
+      108,
+      110,
+      111,
+      113,
+      114,
+      115,
+      117,
+      118,
+      119,
+      121,
+      122,
+      124,
+      125,
+      126,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127,
+      127
+     ],
+     "clampedLow": 0,
+     "clampedHigh": 19,
+     "spanDb": 17.63
+    }
+   ],
+   "builtFrom": "the register from 15 measured pitches at velocity 127 (the grid the piece actually plays); the velocity shape from 3 pitches, taken relative to each pitch’s own 127 and INTERPOLATED BY REGISTER. Relative is what lets the two passes join: they were recorded at different times and, for the vibraphone, different faders.",
+   "registerSpreadAtFffDb": 12.19,
+   "clampedLow": 0,
+   "clampedHigh": 111,
+   "cc7Curve": [
+    {
+     "cc7": 24,
+     "delta": -43.28,
+     "n": 0,
+     "law": 59.81
+    },
+    {
+     "cc7": 44,
+     "delta": -27.47,
+     "n": 2
+    },
+    {
+     "cc7": 64,
+     "delta": -17.73,
+     "n": 3
+    },
+    {
+     "cc7": 84,
+     "delta": -11.06,
+     "n": 3
+    },
+    {
+     "cc7": 104,
+     "delta": -5.1,
+     "n": 3
+    },
+    {
+     "cc7": 127,
+     "delta": 0,
+     "n": 3
+    }
+   ],
+   "cc7Note": "the fader law that SHAPES A HELD NOTE (D13), measured by 0d on the curve channel and relative to CC7 127, so it survived every trim. The app already does this: heldCc7 -> cc7ForHeight computes (target - achieved) per note and asks this curve for the CC7 that closes it, then multiplies any cc7Fade on top."
+  }
+ },
+ "notRemapped": {
+  "small_metals_finger_cymbals": "percussion — a one-shot’s velocity IS its dynamic and it has no sustained reference to match; its balance is the fff = fff trim of 1b.3",
+  "small_metals_bell_tree": "percussion — a one-shot’s velocity IS its dynamic and it has no sustained reference to match; its balance is the fff = fff trim of 1b.3",
+  "small_metals_sleigh_bells": "percussion — a one-shot’s velocity IS its dynamic and it has no sustained reference to match; its balance is the fff = fff trim of 1b.3",
+  "small_metals_triangles": "percussion — a one-shot’s velocity IS its dynamic and it has no sustained reference to match; its balance is the fff = fff trim of 1b.3",
+  "small_metals_tambourines": "percussion — a one-shot’s velocity IS its dynamic and it has no sustained reference to match; its balance is the fff = fff trim of 1b.3",
+  "toys_castanets": "percussion — a one-shot’s velocity IS its dynamic and it has no sustained reference to match; its balance is the fff = fff trim of 1b.3",
+  "toys_claves": "percussion — a one-shot’s velocity IS its dynamic and it has no sustained reference to match; its balance is the fff = fff trim of 1b.3",
+  "toys_shakers": "percussion — a one-shot’s velocity IS its dynamic and it has no sustained reference to match; its balance is the fff = fff trim of 1b.3",
+  "brake_drums": "percussion — a one-shot’s velocity IS its dynamic and it has no sustained reference to match; its balance is the fff = fff trim of 1b.3",
+  "crashes_and_stack": "percussion — a one-shot’s velocity IS its dynamic and it has no sustained reference to match; its balance is the fff = fff trim of 1b.3",
+  "wood_blocks": "percussion — a one-shot’s velocity IS its dynamic and it has no sustained reference to match; its balance is the fff = fff trim of 1b.3",
+  "bass_drum_alt": "percussion — a one-shot’s velocity IS its dynamic and it has no sustained reference to match; its balance is the fff = fff trim of 1b.3",
+  "temple_bowls": "percussion — a one-shot’s velocity IS its dynamic and it has no sustained reference to match; its balance is the fff = fff trim of 1b.3",
+  "tam_tams_a": "percussion — a one-shot’s velocity IS its dynamic and it has no sustained reference to match; its balance is the fff = fff trim of 1b.3",
+  "bowed_vibraphone": "the pitched percussion lane is the Ricotti mallets from 2026-10-04 (decibel TENOR 2026, RUNNING_LOG §34) — struck: a one-shot's velocity IS its dynamic. Piece #6's bowed vibraphone curve was removed with the instrument."
+ },
+ "clamps": [
+  {
+   "inst": "english_horn",
+   "label": "English Horn",
+   "low": 0,
+   "high": 55
+  },
+  {
+   "inst": "bassoon",
+   "label": "Bassoon",
+   "low": 0,
+   "high": 60
+  },
+  {
+   "inst": "horn",
+   "label": "Horn",
+   "low": 0,
+   "high": 17
+  },
+  {
+   "inst": "trumpet",
+   "label": "Trumpet",
+   "low": 0,
+   "high": 16
+  },
+  {
+   "inst": "cello",
+   "label": "Cello",
+   "low": 0,
+   "high": 111
+  },
+  {
+   "inst": "double_bass",
+   "label": "D. Bass",
+   "low": 0,
+   "high": 96
+  },
+  {
+   "inst": "bass_clarinet",
+   "label": "Bass Clarinet",
+   "low": 0,
+   "high": 23
+  },
+  {
+   "inst": "viola",
+   "label": "Viola",
+   "low": 0,
+   "high": 18
+  },
+  {
+   "inst": "bass_flute",
+   "label": "Bass Flute",
+   "low": 47,
+   "high": 49
+  }
+ ],
+ "_provenance": "Skeleton written by the port from piece 6 (decibel_TENOR_2026 @ 9796edd), 2026-10-20 — the new-piece protocol's 3.4. Shape and metadata are piece 6's (its `piece`, `source` and dates are kept as the record of where the rows were measured). Of the instruments ONLY the carried one is kept — cello — measured in piece 6's rack, to be re-measured at container 5. Dropped: bass_clarinet, viola, bass_flute. The winds, the piano and the violin are unmeasured: an instrument with no row here passes its anchor velocity through.",
+ "_decibel": "MERGED 2026-10-04 (tools/remap_merge.js, RUNNING_LOG §42): bass_clarinet · viola built from THIS rack's card; every other instrument as carried. MERGED 2026-10-04 (tools/remap_merge.js, RUNNING_LOG §42): bass_flute built from THIS rack's card; every other instrument as carried."
+}
