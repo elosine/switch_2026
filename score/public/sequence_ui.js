@@ -91,7 +91,7 @@ const METAL = () => (typeof META_LAYER !== 'undefined' ? META_LAYER : root.META_
 const LADDER = () => root.StrikeDyn || null;   // dyn_ui.js — the drawer's own ladder, the one the generator reads
 const DT_ = () => root.DynTable || null;       // dyn_table.js — 1d.10, the CC7 of a written dynamic on a given instrument
 
-const STORE = 'decibel.sequenceDrawer.v1';
+const STORE = 'switch.sequenceDrawer.v1';
 // PLAN 1d.11 — THE LIBRARY. `localStorage` above is the INSTANT layer and stays exactly what it was; the DISK is the durable one,
 // `bank/sequences.json`, a store of its own (never a panel in `panel_snapshots.json`, 3.1 MB of his takes rewritten whole on every
 // save — an autosave every couple of seconds must not touch it). A row is ALWAYS on disk: unnamed under a timestamp in a rolling

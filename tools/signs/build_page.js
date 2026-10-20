@@ -3,7 +3,7 @@
 //   node tools/signs/build_page.js
 //
 // Reads bank/signs/mic_opening.json (how the composer score draws the mic opening, the highlighter yellows found, the recipes) and
-// writes score/public/signs/index.html — served at http://localhost:5500/signs/index.html. Every yellow in every recipe, drawn AT THE
+// writes score/public/signs/index.html — served at http://localhost:5600/signs/index.html. Every yellow in every recipe, drawn AT THE
 // NOTATION'S OWN SCALE on a white lane with its grey line: a short opening (an impulse's 500 ms) with the short attacks' badge under
 // it, and the start of a long one (a drone's). Regenerated at will; a yellow or a recipe is a row of the JSON.
 'use strict';

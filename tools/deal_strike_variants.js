@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // tools/deal_strike_variants.js — SHORT PROCESSED VERSIONS FOR THE STRIKES' REPLIES (PLAN.md 1.9 · 17.1; RUNNING_LOG §337; DEC-113, his "a").
 //
-//   node tools/deal_strike_variants.js [--envs perc,expodec] [--seed 1] [--players bfl,bcl,perc,va,vc] [--port 5500] [--dry] [--render]
+//   node tools/deal_strike_variants.js [--envs perc,expodec] [--seed 1] [--players bfl,bcl,perc,va,vc] [--port 5600] [--dry] [--render]
 //
 // A strike window's reply draws its samples from a deck a player (electronics/sc/strike.scd): the player's captures and, with "Processed too",
 // their processed versions — of the ENDINGS the catalogue allows (bank/strike_responses.json samples.envs: perc · expodec, the short ones).
@@ -16,7 +16,7 @@ const fs = require('fs'), path = require('path');
 const K = require('./audition_kit');
 const ROOT = K.ROOT;
 const ENVS = String(K.arg('envs', 'perc,expodec')).split(',').map((s) => s.trim()).filter(Boolean);
-const SEED = Math.max(1, Math.round(+K.arg('seed', 1)) || 1), PORT = +K.arg('port', 5500);
+const SEED = Math.max(1, Math.round(+K.arg('seed', 1)) || 1), PORT = +K.arg('port', 5600);
 const PLAYERS = String(K.arg('players', 'bfl,bcl,perc,va,vc')).split(',').map((s) => s.trim()).filter(Boolean);
 const DRY = K.flag('dry'), RENDER = K.flag('render');
 const rd = (rel) => JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8'));

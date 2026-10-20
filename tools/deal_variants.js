@@ -10,7 +10,7 @@
 // NOT dealt: a pattern brick and a brick of '*' (group 5: its rhythm is his first; its effects after — perc · expodec only).
 // --env <name>: ONE envelope for every play instead of the mix (his §118: "just letting them ring" = --env tail; a second lap then
 //   repeats a variant, since a preset under one envelope is one sample). --render: the plan is then SENT to the engine through the
-//   score server (--port 5500) with render 1 — the same message the page sends, so the thirty are made from the bank now, without
+//   score server (--port 5600) with render 1 — the same message the page sends, so the thirty are made from the bank now, without
 //   a pass through the openings or a click of his. A range ([lo, hi] — a dial's, or the tail's ring time) is drawn at the send.
 // --dry prints the deal and writes nothing. --clear takes the variants off the bricks in the range instead.
 // The score file is written in place: he has SAVED first — a working copy that differs from the save refuses the tool (§85). Reload after.
@@ -21,7 +21,7 @@ const ROOT = path.resolve(__dirname, '..');
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
 const DRY = process.argv.includes('--dry'), CLEAR = process.argv.includes('--clear'), RENDER = process.argv.includes('--render');
 const NAME = arg('score', ''), FROM = +arg('from', 0), TO = arg('to', null) == null ? Infinity : +arg('to'), SEED = +arg('seed', 1);
-const ENV = arg('env', ''), PORT = +arg('port', 5500), CLASS = arg('class', '');   // --class time: only the presets of that class (his §119: "just the time effects")
+const ENV = arg('env', ''), PORT = +arg('port', 5600), CLASS = arg('class', '');   // --class time: only the presets of that class (his §119: "just the time effects")
 if (!NAME) { console.error('which score?  --score piece-sec01-a'); process.exit(2); }
 const FILE = path.join(ROOT, 'scores', NAME + '.json');
 if (!fs.existsSync(FILE)) { console.error('no such score: ' + path.relative(ROOT, FILE)); process.exit(2); }

@@ -22,7 +22,7 @@ const RECIPE = path.join(ROOT, 'sandbox', 'instruments.js');
 const CAT = JSON.parse(fs.readFileSync(CATALOG, 'utf8')), SEL = JSON.parse(fs.readFileSync(SELECTION, 'utf8'));
 const die = m => { console.error('apply_perc: ' + m); process.exit(1); };
 const slugify = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
-const DEFAULT_PORT = SEL.port || 'DECPerc';
+const DEFAULT_PORT = SEL.port || 'SWPerc';
 
 const insts = [], used = {};
 for (const item of SEL.instruments || []) {

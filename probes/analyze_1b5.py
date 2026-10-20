@@ -160,7 +160,7 @@ allok = all(ok for _, ok, _ in checks)
 print('\n' + ('1b.5 PASSES — the calibration holds through the app\u2019s own path.'
               if allok else '1b.5 FAILS — see the checks above.'))
 
-out = {'generatedAt': datetime.datetime.now().isoformat(timespec='seconds'), 'planItem': '1b.5', 'piece': 'decibel',
+out = {'generatedAt': datetime.datetime.now().isoformat(timespec='seconds'), 'planItem': '1b.5', 'piece': 'switch',
        'recording': os.path.basename(a.wav), 'score': os.path.basename(a.score),
        'path': 'composer.html (headless) → capture_composer_midi.js → play_capture.ps1 → the rack → REC',
        'target': {'perVoiceDb': TARGET_DB, 'tuttiLufs': TUTTI_LUFS, 'ceilingDbtp': CEILING_DBTP,

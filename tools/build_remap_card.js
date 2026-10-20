@@ -151,7 +151,7 @@ function velocityAt(curve, want) {
     return { vel: last.v, clamp: null };
 }
 
-const out = { generatedAt: new Date().toISOString(), planItem: '1b.4', piece: 'decibel',
+const out = { generatedAt: new Date().toISOString(), planItem: '1b.4', piece: 'switch',
     source: 'bank/instrument_card.json', cardGeneratedAt: CARD.generatedAt,
     supersedes: 'tools/build_remap.js from bank/balance.json (0d) — see RUNNING_LOG §76, §85',
     standard: TRIMS.standard,

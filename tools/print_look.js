@@ -6,8 +6,8 @@
 // sheet's own pixel size. It is how the proof pages of 2b-P were looked at before he was asked to (RUNNING_LOG §766 · §768).
 //
 //   node tools/print_look.js <outPrefix> [--scale 1.25] -- <export_print args that SELECT the pages>
-//   node tools/print_look.js C:/tmp/p -- --ir piece-decibel --at 0,300            -> C:/tmp/p-1.png, C:/tmp/p-2.png
-//   node tools/print_look.js C:/tmp/f --scale 1.25 -- --ir piece-decibel --cover on --instructions on --pages 1
+//   node tools/print_look.js C:/tmp/p -- --ir piece-switch --at 0,300            -> C:/tmp/p-1.png, C:/tmp/p-2.png
+//   node tools/print_look.js C:/tmp/f --scale 1.25 -- --ir piece-switch --cover on --instructions on --pages 1
 //
 // --htmlOnly, --quiet and --out are added here. Write the PNGs OUTSIDE the repository (a scratch folder): they are for looking.
 const fs = require('fs'), path = require('path'), os = require('os');

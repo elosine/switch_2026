@@ -224,7 +224,7 @@ console.log('  largest trim ' + worstBoost.toFixed(2) + ' dB · ' + overFader.le
     + (overFader.length ? ': ' + overFader.map(r => r.label).join(', ') : ''));
 
 const out = {
-    generatedAt: new Date().toISOString(), planItem: '1b.3', piece: 'decibel',
+    generatedAt: new Date().toISOString(), planItem: '1b.3', piece: 'switch',
     standard: REF.standard, reference: 'bank/reference.json', card: 'bank/instrument_card.json',
     cardGeneratedAt: CARD.generatedAt,
     target: { tuttiLufs: TUTTI_LUFS, voices: N_VOICES, perVoiceLufs: Math.round(perVoiceLufs * 100) / 100,

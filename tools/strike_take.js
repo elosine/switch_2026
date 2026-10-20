@@ -42,7 +42,7 @@ const lanes = () => {
 };
 // a NEW score from the day-one empty one, with the page's lanes
 const newScore = () => {
-    const L = lanes(), score = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', 'decibel.json'), 'utf8'));
+    const L = lanes(), score = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', 'switch.json'), 'utf8'));
     score.tracks = L.tracks.map((t) => ({ id: t.id, label: t.label, short: t.short, instKey: t.instKey }));
     score.objects = []; score.markers = []; score.nextId = 1;
     score.metadata = { created: new Date().toISOString(), modified: new Date().toISOString() };

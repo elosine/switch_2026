@@ -54,7 +54,7 @@ const die = m => { const e = new Error(m); e.plain = true; throw e; };
 const iso = d => new Date(d).toISOString();
 const round = (x, n) => +x.toFixed(n == null ? 3 : n);
 
-const RACK = path.join(ROOT, 'reaper', 'decibel_rack.rpp');
+const RACK = path.join(ROOT, 'reaper', 'switch_rack.rpp');
 const TAKES = path.join(ROOT, 'notation', 'audio', 'takes');
 const CURRENT = path.join(TAKES, 'current.json');          // the take that is recording now
 const AUDIODIR = path.join(ROOT, 'notation', 'audio');
@@ -70,7 +70,7 @@ const B = process.env.REAPER_BRIDGE || path.join(process.env.APPDATA, 'REAPER', 
 const heartbeat = () => { try { const h = JSON.parse(fs.readFileSync(path.join(B, 'heartbeat.json'), 'utf8')); return Object.assign(h, { ageS: Date.now() / 1000 - h.time }); } catch (e) { return null; } };
 // reaper_job.js guards on the project name; this tool moves between the rack and the take's tab, so the guard is the project that
 // is open NOW, and every job that must act on one project checks the path itself
-function openProjectStem() { const h = heartbeat(); return (h && h.project) ? path.basename(h.project, path.extname(h.project)) : 'decibel_rack'; }
+function openProjectStem() { const h = heartbeat(); return (h && h.project) ? path.basename(h.project, path.extname(h.project)) : 'switch_rack'; }
 function job(lua, timeoutMs) {
   const t = timeoutMs || 20000;
   const r = spawnSync(process.execPath, [path.join(__dirname, 'reaper_job.js'), '-e', lua],

@@ -7,7 +7,7 @@
 // samples and reach the jury unseen. This walks the whole render and asserts the
 // same handful of things about each page, then reports the outliers.
 //
-//   node tools/check_print_pages.js [--ir piece-decibel] [--verbose] [anything else goes through to the exporter: --sec, --margin …]
+//   node tools/check_print_pages.js [--ir piece-switch] [--verbose] [anything else goes through to the exporter: --sec, --margin …]
 //
 // Per page: the ensemble's part labels · its system groups (one per staff) ·
 // its brackets and its brace · a time ruler with ticks · a folio · nothing
@@ -24,7 +24,7 @@ const os = require('os');
 const { spawnSync } = require('child_process');
 const ROOT = path.join(__dirname, '..');
 function arg(name, def) { const i = process.argv.indexOf('--' + name); return i >= 0 ? process.argv[i + 1] : def; }
-const irId = arg('ir', 'piece-decibel');
+const irId = arg('ir', 'piece-switch');
 const verbose = process.argv.includes('--verbose');
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'printpages-'));
 const html = path.join(tmp, 'all.html');

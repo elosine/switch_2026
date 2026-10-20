@@ -6,7 +6,7 @@
 // unless --base names another. Each brick on another captured impulse (another player and another impulse each time); nothing overlaps.
 // It writes — a preset per shape into bank/presets.json (cs001 …; `deal: false`: never dealt onto the main score; a second run
 // replaces only its own) · the score scores/<name>.json, a NEW file · the sheet docs/auditions/<name>.md (shape · notes · strings · impulse).
-//   node tools/build_chord_feedback.js [--name audition-feedback-chords] [--base 7] [--gap 10] [--cap 12000] [--replace] [--render] [--port 5500]
+//   node tools/build_chord_feedback.js [--name audition-feedback-chords] [--base 7] [--gap 10] [--cap 12000] [--replace] [--render] [--port 5600]
 // --cap      the ring-out's cap in ms past the impulse's end (12000: the bloom, the hold and the ring-down whole; the shelf's row 7 was
 //            heard cut at 1700 — `--cap 1700 --gap 3.5` makes that)
 // The presets carry fbOwn: 1 — EVERY STRING SINGS (electronics/sc/process.scd): in the feedback's one loop only strings that share a
@@ -18,7 +18,7 @@
 'use strict';
 const path = require('path');
 const K = require('./audition_kit.js');
-const NAME = K.arg('name', 'audition-feedback-chords'), BASE = +K.arg('base', 7), GAP = +K.arg('gap', 10), CAP_MS = +K.arg('cap', 12000), PORT = +K.arg('port', 5500);
+const NAME = K.arg('name', 'audition-feedback-chords'), BASE = +K.arg('base', 7), GAP = +K.arg('gap', 10), CAP_MS = +K.arg('cap', 12000), PORT = +K.arg('port', 5600);
 const TAG = 'feedback-chords';
 const COMMAND = 'node tools/build_chord_feedback.js --name ' + NAME + ' --base ' + BASE + ' --gap ' + GAP + ' --cap ' + CAP_MS;
 

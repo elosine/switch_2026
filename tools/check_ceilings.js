@@ -7,7 +7,7 @@
 // because a quiet note lasts longer than a loud one and the palette says so.
 //
 //   node tools/check_ceilings.js scores/lgmf-ref.json [more.json …]
-//   node tools/check_ceilings.js --all            # every decibel-* score in scores/ (the generated reference scores)
+//   node tools/check_ceilings.js --all            # every switch-* score in scores/ (the generated reference scores)
 //
 // Exits non-zero on the first score that fails, so it can stand in a build.
 'use strict';
@@ -24,7 +24,7 @@ const CEIL = BC.CEILINGS || {};
 let args = process.argv.slice(2);
 if (args.includes('--all')) {
     args = fs.readdirSync(path.join(ROOT, 'scores'))
-        .filter(f => /^decibel-.*\.json$/.test(f) && !/-work\.json$/.test(f))
+        .filter(f => /^switch-.*\.json$/.test(f) && !/-work\.json$/.test(f))
         .map(f => path.join('scores', f));
 }
 if (!args.length) { console.log('usage: node tools/check_ceilings.js <score.json> … | --all'); process.exit(2); }

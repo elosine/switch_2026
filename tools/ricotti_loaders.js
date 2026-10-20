@@ -71,7 +71,7 @@ function loader(cat, I) {
 -- SELF-REPORTING: writes reaper/kontakt/out/load_rm_${I.slug}_START_<time>.json before it touches Kontakt, then
 -- ALWAYS load_rm_${I.slug}_<time>.json with the read-back, or the error. The AI reads that file.
 
-local OUT_DIR = 'C:/Users/jwloy/GitHub/decibel_TENOR_2026/reaper/kontakt/out/'
+local OUT_DIR = 'C:/Users/jwloy/GitHub/switch_2026/reaper/kontakt/out/'
 local ROOT = ${luaStr(cat.root)}
 local TAG = 'load_rm_${I.slug}'
 local PATCHES = {

@@ -325,7 +325,7 @@ missing = [r for r in rows if not r['found']]
 if missing:
     print(f"\nNOT FOUND ({len(missing)}): " + ', '.join(f"{r['label']} {r['pitch']}/{r['vel']}" for r in missing[:12]))
 
-out = {'generatedAt': datetime.datetime.now().isoformat(timespec='seconds'), 'planItem': '1b.2', 'piece': 'decibel',
+out = {'generatedAt': datetime.datetime.now().isoformat(timespec='seconds'), 'planItem': '1b.2', 'piece': 'switch',
        'recording': os.path.basename(a.wav), 'schedule': os.path.basename(a.schedule),
        'scheduleGeneratedAt': S.get('generatedAt'), 'sampleRate': sr,
        'scale': 'absolute dBFS at the master (REC at unity since 1b.0; the chain proven in bank/reference.json)',

@@ -3,7 +3,7 @@
 // §240 … §249). Running order step 15.
 //
 //   node tools/build_drone_section.js [--score drone-section] [--from drone-start-mics] [--seed 1] [--entry his|rolled]
-//                                     [--replace] [--dry] [--unsaved-ok] [--render] [--port 5500]
+//                                     [--replace] [--dry] [--unsaved-ok] [--render] [--port 5600]
 //
 // What it writes, and nothing else — ONE SECTION, from a seed, every number from bank/drone_section.json (HIS data; this tool never
 // writes it and refuses a file that does not add up):
@@ -39,7 +39,7 @@ const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ?
 const CFG = K.readJson(path.join(ROOT, 'bank', 'drone_section.json'));
 const ENTRY = arg('entry', (CFG.recording && CFG.recording.entry) || 'his');
 const NAME = arg('score', ENTRY === 'rolled' ? 'drone-section-demo' : 'drone-section'), FROM = arg('from', (CFG.recording && CFG.recording.entryScore) || '');
-const OUT = path.join(ROOT, 'scores', NAME + '.json'), DRY = has('dry'), PORT = +arg('port', 5500);
+const OUT = path.join(ROOT, 'scores', NAME + '.json'), DRY = has('dry'), PORT = +arg('port', 5600);
 const SEED = Math.max(1, Math.round(+arg('seed', CFG.seed || 1)) || 1);
 const r3 = (x) => Math.round(x * 1000) / 1000, r2 = (x) => Math.round(x * 100) / 100;
 if (/[\\/]piece-/.test(OUT)) { console.error('refusing a piece-… name'); process.exit(3); }
@@ -210,7 +210,7 @@ if (ENTRY === 'his') {
     const from = path.join(ROOT, 'scores', (FROM || NAME) + '.json');
     if (!fs.existsSync(from)) { console.error('his entry score is not there: ' + K.rel(from) + ' (F5 · a new score · one note per player · CTRL+S; --from <name>)'); process.exit(4); }
     const got = entriesFrom(from); base = got.save; entries = got.entries;
-} else base = K.readJson(path.join(ROOT, 'scores', 'decibel.json'));
+} else base = K.readJson(path.join(ROOT, 'scores', 'switch.json'));
 if (!DRY && fs.existsSync(OUT)) {
     let old = null; try { old = K.readJson(OUT); } catch (e) { old = null; }
     const mine = !!(old && old.metadata && old.metadata.builtBy === TOOL), onlyNotes = !!(old && (old.objects || []).every((o) => o.type === 'waveCurve'));

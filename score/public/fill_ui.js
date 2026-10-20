@@ -26,7 +26,7 @@ const MP = () => (typeof MorphPanel !== 'undefined') ? MorphPanel : (root.MorphP
 const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 const INP = 'background:#111114;color:#ddd;border:1px solid #444;padding:1px 3px;font-size:11px';
 const BTN = 'background:#2a2a30;color:#ddd;border:1px solid #555;border-radius:3px;padding:1px 6px;font-size:11px;cursor:pointer';
-const COL = { bass_flute: '#ffd479', bass_clarinet: '#e0a86a', percussion: '#b0b0b8', viola: '#7ec9a8', cello: '#5fae8c' };
+const COL = { flute: '#ffd479', clarinet: '#e0a86a', alto_sax: '#e08a8a', percussion: '#b0b0b8', piano: '#e8cf9a', violin: '#7ec9a8', cello: '#5fae8c' };
 
 const FL_DEFAULTS = {
     group: '',                                   // the strike group in the open score

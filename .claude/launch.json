@@ -5,19 +5,19 @@
       "name": "score",
       "runtimeExecutable": "node",
       "runtimeArgs": ["score/server.js"],
-      "port": 5500
+      "port": 5600
     },
     {
       "name": "sandbox",
       "runtimeExecutable": "node",
       "runtimeArgs": ["sandbox/serve.js"],
-      "port": 5000
+      "port": 5100
     },
     {
-      "name": "score-5501",
+      "name": "score-5601",
       "runtimeExecutable": "powershell",
-      "runtimeArgs": ["-NoProfile", "-Command", "$env:PORT=5501; node score/server.js"],
-      "port": 5501
+      "runtimeArgs": ["-NoProfile", "-Command", "$env:PORT=5601; node score/server.js"],
+      "port": 5601
     }
   ]
 }

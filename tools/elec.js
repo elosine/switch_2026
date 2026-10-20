@@ -15,10 +15,10 @@
 //   node tools/elec.js calibrate --venue <name>   # THE SOUND CHECK (11.7 b): each player one mf on cue; the engine reads it and the venue's trims are written — the tool's own engine (his must be down)  [--seconds 6] [--mark mf] [--player bcl] [--sim: the rack plays the notes; it SOUNDS] [--dry]
 //   node tools/elec.js tone       # the house's line-up tone from the LIVING engine: 1 kHz at −18 dBFS for 10 s, past the bus — it SOUNDS  [--seconds N] [--db -18] [--hz 1000]
 //   node tools/elec.js env        # LOOK ONLY: what the engine is started with (the players, the bank, the crop, the rolls, the ladder, the bus, the venue)
-//   node tools/elec.js ping       # is the engine there? one /le/hello — starts nothing, safe beside his engine window  [--via 5500: through the score server]
+//   node tools/elec.js ping       # is the engine there? one /le/hello — starts nothing, safe beside his engine window  [--via 5600: through the score server]
 //   node tools/elec.js message    # 6.2's PROOF: the engine up for 20 s; a message, the note after it, and whatever the composer score sends  [--via <port>] [--seconds N] [--quiet]
 //   node tools/elec.js object     # 6.3 … 6.5's PROOF, on a SCRATCH bank (the piece's is not touched): an opening, the note into the rack, the crop, the index; the sample returned and seen on ELEC RETURN; then whatever the composer score sends until the time is up  [--via <port>] [--seconds N] [--name bcl-A] [--listen: skip the tool's own part, keep the scratch bank]
-//   node tools/elec.js croptest     # THE CROP, one of each kind (bank/crop_test.json) through the rack on a SCRATCH bank with the tool's own engine (his must be down): the raw window, the attack found, the sample kept — numbers and pictures on http://localhost:5500/crop_test/report.html; the piece's bank is not touched  [--only <kind>]
+//   node tools/elec.js croptest     # THE CROP, one of each kind (bank/crop_test.json) through the rack on a SCRATCH bank with the tool's own engine (his must be down): the raw window, the attack found, the sample kept — numbers and pictures on http://localhost:5600/crop_test/report.html; the piece's bank is not touched  [--only <kind>]
 //
 // WHAT IS THE PIECE'S AND WHAT IS THE ENGINE'S (CLAUDE.md § THE SORTING): this file, bank/elec_route.json and the bridge job
 // reaper/bridge/jobs/elec_route.lua know THIS rack — its track names, its port. The SuperCollider code and its runner
@@ -200,7 +200,7 @@ function job(mode, extra = {}) {
     fs.writeFileSync(tmp, body);
     const r = cp.spawnSync(process.execPath, [path.join(ROOT, 'tools', 'reaper_job.js'), 'run', tmp], { encoding: 'utf8' });
     try { fs.unlinkSync(tmp); } catch (e) {}
-    if (r.status !== 0 && !r.stdout) throw new Error('the bridge did not answer — is Reaper running with decibel_rack open? ' + (r.stderr || '').trim());
+    if (r.status !== 0 && !r.stdout) throw new Error('the bridge did not answer — is Reaper running with switch_rack open? ' + (r.stderr || '').trim());
     const out = JSON.parse(r.stdout);
     if (!out.ok) throw new Error('the job failed: ' + out.error);
     return out.result;
@@ -364,7 +364,7 @@ async function readPeaks(waitMs) {
     }
 
     // IS THE ENGINE THERE? One /le/hello. It starts nothing and stops nothing — safe beside his own engine window.
-    // --via <port>: the same question asked THROUGH a score server (5500 his · 5501 the throwaway), the road a page's message takes.
+    // --via <port>: the same question asked THROUGH a score server (5600 his · 5501 the throwaway), the road a page's message takes.
     if (cmd === 'env') { const E = engineEnv(); for (const k of Object.keys(E)) console.log(k.padEnd(16) + E[k]); return; }   // LOOK ONLY: what the engine is started with, from bank/elec_route.json (and --venue)
 
     if (cmd === 'calibrate') {   // PLAN 1.4 · 11.7 b: the sound check — the tool's own engine (sc.start refuses beside a living one)
@@ -530,7 +530,7 @@ async function readPeaks(waitMs) {
     if (cmd === 'object') {
         const secs = +(flagValue(flags, '--seconds') || 30), via = flagValue(flags, '--via'), listenOnly = flags.includes('--listen');
         const p0 = CFG.players[0], M = CFG.message || {}, name = flagValue(flags, '--name') || p0.name + '-proof', shown = [];
-        const scratch = path.join(os.tmpdir(), 'decibel_elec_object_bank');
+        const scratch = path.join(os.tmpdir(), 'switch_elec_object_bank');
         if (!listenOnly) fs.rmSync(scratch, { recursive: true, force: true });
         const send = (kind, data) => (via ? post(via, { kind, data }) : osc.send({ host: M.host, port: M.port, address: '/le/' + kind, args: osc.pairs(data) }));
         const d = job('probe'), dev = await engineSeesReaRoute(), miss = missing(d, dev);
@@ -590,7 +590,7 @@ async function readPeaks(waitMs) {
         const only = flagValue(flags, '--only');
         const list = only ? kinds.filter((k) => k.name === only) : kinds;
         if (!list.length) { console.error('no such kind' + (only ? ' "' + only + '"' : '') + ' in bank/crop_test.json'); process.exit(2); }
-        const scratch = path.join(os.tmpdir(), 'decibel_elec_croptest_bank'); fs.rmSync(scratch, { recursive: true, force: true }); fs.mkdirSync(scratch, { recursive: true });
+        const scratch = path.join(os.tmpdir(), 'switch_elec_croptest_bank'); fs.rmSync(scratch, { recursive: true, force: true }); fs.mkdirSync(scratch, { recursive: true });
         const outDir = path.join(ROOT, 'score', 'public', 'crop_test'); fs.rmSync(outDir, { recursive: true, force: true }); fs.mkdirSync(outDir, { recursive: true });
         const d = job('probe'), dev = await engineSeesReaRoute(), miss = missing(d, dev);
         if (miss.length) { show(d, dev); console.log('\nMISSING, in order:\n' + miss.map((x, i) => '  ' + (i + 1) + '. ' + x).join('\n')); process.exit(2); }
@@ -625,7 +625,7 @@ async function readPeaks(waitMs) {
         const rep = require(path.join(ROOT, 'electronics', 'tools', 'crop_report.js')).report(outDir, items, { title: list.length + ' kind(s)', when: new Date().toISOString(), crop });
         fs.writeFileSync(path.join(outDir, 'results.json'), JSON.stringify({ when: new Date().toISOString(), crop, items }, null, 1) + '\n');
         const ok = items.filter((x) => x.row && x.row.cropped).length;
-        console.log('\n' + ok + ' of ' + items.length + ' cropped · ' + path.relative(ROOT, rep) + '\nLOOK:  http://localhost:5500/crop_test/report.html');
+        console.log('\n' + ok + ' of ' + items.length + ' cropped · ' + path.relative(ROOT, rep) + '\nLOOK:  http://localhost:5600/crop_test/report.html');
         process.exit(ok === items.length ? 0 : 1);
     }
 

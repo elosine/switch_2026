@@ -7,7 +7,7 @@
 // The other dials are the shelf's row BASE (7: the slow bloom). Bricks GAP s apart (his word: "two or three seconds" — the tails overlap).
 // It writes — 3 × N presets into bank/presets.json (fr001a · fr001b · fr001c …; `deal: false`, `audition: feedback-rings`; a second run
 // replaces only its own) · the score scores/<name>.json, a NEW file · the sheet docs/auditions/<name>.md.
-//   node tools/build_feedback_rings.js [--name audition-feedback-rings] [--n 6] [--shapes 1,5,12] [--base 7] [--gap 3] [--cap 14000] [--replace] [--render] [--port 5500]
+//   node tools/build_feedback_rings.js [--name audition-feedback-rings] [--n 6] [--shapes 1,5,12] [--base 7] [--gap 3] [--cap 14000] [--replace] [--render] [--port 5600]
 // --shapes   which rows of the bank's chord shapes (1-based, in the bank's order); else the first N
 // --render   sends the plan to the engine with render 1 — ONLY on an engine STARTED AFTER fbRes went into electronics/sc/process.scd
 //            (2026-10-07, §203): an older one leaves the dial out and renders the combs under the partials' names.
@@ -16,7 +16,7 @@
 'use strict';
 const path = require('path');
 const K = require('./audition_kit.js');
-const NAME = K.arg('name', 'audition-feedback-rings'), N = Math.max(1, +K.arg('n', 6)), BASE = +K.arg('base', 7), GAP = +K.arg('gap', 3), CAP_MS = +K.arg('cap', 14000), PORT = +K.arg('port', 5500);
+const NAME = K.arg('name', 'audition-feedback-rings'), N = Math.max(1, +K.arg('n', 6)), BASE = +K.arg('base', 7), GAP = +K.arg('gap', 3), CAP_MS = +K.arg('cap', 14000), PORT = +K.arg('port', 5600);
 const WHICH = K.arg('shapes', '') ? String(K.arg('shapes', '')).split(',').map((s) => +s).filter((n) => n > 0) : null;
 const TAG = 'feedback-rings';
 const COMMAND = 'node tools/build_feedback_rings.js --name ' + NAME + (WHICH ? ' --shapes ' + WHICH.join(',') : ' --n ' + N) + ' --base ' + BASE + ' --gap ' + GAP + ' --cap ' + CAP_MS;

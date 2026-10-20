@@ -72,25 +72,25 @@ const PC_PALETTE = ['#ffd479', '#7ec9a8', '#8ea9c9', '#c98a8a', '#b58ec9', '#d4c
                     '#69b7c9', '#c9986e', '#96c96e', '#c96ea8', '#8a8ac9', '#e0e0e0'];
 const nm = m => NAMES[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1);
 const SEED_KEEP = 8;   // U8: how many earlier seeds each random button keeps as chips
-const OPEN_STRINGS = { viola: [48, 55, 62, 69], cello: [36, 43, 50, 57] };   // SOUNDING pitch
+const OPEN_STRINGS = { violin: [55, 62, 69, 76], cello: [36, 43, 50, 57] };   // SOUNDING pitch
 const PLAIN_PREF = ['ord', 'main', 'senza_vel', 'senza_mw', 'staccato'];
 // The default articulation of a strike. PROVISIONAL for this piece (the port, 2026-09-17): the winds and
 // brass have no percussive voice in the placeholder recipes yet, so they take their plain 'ord'; the cello
 // keeps #5's gettato, the bass takes Bartók, the percussionist strikes. Revisit at 0c with the real
 // recipes — tools/palette_check.js asserts every key named here exists in the recipe file.
-const STRIKE_DEFAULT = { bass_flute: 'slap', bass_clarinet: 'slap', percussion: 'main', viola: 'gettato_vel', cello: 'gettato_vel' };
+const STRIKE_DEFAULT = { flute: 'staccato', clarinet: 'staccato', alto_sax: 'staccato', percussion: 'main', piano: 'main', violin: 'bartok_vel', cello: 'gettato_vel' };   // PROVISIONAL (the port, 2026-10-20): the winds' and the piano's keys are the placeholder recipes' until container 4
 // §377 (composer, 2026-09-10 — STRIKES_TOOL §AB1-b/-c): named sets for the seven rows, one click each. `percussive` IS STRIKE_DEFAULT
 // and stays the default; spiccato has no flute or bass-clarinet voice, so those two take their plain staccato.
 const ART_SETS = {
     percussive: STRIKE_DEFAULT,
     // the two winds are on their one placeholder voice in every set — their short voices come with their recipes (container 4)
-    spiccato: { bass_flute: 'stac_vel', bass_clarinet: 'stac_vel', percussion: 'main', viola: 'spicc_vel', cello: 'spicc_vel' },
-    staccato: { bass_flute: 'stac_vel', bass_clarinet: 'stac_vel', percussion: 'main', viola: 'stac_vel', cello: 'stac_vel' },
+    spiccato: { flute: 'staccato', clarinet: 'staccato', alto_sax: 'staccato', percussion: 'main', piano: 'main', violin: 'spicc_vel', cello: 'spicc_vel' },   // the winds' and the piano's short voices come with their recipes (container 4)
+    staccato: { flute: 'staccato', clarinet: 'staccato', alto_sax: 'staccato', percussion: 'main', piano: 'main', violin: 'stac_vel', cello: 'stac_vel' },
     // LGMF, stage 1 of the drawer's adaptation (composer, 2026-09-19): the voices the reference scores play — each instrument's
     // `ordinary` in sandbox/instruments.js (read back from scores/lgmf-ref.json). The vibraphone was on its standard mallets for stage 1
     // at his word; PLAN 1c.2 (the long tones, the same day) put it on the BOWED voice the reference scores play — his "this would
     // involve adding the bowed vibraphone to the Ordinario set". The three sets above are untouched; this one is a fourth button.
-    ordinario: { bass_flute: 'vib_vel', bass_clarinet: 'senza_vel', percussion: 'main', bowed_vibraphone: 'crot_main_metal', viola: 'senza_vel', cello: 'senza_vel' },
+    ordinario: { flute: 'ord', clarinet: 'ord', alto_sax: 'ord', percussion: 'main', bowed_vibraphone: 'crot_main_metal', piano: 'main', violin: 'senza_vel', cello: 'senza_vel' },   // the pitched lane's key is the carried Ricotti lane's ordinary (the stand-in until container 4)
 };
 
 function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }

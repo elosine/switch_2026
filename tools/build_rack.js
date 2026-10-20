@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// build_rack.js — THE RACK AS TEXT: reaper/decibel_rack.rpp built from the lineage's racks (the new-piece
+// build_rack.js — THE RACK AS TEXT: reaper/switch_rack.rpp built from the lineage's racks (the new-piece
 // protocol's 4.2; RUNNING_LOG §19, 2026-10-04). His idea, his words: "copy previous racks and then just copy
 // the instrument lanes back and forth".
 //
@@ -8,7 +8,7 @@
 // previous piece already set up costs no load here. The plugin state is never edited, only carried byte-exact
 // (docs/REAPER_CONTROL.md § 2, mechanism 9: never EDIT the blob; mechanism 1: the .rpp as text for structure).
 //
-//   node tools/build_rack.js                 # build reaper/decibel_rack.rpp; REFUSES if the file exists
+//   node tools/build_rack.js                 # build reaper/switch_rack.rpp; REFUSES if the file exists
 //   node tools/build_rack.js --source disk   # take the old racks from their working files instead of git
 //   node tools/build_rack.js --dry           # report only, write nothing
 //   node tools/build_rack.js --force         # overwrite — ONLY before he has saved the rack from Reaper
@@ -31,7 +31,7 @@ const crypto = require('crypto');
 const { execFileSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
-const OUT = path.join(ROOT, 'reaper', 'decibel_rack.rpp');
+const OUT = path.join(ROOT, 'reaper', 'switch_rack.rpp');
 const SOURCES = {
   p5: { repo: path.resolve(ROOT, '..', 'septet_2026'), file: 'reaper/septet_rack.rpp', piece: 'piece #5 septet_2026' },
   p6: { repo: path.resolve(ROOT, '..', 'septet_LGMF_2026'), file: 'reaper/LGMF_rack.rpp', piece: 'piece #6 septet_LGMF_2026' },

@@ -1,5 +1,5 @@
 // Composer score server — septet 2026 (ported from piece #4, 2026-09-03; journal D1/D5)
-// Zero-dependency Node http server. Port 5500.
+// Zero-dependency Node http server. Port 5600.
 //
 // Saving protocol (D17, composer 2026-09-04 — docs/NAMING.md §1, RUNNING_LOG §68):
 //   - The file: scores/<name>.json — changes ONLY on an explicit Save (button / CTRL+S).
@@ -19,11 +19,11 @@ const { spawnSync } = require('child_process');   // PLAN 1c: /api/strikes/inges
 // engine's; this piece gives it its route table. Three lines of this file in all: this one, the route, the static folder.
 const elecRelay = require('../electronics/tools/relay.js')({ configFile: path.join(__dirname, '..', 'bank', 'elec_route.json') });
 
-// 5500 is THE port — every doc, bookmark and launch config says so, and the
+// 5600 is THE port — every doc, bookmark and launch config says so, and the
 // default is unchanged. The override exists only so a second, throwaway instance
 // can be started for verification while the composer's own server keeps running
-// on 5500 (two agents share this tree). Never use it for real work.
-const PORT = Number(process.env.PORT) || 5500;
+// on 5600 (two agents share this tree). Never use it for real work.
+const PORT = Number(process.env.PORT) || 5600;
 const ROOT = __dirname;                                   // score/
 const PUBLIC_DIR = path.join(ROOT, 'public');
 const DOCS_DIR = path.join(ROOT, '..', 'docs');           // serves /docs/instrument_map.json
@@ -1187,7 +1187,7 @@ const server = http.createServer((req, res) => {
             // holds on disk too when the tool fails.
             const fi = out.indexOf('--scoreFile');
             if (fi >= 0) {
-                const copy = path.join(fs.mkdtempSync(path.join(require('os').tmpdir(), 'decibel-refresh-')), ir.source.score + '-copy.json');
+                const copy = path.join(fs.mkdtempSync(path.join(require('os').tmpdir(), 'switch-refresh-')), ir.source.score + '-copy.json');
                 fs.copyFileSync(path.join(SCORES_DIR, ir.source.score + '.json'), copy);
                 out[fi + 1] = copy;
             }
@@ -1227,10 +1227,10 @@ const server = http.createServer((req, res) => {
         // registry, schema — Phase B5 (plan DB-1)
         if (url.startsWith('/notation/')) { base = path.join(__dirname, '..', 'notation'); rel = url.slice('/notation'.length); }
         // [2026-10-03, PLAN 2b-P step 5 — his "can I get the link in chat"] the print stratum, read-only GET: the rendered PDFs
-        // (print/score/*.pdf, gitignored) open in his Chrome as http://localhost:5500/print/score/<file>.pdf
+        // (print/score/*.pdf, gitignored) open in his Chrome as http://localhost:5600/print/score/<file>.pdf
         if (url.startsWith('/print/')) { base = path.join(__dirname, '..', 'print'); rel = url.slice('/print'.length); }
         // [2026-09-29, his clickable link] the docs stratum, read-only GET — a research page (docs/research/*.html) linked in chat as
-        // http://localhost:5500/docs/… opens in his Chrome; a file:// or a claude.ai artifact link opens inside the desktop app instead
+        // http://localhost:5600/docs/… opens in his Chrome; a file:// or a claude.ai artifact link opens inside the desktop app instead
         if (url.startsWith('/docs/')) { base = path.join(__dirname, '..', 'docs'); rel = url.slice('/docs'.length); }
         const filepath = path.normalize(path.join(base, rel));
         // trailing-separator guard: without it a sibling dir whose name
@@ -1278,6 +1278,6 @@ function freshModelBank() {
 }
 
 server.listen(PORT, () => {
-    console.log(`Composer score (decibel TENOR 2026) at http://localhost:${PORT}/composer.html`);
+    console.log(`Composer score (switch 2026) at http://localhost:${PORT}/composer.html`);
     console.log(`Scores: ${SCORES_DIR}`);
 });

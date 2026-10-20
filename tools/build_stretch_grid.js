@@ -8,14 +8,14 @@
 // It writes — the presets into bank/presets.json (dg01 … ; `deal: false`, `audition: stretch-grid` — never dealt; a second run replaces
 // only its own) · the score as a NEW file · the sheet docs/auditions/<name>.md.
 //   node tools/build_stretch_grid.js [--name audition-stretch-grid] [--input bcl-mp-1] [--len 5000] [--gap 1]
-//                                    [--overlaps 4,8,17,40] [--rand 0,0.2,0.5] [--replace] [--render] [--port 5500]
+//                                    [--overlaps 4,8,17,40] [--rand 0,0.2,0.5] [--replace] [--render] [--port 5600]
 // --render   sends the plan with render 1 to the engine through the score server (an engine started after the loop went in — 2026-10-06).
 // --replace  rewrites a score THIS tool made; never another.
 // THE SORTING: this tool knows the piece (its bank, its presets, its scores) — the piece's. The stage is the engine's.
 'use strict';
 const path = require('path');
 const K = require('./audition_kit.js');
-const NAME = K.arg('name', 'audition-stretch-grid'), PORT = +K.arg('port', 5500);
+const NAME = K.arg('name', 'audition-stretch-grid'), PORT = +K.arg('port', 5600);
 const INPUT = K.arg('input', 'bcl-mp-1'), TARGET_MS = +K.arg('len', 5000), GAP_S = +K.arg('gap', 1);
 const OVERLAPS = K.arg('overlaps', '4,8,17,40').split(',').map(Number), RANDS = K.arg('rand', '0,0.2,0.5').split(',').map(Number);
 const TAG = 'stretch-grid', TOOL = 'tools/build_stretch_grid.js';

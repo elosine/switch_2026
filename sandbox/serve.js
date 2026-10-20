@@ -1,5 +1,5 @@
 // Sandbox server: static files + phrase (motive) save/list.
-//   node sandbox/serve.js   →  http://localhost:5000
+//   node sandbox/serve.js   →  http://localhost:5100
 // Phrases: POST /motives {name, events, ...} → sandbox/motives/<slug>.json
 //          GET  /motives → index [{file, name, created, notes}]
 //          GET  /motives/<file>.json → served statically like any file
@@ -7,7 +7,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 5000;
+const PORT = 5100;
 const ROOT = __dirname;
 const MOTIVES = path.join(ROOT, 'motives');
 if (!fs.existsSync(MOTIVES)) fs.mkdirSync(MOTIVES);

@@ -116,7 +116,7 @@ const METAL = () => (typeof META_LAYER !== 'undefined' ? META_LAYER : root.META_
 const LADDER = () => root.StrikeDyn || null;   // dyn_ui.js — the drawer's own ladder, the one the generator reads
 const DT_ = () => root.DynTable || null;       // dyn_table.js — 1d.10, the CC7 of a written dynamic on a given instrument
 
-const STORE = 'decibel.rhythmSequence.v1';
+const STORE = 'switch.rhythmSequence.v1';
 // PLAN 1d.11 — THE LIBRARY. `localStorage` above is the INSTANT layer and stays exactly what it was; the DISK is the durable one,
 // `bank/rhythm_sequences.json`, a store of its own (never a panel in `panel_snapshots.json`, 3.1 MB of his takes rewritten whole on every
 // save — an autosave every couple of seconds must not touch it). A row is ALWAYS on disk: unnamed under a timestamp in a rolling
@@ -1305,7 +1305,7 @@ const S = {
         const lanes = lanesPitched.map(x => x.lane), n = Math.max(1, lanes.length), m = {};
         if (xf.order === 'random') lanes.forEach(l => { m[l] = this.xfRand(xf.seed, tag + '~m~' + l) * 0.999; });
         else if (xf.order === 'by pair') {
-            const T = (typeof TRACKS !== 'undefined' ? TRACKS : []), pairOf = l => { const k = T[l] && T[l].instKey; return ({ bass_flute: 0, bass_clarinet: 0, percussion: 1, bowed_vibraphone: 1, viola: 2, cello: 2 })[k] != null ? ({ bass_flute: 0, bass_clarinet: 0, percussion: 1, bowed_vibraphone: 1, viola: 2, cello: 2 })[k] : 4; };
+            const T = (typeof TRACKS !== 'undefined' ? TRACKS : []), pairOf = l => { const k = T[l] && T[l].instKey; return ({ flute: 0, clarinet: 0, alto_sax: 0, percussion: 1, bowed_vibraphone: 1, piano: 2, violin: 3, cello: 3 })[k] != null ? ({ flute: 0, clarinet: 0, alto_sax: 0, percussion: 1, bowed_vibraphone: 1, piano: 2, violin: 3, cello: 3 })[k] : 4; };
             const pairs = [...new Set(lanes.map(pairOf))].map(p => ({ p, r: this.xfRand(xf.seed, tag + '~pair~' + p) })).sort((a, b) => a.r - b.r);
             lanes.forEach(l => { const j = pairs.findIndex(q => q.p === pairOf(l)); m[l] = (j + 0.5) / pairs.length; });
         } else {

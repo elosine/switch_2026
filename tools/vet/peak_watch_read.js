@@ -29,7 +29,7 @@ const W = JSON.parse(fs.readFileSync(kept, 'utf8')), off = JSON.parse(fs.readFil
 const rows = W.rows.map(([p, i, d]) => ({ t: p - off, i: i - 1, d }));
 const sc = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', score + '.json'), 'utf8'));
 const INS = vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'sandbox', 'instruments.js'), 'utf8') + '\n;INSTRUMENTS;', {});
-// a note's own track(s), by the rack's track names (reaper/decibel_rack.rpp): a wind or a string has one; the percussion's is its
+// a note's own track(s), by the rack's track names (reaper/switch_rack.rpp): a wind or a string has one; the percussion's is its
 // voice's CHANNEL (bank/perc_selection.json: bongos 1 … toms 8); a mallet voice's is its instrument (the Ricotti four)
 const PERC = { 1: 'Bongos ARO', 2: 'Shime Daiko ARO', 3: 'Bass Drum Alt ARO', 4: 'Wood Blocks ARO', 5: 'China Cymbal ARO', 6: 'Spring Coil ARO', 7: 'Suspended Cymbals ARO', 8: 'Toms ARO' };
 const LANE = { bass_flute: [/^Bass Flute/], bass_clarinet: [/^Bass Clarinet/], viola: [/^Viola/], cello: [/^Cello/], bowed_vibraphone: [/ RM$/] };

@@ -2,7 +2,7 @@
 // build_first_sound.js — THE FIRST SOUND: one note on every TRACK of the rack, in a save the composer score opens
 // (the new-piece protocol's 4.6; RUNNING_LOG §35, 2026-10-04). His ask: "can you put a note on each lane in a save file".
 //
-//   node tools/build_first_sound.js [--out scores/decibel-first-sound.json]
+//   node tools/build_first_sound.js [--out scores/switch-first-sound.json]
 //
 // Sixteen notes, one after another, in lane order — so each is heard alone and a silent one is plain:
 //   the bass flute and the bass clarinet (their ordinary voices) · the EIGHT percussion instruments, one hit each (the
@@ -15,7 +15,7 @@
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const ROOT = path.resolve(__dirname, '..');
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
-const OUT = path.join(ROOT, arg('out', 'scores/decibel-first-sound.json'));
+const OUT = path.join(ROOT, arg('out', 'scores/switch-first-sound.json'));
 if (/[\\/]piece-/.test(OUT)) { console.error('refusing a piece-… name'); process.exit(3); }
 
 const INSTRUMENTS = vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'sandbox', 'instruments.js'), 'utf8') + '\n;INSTRUMENTS;', {});

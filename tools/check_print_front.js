@@ -8,7 +8,7 @@
 // has. The exporter cannot see its own layout (Chrome does the columns), so the
 // check lives here and the build runs it.
 //
-//   node tools/check_print_front.js [--ir piece-decibel] [--format a3-landscape]
+//   node tools/check_print_front.js [--ir piece-switch] [--format a3-landscape]
 //
 // It renders the front matter through the exporter, measures every page in
 // headless Chrome, and FAILS on: a column overflow, an element outside the sheet,
@@ -20,7 +20,7 @@ const { spawnSync } = require('child_process');
 const ROOT = path.join(__dirname, '..');
 
 function arg(name, def) { const i = process.argv.indexOf('--' + name); return i >= 0 ? process.argv[i + 1] : def; }
-const irId = arg('ir', 'piece-decibel');
+const irId = arg('ir', 'piece-switch');
 const format = arg('format', JSON.parse(fs.readFileSync(path.join(ROOT, 'print', 'formats.json'), 'utf8')).default);   // [2b-P.2] the sheets' one file
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'printfront-'));
 const html = path.join(tmp, 'front.html');

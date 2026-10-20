@@ -52,7 +52,7 @@ function laneList(v) {
         const w = String(x).toLowerCase().replace(/[^a-z0-9]/g, '');
         const i = T.findIndex(t => [String(t.short || ''), String(t.instKey || ''), String(t.id || ''), String(t.label || '')].some(s => s.toLowerCase().replace(/[^a-z0-9]/g, '') === w));
         if (i >= 0) return i;
-        const alias = { bfl: 'bass_flute', fl: 'bass_flute', flute: 'bass_flute', bcl: 'bass_clarinet', cl: 'bass_clarinet', clar: 'bass_clarinet', perc: 'percussion', va: 'viola', vla: 'viola', vc: 'cello' }[w];
+        const alias = { fl: 'flute', flute: 'flute', cl: 'clarinet', clar: 'clarinet', clarinet: 'clarinet', sax: 'alto_sax', asax: 'alto_sax', alto: 'alto_sax', perc: 'percussion', vib: 'bowed_vibraphone', vibes: 'bowed_vibraphone', pno: 'piano', piano: 'piano', vn: 'violin', vln: 'violin', violin: 'violin', vc: 'cello', cello: 'cello' }[w];
         return alias ? T.findIndex(t => t.instKey === alias) : -1;
     }).filter(i => i >= 0);
 }

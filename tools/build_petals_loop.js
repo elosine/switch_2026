@@ -7,14 +7,14 @@
 // drive 15 · 30 at bloom 2 · L6 a long hold (15 s) · L7 fast, hard and short (bloom 0.5 · drive 20 · hold 5).
 // It writes — 8 presets into bank/presets.json (pl01 … pl08; `deal: false`, `audition: petals-loop`; a second run replaces only its
 // own) · the score scores/<name>.json, a NEW file · the sheet docs/auditions/<name>.md.
-//   node tools/build_petals_loop.js [--name audition-petals-loop] [--impulse bcl-impulse-1] [--gap 3] [--replace] [--render] [--port 5500]
+//   node tools/build_petals_loop.js [--name audition-petals-loop] [--impulse bcl-impulse-1] [--gap 3] [--replace] [--render] [--port 5600]
 // --render   sends the plan to the engine with render 1 — ONLY on an engine STARTED AFTER the loop went into electronics/sc/process.scd
 //            (2026-10-07, §203): an older one leaves the unknown dials out and banks the plain petals under the loop's names.
 // --replace  rewrites a score THIS tool made; never another.
 // THE SORTING: this tool knows the piece (its bank, its presets, its scores) — the piece's. The loop is the engine's.
 'use strict';
 const K = require('./audition_kit.js');
-const NAME = K.arg('name', 'audition-petals-loop'), IMP = K.arg('impulse', 'bcl-impulse-1'), GAP_S = +K.arg('gap', 3), PORT = +K.arg('port', 5500);
+const NAME = K.arg('name', 'audition-petals-loop'), IMP = K.arg('impulse', 'bcl-impulse-1'), GAP_S = +K.arg('gap', 3), PORT = +K.arg('port', 5600);
 const TAG = 'petals-loop';
 const COMMAND = 'node tools/build_petals_loop.js --name ' + NAME + ' --impulse ' + IMP + ' --gap ' + GAP_S;
 

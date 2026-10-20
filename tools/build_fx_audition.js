@@ -59,5 +59,5 @@ const sheet = ['# FX AUDITION — `scores/' + NAME + '.json`', '',
 K.writeSheet(NAME, sheet.join('\n'));
 const per = ORDER.map((w) => K.PLAYERS[w] + ' ' + rows.filter((r) => r.who === w).length).join(' · '), missing = rows.filter((r) => !r.banked).length;
 console.log(K.rel(file) + ' — ' + rows.length + ' versions (' + per + '), ' + GAP + ' s apart, ' + K.clock(2) + ' … ' + K.clock(rows[rows.length - 1].t) + ' · ' + (rows.length - missing) + ' have a render in the bank' + (missing ? ', ' + missing + ' do not (they play raw until rendered: --render, or "render all planned" in a brick\'s panel)' : '') + ' · the sheet docs/auditions/' + NAME + '.md');
-if (K.flag('render')) K.sendPlan(K.planLines(objects, P), +K.arg('port', 5500));
+if (K.flag('render')) K.sendPlan(K.planLines(objects, P), +K.arg('port', 5600));
 else console.log('no plan sent: the bricks play the renders the bank holds. In the page: open ' + NAME + ' · play from 0.');

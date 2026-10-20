@@ -191,7 +191,7 @@ if (!flag('noperc')) for (const track of RACK.tracks) {
 // ── out ─────────────────────────────────────────────────────────────────────────────────────────────
 const out = path.resolve(ROOT, opt('out', preflight ? 'probes/preflight_schedule.json' : 'probes/balance_schedule.json'));
 const schedule = {
-    generatedAt: new Date().toISOString(), piece: 'decibel', planItem: preflight ? '0d.2 preflight' : '0d.2', preflight,
+    generatedAt: new Date().toISOString(), piece: 'switch', planItem: preflight ? '0d.2 preflight' : '0d.2', preflight,
     sources: ['sandbox/instruments.js', 'bank/perc_rack.json', 'bank/aro_percussion_catalog.json'],
     anchorVel: ANCHOR_VEL, vels: VELS, cc7s: CC7S, cc7Vel: CC7_VEL, percVels: PERC_VELS, fracs: FRACS,
     percKeys: PERC_KEYS, repeats: REPEATS, percRepeats: PERC_REPEATS, noCc7, skipped,

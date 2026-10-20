@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Composer Score — decibel TENOR 2026</title>
+<title>Composer Score — switch 2026</title>
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { width: 100%; height: 100%; overflow: hidden; background: #fff; font-family: 'Segoe UI', Tahoma, sans-serif; }
@@ -106,9 +106,9 @@
     .curveLane .contentGroup circle, .curveLane .contentGroup path.curveHit { pointer-events: auto; }
     .curveLane.points .contentGroup path.curveHit { cursor: inherit !important; }   /* Points on: the pencil, never the bend arrow (composer 2026-09-06) */
     .curveLane .laneLabel { left: auto; right: 8px; pointer-events: none; padding: 1px 5px; border-radius: 2px; background: rgba(247,245,239,0.75); font-size: 10px; }
-    #laneCurveA { top: 50%; height: 16.6667%; border-color: #C2410C; } #laneCurveA .laneLabel { color: #C2410C; }
-    #laneCurveB { top: 66.6667%; height: 16.6667%; border-color: #1D6FA5; } #laneCurveB .laneLabel { color: #1D6FA5; }
-    #laneCurveC { top: 83.3333%; height: 16.6667%; border-color: #6D3B9E; } #laneCurveC .laneLabel { color: #6D3B9E; }
+    #laneCurveA { top: 62.5%; height: 12.5%; border-color: #C2410C; } #laneCurveA .laneLabel { color: #C2410C; }
+    #laneCurveB { top: 75%;   height: 12.5%; border-color: #1D6FA5; } #laneCurveB .laneLabel { color: #1D6FA5; }
+    #laneCurveC { top: 87.5%; height: 12.5%; border-color: #6D3B9E; } #laneCurveC .laneLabel { color: #6D3B9E; }
     #recBtn.armed { background: #8c2f2f; border-color: #c05050; color: #fff; }
     #recLaneSel, #recTechSel { width: 90px !important; }
     /* Per-part solo (composer 2026-08-12): S in each lane; ALT+click = exclusive */
@@ -121,15 +121,17 @@
     .soloBtn.on { background: #f9a825; border-color: #f57f17; color: #fff; }
     .lane.soloDim svg { opacity: 0.3; }
     body.altdown circle.nodeH { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"><rect x="2" y="7" width="12" height="7" rx="2" fill="%23f48fb1" stroke="%23333"/><rect x="2" y="7" width="5" height="7" rx="2" fill="%23b0bec5" stroke="%23333"/></svg>') 9 9, not-allowed !important; }
-    /* SIX instrument lanes — five players, the percussionist on two (Percussion + the pitched lane, D9); score order.
+    /* EIGHT instrument lanes — seven players, the percussionist on two (Percussion + Vibraphone, D7); score order.
        The META draw window has its own rule. ONE RULE PER LANE: tools/palette_check.js § 7 holds the count against TRACKS
-       (in piece #6 a lane without its rule fell on top of lane 1). */
-    .lane:nth-child(1) { top: 0%      ; height: 16.6667%; }
-    .lane:nth-child(2) { top: 16.6667%; height: 16.6667%; }
-    .lane:nth-child(3) { top: 33.3333%; height: 16.6667%; }
-    .lane:nth-child(4) { top: 50%     ; height: 16.6667%; }
-    .lane:nth-child(5) { top: 66.6667%; height: 16.6667%; }
-    .lane:nth-child(6) { top: 83.3333%; height: 16.6667%; }
+       (in piece 5 a lane without its rule fell on top of lane 1). */
+    .lane:nth-child(1) { top: 0%   ; height: 12.5%; }
+    .lane:nth-child(2) { top: 12.5%; height: 12.5%; }
+    .lane:nth-child(3) { top: 25%  ; height: 12.5%; }
+    .lane:nth-child(4) { top: 37.5%; height: 12.5%; }
+    .lane:nth-child(5) { top: 50%  ; height: 12.5%; }
+    .lane:nth-child(6) { top: 62.5%; height: 12.5%; }
+    .lane:nth-child(7) { top: 75%  ; height: 12.5%; }
+    .lane:nth-child(8) { top: 87.5%; height: 12.5%; }
 
     /* Lane dividers */
     .lane + .lane { border-top: 1px solid #ddd; }
@@ -349,7 +351,7 @@
      no module changed). The passages group (passages.js) appends itself to the bar's end. The bar wraps on a narrow window and the lanes
      start below its real bottom (--barH, fitTopBar, §315). -->
 <div id="topBar">
-    <input type="text" id="sessionName" value="decibel" title="the session — the file's name" />
+    <input type="text" id="sessionName" value="switch" title="the session — the file's name" />
     <select id="menuFile" class="barMenu" title="the file: Save (CTRL+S) · Name version · Reload · Restore… · the save rules"></select>
     <select id="pieceSelect" title="the piece: every piece-* save and its named versions - opens a working copy"><option value="">Piece ▾</option></select>
     <select id="loadSelect" title="everything else: experiments and their named versions - opens a working copy"><option value="">Experiments ▾</option></select>
@@ -369,20 +371,22 @@
     <select id="menuPanels" class="barMenu" title="the panels: Strikes · Sequence · Rhythm · Beating (B) · Morph · Texture · Pulse · Multitempo"></select>
     <span class="barGap"></span>
     <button id="metaBtn" title="Show/hide the META draw window — the gestures' shapes and the stamps">META</button>
-    <button id="curveBtnA" title="Show/hide curve window A (over Mallets)">A</button>
-    <button id="curveBtnB" title="Show/hide curve window B (over Viola)">B</button>
+    <button id="curveBtnA" title="Show/hide curve window A (over Piano)">A</button>
+    <button id="curveBtnB" title="Show/hide curve window B (over Violin)">B</button>
     <button id="curveBtnC" title="Show/hide curve window C (over Cello)">C</button>
     <span class="barGap"></span>
     <input type="number" id="wcStartInput" value="0" step="0.01" min="0" placeholder="start" title="Start (s) of the curve Draw Curve draws" />
     <input type="number" id="wcEndInput" value="10" step="0.01" min="0" placeholder="end" title="End (s) of the curve Draw Curve draws" />
     <select id="wcLayerSelect" title="the track Draw Curve draws on">
-        <option value="0" selected>Bass Flute</option>
-        <option value="1">Bass Clar.</option>
-        <option value="2">Percussion</option>
-        <option value="3">Mallets</option>
-        <option value="4">Viola</option>
-        <option value="5">Cello</option>
-        <option value="6">META</option>
+        <option value="0" selected>Flute</option>
+        <option value="1">Clarinet</option>
+        <option value="2">Alto Sax</option>
+        <option value="3">Percussion</option>
+        <option value="4">Vibraphone</option>
+        <option value="5">Piano</option>
+        <option value="6">Violin</option>
+        <option value="7">Cello</option>
+        <option value="8">META</option>
     </select>
     <button id="wcDrawBtn" title="draw a curve from Start to End on the Track chosen here">Draw Curve</button>
     <button id="drawBtn" title="Freehand on the META window">&#9998; Draw</button>
@@ -489,31 +493,39 @@
 
 <!-- Lane Container -->
 <div id="laneContainer">
-    <!-- 6 composing tracks: the Decibel ensemble in score order, top -> bottom (TRACKS below) — five players, the
-         percussionist on two lanes (D9, 2026-10-04).
+    <!-- 8 composing tracks: the Switch~ ensemble in score order, top -> bottom (TRACKS below) — seven players, the
+         percussionist on two lanes (D7, 2026-10-20; piece 6's shape).
          THIS BLOCK AND `TRACKS` MUST STAY THE SAME LENGTH — init() maps lane1..laneN off TRACKS, and a missing element
          stops the whole app booting; the lane CSS needs ONE RULE PER LANE too (tools/palette_check.js § 7 holds both). -->
     <div class="lane" id="lane1">
-        <span class="laneLabel" title="Bass flute">Bass Flute</span>
+        <span class="laneLabel" title="Flute">Flute</span>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
     <div class="lane" id="lane2">
-        <span class="laneLabel" title="Bass clarinet">Bass Clar.</span>
+        <span class="laneLabel" title="Clarinet in B♭">Clarinet</span>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
     <div class="lane" id="lane3">
-        <span class="laneLabel" title="Percussion — the unpitched instruments; the SAME player as the lane below (D9)">Percussion</span>
+        <span class="laneLabel" title="Alto saxophone">Alto Sax</span>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
     <div class="lane" id="lane4">
-        <span class="laneLabel" title="The pitched percussion lane — Ricotti Mallets: crotales · glockenspiel · xylophone · marimba, all four on this lane (DEC-5); the SAME player as Percussion">Mallets</span>
+        <span class="laneLabel" title="Percussion — the unpitched instruments; the SAME player as the lane below (D7)">Percussion</span>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
     <div class="lane" id="lane5">
-        <span class="laneLabel" title="Viola">Viola</span>
+        <span class="laneLabel" title="The pitched percussion lane — the vibraphone (and the glockenspiel) of the call's list; the SAME player as Percussion. Its key is still bowed_vibraphone (NAMING § 1)">Vibraphone</span>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
     <div class="lane" id="lane6">
+        <span class="laneLabel" title="Piano">Piano</span>
+        <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
+    </div>
+    <div class="lane" id="lane7">
+        <span class="laneLabel" title="Violin">Violin</span>
+        <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
+    </div>
+    <div class="lane" id="lane8">
         <span class="laneLabel" title="Cello">Cello</span>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
@@ -1430,41 +1442,44 @@ function expandCellRef(cellDef, startMs, durationMs, behaviorOverrides) {
 // ============================================
 
 // Track identity: by instrument, not position (see docs/PROJECT_JOURNAL.md saving protocol)
-// DECIBEL (2026-10-04, journal D2 · D9): five players on SIX lanes, score order top -> bottom — winds · percussion ·
-// strings (#5's D10). `instKey` names the recipe in sandbox/instruments.js; `short` is the stage-picture label.
-// The percussionist has TWO lanes (his word, D9): the unpitched instruments, and a pitched voice of its own.
-// NO LANE FOR THE ELECTRONICS (D8): every electronic sound is drawn on the lane of the player it comes from.
+// SWITCH (2026-10-20, journal D1 · D7): seven players on EIGHT lanes, score order top -> bottom — winds · percussion ·
+// piano · strings. `instKey` names the recipe in sandbox/instruments.js; `short` is the stage-picture label.
+// The percussionist has TWO lanes (piece 6's shape, D7): the unpitched instruments, and the vibraphone.
+// THE PIANO IS A ROLE (the profile's roles line): every piano-role module finds its lane by instKey === 'piano'.
+// NO LANE FOR THE ELECTRONICS (piece 6's D8): every electronic sound is drawn on the lane of the player it comes from.
 const TRACKS = [
-    { id: 'bass_flute',    label: 'Bass Flute', short: 'BFl',  instKey: 'bass_flute' },
-    { id: 'bass_clarinet', label: 'Bass Clar.', short: 'BCl',  instKey: 'bass_clarinet' },
-    { id: 'percussion',    label: 'Percussion', short: 'Perc', instKey: 'percussion' },
-    // THE PITCHED PERCUSSION LANE — which instrument is his, at the instruments talk (container 4). Until then it is
-    // piece #6's bowed vibraphone, carried whole (the lane id, the recipe key, the second seat), so that everything the
-    // engine built on that key stays alive and tested. Same PLAYER as Percussion: two lanes, joined by a BRACE in the score.
-    { id: 'vibraphone',    label: 'Mallets',    short: 'Mal',  instKey: 'bowed_vibraphone' },   // Ricotti: crotales · glockenspiel · xylophone · marimba (DEC-5); the id and the key are piece #6's, kept (NAMING § 1)
-    { id: 'viola',         label: 'Viola',      short: 'Va',   instKey: 'viola' },
-    { id: 'cello',         label: 'Cello',      short: 'Vc',   instKey: 'cello' },
+    { id: 'flute',      label: 'Flute',      short: 'Fl',   instKey: 'flute' },
+    { id: 'clarinet',   label: 'Clarinet',   short: 'Cl',   instKey: 'clarinet' },
+    { id: 'alto_sax',   label: 'Alto Sax',   short: 'Sax',  instKey: 'alto_sax' },
+    { id: 'percussion', label: 'Percussion', short: 'Perc', instKey: 'percussion' },
+    // THE PITCHED PERCUSSION LANE — the vibraphone (the call's list; the glockenspiel beside it is container 4's question).
+    // The id and the key are piece 5's and 6's, kept on purpose: the engine's tools know the pitched lane by `bowed_vibraphone`
+    // (docs/NAMING.md § 1). Same PLAYER as Percussion: two lanes, joined by a BRACE in the score.
+    { id: 'vibraphone', label: 'Vibraphone', short: 'Vib',  instKey: 'bowed_vibraphone' },
+    { id: 'piano',      label: 'Piano',      short: 'Pno',  instKey: 'piano' },
+    { id: 'violin',     label: 'Violin',     short: 'Vn',   instKey: 'violin' },
+    { id: 'cello',      label: 'Cello',      short: 'Vc',   instKey: 'cello' },
 ];
 
 // META drawing layer index (the floating draw window = lanes[META_LAYER]).
-// DECIBEL layout (layoutVersion 8, 2026-10-04): SIX instrument lanes, so META = 6 and the curve windows are 7 / 8 / 9.
-// Piece #6 (v7) had eight lanes, META = 8, curves 9 / 10 / 11; its v6 seven and META 7; piece #4 META = 10 (v2), its v1 7.
-const META_LAYER = 6;
-// The META window (6) is the gestures' shapes and the stamps — not the curve path (CN-23). The three CURVE windows
-// A / B / C are layers 7 / 8 / 9 and float exactly over the last three lanes — the pitched lane, Viola and Cello
-// (CN-24, TRILLS_TOOL §3b). Contract (NAMING §2.2): layers >= tracks.length are the META side — 6 META, 7–9 the
+// SWITCH layout (layoutVersion 9, 2026-10-20): EIGHT instrument lanes, so META = 8 and the curve windows are 9 / 10 / 11.
+// Piece 6 (v8) had six lanes, META = 6, curves 7 / 8 / 9; piece 5 (v7) eight, META 8; its v6 seven; piece 3 META = 10 (v2).
+const META_LAYER = 8;
+// The META window (8) is the gestures' shapes and the stamps — not the curve path (CN-23). The three CURVE windows
+// A / B / C are layers 9 / 10 / 11 and float exactly over the last three lanes — Piano, Violin and Cello
+// (CN-24, TRILLS_TOOL §3b). Contract (NAMING §2.2): layers >= tracks.length are the META side — 8 META, 9–11 the
 // reference curves (waveCurve with curveName) and their pending dots (curveDot).
-const META_LAYERS = [6];
-const META_NAMES = { 6: 'META' };
-const META_COLORS = { 6: '#2E8B57' };
-const CURVE_LAYERS = [7, 8, 9];
+const META_LAYERS = [8];
+const META_NAMES = { 8: 'META' };
+const META_COLORS = { 8: '#2E8B57' };
+const CURVE_LAYERS = [9, 10, 11];
 const AUTO_OPEN_CURVE_WINS = false;   // a curve window holding a curve opened itself at load until 2026-10-07 (§226, his word: off); the A / B / C buttons open them
 const TRILL_EAT_PRE_S = 0.06;      // a note starting within this BEFORE a trill is its attack and is eaten too (the strike window; RUNNING_LOG §112)
 const HELD_LO = 65, HELD_HI = 127;   // a drawn sustained note's dynamic scale (1g item 5, §120): the ensemble's, as the trill's default
 const TRILL_SWITCH_LEAD_MS = 12;   // a plain note's CC0 next to a sounding trill on the same slot goes this late (= the engine's switch-back lead)
-const CURVE_NAMES = { 7: 'A', 8: 'B', 9: 'C' };
-const CURVE_COLORS = { 7: '#C2410C', 8: '#1D6FA5', 9: '#6D3B9E' };
-const CURVE_OVER = { 7: 3, 8: 4, 9: 5 };   // the lane each window sits on: the pitched lane (Vibraphone), Viola, Cello
+const CURVE_NAMES = { 9: 'A', 10: 'B', 11: 'C' };
+const CURVE_COLORS = { 9: '#C2410C', 10: '#1D6FA5', 11: '#6D3B9E' };
+const CURVE_OVER = { 9: 5, 10: 6, 11: 7 };   // the lane each window sits on: Piano, Violin, Cello
 
 const Composer = {
     // Shared color palette — workshop colors (from index.html --clr-* vars)
@@ -1494,8 +1509,8 @@ const Composer = {
     isPlaying: false,
     playStartTime: 0,
     playStartOffset: 0,
-    sessionName: 'decibel',
-    boundName: 'decibel',   // the file this session legitimately owns (set on load/save)
+    sessionName: 'switch',
+    boundName: 'switch',   // the file this session legitimately owns (set on load/save)
     isDirty: false,
     autoSaveTimer: null,
 
@@ -2533,7 +2548,7 @@ const Composer = {
         const stripEls = (key, val) => key === '_els' ? undefined : val;
         return JSON.parse(JSON.stringify({
             version: 1,
-            layoutVersion: 8,   // DECIBEL (2026-10-04, D9): 6 instrument lanes (BFl · BCl · Perc · Vib · Va · Vc), META = 6, the curve windows A / B / C = 7 / 8 / 9. v7 was piece #6 — LGMF: 8 instrument lanes (EH · Bsn · Hn · Tpt · Perc · Vib · Vc · Db), META = 8, the curve windows A / B / C = 9 / 10 / 11. v6 was the same piece with SEVEN lanes, before the bowed vibraphone took lane 5 (D12, 2026-09-18) — restoreData migrates a v6 save. v5 was the TEMPUS septet's seven (fl · bcl · pno · vn1 · vn2 · va · vc) — the same SHAPE, different instruments, which is why the check in restoreData keys on the track ids and not on the lane count (P7)
+            layoutVersion: 9,   // SWITCH (2026-10-20, D7): 8 instrument lanes (Fl · Cl · Sax · Perc · Vib · Pno · Vn · Vc), META = 8, the curve windows A / B / C = 9 / 10 / 11. v8 was piece 6 — DECIBEL (2026-10-04, D9): 6 instrument lanes (BFl · BCl · Perc · Vib · Va · Vc), META = 6, the curve windows A / B / C = 7 / 8 / 9. v7 was piece #6 — LGMF: 8 instrument lanes (EH · Bsn · Hn · Tpt · Perc · Vib · Vc · Db), META = 8, the curve windows A / B / C = 9 / 10 / 11. v6 was the same piece with SEVEN lanes, before the bowed vibraphone took lane 5 (D12, 2026-09-18) — restoreData migrates a v6 save. v5 was the TEMPUS septet's seven (fl · bcl · pno · vn1 · vn2 · va · vc) — the same SHAPE, different instruments, which is why the check in restoreData keys on the track ids and not on the lane count (P7)
             tracks: TRACKS,
             assets: this.assets || {},
             metadata: {
@@ -3256,7 +3271,7 @@ const Composer = {
     // session stays in the working copy, which is discarded here so that "a -work file that differs
     // from its file" always means unsaved edits (server listScores / tools/unsaved_check.js).
     async saveSession(makeVersion = true) {
-        let base = this.pieceBase(this.sessionNameInput.value.trim() || 'decibel');
+        let base = this.pieceBase(this.sessionNameInput.value.trim() || 'switch');
         if (base !== this.pieceBase(this.boundName || '')) {
             // a new name typed in the box = save as that name, never over an existing file
             const existing = await this.fetchSessionNames();
@@ -3296,7 +3311,7 @@ const Composer = {
 
     // D17: autosave writes the WORKING COPY only — the file is never touched by it
     async autosave() {
-        const base = this.pieceBase(this.sessionNameInput.value.trim() || 'decibel');
+        const base = this.pieceBase(this.sessionNameInput.value.trim() || 'switch');
         const work = base + '-work';
         try {
             const r = await fetch('/api/composer/save', { method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -3464,7 +3479,7 @@ const Composer = {
 
     // the milestone: Save the file being edited AND freeze a copy under the composer's label
     async saveVersion() {
-        const cur = this.pieceBase(this.sessionNameInput.value.trim() || this.sessionName || 'decibel');
+        const cur = this.pieceBase(this.sessionNameInput.value.trim() || this.sessionName || 'switch');
         const base = this.versionBase(cur);
         const all = (this._allScores || []).map(s => s.name);
         const label = prompt('Name this version of ' + base + ' (the file ' + cur + ' is saved too):', this.nextVersionLabel(base, all));
@@ -9939,7 +9954,7 @@ const Composer = {
     // the strikes never touched; one undo step
     // the articulations any lane offers, one entry per key, the lanes that have it named (the strings share theirs)
     attackBatchOptions() {
-        const ab = { bass_flute: 'bfl', bass_clarinet: 'bcl', percussion: 'perc', viola: 'va', cello: 'vc' };
+        const ab = { flute: 'fl', clarinet: 'cl', alto_sax: 'sax', percussion: 'perc', bowed_vibraphone: 'vib', piano: 'pno', violin: 'vn', cello: 'vc' };
         const byKey = new Map();
         for (let layer = 0; layer < META_LAYER; layer++) { const tr = TRACKS[layer]; const inst = this.trackInstrument(layer); if (!tr || !inst) continue;
             (inst.techniques || []).forEach(q => { const e = byKey.get(q.key) || { label: q.label, lanes: [] }; e.lanes.push(ab[tr.instKey] || tr.instKey); byKey.set(q.key, e); }); }

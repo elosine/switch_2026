@@ -7,7 +7,7 @@
 // captured impulse. "Preferences … to dial in the precise ratios when we actually make the work": the numbers are the bank's.
 // It writes — N presets into bank/presets.json (pr01 … ; `deal: false`, `audition: petals-roll`; a second run replaces only its own)
 // · the score scores/<name>.json, a NEW file · the sheet docs/auditions/<name>.md.
-//   node tools/build_petals_roll.js [--name audition-petals-roll] [--n 40] [--gap 6] [--seed 1] [--impulse <name>] [--replace] [--render] [--port 5500]
+//   node tools/build_petals_roll.js [--name audition-petals-roll] [--n 40] [--gap 6] [--seed 1] [--impulse <name>] [--replace] [--render] [--port 5600]
 // --render   sends the plan to the engine with render 1.   --replace  rewrites a score THIS tool made; never another.
 // THE SORTING: the bank, the roll and the score are the piece's; the stages are the engine's.
 'use strict';
@@ -40,7 +40,7 @@ module.exports = { roll };
 if (require.main !== module) return;
 
 // ---- THE SCORE ----------------------------------------------------------------------------------------------------------------
-const NAME = K.arg('name', 'audition-petals-roll'), N = Math.max(1, +K.arg('n', 40)), GAP = +K.arg('gap', 6), SEED = +K.arg('seed', 1), IMP = K.arg('impulse', ''), PORT = +K.arg('port', 5500);
+const NAME = K.arg('name', 'audition-petals-roll'), N = Math.max(1, +K.arg('n', 40)), GAP = +K.arg('gap', 6), SEED = +K.arg('seed', 1), IMP = K.arg('impulse', ''), PORT = +K.arg('port', 5600);
 const TAG = 'petals-roll', CAP_MS = 16000;
 const COMMAND = 'node tools/build_petals_roll.js --name ' + NAME + ' --n ' + N + ' --gap ' + GAP + ' --seed ' + SEED + (IMP ? ' --impulse ' + IMP : '');
 const bank = K.readJson(path.join(K.ROOT, 'bank', 'petals_bank.json'));

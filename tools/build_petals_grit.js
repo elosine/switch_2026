@@ -9,13 +9,13 @@
 // · G6 the ring into greyhole. The single-effect rule of DEC-21 was a choice for the dealt variety, not a limit of the chain.
 // It writes — 7 presets into bank/presets.json (pg01 … pg07; `deal: false`, `audition: petals-grit`: never dealt; a second run
 // replaces only its own) · the score scores/<name>.json, a NEW file · the sheet docs/auditions/<name>.md.
-//   node tools/build_petals_grit.js [--name audition-petals-grit] [--impulse bcl-impulse-1] [--replace] [--render] [--port 5500]
+//   node tools/build_petals_grit.js [--name audition-petals-grit] [--impulse bcl-impulse-1] [--replace] [--render] [--port 5600]
 // --render   sends the plan to the engine with render 1 (an engine started after the petals stages — any since 2026-10-06 §151).
 // --replace  rewrites a score THIS tool made; never another.
 // THE SORTING: this tool knows the piece (its bank, its presets, its scores) — the piece's. The stages are the engine's.
 'use strict';
 const K = require('./audition_kit.js');
-const NAME = K.arg('name', 'audition-petals-grit'), IMP = K.arg('impulse', 'bcl-impulse-1'), PORT = +K.arg('port', 5500);
+const NAME = K.arg('name', 'audition-petals-grit'), IMP = K.arg('impulse', 'bcl-impulse-1'), PORT = +K.arg('port', 5600);
 const TAG = 'petals-grit', CAP_MS = 16000, GAP_S = 17;
 const COMMAND = 'node tools/build_petals_grit.js --name ' + NAME + ' --impulse ' + IMP;
 

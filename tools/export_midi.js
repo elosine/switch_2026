@@ -6,8 +6,8 @@
 // and CC7, every rule his ▶ plays. This tool checks the capture against the composer's objects, lays it out in the RACK'S track order,
 // writes the file, reads it back, and writes the Reaper script that places each part on its track BY NAME.
 //
-//   node tools/export_midi.js [--score piece-decibel] [--capture midi/<score>.capture.json] [--server http://localhost:5500]
-//        [--rack reaper/decibel_rack.rpp]
+//   node tools/export_midi.js [--score piece-switch] [--capture midi/<score>.capture.json] [--server http://localhost:5600]
+//        [--rack reaper/switch_rack.rpp]
 //
 // Out:
 //   midi/<score>.mid                    one file, the rack's tracks in order (named) — for a drag onto the first instrument track
@@ -26,9 +26,9 @@ const ROOT = path.join(__dirname, '..');
 const { writeMidi, PPQ } = require('./midi_out.js');
 
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
-const score = arg('score', 'piece-decibel');
+const score = arg('score', 'piece-switch');
 const capFile = arg('capture', null);
-const rackFile = arg('rack', 'reaper/decibel_rack.rpp');
+const rackFile = arg('rack', 'reaper/switch_rack.rpp');
 
 // the rack's track NAME → the loopMIDI port it plays (the names are his; a new or renamed track must be added here)
 // [2026-09-26, session 17, RUNNING_LOG §405 · §406] re-pointed at THIS rack (reaper/LGMF_rack.rpp) — piece #5's table replaced. The
@@ -84,7 +84,7 @@ function writeType0(abs, name, events) {
   if (capFile) cap = JSON.parse(fs.readFileSync(path.join(ROOT, capFile), 'utf8'));
   else {
     const { capture } = require('./capture_composer_midi.js');
-    cap = await capture({ score, server: arg('server', 'http://localhost:5500') });
+    cap = await capture({ score, server: arg('server', 'http://localhost:5600') });
     fs.writeFileSync(path.join(ROOT, 'midi', score + '.capture.json'), JSON.stringify(cap));
   }
   const { meta, events, expect } = cap;

@@ -9,14 +9,14 @@
 // It writes — N presets into bank/presets.json (ps01 … ; `deal: false`, `audition: petals-spectrum`; a second run replaces only its own)
 // · the score scores/<name>.json, a NEW file · the sheet docs/auditions/<name>.md.
 //   node tools/build_petals_spectrum.js [--name audition-petals-spectrum] [--n 56] [--gap 6] [--seed 1] [--flo 25] [--fhi 400]
-//                                       [--clean 0.5] [--impulse <name>] [--replace] [--render] [--port 5500]
+//                                       [--clean 0.5] [--impulse <name>] [--replace] [--render] [--port 5600]
 // --render   sends the plan to the engine with render 1 (any engine started after 2026-10-06 §151 has the petals; the grits are older).
 // --replace  rewrites a score THIS tool made; never another.
 // THE SORTING: this tool knows the piece (its bank, its presets, its scores) — the piece's. The stages are the engine's.
 'use strict';
 const K = require('./audition_kit.js');
 const NAME = K.arg('name', 'audition-petals-spectrum'), N = Math.max(2, +K.arg('n', 56)), GAP = +K.arg('gap', 6), SEED = +K.arg('seed', 1);
-const FLO = +K.arg('flo', 25), FHI = +K.arg('fhi', 400), CLEAN = Math.min(1, Math.max(0, +K.arg('clean', 0.5))), IMP = K.arg('impulse', ''), PORT = +K.arg('port', 5500);
+const FLO = +K.arg('flo', 25), FHI = +K.arg('fhi', 400), CLEAN = Math.min(1, Math.max(0, +K.arg('clean', 0.5))), IMP = K.arg('impulse', ''), PORT = +K.arg('port', 5600);
 const TAG = 'petals-spectrum', CAP_MS = 16000;
 const COMMAND = 'node tools/build_petals_spectrum.js --name ' + NAME + ' --n ' + N + ' --gap ' + GAP + ' --seed ' + SEED + ' --flo ' + FLO + ' --fhi ' + FHI + ' --clean ' + CLEAN + (IMP ? ' --impulse ' + IMP : '');
 

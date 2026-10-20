@@ -4,7 +4,7 @@
 //
 // Reads bank/signs/state_signs.json (the four signs of the three body problem's states with their bigger dots; the grounds to try) and
 // the states' colours from notation/registry/rules.json (objects.stateWedge.states — a sign is in its wedge's colour), and writes
-// score/public/signs/state_signs.html — served at http://localhost:5500/signs/state_signs.html. Every sign on every ground, on white
+// score/public/signs/state_signs.html — served at http://localhost:5600/signs/state_signs.html. Every sign on every ground, on white
 // paper as it will stand in the score: large, at the score's own size, and over a piece of its own wedge. For CHOOSING only: the
 // notation is not touched (it still draws rules.json stateSigns). A ground or a sign is a row of the JSON.
 'use strict';
@@ -50,4 +50,4 @@ const html = '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>
   '</main></body></html>\n';
 const out = path.join(ROOT, 'score', 'public', 'signs', 'state_signs.html');
 fs.writeFileSync(out, html);
-console.log('wrote score/public/signs/state_signs.html — ' + B.states.length + ' signs × ' + B.grounds.length + ' grounds · http://localhost:5500/signs/state_signs.html');
+console.log('wrote score/public/signs/state_signs.html — ' + B.states.length + ' signs × ' + B.grounds.length + ' grounds · http://localhost:5600/signs/state_signs.html');

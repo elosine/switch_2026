@@ -13,7 +13,7 @@
 //
 //   node tools/thin_effects.js --score <name> --effects fuzz,diode,octave,crush --keep 10 [--from 0] [--to 37] [--seed 1] [--off] [--dry] [--render]
 //       --render   the new versions are asked of the LIVING engine at once (a plan of those rows, render 1, through the score server
-//                  on 5500) — else they are made after the next capture of their samples, and until then the brick returns raw
+//                  on 5600) — else they are made after the next capture of their samples, and until then the brick returns raw
 //
 // IT WRITES THE SCORE (a working copy of the page that differs refuses it); then File ▾ → Reload in the page, BEFORE any Save.
 'use strict';
@@ -98,4 +98,4 @@ console.log(out.join('\n'));
 if (has('dry')) { console.log('(dry: nothing written)'); process.exit(0); }
 fs.writeFileSync(file, FORMS[form](save));
 console.log('written: ' + K.rel(file) + ' — in the page: File ▾ → Reload, BEFORE any Save');
-if (has('render') && made.length) K.sendPlan(K.planLines(made, P), +arg('port', 5500));
+if (has('render') && made.length) K.sendPlan(K.planLines(made, P), +arg('port', 5600));

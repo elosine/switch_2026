@@ -136,7 +136,7 @@ ok(true, 'unregistered recipe keys counted (' + unregistered.length + ') — a r
 // ---------------------------------------------------------------- 6. the percussion selection is applied
 console.log('\n6. the percussion selection (bank/perc_selection.json) is what the recipe carries — tools/apply_perc.js after any edit');
 const SEL = JSON.parse(rd('bank/perc_selection.json'));
-const selPort = SEL.port || 'DECPerc';
+const selPort = SEL.port || 'SWPerc';
 const want = (SEL.instruments || []).map(x => typeof x === 'string' ? { slug: x } : x);
 const have = (INSTRUMENTS.percussion && INSTRUMENTS.percussion.aroInstruments) || [];
 ok(rd('sandbox/instruments.js').includes('const ARO_PERC = '), 'the ARO_PERC block is in the recipe');

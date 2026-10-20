@@ -6,7 +6,7 @@
 -- Never saves. Returns a read-back of every track it touched and the track order of the project.
 --   node tools/reaper_job.js run reaper/bridge/jobs/make_tracks.lua
 --
--- HOW THE RACK IS MADE HERE: tools/build_rack.js writes reaper/decibel_rack.rpp as TEXT — the tracks an
+-- HOW THE RACK IS MADE HERE: tools/build_rack.js writes reaper/switch_rack.rpp as TEXT — the tracks an
 -- earlier piece already loaded are CLONED whole (the Kontakt multi inside), the rest are bare; this job then
 -- gives every track its input, arms it, and inserts the sampler into a bare one. A device NUMBER is Reaper's
 -- own, so the input is set here, by port name, never in the text.

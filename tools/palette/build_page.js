@@ -3,7 +3,7 @@
 //   node tools/palette/build_page.js
 //
 // Reads bank/palette/clr.json (his named colours) and bank/palette/lewitt_reading.json (tools/palette/lewitt_read.py) and writes
-// score/public/palette/index.html — served by the score server at http://localhost:5500/palette/index.html. A page of swatches for
+// score/public/palette/index.html — served by the score server at http://localhost:5600/palette/index.html. A page of swatches for
 // his eye: LeWitt's colours as the photographs give them, each photograph's own reading beside the mean, and his own colours of the
 // same family next to them. No photograph is on the page (other people's pictures). Regenerated at will — do not edit the page.
 'use strict';

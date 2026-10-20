@@ -7,7 +7,7 @@
 // is built exactly as tools/export_video.js builds it and the page comes from notation/lib/static_page.js (names, brackets, the
 // staff's opening snippet with its clef, the grey lines) — with the section's NOTES LEFT OUT and the signs decided for it ADDED from
 // the piece's save: the mic openings and the announcing badge. The places are rows of bank/signs/layout.json, provisional.
-// Writes score/public/signs/layout.html (http://localhost:5500/signs/layout.html). This is NOT yet the notation engine's own drawing
+// Writes score/public/signs/layout.html (http://localhost:5600/signs/layout.html). This is NOT yet the notation engine's own drawing
 // of these signs: a settled place becomes a row of notation/registry/rules.json by a device sheet, and the extractor then carries it.
 'use strict';
 const fs = require('fs'), path = require('path');

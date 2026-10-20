@@ -93,7 +93,7 @@ for (const [key, set] of Object.entries(used)) {
 
 const totalMs = t + 2000;
 fs.writeFileSync(OUT, JSON.stringify({
-    generatedAt: new Date().toISOString(), planItem: '1b.5-register', piece: 'decibel',
+    generatedAt: new Date().toISOString(), planItem: '1b.5-register', piece: 'switch',
     what: 'a register grid at velocity 127 over the pitches each instrument actually plays, on its curve channel',
     why: 'the 3-pitch grid is 0d’s and the piece uses 13–40 pitches per instrument, most outside it (RUNNING_LOG §90)',
     defaultStep: DEFAULT_STEP, perInstrumentStep: STEP, mustInclude: MUST, skipped: [...SKIP], vel: VEL,

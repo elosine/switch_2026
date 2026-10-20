@@ -151,7 +151,7 @@ const notRemapped = B.instruments.filter(i => i.kind === 'perc')
     .map(i => ({ inst: i.inst, label: i.label, why: 'a one-shot: its velocity IS its dynamic and it has no sustained reference to match; balanced by the fff = fff trim of 0d.4', trimDb: i.trimDb }));
 
 const out = {
-    generatedAt: new Date().toISOString(), planItem: '0d.5', piece: 'decibel',
+    generatedAt: new Date().toISOString(), planItem: '0d.5', piece: 'switch',
     source: path.relative(ROOT, IN).replace(/\\/g, '/'), measuredAt: B.measuredAt, wav: B.wav,
     weighting: B.weighting, windowS: B.windowS,
     method: 'velocity only (D13: velocity is the dynamic, CC7 shapes a held note and is left at 127 here). Per instrument and register, the measured level + the track trim, made monotone by pool-adjacent-violators, then inverted against the ensemble target.',

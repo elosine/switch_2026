@@ -4,7 +4,7 @@
 //
 // Reads bank/language/language.json (his six sound types, the badge format, the candidate signs), bank/palette/sol.json · clr.json (the
 // colours) and notation/lib/glyphs.json (the notation's own font) and writes score/public/language/index.html — served at
-// http://localhost:5500/language/index.html. A type he has CHOSEN (`symbol` + `colour`) shows its badge; the type in hand shows every
+// http://localhost:5600/language/index.html. A type he has CHOSEN (`symbol` + `colour`) shows its badge; the type in hand shows every
 // candidate sign as a BADGE in the format of pieces #1 and #2, large and at its true 36 px, in each colour — for his eye.
 // A candidate's `<glyph name='articulation.trill' x y h/>` is drawn from the notation font's own outline (LilyPond's Emmentaler).
 // Regenerated at will; a candidate, a colour, a choice or a type is a row of the JSON.

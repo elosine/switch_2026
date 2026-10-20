@@ -6,7 +6,7 @@
 // the left starting point … it all depends on go time indicators … this has to be pixel/time accurate". check_print_edges.js is the
 // print's gate (D59); this is the screen's, built the same way:
 //
-//   node tools/check_screen_edges.js [--ir piece-decibel] [--view video|zoom] [--verbose]
+//   node tools/check_screen_edges.js [--ir piece-switch] [--view video|zoom] [--verbose]
 //
 //   A. THE PLAN (arithmetic, instant) — from export_video's own --screenJson, so no geometry is re-derived here:
 //        · the pages TILE the source window: the first opens at the source start, the last closes at its end, every seam
@@ -30,7 +30,7 @@ const os = require('os');
 const { spawnSync } = require('child_process');
 const ROOT = path.join(__dirname, '..');
 function arg(name, def) { const i = process.argv.indexOf('--' + name); return i >= 0 ? process.argv[i + 1] : def; }
-const irId = arg('ir', 'piece-decibel');
+const irId = arg('ir', 'piece-switch');
 const viewMode = arg('view', 'video');
 const verbose = process.argv.includes('--verbose');
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'screenedges-'));

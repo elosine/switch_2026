@@ -172,7 +172,7 @@ def main():
         print(f'  widest round-robin scatter: {worst["label"]} ±{worst["scatterSd"]:.2f} dB — the floor no remap can beat')
 
     out = dict(measuredAt=datetime.datetime.now().isoformat(timespec='seconds'),
-               planItem='0d.3', piece='decibel', wav=os.path.basename(a.wav), recording=rec,
+               planItem='0d.3', piece='switch', wav=os.path.basename(a.wav), recording=rec,
                schedule=os.path.relpath(a.schedule, ROOT).replace('\\', '/'),
                scheduleGeneratedAt=S.get('generatedAt'), weighting=w,
                windowS=dict(sustained=WIN_SUS, oneShot=WIN_ONE), minDb=a.min,

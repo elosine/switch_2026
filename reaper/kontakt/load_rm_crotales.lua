@@ -7,7 +7,7 @@
 -- SELF-REPORTING: writes reaper/kontakt/out/load_rm_crotales_START_<time>.json before it touches Kontakt, then
 -- ALWAYS load_rm_crotales_<time>.json with the read-back, or the error. The AI reads that file.
 
-local OUT_DIR = 'C:/Users/jwloy/GitHub/decibel_TENOR_2026/reaper/kontakt/out/'
+local OUT_DIR = 'C:/Users/jwloy/GitHub/switch_2026/reaper/kontakt/out/'
 local ROOT = 'C:/Users/jwloy/Spitfire/Spitfire Ricotti Mallets library/Instruments'
 local TAG = 'load_rm_crotales'
 local PATCHES = {

@@ -11,7 +11,7 @@
 --   node tools/reaper_job.js run reaper/bridge/jobs/rec_mode_restore.lua
 -- puts them back. Never saves.
 --   node tools/reaper_job.js run reaper/bridge/jobs/rec_mode_solo.lua
-local REPO = 'C:/Users/jwloy/GitHub/decibel_TENOR_2026/'
+local REPO = 'C:/Users/jwloy/GitHub/switch_2026/'
 local REC_NAME = 'REC'
 local RECMODE_NONE = 2
 local RECMODE_OUTPUT_STEREO_LATCOMP = 3

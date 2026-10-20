@@ -5,11 +5,11 @@
 // (the comb of beat tracking; the phase free); (B) THE GRID FIT — the tuba pages' cluster idea: the subdivision unit whose multiples land
 // nearest the onsets (a 16th of some tempo); (C) THE IOI — the mean and the median inter-onset interval as a pulse.
 // (D) THE BETWEEN PHASE (T10, §572): for each shown beat the phase that keeps every note farthest from a beat — the hand to paste.
-//   node tools/tempo_fit.js --ir piece-decibel --part 0 --from 295 --to 297.31 [--unit 0.108 --every 6] [--free 1,2] [--pin 5,6] [--html notation/research/x.html] [--json out.json]
+//   node tools/tempo_fit.js --ir piece-switch --part 0 --from 295 --to 297.31 [--unit 0.108 --every 6] [--free 1,2] [--pin 5,6] [--html notation/research/x.html] [--json out.json]
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const arg = (n, d) => { const i = process.argv.indexOf('--' + n); return i >= 0 ? process.argv[i + 1] : d; };
-const ir = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', arg('ir', 'piece-decibel') + '.ir.json'), 'utf8'));
+const ir = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', arg('ir', 'piece-switch') + '.ir.json'), 'utf8'));
 const PART = +arg('part', 0), T0 = +arg('from', 0), T1 = +arg('to', 1e9);
 const partOf = {}; for (const c of ir.chunks) for (const id of c.events) partOf[id] = c.part;
 const nm = p => p.spelled.step + (p.spelled.alter > 0 ? '#' : p.spelled.alter < 0 ? 'b' : '') + p.spelled.octave;

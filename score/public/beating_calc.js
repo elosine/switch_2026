@@ -22,7 +22,7 @@
   else root.BeatingCalc = factory();
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
-  const ORDER = ['bass_flute', 'bass_clarinet', 'percussion', 'bowed_vibraphone', 'viola', 'cello'];   // score order (#5's D10); Decibel's six lanes (D9, 2026-10-04)
+  const ORDER = ['flute', 'clarinet', 'alto_sax', 'percussion', 'bowed_vibraphone', 'piano', 'violin', 'cello'];   // score order; the Switch~ piece's eight lanes (D7, 2026-10-20)
   const NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
   const noteName = m => NAMES[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1);
   const midiHz = m => 440 * Math.pow(2, (m - 69) / 12);
@@ -284,10 +284,11 @@
   // AWAY from mf (longer quietly, shorter loudly), which is why its factors were re-based on 2026-09-19.
   // Every reference striation and every morph split reads these — "never exceeding the max".
   const CEILINGS = {
-    // PROVISIONAL for the Decibel winds and the viola (the port, 2026-10-04) — not measured: piece #5's bass clarinet was
+    // PROVISIONAL for the Switch~ winds and the violin (the port, 2026-10-20) — not measured; container 5 measures them. Before it: piece 6's winds and viola (2026-10-04) — piece #5's bass clarinet was
     // 10 s and its viola 12 s; the bass flute is the shortest breath of the five. Container 5 measures them.
-    bass_flute: { breathS: 8, gapS: 0.75 }, bass_clarinet: { breathS: 12, gapS: 0.75 },
-    viola: { bowS: 12, gapS: 0 }, cello: { bowS: 15, gapS: 0 },
+    flute: { breathS: 10, gapS: 0.75 }, clarinet: { breathS: 15, gapS: 0.75 }, alto_sax: { breathS: 15, gapS: 0.75 },
+    violin: { bowS: 12, gapS: 0 }, cello: { bowS: 15, gapS: 0 },
+    // the piano is struck — neither breath nor bow; not a beating partner (`beating: false` in its recipe)
     // The pitched percussion lane (key `bowed_vibraphone`) is the Ricotti MALLETS from 2026-10-04 — struck, so neither breath nor
     // bow and NOT a beating partner (`beating: false` in the recipe). Piece #6's bowed vibraphone had a row here (bow 7.4 s,
     // measured, its RUNNING_LOG §69); it left with the instrument. A bowed crotale or marimba bar would need its own, measured.

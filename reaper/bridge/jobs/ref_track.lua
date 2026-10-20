@@ -18,7 +18,7 @@
 --   node tools/reaper_job.js -e "loadfile('reaper/bridge/jobs/ref_track.lua')"
 --   node tools/reaper_job.js run reaper/bridge/jobs/ref_track.lua
 local NAME = 'REF'
-local ROOT = 'C:/Users/jwloy/GitHub/decibel_TENOR_2026/'
+local ROOT = 'C:/Users/jwloy/GitHub/switch_2026/'
 local ITEMS = {
   { at = 600.0, file = ROOT .. 'probes/reference/pink-20dBFS.wav',   what = 'pink noise −20.00 dBFS RMS — the K-20 monitor reference' },
   { at = 635.0, file = ROOT .. 'probes/reference/tone1k-20dBFS.wav', what = '1 kHz −20.00 dBFS RMS — the meter\'s proof' },

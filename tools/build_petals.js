@@ -7,7 +7,7 @@
 // another player and another impulse each time. Nothing overlaps: a brick starts a second and a half after the ring before it.
 // It writes — 2N presets into bank/presets.json (pet01o · pet01c …; `deal: false`: never dealt onto the main score; a second run
 // replaces only its own) · the score scores/<name>.json, a NEW file · the sheet docs/auditions/<name>.md (pair · times · impulse · dials).
-//   node tools/build_petals.js [--name audition-petals] [--n 20] [--seed 1] [--replace] [--render] [--port 5500]
+//   node tools/build_petals.js [--name audition-petals] [--n 20] [--seed 1] [--replace] [--render] [--port 5600]
 // --render   sends the plan to the engine with render 1 — it needs an engine STARTED AFTER the petals went into electronics/sc/process.scd
 //            (an older one leaves the unknown dials out and banks the bare impulse under the petals' names). Without it: in the page,
 //            a purple brick → "render all planned".
@@ -15,7 +15,7 @@
 // THE SORTING: this tool knows the piece (its bank, its presets, its scores) — the piece's. The two effects are the engine's.
 'use strict';
 const K = require('./audition_kit.js');
-const NAME = K.arg('name', 'audition-petals'), N = Math.max(1, +K.arg('n', 20)), SEED = +K.arg('seed', 1), PORT = +K.arg('port', 5500);
+const NAME = K.arg('name', 'audition-petals'), N = Math.max(1, +K.arg('n', 20)), SEED = +K.arg('seed', 1), PORT = +K.arg('port', 5600);
 const TAG = 'petals', CAP_MS = 16000, TAIL_S = 1.5;
 const COMMAND = 'node tools/build_petals.js --name ' + NAME + ' --n ' + N + ' --seed ' + SEED;
 

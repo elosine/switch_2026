@@ -25,7 +25,7 @@ const DYN = ['ppp', 'pp', 'p', 'mp', 'mf', 'f', 'ff', 'fff'];           // NAMIN
 const PRESETS = [0.25, 0.5, 1, 2, 4];                                     // the duration presets, seconds; 'next' = to the next line
 const INST_COL = { flute: '#ffd479', bass_clarinet: '#e08a8a', violin1: '#8ea9c9', violin2: '#69b7c9', viola: '#b58ec9', cello: '#7ec9a8', piano: '#e8cf9a' };
 const DEFAULTS = {
-    pianoLane: 2, metaLayer: 7,
+    pianoLane: 5, metaLayer: 8,   // the fallback = this layout (D7, 2026-10-20)
     span: 0.05,               // a line's nominal length in the file (drawn at its start)
     rekeyGapS: 0.012,         // two notes of one player closer than this are one breath re-keyed (the engine's 5 ms overlap): no line
     defaultHeight: 5,         // an empty line's stored height (mf) — the dynamic the picker starts from

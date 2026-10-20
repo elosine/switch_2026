@@ -12,7 +12,7 @@
 // It writes — the presets into bank/presets.json (da01 … da11 · dr01 … dr72; `deal: false`, `audition: drones` — never dealt onto the
 // main score; a second run replaces only its own) · the two scores as NEW files · the two sheets docs/auditions/<name>.md.
 //   node tools/build_drone_auditions.js [--a audition-stretch-dials] [--b audition-drones] [--input bcl-mp-1] [--len 20000] [--gap 2]
-//                                       [--replace] [--render] [--port 5500]
+//                                       [--replace] [--render] [--port 5600]
 // --render   sends the plan with render 1 — ONLY to an engine started after the loop went into electronics/sc/process.scd (an older one
 //            drops the unknown dial and banks a holding stretch under the looping name). Without it: a purple brick → "render all planned".
 // --replace  rewrites a score THIS tool made; never another.
@@ -20,7 +20,7 @@
 'use strict';
 const path = require('path');
 const K = require('./audition_kit.js');
-const A_NAME = K.arg('a', 'audition-stretch-dials'), B_NAME = K.arg('b', 'audition-drones'), PORT = +K.arg('port', 5500);
+const A_NAME = K.arg('a', 'audition-stretch-dials'), B_NAME = K.arg('b', 'audition-drones'), PORT = +K.arg('port', 5600);
 const INPUT_A = K.arg('input', 'bcl-mp-1'), TARGET_MS = +K.arg('len', 20000), GAP_S = +K.arg('gap', 2);
 const TAG = 'drones', TOOL = 'tools/build_drone_auditions.js';
 const COMMAND = 'node ' + TOOL + ' --a ' + A_NAME + ' --b ' + B_NAME + ' --input ' + INPUT_A + ' --len ' + TARGET_MS + ' --gap ' + GAP_S;

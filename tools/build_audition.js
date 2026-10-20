@@ -4,14 +4,14 @@
 // row. Every variant is the RING version (--env tail) unless told otherwise. The score is a NEW file (it refuses to write over one);
 // the plan is then sent to the engine with render 1, so the variants are made from the bank before he plays (the same message the
 // page sends; electronics/sc/process.scd header, /le/plan).
-//   node tools/build_audition.js [--name audition-30] [--gap 2.5] [--env tail] [--effect comb] [--no-render] [--port 5500]
+//   node tools/build_audition.js [--name audition-30] [--gap 2.5] [--env tail] [--effect comb] [--no-render] [--port 5600]
 // --effect <name> (§142): only the presets of that effect; each brick's label is then the preset's KEY (comb2 …), not its row number.
 // THE SORTING: this tool knows the piece (its scores, its bank, its presets) — it is the piece's, not the engine's.
 'use strict';
 const fs = require('fs'), path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
-const NAME = arg('name', 'audition-30'), GAP = +arg('gap', 2.5), ENV = arg('env', 'tail'), PORT = +arg('port', 5500), RENDER = !process.argv.includes('--no-render'), EFFECT = arg('effect', '');
+const NAME = arg('name', 'audition-30'), GAP = +arg('gap', 2.5), ENV = arg('env', 'tail'), PORT = +arg('port', 5600), RENDER = !process.argv.includes('--no-render'), EFFECT = arg('effect', '');
 const FILE = path.join(ROOT, 'scores', NAME + '.json');
 if (fs.existsSync(FILE)) { console.error(path.relative(ROOT, FILE) + ' exists — this tool never writes over a score; another --name, or delete it yourself'); process.exit(3); }
 

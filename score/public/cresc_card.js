@@ -24,7 +24,7 @@ const LIT = 'background:#C2410C;color:#fff;border:1px solid #e07040;border-radiu
 // REVERT (2026-09-10): localStorage septet.strikes.classic = '1' + reload leaves the ACCENT row out
 let CLASSIC = false; try { CLASSIC = !!localStorage.getItem('septet.strikes.classic'); } catch (e) {}
 // the accent's default voice per instrument — the strike voices he set on 2026-09-04 (U2 revised; strike_drawer.js STRIKE_DEFAULT)
-const STRIKE_DEFAULT = { bass_flute: 'slap', bass_clarinet: 'slap', percussion: 'main', viola: 'gettato_vel', cello: 'gettato_vel' };
+const STRIKE_DEFAULT = { flute: 'staccato', clarinet: 'staccato', alto_sax: 'staccato', percussion: 'main', piano: 'main', violin: 'bartok_vel', cello: 'gettato_vel' };   // PROVISIONAL (the port, 2026-10-20): the winds' and the piano's keys are the placeholder recipes' until container 4
 const ACCENT_MS = 140;
 const CARD = {
     el: null, wc: null, _key: null, _ctxTimer: null, _born: false,

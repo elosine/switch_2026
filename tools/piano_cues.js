@@ -38,7 +38,7 @@ if (!g) {
 }
 
 function writeBack() {
-    if (/piece-decibel/i.test(path.basename(file)) && !has('--force')) { console.error('refusing to write the piece file without --force'); process.exit(2); }
+    if (/piece-switch/i.test(path.basename(file)) && !has('--force')) { console.error('refusing to write the piece file without --force'); process.exit(2); }
     const m = raw.match(/^\{\r?\n( +)"/), indent = m ? m[1].length : 0;
     fs.writeFileSync(file, indent ? JSON.stringify(score, null, indent) : JSON.stringify(score));
 }

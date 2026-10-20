@@ -2,7 +2,7 @@
 -- (PLAN 0d.3, 2026-09-18), self-reporting. Matches by track NAME, so a track added since is left alone
 -- and is reported. Never saves.
 --   node tools/reaper_job.js run reaper/bridge/jobs/rec_mode_restore.lua
-local REPO = 'C:/Users/jwloy/GitHub/decibel_TENOR_2026/'
+local REPO = 'C:/Users/jwloy/GitHub/switch_2026/'
 
 local f = io.open(REPO .. 'probes/rec_modes_before.json', 'rb')
 if not f then return { error = 'no probes/rec_modes_before.json — nothing to restore from' } end

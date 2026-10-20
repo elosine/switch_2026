@@ -85,7 +85,7 @@ for (const key of RR_PROBE) {
 
 const totalMs = t + 2000;
 fs.writeFileSync(OUT, JSON.stringify({
-    generatedAt: new Date().toISOString(), planItem: '1b.5-remeasure', piece: 'decibel',
+    generatedAt: new Date().toISOString(), planItem: '1b.5-remeasure', piece: 'switch',
     what: 'the vibraphone at every semitone, and a four-strike round-robin probe on the other three Xsample instruments',
     vibPitches: [V.rangeLow, V.rangeHigh], rrProbe: RR_PROBE, repeats: RR_REPEATS, vel: VEL,
     timing: { leadInMs: LEAD_IN, preMs: PRE, holdMs: HOLD, tailMs: TAIL, vibTailMs: VIB_TAIL, instGapMs: INST_GAP },

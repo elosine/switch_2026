@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 // render_reaper.js — the Reaper render of the composer's own playback, through the bridge, never touching the rack (RUNNING_LOG §453).
 //
-//   node tools/render_reaper.js [--score piece-decibel] [--peak -1] [--tail 6] [--skip-render] [--resume]
+//   node tools/render_reaper.js [--score piece-switch] [--peak -1] [--tail 6] [--skip-render] [--resume]
 //   --up: the one plain gain may also go UP to --peak (his call for Draft 01, RUNNING_LOG §407); without it, only down
 //   --maxUp N: an upward gain is capped at N dB (his call 2026-10-01, RUNNING_LOG §670: +6, not the +10 of §407)
 //   --resume: the render tab is already open and set up (e.g. a job outlived its timeout) — check it, then render, close, measure
 //
 // Needs: node tools/export_midi.js first (midi/<score>/NN <track>.mid) · Reaper open with the bridge alive (reaper/bridge/README.md).
 //
-// 1. reaper/decibel_rack.rpp → reaper/<score>_render.rpp (a copy; the rack itself is never opened for writing — and refused if it has
+// 1. reaper/switch_rack.rpp → reaper/<score>_render.rpp (a copy; the rack itself is never opened for writing — and refused if it has
 //    unsaved changes, because the copy would miss them).
 // 2. A NEW project tab opens the copy. In it: tempo 60 BPM (the files are 60 BPM / 960 PPQ), each part's MIDI file on the track of
 //    the SAME NAME at 0:00 (the n-th file of a name on the n-th track of that name — piece #4's trap was a positional drop), the render
@@ -36,7 +36,7 @@ const path = require('path');
 const { execFileSync, spawnSync } = require('child_process');
 const ROOT = path.join(__dirname, '..');
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
-const score = arg('score', 'piece-decibel');
+const score = arg('score', 'piece-switch');
 const PEAK = +arg('peak', -1), TAIL = +arg('tail', 6);
 const UP = process.argv.includes('--up');   // [2026-09-26, RUNNING_LOG §407 — his "b"] the one plain gain may go UP to --peak for the piece too; the range untouched
 // [2026-10-01, RUNNING_LOG §670 — his "+10 dB … is too much … like plus six, if still necessary"] --maxUp N caps an UPWARD gain at N dB;
@@ -45,7 +45,7 @@ const MAXUP = arg('maxUp', null) == null ? null : +arg('maxUp');
 const MIDIDIR = arg('dir', null), ONLY = arg('only', null), NAME = arg('out', score), END_ARG = arg('end', null);
 const WINDOW = arg('gainWindow', null) ? arg('gainWindow').split('-').map(Number) : null;
 if ((MIDIDIR || ONLY) && NAME === score) { console.error('RENDER REFUSED: a demo render (--dir/--only) needs --out <another name> — it would overwrite notation/audio/' + score + '.wav'); process.exit(2); }
-const RACK = path.join(ROOT, 'reaper', 'decibel_rack.rpp');
+const RACK = path.join(ROOT, 'reaper', 'switch_rack.rpp');
 const RPP = path.join(ROOT, 'reaper', NAME + '_render.rpp');
 const RAWDIR = path.join(ROOT, 'notation', 'audio', 'raw');
 const RAW = path.join(RAWDIR, NAME + '-float.wav');
@@ -58,7 +58,7 @@ const log = s => console.log(s);
 const B = process.env.REAPER_BRIDGE || path.join(process.env.APPDATA, 'REAPER', 'bridge');
 // reaper_job.js guards on the project name; this tool moves between the rack and the render tab, so the guard is the project that
 // is open NOW, and every job that must act on one project checks the path itself
-function openProjectStem() { const h = heartbeat(); return (h && h.project) ? path.basename(h.project, path.extname(h.project)) : 'decibel_rack'; }
+function openProjectStem() { const h = heartbeat(); return (h && h.project) ? path.basename(h.project, path.extname(h.project)) : 'switch_rack'; }
 function job(lua, timeoutMs = 20000) {
   const r = spawnSync(process.execPath, [path.join(__dirname, 'reaper_job.js'), '-e', lua],
     { encoding: 'utf8', env: Object.assign({}, process.env, { REAPER_PROJECT: openProjectStem(), BRIDGE_TIMEOUT_MS: String(timeoutMs) }), timeout: timeoutMs + 10000 });
@@ -91,7 +91,7 @@ const { PLACE_LUA, writeEvt } = require('./reaper_midi_place.js');   // the one 
     const st = job(`local _, p = reaper.EnumProjects(-1, '') return { path = p, dirty = reaper.IsProjectDirty(0) }`);
     if (RESUME && String(st.path).toLowerCase() !== RPP.toLowerCase()) throw new Error('--resume: the current tab is ' + st.path + ', not the render project');
     if (!RESUME) {
-    if (/decibel_rack\.rpp$/i.test(st.path) && st.dirty) throw new Error('the rack has unsaved changes — save it in Reaper first (the render copies the file)');
+    if (/switch_rack\.rpp$/i.test(st.path) && st.dirty) throw new Error('the rack has unsaved changes — save it in Reaper first (the render copies the file)');
     fs.copyFileSync(RACK, RPP);
     fs.mkdirSync(RAWDIR, { recursive: true });
     try { fs.unlinkSync(RAW); } catch (e) { }

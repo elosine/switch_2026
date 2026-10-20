@@ -16,7 +16,7 @@
 -- Duration: probes/clip_watch_s.txt if it exists (one number, seconds), else DEFAULT_S.
 -- Result:   probes/clip_watch.json — in the REPO, not the bridge's own outbox, which lives under AppData.
 --   node tools/reaper_job.js run reaper/bridge/jobs/clip_watch.lua
-local REPO = 'C:/Users/jwloy/GitHub/decibel_TENOR_2026/'
+local REPO = 'C:/Users/jwloy/GitHub/switch_2026/'
 local DEFAULT_S = 150.0
 local CLIP_DB = -0.10        -- at or above this a track counts as clipped
 local NEAR_DB = -3.00        -- at or above this it is close enough to warn about

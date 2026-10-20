@@ -14,7 +14,7 @@
 // geometry from Coords.zoomCfg (the app's own) rather than a hand-made one.
 //
 //   node tools/capture_lane.js --part vn1 --t 20.34 --span 20.05-20.95 \
-//        --out docs/notation_instructions/images/x.svg [--zoom 2] [--ir piece-decibel]
+//        --out docs/notation_instructions/images/x.svg [--zoom 2] [--ir piece-switch]
 //
 // LGMF (2026-10-01, RUNNING_LOG §704 — his word: "make all the images precisely as they would have appeared in
 // that zoomed version. So they're all relative, the same size to each other"): EVERY image is a crop of the
@@ -62,7 +62,7 @@ const t = parseFloat(arg('t', '0'));
 // [§736] "a:b" as well as "a-b": a span that begins in the lead-in has a NEGATIVE start (--span -0.8:0.15)
 const spanArg = arg('span', '0-10');
 const [s0, s1] = (spanArg.includes(':') ? spanArg.split(':') : spanArg.split('-')).map(Number);
-const irId = arg('ir', 'piece-decibel');
+const irId = arg('ir', 'piece-switch');
 const out = arg('out', null);
 if (!out) { console.error('capture_lane: --out is required'); process.exit(1); }
 

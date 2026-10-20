@@ -143,7 +143,7 @@ if ok:
         print(f"  from it, a tutti fff reaching \u22121 dBTP is ~19 dB louder than this noise, and never clips.")
 
 out = {'generatedAt': datetime.datetime.now().isoformat(timespec='seconds'), 'planItem': '1b.1',
-       'piece': 'decibel', 'standard': 'K-20 (Katz / SMPTE RP 200); loudness ITU-R BS.1770 (LUFS), ceiling dBTP',
+       'piece': 'switch', 'standard': 'K-20 (Katz / SMPTE RP 200); loudness ITU-R BS.1770 (LUFS), ceiling dBTP',
        'recording': os.path.basename(a.wav), 'sampleRate': sr, 'channels': int(x.shape[1]),
        'expected': {'rmsDbfs': EXPECT_RMS, 'toneLufsStereo': EXPECT_TONE_LUFS, 'toneTruePeakDbtp': EXPECT_TONE_TP,
                     'toleranceDb': {'rms': TOL_RMS, 'lufs': TOL_LUFS}},

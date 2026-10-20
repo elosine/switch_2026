@@ -14,7 +14,7 @@
 -- slot"); add a line to NKI when a new instrument joins the rack. Names are matched loosely
 -- (case, spacing).
 
-local OUT_DIR = 'C:/Users/jwloy/GitHub/decibel_TENOR_2026/reaper/kontakt/out/'
+local OUT_DIR = 'C:/Users/jwloy/GitHub/switch_2026/reaper/kontakt/out/'
 local XS = 'C:/Users/jwloy/Documents/Xsample Sample Library/'
 -- This rack's three Kontakt instances (D8: the english horn is Xsample too). The English Horn
 -- arrived 2026-09-17 as the XL_Woodwinds_English_Horn add-on; its .nki sits in the AIL

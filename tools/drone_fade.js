@@ -52,4 +52,4 @@ const P2 = K.writePresets(TAG, rows, 'the piece\'s last drone on each track with
 s.metadata = s.metadata || {}; s.metadata.modified = new Date().toISOString();
 fs.writeFileSync(file, JSON.stringify(s));
 console.log('written: scores/' + name + '.json — ' + changed.length + ' bricks · F5 in the page (it reads the presets only then)');
-if (RENDER) K.sendPlan(K.planLines(changed, P2), 5500);
+if (RENDER) K.sendPlan(K.planLines(changed, P2), 5600);

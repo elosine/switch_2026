@@ -42,7 +42,7 @@ if (!D) { console.warn('[texture_row] the strikes drawer is not loaded'); return
 const E_ = () => (typeof MorphEmit !== 'undefined' ? MorphEmit : (root.MorphEmit || null));
 const TP_ = () => root.TexturePanel || null;
 
-const STORE = 'decibel.textureRow.v1';
+const STORE = 'switch.textureRow.v1';
 const LINE_H = 20, BAR_H = 2 * LINE_H + 4;   // the command bar across the top: TWO lines (1o.2 — the texture's, the pattern's); the timeline below has the whole width
 const RULER_H = 16, ROW_TOP = 24, MARK_H = 18, MARK_MIN = 1.5, MARK_MAX = 7, VIEW_H = ROW_TOP + MARK_H + 14;
 const CLAVES_MS = 150, ANCHOR_MF = 100;

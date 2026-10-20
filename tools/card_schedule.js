@@ -102,7 +102,7 @@ for (const X of PERC) {
 
 const totalMs = t + 2000;
 const out = {
-  generatedAt: new Date().toISOString(), planItem: '5.3', piece: 'decibel',
+  generatedAt: new Date().toISOString(), planItem: '5.3', piece: 'switch',
   what: 'the instrument card for the Decibel rack: absolute loudness per instrument, pitch and velocity, measured two ways',
   standard: 'K-20 (Katz / SMPTE RP 200); loudness ITU-R BS.1770. REC at unity: every level is dBFS AT THE MASTER (bank/reference.json — piece #6\'s, carried; the cross-check rows prove it for this rack).',
   vels: VELS, percVels: STRUCK_VELS, held: HELD.map(h => h.key), mallets: MALLETS.map(m => m.inst), percussion: PERC.map(p => p.slug),

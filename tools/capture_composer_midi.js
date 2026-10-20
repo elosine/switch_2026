@@ -19,7 +19,7 @@
 //     applyScroll → the zone, motive and curve ticks) at 60 frames per virtual second to the end, then stopPlay() (the flush cure).
 //   · Score seconds = (timestamp − playStartTime) / 1000 + playStartOffset / pixelsPerSecond — perfAt(), inverted.
 //
-//   node tools/capture_composer_midi.js [--score piece-decibel] [--server http://localhost:5500] [--fps 60] [--out midi/<score>.capture.json]
+//   node tools/capture_composer_midi.js [--score piece-switch] [--server http://localhost:5600] [--fps 60] [--out midi/<score>.capture.json]
 //        [--first <score>]   load THAT score first, then the one under capture, in the same page — what his tab does when he opens a
 //                            second score (RUNNING_LOG §75: the channel map cached across loads)
 //
@@ -130,7 +130,7 @@ const RUN = (score, fps, first) => `(async () => {
     objects: C.objects.length, trills: C.objects.filter(o => o.type === 'zone' && o.midiModel === 'trill').length, expect };
 })()`;
 
-async function capture({ score = 'piece-decibel', server = 'http://localhost:5500', fps = 60, first = null, log = console.log } = {}) {
+async function capture({ score = 'piece-switch', server = 'http://localhost:5600', fps = 60, first = null, log = console.log } = {}) {
   if (!CHROME) throw new Error('no Chrome or Edge found');
   const ping = await fetch(server + '/composer.html').catch(() => null);
   if (!ping || !ping.ok) throw new Error('the score server is not answering at ' + server + ' (node score/server.js)');
@@ -199,9 +199,9 @@ module.exports = { capture, portsFromInstruments };
 
 if (require.main === module) {
   const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
-  const score = arg('score', 'piece-decibel');
+  const score = arg('score', 'piece-switch');
   const out = arg('out', 'midi/' + score + '.capture.json');
-  capture({ score, server: arg('server', 'http://localhost:5500'), fps: +arg('fps', 60), first: arg('first', null) }).then(r => {
+  capture({ score, server: arg('server', 'http://localhost:5600'), fps: +arg('fps', 60), first: arg('first', null) }).then(r => {
     fs.mkdirSync(path.dirname(path.join(ROOT, out)), { recursive: true });
     fs.writeFileSync(path.join(ROOT, out), JSON.stringify(r));
     console.log('captured ' + r.events.length + ' messages · ' + r.meta.frames + ' frames in ' + r.meta.wallSeconds + ' s · writes refused: ' + r.meta.blockedN + ' → ' + out);

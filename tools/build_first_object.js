@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // build_first_object.js — THE FIRST ELECTRONICS OBJECT, as a save the composer score opens (PLAN 1.1 · 6.6; RUNNING_LOG §64).
 //
-//   node tools/build_first_object.js [--out scores/decibel-first-object.json]
+//   node tools/build_first_object.js [--out scores/switch-first-object.json]
 //
 // Three things on the bass clarinet's lane, and nothing else:
 //   5.0 s   a NOTE — D3 (key 50), two seconds, mf, the ordinary voice
@@ -16,7 +16,7 @@
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const ROOT = path.resolve(__dirname, '..');
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
-const OUT = path.join(ROOT, arg('out', 'scores/decibel-first-object.json'));
+const OUT = path.join(ROOT, arg('out', 'scores/switch-first-object.json'));
 if (/[\\/]piece-/.test(OUT)) { console.error('refusing a piece-… name'); process.exit(3); }
 
 const INSTRUMENTS = vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'sandbox', 'instruments.js'), 'utf8') + '\n;INSTRUMENTS;', {});

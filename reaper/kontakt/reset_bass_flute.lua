@@ -9,7 +9,7 @@
 -- SELF-REPORTING: writes reaper/kontakt/out/reset_bass_flute_START_<time>.json before it touches Kontakt, then ALWAYS
 -- reset_bass_flute_<time>.json with the read-back, or the error. The AI reads that file.
 
-local OUT_DIR = 'C:/Users/jwloy/GitHub/decibel_TENOR_2026/reaper/kontakt/out/'
+local OUT_DIR = 'C:/Users/jwloy/GitHub/switch_2026/reaper/kontakt/out/'
 local NKI = 'C:/Users/jwloy/Documents/Xsample Sample Library/Xsample_AIL_Installer_Windows/Xsample_Collection/Instruments Elastic/Woodwinds/Bass Flute.nki'
 local TAG = 'reset_bass_flute'
 local SLOTS = { { ch = 1, tag = nil }, { ch = 2, tag = 'curve A' }, { ch = 3, tag = 'curve B' }, { ch = 4, tag = 'curve C' } }

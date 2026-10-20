@@ -332,7 +332,7 @@ const BTN = 'font:inherit;padding:1px 7px;border:1px solid #b9b4a6;border-radius
 const SEL = 'font:inherit;padding:0 2px;border:1px solid #b9b4a6;border-radius:3px;background:#fff;color:#333';
 const NNU = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'];
 const pnU = m => NNU[((Math.round(+m) % 12) + 12) % 12] + (Math.floor(Math.round(+m) / 12) - 1);
-const LS = 'decibel.vibesPitch.v1', PREF0 = { open: false, pool: 'any', change: 'always', draw: 'exhaust' };
+const LS = 'switch.vibesPitch.v1', PREF0 = { open: false, pool: 'any', change: 'always', draw: 'exhaust' };
 const loadPrefs = () => { try { const p = JSON.parse(localStorage.getItem(LS) || '{}') || {}; const o = Object.assign({}, PREF0, p);
     if (!Core.RULES.includes(o.pool)) o.pool = PREF0.pool; if (Core.CHANGE[o.change] == null) o.change = PREF0.change; if (!Core.DRAWS.includes(o.draw)) o.draw = PREF0.draw; return o; } catch (e) { return Object.assign({}, PREF0); } };
 const savePrefs = p => { try { localStorage.setItem(LS, JSON.stringify(p)); } catch (e) {} };

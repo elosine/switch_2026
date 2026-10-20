@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // THE RE-EXTRACTION RUNNER (session 18, 2026-09-30 — RUNNING_LOG §589 … §604; kept as a scratchpad script until checkpoint #7 made it a tool):
-// piece-decibel's whole build lives in its provenance.build (2j's discipline — the composer save is the ground truth, the IR derived from a
+// piece-switch's whole build lives in its provenance.build (2j's discipline — the composer save is the ground truth, the IR derived from a
 // COPY). This runner re-runs that command with the args you add, so a figure's hands are APPENDED to the record and nothing is retyped
 // (the 8 KB Bash limit — a long command line dies with a fake quote error):
 //   node tools/reextract.js "<a phrase appended to --notes, or ''>" [args appended to the build …]
@@ -10,13 +10,13 @@
 //     @replace:OLD=>NEW                      swap ONE existing arg of the build (e.g. a frame's hand for one with :keepLead, or a beam span)
 //   @drop:ARG                              drop ONE existing arg of the build, and the --flag before it if there is one (§611: the hand
 //                                           and the --plainNotes window on the bassoon's one-off came out when byEnv.oneOff replaced them)
-// It reads notation/ir/piece-decibel.ir.json, tokenizes provenance.build (double quotes with \" escapes), re-points --scoreFile at a FRESH
+// It reads notation/ir/piece-switch.ir.json, tokenizes provenance.build (double quotes with \" escapes), re-points --scoreFile at a FRESH
 // copy of scores/piece-Recombination-Draft01-done.json in the scratchpad (so his latest save is what is read), applies the replacements,
 // appends the rest, and spawns tools/notate_section.js. After it: node tools/gen_engraving_rules.js → check_rules → eh_figure_check →
 // layout_shield --diff (the baseline written on HEAD first).
 const fs = require('fs'), path = require('path'), cp = require('child_process'), os = require('os');
 const ROOT = path.join(__dirname, '..');
-const IR = process.env.IR || 'piece-decibel', SCORE = process.env.SCORE || 'piece-decibel';
+const IR = process.env.IR || 'piece-switch', SCORE = process.env.SCORE || 'piece-switch';
 const BS = String.fromCharCode(92), DQ = String.fromCharCode(34);
 const ir = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', IR + '.ir.json'), 'utf8'));
 const cmd = ir.provenance.build;

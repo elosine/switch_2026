@@ -12,7 +12,7 @@
 // What must agree is the FRAME — which systems are drawn, and how much ink is in
 // each. So: same system list, same element census per system, same furniture.
 //
-//   node tools/check_print_frame.js [--ir piece-decibel] [--at 100,300,600,870] [--sec 12]
+//   node tools/check_print_frame.js [--ir piece-switch] [--at 100,300,600,870] [--sec 12]
 //
 // [LGMF 2b-P.1, 2026-10-03 — RE-POINTED TO THE DATA, not relaxed]
 //   · THE CAST COMES FROM THE ENSEMBLE (registry ensemble.json through the video-jury realization): the systems (one per staff),
@@ -35,7 +35,7 @@ const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js'));
 const Coords = require(path.join(ROOT, 'notation', 'lib', 'coords.js'));
 
 function arg(name, def) { const i = process.argv.indexOf('--' + name); return i >= 0 ? process.argv[i + 1] : def; }
-const irId = arg('ir', 'piece-decibel');
+const irId = arg('ir', 'piece-switch');
 const sec = arg('sec', '12');
 const ats = (arg('at', '100,300,600,870') || '').split(',').filter(Boolean).map(Number);
 const tmp = fs.mkdtempSync(path.join(require('os').tmpdir(), 'printframe-'));

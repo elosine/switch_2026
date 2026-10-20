@@ -61,7 +61,7 @@ const P = {
         return { lo: t.rangeLow != null ? t.rangeLow : (inst.rangeLow != null ? inst.rangeLow : KB_LO), hi: t.rangeHigh != null ? t.rangeHigh : (inst.rangeHigh != null ? inst.rangeHigh : KB_HI) };
     },
 
-    opts() { const C = HOST(); return C.cueOpts ? C.cueOpts() : { pianoLane: 2, metaLayer: 7 }; },
+    opts() { const C = HOST(); return C.cueOpts ? C.cueOpts() : { pianoLane: 5, metaLayer: 8 }   /* the fallback = this layout (D7); the page's cueOpts() is the live source */; },
 
     build(e) {
         const C = HOST(), cue = this.wc.properties.cue, st = this.st, O = this.opts();

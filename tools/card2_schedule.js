@@ -127,7 +127,7 @@ for (const [key, d] of Object.entries(perc)) {
 
 const totalMs = t + 2000;
 const out = {
-    generatedAt: new Date().toISOString(), planItem: '1b.3a', piece: 'decibel',
+    generatedAt: new Date().toISOString(), planItem: '1b.3a', piece: 'switch',
     what: 'all fourteen percussion on 0d’s own keys, and the vibraphone across its range — the two things 1b.2 left open',
     standard: OLD.standard || 'K-20; loudness ITU-R BS.1770. REC at unity since 1b.0, so every level is dBFS at the master.',
     vibPitches: VIB_PITCHES, vibVels: VIB_VELS, percVels: PERC_VELS,

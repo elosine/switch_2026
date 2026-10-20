@@ -31,8 +31,8 @@ const DEFAULTS = {
     level: 7,                   // the piano note's curve height 0–10 (NAMING §2.9); null = each source note's own peak
     mergeMs: 30,                // two re-breaths landing on one key within this window = one piano note
     maxDurS: null,              // a cap on the note's length in seconds; null = the source note's own length
-    pianoLane: 2,               // the piano's lane (TRACKS)
-    metaLayer: 7,               // the META layer (the group's shape lives there)
+    pianoLane: 5,               // the piano's lane (TRACKS; the fallback = this layout, D7)
+    metaLayer: 8,               // the META layer (the group's shape lives there)
     technique: 'harmonics',     // the piano technique the notes are written at
     laneLabels: null,           // ['Fl', 'BCl', 'Pno', …] for the performance notes; lane numbers when absent
     color: '#B39DDB',           // a lighter tint of the morph's purple: derived from it

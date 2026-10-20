@@ -5,7 +5,7 @@
 //
 // The players are NOT shown the returns (his word, DEC-99); the conductor's or presentation score may carry "a generic hint". This draws
 // ONE PAGE of a section — the piece's own notes, mic openings and returns, read from the save — once per OPTION for the hint, on the
-// whole 1920 × 1080 frame, and writes score/public/signs/conductor.html (http://localhost:5500/signs/conductor.html). The players'
+// whole 1920 × 1080 frame, and writes score/public/signs/conductor.html (http://localhost:5600/signs/conductor.html). The players'
 // signs on it (the badge, the mic brick, the conductor's arc) stand where the composer score has them or where nothing is decided yet:
 // PROVISIONAL — the lane's vertical map (PLAN 2.6) places them. A section, its window and its options are rows of bank/signs/conductor.json.
 'use strict';
