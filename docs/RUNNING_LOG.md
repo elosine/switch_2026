@@ -349,3 +349,9 @@ instance. **The port:** he saved the rack (22:02:01, 17.7 MB — HIS file from h
 a running Reaper was not tried); loopMIDI stopped, `SWSaxb` added (74th value; 14 `SW`), loopMIDI started 22:02:35. `make_tracks.lua`
 gained the row `Alto Sax SI2 b` (`after = "Alto Sax SI2"`). **Next:** the port shown → he reopens the rack, enables `SWSaxb` in
 Preferences → the job makes the track → his loads of the remaining sax presets into it, Ordinario's copies come as text.
+
+**— §17, later (22:10): `SWSaxb` SHOWN the moment Reaper opened** — six minutes of polling without it, then there as he opened the rack and
+his Preferences step enabled it. For the how-to: the new names appear when a MIDI client (Reaper) enumerates, not on a clock; open
+Reaper after the restart. `make_tracks.lua` re-run: the fifteen rows `kept` (idempotent, nothing duplicated), **`Alto Sax SI2 b` MADE** —
+track 5, right after its sibling, input `SWSaxb` (device 79), armed, monitoring, an empty UVI inserted. 24 tracks. His loads of the
+remaining sax presets go into it.
