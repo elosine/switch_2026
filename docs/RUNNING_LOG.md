@@ -278,3 +278,16 @@ instruments I use. So let's have a pitched lane and a non-pitched lane. And … 
 like marimba, vibraphone, Glock, or crotales."* → D10: two lanes as copied; the pitched lane's roster = the Ricotti four (carried) + the
 Xsample vibraphone (piece 5's, at container 4); the selection the music's. Told him the call's list names only the vibraphone and the
 glockenspiel among them. **Next: 4.0 the read-out per instrument (H6-22), on his word.**
+
+## §13. Container 4 — 4.0 THE READ-OUT PER INSTRUMENT (2026-10-20, Fable; his "go")
+
+The hole piece 6 named ("what got brought over and where to look", its deviations §37; the harvest's H6-22), filled BEFORE any plan:
+`docs/INSTRUMENTS_READOUT.md` — one row per instrument: the library (D10 · 1a) · carried from which piece · the round robin · the
+volume · the dynamics curve · the ranges · the bend — each DONE / NOT, with the file. Read from the record only (pieces 4 · 5 · 6's
+recipes, banks, RACK_SETTINGS, lab journals), one looked-up fact each, no search. **What it showed:** two methods of volume in the
+record (piece 4 relative — retired; 5 and 6 absolute) · three instruments NEW to any rack (clarinet · sax · the vibraphone struck) ·
+three of a known library never measured absolutely (flute · piano · violin — piece 4's) · two carried measured (the cello verbatim;
+the Ricotti four on one patch each) · every unpitched instrument of the call's list is in the Abbey Road catalog · the UVI method's
+record is piece 5's (§20 … §23 · §56 · §85, RACK_SETTINGS § 1 — the "Dynamic Amount" trap), not piece 4's as first thought; the
+how-to `uvi.md` is owed before the two SI2 loads (H6-24). The ports: twelve (thirteen with the flute's `b`), the `SW` set.
+**Next, on his word: 4.1 the ports by the AI, then 4.2 the tracks cloned from the three racks on disk.**
