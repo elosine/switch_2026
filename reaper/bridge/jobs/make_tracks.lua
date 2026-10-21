@@ -24,6 +24,7 @@ local SPEC = {
   { name = "Fluteb SI2",           port = "SWFluteb",   fx = UVI },       -- cloned from piece 4 (3 presets + the curve copies)
   { name = "Clarinet SI2",         port = "SWClar",     fx = UVI },       -- bare: his load (4.3)
   { name = "Alto Sax SI2",         port = "SWSax",      fx = UVI },       -- bare: his load (4.3)
+  { name = "Alto Sax SI2 b",       port = "SWSaxb",     fx = UVI, after = "Alto Sax SI2" },   -- the second instance: his sixteen filled the first (RUNNING_LOG §17); the overflow + the curve copies
   { name = "Vibraphone XS",        port = "SWVibes",    fx = KONTAKT },   -- cloned from piece 5 (preset 13 Bowed Velocity RRoff x4 slots)
   -- the Ricotti Mallets: one Kontakt per instrument on its own port, cloned loaded from piece 6
   { name = "Crotales RM",          port = "SWCrotales", fx = KONTAKT },

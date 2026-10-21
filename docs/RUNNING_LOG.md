@@ -335,3 +335,17 @@ to save from Reaper; until then `reaper/switch_rack.rpp` is the text as built. *
 `composition-system/protocol/howto/uvi.md` — from piece 5's §20 … §23 · §56 · §85 and RACK_SETTINGS § 1, and piece 4's flute: the
 parts, the `b` instance, "a preset must be loaded once in the GUI — then everything is text", the 496-byte header, the Dynamic Amount
 dial at 1.00 on the main part AND the curve copies, the masters at −6 dB, the order at a new piece. **Next: his two loads (4.3).**
+
+## §17. 4.3 — his loads, and the sax needs a second instance (2026-10-20)
+
+His four screenshots: the clarinet's instance holds **13 presets** (A1 Ordinario · Aeolian & Ordinario · Cresc & Decrescendo KS ·
+Durations KS · Flatterzunge · Fortepiano · Glissando Menu · Key Click · Multiphonics Menu · Quartertones Ordinario · Sforzando ·
+Staccato · Trills KS); the sax's holds **16** (Ordinario · Aeolian · Backwards · Bisbigliando · Blow Without Reed · Chromatic Scale ·
+Cresc & Decrescendo KS · Double Tonguing · FX KS · Finger Modes KS · Flatterzunge · Fortepiano · Glissando Menu KS · Key Click ·
+Moving Bell · Multiphonics Menu) — **full**; his word: *"need another sax track"*. Read back through the bridge before anything
+(`uvi_state.js info`, both instances: the 496-byte header, every part named — the text path proven on this UVI). The rule from the
+how-to (§ 1): more than 16 presets → a `b` instance on a `b` port; the clarinet's 13 + its three Ordinario curve copies = 16, one
+instance. **The port:** he saved the rack (22:02:01, 17.7 MB — HIS file from here) and closed Reaper at my ask (a loopMIDI restart under
+a running Reaper was not tried); loopMIDI stopped, `SWSaxb` added (74th value; 14 `SW`), loopMIDI started 22:02:35. `make_tracks.lua`
+gained the row `Alto Sax SI2 b` (`after = "Alto Sax SI2"`). **Next:** the port shown → he reopens the rack, enables `SWSaxb` in
+Preferences → the job makes the track → his loads of the remaining sax presets into it, Ordinario's copies come as text.
