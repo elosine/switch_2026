@@ -259,3 +259,11 @@ lines). **Container 3 is done:** the app opens and saves on its own ports, every
 red; the engine seated. Nothing sounds (4 · 5); nothing notates this ensemble (6). **Next: container 4** — 4.0 the read-out per
 instrument (H6-22) with him, then the ports by the AI, the tracks cloned, his loads of the clarinet and the sax on SI2, the UVI how-to
 (H6-24), the first sound.
+
+## §11. A composition note — SW-1, the tremolo experiment (2026-10-20)
+
+His first note made IN this repo, right after container 3 closed — taken verbatim into `docs/COMPOSITION_NOTES.md` as **SW-1** with the
+AI's reading marked: his performance-controlled electronics (the workshop's performance analysis) applied to ONE simple parameter,
+tremolo — its volume and its speed, shifting speeds — to get a human, performed tremolo ("arcs and waves"); continuous beds from it,
+one thought his slowed improvisations stacked; the principle: simple parameter, the complexity in the analysis (granular had many
+parameters). Nothing planned; PLANNER's outline takes it as a third heading. No RUNNING_LOG reasoning yet — a note.

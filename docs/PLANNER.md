@@ -32,6 +32,12 @@ the instruments — 4.0 the read-out per instrument with him, then the rack; jou
 - **the naming layer** — a glyph on the GC that opens the mic; the same glyph where the sample returns (part 7, `todo`)
 - **the collection on screen** — the inventory, board-game style (part 12, `todo`) — the one note that meets "video projection"
 
+### THE TREMOLO EXPERIMENT (SW-1, 2026-10-20 — "a simple parameter")
+
+- **his performance analysis on ONE parameter** — tremolo: volume and speed, shifting speeds; the test: a human, performed tremolo, "arcs and waves"
+- **continuous beds** — one thought: his improvisation parts slowed down and stacked; "then try some other things"
+- ‹the source of the tremolo · fixed or live · how it meets the counterpoint — his›
+
 ### THE CALL'S TECH, open
 
 - quad diffusion — not in the engine (stereo bus); a conversation if the music wants it

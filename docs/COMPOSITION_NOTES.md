@@ -118,10 +118,13 @@ AI's.*
 
 ---
 
-## ‹date› — session ‹N›
+## 2026-10-20 — session 1
 
-### ‹SW-N› · ‹date› — ‹a short title›
+### SW-1 · 2026-10-20 — TREMOLO AS THE SIMPLE PARAMETER: his performance-controlled electronics on one parameter, to get a human, performative tremolo — volume and speed, shifting speeds; continuous beds; his slowed improvisations stacked
 
-> *"‹his words, verbatim›"*
+> *"you take a note for the switch ensemble piece. I want to use my performance controlled electronics and use tremolo to see if we can get a very human feeling tremolo. We can control volume and speed and do variable speeds, like shifting speeds. And then create different beds that are continuous. Like one thought was to do some slowing down of my improvisation parts and then stack those and then try some other things. are the point here being that we take a simple parameter. So before, granular had lots of parameters and was a little bit more complex. Let's see what happens when we try to apply that performance analysis, but to like a simple parameter like tremolo. See if we can't get some very human performative sounding arcs and waves out of that."*
+> — said in the chat of this repo, right after container 3 closed
 
-*AI reading:* ‹kept apart, marked as such›
+*AI reading (marked as such):* an EXPERIMENT for this piece's electronics, in four parts. (1) THE MECHANISM: his "performance controlled electronics" — the workshop's performance analysis (`live-electronics-engine`: the features drawn from his own improvisations steering a process) — applied to ONE simple parameter, tremolo, where before it steered granular synthesis with many parameters. (2) THE TEST: can the steering make a tremolo that feels HUMAN and PERFORMED — "arcs and waves", not a machine's even pulse — by controlling its VOLUME and its SPEED, with variable, shifting speeds. (3) THE MATERIAL: continuous "beds" made from it; one thought — his improvisation parts SLOWED DOWN, then STACKED; "then try some other things". (4) THE PRINCIPLE: simple parameter first — the complexity goes into the performance analysis, not into the sound's parameters.
+*Not said yet (his):* the source of the tremolo — a sampled instrument, the live players' sound, or his own improvisations only · whether the beds are fixed media or made live · how it meets the ensemble (the "dense counterpoint / spectral chords" of SW-c2).
+*In hand (the AI's):* the engine's SINE has a level line and a pitch line (`sc/sine.scd`), the tracker follows a player's level — a tremolo is a level line with a rate; the workshop's playhead readers and the override processor are the performance-analysis side (`live-electronics-engine/engine/playhead-*.js`); the stacking of slowed takes is the workshop's `icy` stretch (ported as the engine's `icy` stage) — none of it steers a tremolo yet. Nothing planned; a conversation when he reaches it (PLAN § 1).
