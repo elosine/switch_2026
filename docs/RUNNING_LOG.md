@@ -321,3 +321,17 @@ is this piece's (fifteen rows, `SW…` ports, the sampler per track — KONTAKT 
 **— §14, later: ALL THIRTEEN SHOWN at 21:37:46** — in and out, by name (`probes/list_midi_ports.ps1 -Prefix SW`): about five minutes
 after loopMIDI's restart for thirteen new names (piece 6: two minutes for nine). For the how-to: "up to five minutes; the old names
 come back in seconds — a list that shows the old and not the new is not a failure yet." 4.1 done.
+
+## §16. 4.2 — the tracks given their inputs by the bridge; the UVI how-to written (2026-10-20; his "done" after the Preferences step)
+
+The bridge alive on `reaper/switch_rack.rpp` (23 tracks, Reaper 7.82). **`make_tracks.lua`** (this piece's SPEC, fifteen rows): every
+row read back — input = its `SW` port by name (devices 66 … 78), armed, monitoring on, 0 dB, the sampler present; the two bare tracks
+(`Clarinet SI2` · `Alto Sax SI2`) got an EMPTY `VST3i: UVIWorkstation (UVI)` inserted; piece 4's two flute instances carry the VST2
+`VSTi: UVIWorkstation` (as cloned — fine). **`make_perc_tracks.lua`** read the eight Abbey Road tracks back and, by its rule, touched
+none — they had NO input (a cloned track's REC is rewritten to none by `build_rack.js`). **New job `perc_inputs.lua`** (the one thing:
+`SWPerc` on ITS channel 1 … 8, armed, monitoring; idempotent) — all eight `ok true`. The rack is whole: 23 tracks, every one on its
+port. **Reaper had the thirteen `SW` ports enabled by his Preferences step** (his "done"). NOT SAVED by the AI — the rack file is his
+to save from Reaper; until then `reaper/switch_rack.rpp` is the text as built. **The UVI how-to** (H6-24): written into the home,
+`composition-system/protocol/howto/uvi.md` — from piece 5's §20 … §23 · §56 · §85 and RACK_SETTINGS § 1, and piece 4's flute: the
+parts, the `b` instance, "a preset must be loaded once in the GUI — then everything is text", the 496-byte header, the Dynamic Amount
+dial at 1.00 on the main part AND the curve copies, the masters at −6 dB, the order at a new piece. **Next: his two loads (4.3).**
