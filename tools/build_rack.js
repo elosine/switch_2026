@@ -32,18 +32,48 @@ const { execFileSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT = path.join(ROOT, 'reaper', 'switch_rack.rpp');
+// THE SWITCH~ PIECE (2026-10-20, RUNNING_LOG §15): three source racks — the pieces' numbers are HIS (4 Scattered Substance ·
+// 5 Recombination · 6 Approaching). Piece 6's script carried; its rows were piece 6's.
 const SOURCES = {
-  p5: { repo: path.resolve(ROOT, '..', 'septet_2026'), file: 'reaper/septet_rack.rpp', piece: 'piece #5 septet_2026' },
-  p6: { repo: path.resolve(ROOT, '..', 'septet_LGMF_2026'), file: 'reaper/LGMF_rack.rpp', piece: 'piece #6 septet_LGMF_2026' },
+  p4: { repo: path.resolve(ROOT, '..', 'septet_2026'), file: 'reaper/septet_rack.rpp', piece: 'piece 4 septet_2026' },
+  p5: { repo: path.resolve(ROOT, '..', 'septet_LGMF_2026'), file: 'reaper/LGMF_rack.rpp', piece: 'piece 5 septet_LGMF_2026' },
+  p6: { repo: path.resolve(ROOT, '..', 'decibel_TENOR_2026'), file: 'reaper/decibel_rack.rpp', piece: 'piece 6 decibel_TENOR_2026' },
 };
 const HEADER_FROM = 'p6';
 // Score order. `nth` picks among same-named source tracks (piece #5 has TWO "Bass Clarinet XS": the first holds
 // the four D11 slots and the strike slot; the second, a single slot, is not carried — RUNNING_LOG §19).
 const TRACKS = [
-  { name: 'Bass Flute XS', empty: true },
-  { name: 'Bass Clarinet XS', from: 'p5', src: 'Bass Clarinet XS', nth: 0 },
-  { name: 'Viola XS', from: 'p5', src: 'Va XS', nth: 0 },
-  { name: 'Cello XS', from: 'p6', src: 'Cello XS', nth: 0 },
+  // the winds: the flute's two SI2 instances cloned from piece 4 (16 presets + 3 and the curve copies); the clarinet and the sax BARE —
+  // new SI2 instances, his loads (4.3); piece 4's 'Flute strikes' track is not carried (NITS)
+  { name: 'Flute SI2',  from: 'p4', src: 'Flute SI2',  nth: 0 },
+  { name: 'Fluteb SI2', from: 'p4', src: 'Fluteb SI2', nth: 0 },
+  { name: 'Clarinet SI2', empty: true },
+  { name: 'Alto Sax SI2', empty: true },
+  // the unpitched percussion: piece 6's eight Abbey Road instances, cloned loaded — PROVISIONAL (D10: the selection from the call's
+  // list is his, later; make_perc_tracks.lua adds or replaces by the selection)
+  { name: 'Bongos ARO',            from: 'p6', src: 'Bongos ARO', nth: 0 },
+  { name: 'Shime Daiko ARO',       from: 'p6', src: 'Shime Daiko ARO', nth: 0 },
+  { name: 'Bass Drum Alt ARO',     from: 'p6', src: 'Bass Drum Alt ARO', nth: 0 },
+  { name: 'Wood Blocks ARO',       from: 'p6', src: 'Wood Blocks ARO', nth: 0 },
+  { name: 'China Cymbal ARO',      from: 'p6', src: 'China Cymbal ARO', nth: 0 },
+  { name: 'Spring Coil ARO',       from: 'p6', src: 'Spring Coil ARO', nth: 0 },
+  { name: 'Suspended Cymbals ARO', from: 'p6', src: 'Suspended Cymbals ARO', nth: 0 },
+  { name: 'Toms ARO',              from: 'p6', src: 'Toms ARO', nth: 0 },
+  // the pitched lane: the vibraphone from piece 5 (its preset 13 'Bowed Velocity RRoff' in four slots — the struck presets unread) and
+  // piece 6's four Ricotti mallets, cloned loaded
+  { name: 'Vibraphone XS',   from: 'p5', src: 'Vibraphone XS', nth: 0 },
+  { name: 'Crotales RM',     from: 'p6', src: 'Crotales RM', nth: 0 },
+  { name: 'Glockenspiel RM', from: 'p6', src: 'Glockenspiel RM', nth: 0 },
+  { name: 'Xylophone RM',    from: 'p6', src: 'Xylophone RM', nth: 0 },
+  { name: 'Marimba RM',      from: 'p6', src: 'Marimba RM', nth: 0 },
+  // the piano: piece 4's four tracks on ONE port (8Dio Steinway ch 1 · Spitfire Plucked ch 2 · the two Prepared Piano 2 instances ch 3 · 5)
+  { name: 'Piano Kontakt',        from: 'p4', src: 'Piano Kontakt', nth: 0 },
+  { name: 'PianoPlucked Kontakt', from: 'p4', src: 'PianoPlucked Kontakt', nth: 0 },
+  { name: 'PianoHarm PP2',        from: 'p4', src: 'PianoHarm PP2', nth: 0 },
+  { name: 'PianoMute PP2',        from: 'p4', src: 'PianoMute PP2', nth: 0 },
+  // the strings: the violin from piece 4's first violin; the cello from piece 6 (piece 5's measured instance, carried)
+  { name: 'Violin XS', from: 'p4', src: 'Vn1 XS', nth: 0 },
+  { name: 'Cello XS',  from: 'p6', src: 'Cello XS', nth: 0 },
 ];
 
 const args = process.argv.slice(2);

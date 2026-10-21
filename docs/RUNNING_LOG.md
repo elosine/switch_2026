@@ -291,3 +291,29 @@ the Ricotti four on one patch each) · every unpitched instrument of the call's 
 record is piece 5's (§20 … §23 · §56 · §85, RACK_SETTINGS § 1 — the "Dynamic Amount" trap), not piece 4's as first thought; the
 how-to `uvi.md` is owed before the two SI2 loads (H6-24). The ports: twelve (thirteen with the flute's `b`), the `SW` set.
 **Next, on his word: 4.1 the ports by the AI, then 4.2 the tracks cloned from the three racks on disk.**
+
+## §14. 4.1 — the thirteen ports, made by the AI (2026-10-20; his "a", Reaper closed)
+
+As piece 6 did it (`#6 §19`; the how-to `rack.md` § 1), but through PowerShell natively — Git Bash turns `HKCU\…` and `/v` into paths
+(the first try did nothing: "Invalid syntax" thirteen times, the registry untouched, a lesson for the how-to). Reaper was not running
+(checked). The key exported first — `reaper/loopmidi_ports_before_SW_2026-10-20.reg` (59 values: piece 2's `Perc1-A …`, piece 3's
+`tuba…`, piece 4's bare names, piece 5's `LG…`, piece 6's `DEC…`) · loopMIDI stopped (`Stop-Process`, pid 12052) · thirteen DWORD values
+added: `SWFlute` · `SWFluteb` · `SWClar` · `SWSax` · `SWPerc` · `SWVibes` · `SWCrotales` · `SWGlock` · `SWXylo` · `SWMarimba` · `SWPiano` ·
+`SWViolin` · `SWCello` (72 values now) · loopMIDI started again (pid 43300, 21:32:50). **The verification tool:** `probes/list_midi_ports.ps1`
+(winmm, in and out, by name — new, 2026-10-20). At 21:34 and 21:36: the 59 old ports back in both directions; the thirteen new ones
+NOT YET shown — piece 6 waited "about two minutes" for nine. Same Windows session for my shell, loopMIDI and the desktop (1). Waiting.
+
+## §15. 4.2 — the rack as text, from the three racks on disk (2026-10-20)
+
+`tools/build_rack.js` (piece 6's, re-pointed: three sources — piece 4 `septet_rack.rpp` saved 2026-09-17 · piece 5 `LGMF_rack.rpp` saved
+2026-10-01 · piece 6 `decibel_rack.rpp` saved 2026-10-11 — the DISK files, as piece 6 chose at its §20: the last state each piece was
+finished on; git may be older) → `reaper/switch_rack.rpp`: the header from piece 6, **23 tracks, 133 524 lines, 17.5 MB, every plugin
+state carried byte-exact (a hash before and after each clone).** Score order: `Flute SI2` · `Fluteb SI2` (piece 4) · `Clarinet SI2` ·
+`Alto Sax SI2` (BARE — his loads) · the eight Abbey Road (piece 6, PROVISIONAL — D10) · `Vibraphone XS` (piece 5, 7927 lines — the
+four slots of preset 13) · the four Ricotti (piece 6) · the piano's four (piece 4: `Piano Kontakt` · `PianoPlucked Kontakt` ·
+`PianoHarm PP2` · `PianoMute PP2`) · `Violin XS` (piece 4's `Vn1 XS`) · `Cello XS` (piece 6). Not carried: piece 4's `Flute strikes` and
+`BassCl strikes` buses (NITS), piece 6's `ELEC RETURN` (the engine's route step makes it, `tools/elec.js route`). On every cloned track
+three lines rewritten — NAME · the fader to 0 dB · the input to none; the bridge job sets inputs BY PORT NAME: `make_tracks.lua`'s SPEC
+is this piece's (fifteen rows, `SW…` ports, the sampler per track — KONTAKT or UVI), `make_perc_tracks.lua` on `SWPerc` after the winds.
+**What waits on him (4.3):** open Reaper on `reaper/switch_rack.rpp` · Preferences → MIDI Inputs → enable the thirteen `SW` ports
+(unreachable by script) · then the bridge jobs run; then the clarinet's and the sax's presets in UVI's browser.

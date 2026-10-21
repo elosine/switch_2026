@@ -10,7 +10,7 @@
 -- A track that already exists is READ BACK ONLY — never re-configured (he is working in the rack). Never saves.
 -- Add a row and re-run to add an instrument.
 --   BRIDGE_TIMEOUT_MS=120000 node tools/reaper_job.js run reaper/bridge/jobs/make_perc_tracks.lua
-local PORT, AFTER, TEMPLATE = "DECPerc", "Bass Clarinet XS", "Template"
+local PORT, AFTER, TEMPLATE = "SWPerc", "Alto Sax SI2", "Template"   -- the SWITCH~ piece (2026-10-20): the block sits after the winds, before the pitched lane
 local FX = "VST3i: Abbey Road Orchestra (Spitfire Audio)"
 local SPEC = {   -- slug = the key in bank/aro_percussion_catalog.json ('?' = which of several is settled by what he loads)
   { name = "Bongos ARO",            channel = 1, slug = "bongos" },

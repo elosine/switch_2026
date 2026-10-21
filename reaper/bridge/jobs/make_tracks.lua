@@ -16,17 +16,27 @@
 -- instruments (ports DECPerc · DECCrotales · DECGlock · DECMarimba · DECXylo, made 2026-10-04) get their rows
 -- when the libraries are in and chosen.
 local KONTAKT = { "VST3i: Kontakt 8 (Native Instruments) (64 out)", "VST3i: Kontakt 8 (Native Instruments)" }
+local UVI = { "VST3i: UVIWorkstation (UVI)" }   -- IRCAM Solo Instruments 2 · Prepared Piano 2 (the SWITCH~ piece, 2026-10-20)
+-- THE SWITCH~ PIECE'S SPEC (2026-10-20, RUNNING_LOG §15): every track tools/build_rack.js wrote, in score order; the ports the SW set
+-- (4.1, made 2026-10-20). The eight Abbey Road tracks are make_perc_tracks.lua's (one port, a channel each) and are not here.
 local SPEC = {
-  { name = "Bass Flute XS",    port = "DECBassFlute", fx = KONTAKT },   -- bare in the text; Xsample Bass Flute.nki by reaper/kontakt/load_xs.lua
-  { name = "Bass Clarinet XS", port = "DECBassClar",  fx = KONTAKT },   -- cloned from piece #5 (the D11 slots + the strike slot on [A] 5)
-  -- the Ricotti Mallets (a KONTAKT library; RUNNING_LOG §20): one Kontakt per instrument on its own port, score order high to low;
-  -- each loaded by reaper/kontakt/load_rm_<instrument>.lua — one slot per patch, a MIDI channel each (bank/ricotti_catalog.json)
-  { name = "Crotales RM",      port = "DECCrotales",  fx = KONTAKT, after = "Bass Clarinet XS" },
-  { name = "Glockenspiel RM",  port = "DECGlock",     fx = KONTAKT, after = "Crotales RM" },
-  { name = "Xylophone RM",     port = "DECXylo",      fx = KONTAKT, after = "Glockenspiel RM" },
-  { name = "Marimba RM",       port = "DECMarimba",   fx = KONTAKT, after = "Xylophone RM" },
-  { name = "Viola XS",         port = "DECViola",     fx = KONTAKT },   -- cloned from piece #5's "Va XS"
-  { name = "Cello XS",         port = "DECCello",     fx = KONTAKT },   -- cloned from piece #6
+  { name = "Flute SI2",            port = "SWFlute",    fx = UVI },       -- cloned from piece 4 (16 presets)
+  { name = "Fluteb SI2",           port = "SWFluteb",   fx = UVI },       -- cloned from piece 4 (3 presets + the curve copies)
+  { name = "Clarinet SI2",         port = "SWClar",     fx = UVI },       -- bare: his load (4.3)
+  { name = "Alto Sax SI2",         port = "SWSax",      fx = UVI },       -- bare: his load (4.3)
+  { name = "Vibraphone XS",        port = "SWVibes",    fx = KONTAKT },   -- cloned from piece 5 (preset 13 Bowed Velocity RRoff x4 slots)
+  -- the Ricotti Mallets: one Kontakt per instrument on its own port, cloned loaded from piece 6
+  { name = "Crotales RM",          port = "SWCrotales", fx = KONTAKT },
+  { name = "Glockenspiel RM",      port = "SWGlock",    fx = KONTAKT },
+  { name = "Xylophone RM",         port = "SWXylo",     fx = KONTAKT },
+  { name = "Marimba RM",           port = "SWMarimba",  fx = KONTAKT },
+  -- the piano: four tracks on ONE port, each filtering its channel inside the plugin (piece 4's way: 1 main · 2 plucked · 3 harmonics · 5 muted)
+  { name = "Piano Kontakt",        port = "SWPiano",    fx = KONTAKT },
+  { name = "PianoPlucked Kontakt", port = "SWPiano",    fx = KONTAKT },
+  { name = "PianoHarm PP2",        port = "SWPiano",    fx = UVI },
+  { name = "PianoMute PP2",        port = "SWPiano",    fx = UVI },
+  { name = "Violin XS",            port = "SWViolin",   fx = KONTAKT },   -- cloned from piece 4's "Vn1 XS"
+  { name = "Cello XS",             port = "SWCello",    fx = KONTAKT },   -- cloned from piece 6
 }
 local function devIndex(port)
   for d = 0, reaper.GetNumMIDIInputs() - 1 do
