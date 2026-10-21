@@ -118,7 +118,8 @@ function info(xml) {
     const re = /<Part\b([^>]*)>/g; let m;
     while ((m = re.exec(s))) {
         const a = m[1]; const g = k => { const r = new RegExp(k + '="([^"]*)"').exec(a); return r ? r[1] : null; };
-        const after = s.slice(m.index, m.index + 20000);
+        const nextPart = s.indexOf('<Part', m.index + 5);   // bounded to THIS part's block: an EMPTY part followed by a loaded one read the next part's program (the Switch~ piece, 2026-10-20, RUNNING_LOG §18)
+        const after = s.slice(m.index, Math.min(m.index + 20000, nextPart < 0 ? s.length : nextPart));
         const prog = /<Program\b[^>]*DisplayName="([^"]*)"[^>]*ProgramPath="([^"]*)"/.exec(after);
         const byp = (after.match(/Bypass="1"/g) || []).length;
         parts.push({ part: g('DisplayName'), midiChannel: +g('MidiChannel'), gainDb: g('Gain') != null ? +(20 * Math.log10(+g('Gain'))).toFixed(2) : null, output: g('OutputName') || '(main)', mute: g('Mute'), program: prog ? prog[1] : null, programPath: prog ? prog[2].split('/').pop() : null, bypassedInsertsNearby: byp });

@@ -16,10 +16,10 @@ const opt = (k, d) => { const i = args.indexOf('--' + k); return i >= 0 && args[
 const RECIPE = path.join(ROOT, 'sandbox', 'instruments.js');
 
 // which Reaper tracks hold each UVI instrument, in order (the second is the `b` instance on its own port)
-const TRACKS = {
-  bassoon: [{ track: 'Bassoon SI2', port: 'LGBassoon' }, { track: 'Bassoon SI2 b', port: 'LGBassoonb' }],
-  horn:    [{ track: 'Horn SI2',    port: 'LGHorn' },    { track: 'Horn SI2 b',    port: 'LGHornb' }],
-  trumpet: [{ track: 'Trumpet SI2', port: 'LGTrumpet' }, { track: 'Trumpet SI2 b', port: 'LGTrumpetb' }],
+const TRACKS = {   // the SWITCH~ piece (2026-10-20): the three SI2 instruments and their instances, in order (the second is the b instance on its own port)
+  flute:    [{ track: 'Flute SI2',    port: 'SWFlute' }, { track: 'Fluteb SI2',     port: 'SWFluteb' }],
+  clarinet: [{ track: 'Clarinet SI2', port: 'SWClar' }],
+  alto_sax: [{ track: 'Alto Sax SI2', port: 'SWSax' },   { track: 'Alto Sax SI2 b', port: 'SWSaxb' }],
 };
 const only = opt('only', '') ? opt('only').split(',') : Object.keys(TRACKS);
 

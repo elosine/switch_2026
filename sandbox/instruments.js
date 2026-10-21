@@ -43,23 +43,132 @@
 
 const INSTRUMENTS = {
 
-  // ---- FLUTE — IRCAM Solo Instruments 2 (UVI), PLACEHOLDER (container 4) ----
-  // Two voices so the lane and the tables are real: nothing here was read from the library or heard. Piece 4's flute recipe
-  // (septet_2026/sandbox/instruments.js — SI2 "Flute in C", 19 presets by keyswitch, three ordinario copies on a `b` port) is
-  // container 4's source. Range 60–96 (C4–C7 sounding), NOT measured; the bend range is MIDI's default, unread.
-  flute: { ordinary: "ord", playerBendSt: 1, bendRangeSt: 2, label: "Flute", port: "SWFlute", rangeLow: 60, rangeHigh: 96, channels: { main: 1, curve: [2, 3, 4] },
-    techniques: [{ key: "ord", label: "Ordinario", channel: 1, kind: "pitched", loud: "vel" }, { key: "staccato", label: "Staccato", channel: 1, kind: "pitched", loud: "vel" }] },
+  // ---- FLUTE — IRCAM Solo Instruments 2 "Flute in C" (UVI), two instances CLONED from piece 4 (container 4, 2026-10-20; RUNNING_LOG §18) ----
+  // The rows are piece 4's (septet_2026/sandbox/instruments.js, re-rostered there 2026-09-03 from his UVI browser: 19 presets — 16 on the
+  // first instance, 3 on the `b`, three Ordinario curve copies on the `b`'s parts 4 · 5 · 6). The keyswitch notes and ranges are its
+  // (its screenshots); the parts (port · channel) are DERIVED by tools/apply_uvi_parts.js from the running rack. Piece 4's "Flute strikes"
+  // lane is not carried. Range sounding C4–C7 (+B3). Loudness: NOT measured absolutely (piece 4 was relative) — container 5.
+  flute: { ordinary: "ord", playerBendSt: 1, bendRangeSt: 2.0,   /* piece 4 MEASURED 2.0 st on this instance (its MEASURED_BEND) */
+    label: "Flute", port: "SWFlute", rangeLow: 59, rangeHigh: 96, channels: { main: 1, curve: [2, 3, 4] },
+    techniques: [
+      // A1 · Flute Aeolian KS
+      { key: "aeolian_and_ord", label: "Aeolian & Ordinario",        preset: "Flute Aeolian KS",            channel: 1,  ks: 36, rangeLow: 60, rangeHigh: 83, kind: "pitched", loud: "vel" },   // native C3–B4 (UVI) = MIDI 60–83; tan extension 37–59 and 84+ (screenshot 2026-09-03)
+      { key: "aeolian",         label: "Aeolian",                    preset: "Flute Aeolian KS",            channel: 1,  ks: 37, rangeLow: 60, rangeHigh: 83, kind: "pitched", loud: "vel" },   // C#1 red? — composer to confirm (manual: second switch)
+      // A2 · Flute Chromatic Scale
+      { key: "chrom_scale",     label: "Chromatic Scale",            preset: "Flute Chromatic Scale",       channel: 2,  rangeLow: 48, rangeHigh: 96, kind: "pitched", loud: "vel" },   // A2 screenshot: white C2→ past C5 (right end cut; 96 = the instrument top, provisional); no red keys; purple at C3 + C4 — meaning not in the manual legend; no tan
+      // A3 · Flute Cresc & Decrescendo KS
+      { key: "cresc",           label: "Crescendo",                  preset: "Flute Cresc & Decrescendo KS", channel: 3, ks: 36, rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // A3 screenshot: red C1 + C#1; white C3→C6 and beyond (cut ~D6); grey below C3, no tan
+      { key: "cresc_decresc",   label: "Crescendo to Decrescendo",   preset: "Flute Cresc & Decrescendo KS", channel: 3, ks: 37, rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },
+      { key: "decresc",         label: "Decrescendo",                preset: "Flute Cresc & Decrescendo KS", channel: 3, ks: 38, rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // D1 looked GREY in the A3 screenshot, not red — the manual's third switch; verify by pressing it
+      // A4 · Flute Durations KS (fixed-length notes; manual: C2 / C#2)
+      { key: "dur_0_5s",        label: "Duration 0.5 s",             preset: "Flute Durations KS",          channel: 4,  ks: 48, rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // A4 screenshot: red C2 (48) ✓ manual; C#2 looked black (second switch unconfirmed); white C3→C6+, grey below, no tan
+      { key: "dur_1s",          label: "Duration 1 s",               preset: "Flute Durations KS",          channel: 4,  ks: 49, rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // C#2 — verify (not red on screen)
+      // A5 · Flute FX KS
+      { key: "jet_whistle",     label: "Jet Whistle",                preset: "Flute FX KS",                 channel: 5,  ks: 36, rangeLow: 48, rangeHigh: 83, kind: "pitched", loud: "vel" },   // A5 screenshot: red C1 + C#1; tan D1–B1 (38–47) and C5+ (84+); white C2–B4 native; PURPLE C4
+      { key: "key_click",       label: "Key Click",                  preset: "Flute FX KS",                 channel: 5,  ks: 37, rangeLow: 48, rangeHigh: 83, kind: "pitched", loud: "vel" },
+      { key: "tongue_ram",      label: "Tongue Ram",                 preset: "Flute FX KS",                 channel: 5,  ks: 38, rangeLow: 48, rangeHigh: 83, kind: "pitched", loud: "vel" },   // D1 is TAN on screen, not red — the manual's third switch (tongue ram); verify by pressing   // UNVERIFIED in the loaded patch (composer, 2026-09-04: "i dont see a tongue ram in the sampler") — only C1/C#1 were red in the A5 screenshot; press D1 (38) on the FX KS part to settle it; until then the written tongue ram uses the pizzicato sample
+      // A6 · Flute Finger Modes KS
+      { key: "harmonic_fing",   label: "Harmonic Fingering",         preset: "Flute Finger Modes KS",       channel: 6,  ks: 36, rangeLow: 79, rangeHigh: 96, kind: "pitched", loud: "vel" },   // A6 screenshot: red C1; white only from ≈G4 (display) → C6+ = MIDI ≈79–96 (upper register); grey elsewhere, no tan
+      { key: "discolored_fing", label: "Discolored Fingering",       preset: "Flute Finger Modes KS",       channel: 6,  ks: 37, rangeLow: 79, rangeHigh: 96, kind: "pitched", loud: "vel" },   // C#1 not red on screen — verify
+      // A7 · Flute Flatterzunge
+      { key: "flz",             label: "Flatterzunge",               preset: "Flute Flatterzunge",          channel: 7,  rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // A7 screenshot: no red keys; white C3→C6 (60–96), grey beyond C6 — the top is C6 display = MIDI 96; no tan
+      // A8 · Flute Fortepiano
+      { key: "fortepiano",      label: "Fortepiano",                 preset: "Flute Fortepiano",            channel: 8,  rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // A8 screenshot: no red keys; white C3→C6 (60–96), grey beyond; no tan
+      // A9 · Flute Multiphonics Menu (one multiphonic per key)
+      { key: "multiphonics",    label: "Multiphonics Menu",          preset: "Flute Multiphonics Menu",     channel: 9,  rangeLow: 60, rangeHigh: 89, kind: "key", keys: "pending", loud: "vel" },   // A9 screenshot: no red keys; white C3→F5 DISPLAY = MIDI 60–89, one multiphonic per key (30, = the manual's table C3..F5 read as display names); tan below C3 and above F5
+      // A10 · Flute Ord & Aeolian KS (the two transitions)
+      { key: "ord_to_aeolian",  label: "Ordinario to Aeolian",       preset: "Flute Ord & Aeolian KS",      channel: 10, ks: 36, rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // A10 screenshot: red C1; C#1 not red; white C3→C6 (60–96); grey elsewhere, no tan
+      { key: "aeolian_to_ord",  label: "Aeolian to Ordinario",       preset: "Flute Ord & Aeolian KS",      channel: 10, ks: 37, rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // C#1 — verify
+      // A11 · Flute Ord & Flatterzunge KS (the two transitions)
+      { key: "ord_to_flz",      label: "Ordinario to Flatterzunge",  preset: "Flute Ord & Flatterzunge KS", channel: 11, ks: 36, rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // A11 screenshot: as A10 — red C1, white C3→C6, grey elsewhere
+      { key: "flz_to_ord",      label: "Flatterzunge to Ordinario",  preset: "Flute Ord & Flatterzunge KS", channel: 11, ks: 37, rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // C#1 — verify
+      // A12 · Flute Ordinario
+      { key: "ord",             label: "Ordinario",                  preset: "Flute Ordinario",             channel: 12, rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // A12 screenshot: no red keys; white C3→C6 (60–96); B2 grey (the manual's B3 extension is not in this patch); no tan
+      // A13 · Flute Pizzicato
+      { key: "pizzicato",       label: "Pizzicato",                  preset: "Flute Pizzicato",  notate: "tongue ram",             channel: 13, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel" },   // A13 screenshot: no red keys; white C3→C5 native (60–84); tan below C3 and above C5 (stretched)   // NOTATES AS TONGUE RAM (composer, 2026-09-04: "pizzicato sounds loud in sample, just note that we'll notate this as tongue ram") — the SI2 pizzicato sample stands in for the written tongue ram; RUNNING_LOG §44
+      // A14 · Flute Play & Sing KS
+      { key: "play_sing",       label: "Play and Sing (sung C4)",    preset: "Flute Play & Sing KS",        channel: 14, ks: 36, rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // A14 screenshot: red C1; C#1 not red; tan C#1–B2 (37–59) below; white from C3 (60), right end cut in the frame (top provisional 96)
+      { key: "play_sing_unison",label: "Play and Sing Unison",       preset: "Flute Play & Sing KS",        channel: 14, ks: 37, rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // C#1 — verify
+      // A15 · Flute Quartertones Ordinario
+      { key: "ord_1q",          label: "Ordinario quarter-tone",     preset: "Flute Quartertones Ordinario", channel: 15, rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // A15 screenshot: no red keys; white C3→C6 (60–96), grey elsewhere, no tan. Which quarter-tone each key sounds (above? below?) — 0c, by ear
+      // A16 · Flute Sforzando
+      { key: "sforzando",       label: "Sforzando",                  preset: "Flute Sforzando",             channel: 16, rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // A16 screenshot: no red keys; white C3→C6 (60–96); grey elsewhere, no tan
+      // ---- second instance "Fluteb" (A1–A3) ----
+      { key: "staccato",        label: "Staccato",                   preset: "Flute Staccato",              port: "SWFluteb", channel: 1, rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // Fluteb A1 screenshot: no red keys; white C3→C6 (60–96) native; tan below C3 and above C6 (stretched)
+      { key: "trill_m2",        label: "Trill minor 2nd",            preset: "Flute Trills KS",             port: "SWFluteb", channel: 2, ks: 36, rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // Fluteb A2 screenshot: red C1; C#1 not red; white C3→C6 (60–96); grey elsewhere, no tan
+      { key: "trill_M2",        label: "Trill major 2nd",            preset: "Flute Trills KS",             port: "SWFluteb", channel: 2, ks: 37, rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // C#1 — verify
+      { key: "whistle_tones",   label: "Whistle Tones",              preset: "Flute Whistle Tones",         port: "SWFluteb", channel: 3, rangeLow: 48, rangeHigh: 84, kind: "pitched", loud: "vel" },   // Fluteb A3 screenshot: no red keys; white C2→C5 (48–84) native; tan below C2 and above C5
+    ],
+  },
 
-  // ---- CLARINET in B♭ — IRCAM Solo Instruments 2 (UVI), PLACEHOLDER (container 4) ----
-  // SI2 holds a "Clarinet in Bb" (its manual, piece 3's extracted copy: Layers & Keyswitches — Clarinet); no piece has used it.
-  // Range 50–94 (D3–B♭6 sounding), NOT measured.
-  clarinet: { ordinary: "ord", playerBendSt: 1, bendRangeSt: 2, label: "Clarinet", port: "SWClar", rangeLow: 50, rangeHigh: 94, channels: { main: 1, curve: [2, 3, 4] },
-    techniques: [{ key: "ord", label: "Ordinario", channel: 1, kind: "pitched", loud: "vel" }, { key: "staccato", label: "Staccato", channel: 1, kind: "pitched", loud: "vel" }] },
+  // ---- CLARINET in B♭ — IRCAM Solo Instruments 2 (UVI), ONE instance, his thirteen loads of 2026-10-20 (RUNNING_LOG §17) ----
+  // The order is his browser's (A1 … A13); the three Ordinario curve copies on parts 14 · 15 · 16 as text (§18). Keyswitch notes from the
+  // manual's "Layers & Keyswitches — Clarinet" (C1 = 36, the flute's zone) — VERIFY on the red keys at the first sound. Range sounding
+  // D3–F6 = 50–89 (the manual), NOT measured; the by-key voices' keys `pending` until read from his rack.
+  clarinet: { ordinary: "ord", playerBendSt: 1, bendRangeSt: 2, label: "Clarinet", port: "SWClar", rangeLow: 50, rangeHigh: 89, channels: { main: 1, curve: [14, 15, 16] },
+    techniques: [
+      { key: "ord", label: "Ordinario", preset: "Clarinet Ordinario", channel: 1, kind: "pitched", loud: "vel" },
+      { key: "aeolian_and_ord", label: "Aeolian & Ordinario", preset: "Clarinet Aeolian & Ordinario", channel: 2, kind: "pitched", loud: "vel" },
+      { key: "cresc", label: "Crescendo", preset: "Clarinet Cresc & Decrescendo KS", channel: 3, kind: "pitched", loud: "vel", ks: 36 },
+      { key: "cresc_decresc", label: "Crescendo to Decrescendo", preset: "Clarinet Cresc & Decrescendo KS", channel: 3, kind: "pitched", loud: "vel", ks: 37 },
+      { key: "decresc", label: "Decrescendo", preset: "Clarinet Cresc & Decrescendo KS", channel: 3, kind: "pitched", loud: "vel", ks: 38 },
+      { key: "dur_0_5s", label: "Duration 0.5 s", preset: "Clarinet Durations KS", channel: 4, kind: "pitched", loud: "vel", ks: 36 },
+      { key: "dur_1s", label: "Duration 1 s", preset: "Clarinet Durations KS", channel: 4, kind: "pitched", loud: "vel", ks: 37 },
+      { key: "flz", label: "Flatterzunge", preset: "Clarinet Flatterzunge", channel: 5, kind: "pitched", loud: "vel" },
+      { key: "fortepiano", label: "Fortepiano", preset: "Clarinet Fortepiano", channel: 6, kind: "pitched", loud: "vel" },
+      { key: "glissando_menu", label: "Glissando Menu (one glissando per key)", preset: "Clarinet Glissando Menu", channel: 7, kind: "key", keys: "pending", loud: "vel" },
+      { key: "key_click", label: "Key Click", preset: "Clarinet Key Click", channel: 8, kind: "key", keys: "pending", loud: "vel" },
+      { key: "multiphonics", label: "Multiphonics Menu (one multiphonic per key)", preset: "Clarinet Multiphonics Menu", channel: 9, kind: "key", keys: "pending", loud: "vel" },
+      { key: "ord_1q", label: "Ordinario quarter-tone", preset: "Clarinet Quartertones Ordinario", channel: 10, kind: "pitched", loud: "vel" },
+      { key: "sforzando", label: "Sforzando", preset: "Clarinet Sforzando", channel: 11, kind: "pitched", loud: "vel" },
+      { key: "staccato", label: "Staccato", preset: "Clarinet Staccato", channel: 12, kind: "pitched", loud: "vel" },
+      { key: "trill_m2", label: "Trill minor 2nd", preset: "Clarinet Trills KS", channel: 13, kind: "pitched", loud: "vel", ks: 36 },
+      { key: "trill_M2", label: "Trill major 2nd", preset: "Clarinet Trills KS", channel: 13, kind: "pitched", loud: "vel", ks: 37 },
+    ],
+  },
 
-  // ---- ALTO SAXOPHONE in E♭ — IRCAM Solo Instruments 2 (UVI), PLACEHOLDER (container 4) ----
-  // SI2 holds an "Alto Saxophone" (Claude Delangle); no piece has used it. Range 49–81 (D♭3–A5 sounding), NOT measured.
-  alto_sax: { ordinary: "ord", playerBendSt: 1, bendRangeSt: 2, label: "Alto Sax", port: "SWSax", rangeLow: 49, rangeHigh: 81, channels: { main: 1, curve: [2, 3, 4] },
-    techniques: [{ key: "ord", label: "Ordinario", channel: 1, kind: "pitched", loud: "vel" }, { key: "staccato", label: "Staccato", channel: 1, kind: "pitched", loud: "vel" }] },
+  // ---- ALTO SAXOPHONE in E♭ — IRCAM Solo Instruments 2 (UVI), TWO instances, his twenty-two loads of 2026-10-20 (RUNNING_LOG §17) ----
+  // A1 … A16 on the first instance (SWSax), B1 … B6 on the second (SWSaxb), the three Ordinario curve copies on the second's parts
+  // 14 · 15 · 16 as text (§18 — the first cross-instance clone, proven by its 141 sample players). Keyswitch notes from the manual's
+  // "Layers & Keyswitches — Saxophone Alto" (C1 = 36) — VERIFY at the first sound; "FX KS" is one preset of many switches (pending).
+  // Range sounding D♭3–A5 = 49–81 (the manual), NOT measured.
+  alto_sax: { ordinary: "ord", playerBendSt: 1, bendRangeSt: 2, label: "Alto Sax", port: "SWSax", rangeLow: 49, rangeHigh: 81, channels: { main: 1, curve: [{ port: "SWSaxb", ch: 14 }, { port: "SWSaxb", ch: 15 }, { port: "SWSaxb", ch: 16 }] },
+    techniques: [
+      { key: "ord", label: "Ordinario", preset: "Saxophone Alto Ordinario", channel: 1, kind: "pitched", loud: "vel" },
+      { key: "aeolian", label: "Aeolian", preset: "Saxophone Alto Aeolian", channel: 2, kind: "pitched", loud: "vel" },
+      { key: "backwards", label: "Backwards", preset: "Saxophone Alto Backwards", channel: 3, kind: "pitched", loud: "vel" },
+      { key: "bisbigliando", label: "Bisbigliando", preset: "Saxophone Alto Bisbigliando", channel: 4, kind: "pitched", loud: "vel" },
+      { key: "blow_without_reed", label: "Blow Without Reed", preset: "Saxophone Alto Blow Without Reed", channel: 5, kind: "key", keys: "pending", loud: "vel" },
+      { key: "chrom_scale", label: "Chromatic Scale", preset: "Saxophone Alto Chromatic Scale", channel: 6, kind: "pitched", loud: "vel" },
+      { key: "cresc", label: "Crescendo", preset: "Saxophone Alto Cresc & Decrescendo KS", channel: 7, kind: "pitched", loud: "vel", ks: 36 },
+      { key: "cresc_decresc", label: "Crescendo to Decrescendo", preset: "Saxophone Alto Cresc & Decrescendo KS", channel: 7, kind: "pitched", loud: "vel", ks: 37 },
+      { key: "decresc", label: "Decrescendo", preset: "Saxophone Alto Cresc & Decrescendo KS", channel: 7, kind: "pitched", loud: "vel", ks: 38 },
+      { key: "double_tonguing", label: "Double Tonguing", preset: "Saxophone Alto Double Tonguing", channel: 8, kind: "pitched", loud: "vel" },
+      { key: "fx_ks", label: "FX KS (the extended switches — which key is which: pending)", preset: "Saxophone Alto FX KS", channel: 9, kind: "key", keys: "pending", loud: "vel" },
+      { key: "discolored_fing", label: "Discolored Fingering", preset: "Saxophone Alto Finger Modes KS", channel: 10, kind: "pitched", loud: "vel", ks: 36 },
+      { key: "harmonic_fing", label: "Harmonic Fingering", preset: "Saxophone Alto Finger Modes KS", channel: 10, kind: "pitched", loud: "vel", ks: 37 },
+      { key: "flz", label: "Flatterzunge", preset: "Saxophone Alto Flatterzunge", channel: 11, kind: "pitched", loud: "vel" },
+      { key: "fortepiano", label: "Fortepiano", preset: "Saxophone Alto Fortepiano", channel: 12, kind: "pitched", loud: "vel" },
+      { key: "glissando_menu", label: "Glissando Menu KS (one glissando per key)", preset: "Saxophone Alto Glissando Menu KS", channel: 13, kind: "key", keys: "pending", loud: "vel" },
+      { key: "key_click", label: "Key Click", preset: "Saxophone Alto Key Click", channel: 14, kind: "key", keys: "pending", loud: "vel" },
+      { key: "bell_down_up", label: "Moving Bell, down to up", preset: "Saxophone Alto Moving Bell", channel: 15, kind: "pitched", loud: "vel", ks: 36 },
+      { key: "bell_left_right", label: "Moving Bell, left to right", preset: "Saxophone Alto Moving Bell", channel: 15, kind: "pitched", loud: "vel", ks: 37 },
+      { key: "multiphonics", label: "Multiphonics Menu (one multiphonic per key)", preset: "Saxophone Alto Multiphonics Menu", channel: 16, kind: "key", keys: "pending", loud: "vel" },
+      // ---- second instance "SWSaxb" (B1 … B6) ----
+      { key: "ord_to_flz", label: "Ordinario to Flatterzunge", preset: "Saxophone Alto Ord & Flatterzunge KS", channel: 1, kind: "pitched", loud: "vel", port: "SWSaxb", ks: 37 },
+      { key: "flz_to_ord", label: "Flatterzunge to Ordinario", preset: "Saxophone Alto Ord & Flatterzunge KS", channel: 1, kind: "pitched", loud: "vel", port: "SWSaxb", ks: 38 },
+      { key: "play_sing_m2", label: "Play and Sing, major 2nd up", preset: "Saxophone Alto Play & Sing", channel: 2, kind: "pitched", loud: "vel", port: "SWSaxb", ks: 36 },
+      { key: "play_sing_gliss", label: "Play and Sing, glissando", preset: "Saxophone Alto Play & Sing", channel: 2, kind: "pitched", loud: "vel", port: "SWSaxb", ks: 37 },
+      { key: "play_sing_unison", label: "Play and Sing, unison", preset: "Saxophone Alto Play & Sing", channel: 2, kind: "pitched", loud: "vel", port: "SWSaxb", ks: 38 },
+      { key: "ord_1q", label: "Ordinario quarter-tone", preset: "Saxophone Alto Quartertones Ordinario", channel: 3, kind: "pitched", loud: "vel", port: "SWSaxb" },
+      { key: "slap_pitched", label: "Slap, pitched", preset: "Saxophone Alto Slap Modes KS", channel: 4, kind: "pitched", loud: "vel", port: "SWSaxb", ks: 36 },
+      { key: "slap_unpitched", label: "Slap, unpitched", preset: "Saxophone Alto Slap Modes KS", channel: 4, kind: "pitched", loud: "vel", port: "SWSaxb", ks: 37 },
+      { key: "slap_exploding", label: "Exploding slap, pitched", preset: "Saxophone Alto Slap Modes KS", channel: 4, kind: "pitched", loud: "vel", port: "SWSaxb", ks: 38 },
+      { key: "staccato", label: "Staccato", preset: "Saxophone Alto Staccato", channel: 5, kind: "pitched", loud: "vel", port: "SWSaxb" },
+      { key: "trill_m2", label: "Trill minor 2nd", preset: "Saxophone Alto Trills KS", channel: 6, kind: "pitched", loud: "vel", port: "SWSaxb", ks: 36 },
+      { key: "trill_M2", label: "Trill major 2nd", preset: "Saxophone Alto Trills KS", channel: 6, kind: "pitched", loud: "vel", port: "SWSaxb", ks: 37 },
+    ],
+  },
 
   // ---- PERCUSSION — ONE PLAYER, ONE LANE (P4) ----
   // Spitfire Abbey Road Orchestra Percussion (D6 — piece #2's library, its journal decision 4:
@@ -393,8 +502,85 @@ function xsBassClarinetTechs() {
   ];
 }
 
+
 // ---- UVI PARTS (generated by tools/apply_uvi_parts.js from the running rack — do not edit by hand) ----
-const UVI_PARTS = {};   // EMPTY at the port (2026-10-04) — piece #6's rows (bassoon · horn · trumpet, IRCAM SI2) left with it; tools/apply_uvi_parts.js writes this block from the running rack if a UVI instrument joins (container 4)
+const UVI_PARTS = {   // read from the running rack 2026-10-21 02:21 — flute: 30 techniques on 22 parts, 3 curve copies · clarinet: 17 techniques on 16 parts, 3 curve copies · alto_sax: 32 techniques on 25 parts, 3 curve copies
+  flute: {
+    techniques: { aeolian_and_ord: {"port":"SWFlute","channel":1}, aeolian: {"port":"SWFlute","channel":1}, chrom_scale: {"port":"SWFlute","channel":2}, cresc: {"port":"SWFlute","channel":3}, cresc_decresc: {"port":"SWFlute","channel":3}, decresc: {"port":"SWFlute","channel":3}, dur_0_5s: {"port":"SWFlute","channel":4}, dur_1s: {"port":"SWFlute","channel":4}, jet_whistle: {"port":"SWFlute","channel":5}, key_click: {"port":"SWFlute","channel":5}, tongue_ram: {"port":"SWFlute","channel":5}, harmonic_fing: {"port":"SWFlute","channel":6}, discolored_fing: {"port":"SWFlute","channel":6}, flz: {"port":"SWFlute","channel":7}, fortepiano: {"port":"SWFlute","channel":8}, multiphonics: {"port":"SWFlute","channel":9}, ord_to_aeolian: {"port":"SWFlute","channel":10}, aeolian_to_ord: {"port":"SWFlute","channel":10}, ord_to_flz: {"port":"SWFlute","channel":11}, flz_to_ord: {"port":"SWFlute","channel":11}, ord: {"port":"SWFlute","channel":12}, pizzicato: {"port":"SWFlute","channel":13}, play_sing: {"port":"SWFlute","channel":14}, play_sing_unison: {"port":"SWFlute","channel":14}, ord_1q: {"port":"SWFlute","channel":15}, sforzando: {"port":"SWFlute","channel":16}, staccato: {"port":"SWFluteb","channel":1}, trill_m2: {"port":"SWFluteb","channel":2}, trill_M2: {"port":"SWFluteb","channel":2}, whistle_tones: {"port":"SWFluteb","channel":3} },
+    main: {"port":"SWFlute","channel":12}, curve: [{"port":"SWFluteb","ch":4},{"port":"SWFluteb","ch":5},{"port":"SWFluteb","ch":6}], curveTechniques: ["ord"],
+    parts: [{"track":"Flute SI2","part":"Part 1","ch":1,"program":"Flute Aeolian KS"},
+            {"track":"Flute SI2","part":"Part 2","ch":2,"program":"Flute Chromatic Scale"},
+            {"track":"Flute SI2","part":"Part 3","ch":3,"program":"Flute Cresc & Decrescendo KS"},
+            {"track":"Flute SI2","part":"Part 4","ch":4,"program":"Flute Durations KS"},
+            {"track":"Flute SI2","part":"Part 5","ch":5,"program":"Flute FX KS"},
+            {"track":"Flute SI2","part":"Part 6","ch":6,"program":"Flute Finger Modes KS"},
+            {"track":"Flute SI2","part":"Part 7","ch":7,"program":"Flute Flatterzunge"},
+            {"track":"Flute SI2","part":"Part 8","ch":8,"program":"Flute Fortepiano"},
+            {"track":"Flute SI2","part":"Part 9","ch":9,"program":"Flute Multiphonics Menu"},
+            {"track":"Flute SI2","part":"Part 10","ch":10,"program":"Flute Ord & Aeolian KS"},
+            {"track":"Flute SI2","part":"Part 11","ch":11,"program":"Flute Ord & Flatterzunge KS"},
+            {"track":"Flute SI2","part":"Part 12","ch":12,"program":"Flute Ordinario"},
+            {"track":"Flute SI2","part":"Part 13","ch":13,"program":"Flute Pizzicato"},
+            {"track":"Flute SI2","part":"Part 14","ch":14,"program":"Flute Play & Sing KS"},
+            {"track":"Flute SI2","part":"Part 15","ch":15,"program":"Flute Quartertones Ordinario"},
+            {"track":"Flute SI2","part":"Part 16","ch":16,"program":"Flute Sforzando"},
+            {"track":"Fluteb SI2","part":"Part 1","ch":1,"program":"Flute Staccato"},
+            {"track":"Fluteb SI2","part":"Part 2","ch":2,"program":"Flute Trills KS"},
+            {"track":"Fluteb SI2","part":"Part 3","ch":3,"program":"Flute Whistle Tones"},
+            {"track":"Fluteb SI2","part":"Part 4","ch":4,"program":"Flute Ordinario"},
+            {"track":"Fluteb SI2","part":"Part 5","ch":5,"program":"Flute Ordinario"},
+            {"track":"Fluteb SI2","part":"Part 6","ch":6,"program":"Flute Ordinario"}],
+  },
+  clarinet: {
+    techniques: { ord: {"port":"SWClar","channel":1}, aeolian_and_ord: {"port":"SWClar","channel":2}, cresc: {"port":"SWClar","channel":3}, cresc_decresc: {"port":"SWClar","channel":3}, decresc: {"port":"SWClar","channel":3}, dur_0_5s: {"port":"SWClar","channel":4}, dur_1s: {"port":"SWClar","channel":4}, flz: {"port":"SWClar","channel":5}, fortepiano: {"port":"SWClar","channel":6}, glissando_menu: {"port":"SWClar","channel":7}, key_click: {"port":"SWClar","channel":8}, multiphonics: {"port":"SWClar","channel":9}, ord_1q: {"port":"SWClar","channel":10}, sforzando: {"port":"SWClar","channel":11}, staccato: {"port":"SWClar","channel":12}, trill_m2: {"port":"SWClar","channel":13}, trill_M2: {"port":"SWClar","channel":13} },
+    main: {"port":"SWClar","channel":1}, curve: [{"port":"SWClar","ch":14},{"port":"SWClar","ch":15},{"port":"SWClar","ch":16}], curveTechniques: ["ord"],
+    parts: [{"track":"Clarinet SI2","part":"Part 1","ch":1,"program":"Clarinet Ordinario"},
+            {"track":"Clarinet SI2","part":"Part 2","ch":2,"program":"Clarinet Aeolian & Ordinario"},
+            {"track":"Clarinet SI2","part":"Part 3","ch":3,"program":"Clarinet Cresc & Decrescendo KS"},
+            {"track":"Clarinet SI2","part":"Part 4","ch":4,"program":"Clarinet Durations KS"},
+            {"track":"Clarinet SI2","part":"Part 5","ch":5,"program":"Clarinet Flatterzunge"},
+            {"track":"Clarinet SI2","part":"Part 6","ch":6,"program":"Clarinet Fortepiano"},
+            {"track":"Clarinet SI2","part":"Part 7","ch":7,"program":"Clarinet Glissando Menu"},
+            {"track":"Clarinet SI2","part":"Part 8","ch":8,"program":"Clarinet Key Click"},
+            {"track":"Clarinet SI2","part":"Part 9","ch":9,"program":"Clarinet Multiphonics Menu"},
+            {"track":"Clarinet SI2","part":"Part 10","ch":10,"program":"Clarinet Quartertones Ordinario"},
+            {"track":"Clarinet SI2","part":"Part 11","ch":11,"program":"Clarinet Sforzando"},
+            {"track":"Clarinet SI2","part":"Part 12","ch":12,"program":"Clarinet Staccato"},
+            {"track":"Clarinet SI2","part":"Part 13","ch":13,"program":"Clarinet Trills KS"},
+            {"track":"Clarinet SI2","part":"Part 14","ch":14,"program":"Clarinet Ordinario"},
+            {"track":"Clarinet SI2","part":"Part 15","ch":15,"program":"Clarinet Ordinario"},
+            {"track":"Clarinet SI2","part":"Part 16","ch":16,"program":"Clarinet Ordinario"}],
+  },
+  alto_sax: {
+    techniques: { ord: {"port":"SWSax","channel":1}, aeolian: {"port":"SWSax","channel":2}, backwards: {"port":"SWSax","channel":3}, bisbigliando: {"port":"SWSax","channel":4}, blow_without_reed: {"port":"SWSax","channel":5}, chrom_scale: {"port":"SWSax","channel":6}, cresc: {"port":"SWSax","channel":7}, cresc_decresc: {"port":"SWSax","channel":7}, decresc: {"port":"SWSax","channel":7}, double_tonguing: {"port":"SWSax","channel":8}, fx_ks: {"port":"SWSax","channel":9}, discolored_fing: {"port":"SWSax","channel":10}, harmonic_fing: {"port":"SWSax","channel":10}, flz: {"port":"SWSax","channel":11}, fortepiano: {"port":"SWSax","channel":12}, glissando_menu: {"port":"SWSax","channel":13}, key_click: {"port":"SWSax","channel":14}, bell_down_up: {"port":"SWSax","channel":15}, bell_left_right: {"port":"SWSax","channel":15}, multiphonics: {"port":"SWSax","channel":16}, ord_to_flz: {"port":"SWSaxb","channel":1}, flz_to_ord: {"port":"SWSaxb","channel":1}, play_sing_m2: {"port":"SWSaxb","channel":2}, play_sing_gliss: {"port":"SWSaxb","channel":2}, play_sing_unison: {"port":"SWSaxb","channel":2}, ord_1q: {"port":"SWSaxb","channel":3}, slap_pitched: {"port":"SWSaxb","channel":4}, slap_unpitched: {"port":"SWSaxb","channel":4}, slap_exploding: {"port":"SWSaxb","channel":4}, staccato: {"port":"SWSaxb","channel":5}, trill_m2: {"port":"SWSaxb","channel":6}, trill_M2: {"port":"SWSaxb","channel":6} },
+    main: {"port":"SWSax","channel":1}, curve: [{"port":"SWSaxb","ch":14},{"port":"SWSaxb","ch":15},{"port":"SWSaxb","ch":16}], curveTechniques: ["ord"],
+    parts: [{"track":"Alto Sax SI2","part":"Part 1","ch":1,"program":"Saxophone Alto Ordinario"},
+            {"track":"Alto Sax SI2","part":"Part 2","ch":2,"program":"Saxophone Alto Aeolian"},
+            {"track":"Alto Sax SI2","part":"Part 3","ch":3,"program":"Saxophone Alto Backwards"},
+            {"track":"Alto Sax SI2","part":"Part 4","ch":4,"program":"Saxophone Alto Bisbigliando"},
+            {"track":"Alto Sax SI2","part":"Part 5","ch":5,"program":"Saxophone Alto Blow Without Reed"},
+            {"track":"Alto Sax SI2","part":"Part 6","ch":6,"program":"Saxophone Alto Chromatic Scale"},
+            {"track":"Alto Sax SI2","part":"Part 7","ch":7,"program":"Saxophone Alto Cresc & Decrescendo KS"},
+            {"track":"Alto Sax SI2","part":"Part 8","ch":8,"program":"Saxophone Alto Double Tonguing"},
+            {"track":"Alto Sax SI2","part":"Part 9","ch":9,"program":"Saxophone Alto FX KS"},
+            {"track":"Alto Sax SI2","part":"Part 10","ch":10,"program":"Saxophone Alto Finger Modes KS"},
+            {"track":"Alto Sax SI2","part":"Part 11","ch":11,"program":"Saxophone Alto Flatterzunge"},
+            {"track":"Alto Sax SI2","part":"Part 12","ch":12,"program":"Saxophone Alto Fortepiano"},
+            {"track":"Alto Sax SI2","part":"Part 13","ch":13,"program":"Saxophone Alto Glissando Menu KS"},
+            {"track":"Alto Sax SI2","part":"Part 14","ch":14,"program":"Saxophone Alto Key Click"},
+            {"track":"Alto Sax SI2","part":"Part 15","ch":15,"program":"Saxophone Alto Moving Bell"},
+            {"track":"Alto Sax SI2","part":"Part 16","ch":16,"program":"Saxophone Alto Multiphonics Menu"},
+            {"track":"Alto Sax SI2 b","part":"Part 1","ch":1,"program":"Saxophone Alto Ord & Flatterzunge KS"},
+            {"track":"Alto Sax SI2 b","part":"Part 2","ch":2,"program":"Saxophone Alto Play & Sing"},
+            {"track":"Alto Sax SI2 b","part":"Part 3","ch":3,"program":"Saxophone Alto Quartertones Ordinario"},
+            {"track":"Alto Sax SI2 b","part":"Part 4","ch":4,"program":"Saxophone Alto Slap Modes KS"},
+            {"track":"Alto Sax SI2 b","part":"Part 5","ch":5,"program":"Saxophone Alto Staccato"},
+            {"track":"Alto Sax SI2 b","part":"Part 6","ch":6,"program":"Saxophone Alto Trills KS"},
+            {"track":"Alto Sax SI2 b","part":"Part 14","ch":14,"program":"Saxophone Alto Ordinario"},
+            {"track":"Alto Sax SI2 b","part":"Part 15","ch":15,"program":"Saxophone Alto Ordinario"},
+            {"track":"Alto Sax SI2 b","part":"Part 16","ch":16,"program":"Saxophone Alto Ordinario"}],
+  },
+};
 function applyUviParts(all, gen) {   // the rack decides the channel and the port of every SI2 technique; the recipe keeps the preset and the keyswitch
   for (const [inst, g] of Object.entries(gen || {})) {
     const R = all[inst]; if (!R || !R.techniques) continue;

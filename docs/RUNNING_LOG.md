@@ -355,3 +355,25 @@ his Preferences step enabled it. For the how-to: the new names appear when a MID
 Reaper after the restart. `make_tracks.lua` re-run: the fifteen rows `kept` (idempotent, nothing duplicated), **`Alto Sax SI2 b` MADE** —
 track 5, right after its sibling, input `SWSaxb` (device 79), armed, monitoring, an empty UVI inserted. 24 tracks. His loads of the
 remaining sax presets go into it.
+
+## §18. 4.4 · 4.5 — the state as text, and the SI2 recipes derived (2026-10-20 … 21)
+
+**His loads read back** (`uvi_state.js info`, the 496-byte header on this UVI): the clarinet 13 parts, the sax 16 + 6. **The Dynamic
+Amount was factory on every part** (0.70, with strays: 0.40 · 0.50 · 0.86 · 0.00 on the sax's Backwards) — set AS TEXT, not by hand:
+a new tool `tools/uvi_dynamic.js` (the attribute once per part, asserted) → 1.00 on the parts the piece plays — the clarinet's part 1
+and its copies, the sax's part 1 and its copies — the others left factory, as piece 5 did (its RACK_SETTINGS § 1). **The baseline**
+(`uvi_edit.js baseline`: every part +6 dB, the inserts bypassed but the convolver — his rule of 2026-09-17) on all three instances.
+**The curve copies:** `uvi_edit.js clone` — the clarinet's Ordinario into its parts 14 · 15 · 16 (126 sample players each, read back);
+the sax's Ordinario FROM the first instance INTO the second's parts 14 · 15 · 16 — THE FIRST CROSS-INSTANCE CLONE, proven (141 players
+each, Dynamic 1.00, +6 dB); cloned before the baseline the first time, so their inserts were open — baselined again, pushed again,
+read back bypassed. Each push read back (`xml identical = false` after a push is UVI's own re-serialization; the CONTENT is the proof).
+**A bug found and fixed in `uvi_state.js info`:** an EMPTY part followed by a loaded one read the NEXT part's program (parts 7 … 13 of
+the second sax instance showed "Ordinario") — the read is now bounded to the part's own block; piece 5 and 6 never had an empty part
+between loaded ones. **The recipes (4.5):** `tools/port/recipes44.js` — the flute's thirty rows piece 4's (the presets its two cloned
+instances hold; the ports this piece's; its "Flute strikes" lane dropped; kind and loud added, the multiphonics by key) · the
+clarinet's 17 and the sax's 32 written from his loads and the manual's keyswitch pages (C1 = 36 — VERIFY on the red keys) ·
+`apply_uvi_parts.js` (its TRACKS table this piece's three instruments) derived every part from the RUNNING RACK into `UVI_PARTS`:
+flute main ch 12, curve `SWFluteb` 4 · 5 · 6 (piece 4's layout, intact in the clone) · clarinet main 1, curve 14 · 15 · 16 · sax main 1,
+curve `SWSaxb` 14 · 15 · 16. **`palette_check` 202 green · `roster_check` green** (26 by-key voices pending: their keys from his rack
+at 1m.4.2; 14 recipe keys not yet in `techniques.json` — registered as material uses them, H6-38). **The rack is HIS** (saved 22:02;
+the pushes live in Reaper's project — he saves again). NOT CLAIMED: a sound. **Next: 4.6 the first sound, in his Chrome.**
