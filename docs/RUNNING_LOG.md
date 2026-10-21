@@ -267,3 +267,14 @@ AI's reading marked: his performance-controlled electronics (the workshop's perf
 tremolo — its volume and its speed, shifting speeds — to get a human, performed tremolo ("arcs and waves"); continuous beds from it,
 one thought his slowed improvisations stacked; the principle: simple parameter, the complexity in the analysis (granular had many
 parameters). Nothing planned; PLANNER's outline takes it as a third heading. No RUNNING_LOG reasoning yet — a note.
+
+## §12. Container 4 opens — his two answers (2026-10-20)
+
+Put to him after container 3: (1) the clarinet and the alto sax — *"1a"*, SI2 on UVI. (2) the pitched percussion lane — he asked first
+how the composer score did it in the last two pieces; told: piece 5 gave the bowed vibraphone (Xsample Mallets Vibraphone, bought for it)
+its own lane beside an Abbey Road percussion lane; piece 6 gave the percussionist two lanes, the pitched one holding all four Ricotti
+mallets. Then *"So is that then a pitched lane and then a non-pitched lane?"* — yes. His word: *"I haven't decided what percussion
+instruments I use. So let's have a pitched lane and a non-pitched lane. And … the pitch lane could have any of the pitch instruments,
+like marimba, vibraphone, Glock, or crotales."* → D10: two lanes as copied; the pitched lane's roster = the Ricotti four (carried) + the
+Xsample vibraphone (piece 5's, at container 4); the selection the music's. Told him the call's list names only the vibraphone and the
+glockenspiel among them. **Next: 4.0 the read-out per instrument (H6-22), on his word.**

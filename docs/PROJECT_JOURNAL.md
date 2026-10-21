@@ -88,9 +88,9 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
   § → 4 (H6-21 … H6-28) · the protocol's § 4 · `composition-system/protocol/howto/rack.md` · `kontakt.md` · `measuring.md` ·
   `decibel_TENOR_2026/docs/RUNNING_LOG.md` §18 … §25 (its rack build) · `septet_2026/sandbox/instruments.js` (the flute · piano ·
   violin recipes and their UVI record). Nothing else.
-- **Pending him:** Q1 the libraries for the clarinet and the alto sax (SI2 as proposed?) · Q2 the vibraphone's and the glockenspiel's
-  library (the Ricotti stand-in is crotales · glock · xylophone · marimba) and the percussion's selection from the call's list ·
-  Q3 the title, when it comes · the planning repo's "pieces in play" line (2.6 — only at his word).
+- **Pending him:** Q3 the title, when it comes · the percussion's SELECTION (unpitched from the call's list; which pitched ones) — the
+  music's, later · the planning repo's "pieces in play" line (2.6 — only at his word). *(Q1 answered 2026-10-20: SI2 — D10. Q2 answered:
+  two lanes, the pitched lane's roster every pitched instrument he owns — D10.)*
 - **Deliberately uncommitted — none.** (`git status --short` clean at this commit; `tools/port/batt-old/` is gitignored.)
 
 ### THE SESSIONS BEFORE THIS ONE — one line each; the lab journal has them whole
@@ -108,8 +108,8 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 | — | 10.0 — the deviations register read, v2 written into the home's protocol (both runs' lessons); the eight LATER items to BACKLOG | Fable | yes |
 | — | Then the music: the profile's open questions are the sketch pad's (what the electronics take of the call's tech; the two musics) | Fable | — |
 
-**Open questions:** Q1 — the libraries for the clarinet and the alto sax: SI2 as proposed, or a purchase? · Q2 — the
-percussionist: one lane or two (unpitched + mallets, piece 6's way)? · Q3 — the title.
+**Open questions:** Q3 — the title · Q4 — the percussion's selection, the music's (the call lists vibraphone and glockenspiel; marimba,
+xylophone and crotales are not on it). *(Q1 · Q2 answered 2026-10-20 — D10.)*
 
 **Blockers:** none.
 
@@ -211,6 +211,7 @@ in his numbering of 2026-10-11; kept as the source files have them.)*
 - **D9 · 2026-10-20 — THE ROLES HELPER IS NOT BUILT: the role is the existing lookup** (`TRACKS.findIndex(t => t.instKey === 'piano')`,
   33 sites in 12 modules, all reading TRACKS; the three lane-number fallbacks set). A helper would change no behaviour — his rule, no
   work not asked for. The protocol's 3.10 is answered by a deviation line, not by code. *(RUNNING_LOG §7)*
+- **D10 · 2026-10-20 — THE PERCUSSION: TWO LANES, THE PITCHED LANE OPEN TO ANY PITCHED INSTRUMENT; the instruments not chosen.** His words: *"I haven't decided what percussion instruments I use. So let's have a pitched lane and a non-pitched lane. And … the pitch lane could have any of the pitch instruments, like marimba, vibraphone, Glock, or crotales."* So: the Percussion lane (unpitched) and the pitched lane stand as copied (D7 confirmed); the pitched lane's ROSTER is every pitched instrument he owns — piece 6's Ricotti four (crotales · glockenspiel · xylophone · marimba, carried) plus piece 5's Xsample vibraphone (on his disk, measured there) — the way piece 6 put all four Ricotti on one lane (its DEC-5); WHICH the piece uses is the music's, later. The libraries: 1a — the clarinet and the alto sax on SI2. *The call's percussion list names the vibraphone and the glockenspiel only; marimba, xylophone and crotales are not on it ("anything large not listed may not be available") — told him, his to weigh when he chooses.* *(RUNNING_LOG §12)*
 
 ---
 
