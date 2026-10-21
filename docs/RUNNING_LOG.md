@@ -317,3 +317,7 @@ three lines rewritten — NAME · the fader to 0 dB · the input to none; the br
 is this piece's (fifteen rows, `SW…` ports, the sampler per track — KONTAKT or UVI), `make_perc_tracks.lua` on `SWPerc` after the winds.
 **What waits on him (4.3):** open Reaper on `reaper/switch_rack.rpp` · Preferences → MIDI Inputs → enable the thirteen `SW` ports
 (unreachable by script) · then the bridge jobs run; then the clarinet's and the sax's presets in UVI's browser.
+
+**— §14, later: ALL THIRTEEN SHOWN at 21:37:46** — in and out, by name (`probes/list_midi_ports.ps1 -Prefix SW`): about five minutes
+after loopMIDI's restart for thirteen new names (piece 6: two minutes for nine). For the how-to: "up to five minutes; the old names
+come back in seconds — a list that shows the old and not the new is not a failure yet." 4.1 done.
