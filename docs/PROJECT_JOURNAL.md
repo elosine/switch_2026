@@ -1,5 +1,13 @@
 # PROJECT JOURNAL — switch_2026 (the Switch~ piece)
 
+<!-- card:switch -->
+<!-- Chief of Staff card: rewrite these three lines (and the date) at the end of every session on this project. Plain words, one line each. Read by home-management/tools/brief.js; list in home-management/docs/PROJECTS.md. -->
+> **▶ Where I left off** · updated 2026-10-22
+> - **Last:** session 1 (Oct 20) — the engine seated with eight lanes; nothing sounds yet.
+> - **Decided:** clarinet + alto sax on SI2 (D10); two percussion lanes.
+> - **Next:** container 4, the instruments — starts with you: the read-out per instrument, then ports and tracks.
+<!-- /card -->
+
 > One file. Seven sections. Everything important lives here.
 > §2 is read at every session start — keep it ~40 lines; trim old sessions to one line each.
 > The lab journal (`RUNNING_LOG.md`) is the raw trail underneath; this is the curated state.
