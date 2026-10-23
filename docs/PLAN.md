@@ -139,7 +139,8 @@ electronics part for the FIRST SECTION, the acoustic instruments built around it
   - build: per player, a 4-second window round each kept accent (1 s before, 3 s after; touching windows merged), cut from the mix,
     joined in order with short crossfades → the grab (30 … 90 s); each grab stretched to the voice's length — 3 min placeholder
   - hear: the four grabs, then the four stretched sources
-  - knobs: the window · the accent share · the stretch (and its kind: the workshop's icy read, or Reaper's stretch) · the voice length
+  - knobs: the window · the accent share · the stretch — how far, its grain overlap, its kind (the workshop's icy read, or Reaper's
+    stretch) · the voice length — his words: *"we'll streatch and I'll listen maybe stretch more, use different overlap etc"*
 - **1a.4 The four streams and the voice** (each source granulated by its player's whole performance; layered)
   - build: the piano's capture granulates the piano's source beginning to end; the same for the other three; the four layered → THE VOICE
   - hear: each stream alone, then the four together
