@@ -1,0 +1,7 @@
+# the set's audio stays on disk (his mix, the stems, every render) — the settings and this README are in git
+*.wav
+*.aif
+*.aiff
+*.flac
+*.mp3
+*.npz

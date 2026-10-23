@@ -61,6 +61,29 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+### SESSION 2 — THE LAB OPENED (2026-10-23) — PLAN 1a laid out; 1a.1 WAITS FOR HIS MIX *(mid-session checkpoint)*
+
+- **The task and its state:** the first section's electronics as a seven-step LAB, `docs/PLAN.md` § 1a (written 2026-10-23 by the planning
+  method, RUNNING_LOG §26 … §31; his words SW-2). THE SET is Sound Lab 2025-04-08c (piano · baritone guitar · archtop · drums); its
+  stems and analysis are on `C:\WindowsDrive\analysis export\`. **Nothing is built yet.** 1a.1 (the set read in) is first and needs
+  HIS MIX — he has it at home and brings it (on his to-do list): dropped into `bank/set/2025-04-08c/` (its README says what goes there).
+  No stand-in sum unless he asks.
+- **The latest deliverable:** PLAN § 1a (the seven experiments, each build · hear · knobs) · `bank/set/2025-04-08c/README.md`.
+- **► THE NEXT CONCRETE STEP — run 1a.1 the moment the mix is in** (`/postclear go` or his word): (1) look in `bank/set/2025-04-08c/`
+  for his mix file; if absent, say so in one line and stop. (2) Copy the session's analysis JSON there as `analysis.json`, the part
+  `bari-sax` → `baritone-guitar`. (3) Write `set.json` (stems' paths, the parts, the mix's name). (4) Name him the file to listen to
+  (his mix as it is — nothing is rendered at 1a.1). (5) Log §32: his verdict. Then 1a.2 — the capture: read `live-electronics-engine/
+  corpus/README.md` and `docs/corpus/HANDOFF.md` first, then the analysis JSON's shape; draw the four players' accents · state ·
+  readings side by side; a tool in the workshop's corpus folder, its output here in `bank/set/2025-04-08c/capture/`.
+- **`Resume reads:`** `docs/PLAN.md` § 1a · `bank/set/2025-04-08c/README.md`.
+- **Pending him:** the mix (his to-do) · "that's the session" at 1a.1 · the two rolled-back files below ("restore") · his rack.
+- **Deliberately uncommitted (git status, 2026-10-23):** `.gitignore` — rolled back on disk (lost the `tools/port/batt-*/` lines), restore
+  only at his word · `docs/VERIFICATION_RECIPE.md` — rolled back to 5501, same · `reaper/switch_rack.rpp` — HIS save of 2026-10-20 22:02,
+  committed at his word · `probes/clip_watch.json` · `clip_watch_s.txt` · `rec_modes_before.json` — container 5's probe outputs, scratch,
+  left · `tools/port/batt-old/` · `tools/port/scratch/` — the port's battery outputs, meant to be ignored by the lost lines, left.
+- **MODEL · CLEAR:** 1a.1 and 1a.2 are execution of a written step — **Opus**; the listening-and-adjusting conversation and 1a.5 (the
+  tremolo's mappings — judgment) — **Fable**. Clear now (the start's whole conversation is behind this checkpoint).
+
 ### SESSION 1 CLOSES ON THIS (2026-10-23) — THE START IS DONE (containers 1 … 6 and 10.0); next: the music
 
 - **2026-10-23 — 10.0 DONE (RUNNING_LOG §25): the protocol is v2** in the home, both runs' lessons written in; the backlog and the index

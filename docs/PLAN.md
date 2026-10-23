@@ -127,9 +127,10 @@ says so; what he hears and says goes in the RUNNING_LOG at once.*
 electronics part for the FIRST SECTION, the acoustic instruments built around it (SW-2).
 
 - **1a.1 The set read in** (the mix and the data, in hand)
-  - build: the eight stems summed → the stand-in mix (one stereo file); the session's analysis read; "bari-sax" named baritone guitar
-  - hear: the mix, once — is this the session he means
-  - knobs: the stems' balance (equal gain until his bounce arrives)
+  - build: HIS MIX (his bounce of the whole session — he has it at home and brings it; his to-do) dropped into `bank/set/2025-04-08c/`;
+    the session's analysis copied there, "bari-sax" named baritone guitar; `set.json` written. No stand-in sum unless he asks.
+  - hear: his mix, once — is this the session he means
+  - knobs: none — the mix is his
 - **1a.2 The capture** (four shapes, one per player)
   - build: each player's performance data from the session's analysis, the workshop's way (Paper B): the accents (WHEN) · the state
     (WHAT) · the readings (HOW FAR) — drawn, one page per player, the four side by side

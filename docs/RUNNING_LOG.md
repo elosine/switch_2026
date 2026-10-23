@@ -584,3 +584,12 @@ assemble an experimental plan for each step and then we'll run thru together and
 steps of the top line (§29) each as an EXPERIMENT — build · hear · knobs — run together: the AI builds and renders, he listens, the
 knobs move at his word, a step is done when he says so. The capture/grab/stretch/granulation tools are placed in the workshop's
 corpus (any session); the tremolo and the steered effects in the engine (any piece); the set's files, settings and voices here.
+
+## §31. CHECKPOINT — the lab ready to resume; 1a.1 waits for his mix (2026-10-23)
+
+Asked the practicals of 1a.1 (the stand-in sum, the folder, his one listen), he answered: *"no I have the mix i just have to get it
+when at home; pls get the lab ready for resumeing and ready to be run post clear pls"*. So: no stand-in sum; 1a.1 = his bounce
+dropped into `bank/set/2025-04-08c/` (made, with a README saying what goes there and where the session's files are; the folder's
+audio gitignored by `bank/set/.gitignore` — the root `.gitignore` is left as it is, rolled back and his). PLAN 1a.1 rewritten
+to his mix; journal §2 "SESSION 2 — THE LAB OPENED" is the cold-start block with the next step as an instruction; PLANNER and the
+state line follow. The session's start (§1 … §25) and this planning (§26 … §31) are behind this checkpoint.

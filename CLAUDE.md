@@ -49,7 +49,7 @@ the harmonics piano) · the percussion from piece 2's Abbey Road catalog by piec
 piece 4's Xsample strings · the cello from piece 6's, measured. Xsample on this machine is the bass clarinet and the solo strings
 ONLY (checked 2026-10-20): its clarinet and sax are not owned.
 
-**State of the piece (keep this line ONE line — H6-4; the history is the logs):** **► 2026-10-23 (RUNNING_LOG §1 … §25): THE START IS DONE — the kit, the copy, the rack sounding at one level, the score set up for eight parts, the protocol taught (v2). Nothing composed. NEXT: the music — his (the sketch pad; PLAN § 1 is laid out when he reaches it). HE starts loopMIDI before Reaper.**
+**State of the piece (keep this line ONE line — H6-4; the history is the logs):** **► 2026-10-23 (RUNNING_LOG §1 … §31): THE START IS DONE (containers 1 … 6, 10.0; the protocol v2) and THE COMPOSING IS OPEN — PLAN 1a, the first section's electronics as a seven-step LAB on the set Sound Lab 2025-04-08c; 1a.1 waits for HIS MIX (). HE starts loopMIDI before Reaper.**
 
 ## READ FIRST — how to work here
 
