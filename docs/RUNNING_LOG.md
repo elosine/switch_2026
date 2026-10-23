@@ -398,3 +398,17 @@ needs F5 before its notes can reach the ports. **For the how-to (`rack.md` § 1)
 (`explorer.exe <exe>`) — a process the AI's shell spawns dies with the session; after a loopMIDI restart under a running Reaper,
 `midi_reinit.lua`. **His word meanwhile:** *"can you give me the server cmds I'll start myself"* — given. NOT CLAIMED: a note from the
 app (his F5 and ▶).
+
+## §20. 4.6 THE FIRST SOUND — "all lanes play"; CONTAINER 4 DONE (2026-10-23)
+
+His word, after the cure of §19, his F5 and ▶ on `switch-first-sound` in his Chrome: *"sound now, all lanes play"* — the eighteen notes,
+flute · clarinet · alto sax · the eight Abbey Road · the four Ricotti · piano · violin · cello, from the composer score through their own
+ports. Between §19 and it: **Realphones** — at his ask (*"Can you remove real phones from the master output bus, or tell me how to do
+it?"*): it was NOT on the master track (0 FX there) but in Reaper's MONITORING FX chain (piece 6's journal had placed it there,
+2026-10-14); read and bypassed by a new bridge job `monitor_fx.lua` (`TrackFX_GetRecCount` on the master, index 0x1000000 + i).
+A first run did nothing: the name to bypass was passed as an environment variable, which a Lua inside Reaper never sees — set in the
+job itself, it read back `was true → now false`. **Container 4 is done** for a composing start: fourteen ports · 24 tracks on them ·
+the two new SI2 instruments loaded by him and set as text · the recipes derived from the rack · the first sound heard by him.
+`docs/RACK_SETTINGS.md` § 0 is this rack's. **Open, carried to container 5:** the SI2 masters at −6 dB (the pre-flight) · the flute's
+Dynamic Amount read · the Xsample vibraphone has no technique in the recipe yet (the pitched lane's roster is the Ricotti stand-in) ·
+the keyswitch notes of the clarinet and sax, unverified · his save of the rack (the pushed states live in Reaper until CTRL+S).

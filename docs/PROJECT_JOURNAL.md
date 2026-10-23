@@ -69,7 +69,16 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
-### SESSION 1 CLOSES ON THIS (2026-10-20, Fable) — containers 2 and 3 done, the engine seated; container 4 next
+### SESSION 1 CLOSES ON THIS (2026-10-23) — containers 2, 3 and 4 done: ALL LANES SOUND; container 5 next
+
+- **2026-10-23 — CONTAINER 4 DONE (RUNNING_LOG §13 … §20):** the read-out (`docs/INSTRUMENTS_READOUT.md`) · fourteen `SW` ports · the
+  rack `reaper/switch_rack.rpp`, 24 tracks cloned from pieces 4 · 5 · 6 + his SI2 loads (clarinet 13 · alto sax 16 + 6 on a `b` instance) ·
+  the SI2 state as text (Dynamic 1.00, the curve copies) · the recipes derived · **his word: "sound now, all lanes play"** ·
+  `docs/RACK_SETTINGS.md` § 0. **Next: container 5 — the calibration for a composing demo** (the protocol's § 5; piece 6's way, the
+  how-to `measuring.md`): the pre-flight first — the SI2 masters at −6 dB (the master read +0.75 dB on one note), the flute's Dynamic,
+  the round robins — then the card, the trims, the remap, the fader curves. **Before any session: HE starts loopMIDI, then Reaper.**
+
+*(The block below is container 3's close, kept as the trail.)*
 
 - **The task:** the start of the Switch~ piece by the new-piece protocol, run by piece 6's deviations register (H6-1).
 - **Where it stands:** container 1 the harvest ☑ (in piece 6's repo, his read "all as proposed") · container 2 the kit ☑ · **container 3
@@ -111,8 +120,8 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
 | ☑ | Container 3 — the copy-forward from piece 6, with the engine's take (RUNNING_LOG §5 … §10) | Fable, at his word | — |
-| **►** | **Container 4 — the instruments: 4.0 the read-out per instrument (H6-22) and the libraries confirmed with him · 4.1 the ports by the AI · 4.2 the tracks cloned and the two new SI2 tracks · the UVI how-to written (H6-24) · 4.3 his loads · 4.5 the recipes derived · 4.6 the first sound** | **Fable for 4.0 (the talk) · Opus for 4.1 … 4.6 (a day, from the how-tos)** | **a clear before 4.1 is cheap: the docs carry everything** |
-| — | Container 5 — the calibration for a composing demo; container 6 set up (the registry, the three calls BEFORE 6.0 — H6-35) | Opus | — |
+| ☑ | Container 4 — the instruments, all lanes sounding (RUNNING_LOG §13 … §20) | Fable · Opus | — |
+| **►** | **Container 5 — the calibration for a composing demo (the pre-flight first: the SI2 masters −6 dB, the flute's Dynamic, the round robins);** container 6 set up (the registry, the three calls BEFORE 6.0 — H6-35) | Opus | — |
 | — | 10.0 — the deviations register read, v2 written into the home's protocol (both runs' lessons); the eight LATER items to BACKLOG | Fable | yes |
 | — | Then the music: the profile's open questions are the sketch pad's (what the electronics take of the call's tech; the two musics) | Fable | — |
 

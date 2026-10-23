@@ -2,6 +2,27 @@
 
 # RACK_SETTINGS — the settings that live only in his plugins
 
+> **Provenance (switch 2026, 2026-10-23):** carried from piece 6 *Approaching*'s copy (container 3). **§ 0 below is THIS rack's**
+> (`reaper/switch_rack.rpp`, built 2026-10-20 by `tools/build_rack.js` from the racks of pieces 4 · 5 · 6 on disk). §§ 1 … 4 are the
+> source racks' settings, kept as written: a CLONED track carries them (§ 2 the vibraphone's preset 13 · § 3 the cello's round robin off).
+
+## 0 · THE SWITCH~ RACK — set 2026-10-20 … 23 (RUNNING_LOG §16 … §19)
+
+| what | where | value | how it was set | to revert |
+|---|---|---|---|---|
+| **Dynamic Amount** (UVI Expression) | `Clarinet SI2` parts 1 · 14 · 15 · 16 (Ordinario + its curve copies) | 0.70 → **1.00** | as text: `tools/uvi_dynamic.js` → `uvi_state.js encode --push` (§18) | the same tool, `--value 0.6998` |
+| **Dynamic Amount** | `Alto Sax SI2` part 1 · `Alto Sax SI2 b` parts 14 · 15 · 16 | 0.70 → **1.00** | as text (§18) | as above |
+| every other SI2 part of the three new instances | — | **factory, left** (0.70; strays 0.40 · 0.50 · 0.51 on the clarinet's Aeolian, Cresc KS, Flatterzunge, Multiphonics; 0.86 · 0.00 on the sax's Aeolian, FX KS, Backwards; 0.75 on the `b`'s Trills KS) | his loads | — |
+| **the baseline** | all parts of `Clarinet SI2` · `Alto Sax SI2` · `Alto Sax SI2 b` | gain +6 dB; every insert bypassed but the convolver | `uvi_edit.js baseline` (his rule of 2026-09-17) | re-enable in the UVI window |
+| **the curve copies** | `Clarinet SI2` parts 14 · 15 · 16 · `Alto Sax SI2 b` parts 14 · 15 · 16 | Ordinario, cloned as text (the sax's from the FIRST instance — the first cross-instance clone) | `uvi_edit.js clone` (§18) | clear the parts in UVI |
+| the flute's two instances | `Flute SI2` · `Fluteb SI2` | **as piece 4 left them** — cloned byte-exact (its Dynamic NOT read yet: piece 4 predates the 1.00 rule) | `build_rack.js` | — |
+| **Realphones** (dSONIQ, VST3) | Reaper's **Monitoring FX** (View → Monitoring FX — global, not the project) | on → **BYPASSED** | bridge job `reaper/bridge/jobs/monitor_fx.lua`, at his ask (2026-10-23) | the power button there |
+| **the SI2 masters at −6 dB** | the three new instances | **NOT SET** — the master read +0.75 dB on one clarinet note (§19) | container 5's pre-flight | — |
+
+**The ports (loopMIDI, machine-global):** fourteen `SW…` values in `HKCU\Software\Tobias Erichsen\loopMIDI\Ports`; the key before them
+exported to `reaper/loopmidi_ports_before_SW_2026-10-20.reg`. **loopMIDI is started by HIM** (or detached) — a loopMIDI the AI's shell
+spawns dies with the session (§19); after a loopMIDI restart under a running Reaper: `reaper/bridge/jobs/midi_reinit.lua`.
+
 > **What this file is for.** Almost everything about this rack is regenerable from text: the tracks, the
 > faders, the trims, the recipes, the remap. **These are not.** They are settings inside a sampler's own
 > panel, set by hand, saved only in the Reaper project (and, where noted, in a `.nki`). Nothing in the repo

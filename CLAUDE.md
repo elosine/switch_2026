@@ -49,7 +49,7 @@ the harmonics piano) · the percussion from piece 2's Abbey Road catalog by piec
 piece 4's Xsample strings · the cello from piece 6's, measured. Xsample on this machine is the bass clarinet and the solo strings
 ONLY (checked 2026-10-20): its clarinet and sax are not owned.
 
-**State of the piece (keep this line ONE line — H6-4; the history is the logs):** **► 2026-10-20 (Fable, RUNNING_LOG §5 … §10): CONTAINER 3 DONE — piece 6's engine is here and is THIS piece's: copied byte-exact (462 / 462 by blob hash), proven whole, the fixes made, turned to EIGHT LANES on 5600 / 5100, provisional recipes, THE ENGINE SEATED at `electronics/` (its repo's `a11b387`), verified in the running app. Nothing sounds yet (4 · 5); nothing notates this ensemble yet (6). NEXT: container 4 — 4.0 the read-out per instrument with him (journal §2 is the cold-start block).**
+**State of the piece (keep this line ONE line — H6-4; the history is the logs):** **► 2026-10-23 (RUNNING_LOG §13 … §20): CONTAINER 4 DONE — ALL LANES SOUND from the composer score (his word); the rack `reaper/switch_rack.rpp` (24 tracks, 14 `SW` ports), `docs/RACK_SETTINGS.md` § 0. NEXT: container 5, the calibration — the pre-flight first (journal §2 is the cold-start block). HE starts loopMIDI before Reaper.**
 
 ## READ FIRST — how to work here
 
@@ -236,7 +236,7 @@ routing advice is also credit advice, and these bind every Fable turn:
 - **The MIDI ports:** the prefix **`SW`** (D4) — made BY THE AI through loopMIDI's registry key at 4.1 (piece 6's way, H6-21); his one
   hand step: enabling them as inputs in Reaper's Preferences. loopMIDI ports are machine-global: piece 4's (bare names), piece 5's
   (`LG…`) and piece 6's (`DEC…`) are live beside them; `palette_check` refuses every earlier set.
-- **The rack — `reaper/switch_rack.rpp`** (the guard `switch_rack`) — NOT MADE YET; built as text by `tools/build_rack.js` at 4.2: the cello cloned
+- **The rack — `reaper/switch_rack.rpp`** (the guard `switch_rack`) — HIS since his save of 2026-10-20 22:02; 24 tracks, built as text by `tools/build_rack.js` (RUNNING_LOG §15) — the hand-set values in `docs/RACK_SETTINGS.md` § 0. **loopMIDI is started by HIM, before Reaper** (§19); after a loopMIDI restart under a running Reaper: `reaper/bridge/jobs/midi_reinit.lua`. As planned at 4.2: the cello cloned
   from piece 6's rack on disk, the flute · piano · violin from piece 4's; the clarinet and the sax loaded by him (SI2, UVI).
 - **The live electronics — `electronics/`**, SEATED 2026-10-20 by `git subtree add` (the engine's `a11b387`; `git remote` `engine`); its page code served at `/electronics/`, its relay required by the score server at start; `node tools/elec.js` the piece's start tool (piece 6's, carried); SuperCollider on
   **UDP 57210**, its language on **57211**, fed by the rack over ReaRoute — the engine's numbers, the same in every piece: ONE engine
