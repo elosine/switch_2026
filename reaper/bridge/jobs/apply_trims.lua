@@ -26,6 +26,7 @@ local TRIMS = {
   { name = "Piano Kontakt", faderDb = 0.25, extraDb = 0.00 },   -- Piano: was 0.00, +0.25
   { name = "Wood Blocks ARO", faderDb = 4.26, extraDb = 0.00 },   -- Wood Blocks: was 7.05, -2.79
   { name = "Bass Drum Alt ARO", faderDb = -5.75, extraDb = 0.00 },   -- Bass Drum (Alt): was -4.29, -1.46
+  { name = "Cello XS", faderDb = -3.76, extraDb = 0.00 },   -- Cello: was 8.13, -11.89
 }
 local function findTrack(name)
   for i = 0, reaper.CountTracks(0) - 1 do

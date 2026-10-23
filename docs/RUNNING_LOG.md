@@ -469,3 +469,14 @@ modes restored (`rec_mode_restore.lua`). Not saved by the AI — his CTRL+S.
 **ONE QUESTION FOR HIM — the cello.** It carries piece 6's fader +8.13: piece 6's trim −3.87 PLUS his +12 by hand there (its §74 · §79 —
 the Xsample instances had sat at Kontakt's −6 default and he found them quiet). Measured here it sits **about 12 dB above the new
 standard** every other instrument is now trimmed to.
+
+## §23. The cello to the standard — his "a" (2026-10-23)
+
+Put to him twice more simply (*"the decision more simply pls"* · *"how about the perc?"*): the cello sat 12 dB over the rest; (a) the
+cello down, everything even — percussion, piano, mallets, winds, strings at one level; (b) the four new sustained instruments up to the
+cello — the sustained 12 dB over the percussion and piano, piece 6's balance (raising the percussion too would only lift everything and
+clip). **His "a".** The cello's fader from THIS card: measured −19.95 dB integrated at +8.13 → **−3.76 dB** (piece 6's own measured trim
+was −3.87: the same instance, 0.11 dB apart). `bank/trims.json` carries the row (its basis says why); `apply_trims.lua` regenerated
+and run; read back −3.76. **The rack is at one standard:** every instrument at velocity 127 at −31.84 dB on the card's scale (the six
+carried Abbey Road possibly 1.5 … 3 dB over — NITS). **Container 5's composing demo is done but for his ear** on a chord; the QC battery
+(5.9) not built — not asked.

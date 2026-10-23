@@ -94,6 +94,20 @@
   greps `decibel_TENOR_2026` and `septet_LGMF_2026` both (H6-15).
 - **The home's INDEX and BACKLOG carry the OLD piece numbers** — at his word only (H6-6).
 
+### From the calibration (container 5, 2026-10-23 — RUNNING_LOG §21 … §23)
+
+- **The six carried Abbey Road tracks may sit 1.5 … 3 dB hot.** The two re-measured here (wood blocks · bass drum alt) read +1.5 … +3.7 dB over
+  piece 6's figures at the same faders — a uniform offset, so a setting in the disk rack of 10-11, not a round robin. The other six
+  (bongos · shime daiko · china · spring coil · suspended · toms) keep piece 6's faders. A 40-second card on them, or his ear.
+- **The violin's round robin is on** (his "a": measured as shipped) — velocity 100 read 1.3 dB under 64 on the card. A round-robin-off
+  copy of its ordinary preset in all four slots (kontakt.md § 5) if it is heard.
+- **The flute's Dynamic Amount is 0.80** (piece 4's hand value) on its Ordinario and copies — its span measured 14.0 dB, the narrowest; 1.00
+  would widen it (and need a re-measure).
+- **The vibraphone has no technique in the recipe** — the pitched lane's roster is the Ricotti stand-in; the Xsample vibraphone track
+  (piece 5's bowed preset 13, trim +2.81) sounds only from its port. Its struck presets: unread, unmeasured.
+- **The piano's plucked and Prepared Piano 2 tracks are unmeasured** (faders 0 dB); only its main voice is on the card.
+- **The QC battery (the protocol's 5.9) is not built** — not asked.
+
 ## HELD FOR THE NEXT PIECE OR THE POSTMORTEM
 
 *(Offers he held — not to be raised again in this piece. The harvest reads this section whole.)*

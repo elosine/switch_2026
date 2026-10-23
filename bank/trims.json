@@ -161,6 +161,23 @@
    "soundingS": 1.24,
    "nPitches": 3,
    "reference": "the instrument mean across its measured pitches"
+  },
+  {
+   "inst": "cello",
+   "label": "Cello",
+   "family": "pitched",
+   "measure": "integrated",
+   "measuredDb": -19.95,
+   "maxMomentaryDb": -16.74,
+   "integratedDb": -19.95,
+   "currentTrimDb": 8.13,
+   "trimAtMeasurementDb": 8.13,
+   "deltaDb": -11.89,
+   "proposedTrimDb": -3.76,
+   "faderDb": -3.76,
+   "jsVolumeDb": 0,
+   "basis": "MEASURED HERE (the card of 2026-10-23, at its carried fader +8.13 = piece 6's trim −3.87 + his +12 by hand there): brought to the standard at his \"a\" (2026-10-23, RUNNING_LOG §23) — every instrument at one level; piece 6's own figure was −3.87",
+   "byHand": null
   }
  ],
  "headroom": {
