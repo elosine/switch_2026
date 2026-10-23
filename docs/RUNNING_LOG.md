@@ -480,3 +480,24 @@ was −3.87: the same instance, 0.11 dB apart). `bank/trims.json` carries the ro
 and run; read back −3.76. **The rack is at one standard:** every instrument at velocity 127 at −31.84 dB on the card's scale (the six
 carried Abbey Road possibly 1.5 … 3 dB over — NITS). **Container 5's composing demo is done but for his ear** on a chord; the QC battery
 (5.9) not built — not asked.
+
+## §24. Container 6 — the notation set-up: his three calls, the registry, the test page (2026-10-23)
+
+His calls (put as three lettered questions; *"a, b but can this be reversed later when it comes time to notate?, perc for both no vib
+and rest ok"*): **(1) a — transposed** · **(2) b — the unpitched percussion gets its own staff**, and yes, reversible: the staff is one
+entry of `notation/registry/ensemble.json`, Decibel's hidden one-line form one edit away · **(3) the short names as offered, but "Perc"
+for BOTH percussion staves** (not "Vib"). **The registry (6.0)** — `ensemble.json` for eight parts: Fl · Cl (+2, B♭) · A.Sx (+9, E♭) ·
+Perc (piece 6's OWN eight-line Bone-Alphabet staff of its 755ed29, for the same eight Abbey Road instruments this rack carries —
+PROVISIONAL until his instruments from the call's list) · Perc (the pitched five-line staff, treble) · Pno (piece 4's grand staff, one
+lane, split at middle C) · Vn · Vc; groups: the winds bracketed · the percussionist's two staves in a joined BRACE · the piano's brace ·
+the strings bracketed; META 8, curves 9 · 10 · 11. The composer page's TRACKS shorts follow (`A.Sx`, `Perc` — the extractor refuses a
+registry whose shorts differ). **THE PRESENTATION SCORE IN C** (`notation/registry/container.json`, realization `video`: the clarinet
+and the sax at transpose 0) — the lineage's form, read as part of his "a" (the working page transposed, the presentation in C, as
+Decibel); his to reverse by deleting those two rows. Found because the app THREW on piece 6's override row for `bass_clarinet`.
+**6.4 save → IR:** `notate_section.js` on `switch-first-sound` (the tool-written save; the app-written page with real material is owed
+at his first music, as in piece 6) → `notation/ir/switch-test.ir.json` (the folder made — piece 6's pages stayed): **VALID vs source**,
+18 events, in the picker. **Looked at** on the throwaway 5601 (the app) and **through the film's own renderer** (`export_video.js
+--probe 3,6`, resvg): the eight staves in score order, the eight-line staff with its instrument names in the gutter, the two braces,
+the grand staff, the brackets, the notes on the flute and the clarinet. **The gates:** `gen_engraving_rules.js` regenerated the rules
+page → `check_rules` **31 of 32** (rule 8 wants a page with a sequence overlay — piece 6's same red, H6-60) · `palette_check` 202.
+NOT done: the print exporter's page (6.5's second half) and the protocol's 6.6 file discipline — at container 8 / the first music.

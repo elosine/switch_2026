@@ -388,15 +388,7 @@ The size step: ×1.122462 (LilyPond's font-size step 2^(1/6) (§428)) · the com
 Every `engraving` overlay on an event (the per-event hands: `stemDir` · `dxSs` · `dySs` · `beamBreak` · `device` …) in the notation
 files the picker lists. A rung-8 override carries five fields (the object · the property · the value · the rung · his § and date).
 
-- `approaching` — 686 override(s): device ×686
-- `approaching-opening` — 30 override(s): device ×30
-- `approaching-opening-elec` — 30 override(s): device ×30
-- `approaching-threebody` — 177 override(s): device ×177
-- `approaching-threebody-elec` — 177 override(s): device ×177
-- `approaching-trills` — 34 override(s): device ×34
-- `approaching-drones-elec` — 62 override(s): device ×62
-- `approaching-beating` — 60 override(s): device ×60
-- `approaching-strikes` — 323 override(s): device ×323
+- none
 
 ---
 

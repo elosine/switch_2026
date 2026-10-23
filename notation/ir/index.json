@@ -1,0 +1,14 @@
+{
+ "irs": [
+  {
+   "id": "switch-test",
+   "label": "Switch — the first-sound test page",
+   "score": "switch-first-sound",
+   "window": [
+    0,
+    48
+   ],
+   "profile": "trance"
+  }
+ ]
+}

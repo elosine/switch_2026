@@ -1450,12 +1450,12 @@ function expandCellRef(cellDef, startMs, durationMs, behaviorOverrides) {
 const TRACKS = [
     { id: 'flute',      label: 'Flute',      short: 'Fl',   instKey: 'flute' },
     { id: 'clarinet',   label: 'Clarinet',   short: 'Cl',   instKey: 'clarinet' },
-    { id: 'alto_sax',   label: 'Alto Sax',   short: 'Sax',  instKey: 'alto_sax' },
+    { id: 'alto_sax',   label: 'Alto Sax',   short: 'A.Sx', instKey: 'alto_sax' },
     { id: 'percussion', label: 'Percussion', short: 'Perc', instKey: 'percussion' },
     // THE PITCHED PERCUSSION LANE — the vibraphone (the call's list; the glockenspiel beside it is container 4's question).
     // The id and the key are piece 5's and 6's, kept on purpose: the engine's tools know the pitched lane by `bowed_vibraphone`
     // (docs/NAMING.md § 1). Same PLAYER as Percussion: two lanes, joined by a BRACE in the score.
-    { id: 'vibraphone', label: 'Vibraphone', short: 'Vib',  instKey: 'bowed_vibraphone' },
+    { id: 'vibraphone', label: 'Vibraphone', short: 'Perc', instKey: 'bowed_vibraphone' },   // short = Perc, his word 2026-10-23 (one player, two staves)
     { id: 'piano',      label: 'Piano',      short: 'Pno',  instKey: 'piano' },
     { id: 'violin',     label: 'Violin',     short: 'Vn',   instKey: 'violin' },
     { id: 'cello',      label: 'Cello',      short: 'Vc',   instKey: 'cello' },

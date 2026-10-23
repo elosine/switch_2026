@@ -1,68 +1,125 @@
 {
- "_doc": "THE ENSEMBLE — the Decibel piece's parts as notation data (container 6, 6.0, 2026-10-04 — RUNNING_LOG §45; the shape and every mechanism are piece #5's and #6's). Indexed by the composer score's LAYER, which is the IR's \"part\". Read by layout.js (clef, written pitch, staves), coords.js (the frame, the joined lane) and tools/notate_section.js.",
+ "_doc": "THE ENSEMBLE — the Switch~ piece's parts as notation data (container 6, 6.0, 2026-10-23 — RUNNING_LOG §24; the shape and every mechanism are pieces 4 · 5 · 6's). Indexed by the composer score's LAYER, which is the IR's \"part\". Read by layout.js (clef, written pitch, staves), coords.js (the frame), the extractor (the check below).",
  "_check": "tools/notate_section.js refuses to extract when a part's `id` or `short` differs from the score's tracks[part] — the registry cannot drift from the composer score silently. The ids and shorts below are composer.html's TRACKS exactly; tools/palette_check.js guards the other direction.",
- "metaLayer": 6,
+ "metaLayer": 8,
  "curveLayers": [
-  7,
-  8,
-  9
+  9,
+  10,
+  11
  ],
- "_layersNote": "composer.html: META_LAYER = 6 (= tracks.length), CURVE_LAYERS = [7, 8, 9] (the curve windows A / B / C, over the last three lanes — Mallets · Viola · Cello). Neither is a part; the extractor's default parts are 0 … 5. layoutVersion 8.",
+ "_layersNote": "composer.html: META_LAYER = 8 (= tracks.length), CURVE_LAYERS = [9, 10, 11] (the curve windows A / B / C, over Piano · Violin · Cello). Neither is a part.",
  "_transposeConvention": "WRITTEN = SOUNDING + transpose semitones (layout.js line 75, and applied at line 965 — read in the code, not taken from a comment, during the port). The IR is always SOUNDING pitch (#5's D9); the shift happens at layout only, and the note is spelled from the written pitch. Piece #5's bass clarinet (+14, written a major ninth above sounding) is the precedent that fixes the sign.",
- "_pitchForm": "A TRANSPOSED score — the lineage's form, carried (piece #5: the bass clarinet in B♭, treble clef, his word 2026-09-11). Put to him 2026-10-04 as the one call of 6.0; his to reverse: \"in C\" is `transpose` removed from parts 0 and 1.",
+ "_pitchForm": "A TRANSPOSED score — his \"a\" (2026-10-23, RUNNING_LOG §24): the clarinet in B♭ (+2), the alto sax in E♭ (+9). \"In C\" = `transpose` removed from parts 1 and 2.",
  "parts": [
   {
    "part": 0,
-   "id": "bass_flute",
-   "short": "BFl",
+   "id": "flute",
+   "short": "Fl",
    "clef": "treble",
-   "transpose": 12,
-   "_transposeNote": "The bass flute sounds an OCTAVE below written: written = sounding + 12, treble clef — the instrument's standard notation. Sounding range C3–D6 (MIDI 48–86, measured 2026-10-04) = written C4–D7."
+   "_clefNote": "Flute in C, treble, non-transposing. The piccolo / alto flute doublings are not taken (D1)."
   },
   {
    "part": 1,
-   "id": "bass_clarinet",
-   "short": "BCl",
+   "id": "clarinet",
+   "short": "Cl",
    "clef": "treble",
-   "transpose": 14,
-   "_transposeNote": "B♭ bass clarinet in treble clef (the French notation — his word in piece #5, 2026-09-11, its RUNNING_LOG §382): written a major ninth (14 semitones) above sounding. The IR keeps SOUNDING pitch; the shift is applied at layout only."
+   "transpose": 2,
+   "_transposeNote": "B♭ clarinet: written a major second (2 semitones) ABOVE sounding — the SI2 manual: \"Instrument part to be written a major second higher\". The IR keeps SOUNDING pitch (piece 4's D9); the shift is applied at layout. In C = this field removed."
   },
   {
    "part": 2,
-   "id": "percussion",
-   "short": "Perc",
+   "id": "alto_sax",
+   "short": "A.Sx",
    "clef": "treble",
-   "staff": {
-    "noClef": true,
-    "hidden": true,
-    "lines": [
-     {
-      "short": "Perc",
-      "match": "*",
-      "instrument": "every unpitched instrument — NO STAFF (DEC-88): one hidden line at the lane's middle"
-     }
-    ]
-   },
-   "_staffNote": "NO UNPITCHED STAFF (his word 2026-10-09, COMPOSITION_NOTES DEC-88: \"no non pitched perc staff, just the single staff for pitched percussion and re adjust all the lane heights\"; RUNNING_LOG §300 · §302). The eight-line staff of container 6 (§45, after piece #6's Bone Alphabet staff) is OUT. The part keeps a LINED staff of ONE line, `hidden` — never drawn, no line name in the gutter — so the extractor still treats it as unpitched (a note sits on the line, at the lane's middle, never at a pitch) until its graphic signs are designed (PLAN 2.3). `lines` stays a LIST: the stack tells an unpitched part by it (tools/notate_section.js · tools/check_rules.js); `match` \"*\" takes every technique."
+   "transpose": 9,
+   "_transposeNote": "E♭ alto saxophone: written a major sixth (9 semitones) ABOVE sounding — the SI2 manual: \"Instrument part to be written a major sixth higher\". In C = this field removed."
   },
   {
    "part": 3,
-   "id": "vibraphone",
-   "short": "Mal",
+   "id": "percussion",
+   "short": "Perc",
    "clef": "treble",
-   "_clefNote": "THE MALLETS — crotales · glockenspiel · xylophone · marimba, all four on this ONE five-line staff (his word, DEC-5). Treble clef, NO transposition in the registry: the Ricotti library maps every one of the four at its WRITTEN pitch (crotales C4–C6 · glockenspiel G3–C6 · xylophone F3–B6 · marimba C2–C7 as keyed), so the key the score sends IS the note to write — the crotales and the glockenspiel SOUND two octaves higher, the xylophone one, the marimba as written. Which instrument a note is for, and two at once (\"opposite beaming or something like that\"), is a DEVICE SHEET when the music reaches it (6.7). The marimba below middle C wants a bass clef; he is unlikely to use it. The part id is still \"vibraphone\" and the recipe key \"bowed_vibraphone\" — piece #6's, kept (docs/NAMING.md § 1).",
-   "noLabel": true,
-   "_labelNote": "The percussionist's lane carries ONE label, the percussion part's \"Perc\" (the lead of the overlaid group); `noLabel` keeps this part's \"Mal\" out of the gutter. Its `short` stays the score's (tools/notate_section.js checks it against tracks[3])."
+   "weight": 1.888,
+   "staff": {
+    "gapSs": 2,
+    "noClef": true,
+    "lines": [
+     {
+      "short": "Coil",
+      "match": "small_metals_spring_coil",
+      "instrument": "spring coil"
+     },
+     {
+      "short": "Bgo",
+      "match": "bongos",
+      "instrument": "bongos"
+     },
+     {
+      "short": "SusCym",
+      "match": "susp_cymbals_bright",
+      "instrument": "suspended cymbal (16\", bright)"
+     },
+     {
+      "short": "Shime",
+      "match": "shime_daiko",
+      "instrument": "shime daiko (or a snare drum — PERFORMANCE_NOTES #5)"
+     },
+     {
+      "short": "China",
+      "match": "china_cymbals",
+      "instrument": "China cymbal"
+     },
+     {
+      "short": "Toms",
+      "match": "toms_high",
+      "instrument": "toms"
+     },
+     {
+      "short": "WB",
+      "match": "wood_blocks",
+      "instrument": "wood blocks"
+     },
+     {
+      "short": "BD",
+      "match": "bass_drum_alt",
+      "instrument": "bass drum"
+     }
+    ]
+   },
+   "_staffNote": "THE UNPITCHED STAFF — his \"b\" (2026-10-23, RUNNING_LOG §24: \"can this be reversed later when it comes time to notate?\" — yes: this entry is the whole of it; Decibel's hidden one-line form is one edit). PROVISIONAL: piece 6's eight-line staff of 2026-10-04 (its 755ed29, after Ferneyhough's Bone Alphabet — one line per instrument, 2 ss apart, no clef, the short names in the gutter, a note ON the line of its instrument by its technique key's prefix), for the SAME eight Abbey Road instruments this rack carries (bank/perc_selection.json). His instruments from the call's list (D10) replace the lines when chosen; the order is then his. | piece 6: THE UNPITCHED STAFF, piece #6's type (after Ferneyhough's Bone Alphabet — one line per instrument, 2 ss apart, no clef, the short names in the gutter, a note ON the line of its instrument by its technique key's prefix): EIGHT lines here, for his TENTATIVE list of 2026-10-04 (COMPOSITION_NOTES DEC-6). THE ORDER IS PROVISIONAL AND THE AI'S — his rule of piece #6 applied as far as eight instruments allow (\"high to low, no two neighbours of one material\"): metal · skin · metal · skin · metal · skin · wood · skin. A staff type's design is HIS (the protocol's 6.2): put to him; reordering is this list."
   },
   {
    "part": 4,
-   "id": "viola",
-   "short": "Va",
-   "clef": "alto",
-   "_clefNote": "Alto clef, as piece #5. A treble clef for a high stretch is the clefs-by-register item (the protocol's 6.10), not built."
+   "id": "vibraphone",
+   "short": "Perc",
+   "clef": "treble",
+   "_clefNote": "THE PITCHED PERCUSSION — every pitched instrument he owns on this ONE five-line staff (D10: the vibraphone, the glockenspiel, the crotales, the xylophone, the marimba). Treble clef, NO transposition in the registry: the Ricotti library maps every one of the four at its WRITTEN pitch (crotales C4–C6 · glockenspiel G3–C6 · xylophone F3–B6 · marimba C2–C7 as keyed), so the key the score sends IS the note to write — the crotales and the glockenspiel SOUND two octaves higher, the xylophone one, the marimba as written. Which instrument a note is for, and two at once (\"opposite beaming or something like that\"), is a DEVICE SHEET when the music reaches it (6.7). The marimba below middle C wants a bass clef; he is unlikely to use it. The part id is still \"vibraphone\" and the recipe key \"bowed_vibraphone\" — piece #6's, kept (docs/NAMING.md § 1).",
+   "_shortNote": "His word (2026-10-23): \"perc for both no vib\" — the pitched lane is named Perc in the gutter like the unpitched one: one player, two staves, a brace. The id `vibraphone` and the recipe key `bowed_vibraphone` stay (NAMING § 1)."
   },
   {
    "part": 5,
+   "id": "piano",
+   "short": "Pno",
+   "weight": 1.576,
+   "splitMidi": 60,
+   "staves": [
+    {
+     "clef": "treble"
+    },
+    {
+     "clef": "bass"
+    }
+   ],
+   "_stavesNote": "ONE lane, taller (composer 2026-09-11, RUNNING_LOG §382): a grand staff inside the one-lane-per-part model. weight 1.576 (§401k, was 2): the two staves sit 6 ss apart (container grandStaff.interStaffGapSs), centred in the lane, and the lane holds exactly the air a single player's lane has above and below its staff — lane = unit + 4 + 6 ss, so w = 1 + 10/u with u = 131.6/(6 + w) → u 17.37 ss, w 1.576. The other six lanes grow from 16.46 to 17.37 ss (+5.5 %). A note at or above splitMidi (middle C) goes on the upper staff, below it on the lower — the plain rule; a per-note override is later work."
+  },
+  {
+   "part": 6,
+   "id": "violin",
+   "short": "Vn",
+   "clef": "treble"
+  },
+  {
+   "part": 7,
    "id": "cello",
    "short": "Vc",
    "clef": "bass",
@@ -74,25 +131,32 @@
    "kind": "bracket",
    "parts": [
     0,
-    1
+    1,
+    2
    ]
   },
   {
-   "kind": "lane",
+   "kind": "brace",
    "parts": [
-    2,
-    3
+    3,
+    4
    ],
    "joined": true,
-   "overlay": true
+   "gapSs": 6
+  },
+  {
+   "kind": "brace",
+   "parts": [
+    5
+   ]
   },
   {
    "kind": "bracket",
    "parts": [
-    4,
-    5
+    6,
+    7
    ]
   }
  ],
- "_groupsNote": "Score order top to bottom: the two winds in a bracket · the ONE percussionist's two parts (Percussion, Mallets) JOINED AND OVERLAID — one lane of the frame, one staff position, the mallets' treble staff, the unpitched part on its hidden line at the same middle (PLAN 2.1, RUNNING_LOG §302; kind \"lane\" draws no bracket and no brace) · the two strings in a bracket. FIVE LANES, all of weight 1. NO STAFF FOR THE ELECTRONICS (journal D8): every electronic sound is drawn on the lane of the player it comes from."
+ "_groupsNote": "Score order top to bottom: the three winds in a bracket · the ONE percussionist's two parts (the unpitched staff, the pitched staff) in a BRACE, joined into one lane of the frame, 6 ss apart (piece 6's 755ed29) · the piano's grand staff (piece 4) · the two strings in a bracket. NO STAFF FOR THE ELECTRONICS (piece 6's D8). THE WEIGHTS (the percussion 1.888, the piano 1.576) are the earlier pieces' arithmetic for their own lane counts — provisional until the page is looked at."
 }
