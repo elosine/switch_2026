@@ -3,9 +3,9 @@
 <!-- card:switch -->
 <!-- Chief of Staff card: the PA keeps it current from its scan of this repo (home-management/tools/scan.js); a session here may update it too. Plain words, one line each. List: home-management/docs/PROJECTS.md. -->
 > **▶ Where I left off** · updated 2026-10-23
-> - **Last:** container 4 — the rack is sounds-ready: clarinet + sax loaded, curves and recipes set (Oct 21).
+> - **Last:** calibration pre-flight done — levels set, the recording rig passes its dry run (Oct 23).
 > - **Decided:** clarinet + alto sax on SI2 (D10); two percussion lanes.
-> - **Next:** your first sound (4.6) — start the score server, open the composer in Chrome, play each lane, say which sound.
+> - **Next:** the measuring run (~11 min, hands off) — first your call on the violin round robin: (a) as is, or (b) a round-robin-off copy first.
 <!-- /card -->
 
 > One file. Seven sections. Everything important lives here.
