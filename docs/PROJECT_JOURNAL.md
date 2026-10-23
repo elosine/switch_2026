@@ -1,13 +1,5 @@
 # PROJECT JOURNAL — switch_2026 (the Switch~ piece)
 
-<!-- card:switch -->
-<!-- Chief of Staff card: the PA keeps it current from its scan of this repo (home-management/tools/scan.js); a session here may update it too. Plain words, one line each. List: home-management/docs/PROJECTS.md. -->
-> **▶ Where I left off** · updated 2026-10-23
-> - **Last:** calibration pre-flight done — levels set, the recording rig passes its dry run (Oct 23).
-> - **Decided:** clarinet + alto sax on SI2 (D10); two percussion lanes.
-> - **Next:** the measuring run (~11 min, hands off) — first your call on the violin round robin: (a) as is, or (b) a round-robin-off copy first.
-<!-- /card -->
-
 > One file. Seven sections. Everything important lives here.
 > §2 is read at every session start — keep it ~40 lines; trim old sessions to one line each.
 > The lab journal (`RUNNING_LOG.md`) is the raw trail underneath; this is the curated state.
