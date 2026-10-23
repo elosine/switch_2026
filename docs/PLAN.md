@@ -54,7 +54,7 @@ spectral chords* · *the flute's higher partials made audible* — and the brief
 | 2 The repo and its kit | yes — every piece | `done` 2026-10-20 | RUNNING_LOG §1 … §4 |
 | 3 The engine copied forward | yes — from piece 6 | `done` 2026-10-20 — the copy 462 / 462 by blob hash · proven whole (45 batteries, 15 red classified) · the fixes (seven piece-5 tools retired) · EIGHT lanes (D7) on 5600 / 5100 · provisional recipes · the engine seated by subtree (D8) · verified in the running app (the throwaway 5601) | RUNNING_LOG §5 … §10 · § 0.3 below |
 | 4 The instruments | yes | `done` 2026-10-23 — the read-out (`docs/INSTRUMENTS_READOUT.md`) · 14 `SW` ports by the AI · 24 tracks cloned from three racks + his SI2 loads · the state as text · the recipes derived · the first sound, his "all lanes play" | RUNNING_LOG §13 … §20 · `docs/RACK_SETTINGS.md` § 0 |
-| 5 The calibration | yes | `► next` — the pre-flight (the SI2 masters, the flute's Dynamic, the round robins), then the card; H6-29 … H6-34 | |
+| 5 The calibration | yes | `done` 2026-10-23 for a composing demo — the pre-flight · the card (79/79, the chain proven on the cello) · every instrument at one standard (his "a") · five dynamics curves · dyn_table 52 | RUNNING_LOG §21 … §23 · NITS |
 | 7 The composing tools made the piece's | yes — one at a time, at compositional need | `todo` — H6-39 … H6-41 | |
 | 6 The notation set-up — the animated scrolling score | yes | `todo` — the three calls BEFORE 6.0 (H6-35); H6-36 … H6-38 | |
 | 8 The deliverables pipeline — the animated scrolling score | yes | `todo` — H6-42 · H6-43 (the take as the audio route; anonymous) | |

@@ -61,7 +61,11 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
-### SESSION 1 CLOSES ON THIS (2026-10-23) — containers 2, 3 and 4 done: ALL LANES SOUND; container 5 next
+### SESSION 1 CLOSES ON THIS (2026-10-23) — containers 2 … 5 done: all lanes sound, at one level; container 6 next
+
+- **2026-10-23 — CONTAINER 5 DONE (RUNNING_LOG §21 … §23):** the card, the trims, the curves; the cello to the standard at his "a". **Next:
+  container 6, the notation set-up — HIS THREE CALLS FIRST (H6-35):** the pitch form · the percussion staff · the short names; then 6.0 the
+  registry for the eight parts (the piano's grand staff from piece 4) and 6.4 save → IR proved.
 
 - **2026-10-23 — CONTAINER 4 DONE (RUNNING_LOG §13 … §20):** the read-out (`docs/INSTRUMENTS_READOUT.md`) · fourteen `SW` ports · the
   rack `reaper/switch_rack.rpp`, 24 tracks cloned from pieces 4 · 5 · 6 + his SI2 loads (clarinet 13 · alto sax 16 + 6 on a `b` instance) ·
