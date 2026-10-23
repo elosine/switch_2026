@@ -31,8 +31,8 @@ snare · suspended cymbal. The piano may be prepared with non-metallic materials
 - **the roles line (3.3 kind C, ONE lookup):** `piano` = the piano lane (the role is ON — the twelve piano-role modules wake up; the
   roles helper is built at the copy, H6-14) · `percussion` = the percussionist's lane(s), decided at 3.0 (piece 6 gave the
   percussionist two: the unpitched lane and the mallets) · no other role
-- the protocol version run: **v1 — RUN BY PIECE 6's DEVIATIONS REGISTER** (`decibel_TENOR_2026/docs/PROTOCOL_DEVIATIONS.md`, the
-  "for v2" lines, never written back — H6-1); this start's own register is `docs/PROTOCOL_DEVIATIONS.md`; 10.0 at its end writes v2
+- the protocol version run: **v1, run by piece 6's deviations register — and the start's 10.0 WROTE v2** (2026-10-23, RUNNING_LOG §25):
+  the home's `protocol/NEW_PIECE_PROTOCOL.md` is v2; this start's register `docs/PROTOCOL_DEVIATIONS.md` is written back
 - **the call's own lines:** the submission anonymous · 5 … 15 minutes · the tech on offer (close mics + DSP · video projection · quad
   diffusion · up to 3 networked cameras · click tracks · networked computing) — what the piece takes of it is the music's, by the
   sketch pad
@@ -49,7 +49,7 @@ the harmonics piano) · the percussion from piece 2's Abbey Road catalog by piec
 piece 4's Xsample strings · the cello from piece 6's, measured. Xsample on this machine is the bass clarinet and the solo strings
 ONLY (checked 2026-10-20): its clarinet and sax are not owned.
 
-**State of the piece (keep this line ONE line — H6-4; the history is the logs):** **► 2026-10-23 (RUNNING_LOG §21 … §24): CONTAINERS 4 · 5 DONE, 6 SET UP — all lanes sound at one level; the score's registry for eight parts (transposed, the presentation in C; the unpitched staff provisional), a test page valid. THE START IS DONE BUT 10.0 (the protocol's write-back). NEXT: the music — or 10.0 first (journal §2). HE starts loopMIDI before Reaper.**
+**State of the piece (keep this line ONE line — H6-4; the history is the logs):** **► 2026-10-23 (RUNNING_LOG §1 … §25): THE START IS DONE — the kit, the copy, the rack sounding at one level, the score set up for eight parts, the protocol taught (v2). Nothing composed. NEXT: the music — his (the sketch pad; PLAN § 1 is laid out when he reaches it). HE starts loopMIDI before Reaper.**
 
 ## READ FIRST — how to work here
 

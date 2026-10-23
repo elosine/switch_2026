@@ -501,3 +501,21 @@ at his first music, as in piece 6) → `notation/ir/switch-test.ir.json` (the fo
 the grand staff, the brackets, the notes on the flute and the clarinet. **The gates:** `gen_engraving_rules.js` regenerated the rules
 page → `check_rules` **31 of 32** (rule 8 wants a page with a sequence overlay — piece 6's same red, H6-60) · `palette_check` 202.
 NOT done: the print exporter's page (6.5's second half) and the protocol's 6.6 file discipline — at container 8 / the first music.
+
+## §25. 10.0 — THE PROTOCOL IS v2; THE START IS DONE (2026-10-23, Fable; his "a")
+
+His "a" to "the write-back now". One sitting: the two registers read line by line — piece 6's (nineteen table rows and six bullets,
+2026-10-04, never written back) and this piece's (thirty rows, 2026-10-20 … 23) — and written into `composition-system/protocol/
+NEW_PIECE_PROTOCOL.md` as dated "v2 entries" under the steps they touch: container 1 (the next piece runs an unclosed harvest; the IDs
+carry the piece's number) · 2 (the profile in plain words, the seat and roles lines, the lanes row, the memory folder copied, the notes
+gathered) · 3 (the classifier as the template lists; read-at-start greps; the blob hash; two staging passes; the fixes commit; the
+roles = the lookup; the engine's take between 3.4 and 3.5) · 4 (4.0 the read-out; the ports by PowerShell, loopMIDI his or detached,
+`midi_reinit`; the clone from every rack; the VST2 names; the Dynamic as text; the parts derived) · 5 (the cross-check carries the
+reference; the pre-flight plays the whole card; `{port, ch}`; the CC7 law is the plugin's; the tools' lists for v3) · 6 (the three
+calls before, lettered, reversible; grep the registries for the source's part ids; `mkdir notation/ir`; the film probe) · 9 (the
+knowledge base's first page; `uvi.md`) · 10 (the write-back is the start's LAST STEP — skipped once, never again). The version line:
+v2. The open list: the engine's home and the Decibel score type PLACED; still open — the sandbox kind's middle, the font, the QC
+battery, the measuring tools' lists, the pieces' numbers in the home. `BACKLOG.md`: H6-46 … H6-53. `INDEX.md`: rows 7 · 8, the protocol
+refreshed, `uvi.md`, the read-out as the knowledge base's first page. The home pushed (`2185de3`).
+**THE START OF THE SWITCH~ PIECE IS DONE** — containers 1 … 6 and 10.0, 2026-10-20 … 23, four sittings: the kit · the copy · the rack
+sounding at one level · the score set up · the protocol taught. Containers 7 and 8 run with the music. **Next: the music — his.**

@@ -5,8 +5,10 @@
 > `COMPOSITION_NOTES.md` verbatim first and get folded into a tier here. Engineering
 > detail stays in `PLAN.md`. Rewritten freely; the sketch pad is the append-only record.
 
-**NOW ►** 2026-10-20 — container 3 done: the stack is here, eight lanes on 5600 / 5100, the engine seated, nothing sounds. Next: container 4,
-the instruments — 4.0 the read-out per instrument with him, then the rack; journal §2's "SESSION 1 CLOSES ON THIS" is the cold-start block.
+**NOW ►** 2026-10-23 — THE START IS DONE: the rack sounds at one level, the score is set up for eight parts, the protocol is v2. Nothing
+composed. Next: the music — his; journal §2's "SESSION 1 CLOSES ON THIS" is the cold-start block.
+
+*Before it —* 2026-10-20 — container 3 done: the stack here, eight lanes on 5600 / 5100, the engine seated.
 
 *Before it —* 2026-10-20 — the kit in (container 2); before that the repo was two files; the protocol found, the notes gathered, the harvest of piece 6 read.
 

@@ -60,8 +60,8 @@ spectral chords* · *the flute's higher partials made audible* — and the brief
 | 8 The deliverables pipeline — the animated scrolling score | yes | `todo` — H6-42 · H6-43 (the take as the audio route; anonymous) | |
 
 *Outside this table:* container 1 (the harvest) ☑ run in piece 6's repo, 2026-10-20 · 9 (the collation) is the home's index, read at
-every session start — H6-44 · H6-45 are its lines, pinned when a container fetches them · 10 (the upkeep) closes this section — 10.0 at
-the end of the start (BOTH runs' deviations → v2; the eight LATER items → `BACKLOG.md`), 10.1 at the piece's close.
+every session start — the read-out and `uvi.md` pinned there 2026-10-23 · **10.0 ☑ 2026-10-23 — the protocol is v2** (both runs' registers
+written back; the eight LATER items in `BACKLOG.md`; RUNNING_LOG §25) · 10.1 at the piece's close. **THE START IS DONE.**
 
 **The engine, in this piece's start.** The live electronics are NOT a container of the protocol. The engine is TAKEN after container
 3 (`live-electronics-system/docs/TAKE.md`: `git subtree add --prefix=electronics engine main`, the seams of `docs/SEAMS.md` applied

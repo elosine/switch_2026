@@ -61,7 +61,13 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
-### SESSION 1 CLOSES ON THIS (2026-10-23) — containers 2 … 6 done: THE START IS DONE but 10.0
+### SESSION 1 CLOSES ON THIS (2026-10-23) — THE START IS DONE (containers 1 … 6 and 10.0); next: the music
+
+- **2026-10-23 — 10.0 DONE (RUNNING_LOG §25): the protocol is v2** in the home, both runs' lessons written in; the backlog and the index
+  refreshed. **THE START OF THE PIECE IS DONE.** Nothing composed. **► THE NEXT CONCRETE STEP IS HIS: the music.** When he opens it, PLAN
+  § 1 is laid out by `docs/PLANNING_METHOD.md` from the sketch pad (SW-c2 the two musics · SW-c1 the flute's partials · SW-1 the tremolo
+  experiment · LG-340 … 345 the electronics' brief); the first tool he reaches for runs container 7's loop (7.0 the law read first).
+  `Resume reads:` CLAUDE.md · `docs/COMPOSITION_NOTES.md` · `docs/PLANNER.md`. Fable for the talk.
 
 - **2026-10-23 — CONTAINER 6 SET UP (RUNNING_LOG §24):** the registry for eight parts, his three calls, the test page. **What is left of the
   start: 10.0 — the deviations of BOTH runs (piece 6's register and this one's) written into the protocol as v2, the eight LATER
