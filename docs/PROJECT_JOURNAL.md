@@ -61,7 +61,11 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
-### SESSION 1 CLOSES ON THIS (2026-10-23) — containers 2 … 5 done: all lanes sound, at one level; container 6 next
+### SESSION 1 CLOSES ON THIS (2026-10-23) — containers 2 … 6 done: THE START IS DONE but 10.0
+
+- **2026-10-23 — CONTAINER 6 SET UP (RUNNING_LOG §24):** the registry for eight parts, his three calls, the test page. **What is left of the
+  start: 10.0 — the deviations of BOTH runs (piece 6's register and this one's) written into the protocol as v2, the eight LATER
+  items to the home's BACKLOG.** Container 7 (the tools) and 8 (the deliverables) run with the music.
 
 - **2026-10-23 — CONTAINER 5 DONE (RUNNING_LOG §21 … §23):** the card, the trims, the curves; the cello to the standard at his "a". **Next:
   container 6, the notation set-up — HIS THREE CALLS FIRST (H6-35):** the pitch form · the percussion staff · the short names; then 6.0 the

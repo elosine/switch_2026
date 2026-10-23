@@ -56,7 +56,7 @@ spectral chords* · *the flute's higher partials made audible* — and the brief
 | 4 The instruments | yes | `done` 2026-10-23 — the read-out (`docs/INSTRUMENTS_READOUT.md`) · 14 `SW` ports by the AI · 24 tracks cloned from three racks + his SI2 loads · the state as text · the recipes derived · the first sound, his "all lanes play" | RUNNING_LOG §13 … §20 · `docs/RACK_SETTINGS.md` § 0 |
 | 5 The calibration | yes | `done` 2026-10-23 for a composing demo — the pre-flight · the card (79/79, the chain proven on the cello) · every instrument at one standard (his "a") · five dynamics curves · dyn_table 52 | RUNNING_LOG §21 … §23 · NITS |
 | 7 The composing tools made the piece's | yes — one at a time, at compositional need | `todo` — H6-39 … H6-41 | |
-| 6 The notation set-up — the animated scrolling score | yes | `todo` — the three calls BEFORE 6.0 (H6-35); H6-36 … H6-38 | |
+| 6 The notation set-up — the animated scrolling score | yes | `set up` 2026-10-23 — his three calls (transposed, the presentation in C · the unpitched staff · Perc for both) · the registry for eight parts · the test page valid, looked at in the app and the film's renderer · check_rules 31/32. Open: the print page (6.5) · the app-written page at his first music · 6.6 | RUNNING_LOG §24 |
 | 8 The deliverables pipeline — the animated scrolling score | yes | `todo` — H6-42 · H6-43 (the take as the audio route; anonymous) | |
 
 *Outside this table:* container 1 (the harvest) ☑ run in piece 6's repo, 2026-10-20 · 9 (the collation) is the home's index, read at

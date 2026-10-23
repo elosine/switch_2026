@@ -49,7 +49,7 @@ the harmonics piano) · the percussion from piece 2's Abbey Road catalog by piec
 piece 4's Xsample strings · the cello from piece 6's, measured. Xsample on this machine is the bass clarinet and the solo strings
 ONLY (checked 2026-10-20): its clarinet and sax are not owned.
 
-**State of the piece (keep this line ONE line — H6-4; the history is the logs):** **► 2026-10-23 (RUNNING_LOG §21 … §24): CONTAINERS 4 · 5 DONE — all lanes sound, every instrument at one standard level (his "a"); the rack HIS (CTRL+S). NEXT: container 6, the notation set-up — his three calls first (journal §2). HE starts loopMIDI before Reaper.**
+**State of the piece (keep this line ONE line — H6-4; the history is the logs):** **► 2026-10-23 (RUNNING_LOG §21 … §24): CONTAINERS 4 · 5 DONE, 6 SET UP — all lanes sound at one level; the score's registry for eight parts (transposed, the presentation in C; the unpitched staff provisional), a test page valid. THE START IS DONE BUT 10.0 (the protocol's write-back). NEXT: the music — or 10.0 first (journal §2). HE starts loopMIDI before Reaper.**
 
 ## READ FIRST — how to work here
 
