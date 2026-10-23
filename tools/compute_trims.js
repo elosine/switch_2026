@@ -75,7 +75,7 @@ const perVoiceK = perVoiceLufs - K_TO_LUFS;
 // current trims: pitched from the recipe's balanceDb, percussion from the rack store
 const percByCatalog = {};
 for (const t of PERC.tracks) if (t.catalog) percByCatalog[t.catalog] = t;
-const PITCHED = new Set(['bass_flute', 'bass_clarinet', 'viola', 'cello']);   // the Decibel rack's HELD instruments (2026-10-04): measured by the integrated figure; the mallets and the percussion are struck — the loudest 400 ms
+const PITCHED = new Set(['flute', 'clarinet', 'alto_sax', 'violin', 'cello']);   // the SWITCH~ rack's HELD instruments (2026-10-23); was piece 6's   // the Decibel rack's HELD instruments (2026-10-04): measured by the integrated figure; the mallets and the percussion are struck — the loudest 400 ms
 // AN INSTRUMENT WHOSE REGISTER IS CORRECTED BY CC7 RATHER THAN BY VELOCITY (1b.4, his approval 2026-09-19;
 // RUNNING_LOG §87). Its fader must reference the QUIETEST pitch at fff, not the mean, because CC7 can only
 // ATTENUATE: every other bar has to sit above the target for the trim to bring it down. Referenced to the

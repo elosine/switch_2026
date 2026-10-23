@@ -32,7 +32,11 @@ try { P5 = JSON.parse(execFileSync('git', ['-C', path.resolve(ROOT, '..', 'septe
 for (const key of ONLY) {
   const e = neu.instruments[key]; if (!e) { console.error(key + ': not in ' + FROM + ' (' + (neu.notRemapped && neu.notRemapped[key] || 'absent') + ')'); process.exit(1); }
   if (!e.cc7Curve) {
-    const p5 = P5 && P5.instruments && P5.instruments[key] && P5.instruments[key].cc7Curve;
+    // THE SWITCH~ RACK (2026-10-23, RUNNING_LOG §22): piece 4 calls its first violin 'violin1'; the two NEW SI2 instruments (clarinet ·
+    // alto sax) take UVI's own CC7 law as piece 5 measured it on its SI2 bassoon (the same plugin, the same Expression block)
+    const ALIAS = { violin: 'violin1' };
+    let p5 = P5 && P5.instruments && P5.instruments[ALIAS[key] || key] && P5.instruments[ALIAS[key] || key].cc7Curve;
+    if (!p5 && ['clarinet', 'alto_sax'].includes(key)) { try { const L5 = JSON.parse(execFileSync('git', ['-C', path.resolve(ROOT, '..', 'septet_LGMF_2026'), 'show', 'HEAD:bank/velocity_remap.json'], { encoding: 'utf8', maxBuffer: 1 << 26 })); p5 = L5.instruments.bassoon && L5.instruments.bassoon.cc7Curve; } catch (e) { } }
     if (p5 && !CC7_FROM) { e.cc7Curve = p5.map(p => ({ cc7: p.cc7, delta: p.delta })); e.cc7Note = 'the fader law that SHAPES A HELD NOTE (D13), MEASURED IN PIECE #5 on this very instance (septet_2026 bank/velocity_remap.json, its sweep of 2026-09-07) and relative to CC7 127 — carried 2026-10-04; it is Kontakt\'s law, the cello\'s line within 0.4 dB.'; }
     else if (CC7_FROM && cur.instruments[CC7_FROM] && cur.instruments[CC7_FROM].cc7Curve) { e.cc7Curve = cur.instruments[CC7_FROM].cc7Curve.map(p => Object.assign({}, p)); e.cc7Note = 'the fader law that SHAPES A HELD NOTE (D13): KONTAKT\'s, taken from the ' + CC7_FROM + '\'s measured curve (piece #6) — not measured on this instrument; three Kontakt instruments measured within 0.4 dB of it.'; }
     else { console.error(key + ': no CC7 law to give it — a drawn note\'s height would not move it'); process.exit(1); }

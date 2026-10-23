@@ -27,19 +27,21 @@ const JOB = path.join(ROOT, 'reaper', 'bridge', 'jobs', 'apply_trims.lua');
 
 // every Reaper track an instrument sounds through. The `b` instances are the same instrument's curve
 // copies; the two `high` tracks are the ReaPitch path of 1a.1 and are NEW since 0d's table.
-const PITCHED_TRACKS = {   // the Decibel rack (2026-10-04); a struck instrument's track comes from bank/perc_rack.json
-    bass_flute: ['Bass Flute XS'],
-    bass_clarinet: ['Bass Clarinet XS'],
-    viola: ['Viola XS'],
+const PITCHED_TRACKS = {   // the SWITCH~ rack (2026-10-23; RUNNING_LOG §22): a UVI instrument's b instance carries its curve copies, so it takes the same trim
+    flute: ['Flute SI2', 'Fluteb SI2'],
+    clarinet: ['Clarinet SI2'],
+    alto_sax: ['Alto Sax SI2', 'Alto Sax SI2 b'],
+    violin: ['Violin XS'],
     cello: ['Cello XS'],
 };
+const STRUCK_TRACKS = { piano: ['Piano Kontakt'] };   // the piano's main voice (measured); its plucked and Prepared Piano tracks unmeasured, left
 const percTrack = {};
 for (const t of PERC.tracks) if (t.catalog) percTrack[t.catalog] = t.track;
 
 const rows = [];
 for (const r of TRIMS.instruments) {
     if (r.skipped) continue;
-    const tracks = r.family === 'pitched' ? PITCHED_TRACKS[r.inst] : (percTrack[r.inst] ? [percTrack[r.inst]] : null);
+    const tracks = r.family === 'pitched' ? PITCHED_TRACKS[r.inst] : (STRUCK_TRACKS[r.inst] || (percTrack[r.inst] ? [percTrack[r.inst]] : null));
     if (!tracks) { console.error('no rack track for ' + r.inst + ' — SKIPPED'); continue; }
     for (const name of tracks) {
         rows.push({ name, faderDb: r.faderDb, extraDb: r.jsVolumeDb || 0, label: r.label,

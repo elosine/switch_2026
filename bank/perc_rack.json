@@ -1,0 +1,129 @@
+{
+ "_doc": "The STRUCK tracks of the Decibel rack — the eight Abbey Road percussion instruments and the four Ricotti mallet instruments: the key the instrument card and bank/trims.json know each by (\"catalog\") → its Reaper track, and the trim it carries. Read by tools/compute_trims.js · tools/gen_apply_trims.js · tools/current_trims.js · probes/analyze_card.py. Written 2026-10-04 from sandbox/instruments.js (RUNNING_LOG §42); \"trimDb\" is updated by hand when bank/trims.json is applied.",
+ "port": "SWPerc",
+ "readAt": "2026-10-04T20:54:49.437Z",
+ "tracks": [
+  {
+   "track": "Bongos ARO",
+   "port": "SWPerc",
+   "channel": 1,
+   "catalog": "bongos",
+   "library": "Spitfire Abbey Road Orchestra Percussion",
+   "trimDb": 4.35,
+   "faderDb": 4.35,
+   "jsVolumeDb": 0
+  },
+  {
+   "track": "Shime Daiko ARO",
+   "port": "SWPerc",
+   "channel": 2,
+   "catalog": "shime_daiko",
+   "library": "Spitfire Abbey Road Orchestra Percussion",
+   "trimDb": 4.92,
+   "faderDb": 4.92,
+   "jsVolumeDb": 0
+  },
+  {
+   "track": "Bass Drum Alt ARO",
+   "port": "SWPerc",
+   "channel": 3,
+   "catalog": "bass_drum_alt",
+   "library": "Spitfire Abbey Road Orchestra Percussion",
+   "trimDb": -4.29,
+   "faderDb": -4.29,
+   "jsVolumeDb": 0
+  },
+  {
+   "track": "Wood Blocks ARO",
+   "port": "SWPerc",
+   "channel": 4,
+   "catalog": "wood_blocks",
+   "library": "Spitfire Abbey Road Orchestra Percussion",
+   "trimDb": 7.05,
+   "faderDb": 7.05,
+   "jsVolumeDb": 0
+  },
+  {
+   "track": "China Cymbal ARO",
+   "port": "SWPerc",
+   "channel": 5,
+   "catalog": "china_cymbals",
+   "library": "Spitfire Abbey Road Orchestra Percussion",
+   "trimDb": -3.99,
+   "faderDb": -3.99,
+   "jsVolumeDb": 0
+  },
+  {
+   "track": "Spring Coil ARO",
+   "port": "SWPerc",
+   "channel": 6,
+   "catalog": "small_metals_spring_coil",
+   "library": "Spitfire Abbey Road Orchestra Percussion",
+   "trimDb": 6.87,
+   "faderDb": 6.87,
+   "jsVolumeDb": 0
+  },
+  {
+   "track": "Suspended Cymbals ARO",
+   "port": "SWPerc",
+   "channel": 7,
+   "catalog": "susp_cymbals_bright",
+   "library": "Spitfire Abbey Road Orchestra Percussion",
+   "trimDb": 7.53,
+   "faderDb": 7.53,
+   "jsVolumeDb": 0
+  },
+  {
+   "track": "Toms ARO",
+   "port": "SWPerc",
+   "channel": 8,
+   "catalog": "toms_high",
+   "library": "Spitfire Abbey Road Orchestra Percussion",
+   "trimDb": -2.99,
+   "faderDb": -2.99,
+   "jsVolumeDb": 0
+  },
+  {
+   "track": "Crotales RM",
+   "port": "SWPerc",
+   "channel": null,
+   "catalog": "crotales",
+   "library": "Spitfire Ricotti Mallets (Kontakt)",
+   "trimDb": -7.18,
+   "faderDb": -7.18,
+   "jsVolumeDb": 0
+  },
+  {
+   "track": "Glockenspiel RM",
+   "port": "SWPerc",
+   "channel": null,
+   "catalog": "glockenspiel",
+   "library": "Spitfire Ricotti Mallets (Kontakt)",
+   "trimDb": -7.21,
+   "faderDb": -7.21,
+   "jsVolumeDb": 0
+  },
+  {
+   "track": "Xylophone RM",
+   "port": "SWPerc",
+   "channel": null,
+   "catalog": "xylophone",
+   "library": "Spitfire Ricotti Mallets (Kontakt)",
+   "trimDb": -5.65,
+   "faderDb": -5.65,
+   "jsVolumeDb": 0
+  },
+  {
+   "track": "Marimba RM",
+   "port": "SWPerc",
+   "channel": null,
+   "catalog": "marimba",
+   "library": "Spitfire Ricotti Mallets (Kontakt)",
+   "trimDb": 9.27,
+   "faderDb": 9.27,
+   "jsVolumeDb": 0
+  }
+ ],
+ "_trimsNote": "the trims of bank/trims.json as applied 2026-10-04 (RUNNING_LOG §42): ten measured in this rack, wood_blocks and bass_drum_alt carried from piece #6.",
+ "_provenance": "Carried from piece 6 (decibel_TENOR_2026 @ 9796edd), 2026-10-23 (RUNNING_LOG §22): the same eight Abbey Road tracks CLONED into this rack, their trims put back on the faders (§21); the port this piece's. readAt is piece 6's."
+}

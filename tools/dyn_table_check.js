@@ -10,7 +10,7 @@ const path = require('path'), fs = require('fs');
 const ROOT = path.join(__dirname, '..');
 const T = require(path.join(ROOT, 'score', 'public', 'dyn_table.js'));
 const BANK = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'velocity_remap.json'), 'utf8'));
-const PITCHED = ['bass_flute', 'bass_clarinet', 'viola', 'cello'];   // the Decibel rack's HELD instruments, each with a measured curve (2026-10-04, RUNNING_LOG §42 · §43)
+const PITCHED = ['flute', 'clarinet', 'alto_sax', 'violin', 'cello'];   // the SWITCH~ rack's HELD instruments, each with a measured curve (2026-10-23, RUNNING_LOG §22); was piece 6's
 let pass = 0, fail = 0;
 const ok = (c, m) => { if (c) { pass++; console.log('  ok   ' + m); } else { fail++; console.log('  FAIL ' + m); } };
 const L = n => T.levelOfName(n);
@@ -54,7 +54,7 @@ for (const k of PITCHED) {
 // 4 — HIS OWN GUESS (LG-51): "a curve going from MP to FF should go … say 65 to 111 in CC7, not up to the full 127"
 const mpff = [T.cc7(BANK, 'cello', L('mp')), T.cc7(BANK, 'cello', L('ff'))];
 ok(mpff[0] === 69 && mpff[1] === 109, 'mp → ff on a Kontakt instrument (cello) = ' + mpff.join(' → ') + ' — his "say 65 to 111"');
-ok(T.cc7(BANK, 'bassoon', L('mp')) === 50 && T.cc7(BANK, 'bassoon', L('ff')) === 100, 'mp → ff on a UVI instrument (bassoon) = 50 → 100 — a different CC7, the SAME dB (its fader law is 40·log10, not 60)');
+ok(T.cc7(BANK, 'clarinet', L('mp')) === 50 && T.cc7(BANK, 'clarinet', L('ff')) === 100, 'mp → ff on a UVI instrument (the clarinet: the UVI law as piece 5 measured it on its bassoon) = 50 → 100 — a different CC7, the SAME dB (its fader law is 40·log10, not 60)');
 // 5 — fractions: a level between two names sits between their values
 for (const k of PITCHED) ok(T.cc7(BANK, k, (L('p') + L('mp')) / 2) > T.cc7(BANK, k, L('p')) && T.cc7(BANK, k, (L('p') + L('mp')) / 2) < T.cc7(BANK, k, L('mp')), k + ': a level between p and mp lands between them');
 // 6 — THE POINT OF THE WHOLE STEP: two ranges of EQUAL DEPTH are no longer the same fader range

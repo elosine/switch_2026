@@ -440,3 +440,32 @@ The how-to `measuring.md` and piece 6's §40 … §43 read first. **Done, as tex
 **Waiting on him:** the run plays nine minutes of notes through the speakers and needs Reaper untouched; the clip pre-flight (two
 minutes, meters only) goes first. And the round robin, his call (the protocol's "stop and ask"): the violin's Xsample ordinary is
 piece 4's preset, round robin as shipped; piece 6 skipped the check at his word.
+
+## §22. Container 5 — the card recorded and the rack trimmed (2026-10-23, Opus; his "a, go")
+
+His answers: *"a"* — the violin measured with its round robin as shipped (piece 6's way) · *"go"*. **The clip pre-flight** (`clip_preflight.ps1
+-Schedule probes/card_schedule.json` — it played the WHOLE card, 537 s, not two minutes, since a schedule was named): loudest the flute's
+`b` instance (its curve copies) at **−1.10 dB**, REC and MASTER the same — **no clipping**, 1.1 dB of margin. **The card** (`card_run.ps1`,
+rolled from 700 s): `reaper/Media/25-REC-261023_1146.wav`, 541 s, 198 MB (gitignored) → `analyze_card.py`: **79 / 79 notes measured,
+every note within 40 cents of its pitch.** At velocity 127, integrated (held) / loudest 400 ms (struck), dBFS at the master, faders as
+they stood: flute −8.72 · clarinet −15.90 · alto sax −13.57 · violin −28.54 · piano −32.09 · wood blocks −29.05 · bass drum alt −30.38.
+**The bends, measured:** flute · clarinet · alto sax 2.00 · 1.99 · 1.99 st (SI2 at ±2) · violin 0.92 st. **The violin's round robin
+shows** as expected: velocity 100 reads 1.3 dB SOFTER than 64 (−35.15 vs −33.89). **THE CROSS-CHECK:** the cello at +8.13 read
+−17.74 · −17.83 · −24.28 against piece 6's figures + 12 (−18.00 · −18.73 · −24.20): **+0.26 · +0.90 · −0.08 dB — the chain IS piece 6's**,
+so its `bank/reference.json` is carried (the K → LUFS offset the trims need). The two Abbey Road clones read HOTTER than in piece 6:
+wood blocks +2.08 … +3.74, bass drum alt +1.47 on every key (a uniform offset, not a round robin) — their disk rack of 10-11 differs
+from the state piece 6 measured on 10-04 (a Spitfire mix setting, at a guess, not read). The two are re-trimmed from THIS card; the
+other six Abbey Road keep piece 6's faders and may sit ~1.5 … 3 dB hot — NITS, his ear.
+**The trims** (`compute_trims.js`, its held set this rack's; `bank/perc_rack.json` carried from piece 6 on `SWPerc`; the target piece
+6's −31.84 dB per voice, kept because the carried trims are exact against it): **flute −23.12 · clarinet −15.94 · alto sax −18.27 ·
+violin −3.30 · piano +0.25 · wood blocks +4.26 · bass drum alt −5.75** — `gen_apply_trims.js` (this rack's tracks: a UVI instrument's `b`
+instance takes its trim; the piano's main track) → `apply_trims.lua` through the bridge, every fader read back. **The remap**
+(`build_remap_card.js` → `remap_merge.js`): five curves merged beside the carried cello's — flute (span 14.0 dB) · clarinet (30.9) · alto
+sax (18.9) · violin (31.1) · piano (16.4); the CC7 law — piece 4's for the flute and piano, piece 5's SI2 bassoon's (UVI's own law) for the
+clarinet and the sax, and for the violin KONTAKT'S as measured on the cello: piece 4's violin law stopped at −25.1 dB, short of ppp's
+−28 (`dyn_table_check` caught it). The tools re-pointed on the way: `card_schedule.js` · `compute_trims.js` · `gen_apply_trims.js` ·
+`remap_merge.js` · `dyn_table_check.js` (its UVI case is the clarinet). **Checks: DYN TABLE 52 · PALETTE 202 · ROSTER green.** REC's
+modes restored (`rec_mode_restore.lua`). Not saved by the AI — his CTRL+S.
+**ONE QUESTION FOR HIM — the cello.** It carries piece 6's fader +8.13: piece 6's trim −3.87 PLUS his +12 by hand there (its §74 · §79 —
+the Xsample instances had sat at Kontakt's −6 default and he found them quiet). Measured here it sits **about 12 dB above the new
+standard** every other instrument is now trimmed to.

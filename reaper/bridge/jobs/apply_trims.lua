@@ -17,22 +17,15 @@
 --   node tools/reaper_job.js run reaper/bridge/jobs/apply_trims.lua
 local JS_NAME = 'utility/volume'
 local TRIMS = {
-  { name = "Bass Flute XS", faderDb = 5.52, extraDb = 0.00 },   -- Bass Flute: was -7.52, +13.04
-  { name = "Bass Clarinet XS", faderDb = -1.16, extraDb = 0.00 },   -- Bass Clarinet: was -13.16, +12.00
-  { name = "Viola XS", faderDb = 6.77, extraDb = 0.00 },   -- Viola: was -5.23, +12.00
-  { name = "Crotales RM", faderDb = -7.18, extraDb = 0.00 },   -- Crotales: was 0.00, -7.18
-  { name = "Glockenspiel RM", faderDb = -7.21, extraDb = 0.00 },   -- Glockenspiel: was 0.00, -7.21
-  { name = "Xylophone RM", faderDb = -5.65, extraDb = 0.00 },   -- Xylophone: was 0.00, -5.65
-  { name = "Marimba RM", faderDb = 9.27, extraDb = 0.00 },   -- Marimba: was 0.00, +9.27
-  { name = "Bongos ARO", faderDb = 4.35, extraDb = 0.00 },   -- Bongos: was 0.00, +4.35
-  { name = "Shime Daiko ARO", faderDb = 4.92, extraDb = 0.00 },   -- Shime Daiko: was 0.00, +4.92
-  { name = "China Cymbal ARO", faderDb = -3.99, extraDb = 0.00 },   -- China Cymbals: was 0.00, -3.99
-  { name = "Spring Coil ARO", faderDb = 6.87, extraDb = 0.00 },   -- Spring Coil: was 0.00, +6.87
-  { name = "Suspended Cymbals ARO", faderDb = 7.53, extraDb = 0.00 },   -- Suspended Cymbals Bright: was 0.00, +7.53
-  { name = "Toms ARO", faderDb = -2.99, extraDb = 0.00 },   -- Toms High: was 0.00, -2.99
-  { name = "Cello XS", faderDb = 8.13, extraDb = 0.00 },   -- Cello: was -3.87, +12.00
-  { name = "Wood Blocks ARO", faderDb = 7.05, extraDb = 0.00 },   -- Wood Blocks: was 7.05, +0.00
-  { name = "Bass Drum Alt ARO", faderDb = -4.29, extraDb = 0.00 },   -- Bass Drum (Alt): was -4.29, +0.00
+  { name = "Flute SI2", faderDb = -23.12, extraDb = 0.00 },   -- Flute: was 0.00, -23.12
+  { name = "Fluteb SI2", faderDb = -23.12, extraDb = 0.00 },   -- Flute: was 0.00, -23.12
+  { name = "Clarinet SI2", faderDb = -15.94, extraDb = 0.00 },   -- Clarinet: was 0.00, -15.94
+  { name = "Alto Sax SI2", faderDb = -18.27, extraDb = 0.00 },   -- Alto Sax: was 0.00, -18.27
+  { name = "Alto Sax SI2 b", faderDb = -18.27, extraDb = 0.00 },   -- Alto Sax: was 0.00, -18.27
+  { name = "Violin XS", faderDb = -3.30, extraDb = 0.00 },   -- Violin: was 0.00, -3.30
+  { name = "Piano Kontakt", faderDb = 0.25, extraDb = 0.00 },   -- Piano: was 0.00, +0.25
+  { name = "Wood Blocks ARO", faderDb = 4.26, extraDb = 0.00 },   -- Wood Blocks: was 7.05, -2.79
+  { name = "Bass Drum Alt ARO", faderDb = -5.75, extraDb = 0.00 },   -- Bass Drum (Alt): was -4.29, -1.46
 }
 local function findTrack(name)
   for i = 0, reaper.CountTracks(0) - 1 do
