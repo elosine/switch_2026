@@ -1,11 +1,11 @@
 # PROJECT JOURNAL — switch_2026 (the Switch~ piece)
 
 <!-- card:switch -->
-<!-- Chief of Staff card: rewrite these three lines (and the date) at the end of every session on this project. Plain words, one line each. Read by home-management/tools/brief.js; list in home-management/docs/PROJECTS.md. -->
-> **▶ Where I left off** · updated 2026-10-22
-> - **Last:** session 1 (Oct 20) — the engine seated with eight lanes; nothing sounds yet.
+<!-- Chief of Staff card: the PA keeps it current from its scan of this repo (home-management/tools/scan.js); a session here may update it too. Plain words, one line each. List: home-management/docs/PROJECTS.md. -->
+> **▶ Where I left off** · updated 2026-10-23
+> - **Last:** container 4 — the rack is sounds-ready: clarinet + sax loaded, curves and recipes set (Oct 21).
 > - **Decided:** clarinet + alto sax on SI2 (D10); two percussion lanes.
-> - **Next:** container 4, the instruments — starts with you: the read-out per instrument, then ports and tracks.
+> - **Next:** your first sound (4.6) — start the score server, open the composer in Chrome, play each lane, say which sound.
 <!-- /card -->
 
 > One file. Seven sections. Everything important lives here.
