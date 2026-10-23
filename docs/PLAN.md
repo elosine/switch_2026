@@ -107,13 +107,63 @@ three lane-number fallbacks set. The lane COUNT changes (6 → 8): the literal l
 
 ---
 
-## 1. Compose — `todo`
+## 1. Compose — `doing`
 
 *To be laid out when we discuss it.* The material in hand: the sketch pad's SW-c1 (the flute's partials — the engine's sine and
 tracker are the nearest thing) · SW-c2 (dense counterpoint / spectral chords) · the brief LG-340 … 345 (the mic openings, the saved
 impulses and the cells, the naming glyphs, the categories, the inventory on screen). The call's tech that is NOT in the engine yet:
 quad diffusion (the bus is stereo) · video projection (the engine's part 12, the live graphics, `todo`) — each a conversation when the
 music reaches it, then the engine's plan.
+
+### 1a. The first section's electronics — THE LAB (seven steps, each run together: the AI builds and renders, he listens and adjusts) — `doing`
+
+*Laid out 2026-10-23 by the planning method (RUNNING_LOG §26 … §30; his words in `COMPOSITION_NOTES.md` SW-1 · SW-2). THE SET:
+Sound Lab 2025-04-08c — piano · baritone guitar · archtop · drums, 6.6 min (§27); its eight stems and its analysis are on this
+machine (`C:\WindowsDrive\analysis export`); his mix is a to-do on his list — the stems summed at equal gain stand in. "All the
+capture from the same set." Each step is an EXPERIMENT: what is built · what he hears · the knobs he turns. A step is done when he
+says so; what he hears and says goes in the RUNNING_LOG at once.*
+
+***why:*** *"I want to restrict the parameters and see if I cant enhance the way the electronics follows my performances"* — an
+electronics part for the FIRST SECTION, the acoustic instruments built around it (SW-2).
+
+- **1a.1 The set read in** (the mix and the data, in hand)
+  - build: the eight stems summed → the stand-in mix (one stereo file); the session's analysis read; "bari-sax" named baritone guitar
+  - hear: the mix, once — is this the session he means
+  - knobs: the stems' balance (equal gain until his bounce arrives)
+- **1a.2 The capture** (four shapes, one per player)
+  - build: each player's performance data from the session's analysis, the workshop's way (Paper B): the accents (WHEN) · the state
+    (WHAT) · the readings (HOW FAR) — drawn, one page per player, the four side by side
+  - hear / see: the drawn captures over the mix; does each look like the playing he remembers
+  - knobs: the accent threshold (the strongest third, to start) · the smoothing of the readings
+- **1a.3 The four sources** (the grabs, by each player's own accents — his "a"; stretched)
+  - build: per player, a 4-second window round each kept accent (1 s before, 3 s after; touching windows merged), cut from the mix,
+    joined in order with short crossfades → the grab (30 … 90 s); each grab stretched to the voice's length — 3 min placeholder
+  - hear: the four grabs, then the four stretched sources
+  - knobs: the window · the accent share · the stretch (and its kind: the workshop's icy read, or Reaper's stretch) · the voice length
+- **1a.4 The four streams and the voice** (each source granulated by its player's whole performance; layered)
+  - build: the piano's capture granulates the piano's source beginning to end; the same for the other three; the four layered → THE VOICE
+  - hear: each stream alone, then the four together
+  - knobs: what the capture drives in the granulation (density · grain length · position — as few as hold) · the layering's balance
+- **1a.5 THE TREMOLO — the main focus** (the drums' capture on depth and speed; his "a")
+  - build: a tremolo on the voice with TWO parameters open — depth (volume) and speed, the speed shifting — steered by the drums'
+    capture: accents · state · readings mapped to the two, several mappings tried
+  - hear: the voice under each mapping — does it cluster, thin, surge, flow like the playing; "like vibrato from a violinist"
+  - knobs: the mapping (which reading → which parameter) · the speed range · the depth range · the smoothing · the lag
+  - this step takes the time it takes — "spend some time"
+- **1a.6 The other effects** (the same bed, other quick effects, each following another player → four voices)
+  - build: three more effects of the tremolo's kind (ready, human-analog, not reverb) — candidates put to him first; each steered by
+    one of the other three players' captures; the same two-parameter restriction
+  - hear: each voice; the four voices together
+  - knobs: which effect follows which player · each effect's two parameters
+- **1a.7 Into the score** (the four voices in the composer score, the first section)
+  - build: the voices as audio the composer score plays on its electronics path, placed on the first section's timeline; the acoustic
+    lanes written around them (the music, his — PLAN 1b when it is reached)
+  - hear: the section in the score, the voices under his hands
+  - held: quad — a stereo simulation of quad in the composer score, the real four channels at the engine; later, his word (SW-2)
+
+*Where the code goes (THE SORTING): the capture, the grab, the stretch and the granulation are the WORKSHOP's tools
+(`live-electronics-engine/corpus/`, for any session); the tremolo and the steered effects are the ENGINE's (`electronics/`, for
+any piece); this piece holds its USES — the set's files, the settings, the four voices, their place in the score.*
 
 ## 2. Notate — `todo`
 

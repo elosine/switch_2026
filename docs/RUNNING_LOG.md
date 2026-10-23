@@ -519,3 +519,68 @@ battery, the measuring tools' lists, the pieces' numbers in the home. `BACKLOG.m
 refreshed, `uvi.md`, the read-out as the knowledge base's first page. The home pushed (`2185de3`).
 **THE START OF THE SWITCH~ PIECE IS DONE** — containers 1 … 6 and 10.0, 2026-10-20 … 23, four sittings: the kit · the copy · the rack
 sounding at one level · the score set up · the protocol taught. Containers 7 and 8 run with the music. **Next: the music — his.**
+
+## §26. THE COMPOSING OPENS — the first section's electronics, by the planning method (2026-10-23, Fable)
+
+The same day the start closed (§25) he opened the music, in one message (verbatim in `COMPOSITION_NOTES.md` SW-2): the
+performance-captured electronics of the workshop (`live-electronics-engine`; *Sýnthesi Alpha*'s source), with the parameters
+RESTRICTED, to make the electronics follow his performances better — a running order of three: more performances in from the Logic
+archive and worked in Reaper here · a bed from one session (whole-texture samples time-stretched, each granulated by a different
+instrument's performance, stacked) · THE TREMOLO as the main focus — the performance capture applied to one simple parameter so the
+tremolo has his performance's clustering, density, intensity, "organic wave like flow"; then other ready-responsive effects. An
+electronics part for the FIRST SECTION; the acoustic instruments built around it. Quad held for later (stereo simulation in the
+composer score). The AI read before answering, by the pointer rule: the workshop's CLAUDE.md and `next-session.md`, the v-alpha
+reference page (what plays: the recording read in grains; the tremolos an oscillator on the level, NOT performance-steered), the
+corpus (`steer.py` — a chain of players' trajectories as the steering data; `timbre.py` — ten features per frame, the archive as
+"a library of shapes"; `export-procedure.md` — the Logic → stems route, Mac-side), `steered-by-the-drums.md` (his formulation,
+verbatim). No "paper on synthesi alpha" exists as a file: `paperSubmissions/papers/tenor-2027/` holds Paper A (*Approaching*'s
+electronics) and Paper B (*Live Electronics as Improvising Collaborator* — the corpus as shapes); the journal of 2026-10-11 … 12 in
+`synthesi-alpha/docs/history/` is where "the paper" is spoken of. The planning method entered: the restate first, one topic.
+
+## §27. THE SET: Sound Lab 2025-04-08c — piano · baritone guitar · archtop · drums (2026-10-23)
+
+Topic 1 of the first section's electronics (§26). The data put to him: twelve sessions on this machine with stems AND analysis
+done (`C:\WindowsDrive\analysis export`, `…\analysis\*.json|npz`, 2026-08-26's export); his rule on "used": *"just not the one for
+v-alpha even if we made those voices already we can reuse the performances cause I haven't used those voices in a piece yet"* — so
+only *Sýnthesi Alpha*'s two are off the table (2026-04-13 Bcl Arch, its recording; 2026-04-16 Piano Arch Drums, its drums driver);
+ten are free. His choice: **2025-04-08c Piano Bari Arch Drums, 6.6 min, four players** (the AI's recommendation: four players, the
+longest, drums in it — the capture was worked out on drums). HIS CORRECTION: *"it is baritone guitar which is played more like a
+bass"* — the corpus's `parse_stems` labels the part `bari-sax` (every "Bari" stem is read as a sax); here it is a BARITONE GUITAR,
+the bass of the texture. The analysis's numbers stand (the analyzer does not care what the part is called); the NAME is wrong in
+the session's JSON — to be set right when the session's data is read in here, and the other "Bari" sessions (2025-04-04e,
+2025-07-25c) asked about only if they come up. "All the capture from the same set": the bed's material AND the tremolo's drivers
+come from this one session.
+
+## §28. THE BED, DESIGNED BY HIM — four granular streams from the ensemble mix, one per player's capture; the voice the tremolo treats (2026-10-23)
+
+Topic 2 (§26). His words settle it: *"grainular sources are made from time stretched samples of the full ensemble mixed audio; then
+granulated with the perf-cap of one instrument, lets do 4 one from each instrument and lets do them as streams, so I don't know if
+the timing of the granulation lines up, probably not, but well take the full piano perf for example and granulate its bed/source using
+the full piano perf from beginning to end; repeat w/other 3 and layer them and that is the voice that will be treated with tremelo;
+same bed treated with another effect, following another instrument so then 4 voices to use in piece"*. So: THE SOURCE is the
+session's full mix (all four players), not a stem. SAMPLES from it are time-stretched — four granular sources. FOUR STREAMS: each
+source granulated by ONE player's performance capture, the WHOLE performance beginning to end (the piano's capture over its source,
+the baritone guitar's over its, the archtop's, the drums'); the streams need not line up in time — "probably not". LAYERED, the four
+streams are THE VOICE; the tremolo treats it. THEN the same bed under another effect, following another player — FOUR VOICES for the
+piece, by effect. How the grabs are chosen was put to him (a. the session's own accents pick them · b. the AI picks and shows · c. by
+hand in Reaper); he did not take a letter — the AI goes with (a), "all the capture from the same set", his to reverse.
+THE MIX: he asked the AI to look in the parent folder — *"I may need to get you the mix … otherwise make it a todo"*. Looked:
+`C:\WindowsDrive\` and `analysis export\` hold no bounce of 2025-04-08c (the session's eight stems only, sample-aligned: all
+52,793,110 bytes). A to-do written on his list (`home-management/todo-list.md`, Compositions: "Switch~ — Get The Session Mix
+(2025-04-08c) From The Mac", replacing "Calibration Run", done). Meanwhile a SUM of the eight aligned stems at equal gain is the
+stand-in mix — enough to build the chain; his bounce replaces it when it arrives.
+
+## §29. THE DRUMS DRIVE THE TREMOLO — his "a" (2026-10-23)
+
+Topic 3 (§26): the tremolo on the layered voice, its parameters cut to two — depth (volume) and speed, the speed shifting — steered by
+ONE player's capture. Put to him: a. the drums (the capture was worked out on them; the clearest accents) · b. the piano · c. a guitar.
+His "a". The restate is done (topics 1 … 3, §27 … §29); the top line of the steps follows.
+
+## §30. THE LAB — the seven steps written into PLAN 1a as experiments (2026-10-23)
+
+Step 3's sub-steps were put to him (the grabs by each player's own accents, his "a": 4-second windows, the strongest third of the
+accents, a 3-minute placeholder stretch); his answer widened it: *"lets actually lab all of these; so what needs to be done, can you
+assemble an experimental plan for each step and then we'll run thru together and I'll listen and adjust"*. So PLAN 1a holds the seven
+steps of the top line (§29) each as an EXPERIMENT — build · hear · knobs — run together: the AI builds and renders, he listens, the
+knobs move at his word, a step is done when he says so. The capture/grab/stretch/granulation tools are placed in the workshop's
+corpus (any session); the tremolo and the steered effects in the engine (any piece); the set's files, settings and voices here.
