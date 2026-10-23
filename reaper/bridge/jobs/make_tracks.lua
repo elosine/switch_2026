@@ -16,7 +16,7 @@
 -- instruments (ports DECPerc · DECCrotales · DECGlock · DECMarimba · DECXylo, made 2026-10-04) get their rows
 -- when the libraries are in and chosen.
 local KONTAKT = { "VST3i: Kontakt 8 (Native Instruments) (64 out)", "VST3i: Kontakt 8 (Native Instruments)" }
-local UVI = { "VST3i: UVIWorkstation (UVI)" }   -- IRCAM Solo Instruments 2 · Prepared Piano 2 (the SWITCH~ piece, 2026-10-20)
+local UVI = { "VST3i: UVIWorkstation (UVI)", "VSTi: UVIWorkstation (UVI) (34 out)", "VSTi: UVIWorkstation (UVI)" }   -- the VST2 names too: piece 4's flute instances are VST2 (RUNNING_LOG §21)   -- IRCAM Solo Instruments 2 · Prepared Piano 2 (the SWITCH~ piece, 2026-10-20)
 -- THE SWITCH~ PIECE'S SPEC (2026-10-20, RUNNING_LOG §15): every track tools/build_rack.js wrote, in score order; the ports the SW set
 -- (4.1, made 2026-10-20). The eight Abbey Road tracks are make_perc_tracks.lua's (one port, a channel each) and are not here.
 local SPEC = {

@@ -36,22 +36,23 @@ const VELS = [24, 64, 100, 127], STRUCK_VELS = [127, 64], BEND_VEL = 100;
 const LEAD_IN = 3000, PRE = 300, HOLD = 4000, TAIL = 3000, STRUCK_HOLD = 200, STRUCK_TAIL = 5000, INST_GAP = 1500;
 
 // the HELD instruments: the lane key, its three pitches (low · middle · high of the ordinary voice's measured zone), its velocities
+// THE SWITCH~ RACK (2026-10-23, RUNNING_LOG §21): the three SI2 winds and the violin MEASURED; the cello a CROSS-CHECK at its carried
+// fader +8.13 (piece 6's trim −3.87 + his +12 lift — so expect piece 6's figures +12.0 dB)
 const HELD = [
-  { key: 'bass_flute',    pitches: [50, 67, 84], vels: VELS, bend: true },
-  { key: 'bass_clarinet', pitches: [36, 50, 63], vels: VELS, bend: true },
-  { key: 'viola',         pitches: [50, 69, 86], vels: VELS, bend: true },
-  { key: 'cello',         pitches: [48, 60, 71], vels: [127], bend: false, check: 'piece #6 card, run 30-REC-260919_1140: integrated −30.00 · −30.73 · −36.20 dB at its trim −3.87' },
+  { key: 'flute',    pitches: [62, 77, 93], vels: VELS, bend: true },
+  { key: 'clarinet', pitches: [52, 69, 86], vels: VELS, bend: true },
+  { key: 'alto_sax', pitches: [51, 65, 79], vels: VELS, bend: true },
+  { key: 'violin',   pitches: [60, 76, 93], vels: VELS, bend: true },
+  { key: 'cello',    pitches: [48, 60, 71], vels: [127], bend: false, check: 'piece #6 card, run 30-REC-260919_1140: integrated −30.00 · −30.73 · −36.20 dB at its trim −3.87; HERE at +8.13 → expect −18.00 · −18.73 · −24.20' },
 ];
+// THE PIANO — struck (the velocity IS the dynamic), its main voice on its own channel, NO CC7 (a Kontakt slot's CC7 is its volume);
+// four velocities (the remap needs them) and a long tail (a piano rings)
+const PIANO = { key: 'piano', pitches: [36, 60, 84], vels: VELS, hold: 1500, tail: 5000 };
 // the MALLETS: one main patch per instrument (the catalog's technique key), three keys across its range
-const MALLETS = [
-  { inst: 'crotales',     tech: 'crot_main_metal', pitches: [62, 72, 82] },
-  { inst: 'glockenspiel', tech: 'glock_main_hard', pitches: [57, 69, 82] },
-  { inst: 'xylophone',    tech: 'xylo_main',       pitches: [55, 74, 93] },
-  { inst: 'marimba',      tech: 'mar_main',        pitches: [38, 66, 94] },
-];
+const MALLETS = [];   // the Ricotti four: CARRIED (piece 6's card and trims, on their faders since 2026-10-23) — not re-measured
 // the PERCUSSION: `keys` named = piece #6's own keys (the cross-check); otherwise three plain HITS, one per beater where there are three
 const PERC = [
-  { slug: 'bongos' }, { slug: 'shime_daiko' }, { slug: 'china_cymbals' }, { slug: 'small_metals_spring_coil' }, { slug: 'susp_cymbals_bright' }, { slug: 'toms_high' },
+  // the other six: CARRIED (piece 6's card and trims) — not re-measured
   { slug: 'wood_blocks',   keys: [36, 48, 56], check: 'piece #6 card, run 30-REC-260919_0833: loudest 400 ms −22.46 · −22.04 · −25.87 dB at trim +15.43 → −30.84 · −30.42 · −34.25 at +7.05' },
   { slug: 'bass_drum_alt', keys: [36, 48, 55], check: 'piece #6 card, run 30-REC-260919_0833: loudest 400 ms −20.92 · −20.90 · −24.04 dB at trim +5.60 → −30.81 · −30.79 · −33.93 at −4.29' },
 ];
@@ -64,12 +65,17 @@ for (const H of HELD) {
   if (!want(H.key)) continue;
   const R = INSTRUMENTS[H.key], tech = R.techniques.find(x => x.key === R.ordinary);
   if (!tech) throw new Error('no ordinary voice for ' + H.key);
-  const ch = (R.channels && Array.isArray(R.channels.curve) && R.channels.curve.length) ? R.channels.curve[0] : 1;   // curve copy A
+  const c0 = (R.channels && Array.isArray(R.channels.curve) && R.channels.curve.length) ? R.channels.curve[0] : 1;   // curve copy A
+  const ch = typeof c0 === 'object' ? c0.ch : c0, cPort = typeof c0 === 'object' ? c0.port : null;   // a UVI instrument's copy may sit on its b port
   for (const p of H.pitches) if (p < tech.rangeLow || p > tech.rangeHigh) throw new Error(H.key + ': pitch ' + p + ' outside ' + tech.rangeLow + '–' + tech.rangeHigh);
-  const base = { inst: H.key, label: R.label, tech: tech.key, techLabel: tech.label, port: tech.port || R.port, ch, cc0: tech.cc0 != null ? tech.cc0 : null, ks: null, cc7: 127 };
+  const base = { inst: H.key, label: R.label, tech: tech.key, techLabel: tech.label, port: cPort || tech.port || R.port, ch, cc0: tech.cc0 != null ? tech.cc0 : null, ks: null, cc7: 127 };
   t += INST_GAP;
   for (const pitch of H.pitches) for (const vel of H.vels) push(Object.assign({}, base, { role: 'card', pitch, vel, anchor: vel === 64, ...(H.check ? { check: H.check } : {}) }), HOLD, TAIL);
   if (H.bend) { const mid = H.pitches[1]; push(Object.assign({}, base, { role: 'bend', pitch: mid, vel: BEND_VEL, bend: 8192 + Math.round(0.5 * 8191), fraction: 0.5, bendResetMs: t + HOLD + 400 }), HOLD, TAIL); }
+}
+{ // the piano
+  const R = INSTRUMENTS[PIANO.key], q = R.techniques.find(x => x.key === R.ordinary);
+  if (want(PIANO.key)) { t += INST_GAP; for (const pitch of PIANO.pitches) for (const vel of PIANO.vels) push({ role: 'perc', inst: PIANO.key, label: R.label, tech: q.key, techLabel: q.label, port: q.port || R.port, ch: q.channel, cc0: null, ks: null, cc7: null, pitch, vel }, PIANO.hold, PIANO.tail); }
 }
 const L = INSTRUMENTS.bowed_vibraphone;
 for (const M of MALLETS) {
@@ -103,7 +109,7 @@ for (const X of PERC) {
 const totalMs = t + 2000;
 const out = {
   generatedAt: new Date().toISOString(), planItem: '5.3', piece: 'switch',
-  what: 'the instrument card for the Decibel rack: absolute loudness per instrument, pitch and velocity, measured two ways',
+  what: 'the instrument card for the Switch~ rack: absolute loudness per instrument, pitch and velocity, measured two ways',
   standard: 'K-20 (Katz / SMPTE RP 200); loudness ITU-R BS.1770. REC at unity: every level is dBFS AT THE MASTER (bank/reference.json — piece #6\'s, carried; the cross-check rows prove it for this rack).',
   vels: VELS, percVels: STRUCK_VELS, held: HELD.map(h => h.key), mallets: MALLETS.map(m => m.inst), percussion: PERC.map(p => p.slug),
   timing: { leadInMs: LEAD_IN, preMs: PRE, holdMs: HOLD, tailMs: TAIL, struckHoldMs: STRUCK_HOLD, struckTailMs: STRUCK_TAIL, instGapMs: INST_GAP },

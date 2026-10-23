@@ -412,3 +412,31 @@ the two new SI2 instruments loaded by him and set as text · the recipes derived
 `docs/RACK_SETTINGS.md` § 0 is this rack's. **Open, carried to container 5:** the SI2 masters at −6 dB (the pre-flight) · the flute's
 Dynamic Amount read · the Xsample vibraphone has no technique in the recipe yet (the pitched lane's roster is the Ricotti stand-in) ·
 the keyswitch notes of the clarinet and sax, unverified · his save of the rack (the pushed states live in Reaper until CTRL+S).
+
+## §21. Container 5 — the pre-flight (2026-10-23, Opus; his "go")
+
+The how-to `measuring.md` and piece 6's §40 … §43 read first. **Done, as text or through the bridge, nothing by his hands:**
+- **The SI2 masters −6 dB** (`uvi_state.js set-master … --push`, piece 5's §52 way) on `Clarinet SI2` · `Alto Sax SI2` · `Alto Sax SI2 b`,
+  each read back −6. The flute's two instances read **−2 dB**, piece 4's own fix of its clip ("#5's flute, UVI master −2 dB" in
+  `clip_preflight.ps1`'s header) — kept, carried. The two Prepared Piano 2 instances read 0 dB — the pre-flight will say.
+- **The flute's Dynamic Amount read: 0.80** on its Ordinario part and the three copies — piece 4's hand value, kept (the 1.00 rule is
+  piece 5's; the card measures the flute as it is).
+- **THE CARRIED TRIMS back on the faders** (§0 of the how-to: a clone keeps its measurement): from piece 6's `reaper/bridge/jobs/
+  apply_trims.lua` (its final faders, his +12 lift on the cello included) — Cello XS +8.13 · Wood Blocks +7.05 · Bass Drum Alt −4.29 ·
+  Crotales −7.18 · Glockenspiel −7.21 · Xylophone −5.65 · Marimba +9.27 · Bongos +4.35 · Shime Daiko +4.92 · China −3.99 · Spring Coil
+  +6.87 · Suspended +7.53 · Toms −2.99; and piece 5's vibraphone +2.81 (its trims.json; the same −31.84 per-voice target). Read back.
+- **A FAULT OF THIS PORT, FOUND IN THE READ-BACK:** the two flute tracks held TWO UVI plugins — piece 4's cloned VST2 instance and an
+  EMPTY VST3 one that `make_tracks.lua` inserted on 2026-10-20 (its SPEC named only the VST3 plugin, so the VST2 did not count as "the
+  sampler"). Removed by a bridge job (`remove_dup_uvi.lua`); `make_tracks.lua`'s UVI names now include the VST2. Silent, but a second
+  instance on every flute note's path, and a trap for the next re-run.
+- **The card's timetable** (`tools/card_schedule.js`, re-pointed by `tools/port/card55.js`): **79 notes, 9:02** — MEASURED: flute ·
+  clarinet · alto sax · violin (held: curve channel A with CC7 127, three pitches × 24 · 64 · 100 · 127, a half-bend note — the SI2
+  copies on their `b` port where they sit, a fix to the tool: curve A may be `{port, ch}`) · the piano (struck, own channel, no CC7,
+  four velocities, a 5 s tail); CROSS-CHECK at the carried faders: cello (expect piece 6's −30.00 · −30.73 · −36.20 + 12.0) · wood blocks
+  · bass drum alt. NOT measured: the Ricotti four and six Abbey Road (carried) · the vibraphone (no technique in the recipe yet).
+- **The rig:** `make_rec_track.lua` (REC: 24 receives, unity, master send off) · `rec_mode_solo.lua` (REC the only writer; the modes
+  saved to `probes/rec_modes_before.json`) · `card_run.ps1 -DryRun`: **all checks pass**.
+
+**Waiting on him:** the run plays nine minutes of notes through the speakers and needs Reaper untouched; the clip pre-flight (two
+minutes, meters only) goes first. And the round robin, his call (the protocol's "stop and ask"): the violin's Xsample ordinary is
+piece 4's preset, round robin as shipped; piece 6 skipped the check at his word.
