@@ -377,3 +377,24 @@ flute main ch 12, curve `SWFluteb` 4 · 5 · 6 (piece 4's layout, intact in the 
 curve `SWSaxb` 14 · 15 · 16. **`palette_check` 202 green · `roster_check` green** (26 by-key voices pending: their keys from his rack
 at 1m.4.2; 14 recipe keys not yet in `techniques.json` — registered as material uses them, H6-38). **The rack is HIS** (saved 22:02;
 the pushes live in Reaper's project — he saves again). NOT CLAIMED: a sound. **Next: 4.6 the first sound, in his Chrome.**
+
+## §19. 4.6 — "no sound": loopMIDI had died with the AI's shell; the rack SOUNDS from a direct note (2026-10-23)
+
+**What prompted it.** His *"no sound"* on `switch-first-sound` (built by `tools/build_first_sound.js`, re-pointed: 18 notes, 46 s, every
+track in lane order). His screen first (the bar: the score open, nothing about MIDI). Then from here: the score server up (5600, 200),
+the bridge alive (24 tracks) — the break between the page and Reaper. **THE CAUSE:** `elec.js meters` said `port not live: SWFlute`;
+`probes/list_midi_ports.ps1`: NO loopMIDI port at all — only the UMC1820 — and **loopMIDI was not running** (registry intact, 14 `SW`
+of 73). It had been started 2026-10-20 22:02 by `Start-Process` from the AI's PowerShell; when that Claude Code process ended (the
+session restart) its children went with it — the background task of the first hour was reported "stopped" the same way. Reaper
+(up since 22:09) had kept stale device handles. **The cure:** loopMIDI started DETACHED (through `explorer.exe`, pid 51100, 06:56:57);
+all fourteen `SW` ports back within a minute (Reaper running — the enumerating client) · `make_tracks.lua` + `perc_inputs.lua` re-run
+(16 + 8 inputs by name, idempotent) · a first note still silent (−150 dB) · **`reaper.midi_reinit()`** through a new bridge job
+`reaper/bridge/jobs/midi_reinit.lua` (close and re-open every MIDI device; Reaper then lists the fourteen `SW` inputs) · a clarinet
+note straight to `SWClar` ch 1 (`note_to_port.ps1`, winmm) while `elec.js meters` read the rack: **Clarinet SI2 −2.75 / −2.48 dB ·
+Flute SI2 −3.99 / −5.46 (the tool's own note, its ch 1 = Aeolian KS) · MASTER +0.75 / +0.16 dB.** THE RACK SOUNDS from a direct note.
+**Two things for the record:** the master OVER 0 dBFS on two notes — the new SI2 instances carry the baseline's +6 dB parts and no
+−6 dB master yet (the how-to's § 5; container 5's pre-flight) · the page's Web MIDI enumerated while loopMIDI was dead — his Chrome tab
+needs F5 before its notes can reach the ports. **For the how-to (`rack.md` § 1):** loopMIDI must be started by HIM or detached
+(`explorer.exe <exe>`) — a process the AI's shell spawns dies with the session; after a loopMIDI restart under a running Reaper,
+`midi_reinit.lua`. **His word meanwhile:** *"can you give me the server cmds I'll start myself"* — given. NOT CLAIMED: a note from the
+app (his F5 and ▶).
