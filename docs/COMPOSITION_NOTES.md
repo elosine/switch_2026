@@ -135,3 +135,15 @@ AI's.*
 > — said in the chat of this repo, the day the start closed (RUNNING_LOG §25); it opens the composing
 
 *AI reading (marked as such):* SW-1 made concrete, as a running order of three parts plus one held. (1) MORE PERFORMANCES: more of his improvisation sessions brought in from the Logic archive (the workshop's corpus — `live-electronics-engine/docs/corpus/export-procedure.md` is how the first eight came over), the work on them done in Reaper on this machine, automated where the AI can. (2) A BED: one instrument's performance from one session, time-stretched and granulated — samples grabbed from the WHOLE texture of the performance, stretched; one instrument's performance granulates one stretched sample, another instrument's granulates a different one; the results stacked into a layered bed. "Just one idea to make a base material" — other beds may be tried. (3) THE MAIN FOCUS — THE TREMOLO: the performance-capture (the workshop's — a performance turned into numbers that steer a process, the "steered by the drums" formulation) applied to a tremolo, with the PARAMETERS RESTRICTED, so that the tremolo has "the flow of my performance": clustering, density, intensity, "organic wave like flow" — the tremolo as a violinist's vibrato, a human analog. Then the same process on OTHER effects of the same ready responsiveness (not reverb). THE PURPOSE: an electronics part for THE FIRST SECTION, the acoustic instruments built around it. HELD: quad — the piece must be able to play in quad; in the composer score a stereo simulation of quad; "we can take care of this later".
+
+### SW-3 · 2026-10-24 — LACHENMANN'S *NOTTURNO* AS A MODEL FOR THIS PIECE
+
+> *"Can you take a composition note, please? Lachman Notturno as a model for this piece."*
+> — said in the chat of this repo, with the lab (PLAN 1a) waiting on his mix
+
+*AI reading (marked as such):* "Lachman" read as **Helmut Lachenmann** (a dictation slip); the work as ***Notturno (Musik für
+Julia)***, for small orchestra with solo cello, 1966/68 — an early work, on the road to his *musique concrète instrumentale*
+(to confirm with him that this is the piece meant). A MODEL for this piece — the whole of it, not one section.
+*Not said yet (his):* what in it is the model — its sound world (the instruments' noises and actions as material) · its form · a
+solo voice against an ensemble (the cello there; the electronics here?) · its pacing, the night-piece's stillness · something else.
+How it meets the lab's first-section electronics (SW-2) and the two musics of SW-c2.

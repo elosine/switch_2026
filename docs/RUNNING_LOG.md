@@ -593,3 +593,9 @@ dropped into `bank/set/2025-04-08c/` (made, with a README saying what goes there
 audio gitignored by `bank/set/.gitignore` — the root `.gitignore` is left as it is, rolled back and his). PLAN 1a.1 rewritten
 to his mix; journal §2 "SESSION 2 — THE LAB OPENED" is the cold-start block with the next step as an instruction; PLANNER and the
 state line follow. The session's start (§1 … §25) and this planning (§26 … §31) are behind this checkpoint.
+
+## §32. A MODEL NAMED — Lachenmann's *Notturno* (2026-10-24)
+
+His note, between sittings (the lab waits on his mix): *"Lachman Notturno as a model for this piece."* — in the sketch pad as SW-3,
+verbatim, the AI's reading marked: Helmut Lachenmann, *Notturno (Musik für Julia)*, small orchestra with solo cello, 1966/68 — to
+confirm that this is the work. What in it is the model is his to say; nothing is planned from it yet.
