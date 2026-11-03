@@ -642,3 +642,12 @@ His look at the capture page: *"These are fine for now. However, I think I reall
 have a strategy for developing sources, then figure out how to apply the tremolo or the analysis to the tremolo with the sources, and
 I'll listen and see if there's adjustments."* So the drawings are a reference, not a gate; from 1a.3 on each step's "hear" is the
 judgment and the knobs move from what he hears. 1a.3 next: the sources.
+
+## §38. THE STRETCH IS HIS ICY (2026-11-03)
+
+Before 1a.3's "go": *"I just want to make sure we're using the IC, my own granular synth def.icy"*. Yes — the stretch is Warp1 as he
+wrote it in `freeze` (2015 … 2016: \icy · \icy_live · \icy_s), carried into the engine as the `icy` stage (`electronics/sc/process.scd`
+l. 434 …; the engine's §37: long windows 0.6 … 0.8 s, 17 … 40 overlapping grains, the read point crawling at icSpeed of real time, one
+of his ten grain windows — expodec his favourite). For 1a.3 it runs OFFLINE: sclang 3.14.1 with a second scsynth in NRT (the way
+`sc/bus_test.scd` renders), each grab → its stretched source, both channels. Not the workshop's JavaScript read, not Reaper's
+stretch. The knobs are icy's own.
