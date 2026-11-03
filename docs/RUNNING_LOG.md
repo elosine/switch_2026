@@ -617,3 +617,10 @@ counts: archtop 1,013 · drums 962 · piano 738 · baritone guitar 627. The anal
 curves at one value per second — density (onsets/s), loudness (dB), spectral centroid (Hz) — plus pulse and inter-onset statistics,
 and the pairs' coupling (archtop × baritone guitar: coupling 0.045, the uncoupled baseline — HANDOFF's "a finding, not a fault").
 These are 1a.2's material. Waiting on his one listen: "is this the session".
+
+## §35. 1a.1 DONE — no listen needed: the mix is his (2026-11-03)
+
+Asked for one listen ("is this the session"), he answered: *"This is the mix I'm giving you. This, I made this mix. So I'm not, I
+guess I don't need to listen. It, I think it's ready for a caption, correct?"* ("caption" = capture, a dictation slip). Right: the
+listen was a check that the AI had the session he meant, and the file is his own bounce of it, so the check answers itself. 1a.1 is
+done; 1a.2, the capture, is next. A lesson for the lab's later steps: a listen is asked only of what the AI MADE.
