@@ -7,7 +7,7 @@ capture from the same set": the bed's material AND every voice's driver come fro
 
 | file | what | who puts it here |
 |---|---|---|
-| (the mix) | HIS BOUNCE of the whole session — **in the session's own folder, read where it lies** (`set.json` → `mix`): `C:\WindowsDrivenalysis export\Sound Lab 2025-04-08c Piano Bari Arch Drums\Sound Lab 2025-04-08c Piano Bari Arch Drums.aif` · 398.0 s · stereo · 44.1 kHz · 24-bit, the stems' length exactly | him, 2026-11-03 |
+| (the mix) | HIS BOUNCE of the whole session — **in the session's own folder, read where it lies** (`set.json` → `mix`): `C:\WindowsDrive\analysis export\Sound Lab 2025-04-08c Piano Bari Arch Drums\Sound Lab 2025-04-08c Piano Bari Arch Drums.aif` · 398.0 s · stereo · 44.1 kHz · 24-bit, the stems' length exactly | him, 2026-11-03 |
 | `set.json` | the settings: where the stems are, which part is which, the mix's name and gain, every step's knobs as they are set | the AI, at 1a.1 |
 | `analysis.json` | the piece's COPY of the session's analysis, the part `bari-sax` renamed `baritone-guitar` (his correction, §27) | the AI, at 1a.1 |
 | `capture/` · `sources/` · `streams/` · `voices/` | the lab's renders, step by step (1a.2 … 1a.6) | the AI |
