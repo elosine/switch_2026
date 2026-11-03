@@ -624,3 +624,14 @@ Asked for one listen ("is this the session"), he answered: *"This is the mix I'm
 guess I don't need to listen. It, I think it's ready for a caption, correct?"* ("caption" = capture, a dictation slip). Right: the
 listen was a check that the AI had the session he meant, and the file is his own bounce of it, so the check answers itself. 1a.1 is
 done; 1a.2, the capture, is next. A lesson for the lab's later steps: a listen is asked only of what the AI MADE.
+
+## §36. 1a.2 — THE CAPTURE DRAWN (2026-11-03, Fable; his "go for 2")
+
+Built: `live-electronics-engine/corpus/draw_capture.py` (the workshop's, any session) → `bank/set/2025-04-08c/capture/index.html`
+and `accents.json`. The page: the mix's envelope (peak per ¼ s) on top, then per player four lanes over the whole 398 s — ATTACKS (one
+tick per onset, its height the loudness at the onset's frame from the analyzer's .npz; the strongest third drawn tall and dark = THE
+ACCENTS, Paper B's proportion) · DENSITY (onsets/s) · LOUDNESS (dB) · BRIGHTNESS (the spectral centroid, on a log scale) — the per-
+second curves of the analysis. The accents' thresholds: archtop 334 of 1,013 (≥ −39.8 dB) · baritone guitar 207 of 627 (≥ −40.1) ·
+drums 317 of 962 (≥ −48.8) · piano 244 of 738 (≥ −44.3). `accents.json` holds the accent times per player — 1a.3's grabs read it.
+Proven once: the page rendered on the throwaway 5601 (the mix band, the lanes, the ticks), then the server stopped. His score
+server serves it at `/bank/set/2025-04-08c/capture/index.html`. Waiting on his look: does each drawing look like the playing.

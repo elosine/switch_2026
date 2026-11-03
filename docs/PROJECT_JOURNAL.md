@@ -61,6 +61,10 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+- **2026-11-03 — 1a.1 DONE (§35), 1a.2 BUILT (RUNNING_LOG §36):** the capture page `bank/set/2025-04-08c/capture/index.html`
+  (served by his score server at `http://localhost:5600/bank/set/2025-04-08c/capture/index.html`), `accents.json` the strongest third
+  per player. **► WAITING ON HIS LOOK; then 1a.3 the sources** (the grabs by the accents in `accents.json`, 4 s windows, stretched).
+
 - **2026-11-03 — 1a.1 BUILT (RUNNING_LOG §34):** his mix found in the session's export folder, read where it lies; `analysis.json` and
   `set.json` in `bank/set/2025-04-08c/`. Waiting on his listen. **► NEXT: 1a.2 the capture** — the four players' onsets and their three
   curves (density · loudness · centroid) drawn side by side over the mix, a tool in the workshop's corpus, its pages here in `capture/`.

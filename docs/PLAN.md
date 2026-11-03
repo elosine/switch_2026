@@ -132,7 +132,8 @@ electronics part for the FIRST SECTION, the acoustic instruments built around it
     the session's analysis copied there, "bari-sax" named baritone guitar; `set.json` written. No stand-in sum unless he asks.
   - hear: his mix, once — is this the session he means
   - knobs: none — the mix is his
-- **1a.2 The capture** (four shapes, one per player)
+- **1a.2 The capture** (four shapes, one per player) — *2026-11-03: built — `bank/set/2025-04-08c/capture/index.html` (the page) and `accents.json`;
+  the tool `live-electronics-engine/corpus/draw_capture.py`; waiting on his look (RUNNING_LOG §36)*
   - build: each player's performance data from the session's analysis, the workshop's way (Paper B): the accents (WHEN) · the state
     (WHAT) · the readings (HOW FAR) — drawn, one page per player, the four side by side
   - hear / see: the drawn captures over the mix; does each look like the playing he remembers
