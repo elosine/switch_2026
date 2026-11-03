@@ -635,3 +635,10 @@ second curves of the analysis. The accents' thresholds: archtop 334 of 1,013 (�
 drums 317 of 962 (≥ −48.8) · piano 244 of 738 (≥ −44.3). `accents.json` holds the accent times per player — 1a.3's grabs read it.
 Proven once: the page rendered on the throwaway 5601 (the mix band, the lanes, the ticks), then the server stopped. His score
 server serves it at `/bank/set/2025-04-08c/capture/index.html`. Waiting on his look: does each drawing look like the playing.
+
+## §37. 1a.2 DONE — and the lab's rule from here: he judges by ear (2026-11-03)
+
+His look at the capture page: *"These are fine for now. However, I think I really just need to evaluate through the listening. Once we
+have a strategy for developing sources, then figure out how to apply the tremolo or the analysis to the tremolo with the sources, and
+I'll listen and see if there's adjustments."* So the drawings are a reference, not a gate; from 1a.3 on each step's "hear" is the
+judgment and the knobs move from what he hears. 1a.3 next: the sources.
