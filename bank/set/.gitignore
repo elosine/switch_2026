@@ -5,3 +5,5 @@
 *.flac
 *.mp3
 *.npz
+*.ogg
+*.tmp.wav

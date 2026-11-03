@@ -138,7 +138,9 @@ electronics part for the FIRST SECTION, the acoustic instruments built around it
     (WHAT) · the readings (HOW FAR) — drawn, one page per player, the four side by side
   - hear / see: the drawn captures over the mix; does each look like the playing he remembers
   - knobs: the accent threshold (the strongest third, to start) · the smoothing of the readings
-- **1a.3 The four sources** (the grabs, by each player's own accents — his "a"; stretched)
+- **1a.3 The sources** (REVISED 2026-11-03, RUNNING_LOG §40 · §41: the busiest ONE-SECOND moments of the FULL MIX, 20 from each of the
+  three busiest regions, each stretched ×30 · ×50 · ×100 through his icy — `bank/set/2025-04-08c/sources/index.html` the listening
+  page, 56 grabs × 3; the tool `live-electronics-engine/corpus/icy_sources.py`; waiting on his ear) — *as first laid out:*
   - build: per player, a 4-second window round each kept accent (1 s before, 3 s after; touching windows merged), cut from the mix,
     joined in order with short crossfades → the grab (30 … 90 s); each grab stretched to the voice's length — 3 min placeholder
   - hear: the four grabs, then the four stretched sources

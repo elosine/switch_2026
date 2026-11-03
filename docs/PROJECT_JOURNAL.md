@@ -61,6 +61,10 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+- **2026-11-03 — 1a.2 DONE (§37), 1a.3 BUILT (RUNNING_LOG §41):** the sources revised to the full mix's busiest seconds (§40); 56 one-second
+  grabs × ×30 · ×50 · ×100 through his icy; the listening page `http://localhost:5600/bank/set/2025-04-08c/sources/index.html`
+  (audio on disk, gitignored; re-made by the one command in §41). **► WAITING ON HIS EAR: which factor(s), which grabs; then 1a.4.**
+
 - **2026-11-03 — 1a.1 DONE (§35), 1a.2 BUILT (RUNNING_LOG §36):** the capture page `bank/set/2025-04-08c/capture/index.html`
   (served by his score server at `http://localhost:5600/bank/set/2025-04-08c/capture/index.html`), `accents.json` the strongest third
   per player. **► WAITING ON HIS LOOK; then 1a.3 the sources** (the grabs by the accents in `accents.json`, 4 s windows, stretched).

@@ -686,3 +686,18 @@ run on the mix file would merge coincident attacks; the sum is the truer count).
 1:15 (12.9) · 3:01 (12.8); 12 s — 3:14 (14.4) · 3:02 (13.0) · 1:54 (12.8) · 2:47 (12.5) · 1:10 (11.9). The densest stretch of the
 session is 3:00 … 3:25; then 1:50 … 2:08; then 1:10 … 1:20. The arithmetic of the grab: for a 3-minute source, 30× → a 6 s grab ·
 50× → 3.6 s · 100× → 1.8 s. The range is his to set; put to him.
+
+## §41. 1a.3 BUILT — 56 busiest seconds of the mix, each stretched ×30 · ×50 · ×100 through his icy (2026-11-03)
+
+His design: *"lets grab 1 second samples, try to grab the busiest ones you can, but all different. Let's grab, say, 20 from each of the
+top three there, the 3 minutes to 325 and then 150 to 208, etc. And then let's stretch each of those seconds 30 times, 50 times, and
+100 times. And then if you can produce some sort of preview page or something so I can listen to that."* Built:
+`live-electronics-engine/corpus/icy_sources.py` (the workshop's — any mix with an analysis). The grabs: on a ¼ s grid inside each
+region, the one-second windows ranked by the four players' summed onsets, busiest first, at least ½ s apart — 20 in 3:00 … 3:25
+(14 … 19 attacks each), 20 in 1:50 … 2:08 (13 … 19), and 16 in 1:10 … 1:20 (7 … 19 — a ten-second region holds no more at that
+spacing): 56, not 60. Each cut with 10 ms fades (`sources/grabs/`, 24-bit). The stretch: Sýnthesi Alpha's read (`tools/icy_render.py`'s
+render(), his freeze as the playhead reads it), speed 1/30 · 1/50 · 1/100, win 0.6 s, 17 overlaps, rand 0.2, expodec — Approaching's
+most-used icy; each render brought to its grab's RMS (the level rule) then peak-limited to −0.2 dBFS; the matching gains −5.5 … +1.7
+dB. 168 renders (30 · 50 · 100 s), Ogg q4, 194 MB on disk, gitignored; `manifest.json` and the page in git. The page: one row per
+grab — its time, its attack count, the grab, the three stretches, each a player. Re-made by one command (the tool's docstring; the
+regions 180-205 · 110-128 · 70-80, 20 per region, grab 1.0, factors 30 · 50 · 100). Waiting on his ear.
