@@ -701,3 +701,12 @@ most-used icy; each render brought to its grab's RMS (the level rule) then peak-
 dB. 168 renders (30 · 50 · 100 s), Ogg q4, 194 MB on disk, gitignored; `manifest.json` and the page in git. The page: one row per
 grab — its time, its attack count, the grab, the three stretches, each a player. Re-made by one command (the tool's docstring; the
 regions 180-205 · 110-128 · 70-80, 20 per region, grab 1.0, factors 30 · 50 · 100). Waiting on his ear.
+
+## §42. The sources on his phone — three reels (2026-11-03)
+
+*"is there a way to preview on my phone, either thru remote-control to this chat or download some how, whatever is the easiest"*. The
+easiest: files sent into this chat (it follows him to his phone). Three mp3 reels, one per factor (`sources/reels/sources-x30 · x50 ·
+x100.mp3`, 4.6 min and 5.5 MB each, gitignored): the four busiest grabs of each region (#3 · #8 · #10 · #16 · #21 · #22 · #24 · #38 ·
+#43 · #53 · #55 · #56), each as the 1 s grab, a 0.6 s breath, then the first 20 s of its stretch, two breaths. The full page (all 56
+grabs, whole renders) stays on the PC. A published page with the audio as assets (194 MB in seven uploads) was the other route — not
+taken: the reels answer "which factor" in a quarter of an hour.
