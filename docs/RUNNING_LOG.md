@@ -663,3 +663,26 @@ bus — `trem waves` · `trem rush` · `chop accel` (`engine/voices.js`): one LF
 steady or moving in a pattern; NOT performance-steered — the thing 1a.5 changes. So 1a.3 has two offline icy routes, both his: the
 workshop's proven renderer, or the engine's SC Warp1 stage through a new NRT harness. Put to him. PLAN 1a.5 now says: read the
 three overlays first.
+
+## §40. THE SOURCES RE-THOUGHT — the busiest parts of the FULL MIX, cut to the stretch's length (2026-11-03)
+
+His revision of 1a.3, verbatim: *"let's revise the original sample strategy. I think the most interesting parts will be busy parts. And
+in Synesthesy Alpha, we had certain durations, I think, that I said worked. Maybe it was like 30 times, might have even been more. I
+think 30 times is the least. So that will determine the length of time stretch sample we use. So first, let's determine the length
+range that we're going to use. It could be 30, but more, maybe up to 100 times, maybe. I'm not sure. Maybe not quite that much. See if
+you can see if any decisions were made in Synesthesia Alpha. Then, if there's a way to find for the full mix the busiest parts, we can
+take a few samples of what we decided the length should be."* And: *"Just to clarify, the busiest parts of the full mix."* So the
+per-player accents (§36) are NOT the grabs; the grabs are the busiest moments of the whole texture, a few of them, each as long as the
+stretch factor and the target length dictate.
+THE RECORD READ. *Sýnthesi Alpha* (journal §221, 2026-10-12): his four icys — 10× (win 0.6) · 10× short (win 0.15) · 17× (win 0.6) ·
+15× short (win 0.21), all 17 overlaps, rand 0.2, expodec; the moving ones 2→20× and 50→4× (speed 0.5→0.05, 0.02→0.25); page 4's reads
+"10 to 17 times slower", pages 4 … 5 "slowed 2 to 50 times" — no 30× there. *Approaching* (its `bank/presets.json`, 143 icy presets):
+**30× (speed 0.0333) in 41 — the most used**; 4× · 10× · 100× (0.25 · 0.1 · 0.01) in 18 each; 17 overlaps in 84; rand 0.2 in 124;
+expodec in 43. So his memory is *Approaching*'s: 30× the common one, 100× present.
+THE BUSIEST PARTS: the four players' onsets summed per second over the 398 s (the mix's activity as the analysis knows it — a detector
+run on the mix file would merge coincident attacks; the sum is the truer count). Mean 8.4 onsets/s, the 90th percentile 13, the peak
+19. The busiest windows (start, mean onsets/s): 3 s — 3:16 (15.7) · 3:12 (15.7) · 1:17 (15.0) · 3:23 (15.0) · 2:03 (15.0) · 2:47
+(14.7); 5 s — 3:14 (15.0) · 3:21 (14.6) · 2:01 (14.4) · 1:17 (14.2) · 1:50 (13.4); 8 s — 3:12 (15.0) · 2:00 (13.4) · 1:50 (13.2) ·
+1:15 (12.9) · 3:01 (12.8); 12 s — 3:14 (14.4) · 3:02 (13.0) · 1:54 (12.8) · 2:47 (12.5) · 1:10 (11.9). The densest stretch of the
+session is 3:00 … 3:25; then 1:50 … 2:08; then 1:10 … 1:20. The arithmetic of the grab: for a 3-minute source, 30× → a 6 s grab ·
+50× → 3.6 s · 100× → 1.8 s. The range is his to set; put to him.
