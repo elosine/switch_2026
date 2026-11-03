@@ -1,0 +1,47 @@
+{
+ "_doc": "THE SET's settings (PLAN 1a). Paths are read where they lie; nothing is copied. Each step's knobs are added here as they are set.",
+ "session": "Sound Lab 2025-04-08c Piano Bari Arch Drums",
+ "folder": "C:/WindowsDrive/analysis export/Sound Lab 2025-04-08c Piano Bari Arch Drums",
+ "duration_s": 398.0,
+ "sample_rate": 44100,
+ "format": "AIFF 24-bit",
+ "mix": {
+  "file": "Sound Lab 2025-04-08c Piano Bari Arch Drums.aif",
+  "channels": 2,
+  "_note": "HIS BOUNCE (Logic, 2025-04-08), 398.0 s, the same length as the stems"
+ },
+ "stems": {
+  "piano": {
+   "files": [
+    "Piano L 2025-04-08_1.aif",
+    "Piano R 2025-04-08_1.aif"
+   ],
+   "gain_db": 0.0
+  },
+  "baritone-guitar": {
+   "files": [
+    "Bari L 2025-04-08_1.aif",
+    "Bari R 2025-04-08_1.aif"
+   ],
+   "gain_db": 0.0
+  },
+  "archtop": {
+   "files": [
+    "Arch L 2025-04-08_1.aif",
+    "Arch R 2025-04-08_1.aif"
+   ],
+   "gain_db": 0.0
+  },
+  "drums": {
+   "files": [
+    "Drums OH L 2025-04-07_1.aif",
+    "Drums OH R 2025-04-07_1.aif"
+   ],
+   "gain_db": 0.0
+  }
+ },
+ "analysis": "analysis.json",
+ "drivers": {
+  "tremolo": "drums"
+ }
+}

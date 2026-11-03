@@ -126,7 +126,8 @@ says so; what he hears and says goes in the RUNNING_LOG at once.*
 ***why:*** *"I want to restrict the parameters and see if I cant enhance the way the electronics follows my performances"* — an
 electronics part for the FIRST SECTION, the acoustic instruments built around it (SW-2).
 
-- **1a.1 The set read in** (the mix and the data, in hand)
+- **1a.1 The set read in** (the mix and the data, in hand) — *2026-11-03: built — the mix found, the analysis and `set.json` in
+  `bank/set/2025-04-08c/`; waiting on his one listen*
   - build: HIS MIX (his bounce of the whole session — he has it at home and brings it; his to-do) dropped into `bank/set/2025-04-08c/`;
     the session's analysis copied there, "bari-sax" named baritone guitar; `set.json` written. No stand-in sum unless he asks.
   - hear: his mix, once — is this the session he means

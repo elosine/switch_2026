@@ -605,3 +605,15 @@ confirm that this is the work. What in it is the model is his to say; nothing is
 His note, between sittings: *"a composition note, repeated note tuplets at different tempi and different phases."* It is in the
 sketch pad as SW-4, verbatim, with the AI's reading marked. Nothing is planned from it yet. Where it sits in the piece, which
 players carry it, and whether it is SW-c2's dense counterpoint are his to say.
+
+## §34. 1a.1 — THE SET READ IN (2026-11-03)
+
+His word: *"the mix is here"* — `C:\WindowsDrive\analysis export\Sound Lab 2025-04-08c Piano Bari Arch Drums\Sound Lab 2025-04-08c
+Piano Bari Arch Drums.aif`, his Logic bounce of 2025-04-08, put in the session's export folder beside the eight stems (the folder also
+holds the session's video `#1102` and its `.logicx`). Measured: 398.0 s, stereo, 44.1 kHz, 24-bit — the stems' length to the sample
+frame, so the analysis's times hold on the mix. It is READ WHERE IT LIES (no copy; `set.json` names it). The piece's copy of the
+analysis: `bank/set/2025-04-08c/analysis.json`, `bari-sax` → `baritone-guitar` in the parts and the pairs. The four players' onset
+counts: archtop 1,013 · drums 962 · piano 738 · baritone guitar 627. The analysis holds, per player, the onset times, and three
+curves at one value per second — density (onsets/s), loudness (dB), spectral centroid (Hz) — plus pulse and inter-onset statistics,
+and the pairs' coupling (archtop × baritone guitar: coupling 0.045, the uncoupled baseline — HANDOFF's "a finding, not a fault").
+These are 1a.2's material. Waiting on his one listen: "is this the session".
