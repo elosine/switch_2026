@@ -4,20 +4,37 @@
     {
       "name": "score",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["score/server.js"],
+      "runtimeArgs": [
+        "score/server.js"
+      ],
       "port": 5600
     },
     {
       "name": "sandbox",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["sandbox/serve.js"],
+      "runtimeArgs": [
+        "sandbox/serve.js"
+      ],
       "port": 5100
     },
     {
       "name": "score-5601",
       "runtimeExecutable": "powershell",
-      "runtimeArgs": ["-NoProfile", "-Command", "$env:PORT=5601; node score/server.js"],
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "$env:PORT=5601; node score/server.js"
+      ],
       "port": 5601
+    },
+    {
+      "name": "icy-lab",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "../live-electronics-engine/tools/serve.py"
+      ],
+      "port": 8732,
+      "_note": "the workshop's own server (it serves from its repo root whatever the cwd) \u2014 for engine/icy-lab.html, the time-stretch settings found by ear (PLAN 1a.3, 2026-11-03)"
     }
   ]
 }

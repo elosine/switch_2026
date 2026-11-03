@@ -732,3 +732,23 @@ a time, each with its own duration settings; the read speed a live knob, last; p
 (how far a grain's start strays from the crawling head; the cloud has it, icy does not), listed, off by default. The rig: a live patch
 in the browser (the workshop's icy read as a worklet, 1 of 12 samples, the tree as knobs, a save-to-menu) vs. offline render grids —
 put to him. The MENU is for every piece: it will live in the engine's repo. Nothing built yet.
+
+## §44. THE ICY LAB — a live patch for his hierarchy (2026-11-03, Fable; his "then a live patch")
+
+His three answers to §43: *"lets stick to a linear read thru with potential loop back; for 3 lets have 1 or 2 examples of variable envs
+to confirm that I don't want to use, you can design at your descression; but 6 still is a factor, scatter, if we do a linear read? then
+if yes, propose what variations to listen to; then a live patch"*. Built in the workshop (any piece's samples):
+`live-electronics-engine/engine/icy-lab.html` on the workshop's own playhead (his freeze as `engine/playhead-processor.js` reads it —
+the same read Sýnthesi Alpha's renders came from). The page: a sample (the 12 grabs, copied to `build/icy-lab/samples/` with a
+manifest; or any file dropped on the page) · 1 DURATION: static (how long) or variable (shortest · longest · weighting), and the
+overlap — a new grain every mean-duration ÷ overlap, so "overlap" means the same in both branches · 2 ENVELOPE: one of his ten, the
+Hann, or two ASSORTED sets (A: expodec · gauss · hanning; B: all ten — one drawn per grain) · 3 SCATTER: ± seconds of the source a
+grain's start strays from the read point · 4 READ SPEED: slower by ×1 … ×200, the three buttons, a loop back; level; pitch fixed
+at 1 · SAVE TO THE MENU: a name and his words → `voices/icy-menu.json` through a new `/icy-menu` route in `tools/serve.py`; a saved
+entry recalls its settings by a click. Two small additions to the worklet: `skew` (the weighting: a grain's length drawn as
+p^2^(−2·skew), −1 short-leaning … +1 long-leaning) and `windowSet` (the assorted envelope). Proven once in the browser pane: the
+first grab loads, the read runs at ×30 (the head at 0.10 s after 3 s), the meter moves, the save route writes and deletes an entry.
+Served by the workshop's `tools/serve.py` (8732; launch name `icy-lab` added to this repo's `.claude/launch.json`).
+SCATTER WITH A LINEAR READ — yes, it still counts: the read point crawls on, each grain simply starts a little before or after it;
+small (± 10 … 40 ms of source) softens the frozen spot into a shimmer, large (± 150 … 500 ms) blurs the order into a cloud. The
+variations proposed: none · ± 10 ms · ± 40 ms · ± 150 ms · ± 400 ms, each at ×30 on one grab.
