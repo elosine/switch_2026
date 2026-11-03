@@ -140,7 +140,10 @@ electronics part for the FIRST SECTION, the acoustic instruments built around it
   - knobs: the accent threshold (the strongest third, to start) · the smoothing of the readings
 - **1a.3 The sources** (REVISED 2026-11-03, RUNNING_LOG §40 · §41: the busiest ONE-SECOND moments of the FULL MIX, 20 from each of the
   three busiest regions, each stretched ×30 · ×50 · ×100 through his icy — `bank/set/2025-04-08c/sources/index.html` the listening
-  page, 56 grabs × 3; the tool `live-electronics-engine/corpus/icy_sources.py`; waiting on his ear) — *as first laid out:*
+  page, 56 grabs × 3; the tool `live-electronics-engine/corpus/icy_sources.py`; the reels heard 2026-11-03 → THE ICY LAB, a live
+  patch — `http://localhost:8732/engine/icy-lab.html` (the workshop's server, launch name `icy-lab`): 1 of the 12 grabs, his hierarchy
+  as knobs (duration static / variable · overlap · envelope · scatter · the read speed live, a loop back), save-to-menu →
+  `live-electronics-engine/voices/icy-menu.json`, RUNNING_LOG §43 · §44; HE FINDS THE SETTINGS BY EAR) — *as first laid out:*
   - build: per player, a 4-second window round each kept accent (1 s before, 3 s after; touching windows merged), cut from the mix,
     joined in order with short crossfades → the grab (30 … 90 s); each grab stretched to the voice's length — 3 min placeholder
   - hear: the four grabs, then the four stretched sources

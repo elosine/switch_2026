@@ -61,6 +61,11 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+- **2026-11-03 — 1a.3 IN HIS HANDS: THE ICY LAB (RUNNING_LOG §44)** — a live patch, `http://localhost:8732/engine/icy-lab.html`
+  (preview name `icy-lab` = the workshop's `tools/serve.py`; or he runs it by its full path, `python C:\Users\jwloy\GitHub\live-electronics-engine\tools\serve.py`):
+  1 of 12 grabs, the tree as knobs, save-to-menu. **► HE LISTENS AND SAVES SETTINGS; the menu `live-electronics-engine/voices/icy-menu.json`
+  is copied to the engine's repo at the wrap. Then 1a.4.**
+
 - **2026-11-03 — 1a.2 DONE (§37), 1a.3 BUILT (RUNNING_LOG §41):** the sources revised to the full mix's busiest seconds (§40); 56 one-second
   grabs × ×30 · ×50 · ×100 through his icy; the listening page `http://localhost:5600/bank/set/2025-04-08c/sources/index.html`
   (audio on disk, gitignored; re-made by the one command in §41). **► WAITING ON HIS EAR: which factor(s), which grabs; then 1a.4.**
