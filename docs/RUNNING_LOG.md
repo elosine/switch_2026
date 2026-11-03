@@ -710,3 +710,25 @@ x100.mp3`, 4.6 min and 5.5 MB each, gitignored): the four busiest grabs of each 
 #43 · #53 · #55 · #56), each as the 1 s grab, a 0.6 s breath, then the first 20 s of its stretch, two breaths. The full page (all 56
 grabs, whole renders) stays on the PC. A published page with the audio as assets (194 MB in seven uploads) was the other route — not
 taken: the reels answer "which factor" in a quarter of an hour.
+
+## §43. THE ICY SETTINGS — his hierarchy, and a rig to find them by ear (2026-11-03; a design conversation opened)
+
+After the reels, verbatim: *"ok I think we need to work on the icy settings I would like to have a patch that can select from 1 of the
+12 samples, then I would like to isolate the parameters so 2 catagories, one will be like an absolute like grain duration well let me
+ask you to help me with a hiarachy, there always seems to be too many to adjust but I want to effeciently find the settings I like or
+at least see how they effect the sound. so if we take grain duration, I feel like the first is a binary, so they tree, maybe that is
+why they are hard to nail down, either you have static grain dur or variable, then on the static tree you have how long, and how much
+they overlap, then on the variable tree you have min dur and max dur and then potentially some weighting and then you have overlap but
+that will also depend on grain dur(?); then grain env, I feel like I never liked assorted grain env, so maybe I'll just test one and
+prob stick with single grain env, but then the grain env I choose will have different effects on all of the grain dur trees, so a
+different set of grain dur settings per grain env; then the phasor, read head speed, which I think can be the last thing and can be
+variable, but I guess this is the 30 vs 50 vs 100, probably the best thing is to leave this as a 'live' knob; then I don't usually
+like to modify pitch so we'll leave that, anything else? help me organize effeciant aural tests so I can pin down the settings I like
+the most and make a menu of time-stretch settings and some descriptive about how they sound so I can reuse them in other pieces"*.
+The AI's read of the tree, put to him (the reply of this hour): the duration branch first (static: length · overlap; variable: min ·
+max · weighting · overlap), with ONE correction — overlap and duration are tied through the hop (grains start every mean-duration ÷
+overlaps seconds), so "overlap" keeps its meaning in both branches if the hop is derived from the MEAN duration; the envelope one at
+a time, each with its own duration settings; the read speed a live knob, last; pitch left; ONE addition — the read point's scatter
+(how far a grain's start strays from the crawling head; the cloud has it, icy does not), listed, off by default. The rig: a live patch
+in the browser (the workshop's icy read as a worklet, 1 of 12 samples, the tree as knobs, a save-to-menu) vs. offline render grids —
+put to him. The MENU is for every piece: it will live in the engine's repo. Nothing built yet.
