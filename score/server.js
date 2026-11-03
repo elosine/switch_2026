@@ -46,7 +46,8 @@ const MIME = {
     '.woff': 'font/woff', '.woff2': 'font/woff2', '.mid': 'audio/midi',
     '.wav': 'audio/wav', '.mp3': 'audio/mpeg', '.ttf': 'font/ttf', '.pdf': 'application/pdf',
     '.md': 'text/plain; charset=utf-8',
-    '.mp4': 'video/mp4'   // [2026-10-10, PLAN 2.14] the film, watched in his Chrome from a link (notation/video/**/*.mp4, gitignored)
+    '.mp4': 'video/mp4',  // [2026-10-10, PLAN 2.14] the film, watched in his Chrome from a link (notation/video/**/*.mp4, gitignored)
+    '.ogg': 'audio/ogg'    // [2026-11-03, PLAN 1a.3] the lab's icy renders, heard from bank/set/<set>/sources/index.html
 };
 
 // dots allowed (D17: version labels such as -v1.5); never `..` and never a leading dot
