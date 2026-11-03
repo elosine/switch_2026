@@ -599,3 +599,9 @@ state line follow. The session's start (§1 … §25) and this planning (§26 �
 His note, between sittings (the lab waits on his mix): *"Lachman Notturno as a model for this piece."* — in the sketch pad as SW-3,
 verbatim, the AI's reading marked: Helmut Lachenmann, *Notturno (Musik für Julia)*, small orchestra with solo cello, 1966/68 — to
 confirm that this is the work. What in it is the model is his to say; nothing is planned from it yet.
+
+## §33. A TEXTURE NAMED — repeated-note tuplets at different tempi and phases (2026-11-02)
+
+His note, between sittings: *"a composition note, repeated note tuplets at different tempi and different phases."* It is in the
+sketch pad as SW-4, verbatim, with the AI's reading marked. Nothing is planned from it yet. Where it sits in the piece, which
+players carry it, and whether it is SW-c2's dense counterpoint are his to say.

@@ -147,3 +147,15 @@ Julia)***, for small orchestra with solo cello, 1966/68 — an early work, on th
 *Not said yet (his):* what in it is the model — its sound world (the instruments' noises and actions as material) · its form · a
 solo voice against an ensemble (the cello there; the electronics here?) · its pacing, the night-piece's stillness · something else.
 How it meets the lab's first-section electronics (SW-2) and the two musics of SW-c2.
+
+### SW-4 · 2026-11-02 — REPEATED-NOTE TUPLETS AT DIFFERENT TEMPI AND DIFFERENT PHASES
+
+> *"a composition note, repeated note tuplets at different tempi and different phases."*
+> — said in the chat of this repo, between sittings (the lab waits on his mix)
+
+*AI reading (marked as such):* a texture of repeated single notes grouped as tuplets, laid in several layers at once. Each layer has
+its own tempo, and the layers are offset in phase, so the attacks drift against each other rather than lining up. The lineage has
+the machinery for it. Piece 5 has the multitempo layers and the accelerando calculator (`accel_calc_check`), and the workshop's
+voices have the multitempo generator as a WHEN slot.
+*Not said yet (his):* which instruments carry it, whether it is one of SW-c2's two musics (the dense counterpoint), and whether
+the electronics take part, for instance tremolo rates locked to the tuplets.
