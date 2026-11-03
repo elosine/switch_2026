@@ -150,6 +150,9 @@ electronics part for the FIRST SECTION, the acoustic instruments built around it
   - hear: each stream alone, then the four together
   - knobs: what the capture drives in the granulation (density · grain length · position — as few as hold) · the layering's balance
 - **1a.5 THE TREMOLO — the main focus** (the drums' capture on depth and speed; his "a")
+  - read first (his word 2026-11-03, RUNNING_LOG §39): *Sýnthesi Alpha*'s tremolo overlays — `trem waves` · `trem rush` · `chop accel`
+    (`synthesi-alpha/engine/voices.js`, the scenario's "overlays": one LFO on the bus, its speed steady or moving in a pattern) — the
+    nearest tremolo in the lineage; the engine's stage is built from them
   - build: a tremolo on the voice with TWO parameters open — depth (volume) and speed, the speed shifting — steered by the drums'
     capture: accents · state · readings mapped to the two, several mappings tried
   - hear: the voice under each mapping — does it cluster, thin, surge, flow like the playing; "like vibrato from a violinist"

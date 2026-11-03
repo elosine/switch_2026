@@ -651,3 +651,15 @@ l. 434 …; the engine's §37: long windows 0.6 … 0.8 s, 17 … 40 overlapping
 of his ten grain windows — expodec his favourite). For 1a.3 it runs OFFLINE: sclang 3.14.1 with a second scsynth in NRT (the way
 `sc/bus_test.scd` renders), each grab → its stretched source, both channels. Not the workshop's JavaScript read, not Reaper's
 stretch. The knobs are icy's own.
+
+## §39. SÝNTHESI ALPHA'S RECORD CONSULTED TOO — its icy renders and its tremolos (2026-11-03)
+
+His word: *"synesthesia alpha, all of those as well. We use tremolo there, as well as the icy freeze there."* Read: (1) ITS ICY is the
+same freeze as a JavaScript read (`engine/playhead-processor.js`: the read point crawling at `speed`, grains `win` long, `overlaps` at
+once, through one of his windows, lengths straying by `rand`) — and it has an OFFLINE RENDER TOOL already, `tools/icy_render.py`
+(journal §242: a container read through one rolled icy, start to end, into a file; the accel / decel icys that change speed by equal
+ratios; THE LEVEL RULE, journal §220: a stretched render is brought to the RMS of its source). (2) ITS TREMOLOS are overlays on a
+bus — `trem waves` · `trem rush` · `chop accel` (`engine/voices.js`): one LFO over everything the bus plays, 4 … 24 Hz, its speed
+steady or moving in a pattern; NOT performance-steered — the thing 1a.5 changes. So 1a.3 has two offline icy routes, both his: the
+workshop's proven renderer, or the engine's SC Warp1 stage through a new NRT harness. Put to him. PLAN 1a.5 now says: read the
+three overlays first.
