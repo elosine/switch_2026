@@ -966,3 +966,9 @@ PV_PlayBuf (sc3-plugins, installed). THE PROPOSAL (built next): a third voice, \
 sample analysed at load into spectral frames at a few window sizes; the voice plays the frames at 1/slowerBy with the phases
 randomized every frame, Hann, two chains for stereo; its knobs windowSeconds · slowerBy · readFrom / readTo · level — nothing else,
 by design. The grain voice keeps the textured end; the spectrum slider will cross between them.
+
+## §56. THE STRETCH VOICE BUILT — the drone end, PaulStretch in the engine (2026-11-07)
+
+§55's proposal built and proven headless (the engine's §73): three "drone" buttons on the page — A 0.74 s · B 1.49 s · C 2.97 s
+windows, all ×30 — the sample's spectrum played slowly with the phases drawn fresh every frame; nothing granular in it. The first
+press of a drone button on a sample pauses about a second (the analysis), then sounds. His engine must be restarted to have it.
