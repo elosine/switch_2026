@@ -866,3 +866,22 @@ to do."* Written: `docs/STARTUP.md` — 1 Reaper with the rack (the AI opens it)
 the AI starts dies with the session, §19's lesson) · 3 `start_icy_lab.bat` (new; he double-clicks) · 4 the link; what he sees at
 each; `tools/startup_check.js` (new) says which step is missing. Done this hour: Reaper opened with the rack by the AI, Explorer
 opened at the .bat for him.
+
+## §52. The machine crashed at the lab's startup — the logs read (2026-11-07)
+
+His word: *"Whatever was just happening here crashed my computer. Can you look in the logs? This is like the second crash this
+week."* Read (the Windows event logs; no admin): TWO kernel crashes in 90 days, both this week — 2026-11-04 20:32, bugcheck 0xA
+IRQL_NOT_LESS_OR_EQUAL (a driver-class fault), and 2026-11-07 15:33, bugcheck 0x20001 HYPERVISOR_ERROR (the hypervisor that runs
+Core Isolation hit a fatal state — usually hardware or memory, not an application). The second came about five minutes after the AI
+opened Reaper with the rack (STARTUP step 1, the only activity of ours in the window: no engine, no loopMIDI; the lab server idle).
+No driver is named anywhere; MEMORY.DMP exists but is unreadable without admin; the WER report folders are closed to the user; no
+debugger on the machine. THE ONE HARDWARE CLUE: 2026-10-28, two CORRECTED Processor Core cache-hierarchy errors on one core (APIC 10)
+of the i9-9900K (BIOS 2603 of 2019), a week before the crashes — the pattern of a CPU or memory going marginal (heat, an unstable
+overclock or undervolt, a failing DIMM). Nothing in the lab's code runs in the kernel; Reaper's rack loads the ASIO path, ReaRoute and
+the Realphones system-wide audio driver (4.70, 2024) — the one kernel driver in our path. Put to him: the dump read with a debugger
+(his admin hand), a memory test, the temperatures.
+*(§52, continued)* The crash also hit THIS REPO's git: the three ref files (`refs/heads/main`, `refs/remotes/origin/main`,
+`refs/remotes/origin/HEAD`) were left as 41 zero bytes each — NTFS's mark of a write cut by a crash — so git could not resolve
+HEAD. The objects were whole (fsck), the reflog named the last commit (8f55c78) and GitHub held the same tip; the three pointers
+were written back to it. No history changed; no tracked file was zeroed (every text file changed since Nov 6 checked for NUL bytes;
+the day's files identical to HEAD). The other repos touched today are clean.
