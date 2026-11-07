@@ -5,8 +5,8 @@
 const cp = require('child_process');
 
 function listening(port) {
-    const out = cp.execSync('netstat -an -p tcp', { encoding: 'utf8' });
-    return out.split('\n').some((l) => l.includes(':' + port + ' ') && l.includes('LISTENING'));
+    const out = cp.execSync('netstat -an', { encoding: 'utf8' });
+    return out.split('\n').some((l) => l.includes(':' + port + ' ') && (l.includes('LISTENING') || l.trim().startsWith('UDP'))   /* the engine's ports are UDP */);
 }
 function running(name) {
     const out = cp.execSync('tasklist /fi "imagename eq ' + name + '"', { encoding: 'utf8' });
