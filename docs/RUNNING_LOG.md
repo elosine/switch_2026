@@ -827,3 +827,16 @@ protocols, but the vector-based one, V something, if it's a quad."* — VBAP (ve
 a POSITION (an azimuth), stereo today through GrainBuf's own two-channel pan; quad later. Honest limit noted for the quad talk: a
 single-synth granulator sums its grains, so a true per-grain VBAP needs per-grain synths or several grain streams each with its
 own VBAP; GrainBuf's own four-channel pan (PanAz) is the cheap quad.
+
+## §49. ICY LIVE BUILT AND PROVEN HEADLESS — the engine's §71 (2026-11-07)
+
+Step 1 … 3 of §47's top line in one: `electronics/sc/icylab.scd` (the two voices, the loading, the ear `/le/icy`), the hooks in
+boot.scd and bank.scd, `icylab_test.scd` all five checks passing on the twelve grabs (copied to `bank/set/2025-04-08c/lab/`, with
+`samples.json`; the wavs stay on disk). The mechanism's record is the engine's §71. His GitHub scanned at his word (the elosine
+account, 40 repos): the granular precedents are `freeze` (the lab's source), `spotlights_liveprocessing/freeze_live_spotlights.scd`
+(his \icy_live with a STEREO WIDTH — the second channel a 30 ms delay of the first), `chucK_granulator_tutorial` (single-grain
+generators sporked from a loop, per grain a random position · length · gap · gain · pan · rate, the read position moved by LFOs —
+the routine architecture he remembered), `dsp1_processed_multigranulation` (2015: two GrainIn streams off the live input, each its
+own envelope and rate, each its own processing after — grain STREAMS), `sc_concepts_utilities/8ch_panAz_test.scd` (his multichannel
+pan is PanAz), `grainEnvelopes` (the ten gEnv files and their resamplers; the ChucK set has an eleventh, gEnv_pulse). Nothing newer
+than freeze for the freeze itself. Next: his word on the argument names (the glossary put to him), then the page.

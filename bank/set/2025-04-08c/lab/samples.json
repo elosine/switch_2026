@@ -1,0 +1,90 @@
+{
+ "_about": "the 12 one-second grabs of the Switch~ piece's set (switch_2026 bank/set/2025-04-08c/sources), the four busiest per region \u2014 copied 2026-11-03 for the icy lab",
+ "session": "Sound Lab 2025-04-08c Piano Bari Arch Drums",
+ "samples": [
+  {
+   "file": "samples/r1-t182.0.wav",
+   "label": "3:02.00 \u00b7 region 1 \u00b7 17 attacks",
+   "t0": 182.0,
+   "attacks": 17,
+   "id": 3
+  },
+  {
+   "file": "samples/r1-t190.0.wav",
+   "label": "3:10.00 \u00b7 region 1 \u00b7 18 attacks",
+   "t0": 190.0,
+   "attacks": 18,
+   "id": 8
+  },
+  {
+   "file": "samples/r1-t192.2.wav",
+   "label": "3:12.25 \u00b7 region 1 \u00b7 18 attacks",
+   "t0": 192.25,
+   "attacks": 18,
+   "id": 10
+  },
+  {
+   "file": "samples/r1-t197.8.wav",
+   "label": "3:17.75 \u00b7 region 1 \u00b7 19 attacks",
+   "t0": 197.75,
+   "attacks": 19,
+   "id": 16
+  },
+  {
+   "file": "samples/r2-t110.0.wav",
+   "label": "1:50.00 \u00b7 region 2 \u00b7 16 attacks",
+   "t0": 110.0,
+   "attacks": 16,
+   "id": 21
+  },
+  {
+   "file": "samples/r2-t110.5.wav",
+   "label": "1:50.50 \u00b7 region 2 \u00b7 17 attacks",
+   "t0": 110.5,
+   "attacks": 17,
+   "id": 22
+  },
+  {
+   "file": "samples/r2-t112.8.wav",
+   "label": "1:52.75 \u00b7 region 2 \u00b7 16 attacks",
+   "t0": 112.75,
+   "attacks": 16,
+   "id": 24
+  },
+  {
+   "file": "samples/r2-t124.8.wav",
+   "label": "2:04.75 \u00b7 region 2 \u00b7 19 attacks",
+   "t0": 124.75,
+   "attacks": 19,
+   "id": 38
+  },
+  {
+   "file": "samples/r3-t071.2.wav",
+   "label": "1:11.25 \u00b7 region 3 \u00b7 14 attacks",
+   "t0": 71.25,
+   "attacks": 14,
+   "id": 43
+  },
+  {
+   "file": "samples/r3-t077.2.wav",
+   "label": "1:17.25 \u00b7 region 3 \u00b7 15 attacks",
+   "t0": 77.25,
+   "attacks": 15,
+   "id": 53
+  },
+  {
+   "file": "samples/r3-t078.2.wav",
+   "label": "1:18.25 \u00b7 region 3 \u00b7 15 attacks",
+   "t0": 78.25,
+   "attacks": 15,
+   "id": 55
+  },
+  {
+   "file": "samples/r3-t078.8.wav",
+   "label": "1:18.75 \u00b7 region 3 \u00b7 19 attacks",
+   "t0": 78.75,
+   "attacks": 19,
+   "id": 56
+  }
+ ]
+}
