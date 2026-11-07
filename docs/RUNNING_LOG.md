@@ -840,3 +840,19 @@ the routine architecture he remembered), `dsp1_processed_multigranulation` (2015
 own envelope and rate, each its own processing after — grain STREAMS), `sc_concepts_utilities/8ch_panAz_test.scd` (his multichannel
 pan is PanAz), `grainEnvelopes` (the ten gEnv files and their resamplers; the ChucK set has an eleventh, gEnv_pulse). Nothing newer
 than freeze for the freeze itself. Next: his word on the argument names (the glossary put to him), then the page.
+
+## §50. The names, the dials, the front end one thing at a time (2026-11-07)
+
+His word on the glossary: *"Green envelope instead of green window, please"* (grainEnvelope) and *"let's just go ahead and use your
+recommended argument names … we need to come up with the dial names … the most salient knobs, the actual knobs that I need to
+change"*; the stereo: *"I want to audition here and as I'm composing in stereo, but have that pan be easily ported to quad for the
+live performance … whatever I compose, the arguments, how much spread or however we randomize it will just be adapted to the quad
+setup"*; the front end: *"I just want to do one thing at a time … let's just start with just a set of defaults … maybe even ones that
+I had already used. And let's just do the sample box"*; and *"explain to me how you got those samples again. I've lost track of that."*
+Done: the arguments renamed in `icylab.scd` and its test (grainLength · overlaps · grainEnvelope · lengthVary · lengthLean · scatter ·
+envelopeSet · slowerBy · pitch · readFrom · readTo · rewind · panSpread · stereoWidth · level); the page `electronics/score/icy_lab.html`
+(the engine's page code, served at /electronics/icy_lab.html): the sample box and play at the defaults — Approaching's most-used icy:
+grainLength 0.6 s · overlaps 17 · lengthVary 0.2 · lengthLean even · scatter none · expodec · slowerBy 30 · panSpread 0 · stereoWidth
+1 · level 1, the grain voice; every other knob hidden (`?all`). The page only sends (`LE.send('icy', …)`); the sound is the engine's.
+`samples.json` carries the folder the engine loads from. The overlaps / lengthVary / lengthLean / scatter explanation and the dial
+proposal are the reply of this hour.
