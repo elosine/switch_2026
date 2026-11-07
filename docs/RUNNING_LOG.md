@@ -942,3 +942,27 @@ THE SMOOTH END, three proposals in the menu (`electronics/score/icy_menu.json`, 
 hanning · vary 0.25 · scatter ±15 ms) · B softer (2.0 s · 40 · gauss · 0.3 · ±30 ms) · C washed (1.5 s · 48 · hanning · 0.4 · ±50 ms),
 beside the default (Approaching's 0.6 · 17 · expodec). The procedure: he plays a sample from the page at the default; at his word
 the AI sends a setting to his engine (`node electronics/tools/osc.js send /le/icy do=set …`, 57211) and he listens; his words go here.
+
+## §55. HIS EAR ON THE SMOOTH END: "none of them sound terribly smooth" — the granular limit named (2026-11-07)
+
+The buttons reached the engine (the three settings and the default heard, the page's gray line and the engine's "set" lines) and
+his verdict, verbatim: *"I think the issue might be the implementation, not the speed. So let's work on that. None of them sound
+terribly smooth. What I'm looking for, the results I get in the amazing slower downer, or when I listen to that stretched
+Beethoven's Ninth, sounds literally like a really, really slowed down version. All of these have some sort of oscillation in them.
+Is it perhaps the grain lengths aren't long enough? You mentioned the research to me, but it didn't really surface details about the
+parameters you should be using. And these ones aren't right. What I'm looking for is to be able to hear like a extreme zoom in. So
+in the case of Beethoven's Ninth, it's like I'm sitting in the chord and the timbres and textures are changing very, very slowly.
+Here, all I hear is the sort of jitter oscillation of the algorithm. I'm just hearing sort of a pulsing, jittering thing, almost like
+a stutter."*
+THE DIAGNOSIS: what he hears is the granular method itself, not a setting. Every grain is a copy of the same stretch of waveform
+started at a slightly different time; copies of one waveform summed at offsets BEAT with each other (comb filtering that moves as
+the offsets move), and the grains arrive at a rate (overlaps ÷ length: 27 … 32 a second here) that rides on the sound as a flutter.
+Longer grains do not remove either; they slow the beating. The engine's own measurement of his icy said the same (§60 there: a
+stretch's flutter 3 … 8 dB at 40 ms, "the algorithm's nature"). *9 Beet Stretch*'s smoothness and PaulStretch's come from the SPECTRAL
+method: a long window's MAGNITUDES kept, its PHASES thrown away and drawn fresh every frame, Hann overlap-add — no two frames are
+copies of one waveform, so nothing beats and nothing pulses; the timbre sits still and moves only as the window moves. The
+machine has it: the standard FFT UGens (PV_Diffuser: fresh random phases on a trigger) and Josh Parmenter's PV_RecordBuf ·
+PV_PlayBuf (sc3-plugins, installed). THE PROPOSAL (built next): a third voice, \leIcyStretch — PaulStretch in the engine: each
+sample analysed at load into spectral frames at a few window sizes; the voice plays the frames at 1/slowerBy with the phases
+randomized every frame, Hann, two chains for stereo; its knobs windowSeconds · slowerBy · readFrom / readTo · level — nothing else,
+by design. The grain voice keeps the textured end; the spectrum slider will cross between them.
