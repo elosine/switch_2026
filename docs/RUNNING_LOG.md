@@ -856,3 +856,13 @@ grainLength 0.6 s · overlaps 17 · lengthVary 0.2 · lengthLean even · scatter
 1 · level 1, the grain voice; every other knob hidden (`?all`). The page only sends (`LE.send('icy', …)`); the sound is the engine's.
 `samples.json` carries the folder the engine loads from. The overlaps / lengthVary / lengthLean / scatter explanation and the dial
 proposal are the reply of this hour.
+
+## §51. "don't hear it" → the startup order (2026-11-07)
+
+His *"don't hear it"*: looked before answering — the lab's server was up (his, 5620) but NO engine (nothing on 57210 · 57211, no
+sclang) and no Reaper; the page only sends. Then his word: *"let's get a startup protocol … you are able to open the Reaper window
+… I'll double click … the .bat. And then I'll use the link in chat … let's have an order. And let's assume that I've forgotten what
+to do."* Written: `docs/STARTUP.md` — 1 Reaper with the rack (the AI opens it) · 2 `start_electronics.bat` (he double-clicks; a window
+the AI starts dies with the session, §19's lesson) · 3 `start_icy_lab.bat` (new; he double-clicks) · 4 the link; what he sees at
+each; `tools/startup_check.js` (new) says which step is missing. Done this hour: Reaper opened with the rack by the AI, Explorer
+opened at the .bat for him.

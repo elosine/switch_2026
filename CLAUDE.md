@@ -242,6 +242,10 @@ routing advice is also credit advice, and these bind every Fable turn:
   **UDP 57210**, its language on **57211**, fed by the rack over ReaRoute — the engine's numbers, the same in every piece: ONE engine
   runs at a time on this machine.
 - **The notation app · print · video** — this piece's from container 6.
+- **THE STARTUP ORDER — `docs/STARTUP.md`** (his word 2026-11-07, "assume that I've forgotten what to do"): Reaper with the rack (the AI opens
+  it) → `start_electronics.bat` (HE double-clicks; `LE_READY`) → `start_icy_lab.bat` (HE; 5620) → the link. `node tools/startup_check.js` says
+  which step is missing. **The icy lab** — `http://localhost:5620/` (`electronics/tools/icy_lab.js`, launch name `icy-live`; the page
+  `electronics/score/icy_lab.html`): his freeze on the twelve grabs, live in the engine; never the composer score (his word).
 
 ⚠ **Standing warnings:** never bind **5500 / 5000** (piece 6's — his server may be running), **5400 / 4900** (piece 5's) or
 **5300 / 4800** (piece 4's) · the AI never holds his port and never saves from its own browser pane · the in-app browser has no
