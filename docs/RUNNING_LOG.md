@@ -765,3 +765,23 @@ ran offline for the 168 renders. Not SuperCollider, not rendering. His SynthDef 
 arguments mapped to the lab's knobs: winsz · overlaps · envbuf · rand · rate (ratemin … ratemax) · pitchshift · startpos / endpos. The
 SuperCollider Warp1 itself runs in the engine's `icy` stage (`electronics/sc/process.scd`) — the one the piece plays live. Proposed:
 the page's knobs take his argument names.
+
+## §46. "Can we use SuperCollider instead?" — the lab over the engine's own route (2026-11-07)
+
+His word, verbatim: *"Is there a way we can use superclutter instead? Can we develop the web to the JavaScript web to the protocol
+there? Sorry, I forgot the name of the protocol. But can we use that instead? Can we develop that and then run it through the
+superclutter engine? I'd rather we do the live processing through superclutter, and we'll have to talk more about that. But I'm not
+prepared to discuss the whole engine, or I think we're going to do that later for previous pieces, that like the decimal piece that's
+essentially done. And when I produce the final part scores, etc., then we'll discuss how the engine should be. But for now, for the
+experiments, as much as possible, I'd like to hear them as run in superclutter."*
+THE ROUTE EXISTS (read: `electronics/sc/process.scd` § /le/process; `score/le_process.js`; `tools/elec.js`; Approaching's auditions):
+the protocol is OSC over UDP — a page → POST /api/elec on the score server → the relay → OSC → sclang (57211). The engine renders a
+sample from the bank through \leProcess — the chain's UGens, Warp1 in the icy stage — OFFLINE in SuperCollider (NRT, a second or two),
+banks the result, and /le/play plays it through the engine's bus → ReaRoute → Reaper's ELEC RETURN. The icy stage's controls: icMix ·
+icSpeed · icFromMs · icWin · icOverlaps · icRand · icPitch · icEnv (1 … 10 his windows, 0 the Hann) · icLoop. Approaching heard its
+effects this way (its audition scores: bricks, each a render, played in the composer score — `docs/auditions/`).
+WHAT DOES NOT EXIST: a LIVE SuperCollider read of a sample with the knobs turning (the live SynthDefs take the microphone; the sample
+path is the render). And the chain is MONO — the icy stage reads one buffer (the engine's §37 "not yet: stereo, his \icy_s ran two").
+The proposal put to him: the icy lab re-made over this route — the stripped page sends /le/process with his SynthDef's names mapped
+to the stage's controls, every change re-renders through SuperCollider and plays; mono for the experiments; the live-with-knobs
+version is engine work for the engine conversation he deferred.
