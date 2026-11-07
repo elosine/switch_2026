@@ -113,3 +113,9 @@
 *(Offers he held — not to be raised again in this piece. The harvest reads this section whole.)*
 
 - ‹…›
+
+### From the icy lab (2026-11-07, RUNNING_LOG §53)
+
+- **The full rack `reaper/switch_rack.rpp` has NO `ELEC RETURN` track** — 6.1's route (`node tools/elec.js route`, then his re-save) was
+  never applied in this piece. The lab uses its own one-track project (`reaper/icy_lab.rpp`); the route is applied to the rack the day
+  the composer score first sends to the engine.

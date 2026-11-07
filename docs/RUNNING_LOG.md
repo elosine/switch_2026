@@ -900,3 +900,14 @@ PnP device (`ROOT\{818C4061-A772-4B8B-9673-00129F34E083}\0000`, MEDIA class; no 
 Disabled and re-enabled by `pnputil /disable-device` · `/enable-device` on that id, in an admin prompt — his hand (a system
 setting). The Realphones VST in the rack's Monitoring FX is already bypassed (§17) and is user-mode, not the driver. The line's
 quoting tested in both shells on the harmless `/enum-devices`.
+
+## §53. "What's actually being used in the Reaper file?" — nothing of it: the lab's own project (2026-11-07)
+
+His question at step 1: *"It's loading my old one, which has all the virtual instruments."* What the lab needs of Reaper is ONE
+thing: a track whose input is ReaRoute 1/2, where the engine's master leaves (`bank/elec_route.json` return.engineOut 1), monitoring
+on, to the master — the ELEC RETURN. Found on the way: **the full rack has no ELEC RETURN track at all** (25 tracks, none the
+return): PLAN 1.1 / 6.1's route (`node tools/elec.js route`) was never applied in this piece, so the engine's sound had nowhere to
+land even with the rack open — a second reason for "don't hear it", on top of the engine not running. Built: `reaper/icy_lab.rpp` —
+the rack's project header, ONE track ELEC RETURN cloned from piece 6's rack (`REC 1 1536 1 2 …`: input 1536 = stereo 1024 + ReaRoute
+512 → ReaRoute 1/2; monitoring 1; MAINSEND 1), a new GUID, no instruments, 18 MB → a few KB. STARTUP.md step 1 and the check now name
+it; the full rack stays for composing, its missing return noted for when the score first calls the engine (NITS).
