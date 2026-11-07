@@ -891,3 +891,7 @@ kernel dump has nowhere to be written), and Windows deletes a memory dump after 
 right shape (one line, both shells); the file did not exist. So this crash cannot be read. What remains: the NEXT crash made
 readable — two admin registry values, his hand (`AlwaysKeepMemoryDump` 1 · `CrashDumpEnabled` 2, a small kernel dump that always
 fits) — and the memory test.
+*(§52, continued, 2026-11-07 17:00)* His two admin lines are in (CrashDumpEnabled 2 · AlwaysKeepMemoryDump 1 — the next crash
+leaves a small dump that is kept). The Windows Memory Diagnostic ran at his reboot, 16:58: **no errors**. So the RAM is cleared
+as far as that test goes; the Oct 28 corrected cache errors stand on the CPU side. Nothing more to do until a next crash, which
+would now be readable.
