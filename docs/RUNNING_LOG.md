@@ -911,3 +911,34 @@ land even with the rack open — a second reason for "don't hear it", on top of 
 the rack's project header, ONE track ELEC RETURN cloned from piece 6's rack (`REC 1 1536 1 2 …`: input 1536 = stereo 1024 + ReaRoute
 512 → ReaRoute 1/2; monitoring 1; MAINSEND 1), a new GUID, no instruments, 18 MB → a few KB. STARTUP.md step 1 and the check now name
 it; the full rack stays for composing, its missing return noted for when the score first calls the engine (NITS).
+
+## §54. THE SPECTRUM, smooth drone → texture; the smooth end first (2026-11-07, Fable)
+
+His design, verbatim: *"let's just start with the spectrum. I'll ask you to adjust the parameters, but let's make the spectrum like
+smooth/drone to texture. And then when we get to the texture, so maybe we do the two ends of the spectrum first. And when we get to
+the texture, we explore different textures through different, first probably different grain envelopes, and then maybe some of the
+other settings. And then we have like a spectrum slider. So the smooth or drone, I'm thinking about the amazing slow downer piece of
+software. That's the software I use mostly to do time stretching. I don't know if you have any insight as to some of the settings
+they use or the subtleties of the algorithms or overlaps, etc. Otherwise, we can intuit our own, and this is just like a time
+stretching. I'm also thinking about the piece that the composer time stretched, I think it was Beethoven's Ninth. Maybe 1 hour into
+24 hours. I don't know if there was any discussion about the algorithms that he used, but let's investigate, and then let's have
+settings. And I am also open to adjusting the synth def if we need some additional parameters. But from smooth drone, basically just
+very smoothly, you know, time stretched to a large degree, all the way to something that sounds much more textured, like a jet engine
+or something like that, yet with a sort of an arc. But anyways, let's work on the smooth end of the spectrum first."* And on the
+record: *"let's make sure we continue to journal. This is the sort of composition notes. So the idea is that if at the end of this
+piece, when I'm all done, I want to write a paper or a few papers about it, then we have the archive material, the journals for it."*
+(It has been kept: §26 … §53 here, the engine's §71 · §72; this entry is the composing's.)
+THE INVESTIGATION (web, 2026-11-07): *9 Beet Stretch* (Leif Inge, 2002 at NOTAM; 2004 version) — Beethoven's Ninth to 24 hours; the
+software was Bill Schottstaedt's (Wikipedia), i.e. CLM / Snd's granular time-stretch (the "expand"/granulate family: ramped grains
+with jitter), so the famous smooth stretch was GRANULAR, like his icy, not a phase vocoder. *Amazing Slow Downer*: nothing published
+on its algorithm; a phase-vocoder family (STFT, synthesis hop ÷ analysis hop = the factor; its known artifacts phasiness and smeared
+transients). The one algorithm written down for EXTREME smooth stretches is PaulStretch (Nasca): very large windows (seconds), the
+PHASE RANDOMIZED every frame (no phase coherence → no periodic artifact, "whisperization" at factor 1), Hann windows, heavy overlap;
+Csound's opcode takes the window in seconds. The granular reading of that lesson, for icy: LONG grains · MANY overlaps · a SOFT window
+(hanning / gauss, no attack) · the hop's periodicity BROKEN by length variation and a little scatter (a fixed hop with identical
+grains rings at the hop rate — the flutter the engine's §60 measured at 3 … 8 dB). The textured end is the opposite: short grains,
+few overlaps, expodec's attack, large scatter.
+THE SMOOTH END, three proposals in the menu (`electronics/score/icy_menu.json`, new — the menu for every piece): A glass (1.2 s · 32 ·
+hanning · vary 0.25 · scatter ±15 ms) · B softer (2.0 s · 40 · gauss · 0.3 · ±30 ms) · C washed (1.5 s · 48 · hanning · 0.4 · ±50 ms),
+beside the default (Approaching's 0.6 · 17 · expodec). The procedure: he plays a sample from the page at the default; at his word
+the AI sends a setting to his engine (`node electronics/tools/osc.js send /le/icy do=set …`, 57211) and he listens; his words go here.
