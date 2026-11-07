@@ -752,3 +752,16 @@ Served by the workshop's `tools/serve.py` (8732; launch name `icy-lab` added to 
 SCATTER WITH A LINEAR READ — yes, it still counts: the read point crawls on, each grain simply starts a little before or after it;
 small (± 10 … 40 ms of source) softens the frozen spot into a shimmer, large (± 150 … 500 ms) blurs the order into a cloud. The
 variations proposed: none · ± 10 ms · ± 40 ms · ± 150 ms · ± 400 ms, each at ×30 on one grab.
+
+## §45. "What's the engine here?" — the icy lab is the workshop's JavaScript read, not SuperCollider (2026-11-07)
+
+His questions, verbatim: *"what's the engine here? Are you still using SuperCollider? And if you are, then are you rendering? And are
+you using my IC patch, my synth def? And then let me see the synth def in chat. And maybe we should just use the variables here. Just
+help me understand what you're actually doing."* — after *"This is too busy, the IC lab, and too hard to use. Let's just do one thing
+at a time"* (the page stripped to the sample and play; the knobs hidden, `?all` shows them). The answer given: the lab plays LIVE in
+the browser through the workshop's `engine/playhead-processor.js` — his \icy re-written in JavaScript (Warp1 decomposed: a phasor at
+the read rate, overlapped windowed taps at pitch; journal §220 there), the same read Sýnthesi Alpha used live and that `icy_sources.py`
+ran offline for the 168 renders. Not SuperCollider, not rendering. His SynthDef (`freeze/freeze.scd`, 2015 … 2016) shown verbatim, its
+arguments mapped to the lab's knobs: winsz · overlaps · envbuf · rand · rate (ratemin … ratemax) · pitchshift · startpos / endpos. The
+SuperCollider Warp1 itself runs in the engine's `icy` stage (`electronics/sc/process.scd`) — the one the piece plays live. Proposed:
+the page's knobs take his argument names.
