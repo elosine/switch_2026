@@ -811,3 +811,13 @@ Read for it: `freeze/freeze_live.scd` (\icy_live — SoundIn written into a buff
 `rate`; a linen over the whole) and `freeze.scd` (\icy — Warp1 straight off a loaded buffer); the workshop's `synths/roads-cloud.scd`
 (GrainBuf with a trigger, two channels). His "single grain generators" repo is not on this machine. The evaluation is the reply of
 this hour (§48 records what he decides).
+
+## §48. Stereo in, and a pan per grain — his addition to the architecture (2026-11-07)
+
+*"Oh, and let's find a way to bring stereo in. So that was another thing I think we did in the previous repos or previous pieces to
+have. It might even need to be another different UGen to have, some sort of panning per grain. And then that'll be another knob."*
+In the lineage: the workshop's `synths/roads-cloud.scd` is GrainBuf in two channels with a pan per grain; the engine's cloud and icy
+are mono (its §37). Design, as answered: the grabs stay stereo (two buffers, L and R, as his \icy_s ran two); the GrainBuf voice reads
+both with one trigger and one position, and PANS each grain — a knob, pan spread: 0 keeps the source's own field, 1 throws each grain
+anywhere; Warp1 has no pan per grain, so his \icy voice keeps the source's field only. The shape accepted by his addition; step 1
+(the two SynthDefs) begins.
