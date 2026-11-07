@@ -895,3 +895,8 @@ fits) — and the memory test.
 leaves a small dump that is kept). The Windows Memory Diagnostic ran at his reboot, 16:58: **no errors**. So the RAM is cleared
 as far as that test goes; the Oct 28 corrected cache errors stand on the CPU side. Nothing more to do until a next crash, which
 would now be readable.
+*(§52, continued)* *"is there a way to disable the real phones until we need it?"* — yes: the Realphones System-Wide driver is one
+PnP device (`ROOT\{818C4061-A772-4B8B-9673-00129F34E083}\0000`, MEDIA class; no service, no startup entry, no process running).
+Disabled and re-enabled by `pnputil /disable-device` · `/enable-device` on that id, in an admin prompt — his hand (a system
+setting). The Realphones VST in the rack's Monitoring FX is already bypassed (§17) and is user-mode, not the driver. The line's
+quoting tested in both shells on the harmless `/enum-devices`.
