@@ -821,3 +821,9 @@ are mono (its §37). Design, as answered: the grabs stay stereo (two buffers, L 
 both with one trigger and one position, and PANS each grain — a knob, pan spread: 0 keeps the source's own field, 1 throws each grain
 anywhere; Warp1 has no pan per grain, so his \icy voice keeps the source's field only. The shape accepted by his addition; step 1
 (the two SynthDefs) begins.
+*(§48, continued — his addition mid-build:)* *"When this may eventually end up being a quad. So for now, we'll use the PAN2 or
+whatever we decide, and then have it easily converted into a quad PAN. And my preference for that is, again, I forget all the
+protocols, but the vector-based one, V something, if it's a quad."* — VBAP (vector base amplitude panning). So a grain's pan is kept as
+a POSITION (an azimuth), stereo today through GrainBuf's own two-channel pan; quad later. Honest limit noted for the quad talk: a
+single-synth granulator sums its grains, so a true per-grain VBAP needs per-grain synths or several grain streams each with its
+own VBAP; GrainBuf's own four-channel pan (PanAz) is the cheap quad.
