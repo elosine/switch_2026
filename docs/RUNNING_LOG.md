@@ -885,3 +885,9 @@ the Realphones system-wide audio driver (4.70, 2024) — the one kernel driver i
 HEAD. The objects were whole (fsck), the reflog named the last commit (8f55c78) and GitHub held the same tip; the three pointers
 were written back to it. No history changed; no tracked file was zeroed (every text file changed since Nov 6 checked for NUL bytes;
 the day's files identical to HEAD). The other repos touched today are clean.
+*(§52, continued)* His admin copy of `C:\Windows\MEMORY.DMP` answered "cannot find the file": the dump is GONE — no .dmp anywhere,
+no minidump, the WER kernel folders empty. Two reasons on this machine: the page file is 4.8 GB on 32 GB of RAM (an automatic
+kernel dump has nowhere to be written), and Windows deletes a memory dump after reporting it when space is tight. The line was the
+right shape (one line, both shells); the file did not exist. So this crash cannot be read. What remains: the NEXT crash made
+readable — two admin registry values, his hand (`AlwaysKeepMemoryDump` 1 · `CrashDumpEnabled` 2, a small kernel dump that always
+fits) — and the memory test.
