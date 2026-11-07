@@ -785,3 +785,29 @@ path is the render). And the chain is MONO — the icy stage reads one buffer (t
 The proposal put to him: the icy lab re-made over this route — the stripped page sends /le/process with his SynthDef's names mapped
 to the stage's controls, every change re-renders through SuperCollider and plays; mono for the experiments; the live-with-knobs
 version is engine work for the engine conversation he deferred.
+
+## §47. ICY LIVE — he asks for the real-time SuperCollider architecture, an evaluation (2026-11-07)
+
+His word, verbatim: *"There should be something called IC Live. I believe we can still do it that way. If you load the samples as
+buffers and then you play them, you just run a play where it plays from the buffer. And well, let's take some time to rearrange
+things. I'm open to you creating new versions, but using my basic architecture. So this is a little bit sketchy. So I haven't been
+programming directly in SuperClutter, but if we run the buffers into some sort of bus, perhaps, and when we initialize the engine,
+we'll just play those buffers. We'll load and play those buffers, and then I guess that those synthefs will need the read head. Or the
+playhead, I guess, play buff. And then the other synthdef will sit after it and do the granulation live, right? You just do mic in,
+and I'm not sure, you had mentioned this jitter from the playhead, and I don't still quite understand that, or I guess the envelope.
+Anyways, let's figure it out. So what's maybe there, because I had some, you can look in the repo, in my ELO sign repo, I had some that
+were just single grain generators, so that's possible too. I don't know if that's better. And we just do it at like as a some kind of
+routine. Or if you just have a continuous read synthef that just triggers each individual, the sounds coming in, but you just trigger
+each individual envelope. Anyways, let's discuss what the best architecture for this is so that we can do the real time. And then,
+yeah, using OSC with some JavaScript page that you make. Or if you have a different recommendation, I'm open to that as well. So I
+guess this is what we need to do, is we need to create an updated version of my architecture from SuperClutter, something that makes
+sense, and I'll have you manage all the buses and like groups and stuff. And then whether we want just single grain generator and like
+a routine that schedules all the synthdefs, if that's better, or it's better to have a single synth that triggers the grains. But I
+guess if we want them overlapping, we'll need a couple. Anyways, do an evaluation, please. Let's revise the actual SuperClutter patch
+so that we can do this efficiently. Then secondly, the thing you had before with the read head, I still didn't quite understand, but
+help me understand that and how we implement that if we need to change my actual synthefs at all. And anything else that needs
+updated there. And then let's talk about implementation."*
+Read for it: `freeze/freeze_live.scd` (\icy_live — SoundIn written into a buffer by a Phasor write head; Warp1 reads behind it at
+`rate`; a linen over the whole) and `freeze.scd` (\icy — Warp1 straight off a loaded buffer); the workshop's `synths/roads-cloud.scd`
+(GrainBuf with a trigger, two channels). His "single grain generators" repo is not on this machine. The evaluation is the reply of
+this hour (§48 records what he decides).
