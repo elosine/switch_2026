@@ -1142,3 +1142,12 @@ repeated till the step ends; the repeat's period is the tuplet's, beat·m/n (7:1
 orig (the override's — the slice as it is, 5 ms crossfades) · perc (2 ms up, an exponential fall to −60 dB over the repeat) ·
 expodec (his gEnv_expodec, resampled to the repeat). STEERED (the recommendation): the steps change at a player's accents, the
 tuplet drawn from the denser half when the player is busy. Renders in §66.
+
+## §66. The stutter renders — fifteen 90-second samples (2026-11-08)
+
+`bank/set/2025-04-08c/stutter/`, each 90 s at a 1 s beat, the stutter alone at the bed's level: on r1-t190.0 (full) seed 1 — orig ·
+perc · expodec (27 steps: 5:1 14:3 5:1 14:3 6:1 3:1 8:1 7:2 6:1 13:11 7:1 11:3 …) · the same three re-rolled, seed 2 (25 steps) · on
+r2-t124.8 (whole), seed 3, the three (26 steps) · STEERED by the drums on r1-t190.0 (the steps at 36 accents of the drums' 2:30 … 4:00,
+denser tuplets when busy; the three envelopes) · steered by the piano on r3-t071.2 (26 accents; the three). The steps of each are in
+a `stutter-steps-….json` beside the files. Waiting on his ear: the envelopes against each other; the fixed steps against the steered;
+the beat (1 s) and the step length (2 … 5 beats) are knobs, as is the set of tuplets.
