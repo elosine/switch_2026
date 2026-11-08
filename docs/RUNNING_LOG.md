@@ -1412,3 +1412,6 @@ All three are knobs. Renders in §87.
 `tuplets/tuplets-gate-varied-r1-t190.0-x625-full-l80-35-seed1.wav` (36 steps of 1 … 6 beats) · `…-seed2.wav` (28 steps) ·
 `…-drums-l80-35-seed1.wav` (the steps at the drums' accents). The sixteen earlier files in `tuplets/_discarded/`. Waiting on his ear:
 the space between notes (the two legato numbers), the release, the chunk sizes.
+*(§85, continued)* The 21 masters made: the raw beds sat at −22 … −30 LUFS, brought up 6 … 14 dB to −16.0, peaks held under −1 dB;
+the materials page now lists each bed by its master (25 keepers — four mixes and 21 beds — all at one level), the raw files beside
+them; the "beds' master pass" line left the still-to-gather list.
