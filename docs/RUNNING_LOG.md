@@ -1548,3 +1548,6 @@ Done:
   ring. MEASURED: the raw render stands at +1 … +5 LUFS (the +50 dB a held partial gains); mastered straight, the compressor took 14 dB
   off and flattened it — so the raw is brought to −1 dBFS peak first, and the master then lifts 3 … 6 dB as on the other beds. The page
   `petals/index.html`. His question answered there: the pitches come from the settings; the bed decides the breathing.
+*(§95, done)* The processed sheet: 287 renders in 261 s (one spectral-gate render of a quiet attack came out silent and was dropped);
+`attacks/processed/index.html` — twelve rows plus the raw reference, one attack a player across, a 20 s tuplet run (mode mix, seed 21,
+the same steps in every row) at the end of each row, so the rows differ by timbre alone.
