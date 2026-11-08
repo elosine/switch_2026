@@ -1298,3 +1298,10 @@ workshop's) — per player the two strongest onsets whose next onset is far enou
 400 ms (`attacks/`, with a page); `tuplets_render.py` mode **hit**: every note of a tuplet group is one of those attacks, the group's
 own (drawn per group, never the same twice running), shaped by the varied note envelope — a player repeating a note, then another
 note. Rendered on the fixed steps and on the drums' accents (`tuplets/tuplets-hit-varied-…`). Renders in §77.
+
+## §77. The single attacks and the tuplets on them (2026-11-09)
+
+Eight single attacks (two a player: the strongest onsets with room after them), 70 … 400 ms each, `H:\…\attacks\` with a page
+(`/files/attacks/index.html`). The tuplets in HIT mode, varied attacks, 90 s: `tuplets/tuplets-hit-varied-r1-t190.0-x625-full-seed1.wav`
+(38 steps; the groups drew drums 2 · baritone guitar 1 · archtop 2 · piano 2 · archtop 2 · …) and `…-drums-seed1.wav` (the steps at the
+drums' accents, the level by their loudness). Waiting on his ear; set 2 … 4's mixes render in the background for the keep folder.
