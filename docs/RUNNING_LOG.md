@@ -1513,3 +1513,9 @@ His composition note, verbatim in `COMPOSITION_NOTES.md` SW-7: the opening files
 sine tones (piece 6's device); then the tremolo versions with trills at other intervals or ostinati in piece 2's manner; the whole tight,
 brisk, full of change, each thing short. Noted; no build follows from it yet — it shapes how the bricks are laid when the composer score
 takes the electronic materials (§80).
+
+## §94. SW-8 — after the opening, granular B2 perc seed 1 at the center (2026-11-09)
+
+His note, verbatim in `COMPOSITION_NOTES.md` SW-8. The piece's order so far, from SW-7 and SW-8: the opening files under live beats
+against sines → the tremolo versions with trills or ostinati → a passage built around the granular bed B2 (perc, seed 1) with other
+granular beds about it. Noted; no build.

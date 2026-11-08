@@ -212,3 +212,13 @@ harmony of fundamentals / offsets moved through over one bed. Discussion first; 
 - **The aesthetic line:** tight · a brisk pace · exciting, much change, much going on · each thing inside a tight time frame so the piece
   moves on quickly. This governs the opening's durations when the bricks are laid.
 - Related: SW-1 (tremolo as the simple parameter) · SW-2 (the first section's electronics) · SW-4 (the repeated-note tuplets).
+
+### SW-8 · 2026-11-09 — AFTER THE OPENING: GRANULAR B2 (PERC, SEED 1) AS THE SEED OF THE NEXT PASSAGE, OTHER GRANULAR BEDS AROUND IT
+
+*His words:*
+
+> *"After that, start with granular B2 perk seed 1 and build around that, along with some of the other granular beds."*
+
+*The AI's reading (not his):* the passage after the opening-and-tremolo section (SW-7) opens on the granular bed **B2 · perc · seed 1**
+(`keep/granular/`, the B group — fast and pitched grains, the perc window) and is built around it, other granular beds (G · B · C)
+layered or following. Continues SW-7's order: opening → tremolo → granular.
