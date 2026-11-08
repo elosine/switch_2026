@@ -1205,3 +1205,12 @@ the soft-knee compressor "to its own loudness", the true-peak look-ahead limiter
 integrated EBU R 128, −16 LUFS for listening (a hall keeps its own fader) → the limiter at −1 dB true peak → 24-bit. First master in
 §70. THE ATTACKS (`tuplets_render.py --vary`): every note's rise 2 … 14 ms, fall 25 … 120 ms, bite 3 … 9 dB over the sustain, its
 length ±15 %, one note in six accented +3 dB. Renders in §70.
+
+## §70. The first master, and the varied gate tuplets (2026-11-08)
+
+THE MASTER of the orchestrated mix: `H:\switch_2026\audio\set-2025-04-08c\tremolo\mix-4voices-orchestrated-9m25-master.wav` — the mix
+measured −26.8 LUFS integrated (his "a little quiet": eleven decibels under a listening level); the compressor left its loudness at
+−27.0 (it works on the range, not the level); the gain +11.0 dB; the limiter held the true peak under −1 dB; −16.0 LUFS after. THE
+VARIED GATE TUPLETS (`…\tuplets\tuplets-gate-varied-…`): the fixed steps (seed 1) · steered by the drums · steered by the piano — the
+same steps as §68's gate files, every note's attack now its own. Waiting on his ear: the master's level and whether the compressor is
+wanted at all (it is a dial); the varied attacks against the even ones.
