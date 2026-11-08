@@ -1000,3 +1000,7 @@ algorithm (a phase vocoder made for music; its floor 1 % a pass) — is inside t
 runs exactly, N passes at 20 %, for every cut in one command: `live-electronics-engine/corpus/slow_passes.py` (transients smooth ·
 window long · smoothing on; 24-bit). Not the Slow Downer's own code: the same kind of sound, not identical — one cut to be heard
 against his own 4-pass result. First run: the twelve lab cuts at 3 and 4 passes (×125 · ×625) → `bank/set/2025-04-08c/slow/`.
+*(§58, continued)* The batch, measured before trusting it: ffmpeg's rubberband filter does not flush its last block — a 1 s cut at
+20 % came out 3.62 s, the END of the material gone (3 passes 82 s instead of 125). Fixed in `slow_passes.py`: each pass pads the source
+with 2 s of silence and trims the result to the exact length (1 pass → 5.000 s, the sound running to 4.89 s). The twelve cuts rerun:
+24 files, ×125 (125 s) and ×625 (625 s), 24-bit, in `bank/set/2025-04-08c/slow/` (1.5 GB on disk, not in git).
