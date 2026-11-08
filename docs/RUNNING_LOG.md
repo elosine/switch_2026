@@ -1094,3 +1094,13 @@ each under a different player, cut to ONE length, together from start to end) an
 field for each voice (a position kept as an azimuth, so the quad version is the same four numbers on four speakers, his VBAP wish);
 the width of each; the tremolo's own character per player, already different; a touch of distance (level, a little reverb); tone
 (a tilt per voice) — the last two change the sound itself and are offered, not recommended. His answer in §63.
+
+## §63. The placed mix — four voices at four angles, three minutes each (2026-11-08)
+
+His word: *"Let's try the stereo placement, or the, I guess it's the vector, and just make it the length of the shortest clip for
+now."* Built `live-electronics-engine/corpus/place_mix.py`: a voice's place is an AZIMUTH in degrees (a quad render takes the same
+number), rendered to stereo by an equal-power law after the voice is narrowed (width 0.4 — its stereo kept at four tenths); each cut
+to 180 s (the shortest clip, r1-t190.0's) with a 2 s fade; the sum ÷ √4. The four, left to right: r1-t190.0 under the DRUMS at −60° ·
+r3-t071.2 under the PIANO at −20° · r2-t124.8 under the ARCHTOP at +20° · r1-t184.2 under the BARITONE GUITAR at +60° →
+`tremolo/mix-4voices-placed-3m00.wav`, its manifest beside it with the angles. Waiting on his ear: do the voices read apart; the
+angles and the width are the knobs.
