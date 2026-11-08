@@ -1082,3 +1082,15 @@ ending in its own time, ÷ 2, peak −6.8 dBFS: `tremolo/mix-4clips-4players-Dbr
 *(§61, continued)* *"r3-t078.8-x625-4pass same cut end and process 4 trems pls"* — its level −23 dB through 9:00, −29 at 9:30, −42
 at 9:50; cut at 9:45 with a 3 s fade → `bed/r3-t078.8-x625-trimmed.wav`; the four players rendered on it (D + brightness, as §61).
 Five beds now.
+
+## §62. The four-voice mix — equal excerpts, and how to tell the voices apart (2026-11-08; a talk first, his word)
+
+Verbatim: *"So the four mix, are those all four clips the same length? So just use four different, like the base clips should be
+four different ones. I think we have four, at least four now. But the mix should just be excerpts so they're all the same length.
+That makes sense. And then is there anything we can do to distinguish the voices a little bit? I don't know if there's anything we
+can do with spatialization or anything like that. Discuss with me first, just to make sure we understand what I want and what is
+possible."* (§61's cross mix had let each clip end in its own time — 3:00 … 10:13.) Put to him: the restate (four different beds,
+each under a different player, cut to ONE length, together from start to end) and the means of telling them apart — a PLACE in the
+field for each voice (a position kept as an azimuth, so the quad version is the same four numbers on four speakers, his VBAP wish);
+the width of each; the tremolo's own character per player, already different; a touch of distance (level, a little reverb); tone
+(a tilt per voice) — the last two change the sound itself and are offered, not recommended. His answer in §63.
