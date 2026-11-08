@@ -1360,3 +1360,18 @@ re-run) and a page (`keep/index.html` → `/files/keep/index.html`): the mixes (
 tuplets and attacks when they are kept, and a "still to gather" list. THE TUPLETS: nothing is pending on the AI's side — the two
 hit-mode renders of §77 (fixed steps · the drums' accents, varied attacks, one single attack per group) are in `tuplets/` waiting
 on HIS ear; they are not in the keep folder until he says.
+
+## §83. The pages stall on long files; the groups filled to seven; why four minutes (2026-11-09)
+
+His word, verbatim: *"all the pages. I don't know if it's a loading issue. I sometimes the sound files don't play, and then I can't
+advance any of them. And then, can you produce a few more of the B's and C's? … let's treat G, B, and C each as one sort of group …
+Let's do like 7 of each … Explain to me where we got the 4 minute length."* THE STALL: the lab server sent every file WHOLE, with no
+byte ranges — a browser's audio element seeks and resumes by Range requests, so a 150 MB 24-bit WAV loaded entire, stalled at times,
+and could not be advanced. `electronics/tools/icy_lab.js` now answers ranges (206, Content-Range, Accept-Ranges) and streams the file;
+his server restart takes it. THE FOUR MINUTES: the AI's choice at §79 — long enough to lie under a whole section of the piece (the
+call allows 5 … 15 minutes; a first section of three to five), short enough to render and to listen through (a C roar at four
+minutes is over a million grains), and a bed is cut and faded in the score anyway; longer costs render time and disk and gains
+nothing a loop or a second bed would not. THE GROUPS: three more G (G8 swells of rexpodec · G9 long and loose · G10 bright, an
+octave up) · four more B (B4 sparse and bright · B5 close intervals · B6 the head at ×2 with everything octaves up · B7 everything
+octaves down) · five more C (C4 a white roar ±12 st · C5 a roar that keeps its pitch · C6 the most smeared · C7 at two octaves · C8
+frozen) — seven of each, four minutes, into `keep/granular/`. Renders in §84.
