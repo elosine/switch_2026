@@ -1406,3 +1406,9 @@ with three changes in `tuplets_render.py`: the note's share of its slot is now 8
 (was 90 / 55 — the fast runs had become a tremolo); the release is an exponential fall over a quarter of the note (was a linear
 fade of 12 % of the slot) — a crisper end; the fixed steps draw their length from chunks of 1 · 1 · 2 · 2 · 3 · 3 · 4 · 6 beats.
 All three are knobs. Renders in §87.
+
+## §87. The three gate-varied renders (2026-11-09)
+
+`tuplets/tuplets-gate-varied-r1-t190.0-x625-full-l80-35-seed1.wav` (36 steps of 1 … 6 beats) · `…-seed2.wav` (28 steps) ·
+`…-drums-l80-35-seed1.wav` (the steps at the drums' accents). The sixteen earlier files in `tuplets/_discarded/`. Waiting on his ear:
+the space between notes (the two legato numbers), the release, the chunk sizes.
