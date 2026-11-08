@@ -1034,3 +1034,6 @@ the ranges, the smoothing, which curve drives which.
 *(§59, continued)* His third segment: *"r2-t124.8-x625-4pass lets use the whole except there is some silence at the end"* → the
 file's sound ends at 613.547687 s of 625 (the stretched tail of the cut's own fade); cut to 613.048 s with the same fades:
 `bank/set/2025-04-08c/bed/r2-t124.8-x625-whole.wav` (the cut at 2:04 of the session, region 2, 19 attacks).
+*(§60, continued)* His first adjustment, before the depth: *"Can we try but with a greater max speed? Let's see what 20 hertz sounds
+like. And we'll just keep the 2 hertz min."* Rendered: A · B · C again at 2 … 20 Hz (`…-s2-20.wav`; the 2 … 14 files kept as
+`…-s2-14.wav` in name only — the earlier files keep their first names). Depth untouched.
