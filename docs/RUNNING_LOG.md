@@ -1246,3 +1246,10 @@ assortment (eight hits, two per player and two of the mix). The head fixed, or W
 smoothed over 20 s, by equal ratios, never a ramp. Six settings, 60 s each: G1 the reference (expodec · fixed ×12 · 80 ms · overlap 6 ·
 ±30 ms) · G2 rexpodec · G3 perc · G4 expodec with the head wandering 6 … 30× (150 ms · 10 · ±60 ms) · G5 a smooth cloud (300 ms · 20 ·
 ±100 ms) · G6 a gritty texture (30 ms · 2 · ±15 ms). Renders in §73.
+
+## §73. The six granular beds rendered (2026-11-08)
+
+`H:\switch_2026\audio\set-2025-04-08c\granular\granular-G1 … G6-<envelope>-seed1.wav`, 60 s each, ~4,000 grains each over the first four
+hits of the assortment (drums 01 · piano 03 · archtop 05 · baritone guitar 07 — at ×12 a 1.5 s hit takes 18 s), with `index.html`
+(`http://localhost:5620/files/granular/index.html`) and the manifest. Waiting on his ear: which direction — envelope, head, grain
+length, overlap, scatter — and whether the repetition is gone.
