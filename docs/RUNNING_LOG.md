@@ -1015,3 +1015,17 @@ later."* So the first material for 1a.5 is chosen by ear from the batch of §58:
 SILENT: with `-ss` placed after the input, ffmpeg keeps the source's timestamps (240 s …) and the fade-out at "179.5 s" fell before
 the whole cut — the seek goes before the input. The lab's 1a.3 (the sources) is, for now, this: static files by his Slow Downer
 recipe; the live icy voices stay for later (§57). NEXT: 1a.5 THE TREMOLO on this bed — the drums' capture on depth and speed.
+
+## §60. 1a.5 BEGINS — the first tremolo renders: the drums' capture on depth and speed, on the bed (2026-11-08)
+
+The bed: §59's segment (r1-t190.0 ×625, 4:00 … 7:00, 180 s). The driver: THE DRUMS' CAPTURE AT REAL TIME — the analysis's per-second
+density (attacks/s) and loudness (dB) and its onset times, read from 2:30 of the session for the bed's length (2:30 … 5:30 takes in
+the session's busiest stretch, 3:00 … 3:25) — so the drumming keeps its own pace, and the tremolo breathes with it; 140 accents (the
+louder third of 424 onsets) in the window. Rendered offline (`live-electronics-engine/corpus/tremolo_render.py`; a raised sine on the
+level, its phase accumulated from the moving speed so a change never clicks), THREE MAPPINGS, his "restrict the parameters" kept to
+two knobs: **A** speed ← density (0 … 10/s → 2 … 14 Hz, smoothed 2 s) · depth ← loudness (−50 … −20 dB → 15 … 90 %, smoothed 1 s) —
+came out 2.3 … 8.3 Hz, 15 … 82 % · **B** the swap (speed ← loudness 2.0 … 11.8 Hz · depth ← density 16 … 55 %) · **C** = A, and every
+accent kicks the depth to 100 % for 150 ms, falling back over 400 ms. `bank/set/2025-04-08c/tremolo/trem-{A,B,C}-…-from150s.wav`,
+24-bit, each with a `.json` of its curves at 10 a second (for drawing). Waiting on his ear: does any of them have "the flow of my
+performance … clustering, density and intensity, organic wave like flow" (SW-2)? Everything here is a knob: the window of the drums,
+the ranges, the smoothing, which curve drives which.
