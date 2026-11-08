@@ -191,3 +191,24 @@ over one fundamental, the second bank offset in semitones, each partial wobbling
 (the engine's poBloom · poDrive · poHold) as "the feedback filters". Two open questions he names: the input gate and level (built for a
 struck impulse), and whether the driver matters at all at that resonance. If it does not, the composition is in the SETTINGS — a
 harmony of fundamentals / offsets moved through over one bed. Discussion first; nothing built.
+
+### SW-7 · 2026-11-09 — THE OPENING'S SHAPE: THE OPENING FILES UNDER LIVE BEATING AGAINST SINES; THEN THE TREMOLO VERSIONS WITH TRILLS OR OSTINATI; TIGHT, BRISK, FULL OF CHANGE
+
+*His words:*
+
+> *"the opening will use those opening sound files. I will use live instruments with audible beats, the same one we use for the decibel
+> piece, so they'll be beating against sine tones. Then it'll move into tremolo and the tremolo versions of the opening, and the players
+> using trill or ostinato. I guess I like the ostinato versions from piece number 2, the 2 percussion, 2 piano. So something along those
+> lines. So maybe not necessarily trills like minor seconds, but maybe different intervals. And then some aesthetic notes for myself. I'd
+> like it to be tight, a brisk pace, and I guess exciting, or lots of change, lots going on. But keep it within a tight time frame to be
+> able to move on quickly."*
+
+*The AI's reading (not his):*
+- **Section 1, the opening:** the `keep/opening/` files — the mastered bed `r3-t078.8-x625-trimmed` first — under live instruments playing
+  AUDIBLE BEATS against sine tones: piece 6 *Approaching*'s device (its sine brick, the engine's `\leSine` · `\leSineTrack`), carried.
+- **Then into tremolo:** the four continuous tremolo stems of the same bed (and the orchestrated mix), the players moving to TRILLS or
+  OSTINATI — the ostinato manner of piece 2 (`composition_for_two_pianos_and_two_percussion`), and the trills at intervals other than the
+  minor second.
+- **The aesthetic line:** tight · a brisk pace · exciting, much change, much going on · each thing inside a tight time frame so the piece
+  moves on quickly. This governs the opening's durations when the bricks are laid.
+- Related: SW-1 (tremolo as the simple parameter) · SW-2 (the first section's electronics) · SW-4 (the repeated-note tuplets).

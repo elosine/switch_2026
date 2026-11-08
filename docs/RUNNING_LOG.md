@@ -1506,3 +1506,10 @@ hit (never the same twice running); trimmed to the note's duration with an expon
 running (long, short). No bed under it; the level −20 dBFS RMS. Six versions, 60 s each, a 1 s beat, in `tuplets/` (listed under
 CANDIDATES on the materials page): drums alone (seed 1) · piano alone (seed 2) · all eight (seeds 3 · 4, chunks 1 2 3 4 and 1 1 2 3 4 6) ·
 drums + baritone guitar (seed 5) · piano + archtop (seed 6). With two attacks a player, a single-instrument version alternates its two.
+
+## §93. SW-7 — the opening's shape, said while the tuplets were auditioned (2026-11-09)
+
+His composition note, verbatim in `COMPOSITION_NOTES.md` SW-7: the opening files (`keep/opening/`) under live instruments beating against
+sine tones (piece 6's device); then the tremolo versions with trills at other intervals or ostinati in piece 2's manner; the whole tight,
+brisk, full of change, each thing short. Noted; no build follows from it yet — it shapes how the bricks are laid when the composer score
+takes the electronic materials (§80).
