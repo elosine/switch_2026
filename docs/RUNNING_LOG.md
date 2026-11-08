@@ -1151,3 +1151,29 @@ r2-t124.8 (whole), seed 3, the three (26 steps) · STEERED by the drums on r1-t1
 denser tuplets when busy; the three envelopes) · steered by the piano on r3-t071.2 (26 accents; the three). The steps of each are in
 a `stutter-steps-….json` beside the files. Waiting on his ear: the envelopes against each other; the fixed steps against the steered;
 the beat (1 s) and the step length (2 … 5 beats) are knobs, as is the set of tuplets.
+
+## §67. The stutters rejected; TUPLET NOTES instead; the stutter managed by the capture; an orchestrator for the four-mix (2026-11-08)
+
+His two messages, verbatim. First: *"let's try to use the analysis, the different instrument parameters to manage the stutter. And
+then can we do the same or use some analysis data to create an orchestrator for the, or various orchestrations, but for that
+formix, that's pretty good … sometimes it's just one part playing, sometimes there's duets, you know, there's a decent amount of
+the full group playing, things like that. And then let me hear a version, please."* Then, on hearing §66: *"those stutterings aren't
+working. Let's try to make something that sounds like, I think it's the envelope. So basically, like, sounds like some instrument
+that's playing, like I described, like various tuplets. So if I was to notate it out, say for the trumpet or say for the violin or the
+piano, I might do like a 2 beats of 5 and 1, and then 1 beat of 3 and 2, and then 4 beats of 15 and 9 or something like that, etc. So
+that it sounds like I guess it's something about the attack and then the duration. So like the whatever 3 and 2 would have longer
+durations, I guess. And then I guess use the analysis to do some sort of more of the distribution of the tuplets. But if you can,
+give some, try some things there to make the attack sound better and to have that variable length too. But sorry, the three we
+tried, I don't think those work that well. The original stutter, nor the perk, nor the expo deck."*
+THE READING: not a stutter (a sliver repeated) but NOTES — each an attack and a duration, the durations long in slow tuplets and
+short in fast ones; an instrument phrasing. Built `live-electronics-engine/corpus/tuplets_render.py`: a tuplet is a run of notes a
+slot of beat·m/n apart; a note's duration = the slot × a legato share (3:2 held 90 %, 13:1 55 %); the note's envelope a 4 ms rise to
+a peak, a 50 ms fall to the sustain (−5 dB) — the bite of a bowed or blown attack — held to the duration, released over 12 % of the
+slot. Two modes: GATE (the bed runs on underneath, each note a window onto it — the bed phrased) · RETRIGGER (each note from the
+tuplet's own first slice — the stutter's way, shaped). Steps of 1 … 4 beats, dense and sparse by turns; or steered: the steps at a
+player's accents, dense tuplets when busy, the level by loudness. THE STUTTER MANAGED BY THE CAPTURE was built too, before his
+verdict (`stutter_render.py --follow`: the envelope by brightness, the level by loudness, the steps at the accents) — two renders in
+`stutter/`, kept for the record. THE ORCHESTRATOR: `orchestrate_mix.py` — each voice of the four-mix sounds while ITS OWN PLAYER was
+playing in the session (their loudness within 6 dB of their own median, smoothed 3 s, read at real time from 2:30 and wrapping),
+faded over 2.5 s; so the solos, duets, trios and tutti are the session's own — who played with whom, when. Its first run was
+stopped: a 2.5-s smoothing convolved at audio rate took longer than the music; smoothed at 20/s now. Renders in §68.
