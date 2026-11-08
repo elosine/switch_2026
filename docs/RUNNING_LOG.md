@@ -1072,3 +1072,10 @@ is longer than it. Rendered: the three bed clips (§59) × the four players = 12
 (the accents in the window: drums 181 · piano 176 · archtop 198 · baritone guitar 130 for the two long beds). The ×625 four-pass
 stretch of the remaining 44 cuts runs in the background into `bank/set/2025-04-08c/slow/` (about 7 GB; the twelve already there
 are skipped).
+*(§61, continued)* His fourth clip: *"r1-t184.2-x625-4pass Can you trim out the end of this one? I think there's a bit of silence,
+or it's quite quiet for a while … process this with the 4 instruments? And then can you make me a mix of 4 instruments, but using
+different clips?"* Measured in 10-s blocks: the level sits near −22 dB RMS through 9:20, falls to −31 at 9:40, −40 at 9:50, −54 at
+10:00; cut at 9:45 with a 3 s fade → `bed/r1-t184.2-x625-trimmed.wav` (585 s). The four players rendered on it (D + brightness,
+as §61). THE CROSS MIX he asked for: four clips, each under a different player — r1-t190.0 under the drums (3:00) · r3-t071.2 under the
+piano (5:45) · r2-t124.8 under the archtop (10:13) · r1-t184.2 under the baritone guitar (9:45) — summed from a common start, each
+ending in its own time, ÷ 2, peak −6.8 dBFS: `tremolo/mix-4clips-4players-Dbr-d65-100.wav` (10:13).
