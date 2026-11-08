@@ -1328,3 +1328,18 @@ final materials) into `keep/granular/`, plus three more in the same directions (
 of pitch drift · B3 a B that goes down · C3 a slower, wider roar); (2) the tuplets, his to settle; (3) the fund gathered; (4) the
 electronic score in the composer score — the materials as samples in the piece's bank, placed as return bricks on the electronics
 lanes (the engine's existing object), the instruments written around them. The recommendation for the fund is the reply of this hour.
+
+## §80. The electronic score's bricks — editable like MIDI, with fades; planned, not built (2026-11-09)
+
+His word, verbatim: *"in the composer score, I should have some editing ability like I can with the MIDI. So I should be able to
+shorten segments or clip them and move them around. And I guess we'll need some sort of, I don't want to build too much structure,
+but maybe an easy way to have it, like if I edit one, eventually I'll need it so it has some fade in, fade out kind of thing, so it
+doesn't click, if you will. But let's plan it first. You don't have to build anything just yet."*
+THE RESTATE: a material placed in the score is a brick like a note — moved by dragging, shortened from either end, split in two,
+and every edge fades so nothing clicks. WHAT EXISTS: the engine's return brick (`electronics/score/le_objects.js`) plays a banked
+sample WHOLE from its start at its time, through `/le/play` with a level and an envelope (`dyn` · `env`); it is moved like any brick;
+it has no offset, no length of its own, no split. WHAT IT NEEDS, as little as holds: per brick an OFFSET into the sample and a LENGTH
+(so a shortened or split brick plays its own stretch), and a FADE at each edge (a default of a few tens of ms, set once; longer by
+hand when wanted) — the edges dragged as a MIDI note's are, a split key where the playhead stands; the engine's `/le/play` takes
+the offset and the length and makes the fades (the envelope it already has). The materials themselves: samples in the piece's bank
+(`bank/samples`, the engine's index), long files allowed. Laid out as a PLAN item when he reaches the score (1a.7); nothing built.
