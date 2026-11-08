@@ -1380,3 +1380,8 @@ background. His next word: *"Can I get the tuplets in the page … Maybe just pu
 everything there. And then we can decide what's keeper. And you can update."* So the materials page carries a CANDIDATES part under
 the keepers — the tuplets, the 60-second granular auditions, the tremolo mixes (fixed · moving) — each with a player; what he names
 moves into `keep/` and the page is rebuilt. One page for the whole fund: `/files/keep/index.html`.
+
+## §84. Seven of each — the granular groups complete (2026-11-09)
+
+The twelve new beds in `keep/granular/` (G8 · G9 · G10 · B4 … B7 · C4 … C8, four minutes each); with the nine of §81, seven G, seven B,
+seven C — twenty-one beds, 84 minutes. The materials page rebuilt: 25 keepers and the candidates. Waiting on his ear.
