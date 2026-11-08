@@ -1343,3 +1343,10 @@ it has no offset, no length of its own, no split. WHAT IT NEEDS, as little as ho
 hand when wanted) — the edges dragged as a MIDI note's are, a split key where the playhead stands; the engine's `/le/play` takes
 the offset and the length and makes the fades (the envelope it already has). The materials themselves: samples in the piece's bank
 (`bank/samples`, the engine's index), long files allowed. Laid out as a PLAN item when he reaches the score (1a.7); nothing built.
+
+## §81. The nine granular keepers, four minutes each (2026-11-09)
+
+`H:\switch_2026\audio\set-2025-04-08c\keep\granular\` with its own page (`/files/keep/granular/index.html`): G4 · G5 · G6 · G7 (the
+textures; 14 … 16 thousand grains over 12 … 14 hits) · B1 · B2 · B3 (fast and pitched; the head at 2 … 8× runs through 32 … 56
+hits in four minutes, B3 downward) · C2 · C3 (the roars; 1.18 million and 314 thousand grains). Not mastered yet — the beds take the
+same pass as the mixes when the fund is gathered, so everything sits at one level.
