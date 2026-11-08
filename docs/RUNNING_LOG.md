@@ -1177,3 +1177,14 @@ verdict (`stutter_render.py --follow`: the envelope by brightness, the level by 
 playing in the session (their loudness within 6 dB of their own median, smoothed 3 s, read at real time from 2:30 and wrapping),
 faded over 2.5 s; so the solos, duets, trios and tutti are the session's own — who played with whom, when. Its first run was
 stopped: a 2.5-s smoothing convolved at audio rate took longer than the music; smoothed at 20/s now. Renders in §68.
+
+## §68. The renders: tuplet notes (eight) and the orchestrated mix (2026-11-08)
+
+TUPLET NOTES, `bank/set/2025-04-08c/tuplets/`, 90 s each at a 1 s beat: on r1-t190.0 (full) seed 1 — gate · retrigger (38 steps: 6:1 11:2
+13:2 6:1 7:1 7:3 9:1 5:2 6:1 3:2 …) · seed 2, both modes (33 steps) · steered by the DRUMS on r1-t190.0 (21 accents → 22 steps, the
+level by their loudness), both modes · steered by the PIANO on r2-t124.8 (20 → 21), both modes. THE ORCHESTRATED MIX,
+`tremolo/mix-4voices-orchestrated-9m25.wav` (565 s, the same four voices and motion as §64): the session's own texture over the window
+2:30 … 11:55 (wrapping at 6:38) — silence 50 s · one voice 87 · two 154 · three 156 · all four 118; on-time by player: drums 65 % ·
+piano 56 % · archtop 66 % · baritone guitar 49 %. Also finished: the ×625 four-pass stretch of all 56 cuts (`slow/`, 44 more files).
+Waiting on his ear: the tuplet notes — gate against retrigger, the attack, the durations; the orchestration's floor (6 dB under each
+player's median) and fade (2.5 s).
