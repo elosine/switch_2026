@@ -972,3 +972,31 @@ by design. The grain voice keeps the textured end; the spectrum slider will cros
 §55's proposal built and proven headless (the engine's §73): three "drone" buttons on the page — A 0.74 s · B 1.49 s · C 2.97 s
 windows, all ×30 — the sample's spectrum played slowly with the phases drawn fresh every frame; nothing granular in it. The first
 press of a drone button on a sample pauses about a second (the analysis), then sounds. His engine must be restarted to have it.
+
+## §57. STATIC FILES — the grabs by PaulStretch, offline, at full resolution (2026-11-07)
+
+His turn, verbatim: *"I actually also realized that these don't need to be real time. So can you produce for me … as high
+resolution, bitrate, etc., examples of the samples that you took … And algorithm we're working on now is fine. We can just keep it.
+It might be interesting later if, when I have a little bit more time to explore, especially if I want to do things in real time.
+Let's try it and see if it produces good results. Otherwise, I can just produce static sound files using amazing slowdowner. No,
+those ones aren't, still aren't quite in. Let's go with static files."* So the live voices stay for later; the material for the
+piece is rendered. Built: `live-electronics-engine/corpus/paulstretch_render.py` — Paul Nasca's algorithm as his Python reference
+has it (his (1 − x²)^1.25 window, every phase random, inverse windowed, overlap-add at half a window, the read advancing half a
+window ÷ the factor per hop; stereo with independent phases) — the twelve grabs × ×30 · ×50 · ×100 × windows 0.25 · 0.5 · 1.0 s
+(a window longer than the one-second grab is one unmoving chord of it; shorter moves through it), 24-bit WAV at 44.1 kHz, each at
+its grab's RMS under −1 dBFS: `bank/set/2025-04-08c/stretch/` (108 files, on disk; `manifest.json` in git). Named
+`<grab>-w<window>-x<factor>.wav`.
+
+## §58. His Slow Downer recipe — 20 %, three or four times over — and how to batch it (2026-11-08)
+
+His word, verbatim: *"it looks like I can only use it on the Mac, which is fine, but what I've been doing is it only slows down to
+20%. And so I did it 4 times, I guess. So I'll probably do it somewhere between 3 and 4 times. Is there any hack or anything that can
+be done to do it all at once? And then could you see, if not, is there a way to batch it so I can do all those files the 3 or 4
+times to 20%? I'm currently on Windows now, and I have just a demo version here."* (The licence: one email, 2020, the Mac version —
+unlocked by a package tied to his Mac account, no serial; the Windows demo saves nothing.) So his material to date is a COMPOUND
+stretch: a phase-vocoder music stretch applied 3 … 4 times at 20 % — ×125 or ×625 — the smearing compounding at each pass. That
+is the sound he calls smooth. The Slow Downer itself has no batch and no command line. THE HACK: Rubber Band — the same family of
+algorithm (a phase vocoder made for music; its floor 1 % a pass) — is inside this machine's ffmpeg (`-af rubberband`), so the recipe
+runs exactly, N passes at 20 %, for every cut in one command: `live-electronics-engine/corpus/slow_passes.py` (transients smooth ·
+window long · smoothing on; 24-bit). Not the Slow Downer's own code: the same kind of sound, not identical — one cut to be heard
+against his own 4-pass result. First run: the twelve lab cuts at 3 and 4 passes (×125 · ×625) → `bank/set/2025-04-08c/slow/`.
