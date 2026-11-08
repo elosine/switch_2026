@@ -1491,3 +1491,18 @@ What the code does, as it bears on a continuous drive:
 Lineage first: the renderer should be his real graph in SuperCollider NRT (the engine's `petalsGraph` with the gate and fade switched
 off and the drive set from the bed's loudness), not a Python re-implementation — the loop and its measured gain law exist only there.
 Put to him as a discussion; nothing built.
+
+## §92. The tuplets from the attacks: natural, a sample a hit, fast chunks (2026-11-09)
+
+His word, after the shaped page: *"let's give the natural a try, and then, put them through the tuplet machine. I think the change can be
+even faster … 3 or 4 beats max, maybe … 3 beats of one thing, and then maybe 1 beat of another, and then maybe 2 beats of another thing,
+and then 4 beats of another, and then 2, and then 6 … a long, short sort of contrast, but no single one held too long. Let's try just a
+few versions of those with the different samples … a couple with single instrument ones, and then a couple with a mix of all the
+instruments, and then maybe 1 or 2 with some select group of instruments."*
+
+Built: `tuplets_render.py` MODE `samples` — every NOTE one of the eight single attacks under its natural shape, the sample changing every
+hit (never the same twice running); trimmed to the note's duration with an exponential release only where the slot is shorter than the
+400 ms sample (the fast tuplets), else the attack plays whole. `--players` picks instruments by name. The step lengths: no length twice
+running (long, short). No bed under it; the level −20 dBFS RMS. Six versions, 60 s each, a 1 s beat, in `tuplets/` (listed under
+CANDIDATES on the materials page): drums alone (seed 1) · piano alone (seed 2) · all eight (seeds 3 · 4, chunks 1 2 3 4 and 1 1 2 3 4 6) ·
+drums + baritone guitar (seed 5) · piano + archtop (seed 6). With two attacks a player, a single-instrument version alternates its two.
