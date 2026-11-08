@@ -1375,3 +1375,8 @@ nothing a loop or a second bed would not. THE GROUPS: three more G (G8 swells of
 octave up) · four more B (B4 sparse and bright · B5 close intervals · B6 the head at ×2 with everything octaves up · B7 everything
 octaves down) · five more C (C4 a white roar ±12 st · C5 a roar that keeps its pitch · C6 the most smeared · C7 at two octaves · C8
 frozen) — seven of each, four minutes, into `keep/granular/`. Renders in §84.
+*(§83, continued)* Ranges proven on a throwaway port (206, Content-Range on a 63 MB bed); the twelve new beds render in the
+background. His next word: *"Can I get the tuplets in the page … Maybe just put everything in that same page … And then I can audition
+everything there. And then we can decide what's keeper. And you can update."* So the materials page carries a CANDIDATES part under
+the keepers — the tuplets, the 60-second granular auditions, the tremolo mixes (fixed · moving) — each with a player; what he names
+moves into `keep/` and the page is rebuilt. One page for the whole fund: `/files/keep/index.html`.
