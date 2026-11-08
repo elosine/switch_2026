@@ -1060,3 +1060,15 @@ wave is — tanh(k·sin)/tanh(k), k from 0.5 (a sine) to 6 (near square): a dark
 brightness (`trem-Dbr-…`) on all four players — drums · piano · archtop · baritone guitar — the same window (2:30 … 5:30), speed
 2 … 20 Hz scaled to each player's own busiest second, depth 65 … 100 %. THE MIX he asked for: the three d65-100 files he had (A drums ·
 A piano · D drums) summed and divided by three — `mix-A-drums+A-piano+D-drums-d65-100.wav` (peak −4.9 dBFS). Waiting on his ear.
+
+## §61. "this last batch algorithms are good" — the D + brightness mapping on all three beds, all four players; the ×625 batch on every cut (2026-11-08)
+
+His verdict and his two asks, verbatim: *"Okay, this last batch algorithms are good. So then can I get um, the sound files I gave
+you, the clips I gave you, can I get those done this way using all four instruments? And can you do the four-pass version on the
+rest of the clips?"* So THE MAPPING THAT HOLDS, for now: D + brightness — speed ← density smoothed 0.5 s (2 … 20 Hz, scaled to the
+player's busiest second in the window) · depth ← frame loudness smoothed 0.15 s (65 … 100 %) · shape ← brightness (a sine when dark,
+near square when bright); the drums at real time from 2:30 of the session; the player's window wraps round the session when a bed
+is longer than it. Rendered: the three bed clips (§59) × the four players = 12 files `trem-Dbr-<bed>-<player>-from150s-s2-20-d65-100.wav`
+(the accents in the window: drums 181 · piano 176 · archtop 198 · baritone guitar 130 for the two long beds). The ×625 four-pass
+stretch of the remaining 44 cuts runs in the background into `bank/set/2025-04-08c/slow/` (about 7 GB; the twelve already there
+are skipped).
