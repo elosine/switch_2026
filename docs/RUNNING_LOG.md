@@ -1268,3 +1268,10 @@ octave down · a fifth; B2 up to two octaves up) — pitch is a lever he does no
 roar** — 10 … 15 ms grains, thirty to fifty at once, scatter ±0.15 … 0.25 s, each a little off pitch (±2 st; C2 ±7), a continuous
 wall. The hits differ per set too (A: the slow sustained ones — piano · baritone guitar · mix; B: drums and archtop; C: all four) so
 the two causes can be told apart on the page. Renders in §75.
+
+## §75. The three contrasting sets rendered (2026-11-09)
+
+Six more beds beside the first six, on the one page (`/files/granular/index.html`): A1 · A2 (the head so slow that sixty seconds stay
+inside ONE hit, piano 03 — 102 and 62 grains in all, each 0.7 … 0.9 s, gaps between) · B1 · B2 (the head at ×3 runs through 13 … 14
+hits of the drums and the archtop in a minute; 4,500 and 9,500 perc grains at four pitches) · C1 · C2 (118,000 and 295,000 grains of
+10 … 15 ms, thirty to fifty at once, over three hits of all four players). Waiting on his ear: which set, which lever.
