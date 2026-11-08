@@ -1519,3 +1519,32 @@ takes the electronic materials (§80).
 His note, verbatim in `COMPOSITION_NOTES.md` SW-8. The piece's order so far, from SW-7 and SW-8: the opening files under live beats
 against sines → the tremolo versions with trills or ostinati → a passage built around the granular bed B2 (perc, seed 1) with other
 granular beds about it. Noted; no build.
+
+## §95. His ear on the tuplets (seed 4 "getting there"); more attacks, a deck, two modes; the processed sample sheet; the petals heard first (2026-11-09)
+
+His word on the tuplets: *"Seed 4 is getting there. The changes I would make would be let's have a greater variety of samples from each
+instrument. And let's have the be two modes, one where the tuplet grouping is all produced with the same sample. So if it's like 2 beats
+of quintuplets, all 10 of those will be one sample. And then the mode 2 will be a complete mix. But what I'm hearing is some sort of like
+looping or repetition … it keeps coming back to the baritone guitar, same pitch, kind of like a loop. I want to avoid that."* And on the
+timbre: *"what kind of processing can we do that essentially keeps the rhythmic, the attack intact, but changes the timbre of the notes
+and maybe even keeps the pitches intact? … look at the decibel piece … The only one I would leave out is the comb filter … produce a
+sample sheet … some way to identify which processing is which."*
+
+Done:
+- **The attacks: 24** — `attacks_cut.py --per 6` (six a player, the strongest onsets with room after them, spread over the session); the
+  old eight's twins removed, one old cut without a twin kept. The deck is 24.
+- **`tuplets_render.py`: modes `mix` and `group`, both dealt from a DECK** — shuffled, no sample again until all 24 have been used, never
+  the same at the reshuffle's seam. The repetition he heard was the arithmetic of two attacks a player drawn with replacement. Eight runs
+  in `tuplets/` (`tuplets-group-…`, `tuplets-mix-…`, seeds 11 … 18: all · drums · piano · drums+baritone · piano+archtop).
+- **The processed sample sheet** — `attacks_process.scd`: every attack through TWELVE of the engine's processings, the chain in NRT exactly
+  as the Decibel piece renders (process_test.scd's road; the comb left out at his word): drive-tanh · drive-fold · fuzz-cab · octave ·
+  crush · cheby · waveloss · filter-moog · spectral-gate · noise-bed · room · resonators. `processed_sheet.py`: a row a processing, one
+  attack a player, and a 20 s tuplet run of that processing's attacks. A bank name may hold no dot (safeName): the first run failed on
+  "m-ss.ss" and was stopped; the dot is an underscore inside the scratch bank.
+- **The petals on two beds (SW-6)** — `petals_bed.scd` + `petals_bed.py`: his bank in SuperCollider NRT with the changes §91 named — the
+  input ungated, no fade, no limiter, 26 rings drawn once, stereo by his commented halves; normalized then mastered. Two beds NOT the
+  opening's (r1-t190.0 from 4:00 · r2-t124.8 from 1:00), 60 s each, four settings: A his defaults (a cluster 400 … 1200 Hz, bank B a
+  quarter-tone up) · B his set line low (fund 60, first 3, spread 1.33, +4 st) · C wide (fund 35, first 5, +8.1 st) · D = B with a 1.5 … 3 s
+  ring. MEASURED: the raw render stands at +1 … +5 LUFS (the +50 dB a held partial gains); mastered straight, the compressor took 14 dB
+  off and flattened it — so the raw is brought to −1 dBFS peak first, and the master then lifts 3 … 6 dB as on the other beds. The page
+  `petals/index.html`. His question answered there: the pitches come from the settings; the bed decides the breathing.
