@@ -1415,3 +1415,7 @@ the space between notes (the two legato numbers), the release, the chunk sizes.
 *(§85, continued)* The 21 masters made: the raw beds sat at −22 … −30 LUFS, brought up 6 … 14 dB to −16.0, peaks held under −1 dB;
 the materials page now lists each bed by its master (25 keepers — four mixes and 21 beds — all at one level), the raw files beside
 them; the "beds' master pass" line left the still-to-gather list.
+*(§85, corrected)* Not all to −16.0: the G and C beds landed at −16.0 … −18.1 LUFS, the B beds at −17.2 … −19.6 — sparse percussive
+grains are PEAKY, and the limiter (−1 dB true peak, never overshooting) holds them before the loudness target is reached; the gain the
+chain could apply was +6.9 … +14.8 dB. Reaching −16 on the Bs would mean a heavier limit, a dial he can ask for; the masters are
+within 3.6 dB of each other, against 8 dB before.
