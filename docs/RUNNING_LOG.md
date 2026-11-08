@@ -1079,3 +1079,6 @@ different clips?"* Measured in 10-s blocks: the level sits near −22 dB RMS thr
 as §61). THE CROSS MIX he asked for: four clips, each under a different player — r1-t190.0 under the drums (3:00) · r3-t071.2 under the
 piano (5:45) · r2-t124.8 under the archtop (10:13) · r1-t184.2 under the baritone guitar (9:45) — summed from a common start, each
 ending in its own time, ÷ 2, peak −6.8 dBFS: `tremolo/mix-4clips-4players-Dbr-d65-100.wav` (10:13).
+*(§61, continued)* *"r3-t078.8-x625-4pass same cut end and process 4 trems pls"* — its level −23 dB through 9:00, −29 at 9:30, −42
+at 9:50; cut at 9:45 with a 3 s fade → `bed/r3-t078.8-x625-trimmed.wav`; the four players rendered on it (D + brightness, as §61).
+Five beds now.
