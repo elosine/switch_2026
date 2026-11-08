@@ -1037,3 +1037,10 @@ file's sound ends at 613.547687 s of 625 (the stretched tail of the cut's own fa
 *(§60, continued)* His first adjustment, before the depth: *"Can we try but with a greater max speed? Let's see what 20 hertz sounds
 like. And we'll just keep the 2 hertz min."* Rendered: A · B · C again at 2 … 20 Hz (`…-s2-20.wav`; the 2 … 14 files kept as
 `…-s2-14.wav` in name only — the earlier files keep their first names). Depth untouched.
+*(§60, continued)* His ear on the 2 … 20 Hz set: *"Let's just stick with A. And I want the fast ones. I can't really hear the fast
+ones, so it's probably a depth issue. Let's have like move up the minimum depth. I want the fast parts to sound like it's not exactly
+a buzzsaw, but that's a bit of the idea. I want to really be able to hear the fast parts a little bit more pronounced. So maximum
+depth is probably okay, but more min depth. And if it turns out that they converge, then we can increase the maximum as well."* So:
+A only; depth 50 … 90 % (the floor up from 15); and the speed scale set so the window's own busiest second reaches 20 Hz (the drums
+peaked near 6 attacks/s, so 20 Hz was never reached at a 0 … 10 scale). `trem-A-…-s2-20-d50-90.wav`. The depth's floor is the knob
+he will move next; the ceiling after, if the two converge.
