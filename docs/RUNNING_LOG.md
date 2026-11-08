@@ -1275,3 +1275,26 @@ Six more beds beside the first six, on the one page (`/files/granular/index.html
 inside ONE hit, piano 03 — 102 and 62 grains in all, each 0.7 … 0.9 s, gaps between) · B1 · B2 (the head at ×3 runs through 13 … 14
 hits of the drums and the archtop in a minute; 4,500 and 9,500 perc grains at four pitches) · C1 · C2 (118,000 and 295,000 grains of
 10 … 15 ms, thirty to fifty at once, over three hits of all four players). Waiting on his ear: which set, which lever.
+
+## §76. A keep folder; three more orchestrated mixes; the tuplets on SINGLE ATTACKS (2026-11-09)
+
+His word, verbatim: *"let's have like a, I don't know, like a keep folder or materials folder. We can keep that orchestrated for voice
+mix. And can you produce, say, 3 more using 4 new sound files and, you know, doing the whole thing, clipping it and running each
+through a different tremolo algorithm and then doing an orchestration, and then put all 4 of those mixes into a set-aside folder …
+In the granular bed, I think I'll just keep it as its own thing. Those are pretty good … However, that still leaves the sort of
+tuplet version. So let's, those individual hits I think are too long to be used in the stutter. They should be like a handful of
+single attacks … I like the gated version. I wanted a slightly more mix of attack times, I guess, or attack shapes, so they don't
+all sound the same. But I want the sort of impression of like let's say it's the trumpet. They're doing a few beats of the same note,
+so they would do like a quintuplet of C, and then they move to like 3 beats of 3 and 2 of F# or whatever, and the equivalent would be
+the actual one attack … I think the issue with those individual hits is they're actually long enough to encompass like several
+attacks."*
+THE KEEP FOLDER: `H:\switch_2026\audio\set-2025-04-08c\keep\` — the orchestrated four-voice mix, its master and its recipe moved in.
+THREE MORE MIXES (`tools/set_mixes.py`, this piece's — the recipe is the set's): sets 2 · 3 · 4, four NEW clips each (one per busy
+region and a fourth: 2 = r1-t182.0 · r2-t110.0 · r3-t070.0 · r1-t198.8; 3 = r2-t116.0 · r3-t075.0 · r1-t194.0 · r2-t123.8; 4 =
+r3-t073.2 · r1-t187.2 · r2-t113.8 · r3-t077.2), each trimmed by its level profile, each clip under a DIFFERENT mapping (A · B · C ·
+D+brightness) and a different player, orchestrated by the session's texture with the moving places, mastered to −16 LUFS; the mix,
+its master and a recipe file into `keep/`. Running as this is written. THE TUPLETS ON SINGLE ATTACKS: `attacks_cut.py` (the
+workshop's) — per player the two strongest onsets whose next onset is far enough away to hold ONE attack, cut 5 ms before to at most
+400 ms (`attacks/`, with a page); `tuplets_render.py` mode **hit**: every note of a tuplet group is one of those attacks, the group's
+own (drawn per group, never the same twice running), shaped by the varied note envelope — a player repeating a note, then another
+note. Rendered on the fixed steps and on the drums' accents (`tuplets/tuplets-hit-varied-…`). Renders in §77.
