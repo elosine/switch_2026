@@ -1228,3 +1228,21 @@ moments across all four. 80 hits, 24-bit → `H:\switch_2026\audio\set-2025-04-0
 lab server now serves his drive at `/files/` (`--files`, in `start_icy_lab.bat`), so the page is
 `http://localhost:5620/files/hits/index.html` after he restarts the server. Proven on a throwaway port: the page 200, a hit as audio.
 Next, at his word: the tuplets on these — one hit per tuplet group, repeated notes.
+
+## §72. A GRANULAR BED from the hits — jitter where it counts; a few settings to hear (2026-11-08)
+
+His word, verbatim: *"I want to create another like base layer of sound using granulation. So let's try using just an assortment of
+these samples, like the different instruments. You don't have to make too many, maybe just a few. So we can narrow down what
+granulation we should use. I want to experiment with changing the read head speed a little bit without necessarily feeling like it's
+explicitly speeding up or slowing down, so maybe relatively gradual changes. But let's have some that don't use a variable read head.
+And then I want to hear texture, but not oscillation or repetition if it's possible … what happens is the grains and the grandeurs
+and become dominant. The grandeur types and repetition becomes dominant. So it just sounds like the grain. So if we can have some
+jitter where it counts. And then let's stick with Expo Deck, Rexpo Deck, and the perk. And then maybe experiment with different
+grain overlaps and the pointer jitter and anything grain lengths too."*
+THE DESIGN against repetition (`live-electronics-engine/corpus/granular_bed.py`): the grains are NOT on a clock — each start waits a
+random time (exponential, mean = length ÷ overlap) so no hop rate rides on the sound; each grain's start strays ± scatter from the
+head, its length ± vary, its pan and its level random; the head crawls through one hit at 1/speed and on to the next of an
+assortment (eight hits, two per player and two of the mix). The head fixed, or WANDERING: a slow random walk between two speeds
+smoothed over 20 s, by equal ratios, never a ramp. Six settings, 60 s each: G1 the reference (expodec · fixed ×12 · 80 ms · overlap 6 ·
+±30 ms) · G2 rexpodec · G3 perc · G4 expodec with the head wandering 6 … 30× (150 ms · 10 · ±60 ms) · G5 a smooth cloud (300 ms · 20 ·
+±100 ms) · G6 a gritty texture (30 ms · 2 · ±15 ms). Renders in §73.
