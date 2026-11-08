@@ -1350,3 +1350,13 @@ the offset and the length and makes the fades (the envelope it already has). The
 textures; 14 … 16 thousand grains over 12 … 14 hits) · B1 · B2 · B3 (fast and pitched; the head at 2 … 8× runs through 32 … 56
 hits in four minutes, B3 downward) · C2 · C3 (the roars; 1.18 million and 314 thousand grains). Not mastered yet — the beds take the
 same pass as the mixes when the fund is gathered, so everything sits at one level.
+
+## §82. The fund's inventory page; where the tuplets stand (2026-11-09)
+
+His ask: *"Do you have the page where you gathered everything up so far? So then I can just take an inventory of what things I have
+and what I still need. And … where are we with the tuplets? I didn't see feedback on that yet."* Built `live-electronics-engine/corpus/
+materials_page.py`: over `keep/` a catalogue (`materials.json`, one row a material, a `notes` field for his words that survives a
+re-run) and a page (`keep/index.html` → `/files/keep/index.html`): the mixes (the masters), the granular beds with their settings, the
+tuplets and attacks when they are kept, and a "still to gather" list. THE TUPLETS: nothing is pending on the AI's side — the two
+hit-mode renders of §77 (fixed steps · the drums' accents, varied attacks, one single attack per group) are in `tuplets/` waiting
+on HIS ear; they are not in the keep folder until he says.
