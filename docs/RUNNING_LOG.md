@@ -1053,3 +1053,10 @@ smoothed only half a second, the depth from the analyzer's FRAME loudness (11.6 
 gap shows in the depth; 65 … 100 %. WHAT ELSE THE CAPTURE HOLDS, to follow: per player, per second — density · loudness · brightness
 (the spectral centroid); per frame (11.6 ms) — onset strength · loudness · centroid · flux (how fast the spectrum moves) · density;
 and the onset times themselves. Brightness and flux are unused so far.
+*(§60, continued)* *"let's add the brightness. And then, as you describe it, and then let me hear all four of them, all four
+instruments with those mappings. And can I hear, can you mix the three you just gave me? And let me hear the mix."* BRIGHTNESS → THE
+SHAPE: the player's spectral centroid (per second, smoothed 1 s, on a log scale 150 … 3000 Hz) sets how hard-edged the tremolo's
+wave is — tanh(k·sin)/tanh(k), k from 0.5 (a sine) to 6 (near square): a dark passage ripples, a bright one chops. Rendered as D +
+brightness (`trem-Dbr-…`) on all four players — drums · piano · archtop · baritone guitar — the same window (2:30 … 5:30), speed
+2 … 20 Hz scaled to each player's own busiest second, depth 65 … 100 %. THE MIX he asked for: the three d65-100 files he had (A drums ·
+A piano · D drums) summed and divided by three — `mix-A-drums+A-piano+D-drums-d65-100.wav` (peak −4.9 dBFS). Waiting on his ear.
