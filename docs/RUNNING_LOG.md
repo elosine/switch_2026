@@ -1122,3 +1122,23 @@ at his word), each place a SLOW SINE round a centre: drums −45° ± 40° every
 every 230 s · baritone guitar +45° ± 40° every 170 s, the phases spread (0° · 90° · 200° · 300°) — the fastest crossing of the field
 takes over a minute; all four always in motion, never together. Width 0.4. The angles and the motion are in the manifest beside it,
 for the quad. Waiting on his ear: the pace of the motion, the swings, the centres.
+
+## §65. THE STUTTER — in tuplet steps, three envelopes (2026-11-08)
+
+His word, verbatim: *"can you develop a stutter tool, and you can use any of these same clips or any of the clips we've made, and
+same thing, you can use the variety of instruments or just one or two, or you can change them up. I just want to hear samples mostly
+of just the stutter algorithm. I think we built one already. And then can you make a version that uses the, like a granular, like
+the perk envelope? And then can you make one that uses the expo deck envelope? And I want the stutter to jump around in steps. And
+what I mean by that is like tuplets almost. So if I had notated tuplets, like 7 in 1, and then a few beats of 9 in 3 or 9 in 2, etc.
+6 in 1 or 13 in 11, these sorts of things. So a few beats of each, and then the jumping around. So there's like steps, but in complex
+relationships. So it doesn't sound like it's just speeding up or slowing down. And then I'll have maybe a variation. You can re-roll
+a version with each of those different envelopes and the original stutter and any other recommendations that you think might be
+interesting."* THE LINEAGE: the stutter exists three times — the workshop's stutter lab (2026-09-02: a selection re-triggered at a
+tempo; seven tracks in whole-number tempo relations, "numbers, not tempos" — 120 · 7 9 13) · the engine's buffer override (DEC-17,
+Destroy FX's idea: forced buffers, the first mini-buffer repeated) · Sýnthesi Alpha's override unit with the rate on a curve. THE
+TOOL (`live-electronics-engine/corpus/stutter_render.py`, offline): at a step's start a slice of the bed is taken at the playhead and
+repeated till the step ends; the repeat's period is the tuplet's, beat·m/n (7:1 at a 1 s beat = 143 ms; 13:11 = 846 ms); a step lasts
+2 … 5 beats; the tuplets are drawn denser and sparser by turns so the rate never walks one way. Three envelopes on each repeat:
+orig (the override's — the slice as it is, 5 ms crossfades) · perc (2 ms up, an exponential fall to −60 dB over the repeat) ·
+expodec (his gEnv_expodec, resampled to the repeat). STEERED (the recommendation): the steps change at a player's accents, the
+tuplet drawn from the denser half when the player is busy. Renders in §66.
