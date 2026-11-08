@@ -1029,3 +1029,5 @@ accent kicks the depth to 100 % for 150 ms, falling back over 400 ms. `bank/set/
 24-bit, each with a `.json` of its curves at 10 a second (for drawing). Waiting on his ear: does any of them have "the flow of my
 performance … clustering, density and intensity, organic wave like flow" (SW-2)? Everything here is a knob: the window of the drums,
 the ranges, the smoothing, which curve drives which.
+*(§59, continued)* His second segment: *"3:45-9:30 r3-t071.2-x625-4pass"* → `bank/set/2025-04-08c/bed/r3-t071.2-x625-3m45-9m30.wav`
+(345 s; the cut at 1:11 of the session, region 3, 14 attacks; the same fades).
