@@ -1104,3 +1104,21 @@ to 180 s (the shortest clip, r1-t190.0's) with a 2 s fade; the sum ÷ √4. The 
 r3-t071.2 under the PIANO at −20° · r2-t124.8 under the ARCHTOP at +20° · r1-t184.2 under the BARITONE GUITAR at +60° →
 `tremolo/mix-4voices-placed-3m00.wav`, its manifest beside it with the angles. Waiting on his ear: do the voices read apart; the
 angles and the width are the knobs.
+
+## §64. The full clips, trimmed; the four players on each; the moving mix (2026-11-08)
+
+His word, verbatim: *"the clips where I gave you like an excerpt, let's grab those full clips and trim where you need to trim
+beginning or end. r2-t120.5-x625-4pass This one too, and then do the 4 versions of all of those, please. And then could you make a
+new 4 mix with the longer versions? You don't have to include this new one just yet … And can you do some panning too? So instead of
+fixed location, let them move. They can just move at different paces. Let's keep the max quite slow, just so there's continuous
+movement of all 4 parts … I don't want to hear too much panning oscillation. I just want them to be in motion."*
+TRIMMED by a level profile (`live-electronics-engine/corpus/trim_quiet.py`: 10-s blocks, the body = the median of the middle half, kept
+from the first to the last block within 8 dB of it, half a block of grace, fades 0.25 / 3 s): r1-t190.0 → 0:00 … 9:35 (575 s) ·
+r3-t071.2 → 0:00 … 9:25 (565 s) · r2-t120.5 → 0:00 … 9:25 (565 s) — `bed/<clip>-x625-full.wav`; every one begins at its start (the
+quiet is only at the end). The four players rendered on each (12 files, `trem-Dbr-<clip>-x625-full-…`).
+THE MOVING MIX: `tremolo/mix-4voices-moving-9m25.wav` — 565 s (the shortest of the four longer versions), the same four voices as §63
+in their longer form (r1-t190.0 / drums · r3-t071.2 / piano · r2-t124.8 / archtop · r1-t184.2 / baritone guitar; r2-t120.5 left out
+at his word), each place a SLOW SINE round a centre: drums −45° ± 40° every 150 s · piano −15° ± 45° every 190 s · archtop +15° ± 45°
+every 230 s · baritone guitar +45° ± 40° every 170 s, the phases spread (0° · 90° · 200° · 300°) — the fastest crossing of the field
+takes over a minute; all four always in motion, never together. Width 0.4. The angles and the motion are in the manifest beside it,
+for the quad. Waiting on his ear: the pace of the motion, the swings, the centres.
