@@ -1031,3 +1031,6 @@ performance … clustering, density and intensity, organic wave like flow" (SW-2
 the ranges, the smoothing, which curve drives which.
 *(§59, continued)* His second segment: *"3:45-9:30 r3-t071.2-x625-4pass"* → `bank/set/2025-04-08c/bed/r3-t071.2-x625-3m45-9m30.wav`
 (345 s; the cut at 1:11 of the session, region 3, 14 attacks; the same fades).
+*(§59, continued)* His third segment: *"r2-t124.8-x625-4pass lets use the whole except there is some silence at the end"* → the
+file's sound ends at 613.547687 s of 625 (the stretched tail of the cut's own fade); cut to 613.048 s with the same fades:
+`bank/set/2025-04-08c/bed/r2-t124.8-x625-whole.wav` (the cut at 2:04 of the session, region 2, 19 attacks).
