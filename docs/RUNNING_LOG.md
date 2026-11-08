@@ -1214,3 +1214,17 @@ measured −26.8 LUFS integrated (his "a little quiet": eleven decibels under a 
 VARIED GATE TUPLETS (`…\tuplets\tuplets-gate-varied-…`): the fixed steps (seed 1) · steered by the drums · steered by the piano — the
 same steps as §68's gate files, every note's attack now its own. Waiting on his ear: the master's level and whether the compressor is
 wanted at all (it is a dial); the varied attacks against the even ones.
+
+## §71. THE HITS — individual attacks from the stems and the mix, an auditioning page (2026-11-08)
+
+His turn, verbatim: *"For the tuplet, for the bed, let's use, instead of those stretched ones, let's use just actual samples. So if
+you could get a variety of samples from the mixed one and from each of the individual instruments, and just let me hear them. If you
+can put them into some sort of auditioning page … the samples need to be longer than the longest gate … we can have like the
+semblance of repeated notes. So each tuplet grouping should be one of the samples, but we'll do that next. Let me just hear the
+individual hits."* Built `live-electronics-engine/corpus/hits_cut.py`: per player, the onsets weighed by the loudness at their frame
+(the .npz), the strongest in each of 16 equal slices of the session, ≥ 1.5 s apart — cut from the player's OWN STEMS, 10 ms before
+the attack, 1.5 s long (longer than the longest note, 3:2's 667 ms at a 1 s beat), faded; from the MIX, 16 at the session's loudest
+moments across all four. 80 hits, 24-bit → `H:\switch_2026\audio\set-2025-04-08c\hits\<player>\nn-m-ss.ss.wav` + `index.html`. The
+lab server now serves his drive at `/files/` (`--files`, in `start_icy_lab.bat`), so the page is
+`http://localhost:5620/files/hits/index.html` after he restarts the server. Proven on a throwaway port: the page 200, a hit as audio.
+Next, at his word: the tuplets on these — one hit per tuplet group, repeated notes.
