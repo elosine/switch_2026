@@ -172,3 +172,22 @@ the electronics take part, for instance tremolo rates locked to the tuplets.
 out), each brick also wants a LEVEL SHAPE over its length — a crescendo or a decrescendo drawn as a curve — and his instinct is to
 reuse the curve machinery the instrumental lanes already have (the curve windows 9 / 10 / 11, the dynamics law's fader on the curve
 channels), not to invent a second kind of curve. Noted only; nothing built; the plan (§80) carries it when the bricks are built.
+
+### SW-6 · 2026-11-09 — THE NEXT BED: THE TREMOLO BEDS THROUGH HIS PETALS OF RESONANCE; A HARMONY OF FILTER SETTINGS
+
+*His words:*
+
+> *"for the next bed, I want to adopt the petals of resonance. These are these resonant filters I've made. And let's discuss a little
+> bit about how to adopt them. I want to send these, the beds through those resonant filters. These are the beds we use for the tremolo.
+> But let's discuss what needs to be tweaked in those. So those were kind of designed for like impulse driven. There may be too much
+> input. So we'll have to see about that. And then figuring out the right partials and what not to use, or if they're so resonant that
+> it doesn't matter what the driver is, then I'll figure out a harmony, a way to move through different settings of the filters through
+> one of the beds running through it. … So basically, a version of each of these bed files, but run through a feedback filters,
+> harmonic filters with the pitch shift and all that."*
+
+*The AI's reading (not his):* a fourth family of material beside the tremolos, the granular beds and the tuplets — each stretched bed
+(the ×625 four-pass clips the tremolos were made on) sent through the petals (`SynthDef_petalsOfResonance`: two banks of 13 partials
+over one fundamental, the second bank offset in semitones, each partial wobbling, rings of 7 … 15 s), with the loop around the bank
+(the engine's poBloom · poDrive · poHold) as "the feedback filters". Two open questions he names: the input gate and level (built for a
+struck impulse), and whether the driver matters at all at that resonance. If it does not, the composition is in the SETTINGS — a
+harmony of fundamentals / offsets moved through over one bed. Discussion first; nothing built.

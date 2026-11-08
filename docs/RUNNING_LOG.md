@@ -1462,3 +1462,32 @@ probably using my already existing curve … the actual crescendos for the actua
 just note that for now."* Verbatim in `COMPOSITION_NOTES.md` SW-5. For §80's plan: a brick gets a level curve over its length, and the
 first thing to try is the instrument lanes' own curve machinery (curve windows 9 / 10 / 11; the dynamics law) rather than a new kind.
 Not built; nothing decided beyond the wish.
+
+## §91. The petals of resonance on the stretched beds — the read of the code, before any build (2026-11-09)
+
+His word: SW-6 (verbatim in COMPOSITION_NOTES). The question he set: *"what needs to be tweaked … designed for like impulse driven …
+too much input … if they're so resonant that it doesn't matter what the driver is."* The code read: `SynthDef_petalsOfResonance.scd`
+(his original and the 2025 update, `C:\Users\jwloy\GitHub\SynthDef_petalsOfResonance`) and the engine's port, `electronics/sc/process.scd`
+`petalsGraph` (UGen for UGen, plus the loop around the bank — the Decibel piece's DEC-40; the engine's §40 · §52 · §57).
+
+What the code does, as it bears on a continuous drive:
+- **The input is GATED for an impulse:** `Env.perc(0.02, inputLen)` on the input — the bank hears one second, then rings. The
+  output is FADED after ringL2 (`Env.linen(0.01, ringL2, 0.3)`). Both are impulse-shaped; a bed needs both gone (or the gate a slow window).
+- **"Too much input" is real and has a number.** A Ringz driven steadily at its resonance reaches a gain of about T·sr/13.8 (the engine's
+  own note): at ring 10 s, 48 kHz, about +91 dB, less the bank's −40 dB mix = +51 dB on a partial that the bed holds. His limiter (0.98)
+  then pins — one flat mass. The fix is the DRIVE: the bank's input scaled to the ring (the engine's offline road does exactly this —
+  driveRef); offline the output is mastered after, so only the limiter's and the loop's behavior depend on the absolute level.
+- **"Does the driver matter?"** At ring 7 … 15 s a partial's bandwidth is 6.9/(πT) ≈ 0.15 … 0.3 Hz. The output is the bank's chord; the bed
+  supplies ENERGY at those frequencies and its slow level shape — so the bed decides the BREATHING and the BALANCE among the 26 (where
+  its spectrum sits), not the pitches. At a short ring (1 … 3 s) the bed's own color comes through the filter. The wobble (±0.5 semitone
+  at 0.013 … 0.07 Hz) sweeps each partial's needle across the bed's spectrum — that is the shimmer, and it is the one place the driver's
+  fine structure shows at long rings.
+- **The loop (poBloom · poDrive · poHold)** is impulse-shaped too: a hold, then a break. On a bed the loop would be HELD (no break), its
+  gain set under the bloom so the partials sing without sitting in the tanh — or at the tanh for grit, his choice by ear.
+- **His harmony is in the dials:** fund 35 … 150 · firstPartial 2 … 5 · bank offset 2 … 8 semitones · spread 0.33 … 1.33 · ring 7 … 15
+  (his own set line at the file's end). The engine already has A DIAL AS A LINE (`value@ms` breakpoints, the Decibel piece's 11.4) —
+  moving through settings over one bed is that mechanism; DynKlank glides its frequencies.
+
+Lineage first: the renderer should be his real graph in SuperCollider NRT (the engine's `petalsGraph` with the gate and fade switched
+off and the drive set from the bed's loudness), not a Python re-implementation — the loop and its measured gain law exist only there.
+Put to him as a discussion; nothing built.
