@@ -1253,3 +1253,18 @@ smoothed over 20 s, by equal ratios, never a ramp. Six settings, 60 s each: G1 t
 hits of the assortment (drums 01 · piano 03 · archtop 05 · baritone guitar 07 — at ×12 a 1.5 s hit takes 18 s), with `index.html`
 (`http://localhost:5620/files/granular/index.html`) and the manifest. Waiting on his ear: which direction — envelope, head, grain
 length, overlap, scatter — and whether the repetition is gone.
+
+## §74. The six beds "a bit samey"; three contrasting sets (2026-11-09)
+
+His ear on §73, verbatim: *"the granular beds, the last three are quite good, but all six of them are a bit samey. Is that because
+of the underlying samples used? … produce a few sets, maybe two or three more sets, each of them rather contrasting. And I'm not
+sure, I suspect it's a granulation, but it could be just using different samples. But I suspect, well, let's just say it's the
+granulation."* The AI's reading: both — the six shared one speed (×12, so sixty seconds covered the same first four hits), one pitch
+(as recorded), one envelope each, and a narrow band of densities. THE LEVERS PUSHED TO THEIR ENDS, three sets of two: **A sparse and
+slow** — the head near frozen (×60; A2 wandering 40 … 90×), grains 0.7 … 0.9 s with GAPS between them (overlap ~1), scattered ±0.3 …
+0.4 s, the whole width, expodec and rexpodec mixed per grain, A2 half its grains an octave down. **B fast and pitched** — the head at
+×3 (the playing shows through; B2 wandering 2 … 6×), short perc grains 25 … 40 ms, each at one of a few PITCHES (unison · octave up ·
+octave down · a fifth; B2 up to two octaves up) — pitch is a lever he does not usually touch, so it is named on the page. **C dense
+roar** — 10 … 15 ms grains, thirty to fifty at once, scatter ±0.15 … 0.25 s, each a little off pitch (±2 st; C2 ±7), a continuous
+wall. The hits differ per set too (A: the slow sustained ones — piano · baritone guitar · mix; B: drums and archtop; C: all four) so
+the two causes can be told apart on the page. Renders in §75.
