@@ -1432,3 +1432,9 @@ brightness) driven by the drums, the piano, the archtop, the baritone guitar in 
 orchestrated mix each voice is also SILENT while its player was silent in the session. So the stems are written exactly as they sit
 in the mix — tremolo, gate, place, motion — and the mix is their sum; every file mastered. `keep/opening/`: the raw bed mastered · the
 four stems · the mix (and its raw sum). `orchestrate_mix.py --stems`; the materials page gives any sub-folder of keep/ its own banner.
+*(§88, continued)* His change of mind before the build was done: *"for the four stems in the opening, is it possible to not leave any
+of them silent? … they should be four continuous sounding, just with different sets of tremolo … same bed, they were just doing
+different tremolo on the same bed. And then I can layer those in as I will."* So the stems are remade CONTINUOUS — the bed under each
+player's tremolo, placed and slowly moving, no gate — and mastered; the orchestrated mix stays gated as it is. And the page: *"get rid
+of anything we're not actually using … the candidate granular 60-second auditions"* — off the page (the files stay). The three
+tuplets on the page are §87's new gate-varied ones; which work is his to say.
