@@ -1454,3 +1454,11 @@ NOTES MADE OF SINGLE ATTACKS, the sample changing every hit, each hit shaped. Fi
 shape_attacks.py` — the eight single attacks of §77 (two a player) under five shapes each (natural · perc · gate · expodec · soft), one
 page, a row a sample, the shapes across — forty one-shots. Then, at his word: the settled samples and shape into the tuplet machine,
 a different sample on every note.
+
+## §90. SW-5 — crescendos and decrescendos on the bricks, by curves (2026-11-09; a note to §80's plan)
+
+His word, noted while the attacks were being shaped: *"I would like the ability to do like crescendos and decrescendos using curves …
+probably using my already existing curve … the actual crescendos for the actual instruments, we can reuse those if it's possible. But
+just note that for now."* Verbatim in `COMPOSITION_NOTES.md` SW-5. For §80's plan: a brick gets a level curve over its length, and the
+first thing to try is the instrument lanes' own curve machinery (curve windows 9 / 10 / 11; the dynamics law) rather than a new kind.
+Not built; nothing decided beyond the wish.

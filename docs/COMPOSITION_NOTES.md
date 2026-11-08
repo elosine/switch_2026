@@ -159,3 +159,16 @@ the machinery for it. Piece 5 has the multitempo layers and the accelerando calc
 voices have the multitempo generator as a WHEN slot.
 *Not said yet (his):* which instruments carry it, whether it is one of SW-c2's two musics (the dense counterpoint), and whether
 the electronics take part, for instance tremolo rates locked to the tuplets.
+
+### SW-5 · 2026-11-09 — CRESCENDOS AND DECRESCENDOS ON THE ELECTRONIC BRICKS, BY CURVES; REUSE THE INSTRUMENTS' CURVES IF POSSIBLE
+
+*His words (noted for the composer-score part of the electronics plan, RUNNING_LOG §80):*
+
+> *"can you note for the composer part of this? I would like the ability to do like crescendos and decrescendos using curves. We'll
+> figure out some easy way to do it, but probably using my already existing curve or the, the actual, I think the actual crescendos
+> for the actual instruments, we can reuse those if it's possible. But just note that for now."*
+
+*The AI's reading (not his):* when the electronic materials sit in the composer score as editable bricks (§80: trim · move · fade in and
+out), each brick also wants a LEVEL SHAPE over its length — a crescendo or a decrescendo drawn as a curve — and his instinct is to
+reuse the curve machinery the instrumental lanes already have (the curve windows 9 / 10 / 11, the dynamics law's fader on the curve
+channels), not to invent a second kind of curve. Noted only; nothing built; the plan (§80) carries it when the bricks are built.
