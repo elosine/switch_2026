@@ -1305,3 +1305,12 @@ Eight single attacks (two a player: the strongest onsets with room after them), 
 (`/files/attacks/index.html`). The tuplets in HIT mode, varied attacks, 90 s: `tuplets/tuplets-hit-varied-r1-t190.0-x625-full-seed1.wav`
 (38 steps; the groups drew drums 2 · baritone guitar 1 · archtop 2 · piano 2 · archtop 2 · …) and `…-drums-seed1.wav` (the steps at the
 drums' accents, the level by their loudness). Waiting on his ear; set 2 … 4's mixes render in the background for the keep folder.
+
+## §78. The keep folder holds four mixes (2026-11-09)
+
+`tools/set_mixes.py` done: set 2 → `mix-set2-orchestrated-8m55` (r1-t182.0 under the drums by A · r2-t110.0 / piano / B · r3-t070.0 /
+archtop / C · r1-t198.8 / baritone guitar / D+brightness; texture: silence 47 s · one 75 · two 146 · three 151 · four 116) · set 3 →
+`mix-set3-orchestrated-9m05` (r2-t116.0 / archtop / Dbr · r3-t075.0 / drums / B · r1-t194.0 / baritone guitar / A · r2-t123.8 / piano / C)
+· set 4 → `mix-set4-orchestrated-6m35` (r3-t073.2 / piano / Dbr · r1-t187.2 / archtop / A · r2-t113.8 / drums / C · r3-t077.2 /
+baritone guitar / B; the shortest clip 6:35). Each with its master (−16 LUFS, +10.7 … +11.8 dB) and a recipe file. With the first
+(§64 · §68), FOUR orchestrated mixes in `H:\switch_2026\audio\set-2025-04-08c\keep\` — the materials.
