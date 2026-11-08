@@ -1392,3 +1392,17 @@ His word: *"the granular bed ones, when you're done, can I get mastered versions
 above."* The 21 beds through the same chain as the mixes (`master_mix.py`: the compressor, a gain to −16 LUFS, the limiter at −1 dB
 true peak) → `keep/granular/<bed>-master.wav` beside each raw file; the materials page lists the master and keeps the raw beside it.
 Running as this is written; the numbers when it ends.
+
+## §86. The tuplets: only GATE VARIED stays; more space, a crisper release, quicker changes (2026-11-09)
+
+His ear, verbatim: *"the tuplets, let's eliminate the varied and re-triggered. Stick with the gate ones. I think there still needs to
+be some adjustment. I think they sound a bit too much like the tremolo, especially when it's fast. Maybe something needs to be done
+on the release side. I'm not sure. Maybe there needs to be a little bit more space between, even at the fast times, I guess
+percentage-wise then. And then could we have quicker change? So like it would be like just a few beats of each tuplet … different
+size chunks. So 2 beats and then 6 beats and then 3 beats and then 1 beat … A good variety, but quicker change … you can actually
+clear the whole tuplet. None of those are quite it. And just focus on the gate. And it's probably gate varied."* So: the hit and
+retrigger modes set aside; the earlier tuplet files moved out of the way (`tuplets/_discarded/`, not deleted); GATE VARIED only,
+with three changes in `tuplets_render.py`: the note's share of its slot is now 80 % in the slowest tuplets and 35 % in the fastest
+(was 90 / 55 — the fast runs had become a tremolo); the release is an exponential fall over a quarter of the note (was a linear
+fade of 12 % of the slot) — a crisper end; the fixed steps draw their length from chunks of 1 · 1 · 2 · 2 · 3 · 3 · 4 · 6 beats.
+All three are knobs. Renders in §87.
