@@ -1004,3 +1004,14 @@ against his own 4-pass result. First run: the twelve lab cuts at 3 and 4 passes 
 20 % came out 3.62 s, the END of the material gone (3 passes 82 s instead of 125). Fixed in `slow_passes.py`: each pass pads the source
 with 2 s of silence and trims the result to the exact length (1 pass → 5.000 s, the sound running to 4.89 s). The twelve cuts rerun:
 24 files, ×125 (125 s) and ×625 (625 s), 24-bit, in `bank/set/2025-04-08c/slow/` (1.5 GB on disk, not in git).
+
+## §59. THE FIRST BED SEGMENT — r1-t190.0 at ×625, 4:00 … 7:00; the tremolo begins on it (2026-11-08)
+
+His word, verbatim: *"r1-t190.0-x625 4:00 - 7:00 And you clip this one, the four pass, at this time with just a small fade and a in
+and out, so there's no clipping. And let's use that segment for, let's start in on the tremolo. And I'll give you some other cuts
+later."* So the first material for 1a.5 is chosen by ear from the batch of §58: the cut at 3:10 of the session (r1-t190.0, region 1,
+18 attacks), stretched ×625 by four passes at 20 %, its minutes 4 … 7. Cut: `bank/set/2025-04-08c/bed/r1-t190.0-x625-4m00-7m00.wav`
+— 180.000 s, 24-bit, a 250 ms fade in and a 500 ms fade out (the fades are his "small"; moved at his word). A first cut came out
+SILENT: with `-ss` placed after the input, ffmpeg keeps the source's timestamps (240 s …) and the fade-out at "179.5 s" fell before
+the whole cut — the seek goes before the input. The lab's 1a.3 (the sources) is, for now, this: static files by his Slow Downer
+recipe; the live icy voices stay for later (§57). NEXT: 1a.5 THE TREMOLO on this bed — the drums' capture on depth and speed.
