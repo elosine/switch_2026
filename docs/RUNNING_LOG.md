@@ -1314,3 +1314,17 @@ archtop / C · r1-t198.8 / baritone guitar / D+brightness; texture: silence 47 s
 · set 4 → `mix-set4-orchestrated-6m35` (r3-t073.2 / piano / Dbr · r1-t187.2 / archtop / A · r2-t113.8 / drums / C · r3-t077.2 /
 baritone guitar / B; the shortest clip 6:35). Each with its master (−16 LUFS, +10.7 … +11.8 dB) and a recipe file. With the first
 (§64 · §68), FOUR orchestrated mixes in `H:\switch_2026\audio\set-2025-04-08c\keep\` — the materials.
+
+## §79. His picks among the granular beds; the FUND OF MATERIALS and the road to the electronic score (2026-11-09)
+
+His word, verbatim: *"the bs and c2 and then g4-6 And how do you recommend creating a fund of materials? So the bigger picture is what
+I want to do now is once I've compiled these and made versions, I want a folder of materials, and then I want to use something like
+the composer score and arrange them, basically compose an electronic score, and then I'll layer on the instrumental voices. So first,
+I guess the first one is generating the granular bed ones. I don't want to be overwhelmed by them. Generate like the ones you put in
+there are great, maybe just longer, and then generating some more materials, a few granular beds. We already have the tremolo ones
+done. And then I'll work on the tuplet ones. I don't think we need additional articulation for the granular ones because those can be
+like final materials."* THE PLAN, as read: (1) the granular keepers — B1 · B2 · C2 · G4 · G5 · G6 — rendered LONG (4 minutes each,
+final materials) into `keep/granular/`, plus three more in the same directions (G7 between G4 and G5 with a wandering head and a hair
+of pitch drift · B3 a B that goes down · C3 a slower, wider roar); (2) the tuplets, his to settle; (3) the fund gathered; (4) the
+electronic score in the composer score — the materials as samples in the piece's bank, placed as return bricks on the electronics
+lanes (the engine's existing object), the instruments written around them. The recommendation for the fund is the reply of this hour.
