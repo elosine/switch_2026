@@ -1419,3 +1419,16 @@ them; the "beds' master pass" line left the still-to-gather list.
 grains are PEAKY, and the limiter (−1 dB true peak, never overshooting) holds them before the loudness target is reached; the gain the
 chain could apply was +6.9 … +14.8 dB. Reaching −16 on the Bs would mean a heavier limit, a dial he can ask for; the masters are
 within 3.6 dB of each other, against 8 dB before.
+
+## §88. THE OPENING — one bed, its four stems, their orchestrated mix (2026-11-09)
+
+His word, verbatim: *"In the materials, maybe under its own banner called opening, can I get this file mastered? r3-t078.8-x625-trimmed
+And then can you put it through the 4 versions? … just correct me where I'm wrong … Just this file, raw as it is, trimmed and
+mastered. And then 4 more versions, but they will have their own Tremolo, and then they will have their own wandering spatialization,
+correct? And then those 4 individual files … And then can I get a mixed and orchestrated version too? So I guess that's 6 files
+altogether in the opening … I want those as individual stems as well."* RIGHT, with one addition: the four versions are the one bed
+under the four PLAYERS' tremolos — the same mapping (D + brightness: speed from busyness, depth from the hits, the wave's shape from
+brightness) driven by the drums, the piano, the archtop, the baritone guitar in turn — each placed and slowly moving; and in the
+orchestrated mix each voice is also SILENT while its player was silent in the session. So the stems are written exactly as they sit
+in the mix — tremolo, gate, place, motion — and the mix is their sum; every file mastered. `keep/opening/`: the raw bed mastered · the
+four stems · the mix (and its raw sum). `orchestrate_mix.py --stems`; the materials page gives any sub-folder of keep/ its own banner.
