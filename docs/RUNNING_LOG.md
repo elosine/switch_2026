@@ -1385,3 +1385,10 @@ moves into `keep/` and the page is rebuilt. One page for the whole fund: `/files
 
 The twelve new beds in `keep/granular/` (G8 · G9 · G10 · B4 … B7 · C4 … C8, four minutes each); with the nine of §81, seven G, seven B,
 seven C — twenty-one beds, 84 minutes. The materials page rebuilt: 25 keepers and the candidates. Waiting on his ear.
+
+## §85. The beds mastered (2026-11-09)
+
+His word: *"the granular bed ones, when you're done, can I get mastered versions of those? They're a fair bit quieter than the keepers
+above."* The 21 beds through the same chain as the mixes (`master_mix.py`: the compressor, a gain to −16 LUFS, the limiter at −1 dB
+true peak) → `keep/granular/<bed>-master.wav` beside each raw file; the materials page lists the master and keeps the raw beside it.
+Running as this is written; the numbers when it ends.
