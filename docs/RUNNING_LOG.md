@@ -1438,3 +1438,19 @@ different tremolo on the same bed. And then I can layer those in as I will."* So
 player's tremolo, placed and slowly moving, no gate — and mastered; the orchestrated mix stays gated as it is. And the page: *"get rid
 of anything we're not actually using … the candidate granular 60-second auditions"* — off the page (the files stay). The three
 tuplets on the page are §87's new gate-varied ones; which work is his to say.
+*(§88, done)* The opening: `keep/opening/` — the bed mastered · four CONTINUOUS stems (`stem-<player>-continuous-master.wav`, each
+−25.5 … −25.8 → −16.0 LUFS) · the orchestrated mix and its master; a recipe; its own banner on the page (31 materials, 2 h 56 min).
+
+## §89. The tuplets, as he meant them: single samples, a different one every hit; the shaping first (2026-11-09)
+
+His word, verbatim: *"the tuplets one doesn't sound like we're using the, I guess like the sample strategy I mentioned … I was trying
+to get you to isolate individual samples that are single attacks in and of themselves. So this sounds like the tuplets are done on
+that stretch bed or something more ambient below. I want each individual hit to be an actual individual samples, but I want you to
+change the sample every time. So do we need to first preview a few of the samples? … let's get individual samples, maybe a couple of
+each instrument, and then … just a few shaping. Either use one of the envelopes or your own envelope on it … to land on the right
+kind of shaping. And then after we settle the actual samples, we'll put them into the sort of tuplet gated thing … Conceptually, it's
+like they have each their own envelope."* Right: the gate-varied renders are the stretched bed phrased into notes; what he wants is
+NOTES MADE OF SINGLE ATTACKS, the sample changing every hit, each hit shaped. First the shaping: `live-electronics-engine/corpus/
+shape_attacks.py` — the eight single attacks of §77 (two a player) under five shapes each (natural · perc · gate · expodec · soft), one
+page, a row a sample, the shapes across — forty one-shots. Then, at his word: the settled samples and shape into the tuplet machine,
+a different sample on every note.
