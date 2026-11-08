@@ -1188,3 +1188,20 @@ level by their loudness), both modes · steered by the PIANO on r2-t124.8 (20 �
 piano 56 % · archtop 66 % · baritone guitar 49 %. Also finished: the ×625 four-pass stretch of all 56 cuts (`slow/`, 44 more files).
 Waiting on his ear: the tuplet notes — gate against retrigger, the attack, the durations; the orchestration's floor (6 dB under each
 player's median) and fade (2.5 s).
+
+## §69. The set's audio moved to H:; a mastering chain; varied attacks for the gate tuplets (2026-11-08)
+
+His word, verbatim: *"Extreme SSD H: I'm running out of space. Can you move all the audio to a folder here? I don't think any of
+it is hitting the repo anyways, right? … And then can, since these will probably end up being static files, so that orchestrated
+one is good … can we work out some sort of mastering chain, even if we have to do it in Reaper? … it is a little quiet, I think, at
+times. Maybe some sort of basic mastering application. And then I think the gate one works the best. Can we vary it a little bit in
+just having some sort of variation amongst the attacks, I guess, some variety of attacks?"*
+THE MOVE: right, none of it was in git (`bank/set/.gitignore`); 457 audio files, 16.5 GB, moved whole by robocopy to
+`H:\switch_2026\audio\set-2025-04-08c\` with the same sub-folders; nothing left on C:; the data (json · html · md · the drawn capture)
+stays in the repo; `samples.json`'s `dir` points to H: (the icy lab's engine loads from there); `AUDIO_ON_H.md` says so. The tools
+write to H: from here.
+THE MASTERING CHAIN (`live-electronics-engine/corpus/master_mix.py`, round the workshop's `tools/master.py` — piece 6's bus on a file:
+the soft-knee compressor "to its own loudness", the true-peak look-ahead limiter): compressor → a gain to a LOUDNESS TARGET,
+integrated EBU R 128, −16 LUFS for listening (a hall keeps its own fader) → the limiter at −1 dB true peak → 24-bit. First master in
+§70. THE ATTACKS (`tuplets_render.py --vary`): every note's rise 2 … 14 ms, fall 25 … 120 ms, bite 3 … 9 dB over the sustain, its
+length ±15 %, one note in six accented +3 dB. Renders in §70.
