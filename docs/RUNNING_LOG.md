@@ -1044,3 +1044,12 @@ depth is probably okay, but more min depth. And if it turns out that they conver
 A only; depth 50 … 90 % (the floor up from 15); and the speed scale set so the window's own busiest second reaches 20 Hz (the drums
 peaked near 6 attacks/s, so 20 Hz was never reached at a 0 … 10 scale). `trem-A-…-s2-20-d50-90.wav`. The depth's floor is the knob
 he will move next; the ceiling after, if the two converge.
+*(§60, continued)* His ear on d50-90: *"that's not bad, but let's just see what it sounds like to move both the min and max depth up.
+… But I also want to hear a version that's controlled by another instrument. But also, are there other parameters? It would be good
+to hear maybe the tremolo change, more busy, like more of it. So I don't know if there's other parameters to follow that would make
+the flow a little bit more dynamic."* Three renders: A on the DRUMS at depth 65 … 100 % (came out 65 … 96) · A on the PIANO, the
+same window and ranges (65 … 91 %; the piano's own pace) · a NEW MAPPING D, "the hits themselves": the speed from the density
+smoothed only half a second, the depth from the analyzer's FRAME loudness (11.6 ms, the .npz) smoothed 0.15 s — every hit and every
+gap shows in the depth; 65 … 100 %. WHAT ELSE THE CAPTURE HOLDS, to follow: per player, per second — density · loudness · brightness
+(the spectral centroid); per frame (11.6 ms) — onset strength · loudness · centroid · flux (how fast the spectrum moves) · density;
+and the onset times themselves. Brightness and flux are unused so far.
