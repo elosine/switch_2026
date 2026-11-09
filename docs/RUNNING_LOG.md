@@ -1692,3 +1692,9 @@ processed alternating) + 109 (mostly clean, spiked) + 117 (drums and piano, raw 
 *(§104, more)* His word: *"those are great. Can you do a few mixes of four, like maybe three, and then maybe like two more mixes of three?"*
 Five more, same way (equal gain ÷√n, mastered), as candidates: C = 21 + 101 + 112 + 114 · D = 103 + 105 + 107 + 109 · E = 101 + 112 + 115 + 117 ·
 F = 107 + 112 + 114 · G = 21 + 101 + 109.
+*(§104, the mixes redone)* His word: *"have each part wander in the stereo field … easily convertible to the quad … like a 360 dial."* All seven
+mixes (A … G) remade by `mix_wander.py`: each part on the full circle (0 front · 90 right · 180 back · 270 left), spread evenly to start, then a
+slow random walk (a step every half second, smoothed over 6 s — about ±120° in a minute, never a jump); stereo by folding the circle (left–right
+from sin, the back a shade quieter and narrower); every mix writes its parts' angles once a second to `<name>.json` beside it — the numbers a
+quad panner reads later. Equal gain, mastered, as before. (The first run smoothed at the sample rate — a ten-minute convolution that would have
+taken hours; the walk is made at 20 points a second and interpolated.)
