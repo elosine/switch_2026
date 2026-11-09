@@ -1626,3 +1626,21 @@ samples with processed samples."*
   room in turn, a color a group · 107 slow color turns (held two groups) · 109 mostly clean, spiked by the harsh fuzz and the knock · 112
   no raw, every group a new color · 114 the rooms held three groups, then dry · 115 dry and hooded (the Moogs) · 117 drums and piano, a
   raw group then a fuzz group. Rendered when the processing lands; the page `tuplets/sequences/processed/index.html`.
+
+## §102. The composer score takes the materials: the engine road chosen; layers; a post-production bounce (2026-11-09)
+
+Put to him (the §80 plan restated, one question): the sound out of the score through the ENGINE (the bank, `/le/play`, Reaper — the
+lineage's road, what quad and the live electronics need) or through the BROWSER (the page plays the WAVs; quick, a second sound path the
+concert never uses). Recommended the engine. His word: *"the engine is fine. Also, I would want to do multi-track, like I would want to
+layer these things … there may be like a post-production phase … if I layer a bunch of these on, and these are already mastered, the final,
+combined might be too loud or need remastering … Once things are placed and I have them more or less the way I want them to sound, then
+like for the notation score, we can … remaster or remix these into a single sound file. Just as long as we have the capability of doing
+that later, and for the composer score part, just like with the MIDI files … maybe just a rough mix there so that it sounds, it plays back
+good enough so that I can compose it."*
+
+The reading, for the plan: LAYERS = several electronics lanes in the score (bricks overlapping freely across them). THE ROUGH MIX while
+composing = each brick's level mark plus the engine's master bus (`\leMaster`: the glue compressor and the look-ahead limiter already
+there) — nothing clips, nothing is final. THE BOUNCE = post-production: an offline render FROM THE SAVE (the IR contract — the save is
+the ground truth): every brick with its offset, length, fades and level curve, summed and mastered (`master_mix.py`) into ONE file for
+the notation score and the recording. It is a sixth step of §80's plan, built when he reaches it; nothing in steps 1 … 5 forecloses it.
+Discussion only; the plan item is written when he says go.
