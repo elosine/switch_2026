@@ -84,6 +84,10 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 - **MODEL · CLEAR:** his first pass and what he hears — **Fable** (judgment on faults and on the music); a fault's fix that is mechanical — Opus.
   Clear now; `/postclear` resumes at the step above.
 
+- **2026-11-09 — STILL SILENT → THE ENGINE'S CUE (RUNNING_LOG §111):** the route was necessary, not sufficient; traced by measurement to
+  `Buffer.cueSoundFile`'s completion function firing before the read (the synth streamed an empty buffer). Fixed in `material.scd` (the read's
+  /done awaited; VDiskIn at the file's rate — the fund is 44.1 kHz, the engine 48 kHz); the engine window now shows the server's own errors.
+  The material brick's card opens on P only (the page's own rule). **► HE RESTARTS THE ENGINE, F5, plays.** The engine's files pushed.
 - **2026-11-09 — HIS FIRST PASS, two faults and a revision (RUNNING_LOG §109 · §110):** the drawer's drop fixed (§109) · the electronics lanes
   FULL height at his word (twelve equal lanes) · **"I don't hear it": the full rack had no ELEC RETURN track** (the NITS line of 2026-11-07) —
   `node tools/elec.js route` run by the AI: the sends and ELEC RETURN at track 25 are in his open Reaper, **UNSAVED until his CTRL+S**. NITS:

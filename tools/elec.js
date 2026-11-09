@@ -272,6 +272,8 @@ async function readPeaks(waitMs) {
             const m = /^LE_RESULT\s+(.*)$/.exec(l);   // a tool's line, not his: nothing is shown. A route check's pairing (an onset with its sound) is kept; a capture's row is in the bank's index
             if (m) { try { const o = JSON.parse(m[1]); if (o.msg === 'onset') fs.appendFileSync(path.join(ROOT, 'probes', 'elec_message_log.jsonl'), JSON.stringify({ when: new Date().toISOString(), ...o }) + '\n'); } catch (e) {} return; }
             if (/^LE_/.test(l)) console.log(l.replace(/^LE_(INFO|READY)\s*/, '').replace(/^LE_ERROR\s*/, 'STOPPED: '));
+            // [2026-11-09, RUNNING_LOG §111] the SERVER's own complaints were hidden by the LE_ filter — a file it could not open, a SynthDef it did not know, a buffer fault. Shown now, marked as the server's.
+            else if (/FAILURE|could not be opened|not found|Buffer UGen|exception|^ERROR/i.test(l)) console.log('server:    ' + l.trim());
         } });
         // the window closed (SIGHUP on Windows), CTRL+C, a kill: the engine's server goes WITH its window. Without this the
         // language dies and its server stays — holding the port and ReaRoute, reachable by nothing (RUNNING_LOG §64).
@@ -405,6 +407,8 @@ async function readPeaks(waitMs) {
                 const m = /^LE_RESULT\s+(.*)$/.exec(l);
                 if (m) { try { const o = JSON.parse(m[1]); if (o.msg === 'bleed') read.push(o); } catch (e) { /* not a line of ours */ } return; }
                 if (/^LE_/.test(l)) console.log(l.replace(/^LE_(INFO|READY)\s*/, '').replace(/^LE_ERROR\s*/, 'STOPPED: '));
+            // [2026-11-09, RUNNING_LOG §111] the SERVER's own complaints were hidden by the LE_ filter — a file it could not open, a SynthDef it did not know, a buffer fault. Shown now, marked as the server's.
+            else if (/FAILURE|could not be opened|not found|Buffer UGen|exception|^ERROR/i.test(l)) console.log('server:    ' + l.trim());
             } });
             await runB.done;
             if (!read.length) { console.log('NOTHING WAS READ — the venue\'s file is as it was.'); process.exit(1); }
@@ -429,6 +433,8 @@ async function readPeaks(waitMs) {
                 return;
             }
             if (/^LE_/.test(l)) console.log(l.replace(/^LE_(INFO|READY)\s*/, '').replace(/^LE_ERROR\s*/, 'STOPPED: '));
+            // [2026-11-09, RUNNING_LOG §111] the SERVER's own complaints were hidden by the LE_ filter — a file it could not open, a SynthDef it did not know, a buffer fault. Shown now, marked as the server's.
+            else if (/FAILURE|could not be opened|not found|Buffer UGen|exception|^ERROR/i.test(l)) console.log('server:    ' + l.trim());
         } });
         await run.done;
         const heard = got.filter((o) => o.heard);

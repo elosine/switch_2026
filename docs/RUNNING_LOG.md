@@ -1867,3 +1867,46 @@ touches the materials.
 
 **NOT CLAIMED:** the sound under his hands — his save, F5, play is the proof. If it is still silent after that, the engine window is the next
 read (an engine started before `material.scd` existed knows no `/le/material`): its startup lines say `LE_MATERIALS` or not.
+
+## §111. STILL SILENT — the trace to the engine's cue; the material at the file's rate; the card on P (2026-11-09)
+
+**His words, with a screenshot of the engine window:** *"still cant hear. And then can you make it so that the card doesn't pop up every
+time I click the brick? Maybe relegate it to a key instead. Just make sure there's no conflicts."* The window showed the engine is the new
+one and receives the brick: `material · r3-t078_8-x625-trimmed · in 0 ms · 0.0 s into it · 30.0 s · fades 30/30 ms`, then `1 let go — the
+score stopped`. So the route (§110) was necessary and not sufficient: the sound is MADE and never ARRIVES.
+
+**The trace, by measurement (no hands of his — each step read from the rack through the bridge's own meter watch, `elec_route.lua watch`):**
+1. A six-second audition of his material through the living engine, the rack's meters watched: **ELEC RETURN −150 / −150** (exactly nothing;
+   the idle tracks' noise floors read −154). The engine's return track is the same as the lab's (REC input 1536 = ReaRoute 1/2 stereo, monitor
+   on, armed, recmode 2) — the route job sets what the lab project has.
+2. The server asked directly (`/status` · `/g_queryTree` on 57210): during the audition a `leMaterial2` node stands in grpFx (1001) BEFORE the
+   master group (1002, `leMaster`) — the synth exists, in the right place.
+3. **The line-up tone** (`elec.js tone`, past the bus) watched: **ELEC RETURN −18.24 dB** — THE WIRE IS GOOD (engine → ReaRoute → the return →
+   the master). The icy lab's synths go into busMaster the same way and were heard.
+4. The server asked to open the file itself (`/b_alloc` · `/b_read` leaveOpen · `/b_query`): 262144 frames · 2 ch · 44100 — **the file reads.**
+5. **The live `leMaterial2` driven BY HAND** (my own cued buffer, then `/s_new` into busMaster): **ELEC RETURN −8.5 dB — IT SOUNDS.** Then with
+   the engine's extra arguments added one group at a time — the fades and envCurve · + envDb [0 × 16] · + envDt [0.01 × 15], as OSC arrays —
+   **all three sound.** The arguments are innocent.
+6. What was left between the hand test and the engine's call: THE ORDER. By hand the read was waited for before the synth started.
+
+**THE CAUSE (confirmed in SuperCollider's own source, `Buffer.sc` 164 … 173):** `Buffer.cueSoundFile(s, path, frame, ch, size, completion)`
+= `alloc(…, { buffer.cueSoundFileMsg(path, startFrame, completion) })` — the completion FUNCTION is evaluated when the `/b_read` message is
+BUILT, inside the alloc's completion, i.e. BEFORE the read. The engine's function sent the `s_new` right there: the synth started on an empty
+buffer, DiskIn streamed silence, and nothing ever said so. The NRT test never met it (a Score has no asynchronous cue). The Decibel piece
+never met it (no material brick there).
+
+**The fix (`electronics/sc/material.scd` materialPlay):** `Buffer.alloc(…, { |b| b.readMsg(path, frame, cueFrames, 0, true) })`, then an
+`OSCFunc` on `/done` with argTemplate `['/b_read', bufnum]`, one shot: the synth's bundle is sent when the READ is done, the lead less the
+time it took, as before. **Seen beside it, fixed in the same def:** `/b_query` said the file is 44.1 kHz and the server runs at Reaper's
+48 kHz — DiskIn plays at the server's rate: every material would have come 8.8 % fast and 147 cents sharp. `VDiskIn.ar(nCh, buf, rate, 0)`
+with `rate` = the file's rate over the server's, passed at play (1 = as before; the test's case). **And the blindness fixed (`tools/elec.js`
+start):** the engine window showed only `LE_` lines, so the server's own complaints (a file it could not open, an unknown SynthDef, a
+buffer fault) were invisible — now shown, marked `server:`. `material_test.scd` PASS with the new def (ten checks).
+
+**THE CARD on a click — his second ask.** The page already has the rule for the META curves, the trills and the beating (2026-08-13):
+the card opens ONLY on P, the selection is silent. The material brick joins that line (`showPropertyPanel`, one condition): a click or a
+drop selects it, **P opens its card**; P is the page's own panel key, so no new key and no conflict (the electronics' keys m · r · e · s · w ·
+n untouched; the free letters were not needed).
+
+**NOT CLAIMED:** his ear — the engine must be RESTARTED for `material.scd` (the sc files load at start); then play. SWEEP_LIST 2 stays open
+until he hears it. **Rejected on the way:** asking him for more screenshots (the rack could be read from here) · a stub recipe or a new key.

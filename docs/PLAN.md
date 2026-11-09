@@ -212,6 +212,7 @@ electronics part for the FIRST SECTION, the acoustic instruments built around it
      (`materialAdd(name, layer, t)`), selected; every material brick draws the peaks of the stretch it plays inside itself, behind its
      label, cut to its offset and length, redrawn at every trim. ☑ 2026-11-09
   - his ear and hand: open — the drag gesture and the preview's sound are not run from the AI's pane (no hands, no autoplay)
+  - **the card:** a click or a drop SELECTS a material brick; **P opens its card** (the page's own rule for the META curves and trills; §111)
 
 *Where the code goes (THE SORTING): the capture, the grab, the stretch and the granulation are the WORKSHOP's tools
 (`live-electronics-engine/corpus/`, for any session); the tremolo and the steered effects are the ENGINE's (`electronics/`, for

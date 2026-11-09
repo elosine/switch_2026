@@ -6085,7 +6085,7 @@ const Composer = {
             this.hidePropertyPanel();
             return;
         }
-        if (this.selectedObject.type === 'zone' && (this.selectedObject.midiModel === 'trill' || this.selectedObject.midiModel === 'beating') && !this._panelOverride) {   // trill zones too: P opens it (composer 2026-09-05); beatings the same (1f step 3)
+        if (this.selectedObject.type === 'zone' && (this.selectedObject.midiModel === 'trill' || this.selectedObject.midiModel === 'beating' || this.selectedObject.midiModel === 'elecMaterial') && !this._panelOverride) {   // the material brick too (his word 2026-11-09, §111): a click selects, P opens the card   // trill zones too: P opens it (composer 2026-09-05); beatings the same (1f step 3)
             this.hidePropertyPanel();
             return;
         }
