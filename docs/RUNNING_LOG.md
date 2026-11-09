@@ -2209,3 +2209,12 @@ crotale 4.5; the notes f, the crotale mp.
 | Violin | F4 | 35.9 s | B → 5 · A → 8.6 · B → 4.8 | 86.6 | the player (≤ 42 c) |
 | Crotale | F7 (key F5) | 39 s | B → 6.4 · A → 10 | 82.9 | THE SINE (≤ 6.1 c); the bar static, bowed ×7 |
 The ensemble rule cleared most inhalations; a few could not be (said per lane). **NOT CLAIMED:** the sound of any of it — his ear.
+
+## §124. The flute bends itself at F6 (his word, SW-21) — the AI's "sine moves" there reversed (2026-11-09)
+
+**His words:** SW-21. **His question first:** F6 on the clarinet — a sounding F6 is the written G6 of the B♭ clarinet, altissimo, the recipe's top
+note (89); holdable by a professional, thin and unstable for a 20-second tone, and no bend of a few cents is placeable there; the flute's F6 is
+mid-high and easy. His call: the flute stays on F6 and GLISSES ITSELF. **Done:** `bank/sine_behaviours.json` flute `who: player`; the flute's lane
+re-rolled on its own seed (23 — lane 0): the same three pairs (A → 9.3 · B → 6.1 · A → 9), now as the flute's bend (≤ 11.5 c) under ONE constant
+sine 29 → 84.6 s at mark 5.5. The §120 advice stands in the record as the dead end it was for him: the smallness of the bend is the player's
+problem to solve, and he trusts the flautist.

@@ -406,3 +406,10 @@ change, obviously. So you'll glissando the sine tone instead. But just make sure
 *The AI's reading (not his):* the octaves of F enter in order — the sax F4 (16 s) · F5 (26.4) · F6 (30) · the cello F3 (32.8) · the violin F4
 (35.9) · the crotale F7 (39) — each a sawtooth of pairs by SW-15's two shapes under its own sine; where a player cannot place the bend (the
 crotale; the flute at F6) the note stands still and the sine glides. The piano later. RUNNING_LOG §123 has the assignment and the numbers.
+
+### SW-21 · 2026-11-09 — the flute glisses at F6 itself; the sine stays still
+
+*His words:* *"Okay, let's leave the flute there, but I think the flute could produce a glissando. I think a good flautist could do so. So let's
+just gliss the flute instead of the sine up there."* *(Before it, asked: "Is F6 out of reach for a player, and do we not have F6 available on
+the clarinet?" — answered: a sounding F6 is the clarinet's written G6, altissimo, its recipe's top note; the flute's F6 easy; the clarinet stays
+on F5.)*

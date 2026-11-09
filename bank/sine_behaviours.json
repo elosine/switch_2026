@@ -44,12 +44,12 @@
   },
   "flute": {
    "voice": "ord",
-   "who": "sine",
+   "who": "player",
    "cents": [
     8,
     50
    ],
-   "_added": "2026-11-09 (§123): the flute at F6 HOLDS STRAIGHT and the SINE glides — a bend of 1 … 12 cents is under any player's control (§120's table); the AI's advice, his to reverse (who: player)"
+   "_added": "2026-11-09 (§123, then his word SW-21): the flute at F6 BENDS ITSELF — his call, \"a good flautist could\"; the bend is small (a beat a second = 1.2 cents at F6; 9.3 beats = 11.5 c), the sine static. (The AI had put the sine on the move here; reversed at his word.)"
   },
   "violin": {
    "voice": "senza_vel",
