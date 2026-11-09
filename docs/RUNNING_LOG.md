@@ -1574,3 +1574,18 @@ The answer to his question: the tuplet runs were 60 s (the sheet's 20 s); the be
   scales its spacing — fund × (first + spread × n) — so a lower fund with the same spread is the same chord lower AND closer; the wide
   range he wants comes from a low fund WITH a large spread (G · H), not from the fund alone. `petals/variations/`, listed as candidates.
 - The materials page gains the petals (keep) and the variations and processed runs (candidates) when the renders land.
+
+## §97. The processings as POOLS; ten pooled tuplet sequences; the petals landed (2026-11-09)
+
+His word: *"the process variations are fine, except for the Moog 4. Let's not use that one. And then let's treat these as like one category
+… the Moog or the 2 or the 3 will be just more like one choice … like a pool. And then … create a number of tuplet sequences using some
+using single processing, some using a mix, and then a variety of the tuplet patterns … some that's just a mix of the various, whatever,
+resonators or fuzz cabs, and then some that combines a couple different effects, and then some that uses them all."*
+
+- Moog 4 (RLPFD) deleted from the sheet and the pools. The pools: Moog 1 … 3 · resonators 1 … 4 · fuzz-cab 1 … 4 · room 1 … 4.
+- `tuplets_render.py`: `--attacks` given several times = ONE DECK dealt across every folder named (a card is folder/attack).
+- Ten sequences, 90 s, in `tuplets/pools/` (candidates on the materials page): one pool each — resonators (mix · group), fuzz-cab (mix),
+  Moog (group, chunks 1 2 3), room (mix) · two pools — fuzz-cab+room (mix), resonators+Moog (group) · all four — mix, group (chunks to 6),
+  and mix at a 0.75 s beat. Seeds 41 … 50.
+- The petals landed: twelve full passes (625 s, A … D on r1-t190.0 · r2-t124.8 · r2-t110.0) in `keep/petals/`, its banner on the
+  materials page with the recipe; the six harmonic variations E … J (120 s, r3-t077.2) as candidates.
