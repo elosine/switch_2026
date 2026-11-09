@@ -1606,3 +1606,23 @@ The answer given: one deck of 24 (six a player) under every seed — the seeds c
 `attacks_cut.py --per 15` — 60 attacks, fifteen a player (the 24 set aside in `attacks/_pool24/`); the 21 sequences re-rendered on the
 60 with the same seeds and settings, the page retitled. The processed folders (`attacks/processed/`) still hold the 24 pool's renders —
 the chosen sequences are processed on the 60 when he names them.
+
+## §101. His ten sequences; raw and processed hits mixed, a character each (2026-11-09)
+
+His word: *"21, 101, 117, 115, 114, 112, 109, 107, 103, 105. And then can I hear each of these with a mix of processed samples and
+unprocessed samples? So like the unprocessed will be like one choice, like one processing choice. And you can do a random mix of the
+different processing. I don't think the single processing ones worked quite as well … try some things that make each of these 10 … sound
+distinctive … weighting one type or a couple types of processing more, or changing more often or less often, or alternating unprocessed
+samples with processed samples."*
+
+- The 60 attacks through the FIFTEEN kept processings (`attacks_fx_kept15.json`; 900 renders, `attacks/processed60/`).
+- `tuplets_render.py`: WEIGHTED POOLS with a change policy. A pool is the same 60 hits under one processing (raw is a pool). The hit's
+  SAMPLE is dealt from the deck as before; its PROCESSING is drawn across the pools by weight — changing every note, every tuplet group,
+  or every N groups (`--pool-change` · `--pool-run`), or alternating the first pool with the rest (`--pool-alternate`), never twice running
+  (`--pool-no-repeat`). The two rhythms are independent, so one note can repeat while its color changes. A Windows path's drive colon
+  broke the FOLDER:WEIGHT parse once — the weight is the part after the LAST colon, and only when it is a number.
+- `sequences_processed.py` — the ten, same seeds and patterns, a recipe each: 21 the kaleidoscope (raw a fifth, all fifteen, a color a hit) ·
+  101 raw with a resonant halo (half the groups) · 103 strict alternation raw/processed hit by hit · 105 raw, the E resonators and the big
+  room in turn, a color a group · 107 slow color turns (held two groups) · 109 mostly clean, spiked by the harsh fuzz and the knock · 112
+  no raw, every group a new color · 114 the rooms held three groups, then dry · 115 dry and hooded (the Moogs) · 117 drums and piano, a
+  raw group then a fuzz group. Rendered when the processing lands; the page `tuplets/sequences/processed/index.html`.
