@@ -2274,3 +2274,19 @@ pieces 4 · 5 · 6 and here (generated 2026-09-07, PLAN 1d of piece 4): blasts 4
 filled at run time — everything he had, up to the latest, is here. **The drawer's TAKES** (`bank/panel_snapshots.json` panels.strikes — the
 named chords he dealt) are per piece: piece 6's 70 are here as carried (beating01 …, strikes01 …, on piece 6's lanes); piece 5's 239 are in
 `septet_LGMF_2026` and would need their lanes re-mapped to come over — offered, not done.
+
+## §128. The strike banks of Scattered Substance and Approaching carried into the drawer (2026-11-09)
+
+**His words:** *"Can you look in Scattered Substance as well as the Approaching piece and those scattered strikes, harmonies that I played in?
+Can you add all the different ones to the drawer?"*
+
+**Where they live (the question named: what does the Strikes drawer read?):** `bank/scattered_strikes.json` — THE strike bank, read live by the
+drawer (`strike_drawer.js` DB_URL; its ↻ db button), the beating panel, the chord run, the fill and the morph. Here it was the port's EMPTY
+skeleton (piece 6's record: "recorded strikes are a piece's own"). Piece 4's holds **46 strikes** (`ScatteredStrikes01` — his keyboard into
+the piano lane, 2026-09-03; 577 notes); piece 6's **60** (his marimba strikes played into the page, 2026-10-09; 429 notes). Piece 5's bank is
+empty (its opening came from the piano strikes of piece 4's db by another route).
+
+**Done:** both banks merged WHOLE into this piece's file — 106 strikes, 2 sequences, 2 ingestions; every strike keeps its id (the sources'
+prefixes make them unique), its notes (midi · vel · dur · the displacements; the source lane and instKey stay as provenance), its timing; the
+label and `_from` say the piece. The drawer deals a strike's PITCHES to this ensemble by its own rules, so the source lanes do not bind.
+His page: ↻ db in the drawer, or F5. NOT CLAIMED: a deal from them heard.
