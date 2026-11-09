@@ -235,3 +235,21 @@ moment every instrument enters on F4 or its octaves, each tuned a little off the
 tool's territory (the BEATING panel, B; piece 5's CN-34 ladder of intervals, here at the unison / octave). Which octave each instrument
 takes, and how far off, are open; the pitch itself is to be confirmed against the bed (the AI can read the bed's spectrum at 11 … 16 s if
 asked). Related: SW-7 (the opening under live beating) · SW-1 (the tremolo as the simple parameter).
+
+### SW-10 · 2026-11-09 — AT 16 s: THE ALTO SAX'S LONG TONE ORDINARIO WITH A SINE, AUDIBLE BEATS — THE SINE CONTINUOUS, THE SAX BREATHING AS THE MORPHS DO
+
+*His words (dictated, light corrections):*
+
+> *"Okay, let's set up the alto sax for a long tone ordinario at 16 seconds. F4 I think. Can you just verify the electronic material popped in
+> there, an electric one, whichever one that is? Can you just look around? I guess it's around 11 seconds in, a tone appears. I think it's F4.
+> I'm pretty sure it's F. I think it's F4. Just confirm the octave, or just confirm the pitch, please. And then if you can look at the decibel
+> piece for the audible beats, we're just going to generate a sine tone at the same time with, you know, appropriate fade. It'll be maybe a
+> couple seconds fade in or something, so it's not too abrupt. So see how we did it. I think it worked pretty good how we did it for decibel,
+> for Approaching. And then can you use a similar algorithm, I guess, from the morphs? Or I'm not sure if we have other versions where we
+> scatter the breaths for each one, and we'll just use some kind of similar algorithm for the — well, there'll be more parts, but just for
+> now, the alto sax part. But you can keep the sine tone continuous."*
+
+*The AI's reading (not his):* SW-9 made concrete for one part. The bed at 11 … 16 s (the brick on Elec 1, `r3-t078_8-x625-trimmed`) is
+MEASURED, not F: its tone is E♭3 with E♭4 above it (RUNNING_LOG §114). The sax takes the long tone on that pitch (E♭4, his to make F4 with a
+word); a generated sine on the same pitch enters at 16 s with a 2.5 s rise and holds, continuous; the sax breathes as the morph's players do
+— each breath round three-quarters of its ceiling, a comfortable gap between. More parts follow the same rule when he reaches them.

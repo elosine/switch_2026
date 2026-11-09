@@ -1938,3 +1938,37 @@ put to him (the brick a 30-second window by the AI's choice at §103, against th
 **The change:** `le_material.js` materialAdd — a brick opens at the file's full length (the edges trim it; the split cuts it); 30 s only for a
 name not in the index. The key, the drop and the split share the one line. page_test PASS. Logged as D11's companion, not a decision of
 its own: the brick's model is unchanged, only its default.
+
+## §114. SW-10 — the bed's pitch MEASURED (E♭, not F); the sax's long tone with a continuous sine, by the morph's breath rule (2026-11-09)
+
+**What prompted it.** His SW-10 (the sketch pad, verbatim): the alto sax's long tone ordinario at 16 s on the tone that appears in the
+electronic material at about 11 s — *"I think it's F4 … just confirm the pitch"* — a sine with it (a couple of seconds' fade-in, continuous),
+the breaths scattered as the morphs do; Approaching's way read first.
+
+**The pitch, measured** (`pitch_peaks.js`, a Hann FFT of 2.97 s windows, bin 0.34 Hz, the spectrum averaged, peaks named): the brick on Elec 1 is
+`r3-t078_8-x625-trimmed` from 5 s with a 9 s fade-in, offset 0 — so score 11 s = file 6 s. **Score 9 … 14 s:** D♯3 +20c strongest (157.3 Hz),
+C♯3 +6c at −10 dB, D♯4 −6c at −15 dB. **Score 14 … 18 s:** **D♯3 +1c (155.7 Hz) strongest, D♯4 −13c (308.9 Hz) at −10 dB**, C♯3 at −12, A♯3 at −17.
+F appears in neither window's top eight. **So the tone is E♭ — E♭3 with its octave E♭4 above it.** Built on E♭4 (MIDI 63); F4 is one word of his
+(the build script takes the pitch as its argument).
+
+**Approaching's way, read** (its RUNNING_LOG §173 … §178; its save `beating-section.json`, 36 sine bricks): his DEC-35b rejected the beating tool
+for the sines — *"simple generated electronics"* — so the SINE BRICK (`elecSine`) on the player's lane whose tone it is: a pitch with cents, a
+length, a gliss, a level flat · hairpin · following a DRAWN CURVE (curve A read at the fire); the player tunes against it. Carried here as it
+is: the same brick, the same module (the engine's `le_sine.js`).
+
+**The breaths, the morph's rule** (`morph.js` BREATH_TABLE · `maxBreath` · the carrier's "breath round the player's own maximum", 2026-09-20): the
+ceiling for MIDI 53 … 65 at mp (level 0.43, over the p row's 0.4) is the mf row, **11 s**; the aim three-quarters of it, **8.25 s ± 2 s**; a
+comfortable gap **0.75 … 1.2 s**; a remainder under 1.5 s is not a note. Seeded (11). The sequence drawer's `dealSpan` is the twin.
+
+**Built — a NEW save, his working file untouched:** `scores/piece-Section01-C-saxBeats.json` = his `piece-Section01-B-addAudBt` + three things:
+- **the sine brick** on the alto sax lane (lane 2 — Approaching's convention: the tone belongs to the player who beats against it; his to drag
+  to an electronics lane), E♭4, 16 … 36 s (to the bed brick's end), level `curve A`, tracker off (continuous, not following the player);
+- **curve A** over 16 … 36 s: ppp (y 0.05) → mp (y 4.2857 = 10 · 3/7) in 2.5 s, then held — the sine's fade-in; the ladder's ppp is a sounding
+  level, 28 dB under the ceiling, so the entry is soft, not from nothing;
+- **the alto sax**, E♭4 ordinario at mp (y 4.2857), two breaths: **16 → 24.86 s (8.86 s) · 25.78 → 35.36 s (9.58 s)**, the gap 0.92 s.
+Opened from Piece ▾. **Proof on the throwaway follows in this entry's wake (the save loads, the eleven objects draw).** NOT CLAIMED: his ear
+on the beating (the sax's sample against a sine at 311.1 Hz — the bed's E♭4 is 13 cents under it, 2.3 Hz of beat with the bed as well).
+**Proven on the throwaway (one load):** `/api/composer/load/piece-Section01-C-saxBeats` 200, eleven objects; `restoreData` draws all eleven; the
+sine's label `∿ the tone the sax beats against · D#4 · 20.0 s · curve A ▁▄▄▄▄▄▄▄`; the curve read for it at the fire: 0.005 → 0.4286 held (ppp →
+mp); the two breaths on lane 2 at 16 → 24.86 and 25.78 → 35.36 rendered; the seven material bricks as his. The save itself is HIS (scores/ is
+his to commit, `unsaved_check` first) — not committed here.
