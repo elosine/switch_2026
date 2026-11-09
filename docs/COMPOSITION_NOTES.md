@@ -465,3 +465,7 @@ of tempos (or back to unison) → and on. The pulses may be tuplets, not only si
 electronics. The tool is the composer score's own MULTITEMPO panel (`multitempo.js`, carried: one stream per player at a fixed tempo) grown
 to tempo LINES, with the pitches taken from a strikes-drawer take and the drift set and heard quickly. A plan item when he reaches it; the
 tubas' record (`for_seven_tubas`) read first — lineage first.
+
+### SW-26 · 2026-11-09 — 113.2 s: the start of the next crescendo (held for later)
+
+*His words:* *"113.2, just hold on to that as the starting time for the next crescendo."*
