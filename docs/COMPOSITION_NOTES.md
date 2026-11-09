@@ -305,3 +305,22 @@ at ff, the sine's mark moved until the beating reads.
 *The AI's reading (not his):* the sine enters from 15 s, up over one second to its level, so it is there before the sax; its level 2 dB under
 the sax's ff (half a mark on the ladder of 4 dB steps); the sax's one bent note cut into breaths by the morph's rule, each new breath
 beginning on the cents the gliss had reached, the beating paused for the breath and resumed where it was.
+
+### SW-14 · 2026-11-09 — a gentler sine entry · breaths a quarter shorter with a little jitter · the sine up 1 dB · A SAWTOOTH OF PAIRS under one constant sine
+
+*His words (dictated, light corrections):*
+
+> *"The sine is still kind of popping in. And then can we shorten the breath? I don't know what our standard breath was, but if we could
+> make it a little bit shorter, that would be good. Like maybe 25% shorter, something like that. And let's put a tiny bit of jitter in
+> there, but not too much. I just want the breath to vary so they're a little bit more realistic, but they don't need to vary by that much.
+> And then I was probably wrong about the volume. Maybe the sine needed to go up. So let's try it 1 dB greater than it was in its original
+> form, the last one. Can we do a more gradual fade in over a second? And then let's have a kind of sawtooth wave style. You can keep the
+> sine constant. And then the following — this one will be, say, the sax starts again at unison and maybe goes to, say, 6 beats a second at
+> the pace of 2.5 beats a second. And then let's do another one that's like a variation of the first one — maybe to 7 beats a second at about
+> 2.2 beats per second, and then up to, say, 10 beats per second in, say, 1 beat per second, like a pretty quick one or something like that.
+> And then we'll just do one more that's even slower than the second one. Or I should say, yeah, slower, but to a lower — to maybe 5 beats
+> per second or something like that. So the actual thing isn't terribly much longer, but it goes at a slower pace, something like that."*
+
+*The AI's reading (not his):* "the pace of 2.5 beats a second" = one beat a second gained every 2.5 s (his unit from before); the sawtooth =
+each pair begins at the unison again while the sine holds; the breath's standard was 6 s ± 2 → now 4.5 s ± 0.75; the sine's original mark ff
++ 1 dB = 6.25 on the 4 dB ladder; the pop = the sine beginning at ppp with a 10 ms rise — a fade FROM SILENCE over a second wanted.

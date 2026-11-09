@@ -2059,3 +2059,27 @@ sound. **NEXT at his word:** step 2 the gliss speed · 3 one drawn crescendo for
   carries `sineFadeS 1` · `sineDbUnderFf 2`.
 **NOT CLAIMED:** the sound; his ear says whether 2 dB is the number.
 **The breaths as written:** 16–23.276 (0 → 18 c) · 24.308–28.934 (20.4 → 34.2 c) · 29.705–35.477 (36.7 → 44.1 c)
+
+## §119. SW-14 — the sine's fade from silence (the engine); the breaths shortened; a sawtooth of four pairs under one sine (2026-11-09)
+
+**His words:** SW-14, verbatim. **The pop, read:** the sine brick's level cannot start under ppp (height 0 of a curve = mark 0, a sounding
+level 28 dB under the ceiling) and `\leSine` rose in 10 ms — so a "fade" on curve A was a jump to ppp then a rise. The cure is a rise FROM
+SILENCE: **`fadeIn` on `\leSine`** (`synths.scd`: the guard envelope's first segment, 10 ms unless said), **`fadeInMs` on `/le/sine`**
+(`sine.scd` sineSpec · sineArgs), **`elec.fadeInMs` on the brick** (`le_sine.js`: the message; a playhead starting inside the brick comes in
+over 15 ms; the card's row `Fade in (ms)`). `sine_test` · `sine_page_test` · `page_test` PASS. The engine's §77.
+
+**The sawtooth — `tools/beat_saw.js` (new, the piece's):** ONE static sine brick across every pair (his "keep the sine constant"), the long
+tone a pair at a time, each from the unison along his line in beats a second (the cents derived at F4, sampled every 0.25 s), each in
+BREATHS — the morph's rule with his numbers: **4.5 s ± 0.75** (a quarter under the 6 s aim; the jitter a quarter of before), the gap between
+breaths 0.75 … 1.2 s, each breath re-articulating on the cents reached. `--replace` takes the lane's earlier pair out.
+
+**Written into `piece-Section01-D-saxBeatTest`** (the sine 15 → 99.4 s, mark **6.25** = ff + 1 dB, in over **1000 ms**; the sax ff, velocity 109;
+the gap between pairs 1 s; seed 23):
+| pair | when | the beating | bend to | breaths |
+|---|---|---|---|---|
+| 1 (his first) | 16 → 38 s | 0 → 5 at +10 s → 9 at +16 s, held 6 | 44.1 c | 5 · 4 · 4.4 · 4.9 s |
+| 2 | 39 → 56.5 s | 0 → 6 over 15 s (2.5 s per beat), held 2.5 | 29.5 c | 4.2 · 4.5 · 3.9 · 2.2 s |
+| 3 (a variation of 1) | 57.5 → 78.4 s | 0 → 7 over 15.4 s (2.2 s per beat) → 10 over 3 s (1 per beat), held 2.5 | 48.9 c | 4.4 · 4.5 · 4.4 · 4.8 s |
+| 4 (slower, lower) | 79.4 → 99.4 s | 0 → 5 over 17.5 s (3.5 s per beat), held 2.5 | 24.6 c | 3.8 · 4.6 · 5.2 · 3.2 s |
+**His reading of "the pace of 2.5 beats a second" taken as 2.5 s per beat gained** (his unit of SW-12); said to him. NOT CLAIMED: the sound —
+the engine restarts for the fade (sc files), the page reloads the save.
