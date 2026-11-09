@@ -2218,3 +2218,20 @@ mid-high and easy. His call: the flute stays on F6 and GLISSES ITSELF. **Done:**
 re-rolled on its own seed (23 — lane 0): the same three pairs (A → 9.3 · B → 6.1 · A → 9), now as the flute's bend (≤ 11.5 c) under ONE constant
 sine 29 → 84.6 s at mark 5.5. The §120 advice stands in the record as the dead end it was for him: the smallness of the bend is the player's
 problem to solve, and he trusts the flautist.
+
+## §125. SW-22 — the six lanes carried to 96.6 s, every part fading over its last two seconds; the sine gains a fade-out (2026-11-09)
+
+**His words:** SW-22. **The engine (`\leSine`, synths.scd):** `fadeOut` — a fall LINEAR IN DECIBELS to −60 over the last seconds, as `fall`, an Env
+whose FIRST segment is flat (0 → 0 over dur − fadeOut: it lands exactly; §121's creep was a short or dB-shaped first segment) then −60 over
+fadeOut; 0 = none, every earlier score as before. `fadeOutMs` on `/le/sine` (`sineSpec` · `sineArgs`) and on the brick (`le_sine.js`: the message,
+the card's `Fade out (ms)` row). `sine_test` · `sine_page_test` PASS. The engine's §80.
+
+**The tool (`tools/beat_end.js`, new, the piece's):** for each lane with a sine brick — the held tones go ON past the last pair by D12's rules
+(a wind's breaths · a string's bows · a crotale's bowings), holding the beating where it stood (the bend flat at its last cents; the crotale
+straight), the last one ending exactly at --end with a DIMINUENDO TO NIENTE over its last --fade seconds (the note's nodes: its height held,
+then 0.05 — the stack performs a shape through the fader, the law's niente at the edge); the sine to --end (a constant sine's brick stretched;
+the crotale's last gliding brick stretched with its line kept in TIME and its last value held) with `fadeOutMs` = the fade.
+
+**Written into `piece-Section01-D-saxBeatTest`:** sax +1.6 s at 24.6 c · clarinet +10 s at 22.9 c (over its 8 s ceiling by the remainder rule —
+the previous tone takes the rest; his ear) · flute 7.8 + 3 s at 11.1 c · cello 5.4 s at 55.6 c · violin 8 + 1.9 s at 23.6 c · crotale 4.8 + 8.7 s
+straight — every lane's final tone dim. 94.6 → 96.6, every sine out 94.6 → 96.6. NOT CLAIMED: the sound — the engine restarts for the fade-out.

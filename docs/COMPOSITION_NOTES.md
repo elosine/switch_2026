@@ -413,3 +413,7 @@ crotale; the flute at F6) the note stands still and the sine glides. The piano l
 just gliss the flute instead of the sine up there."* *(Before it, asked: "Is F6 out of reach for a player, and do we not have F6 available on
 the clarinet?" — answered: a sounding F6 is the clarinet's written G6, altissimo, its recipe's top note; the flute's F6 easy; the clarinet stays
 on F5.)*
+
+### SW-22 · 2026-11-09 — every part to 96.6 s, a two-second fade ending there
+
+*His words:* *"And then let's extend them all to 96.6. And let's have like a 2-second fade ending at 96.6 in all parts."*
