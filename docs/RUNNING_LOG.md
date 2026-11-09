@@ -2318,3 +2318,4 @@ the sines 111 → 118 in over 500 ms, hairpins with the balance kept and capped 
 with its bend −100 → +49 c (the one-key re-key). **The fade halved:** `bank/beat_saw.json` fadeInMs 500 — the default from here; the FIRST
 crescendo's six sines (100.3 s) set to 500 by hand; the 15 s sines keep their second (his "leave the rest"). The save: 101 objects.
 `piece-Section01-D-saxBeatTest`; his page: File ▾ → Reload. NOT CLAIMED: the sound.
+**Correction to the line above:** the first crescendo has SIX sines — five constant ones from 100.3 s and the crotale's gliding one from 101.3 s (a brick a pair starts at the pair); the sixth was set to 500 ms after the count read five.
