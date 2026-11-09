@@ -483,3 +483,18 @@ tubas' record (`for_seven_tubas`) read first — lineage first.
 *The AI's reading (not his):* the crescendos are a SERIES — each from one of his drawer takes SwCres02a · 03a · 04a · 05a (saved 2026-11-09, the
 blasts harmonies of the tuba piece), each one beat a second faster than the last (6 · 7 · 8 · 9 …), each p → fff, the sine's fade-in 0.5 s
 from the first crescendo on (the 15 s sines keep their second). "Beats per minute" said, beats a second meant (the unit throughout).
+
+### SW-28 · 2026-11-09 — THE SECTION COMING UP: a piano-and-electronics duet, played in and overdubbed by technique; then the others layered in with percussive techniques; against the granular electronics
+
+*His words (dictated, light corrections):*
+
+> *"And this is a composition note for the section coming up. Start with piano and electronics duet, and I'll play that part in. I'm going to
+> overdub parts that are in different techniques. So I might play some regular piano and then overdub a few plucked parts. Same with the other
+> parts. So piano-electronics solo for a little bit, and then start layering in the other parts with rather percussive techniques. And again, I
+> might do like a layering — play one technique in and then another technique. This against the granular electronics."*
+
+*The AI's reading (not his):* after the beating crescendos — the PIANO alone with the electronics, played in live by him in layers, each
+layer a technique (the ordinary piano, then the plucked piano, …; the piano's roster: 8Dio · the prepared · the plucked · the harmonics
+piano); then the other instruments, each played in the same way, layer by layer, on percussive techniques; the electronics the GRANULAR beds
+(SW-8: granular B2 perc seed 1 first, the others around it). The recording path for a played-in part is the score's Rec (`recLaneSel` · a
+technique per take) — to be checked for the piano's several techniques on one lane when he reaches it.
