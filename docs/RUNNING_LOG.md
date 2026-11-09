@@ -2083,3 +2083,44 @@ the gap between pairs 1 s; seed 23):
 | 4 (slower, lower) | 79.4 → 99.4 s | 0 → 5 over 17.5 s (3.5 s per beat), held 2.5 | 24.6 c | 3.8 · 4.6 · 5.2 · 3.2 s |
 **His reading of "the pace of 2.5 beats a second" taken as 2.5 s per beat gained** (his unit of SW-12); said to him. NOT CLAIMED: the sound —
 the engine restarts for the fade (sc files), the page reloads the save.
+
+## §120. SW-15 — the sawtooth algorithm for the other lanes, proposed; the ranges by octave; the instruments advised (2026-11-09; a talk, nothing built)
+
+**His words:** SW-15, verbatim. **His unit held throughout:** "N beats per second" as a PACE = N seconds for the beating to gain one beat a
+second (SW-12's "1 beat per second every 2 seconds").
+
+**THE ALGORITHM, as read back (to become `bank/beat_saw.json` when he says so; `tools/beat_saw.js --roll` would read it):**
+- **Shape A — the fast finish.** The peak P rolled in [8, 10] (so the knee lands above his threshold). The knee K = two-thirds of P (5.3 … 6.7).
+  Leg 1: 0 → K at a pace rolled in [1.8, 2.6] s per beat (K · pace ≈ 10 … 17 s). Leg 2: K → P "much quicker", a pace rolled in [0.8, 1.2] s per
+  beat (≈ 2 … 4 s). Then a hold 2.5 s + 0 … 2 s. The quick leg exists only because K ≥ 5: his condition built in by the peak's range.
+- **Shape B — the slow, low one.** The peak rolled in [4.8, 6.5] (under or at the threshold; the fast leg never comes). One leg: 0 → P at a
+  pace rolled in [2.6, 3.6] s per beat (≈ 12 … 23 s). A hold 2.5 s + 0 … 2 s.
+- **The alternation** A B A B …, each from the unison (the sawtooth), a gap of 1 s between (the player breathes; the sine holds); every roll
+  seeded; the breaths inside by the morph's rule with his numbers (4.5 ± 0.75 s). The lengths come out different by construction.
+- **Open numbers (the AI's starts, his to move):** the fast leg's pace [0.8, 1.2] · the hold's extra 0 … 2 s · A's peak [8, 10] · B's pace [2.6, 3.6].
+
+**THE RANGES — cents for a beat at each octave of F** (a beat is a difference in Hz; the cents shrink by half each octave up):
+| | Hz | 1 /s | 2.6 /s | 5 /s | 6.5 /s | 10 /s |
+|---|---|---|---|---|---|---|
+| F3 | 174.6 | 9.9 c | 25.6 c | 48.9 c | 63.3 c | 96.5 c |
+| F4 | 349.2 | 5.0 c | 12.9 c | 24.6 c | 31.9 c | 48.9 c |
+| F5 | 698.5 | 2.5 c | 6.4 c | 12.4 c | 16.0 c | 24.6 c |
+| F6 | 1396.9 | 1.2 c | 3.2 c | 6.2 c | 8.0 c | 12.3 c |
+| F7 | 2793.8 | 0.6 c | 1.6 c | 3.1 c | 4.0 c | 6.2 c |
+**What it means for who moves:** at F3 and F4 the player's bend is a real, playable thing (a quarter-tone and under); at F5 it is 12 … 25 c —
+a flutist can lip that much, with care; **at F6 and F7 the bend is 1 … 12 c, under any player's control — there the SINE should glide and the
+player hold** (Approaching's crotales rule, `who: sine`). The pace is the same at every octave; only who moves changes.
+
+**THE INSTRUMENTS, advised (his to decide):**
+- **F3 — the cello**, bending itself (its reach a semitone; 10 /s is 96 c, just inside). **F4 — the sax** (in hand) **and the violin doubling**
+  (the violin bends itself, easily).
+- **F5 and F6 — swap his first thought:** the CLARINET on F5 (sounding; the clarion register — stable, warm, bends well) and the FLUTE on F6
+  (an easy, clear note for the flute; the clarinet's sounding F6 is altissimo, hard to hold still, harder to bend by 3 cents). At F6 the sine
+  moves; at F5 the clarinet may bend itself (6 … 16 c) or the sine may — his ear's call at the test.
+- **F7 — not the vibraphone:** a standard vibraphone runs F3 … F6 (three octaves); F6 is its TOP bar, bowable but no F7. **The call's list has
+  no crotales.** F7 sounding IS on the GLOCKENSPIEL (its range G5 … C8 sounding; written two octaves lower) — bowed, a glockenspiel bar sings
+  but thinly; struck, it decays too fast to beat against. So: the demo on crotales as he asks (the switch his to negotiate), with the
+  glockenspiel the fallback in the call's own list; the sine moves in either case. The bowed VIBRAPHONE takes F6 if he wants a metal F6
+  beside the flute — its top bar.
+- **The piano** has no bend: no pair unless the sine moves against a struck F (its decay works against beating) — left out of this.
+**Nothing built — "hold until we sort out the sax."** Put to him: the algorithm's numbers and the assignment above.

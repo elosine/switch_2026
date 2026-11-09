@@ -324,3 +324,28 @@ beginning on the cents the gliss had reached, the beating paused for the breath 
 *The AI's reading (not his):* "the pace of 2.5 beats a second" = one beat a second gained every 2.5 s (his unit from before); the sawtooth =
 each pair begins at the unison again while the sine holds; the breath's standard was 6 s ± 2 → now 4.5 s ± 0.75; the sine's original mark ff
 + 1 dB = 6.25 on the 4 dB ladder; the pop = the sine beginning at ppp with a 10 ms rise — a fade FROM SILENCE over a second wanted.
+
+### SW-15 · 2026-11-09 — THE SAWTOOTH FOR THE OTHER INSTRUMENTS, as an algorithm (not built yet): two alternating shapes · octaves of F across the ensemble
+
+*His words (dictated, light corrections):*
+
+> *"And then can you work out just a sort of rough sawtooth pattern I'll eventually assign to the other instruments? Something like a slower
+> fade with some jitter somewhere between like 1.8 and 2.6 beats per second up through, you know, maybe for about 2/3 of it. And then the back
+> half, much quicker, but only if it's above like, say, 5 or 6 beats per second. And then the alternating sections, I guess, will stay below
+> that threshold. It'll just be a very slower raise to like 5 or 6 beats a second, or I guess somewhere between maybe like 4.8 to like 6.5 or
+> something like that. And just like an alternation of that, so then there'll be slightly different lengths. And then you don't have to make
+> them yet, but you can just sort of work out the algorithm and then help me with the ranges to understand. And then ranges in combination
+> with glissandi, though the glissandi are really pretty small. So I imagine the range isn't going to necessarily affect. So I want to do
+> octaves on that F. So I'm not sure what's better for F6, probably clarinet actually, and do that small gliss. So maybe F5 flute and then F6
+> clarinet, but then you advise me. And then I guess the bowed vibes — actually, they don't mention crotales, but I can always make the switch.
+> Let's just make the demo on the crotales. I'm sure those can go to F7. And just confirm if vibraphones can go to F7. And then we'll have F3
+> in the cello. And we'll just double F4 on the violin for now. But just hold until we sort out the sax."*
+
+*(With it he pasted the call's percussion list again: bass drum · vibraphone, glockenspiel · large tam-tam, opera gong · woodblocks · bongos,
+2 tom-toms, snare drum · suspended cymbal · "anything large not listed may not be available".)*
+
+*The AI's reading (not his):* two SHAPES that alternate on a lane under its constant sine — A, "the fast finish": a rise at 1.8 … 2.6 s per
+beat gained (his "1.8 and 2.6 beats per second" read in his unit of SW-12) for about two-thirds of the way, then much quicker to the peak,
+the quick leg only once the beating is already above 5 … 6 a second; B, "the slow low one": a slower rise that stays under that threshold,
+to 4.8 … 6.5 a second. A B A B …, every number rolled a little, so the lengths differ. The pitches: octaves of F across the ensemble, the sax's
+F4 the reference; the assignment his, advised (RUNNING_LOG §120). Nothing built until the sax is settled.
