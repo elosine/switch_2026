@@ -1689,3 +1689,6 @@ The ten character sequences mastered (−16 LUFS, as every material) into `keep/
 each one's character, and in the fund's index for the composer score (57 materials now). Two mixes of three, each sequence at equal gain
 (÷√3), mastered, as candidates: A = seeds 21 (the kaleidoscope, 4 min) + 105 (halos and halls) + 115 (dry and hooded) · B = 103 (raw ·
 processed alternating) + 109 (mostly clean, spiked) + 117 (drums and piano, raw then fuzz). `tuplets/sequences/processed/mixes/`.
+*(§104, more)* His word: *"those are great. Can you do a few mixes of four, like maybe three, and then maybe like two more mixes of three?"*
+Five more, same way (equal gain ÷√n, mastered), as candidates: C = 21 + 101 + 112 + 114 · D = 103 + 105 + 107 + 109 · E = 101 + 112 + 115 + 117 ·
+F = 107 + 112 + 114 · G = 21 + 101 + 109.
