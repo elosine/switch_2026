@@ -1,0 +1,21 @@
+{
+ "_what": "THE BREATHS of a long tone — HIS RULES (SW-18, his 'numbers good' 2026-11-09; RUNNING_LOG §122; journal D12). Read by tools/beat_saw.js (and every later tool that cuts a long tone into breaths). A 'held tone' is the sound between two inhalations; an 'inhalation' is the silence.",
+ "_ceilingS": "how long a wind can hold at a dynamic, in seconds, by register (MIDI) — the morph's BREATH_TABLE (score/public/morph.js), an ESTIMATE from piece 5; his to correct per player. The dynamic column: p for marks under mp, mf for mp … mf, f for f and over.",
+ "ceilingS": [
+  { "lo": 30, "hi": 40, "p": 14, "mf": 10, "f": 6 },
+  { "lo": 41, "hi": 52, "p": 18, "mf": 13, "f": 9 },
+  { "lo": 53, "hi": 65, "p": 15, "mf": 11, "f": 8 },
+  { "lo": 66, "hi": 127, "p": 15, "mf": 11, "f": 8 }
+ ],
+ "_heldShare": "the held tone as a share of the ceiling: 'as long as they can at a certain strength' — rolled evenly between the two",
+ "heldShare": [0.85, 1.0],
+ "_short": "one held tone in `shortEvery` is SHORT — a share of the ceiling rolled in `shortShare` — so no rhythm of breaths settles",
+ "shortEvery": 8,
+ "shortShare": [0.5, 0.7],
+ "_inhaleS": "the inhalation, in seconds — 'a quick breath' (the morph's floor 0.40 is a snatch; 0.75 comfortable)",
+ "inhaleS": [0.4, 0.6],
+ "_minLastS": "a remainder under this is not a note — the tone before it takes the time",
+ "minLastS": 1.5,
+ "_ensembleMinGapS": "across the ensemble no two players inhale within this many seconds of each other: the later one's tone is stretched or shortened inside its range to clear it (applied when a lane is cut beside others — tools/beat_saw.js --avoid)",
+ "ensembleMinGapS": 1.5
+}

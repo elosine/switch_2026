@@ -40,7 +40,11 @@ if (!inst || !L) die('the lane ' + laneArg + ' has no part in the sines (bank/si
 const midi = keyOf(arg('pitch') || die('--pitch')), sineMark = markNum(arg('sine', 'ff')), noteMark = arg('note', 'ff');
 if (!MARKS.includes(noteMark)) die('--note: one of ' + MARKS.join(' '));
 const start = +arg('start', 16), sineStart = +arg('sine-start', start - 1), fadeMs = Math.round(+arg('fade', 1000)), gapPairs = +arg('gap', 1);
-const [bAim, bJit] = String(arg('breath', '4.5,0.75')).split(',').map(Number);
+// THE BREATHS — his rules as data (bank/breath_rules.json, SW-18 · §122): the held tone 85 … 100 % of the player's ceiling at the written
+// dynamic, one in eight short (50 … 70 %), the inhalation 0.4 … 0.6 s; `--breath aim,jitter` (seconds) overrides them with a plain roll
+const BR = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'breath_rules.json'), 'utf8'));
+const breathOverride = arg('breath') ? String(arg('breath')).split(',').map(Number) : null;
+const dynCol = (mark) => { const i = MARKS.indexOf(mark); return i < 3 ? 'p' : i <= 4 ? 'mf' : 'f'; };
 const seed0 = +arg('seed', 23); let seed = seed0; const rnd = () => { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; };
 // --hold lo,hi: every peak held for a time rolled in that range (his word 2026-11-09, §121: 1.8 … 2.6 s), over a pair's own |h
 const holdR = arg('hold') ? String(arg('hold')).split(',').map(Number) : null;
@@ -59,7 +63,7 @@ if (has('replace')) {
     console.log('replaced: ' + gone.length + ' object(s) taken out (' + bricks.length + ' sine brick(s), the notes and curve-A objects under them)');
 }
 // the pairs: a note (in breaths) per pair; the bend sampled every 0.25 s
-let t = start; const notes = [], said = [];
+let t = start, breathCount = 0; const notes = [], said = [];
 pairs.forEach((P, pi) => {
     if (holdR) P.hold = r1(holdR[0] + rnd() * (holdR[1] - holdR[0]));   // the peak held for a rolled while (§121)
     const line = P.pts.map(([tt, h]) => [tt, h]); const lastT = line[line.length - 1][0]; const len = r3(lastT + P.hold);
@@ -68,9 +72,18 @@ pairs.forEach((P, pi) => {
     const far = Math.max(...bend.map((p) => p[1]));
     if (far > 100 * (inst.playerBendSt != null ? inst.playerBendSt : 1)) die('pair ' + (pi + 1) + ': ' + far + ' c is past the player\'s reach');
     const at = (x) => { if (x <= bend[0][0]) return bend[0][1]; for (let i = 1; i < bend.length; i++) if (x <= bend[i][0]) { const [ta, ca] = bend[i - 1], [tb, cb] = bend[i]; return ca + (cb - ca) * (x - ta) / Math.max(1e-9, tb - ta); } return bend[bend.length - 1][1]; };
-    // the breaths
+    // the breaths — by the rules (the count runs across the pairs, so "one in eight" is one in eight of the whole), or the override
+    const row = BR.ceilingS.find((q) => midi >= q.lo && midi <= q.hi) || BR.ceilingS[BR.ceilingS.length - 1], ceil = row[dynCol(noteMark)];
     const spans = []; let u = 0;
-    while (u < len - 0.05) { let bl = bAim + (rnd() * 2 - 1) * bJit; if (u + bl > len) bl = len - u; if (bl < 1.5) break; spans.push([r3(u), r3(u + bl)]); u = u + bl + 0.75 + rnd() * 0.45; }
+    while (u < len - 0.05) {
+        breathCount++;
+        let bl = breathOverride ? breathOverride[0] + (rnd() * 2 - 1) * (breathOverride[1] || 0)
+            : (breathCount % BR.shortEvery === 0 ? ceil * (BR.shortShare[0] + rnd() * (BR.shortShare[1] - BR.shortShare[0])) : ceil * (BR.heldShare[0] + rnd() * (BR.heldShare[1] - BR.heldShare[0])));
+        if (u + bl > len) bl = len - u;
+        if (bl < BR.minLastS) break;
+        spans.push([r3(u), r3(u + bl)]);
+        u = u + bl + BR.inhaleS[0] + rnd() * (BR.inhaleS[1] - BR.inhaleS[0]);
+    }
     const pairId = 'pair-' + (pi + 1);
     spans.forEach(([a, b], k) => {
         const inner = bend.filter((p) => p[0] > a + 1e-6 && p[0] < b - 1e-6).map(([tt, c]) => [r3(tt - a), c]);
@@ -88,10 +101,11 @@ const sineEnd = r3(t - gapPairs), zid = 'zn-' + (nextId++);
 notes.forEach((n) => { n.properties.sine.brick = zid; });
 const brick = { id: zid, type: 'zone', layer: lane, startTime: sineStart, endTime: sineEnd, zoneFunction: 'elec', midiModel: 'elecSine', color: '#7B1FA2', opacity: 0.35, zoneHeight: 0.2, yOffset: 0.08, player: '', instrument: '',
     elec: { midi, gliss: { kind: 'none', from: 0, to: 0 }, level: { mode: 'flat', mark: String(sineMark) }, label: 'the tone the sax beats against', fadeInMs: fadeMs, track: { on: false } },
-    properties: { sine: { note: notes.length ? notes[0].id : null }, beat: { pitch: midi, hz: r2(hz(midi)), who: 'player', side: 'over', shape: 'saw', pairs: pairs.map((P) => ({ line: P.pts, holdS: P.hold })), gapS: gapPairs, sine: sineMark, note: noteMark, velocity: vel, fadeInMs: fadeMs, breath: { aimS: bAim, jitterS: bJit }, seed: seed0 } } };
+    properties: { sine: { note: notes.length ? notes[0].id : null }, beat: { pitch: midi, hz: r2(hz(midi)), who: 'player', side: 'over', shape: 'saw', pairs: pairs.map((P) => ({ line: P.pts, holdS: P.hold })), gapS: gapPairs, sine: sineMark, note: noteMark, velocity: vel, fadeInMs: fadeMs, breath: breathOverride ? { aimS: breathOverride[0], jitterS: breathOverride[1] || 0 } : { rules: 'bank/breath_rules.json', heldShare: BR.heldShare, shortEvery: BR.shortEvery, shortShare: BR.shortShare, inhaleS: BR.inhaleS }, seed: seed0 } } };
 s.objects.push(brick, ...notes);
 s.objects.sort((p, q) => (p.startTime != null ? p.startTime : p.startSeconds) - (q.startTime != null ? q.startTime : q.startSeconds));
-console.log(TRACKS[lane].label + ' ' + pn(midi) + ' (' + r2(hz(midi)) + ' Hz) · the sine ' + sineStart + ' → ' + sineEnd + ' s at mark ' + sineMark + ', in over ' + fadeMs + ' ms · the note ' + noteMark + ' (velocity ' + vel + ') · breaths ' + bAim + ' ± ' + bJit + ' s · seed ' + seed0);
+const breathSaid = breathOverride ? 'breaths ' + breathOverride[0] + ' ± ' + (breathOverride[1] || 0) + ' s (override)' : 'breaths by the rules: held ' + Math.round(BR.heldShare[0] * 100) + ' … ' + Math.round(BR.heldShare[1] * 100) + ' % of a ' + (BR.ceilingS.find((q) => midi >= q.lo && midi <= q.hi) || BR.ceilingS[BR.ceilingS.length - 1])[dynCol(noteMark)] + ' s ceiling at ' + noteMark + ', one in ' + BR.shortEvery + ' short, the inhalation ' + BR.inhaleS.join(' … ') + ' s';
+console.log(TRACKS[lane].label + ' ' + pn(midi) + ' (' + r2(hz(midi)) + ' Hz) · the sine ' + sineStart + ' → ' + sineEnd + ' s at mark ' + sineMark + ', in over ' + fadeMs + ' ms · the note ' + noteMark + ' (velocity ' + vel + ') · ' + breathSaid + ' · seed ' + seed0);
 console.log(said.join('\n'));
 if (has('dry')) { console.log('(dry: nothing written)'); process.exit(0); }
 s.nextId = nextId; s.metadata = s.metadata || {}; s.metadata.modified = new Date().toISOString();

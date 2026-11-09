@@ -213,6 +213,15 @@ electronics part for the FIRST SECTION, the acoustic instruments built around it
      label, cut to its offset and length, redrawn at every trim. ☑ 2026-11-09
   - his ear and hand: open — the drag gesture and the preview's sound are not run from the AI's pane (no hands, no autoplay)
   - **the card:** a click or a drop SELECTS a material brick; **P opens its card** (the page's own rule for the META curves and trills; §111)
+- **1a.9 THE BEATING PAIRS — the long tones against a sine, the sax first** (2026-11-09, RUNNING_LOG §114 … §122; SW-9 … SW-18) — `doing`
+  ***Why:*** SW-9's idea — a tone appears in the bed, the instruments enter on it in octaves and beat against it; Approaching's rules carried
+  (`bank/beat_shapes.json`), the unit beats a second, the cents derived at each pitch.
+  1. The sax on F4 with a constant sine: the balance (the sax at f, the sine's mark the lever), a two-legged rise, then a SAWTOOTH of four pairs
+     (`tools/beat_saw.js`), the peaks held 1.8 … 2.6 s, the breaths by `bank/breath_rules.json` (D12). ☑ built 2026-11-09 — his ear: open
+  2. The gliss speed · 3. ONE drawn crescendo read by the sine and the sax together · 4. the electronics under them, a quick fix (SW-11) — *to come*
+  5. The other lanes by SW-15's two alternating shapes (A the fast finish · B the slow low one), the octaves of F: cello F3 · violin F4 · clarinet F5 ·
+     flute F6 · the metal F6 / F7 with the sine moving; the ensemble's inhalations never within 1.5 s — *when the sax is settled*
+  - later: the live balance's method for the performance score (DEC-64's hypothesis)
 
 *Where the code goes (THE SORTING): the capture, the grab, the stretch and the granulation are the WORKSHOP's tools
 (`live-electronics-engine/corpus/`, for any session); the tremolo and the steered effects are the ENGINE's (`electronics/`, for

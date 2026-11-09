@@ -84,6 +84,13 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 - **MODEL · CLEAR:** his first pass and what he hears — **Fable** (judgment on faults and on the music); a fault's fix that is mechanical — Opus.
   Clear now; `/postclear` resumes at the step above.
 
+- **2026-11-09 (evening) — THE SAX'S BEATING TESTS (RUNNING_LOG §114 … §122; SW-9 … SW-18; D12):** the sax's long tone on F4 with a constant sine
+  (the bed measured E♭ — his ear says F4, §114 · §116); Approaching's beat rules carried (`bank/beat_shapes.json`), the roller extended
+  (`beat_pair.js --line`), **`tools/beat_saw.js`** — a sawtooth of pairs under one sine, the breaths by **`bank/breath_rules.json`** (D12); the
+  sine's fade from silence made right in the engine (§121, the engine's §78); the material bricks' trim together (SHIFT+click). **The test save:
+  `piece-Section01-D-saxBeatTest`** (his working file `B` untouched). **► HIS EAR on the four pairs** — the sine's mark the lever; then the method's
+  steps 2 … 4 (the gliss speed · one drawn crescendo for both · the electronics under them, quickly) and the other lanes by SW-15's algorithm.
+  **MODEL:** his listening and the talk — Fable; the roll of the other lanes once the numbers are his — Opus.
 - **2026-11-09 — STILL SILENT → THE ENGINE'S CUE (RUNNING_LOG §111):** the route was necessary, not sufficient; traced by measurement to
   `Buffer.cueSoundFile`'s completion function firing before the read (the synth streamed an empty buffer). Fixed in `material.scd` (the read's
   /done awaited; VDiskIn at the file's rate — the fund is 44.1 kHz, the engine 48 kHz); the engine window now shows the server's own errors.
@@ -213,15 +220,15 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 - **S1 · 2026-10-20 (Fable)** — the orientation (RUNNING_LOG §1 · §2) · the harvest of piece 6 run in its repo (`#6 §488`, §3) ·
   container 2 (§4) · container 3 whole, and the engine's take (§5 … §10) — his word *"go ahead all here no need for clear and model switch"*.
 
-**NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current.)*
+**NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current. Brought current 2026-11-09 evening.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
-| ☑ | Container 3 — the copy-forward from piece 6, with the engine's take (RUNNING_LOG §5 … §10) | Fable, at his word | — |
-| ☑ | Container 4 — the instruments, all lanes sounding (RUNNING_LOG §13 … §20) | Fable · Opus | — |
-| **►** | **Container 5 — the calibration for a composing demo (the pre-flight first: the SI2 masters −6 dB, the flute's Dynamic, the round robins);** container 6 set up (the registry, the three calls BEFORE 6.0 — H6-35) | Opus | — |
-| — | 10.0 — the deviations register read, v2 written into the home's protocol (both runs' lessons); the eight LATER items to BACKLOG | Fable | yes |
-| — | Then the music: the profile's open questions are the sketch pad's (what the electronics take of the call's tech; the two musics) | Fable | — |
+| ☑ | The start (containers 1 … 6, 10.0) · the lab (PLAN 1a.1 … 1a.6) · the electronic score (1a.7) · the drawer (1a.8) · the electronics lanes (D11) | — | — |
+| **►** | **His ear on the sax's beating tests** (`piece-Section01-D-saxBeatTest`): the balance (the sine's mark), the pace, the breaths (D12) | Fable | — |
+| — | The method's steps 2 … 4 (SW-11): the gliss speed · ONE drawn crescendo read by the sine AND the sax · the electronics under them, quickly | Fable (design) · Opus (build) | at the step |
+| — | The other lanes by SW-15's algorithm (`bank/beat_saw.json` to write; `beat_saw.js --roll`): clarinet F5 · flute F6 · vibraphone / glockenspiel F6–F7 (the sine moves) · violin F4 · cello F3 | Opus | yes |
+| — | 1a.7 step 6 the bounce, when he reaches it · the tuplets' keepers by seed | Opus | — |
 
 **Open questions:** Q3 — the title · Q4 — the percussion's selection, the music's (the call lists vibraphone and glockenspiel; marimba,
 xylophone and crotales are not on it). *(Q1 · Q2 answered 2026-10-20 — D10.)*
@@ -333,6 +340,10 @@ in his numbering of 2026-10-11; kept as the source files have them.)*
   `elec: true`, no recipe, no port), `PLAYER_LANES` 8, META 12, the curve windows 13 / 14 / 15, `layoutVersion` 10 (a v9 save migrates).
   *(RUNNING_LOG §105)* **Revised the same day, his word (§110):** *"let's just make the electronics full height, please, lanes"* — twelve equal
   lanes of 100/12 %; the curve windows over piano · violin · cello follow.
+- **D12 · 2026-11-09 — THE BREATHS OF A LONG TONE (his "numbers good").** The held tone 85 … 100 % of the player's ceiling at the written
+  dynamic (the morph's table: p 15 · mf 11 · f 8 s in the sax's register — an estimate, his to correct per player); one held tone in eight
+  short (50 … 70 %); the inhalation 0.4 … 0.6 s; across the ensemble no two inhalations within 1.5 s. His considerations (SW-18): sustained
+  tones, no predictable rhythm of breaths, no unison breaths. `bank/breath_rules.json`; `tools/beat_saw.js`. *(RUNNING_LOG §121 · §122)*
 
 ---
 

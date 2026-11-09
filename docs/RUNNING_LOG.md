@@ -2158,3 +2158,18 @@ the written dynamic** (the sax at f: 6.8 … 8 s; at mf 9.4 … 11); one breath 
 **0.4 … 0.6 s** (a snatch); across the ensemble each lane its own seeded stream, each starting at its own time (his), and a RULE: no two players
 inhale within 1.5 s of each other (the later one's tone stretched or shortened within its range to clear it). Whether the ceilings are
 right for THIS ensemble's players is his (the table is a guess from piece 5).
+
+## §122. THE BREATH RULE APPLIED — his "numbers good"; the rules as data; the sax re-cut (2026-11-09; journal D12)
+
+**His word on §121's set:** *"numbers good go ahead and apply pls."*
+
+**As data — `bank/breath_rules.json`** (every number his or the morph's estimate, marked): the ceiling by register and dynamic (the morph's
+BREATH_TABLE — p 15 · mf 11 · f 8 s for MIDI 53 … 65; the dynamic column p for marks under mp, mf for mp … mf, f for f and over) · the held
+tone 85 … 100 % of it · one in eight short, 50 … 70 % · the inhalation 0.4 … 0.6 s · a remainder under 1.5 s is not a note · across the
+ensemble no two inhalations within 1.5 s (the rule written; applied when a second lane is cut beside the first — `--avoid`, to come).
+**The tool:** `tools/beat_saw.js` reads it (the count of held tones runs across the pairs, so "one in eight" is of the whole); `--breath
+aim,jitter` stays as a plain-roll override.
+
+**The sax re-cut** (f → the 8 s ceiling; seed 23): the four pairs 16 → 94.5 s, the sine 15 → 94.5 at mark 6.25, in over 1 s; the held tones
+**7.6 · 6.9 · 3.2 | 7.1 · 7.4 · 1.6 | 7.9 · 4.3 · 7.1 | 7.7 · 6.9 · 3.9 s** (the 4.3 is the one-in-eight short; the 3.2 · 1.6 · 3.9 are each pair's
+remainder before its end), the inhalations 0.4 … 0.6 s. NOT CLAIMED: his ear — whether 85 … 100 % of an 8 s guess is this player's breath.

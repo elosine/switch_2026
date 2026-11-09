@@ -377,3 +377,6 @@ card itself. And then allow me, if possible, if it's not too difficult, to do a 
 that dynamic) and the INHALATION itself (short: a snatch). The rule wanted: each player holds close to their own ceiling, varied a little,
 inhales quickly, continues; the ensemble's inhalations fall unpredictably and rarely together. The numbers are to be set with him (RUNNING_LOG
 §121 puts a first set); nothing of SW-14's 4.5 ± 0.75 s stands once he decides.
+
+*(SW-18, his decision 2026-11-09: "numbers good go ahead and apply pls" — the set of RUNNING_LOG §121 is the rule, as data in
+`bank/breath_rules.json` (§122, journal D12).)*
