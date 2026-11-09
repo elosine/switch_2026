@@ -2319,3 +2319,5 @@ with its bend −100 → +49 c (the one-key re-key). **The fade halved:** `bank/
 crescendo's six sines (100.3 s) set to 500 by hand; the 15 s sines keep their second (his "leave the rest"). The save: 101 objects.
 `piece-Section01-D-saxBeatTest`; his page: File ▾ → Reload. NOT CLAIMED: the sound.
 **Correction to the line above:** the first crescendo has SIX sines — five constant ones from 100.3 s and the crotale's gliding one from 101.3 s (a brick a pair starts at the pair); the sixth was set to 500 ms after the count read five.
+
+**His working save moved (2026-11-09, late): `piece-Section01b-BeatingUnisonCrescendos-B` — the D test save as he saved it at 18:39, his from here. Crescendo 02 and the halved fades were written to D first and then to B at his word ("I didn't see it in the reload"); every tool from now targets B (the name in the journal §2).**

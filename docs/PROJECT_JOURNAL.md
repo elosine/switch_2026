@@ -87,8 +87,7 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 - **2026-11-09 (evening) — THE SAX'S BEATING TESTS (RUNNING_LOG §114 … §122; SW-9 … SW-18; D12):** the sax's long tone on F4 with a constant sine
   (the bed measured E♭ — his ear says F4, §114 · §116); Approaching's beat rules carried (`bank/beat_shapes.json`), the roller extended
   (`beat_pair.js --line`), **`tools/beat_saw.js`** — a sawtooth of pairs under one sine, the breaths by **`bank/breath_rules.json`** (D12); the
-  sine's fade from silence made right in the engine (§121, the engine's §78); the material bricks' trim together (SHIFT+click). **The test save:
-  `piece-Section01-D-saxBeatTest`** (his working file `B` untouched). **► HIS EAR on the four pairs** — the sine's mark the lever; then the method's
+  sine's fade from silence made right in the engine (§121, the engine's §78); the material bricks' trim together (SHIFT+click). **HIS WORKING SAVE since 18:39: `piece-Section01b-BeatingUnisonCrescendos-B`** (the D test save renamed by him; D and the earlier B · C · A are history). **► HIS EAR on the four pairs** — the sine's mark the lever; then the method's
   steps 2 … 4 (the gliss speed · one drawn crescendo for both · the electronics under them, quickly) and the other lanes by SW-15's algorithm.
   **MODEL:** his listening and the talk — Fable; the roll of the other lanes once the numbers are his — Opus.
 - **2026-11-09 (late) — THE FIVE OTHER LANES ROLLED (RUNNING_LOG §123; SW-19 · SW-20):** clarinet F5 · flute F6 · cello F3 · violin F4 · the crotale F7
