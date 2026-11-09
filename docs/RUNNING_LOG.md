@@ -1910,3 +1910,22 @@ n untouched; the free letters were not needed).
 
 **NOT CLAIMED:** his ear — the engine must be RESTARTED for `material.scd` (the sc files load at start); then play. SWEEP_LIST 2 stays open
 until he hears it. **Rejected on the way:** asking him for more screenshots (the rack could be read from here) · a stub recipe or a new key.
+
+## §112. The material brick at full lane height, the ticks above it; how a fade is made (2026-11-09)
+
+**His words:** *"Then can we make the electric bricks taller so I can see the waveform better? You can make it the full lane height, I guess,
+just as long as they're behind the time ticks. And then can you tell me how to do a fade, please?"*
+
+**The brick:** `le_material.js` — BRICK_H 0.94 · BRICK_Y 0.5 (nearly the lane, centred, a hair of lane above and below so the border reads),
+used by the key, the split and the drop; `materialDecorate` enforces it at every render, so bricks saved at the old 0.22 grow at their first
+draw. **The ticks:** on the electronics lanes the `tickGroup` is moved after the `contentGroup` at init (`composer.html`), so the ticks draw
+ABOVE the bricks; `.tickGroup { pointer-events: none }` so a tick line never takes a click meant for a brick. The player lanes keep their order.
+
+**Proven once on the throwaway:** the electronics lane's svg order contentGroup · tickGroup (a player lane's unchanged) · a new brick 0.94 of the
+lane with its waveform · an old-size brick set back to 0.22 grows to 0.94 at its render · the tick group's pointer-events none · no card on the
+add (P opens it, §111). page_test PASS · palette_check 202.
+
+**The fade, as told to him (the panel's rows, nothing new built):** select the brick, P for its card. **Fades** row: `in` and `out` in
+milliseconds (30 by default) — type 2000 for a two-second fade. A fade over the WHOLE brick is the **Level** row: `hairpin — from one dynamic to
+another`, then the two marks (ppp → mf is a fade-in, mf → ppp a fade-out). A shaped fade: Level → `curve A` (or B · C · lane), then draw the
+curve in that window over the brick; the brick reads it where it stands. mf = the file as mastered.

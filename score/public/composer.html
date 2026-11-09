@@ -166,6 +166,8 @@
         background: #333; z-index: 50; pointer-events: none;
     }
 
+    /* the ticks never take a click — on the electronics lanes they are drawn ABOVE the bricks (init moves the group; §112) */
+    .tickGroup { pointer-events: none; }
     /* Tick labels */
     .tickLabel {
         font-size: 10px; fill: #bbb; user-select: none; pointer-events: none;
@@ -1598,6 +1600,9 @@ const Composer = {
         // null and put META at index 10, which broke init on the first load (0b.4).
         this.lanes = [...TRACKS.map((_, i) => 'lane' + (i + 1)), 'laneMeta', 'laneCurveA', 'laneCurveB', 'laneCurveC'].map(id => document.getElementById(id));   // META (12) + the curve windows A / B / C (13 / 14 / 15)
         this.tickGroups = this.lanes.map(l => l.querySelector('.tickGroup'));
+        // THE ELECTRONICS LANES: the time ticks drawn ON TOP of the content (his word 2026-11-09, §112 — the material bricks fill the lane
+        // and the ticks must stay readable); the group is the same node, only its place in the svg changes. The player lanes keep the order.
+        TRACKS.forEach((t, i) => { if (t.elec && this.lanes[i] && this.tickGroups[i]) { const svg = this.lanes[i].querySelector('svg'); if (svg) svg.appendChild(this.tickGroups[i]); } });
         this.contentGroups = this.lanes.map(l => l.querySelector('.contentGroup'));
         this.sessionNameInput = document.getElementById('sessionName');
         this.saveBtn = document.getElementById('saveBtn');
