@@ -469,3 +469,17 @@ tubas' record (`for_seven_tubas`) read first — lineage first.
 ### SW-26 · 2026-11-09 — 113.2 s: the start of the next crescendo (held for later)
 
 *His words:* *"113.2, just hold on to that as the starting time for the next crescendo."*
+
+### SW-27 · 2026-11-09 — CRESCENDO 02 at 112 → 118 s from the drawer's take SwCres02a, to 7 beats a second; the sine's fade-in halved from the first crescendo on
+
+*His words (dictated, light corrections):*
+
+> *"Let's make the starting time for the next one 112 instead. And there's a number of harmonies in the strike saves. I believe it's something
+> like SW crescendo and then like 01, 02, 03, something like that. Probably starts on 02. So this one will be crescendo 02, to 118. And let's
+> increase the beats per minute by 1 every time. So if the last one was 6, let's go to 7 this time. And then can you make the fade-in of the
+> sine tone a little bit shorter, like maybe about half its current length, and just fix the first crescendo too — you can leave the rest —
+> and then use that slower sine tone fade moving forward, the same."*
+
+*The AI's reading (not his):* the crescendos are a SERIES — each from one of his drawer takes SwCres02a · 03a · 04a · 05a (saved 2026-11-09, the
+blasts harmonies of the tuba piece), each one beat a second faster than the last (6 · 7 · 8 · 9 …), each p → fff, the sine's fade-in 0.5 s
+from the first crescendo on (the 15 s sines keep their second). "Beats per minute" said, beats a second meant (the unit throughout).
