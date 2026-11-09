@@ -222,3 +222,16 @@ harmony of fundamentals / offsets moved through over one bed. Discussion first; 
 *The AI's reading (not his):* the passage after the opening-and-tremolo section (SW-7) opens on the granular bed **B2 · perc · seed 1**
 (`keep/granular/`, the B group — fast and pitched grains, the perc window) and is built around it, other granular beds (G · B · C)
 layered or following. Continues SW-7's order: opening → tremolo → granular.
+
+### SW-9 · 2026-11-09 — AT 11 … 16 s OF THE SCORE: A NOTE NEAR F4 APPEARS — AUDIBLE BEATS IN ALL THE INSTRUMENTS, AT F4 IN OCTAVES
+
+*His words (dictated, light corrections):*
+
+> *"Composition note at 11 seconds, 16 seconds in the score. A note appears, I think it's around F4. Have audible beats come in all the
+> instruments at F4 octaves."*
+
+*The AI's reading (not his):* in the opening bed, between 0:11 and 0:16 of the score, a pitch near F4 emerges from the material. At that
+moment every instrument enters on F4 or its octaves, each tuned a little off the others so that audible beating results — the beating
+tool's territory (the BEATING panel, B; piece 5's CN-34 ladder of intervals, here at the unison / octave). Which octave each instrument
+takes, and how far off, are open; the pitch itself is to be confirmed against the bed (the AI can read the bed's spectrum at 11 … 16 s if
+asked). Related: SW-7 (the opening under live beating) · SW-1 (the tremolo as the simple parameter).
