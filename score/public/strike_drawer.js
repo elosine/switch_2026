@@ -549,11 +549,18 @@ const D = {
     // U2: the strike default for a player, if its roster has it; else the plain technique — §377: from the articulation set in force
     defaultTech(lane) { return this.instOf(lane) ? this.setTech(this.cfg.artSet, lane) : null; },
     // §377: the voice set `k` gives a lane (its roster's own key, else the plain voice)
-    setTech(k, lane) { const inst = this.instOf(lane), T = TRK(); const key = (ART_SETS[k] || STRIKE_DEFAULT)[(T[lane] || {}).instKey]; return (inst && (inst.techniques || []).some(t => t.key === key)) ? key : plainTech(inst); },
+    setTech(k, lane) {
+        const inst = this.instOf(lane), T = TRK();
+        // A PINNED TECHNIQUE (his word 2026-11-09, RUNNING_LOG §129 — "each time I shuffle I have to reset it to crotales bowed … make it stick"):
+        // a voice he chose on a row's menu is kept by every shuffle and deal until a set button is pressed (cfg.laneTech, saved with the take)
+        const pin = this.cfg.laneTech && this.cfg.laneTech[lane];
+        if (pin && inst && (inst.techniques || []).some(t => t.key === pin)) return pin;
+        const key = (ART_SETS[k] || STRIKE_DEFAULT)[(T[lane] || {}).instKey]; return (inst && (inst.techniques || []).some(t => t.key === key)) ? key : plainTech(inst);
+    },
     // §377: one click puts every row on the set — the notes the rows hold now, and every player the shuffle or a chord deals later
     applyArtSet(k) {
         if (!ART_SETS[k]) return;
-        this.snapshot(); this.cfg.artSet = k;
+        this.snapshot(); this.cfg.artSet = k; this.cfg.laneTech = {};   // a set button is the one thing that lets a pinned technique go (§129)
         // 1m.4.3 [call]: a set never writes the PERCUSSION row (every set names `main`, the placeholder — pressing one must not undo the
         // instrument he chose by name) nor a row holding a by-key voice
         this.voices.forEach(v => this.reals(v).forEach(r => { if (this.setSkips(r.lane)) return; r.tech = this.setTech(k, r.lane); r.standIn = null; this.fitReal(v, r); }));
@@ -705,6 +712,7 @@ const D = {
         if (kindOf(tq) === 'key') return this.setRowKey(lane, key, midi);
         this.snapshot();
         const had = !!this.rowKeys[lane]; delete this.rowKeys[lane];
+        this.cfg.laneTech = Object.assign({}, this.cfg.laneTech || {}, { [lane]: key });   // pinned: the shuffle keeps it (§129)
         this.onLane(lane).forEach(({ v, r }) => { r.tech = key; r.standIn = null; this.fitReal(v, r); });
         if (had && this.txIsOn && this.txIsOn() && !(this.laneOff || {})[lane] && this.txDealTo) this.txDealTo(lane);
         this.render();

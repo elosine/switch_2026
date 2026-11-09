@@ -2290,3 +2290,18 @@ empty (its opening came from the piano strikes of piece 4's db by another route)
 prefixes make them unique), its notes (midi · vel · dur · the displacements; the source lane and instKey stay as provenance), its timing; the
 label and `_from` say the piece. The drawer deals a strike's PITCHES to this ensemble by its own rules, so the source lanes do not bind.
 His page: ↻ db in the drawer, or F5. NOT CLAIMED: a deal from them heard.
+
+## §129. The drawer: a hand-picked technique STICKS through the shuffle; the range is the technique's (2026-11-09)
+
+**His words:** *"In the drawer, if I assign the vibraphone one crotales bowed, is it sensing that range as well, or is it still in the vibraphone
+range? And then each time I shuffle, I have to reset it to crotales bowed. Is there any way to make it stick?"*
+
+**The range — read (`strike_drawer.js` 132):** a row's range is the TECHNIQUE's own when the recipe gives it one (`crot_bowed` 60 … 84 — the
+crotale keys, sounding two octaves up), else the instrument's. So yes: with crotales bowed on the row, the drawer fits and folds into the
+crotales' range, not the vibraphone's.
+
+**The reset — why:** a shuffle (or a chord's deal) hands every row its technique from the ARTICULATION SET in force (`setTech(cfg.artSet, lane)`:
+the ordinario set's `crot_main_metal` for the pitched lane), so a hand choice on a row's menu was lost at the next shuffle. **Made to stick:**
+`cfg.laneTech` — a lane's pinned technique, set when he picks one on the row's menu, honored by `setTech` for every shuffle and deal; a SET
+button (ordinario · spiccato · staccato · percussive) is the one thing that clears the pins (pressing a set is an explicit word). cfg is saved
+with a take and remembered in the browser, so the pin outlives the session. palette_check 202. His page: F5. NOT CLAIMED: his hand on it.
