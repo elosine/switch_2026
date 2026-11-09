@@ -1,0 +1,431 @@
+{
+ "schema": 1,
+ "_what": "THE FUND'S INDEX — every mastered material of the keep folder (tools/materials_index.js): the composer score's picker and the engine's streaming player read it (electronics/score/le_material.js · electronics/sc/material.scd). GENERATED — run the tool again after the keep folder changes.",
+ "root": "H:/switch_2026/audio/set-2025-04-08c/keep",
+ "written": "2026-11-09T04:33:01",
+ "materials": [
+  {
+   "name": "granular-B1-perc-seed1",
+   "file": "granular/granular-B1-perc-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-B2-perc-seed1",
+   "file": "granular/granular-B2-perc-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-B3-percexpodec-seed1",
+   "file": "granular/granular-B3-perc+expodec-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-B4-perc-seed1",
+   "file": "granular/granular-B4-perc-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-B5-percrexpodec-seed1",
+   "file": "granular/granular-B5-perc+rexpodec-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-B6-perc-seed1",
+   "file": "granular/granular-B6-perc-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-B7-percexpodec-seed1",
+   "file": "granular/granular-B7-perc+expodec-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-C2-rexpodecperc-seed1",
+   "file": "granular/granular-C2-rexpodec+perc-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-C3-rexpodec-seed1",
+   "file": "granular/granular-C3-rexpodec-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-C4-perc-seed1",
+   "file": "granular/granular-C4-perc-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-C5-rexpodec-seed1",
+   "file": "granular/granular-C5-rexpodec-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-C6-rexpodecpercexpodec-seed1",
+   "file": "granular/granular-C6-rexpodec+perc+expodec-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-C7-perc-seed1",
+   "file": "granular/granular-C7-perc-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-C8-rexpodec-seed1",
+   "file": "granular/granular-C8-rexpodec-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-G10-expodec-seed1",
+   "file": "granular/granular-G10-expodec-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-G4-expodec-seed1",
+   "file": "granular/granular-G4-expodec-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-G5-expodec-seed1",
+   "file": "granular/granular-G5-expodec-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-G6-expodec-seed1",
+   "file": "granular/granular-G6-expodec-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-G7-expodecrexpodec-seed1",
+   "file": "granular/granular-G7-expodec+rexpodec-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-G8-rexpodec-seed1",
+   "file": "granular/granular-G8-rexpodec-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "granular-G9-expodecperc-seed1",
+   "file": "granular/granular-G9-expodec+perc-seed1-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "granular",
+   "note": ""
+  },
+  {
+   "name": "mix-4voices-orchestrated-9m25",
+   "file": "mix-4voices-orchestrated-9m25-master.wav",
+   "seconds": 565,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "mix",
+   "note": "r1-t190.0 / drums / Dbr · r3-t071.2 / piano / Dbr · r2-t124.8 / archtop / Dbr · r1-t184.2 / baritone guitar / Dbr — orchestrated by the session, moving places, −16 LUFS"
+  },
+  {
+   "name": "mix-set2-orchestrated-8m55",
+   "file": "mix-set2-orchestrated-8m55-master.wav",
+   "seconds": 535,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "mix",
+   "note": "r1-t182.0 / drums / A · r2-t110.0 / piano / B · r3-t070.0 / archtop / C · r1-t198.8 / baritone-guitar / Dbr — orchestrated by the session, moving places, −16 LUFS"
+  },
+  {
+   "name": "mix-set3-orchestrated-9m05",
+   "file": "mix-set3-orchestrated-9m05-master.wav",
+   "seconds": 545,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "mix",
+   "note": "r2-t116.0 / archtop / Dbr · r3-t075.0 / drums / B · r1-t194.0 / baritone-guitar / A · r2-t123.8 / piano / C — orchestrated by the session, moving places, −16 LUFS"
+  },
+  {
+   "name": "mix-set4-orchestrated-6m35",
+   "file": "mix-set4-orchestrated-6m35-master.wav",
+   "seconds": 395,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "mix",
+   "note": "r3-t073.2 / piano / Dbr · r1-t187.2 / archtop / A · r2-t113.8 / drums / C · r3-t077.2 / baritone-guitar / B — orchestrated by the session, moving places, −16 LUFS"
+  },
+  {
+   "name": "opening-mix-orchestrated-9m45",
+   "file": "opening/opening-mix-orchestrated-9m45-master.wav",
+   "seconds": 585,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "opening",
+   "note": "the four stems summed: each voice silent while its player was silent in the session; mastered"
+  },
+  {
+   "name": "r3-t078_8-x625-trimmed",
+   "file": "opening/r3-t078.8-x625-trimmed-master.wav",
+   "seconds": 585,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "opening",
+   "note": "the bed itself — the cut at 1:18.75 of the session stretched ×625 by four passes at 20 %, trimmed to 9:45; mastered, no tremolo"
+  },
+  {
+   "name": "stem-archtop-continuous",
+   "file": "opening/stem-archtop-continuous-master.wav",
+   "seconds": 585,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "opening",
+   "note": "the bed under the archtop's tremolo (D + brightness), continuous (no gate), placed and slowly moving; mastered"
+  },
+  {
+   "name": "stem-baritone-guitar-continuous",
+   "file": "opening/stem-baritone-guitar-continuous-master.wav",
+   "seconds": 585,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "opening",
+   "note": "the bed under the baritone guitar's tremolo (D + brightness), continuous (no gate), placed and slowly moving; mastered"
+  },
+  {
+   "name": "stem-drums-continuous",
+   "file": "opening/stem-drums-continuous-master.wav",
+   "seconds": 585,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "opening",
+   "note": "the bed under the drums's tremolo (D + brightness), continuous (no gate), placed and slowly moving; mastered"
+  },
+  {
+   "name": "stem-piano-continuous",
+   "file": "opening/stem-piano-continuous-master.wav",
+   "seconds": 585,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "opening",
+   "note": "the bed under the piano's tremolo (D + brightness), continuous (no gate), placed and slowly moving; mastered"
+  },
+  {
+   "name": "petals-A-r1-t190_0-x625-4pass-from0",
+   "file": "petals/petals-A-r1-t190.0-x625-4pass-from0-master.wav",
+   "seconds": 634.52,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals A on r1-t190.0-x625-4pass from 0 s · his defaults — a dense cluster 400 … 1200 Hz, bank B a quarter-tone up: shimmer · fund 200 · first 2 · spread 0.33 · bank B +0.25 st · ring 7.75 … 9.5 s"
+  },
+  {
+   "name": "petals-A2-r2-t124_8-x625-4pass-from0",
+   "file": "petals/petals-A2-r2-t124.8-x625-4pass-from0-master.wav",
+   "seconds": 634.52,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals A2 on r2-t124.8-x625-4pass from 0 s · A lower — the cluster 300 … 900 Hz, bank B a quarter-tone up · fund 150 · first 2 · spread 0.33 · bank B +0.25 st · ring 7.75 … 9.5 s"
+  },
+  {
+   "name": "petals-A3-r2-t110_0-x625-4pass-from0",
+   "file": "petals/petals-A3-r2-t110.0-x625-4pass-from0-master.wav",
+   "seconds": 634.52,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals A3 on r2-t110.0-x625-4pass from 0 s · A higher — the cluster 520 … 1550 Hz, bank B a half-semitone up: faster shimmer · fund 260 · first 2 · spread 0.33 · bank B +0.5 st · ring 7.75 … 9.5 s"
+  },
+  {
+   "name": "petals-A4-r3-t077_2-x625-4pass-from0",
+   "file": "petals/petals-A4-r3-t077.2-x625-4pass-from0-master.wav",
+   "seconds": 634.52,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals A4 on r3-t077.2-x625-4pass from 0 s · A spaced wider — spread 0.5: the cluster 400 … 1600 Hz in 100 Hz steps, bank B a quarter-tone up · fund 200 · first 2 · spread 0.5 · bank B +0.25 st · ring 7.75 … 9.5 s"
+  },
+  {
+   "name": "petals-B-r1-t190_0-x625-4pass-from0",
+   "file": "petals/petals-B-r1-t190.0-x625-4pass-from0-master.wav",
+   "seconds": 640.02,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals B on r1-t190.0-x625-4pass from 0 s · his set line, low — wide steps from 180 Hz, the second bank a major third up · fund 60 · first 3 · spread 1.33 · bank B +4 st · ring 7 … 15 s"
+  },
+  {
+   "name": "petals-B2-r2-t124_8-x625-4pass-from0",
+   "file": "petals/petals-B2-r2-t124.8-x625-4pass-from0-master.wav",
+   "seconds": 640.02,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals B2 on r2-t124.8-x625-4pass from 0 s · B on a lower fundamental — 45 Hz: from 135 Hz in 60 Hz steps, bank B a major third up · fund 45 · first 3 · spread 1.33 · bank B +4 st · ring 7 … 15 s"
+  },
+  {
+   "name": "petals-B3-r2-t110_0-x625-4pass-from0",
+   "file": "petals/petals-B3-r2-t110.0-x625-4pass-from0-master.wav",
+   "seconds": 640.02,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals B3 on r2-t110.0-x625-4pass from 0 s · B on a higher fundamental — 80 Hz: from 240 Hz in 106 Hz steps, bank B a major third up · fund 80 · first 3 · spread 1.33 · bank B +4 st · ring 7 … 15 s"
+  },
+  {
+   "name": "petals-B4-r3-t077_2-x625-4pass-from0",
+   "file": "petals/petals-B4-r3-t077.2-x625-4pass-from0-master.wav",
+   "seconds": 640.02,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals B4 on r3-t077.2-x625-4pass from 0 s · B with a whole tone — the banks a whole tone apart · fund 60 · first 3 · spread 1.33 · bank B +2 st · ring 7 … 15 s"
+  },
+  {
+   "name": "petals-C-r1-t190_0-x625-4pass-from0",
+   "file": "petals/petals-C-r1-t190.0-x625-4pass-from0-master.wav",
+   "seconds": 640.02,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals C on r1-t190.0-x625-4pass from 0 s · wide, two chords — his own test line: the banks a minor sixth apart · fund 35 · first 5 · spread 1.33 · bank B +8.1 st · ring 7 … 15 s"
+  },
+  {
+   "name": "petals-C2-r2-t124_8-x625-4pass-from0",
+   "file": "petals/petals-C2-r2-t124.8-x625-4pass-from0-master.wav",
+   "seconds": 640.02,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals C2 on r2-t124.8-x625-4pass from 0 s · C with a fifth — the banks a fifth apart instead of a minor sixth · fund 35 · first 5 · spread 1.33 · bank B +7 st · ring 7 … 15 s"
+  },
+  {
+   "name": "petals-C3-r2-t110_0-x625-4pass-from0",
+   "file": "petals/petals-C3-r2-t110.0-x625-4pass-from0-master.wav",
+   "seconds": 640.02,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals C3 on r2-t110.0-x625-4pass from 0 s · C with a minor third — the banks a minor third apart · fund 35 · first 5 · spread 1.33 · bank B +3 st · ring 7 … 15 s"
+  },
+  {
+   "name": "petals-C4-r3-t077_2-x625-4pass-from0",
+   "file": "petals/petals-C4-r3-t077.2-x625-4pass-from0-master.wav",
+   "seconds": 640.02,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals C4 on r3-t077.2-x625-4pass from 0 s · C on 50 Hz with a minor seventh — the banks a minor seventh apart · fund 50 · first 5 · spread 1.33 · bank B +10 st · ring 7 … 15 s"
+  },
+  {
+   "name": "petals-D-r1-t190_0-x625-4pass-from0",
+   "file": "petals/petals-D-r1-t190.0-x625-4pass-from0-master.wav",
+   "seconds": 628.02,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals D on r1-t190.0-x625-4pass from 0 s · short ring — as B, the bed itself heard through the filter · fund 60 · first 3 · spread 1.33 · bank B +4 st · ring 1.5 … 3 s"
+  },
+  {
+   "name": "petals-D2-r2-t124_8-x625-4pass-from0",
+   "file": "petals/petals-D2-r2-t124.8-x625-4pass-from0-master.wav",
+   "seconds": 628.02,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals D2 on r2-t124.8-x625-4pass from 0 s · D — B2 with the short ring · fund 45 · first 3 · spread 1.33 · bank B +4 st · ring 1.5 … 3 s"
+  },
+  {
+   "name": "petals-D3-r2-t110_0-x625-4pass-from0",
+   "file": "petals/petals-D3-r2-t110.0-x625-4pass-from0-master.wav",
+   "seconds": 629.02,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals D3 on r2-t110.0-x625-4pass from 0 s · D — B3 with a short ring (2 … 4 s) · fund 80 · first 3 · spread 1.33 · bank B +4 st · ring 2 … 4 s"
+  },
+  {
+   "name": "petals-D4-r3-t077_2-x625-4pass-from0",
+   "file": "petals/petals-D4-r3-t077.2-x625-4pass-from0-master.wav",
+   "seconds": 627.02,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals D4 on r3-t077.2-x625-4pass from 0 s · D — B4 with the shortest ring (1 … 2 s) · fund 60 · first 3 · spread 1.33 · bank B +2 st · ring 1 … 2 s"
+  }
+ ]
+}

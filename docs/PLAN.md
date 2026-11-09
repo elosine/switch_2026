@@ -168,10 +168,30 @@ electronics part for the FIRST SECTION, the acoustic instruments built around it
     one of the other three players' captures; the same two-parameter restriction
   - hear: each voice; the four voices together
   - knobs: which effect follows which player · each effect's two parameters
-- **1a.7 Into the score** (the four voices in the composer score, the first section)
-  - build: the voices as audio the composer score plays on its electronics path, placed on the first section's timeline; the acoustic
-    lanes written around them (the music, his — PLAN 1b when it is reached)
-  - hear: the section in the score, the voices under his hands
+- **1a.7 THE ELECTRONIC SCORE — the fund into the composer score** (REVISED 2026-11-09, RUNNING_LOG §80 · §102 · §103; his word: *"the
+  engine is fine … multi-track … a post-production phase … a rough mix there so that it sounds, it plays back good enough so that I can
+  compose it"*) — `doing`
+  ***Why:*** the materials are made (tremolo mixes · granular beds · the opening · the petals · the tuplets); composing them is placing
+  them, and placing wants a brick that behaves like a note.
+  THE ROAD: the engine's (the lineage's — what quad and the live electronics need): the fund stays where it lies, the engine STREAMS a
+  brick's stretch from disk (`electronics/sc/material.scd`), the score sends `/le/material`; the rough mix while composing is the engine's
+  master bus (the glue and the limiter); the bounce is step 6. Top line only, his word — the steps:
+  1. **The fund into the engine's reach, and into the page** — `bank/materials.json` (`tools/materials_index.js`: every master of `keep/`,
+     name · file · seconds · channels · note); the engine told at start (`LE_MATERIALS`); the page's picker reads the same file. A brick may
+     sit on ANY lane; layers = bricks overlapping, on one lane or across lanes. ☑ 2026-11-09 (§103)
+  2. **The brick** — `elecMaterial` (`electronics/score/le_material.js`, a mixin; the key N): an OFFSET into the file and a LENGTH; dragged;
+     the LEFT edge trims and the offset follows (the sound stays where it was), the RIGHT edge trims the length; never past the file's end;
+     SHIFT+N splits the selected brick at the playhead, the second carrying the offset on. ☑ 2026-11-09 (§103)
+  3. **The fades** — a few tens of ms at each edge by default (the engine's 30), longer by hand in the panel; a playhead that starts inside
+     a brick plays what is left with a short fade in. ☑ 2026-11-09 (§103)
+  4. **The level curve** — flat (a mark; mf = the file as mastered) · a hairpin · a drawn curve A | B | C | lane read through the lanes' own
+     curve reader (the sine's way), 16 points, sent as a line. ☑ 2026-11-09 (§103) — his ear on it: open
+  5. **Playing, layered** — from anywhere, several at once, through the engine's bus; a stop lets every material go (30 ms).
+     Proven OFFLINE (`electronics/sc/material_test.scd`: the stretch is the offset's, the level, the fades, the end, a level line) and the
+     page on the throwaway server (the brick, its message, the split). NOT YET: a living engine under his hands — the first time he plays
+     a pass with the engine up. ☑ built 2026-11-09 (§103)
+  6. **The bounce** (post-production, his word) — an offline render from the save: every brick with its offset, length, fades and level
+     curve, summed, mastered (`master_mix.py`) into ONE file for the notation score and the recording. *To be laid out when he reaches it.*
   - held: quad — a stereo simulation of quad in the composer score, the real four channels at the engine; later, his word (SW-2)
 
 *Where the code goes (THE SORTING): the capture, the grab, the stretch and the granulation are the WORKSHOP's tools

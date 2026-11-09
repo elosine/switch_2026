@@ -111,6 +111,9 @@ function engineEnv() {
     const env = { LE_PLAYERS: CFG.players.map((p) => p.name + ':' + (p.engineIn - 1)).join(','), LE_SOURCE: dirs[m.load], LE_BANK: dirs[m.write], LE_RECORD: m.record ? '1' : '0' };
     fs.mkdirSync(env.LE_SOURCE, { recursive: true }); fs.mkdirSync(env.LE_BANK, { recursive: true });
     if (crop) env.LE_CROP = crop;
+    // PLAN 1a.7 (2026-11-09): THE FUND — the materials the composer score places as bricks (bank/materials.json, tools/materials_index.js); the engine streams them from where they lie
+    const materials = path.join(ROOT, 'bank', 'materials.json');
+    if (fs.existsSync(materials)) env.LE_MATERIALS = materials;
     // PLAN 15.2 a (the drone section): THE REGIONS of a capture — where it sounds (bank/elec_route.json bank.regions; the engine's names, bank.scd regionsDefaults)
     const regions = Object.entries(B.regions || {}).filter(([k, v]) => !k.startsWith('_') && typeof v === 'number').map(([k, v]) => k + '=' + v).join(',');
     if (regions) env.LE_REGIONS = regions;

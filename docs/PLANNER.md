@@ -5,8 +5,7 @@
 > `COMPOSITION_NOTES.md` verbatim first and get folded into a tier here. Engineering
 > detail stays in `PLAN.md`. Rewritten freely; the sketch pad is the append-only record.
 
-**NOW ►** 2026-10-23 — THE LAB (PLAN 1a): the first section's electronics in seven experiments from the set 2025-04-08c. 1a.1 waits for
-HIS MIX (bank/set/2025-04-08c/README.md); then 1a.2 the capture. Journal §2's "SESSION 2 — THE LAB OPENED" is the cold-start block.
+**NOW ►** 2026-11-09 — THE ELECTRONIC SCORE (PLAN 1a.7): the fund is made and indexed (`bank/materials.json`, 47 materials); the material brick is built (key N · SHIFT+N splits · the panel: offset, length, fades, trim, level flat / hairpin / curve); the engine streams it. **► HIS FIRST PASS with the engine up** (Reaper → `start_electronics.bat` → the score; `node tools/startup_check.js` says what is missing): place a material, press play, hear it; faults to SWEEP_LIST. Then the tuplets' keepers by seed, and step 6 the bounce when he reaches it.
 
 *Before it —* 2026-10-23 — THE START IS DONE: the rack at one level, the score set up for eight parts, the protocol v2.
 

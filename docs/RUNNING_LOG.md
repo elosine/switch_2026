@@ -1644,3 +1644,40 @@ there) — nothing clips, nothing is final. THE BOUNCE = post-production: an off
 the ground truth): every brick with its offset, length, fades and level curve, summed and mastered (`master_mix.py`) into ONE file for
 the notation score and the recording. It is a sixth step of §80's plan, built when he reaches it; nothing in steps 1 … 5 forecloses it.
 Discussion only; the plan item is written when he says go.
+
+## §103. THE ELECTRONIC SCORE BUILT — PLAN 1a.7 steps 1 … 5: the fund indexed, the material brick, the engine streams it (2026-11-09)
+
+His word: *"No need for the sub-steps. Go ahead and write the plan. And unless you need my input, go ahead and build as well."* The plan item
+rewritten (`docs/PLAN.md` 1a.7, six steps, top line). Built in one pass — THE SORTING: what knows the fund's files and the page's keys is the
+piece's; what streams a file and draws a brick is the engine's.
+
+**The piece's:**
+- `tools/materials_index.js` → `bank/materials.json`: 47 materials (4 mixes · 6 opening · 21 granular · 16 petals), name · file (relative to
+  the keep folder on H:) · seconds · channels · sr · kind · note. A name is made safe for the engine (a dot → an underscore).
+- `composer.html`: the tag `le_material.js` AFTER the engine's other mixins (placed before `le_objects.js` at first — it loaded with no
+  LEObjects and did nothing; moved) · the key `material: 'n'` · `materialsUrl`. `tools/elec.js`: `LE_MATERIALS` handed to the engine.
+- A brick may sit on ANY lane and bricks overlap freely — that is the layering; no new lanes (a layout change is his, D7).
+
+**The engine's (`electronics/`, the engine's RUNNING_LOG §74):**
+- `sc/material.scd`: `/le/material` — the file cued at the offset (DiskIn, a quarter-million frames ahead; never loaded whole — ten minutes of
+  stereo float is 200 MB and the fund is hours), the synth started when the cue is in, the look-ahead less the time it took; the edge fades
+  (a sine's quarter); the level a line of 16 points in decibels, mf = the file as mastered, each mark ±4 dB (the ladder's step); a trim; it
+  frees itself and closes its file. `/le/materialstop` lets go in 30 ms. The index from `LE_MATERIALS`.
+- `score/le_material.js`: the brick — offset · length · fades · trim · level (flat · hairpin · a curve A | B | C | lane through the lanes' own
+  reader, 16 heights → marks); THE RULE OF THE EDGES in `materialDecorate` (the host's renderZone, wrapped already): a body drag moves both
+  edges — the offset stays; the LEFT edge alone moves — the offset follows (the sound stays where it was); the RIGHT edge — the length; never
+  past the file (clamped, re-drawn). SHIFT+N splits the selected brick at the playhead, the second carrying the offset on. A playhead that
+  starts inside plays what is left (offset moved on, a 15 ms fade in). The panel: the picker by kind, the numbers, ▶ hear 6 s, ✂ split.
+- Five hook lines in `le_objects.js` (the inside rule · fire · decorate · panel · the key), one each in `synths.scd` · `boot.scd` · `session.scd`.
+
+**PROVEN:** `electronics/sc/material_test.scd` — MATERIAL_TEST PASS, ten checks: the index read · the spec · a mark as decibels (f +4, p −8) ·
+the clamp to the file's end · a level line of three points · in NRT on a made file (440 Hz then 880 Hz): the stretch from 2.5 s IS the 880 Hz
+half (1056 zero crossings in 0.6 s) · the level f = +4.0 dB · the first 5 ms and the last 10 ms −42.6 / −37.6 dB under the middle · it ends
+at its length · p → ff over a second lifts the end 14.0 dB over the start. THE PAGE on the throwaway (5601, autosave stubbed, nothing
+saved): the model present · 47 materials in the picker · a brick made by name, its label `▬ petals-A-… · from 0:00 · 0:30` · its message
+{offsetMs 0, lengthMs 30000, fades 30/30, level "4"} · started 10 s inside: offset 10000, length 20000, fade in 15 · the left edge moved 5 s →
+offset 5000 · a 2000 s brick clamped to the file (629.5 s left) · a hairpin p → ff wired "0:2,end:6" · the panel's eleven rows.
+**MEASURED ON THE WAY:** an NRT `s_new` with a NESTED ARRAY argument kills the render (0 frames, no error) — bus_test's `asOSCArgArray`
+(`$[ … $]`) is the way; the real-time `newMsg` flattens by itself.
+**NOT CLAIMED:** a living engine under his hands; his ear on a brick; the curve mode on a real drawn curve (the reader is the sine's, proven
+there). **HIS ONE HAND STEP:** the engine must be restarted once (`start_electronics.bat`) — `material.scd` and the index load at start.
