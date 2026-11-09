@@ -1551,3 +1551,26 @@ Done:
 *(§95, done)* The processed sheet: 287 renders in 261 s (one spectral-gate render of a quiet attack came out silent and was dropped);
 `attacks/processed/index.html` — twelve rows plus the raw reference, one attack a player across, a 20 s tuplet run (mode mix, seed 21,
 the same steps in every row) at the end of each row, so the rows differ by timbre alone.
+
+## §96. His ear on the sheets: four processings, their variations; the tuplets extended; the petals full and varied (2026-11-09)
+
+His word: *"fliter moog, resonators, fuzz-cab, room. Then can we do some variations on those ones that might sound a little different
+from each other? And then the [tuplet] example is pretty good. Can we have a few extended versions of those? Are those the 4-minute ones
+as well? … all the pedals are good. Maybe you can give me the one you did and then maybe two other beds. Ones that we haven't used yet
+… give me those four for each … maybe the full pass and then the full bed. And then let's do the other bed with just harmonic variations
+on these. So maybe different intervals, but also different fundamentals … it's probably got to be low to get all those upper partials
+… use your judgment … And then let's have all those in the materials, the tuplets and the petals along with the rest."*
+
+The answer to his question: the tuplet runs were 60 s (the sheet's 20 s); the beds are 4 min. Done or running:
+- **Variations of the four** (three each, `attacks_fx_variations.json`, rendered by `attacks_process.scd` with its new list argument): Moog
+  darker / ladder brighter / RLPFD squelchy · resonators E-based longer / short knock / under at half · fuzz soft-boxy / harsh-bright /
+  dark-choked · room bigger / closet / JPverb. Onto the processed sheet as rows `<fx>-2 … -4`, each with its 20 s run.
+- **Extended tuplets, 4 min:** raw mix · raw group · mix on each of the four processings (seeds 31 … 33, `…-4min` in `tuplets/`).
+- **The petals FULL (625 s, the whole ×625 bed), the four settings A … D, on three beds** — r1-t190.0 · r2-t124.8 (the two heard) and
+  r2-t110.0 (unused till now) — into `keep/petals/` (his "all the petals are good"), with a recipe for the materials page.
+- **The harmonic variations E … J on a fourth unused bed, r3-t077.2 (120 s from 2:00):** E fund 40 +3 st (minor third) · F fund 40 +7 st
+  (fifth) · G fund 55 spread 2 (wide) · H fund 80 spread 1 (a true harmonic series 160 … 1120 Hz) +2 st · I fund 30 +8.1 st (lowest) ·
+  J fund 60 spread 0.5 +1 st (a dense low cluster, slow beating). The judgment on the fundamental: it transposes the whole chord and
+  scales its spacing — fund × (first + spread × n) — so a lower fund with the same spread is the same chord lower AND closer; the wide
+  range he wants comes from a low fund WITH a large spread (G · H), not from the fund alone. `petals/variations/`, listed as candidates.
+- The materials page gains the petals (keep) and the variations and processed runs (candidates) when the renders land.
