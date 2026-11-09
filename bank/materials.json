@@ -2,7 +2,7 @@
  "schema": 1,
  "_what": "THE FUND'S INDEX — every mastered material of the keep folder (tools/materials_index.js): the composer score's picker and the engine's streaming player read it (electronics/score/le_material.js · electronics/sc/material.scd). GENERATED — run the tool again after the keep folder changes.",
  "root": "H:/switch_2026/audio/set-2025-04-08c/keep",
- "written": "2026-11-09T04:33:01",
+ "written": "2026-11-09T04:53:27",
  "materials": [
   {
    "name": "granular-B1-perc-seed1",
@@ -426,6 +426,96 @@
    "sr": 44100,
    "kind": "petals",
    "note": "petals D4 on r3-t077.2-x625-4pass from 0 s · D — B4 with the shortest ring (1 … 2 s) · fund 60 · first 3 · spread 1.33 · bank B +2 st · ring 1 … 2 s"
+  },
+  {
+   "name": "tuplets-mix-all-char-c11123-seed112",
+   "file": "tuplets/tuplets-mix-all-char-c11123-seed112-master.wav",
+   "seconds": 120,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "tuplets",
+   "note": ""
+  },
+  {
+   "name": "tuplets-mix-all-char-c112346-seed103",
+   "file": "tuplets/tuplets-mix-all-char-c112346-seed103-master.wav",
+   "seconds": 120,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "tuplets",
+   "note": ""
+  },
+  {
+   "name": "tuplets-mix-all-char-c123-seed105",
+   "file": "tuplets/tuplets-mix-all-char-c123-seed105-master.wav",
+   "seconds": 120,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "tuplets",
+   "note": ""
+  },
+  {
+   "name": "tuplets-mix-all-char-c1234-seed101",
+   "file": "tuplets/tuplets-mix-all-char-c1234-seed101-master.wav",
+   "seconds": 120,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "tuplets",
+   "note": ""
+  },
+  {
+   "name": "tuplets-mix-all-char-c1234-seed109",
+   "file": "tuplets/tuplets-mix-all-char-c1234-seed109-master.wav",
+   "seconds": 120,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "tuplets",
+   "note": ""
+  },
+  {
+   "name": "tuplets-mix-all-char-c1234-seed114",
+   "file": "tuplets/tuplets-mix-all-char-c1234-seed114-master.wav",
+   "seconds": 120,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "tuplets",
+   "note": ""
+  },
+  {
+   "name": "tuplets-mix-all-char-c1234-seed115",
+   "file": "tuplets/tuplets-mix-all-char-c1234-seed115-master.wav",
+   "seconds": 120,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "tuplets",
+   "note": ""
+  },
+  {
+   "name": "tuplets-mix-all-char-c1234-seed21",
+   "file": "tuplets/tuplets-mix-all-char-c1234-seed21-master.wav",
+   "seconds": 240,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "tuplets",
+   "note": ""
+  },
+  {
+   "name": "tuplets-mix-all-char-c2346-seed107",
+   "file": "tuplets/tuplets-mix-all-char-c2346-seed107-master.wav",
+   "seconds": 120,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "tuplets",
+   "note": ""
+  },
+  {
+   "name": "tuplets-mix-drumspiano-char-c1234-seed117",
+   "file": "tuplets/tuplets-mix-drums+piano-char-c1234-seed117-master.wav",
+   "seconds": 120,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "tuplets",
+   "note": ""
   }
  ]
 }

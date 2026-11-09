@@ -1681,3 +1681,11 @@ offset 5000 · a 2000 s brick clamped to the file (629.5 s left) · a hairpin p 
 (`$[ … $]`) is the way; the real-time `newMsg` flattens by itself.
 **NOT CLAIMED:** a living engine under his hands; his ear on a brick; the curve mode on a real drawn curve (the reader is the sine's, proven
 there). **HIS ONE HAND STEP:** the engine must be restarted once (`start_electronics.bat`) — `material.scd` and the index load at start.
+
+## §104. The ten sequences kept; two mixes of three to hear (2026-11-09)
+
+His word: *"those sequences are good. You can add them to the materials. And can you make a mix, like 2 mixes of 3, just for me to hear?"*
+The ten character sequences mastered (−16 LUFS, as every material) into `keep/tuplets/` — on the materials page under KEEPERS · tuplets with
+each one's character, and in the fund's index for the composer score (57 materials now). Two mixes of three, each sequence at equal gain
+(÷√3), mastered, as candidates: A = seeds 21 (the kaleidoscope, 4 min) + 105 (halos and halls) + 115 (dry and hooded) · B = 103 (raw ·
+processed alternating) + 109 (mostly clean, spiked) + 117 (drums and piano, raw then fuzz). `tuplets/sequences/processed/mixes/`.
