@@ -1929,3 +1929,12 @@ add (P opens it, §111). page_test PASS · palette_check 202.
 milliseconds (30 by default) — type 2000 for a two-second fade. A fade over the WHOLE brick is the **Level** row: `hairpin — from one dynamic to
 another`, then the two marks (ppp → mf is a fade-in, mf → ppp a fade-out). A shaped fade: Level → `curve A` (or B · C · lane), then draw the
 curve in that window over the brick; the brick reads it where it stands. mf = the file as mastered.
+
+## §113. A placed material is the WHOLE file (2026-11-09)
+
+**His words:** *"And then why are the bricks so short? The brick says 9 minutes, 45 seconds, but it only stretches to 35 seconds."* — then,
+put to him (the brick a 30-second window by the AI's choice at §103, against the DAW's convention): *"yes, make it the whole file."*
+
+**The change:** `le_material.js` materialAdd — a brick opens at the file's full length (the edges trim it; the split cuts it); 30 s only for a
+name not in the index. The key, the drop and the split share the one line. page_test PASS. Logged as D11's companion, not a decision of
+its own: the brick's model is unchanged, only its default.
