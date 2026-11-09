@@ -2321,3 +2321,14 @@ crescendo's six sines (100.3 s) set to 500 by hand; the 15 s sines keep their se
 **Correction to the line above:** the first crescendo has SIX sines — five constant ones from 100.3 s and the crotale's gliding one from 101.3 s (a brick a pair starts at the pair); the sixth was set to 500 ms after the count read five.
 
 **His working save moved (2026-11-09, late): `piece-Section01b-BeatingUnisonCrescendos-B` — the D test save as he saved it at 18:39, his from here. Crescendo 02 and the halved fades were written to D first and then to B at his word ("I didn't see it in the reload"); every tool from now targets B (the name in the journal §2).**
+
+## §131. SW-29 — crescendo 03 from SwCres03a; the crescendos' sines start WITH the notes, from silence over 500 ms (2026-11-09)
+
+**His words:** SW-29. **The fix on the two crescendos (his save `piece-Section01b-BeatingUnisonCrescendos-B`):** the ten sines of crescendos 01
+and 02 moved to begin AT their notes (101.3 · 112, not a second before), `fadeInMs` 500 — the engine's rise is a Line in dB from −60 (§121),
+"essentially nothing"; the first section's sines (15 s, a second early at 1000 ms) left as he asked. **Crescendo 03** from his take `SwCres03a`
+(six placed: flute F6 · clarinet B3 · sax G♯5 · violin F5 · cello C3 · the crotale key A5 bowed, sounding A7): 119.5 → 124.25 s (4.75 s), 0 → 8
+beats/s (0.59 s per beat), p → fff, one held tone each, the sines WITH the notes, in over 500 ms. The cello's 103 c at C3 is re-keyed to C♯3
+with its bend −100 → +3. The save: 112 objects. **His musing on 350 ms, answered by the choice of 500:** the engine's dB-linear rise is at
+−30 dB halfway, so 500 ms is already soft at the start and present by its end; 350 would be hardly different to the ear — his to say after
+hearing. NOT CLAIMED: the sound.

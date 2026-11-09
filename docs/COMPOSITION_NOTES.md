@@ -498,3 +498,18 @@ layer a technique (the ordinary piano, then the plucked piano, …; the piano's 
 piano); then the other instruments, each played in the same way, layer by layer, on percussive techniques; the electronics the GRANULAR beds
 (SW-8: granular B2 perc seed 1 first, the others around it). The recording path for a played-in part is the score's Rec (`recLaneSel` · a
 technique per take) — to be checked for the piano's several techniques on one lane when he reaches it.
+
+### SW-29 · 2026-11-09 — CRESCENDO 03 at 119.5 → 124.25 s (SwCres03a, → 8 beats a second) · THE SINES START WITH THE NOTES, fading from nothing over 500 ms; the two earlier crescendos fixed, what is before them left
+
+*His words (dictated, light corrections):*
+
+> *"119.5 – 124.25, cresc 03. And then the sine fades sound a little bit weird. So let's make it much shorter. I don't know what it is
+> currently, but let's just make it, I guess, like 350 milliseconds. I'm not sure. Maybe you can recommend. I think with electronics in the
+> background, the pop is less noticeable. And for the notated score, for the performers, I don't want there to be any fade in — or I do want
+> there to be a fade in, but I don't necessarily want the sines to come in before the performers, if that makes sense. Like their notated note:
+> the sine will turn on the same time as their notated note. So let's try making the sine tones fade in, say over 500 milliseconds maybe, but
+> start at the same time. So the fade will start from essentially nothing, if possible, at the same time the instrument note starts. And then
+> just fix the two crescendos, but leave what's before, please."*
+
+*The AI's reading (not his):* for the crescendos (and the notated score's sake) the sine and the player begin TOGETHER — the sine from
+silence over half a second, nothing sounding before the note; the long-tone sines of the first section (a second early) stay as they are.
