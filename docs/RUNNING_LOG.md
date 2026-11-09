@@ -2124,3 +2124,37 @@ player hold** (Approaching's crotales rule, `who: sine`). The pace is the same a
   beside the flute — its top bar.
 - **The piano** has no bend: no pair unless the sine moves against a struck F (its decay works against beating) — left out of this.
 **Nothing built — "hold until we sort out the sax."** Put to him: the algorithm's numbers and the assignment above.
+
+## §121. The sine's fade, measured and made right; the peaks held; the sax at f; trim together; the breath question prepared (2026-11-09)
+
+**His words:** *"Sine is still quite abrupt."* (after the engine's restart — sclang up since 16:14, the fade edit 16:06: the fade WAS live) · SW-16
+(the holds) · SW-17 (one f; the levels in the card, several bricks) · SW-18 (the breaths, to decide with him).
+
+**THE FADE — three shapes, measured in NRT (`sine_probe.scd`, a 3 s sine at 220 Hz, the peak read in windows):**
+1. The first fix (§119): the guard Env's first segment lengthened to `fadeIn`, the segment `\\sin` in AMPLITUDE — a sine-shaped amplitude rise is at
+   −7 dB a quarter of the way in: loud almost at once. His ear was right: "still quite abrupt".
+2. Linear in dB inside the Env (`[-60, 0, 0, -60] \\lin .dbamp`), then exponential (`[0.001, 1, 1, 0] [\\exp, \\lin, \\sin]`): `sine_test` FAILED on its
+   level checks — the steady level 0.13 … 0.19 dB low, the LUFS 0.5 dB low, at C7 2 … 2.4 dB low. Probed: with fadeIn 0.01 the level was −7.4 dB at
+   0.05 s, −4.3 at 1 s, −0.3 at 2.5 s — THE RISE NEVER FINISHED; it crept over the whole note.
+3. The rise as its own `Line.kr(-60, 0, fadeIn).dbamp`, the guard's first segment 2 ms: the creep still there (−2.8 dB at 0.05 s, −0.02 at 2.5 s).
+**The mechanism (SuperCollider, control rate):** an EnvGen.kr segment that is very short, or shaped in dB / exponentially from near zero, does
+not land on its end level; the NEXT segment then interpolates from where the envelope actually is to its own end — a 1 → 1 "flat" segment
+becomes a slow creep up to 1 over the note. The original 10 ms `\\sin` guard (7 control blocks) had a residue of it too: −0.36 dB at 0.05 s,
+−0.27 at 1 s, 0 at 2.5 s — inside the test's tolerance, never heard.
+**The fix that holds (`synths.scd` `\\leSine`):** the guard EXACTLY as it was (10 ms sine rise, 30 ms fall — proven), and **the fade a separate
+`Line.kr(-60, 0, fadeIn).dbamp` multiplied in** — linear in decibels from −60, which the ear hears as an even swell. Measured: fadeIn 1.0 →
+−42.4 dB at 0.25 s · −21.3 at 0.6 s · 0.0 at 2.5 s (the line's own numbers −45 · −24 · 0, read in windows); the engine's path at ff −32.64 dB
+against the formula's −32.64. **`sine_test` PASS.** The engine's §78.
+
+**The holds (SW-16):** `tools/beat_saw.js --hold lo,hi` — every peak held a rolled 1.8 … 2.6 s over a pair's own; the sax's four pairs re-rolled:
+holds 2.5 · 2.4 · 2.2 · 2.5 s, the sine 15 → 95.5 s. **One f (SW-17):** `--note f`, velocity 91 by the page's rule. **Trim together (SW-17):** the page
+already gathers bricks with SHIFT+click (zones have had additive selection since piece 4); the material card's Trim (dB), typed with several
+material bricks selected, lands on every one of them and says so (`le_material.js`; the row shows "→ all N selected").
+
+**The breaths (SW-18) — the data for his decision, read from the morph's own table (`morph.js` BREATH_TABLE, an ESTIMATE for a wind at MIDI
+53 … 65):** the held tone's ceiling **p 15 s · mf 11 s · f 8 s**; the inhalation `BREATH_GAP_MIN` 0.75 s "comfortable", `BREATH_GAP_FLOOR` 0.40 s
+"a snatch breath — flagged if used". His two considerations → a first set, put to him: the held tone **85 … 100 % of the player's ceiling at
+the written dynamic** (the sax at f: 6.8 … 8 s; at mf 9.4 … 11); one breath in eight SHORT, 50 … 70 % (so the rhythm never settles); the inhalation
+**0.4 … 0.6 s** (a snatch); across the ensemble each lane its own seeded stream, each starting at its own time (his), and a RULE: no two players
+inhale within 1.5 s of each other (the later one's tone stretched or shortened within its range to clear it). Whether the ceilings are
+right for THIS ensemble's players is his (the table is a guess from piece 5).

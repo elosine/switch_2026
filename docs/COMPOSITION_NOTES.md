@@ -349,3 +349,31 @@ beat gained (his "1.8 and 2.6 beats per second" read in his unit of SW-12) for a
 the quick leg only once the beating is already above 5 … 6 a second; B, "the slow low one": a slower rise that stays under that threshold,
 to 4.8 … 6.5 a second. A B A B …, every number rolled a little, so the lengths differ. The pitches: octaves of F across the ensemble, the sax's
 F4 the reference; the assignment his, advised (RUNNING_LOG §120). Nothing built until the sax is settled.
+
+### SW-16 · 2026-11-09 — the peaks HELD 1.8 … 2.6 s (the sax's pairs too)
+
+*His words:* *"And I forgot about my previous prompt. They should hold at a peak for a little while. So a couple seconds when they get to the
+peak, and you may need to redo the saxophone one too. Let's have them hold that peak for somewhere between like 1.8 to 2.6 seconds."*
+
+### SW-17 · 2026-11-09 — the sax at ONE f · the sound files' levels adjusted in the card, several bricks at once
+
+*His words:* *"And let's go with one F for the saxophone. And then an expedient way to adjust the levels of the sound files, maybe just in the
+card itself. And then allow me, if possible, if it's not too difficult, to do a multi-select and then adjust the volume."*
+
+### SW-18 · 2026-11-09 — THE BREATHS, TO BE DECIDED WITH HIM: long sustained tones, a quick breath, no predictable rhythm, no unison breaths across the ensemble
+
+*His words (dictated, light corrections):*
+
+> *"And then I think overall for the saxophone — but overall — the breaths can be quite a bit longer. Let's check in with me and let's decide on
+> what the min breath on these long tones should be and what the max breath can be, and then what the variance should be. I probably will be
+> pushing towards the long end. So basically, if they can hold the tone for as long as they can at a certain strength, and then take a quick
+> breath and do it again, and we'll just see if we can't. So the two considerations are that I want them to be sustained tones, but I also
+> don't necessarily want there to be a predictable rhythm of breaths, or there to be too many unison breaths. There probably won't be,
+> because I'm not going to start them at the same time. So let's figure out a way to do this, to make the breaths quite a bit longer, to have a
+> nice sort of unpredictable rollout of breath-taking amongst the ensemble. And I feel like the breaths themselves can even be shorter. Let's
+> discuss, just check in with me. Let's discuss how short the breaths can be as well."*
+
+*The AI's reading (not his):* "breath" means two things here — the HELD TONE between inhalations (long: near what the player can hold at
+that dynamic) and the INHALATION itself (short: a snatch). The rule wanted: each player holds close to their own ceiling, varied a little,
+inhales quickly, continues; the ensemble's inhalations fall unpredictably and rarely together. The numbers are to be set with him (RUNNING_LOG
+§121 puts a first set); nothing of SW-14's 4.5 ± 0.75 s stands once he decides.

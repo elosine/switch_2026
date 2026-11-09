@@ -42,6 +42,9 @@ if (!MARKS.includes(noteMark)) die('--note: one of ' + MARKS.join(' '));
 const start = +arg('start', 16), sineStart = +arg('sine-start', start - 1), fadeMs = Math.round(+arg('fade', 1000)), gapPairs = +arg('gap', 1);
 const [bAim, bJit] = String(arg('breath', '4.5,0.75')).split(',').map(Number);
 const seed0 = +arg('seed', 23); let seed = seed0; const rnd = () => { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; };
+// --hold lo,hi: every peak held for a time rolled in that range (his word 2026-11-09, §121: 1.8 … 2.6 s), over a pair's own |h
+const holdR = arg('hold') ? String(arg('hold')).split(',').map(Number) : null;
+if (holdR && (holdR.length !== 2 || holdR.some((x) => !(x >= 0)) || holdR[1] < holdR[0])) die('--hold lo,hi in seconds');
 const pairs = String(arg('pairs') || die('--pairs')).split(';').map((q) => { const [ln, h] = q.trim().split('|'); const pts = ln.split(',').map((x) => x.split(':').map(Number)); if (pts.some((p) => p.length !== 2 || !Number.isFinite(p[0]) || !(p[1] >= 0))) die('--pairs: t:beats,…|h<s>'); return { pts, hold: h ? +h.replace(/^h/, '') : 2.5 }; });
 const y = r3(10 * MARKS.indexOf(noteMark) / 7), vel = Math.round(127 * y / 10);   // the page's own rule for a mark (beat_pair.js §268)
 
@@ -58,6 +61,7 @@ if (has('replace')) {
 // the pairs: a note (in breaths) per pair; the bend sampled every 0.25 s
 let t = start; const notes = [], said = [];
 pairs.forEach((P, pi) => {
+    if (holdR) P.hold = r1(holdR[0] + rnd() * (holdR[1] - holdR[0]));   // the peak held for a rolled while (§121)
     const line = P.pts.map(([tt, h]) => [tt, h]); const lastT = line[line.length - 1][0]; const len = r3(lastT + P.hold);
     if (P.hold > 0) line.push([len, line[line.length - 1][1]]);
     const bend = []; line.forEach(([tt, h], i) => { if (i > 0) { const [t0, h0] = line[i - 1]; if (h0 !== h) for (let x = t0 + 0.25; x < tt - 1e-6; x += 0.25) bend.push([r3(x), r1(centsFor(midi, h0 + (h - h0) * (x - t0) / (tt - t0)))]); } bend.push([r3(tt), r1(centsFor(midi, h))]); });
