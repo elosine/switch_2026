@@ -2235,3 +2235,20 @@ the crotale's last gliding brick stretched with its line kept in TIME and its la
 **Written into `piece-Section01-D-saxBeatTest`:** sax +1.6 s at 24.6 c · clarinet +10 s at 22.9 c (over its 8 s ceiling by the remainder rule —
 the previous tone takes the rest; his ear) · flute 7.8 + 3 s at 11.1 c · cello 5.4 s at 55.6 c · violin 8 + 1.9 s at 23.6 c · crotale 4.8 + 8.7 s
 straight — every lane's final tone dim. 94.6 → 96.6, every sine out 94.6 → 96.6. NOT CLAIMED: the sound — the engine restarts for the fade-out.
+
+## §126. SW-23 — fifths up from the cello's lowest F: the range check (2026-11-09; a check, nothing built)
+
+**The series:** the cello's lowest F is F2 (41, on the C string); up in fifths: F2 · C3 · G3 · D4 · A4 · E5 (41 · 48 · 55 · 62 · 69 · 76). **Against
+the recipes' sounding ranges** (`sandbox/instruments.js`; the call's instruments):
+| slot | note | his instrument | the instrument's range | verdict |
+|---|---|---|---|---|
+| 1 | F2 (87.3 Hz) | cello | C2 … B5 (36 … 83) | ✓ — its lowest F; a semitone bend = 100 c, fine |
+| 2 | C3 (130.8 Hz) | alto saxophone | D♭3 … A5 (49 … 81) | ✗ — a semitone UNDER the alto's bottom (written B♭3 = sounding D♭3). The BARITONE sax (the call's doubling) has it; so would the bass clarinet, the cello, the piano |
+| 3 | G3 (196 Hz) | clarinet | D3 … F6 (50 … 89) | ✓ — the chalumeau, warm, bends well |
+| 4 | D4 (293.7 Hz) | violin | G3 … E7 (55 … 100) | ✓ — but it is the OPEN D string: an open string cannot be bent; the player takes it on the G string (4th finger) — a note for the part |
+| 5 | A4 (440 Hz) | flute | C4 … C7 (60 … 96) | ✓ — the low register, soft and breathy at f; the sine should sit under it in level |
+| 6 | E5 (659.3 Hz) | crotales | sounding C6 … C8 (the keys 60 … 84 two octaves up) | ✗ — a fifth and more under the lowest crotale. The bowed VIBRAPHONE (F3 … F6) has E5 — live; in the simulation the vibraphone lane's recipe has no bowed-vibraphone voice yet (crot_bowed · mar_fx_bows only — the roster's pending list), so a stand-in would sound it |
+**The AI's recommendation, put to him (the one decision):** keep the series and the order, with two instruments moved to what reaches: **cello
+F2 · BARITONE sax C3 · clarinet G3 · violin D4 (on the G string) · flute A4 · bowed VIBRAPHONE E5** — or, if the alto and the crotales must
+stay, start the fifths a fifth higher (C3 · G3 · D4 · A4 · E5 · B5: the alto on G3, the crotales still short of B5 — the crotales want C6 or
+higher whatever the series). Nothing changed in the saves.
