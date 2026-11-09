@@ -1597,3 +1597,12 @@ samples seeds 1 … 6, the first deck runs seeds 11 … 18, their step files) mo
 mixes and the processed attacks' 20 s runs no longer listed (the latter live on their own sheet). The page now: KEEPERS — the four
 orchestrated mixes · 21 granular beds · the opening's six · the petals' twelve; CANDIDATES — the six 4-minute tuplets · the ten pooled
 sequences · the six petals variations.
+
+## §100. The pool of attacks: 24 → 60; the sequences re-rendered on it (2026-11-09)
+
+His ear: *"it sounds like the same samples are coming back again in all of them … are we using a variety of samples for each instrument?"*
+The answer given: one deck of 24 (six a player) under every seed — the seeds changed the order and the rhythm, not the samples, and in a
+2-minute run each of the 24 returned a dozen times. His word: *"cut the larger pool and then re-render those sequences."* Done:
+`attacks_cut.py --per 15` — 60 attacks, fifteen a player (the 24 set aside in `attacks/_pool24/`); the 21 sequences re-rendered on the
+60 with the same seeds and settings, the page retitled. The processed folders (`attacks/processed/`) still hold the 24 pool's renders —
+the chosen sequences are processed on the 60 when he names them.
