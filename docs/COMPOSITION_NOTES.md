@@ -442,3 +442,26 @@ saxophone, clarinet, violin, flute, and then the crotales. Do those notes all fa
 up, the key E4); one pair each, 101.3 → 110 s: the beating 0 → 6 a second in the same 8.7 s for every part (the cents differ by pitch, the
 rate is one), the instrument p → fff, the sine the same rise with its distance from the instrument kept (capped at fff). The strikes drawer: an
 ordinario set with the strings senza vibrato, and the harmony banks whole — RUNNING_LOG §127 answers.
+
+### SW-25 · 2026-11-09 — THE MULTI-TEMPO SECTION: fluid tempos per part — unison, drift out of phase, hold the drift, accelerate or decelerate to new multi-tempos; with the tuplets and the electronics; built in the composer score, tested from the strikes drawer
+
+*His words (dictated, light corrections):*
+
+> *"Composition note: there'll be a multi-tempo section along with those tuplets, electronics, and I'm going to advance the sort of phase
+> shifting and multi-tempo I used in the tuba piece by making each part's tempos fluid. And instead of creating a whole new thing, let's just
+> build it in the composer score. So what I mean is folks might start at the same tempo — oh, and then I want to introduce tuplets to it too
+> as well, not just single beats — and then they will start at the same tempo, and then they might drift out of phase. There'll be like
+> transition times where they drift out of phase. And then they hold that drift for a number of seconds, that sort of thing. And then they
+> accelerate or decelerate. So drifting out of phase, obviously they'll have to accelerate or decelerate. They hold at that out of phase for a
+> while, and then they drift — they accelerate or decelerate — to new tempos, new multi-tempos. And then they drift out of phase on that
+> multi-tempo, and then hold at a certain drift, and then accelerate, decelerate to a new set of multi-tempos or even unison, those sorts of
+> things. And then I want to be able to test — like, put in pitches easily from the strikes drawer and test how much out of phase I want to
+> get them, quickly, probably, if I can, in the composer score. Things like that. But anyway, just take that note. That'll be like the
+> multi-tempo section."*
+
+*The AI's reading (not his):* the tubas' phase-shifting multi-tempo (piece 3, `for_seven_tubas`) made FLUID — each part's tempo a line in time,
+not a number: unison → a transition (an accelerando or ritardando) that opens a phase drift → a hold at that drift → a transition to a new set
+of tempos (or back to unison) → and on. The pulses may be tuplets, not only single beats. Companions: the tuplet sequences of SW-4 and the
+electronics. The tool is the composer score's own MULTITEMPO panel (`multitempo.js`, carried: one stream per player at a fixed tempo) grown
+to tempo LINES, with the pitches taken from a strikes-drawer take and the drift set and heard quickly. A plan item when he reaches it; the
+tubas' record (`for_seven_tubas`) read first — lineage first.
