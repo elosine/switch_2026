@@ -84,6 +84,11 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 - **MODEL · CLEAR:** his first pass and what he hears — **Fable** (judgment on faults and on the music); a fault's fix that is mechanical — Opus.
   Clear now; `/postclear` resumes at the step above.
 
+- **2026-11-09 — THE MATERIALS DRAWER BUILT (PLAN 1a.8 steps 1 … 4; RUNNING_LOG §108):** `▬ Materials ▾` in the bar — a full-width drawer, a row per
+  material with its waveform (`bank/materials_peaks.json`, by the index tool), click the waveform to hear from there (the file itself, `/fund/`),
+  drag a row onto a lane to place a brick; the brick shows its stretch's waveform; M (mute) and S on Elec 1 … 4. Proven on the throwaway; NOT
+  under his hands (the drag and the sound). **► HIS FIRST PASS, on the twelve-lane page with the drawer: START (or restart) the score server
+  first — `/fund/` is a new route.** The engine's `le_drawer.js` pushed to its repo at this wrap.
 - **2026-11-09 (after the clear) — FOUR ELECTRONICS LANES built and proven on the throwaway (RUNNING_LOG §105, D11):** Elec 1 … 4, half height,
   below the cello; the material bricks live there. His first pass continues on the twelve-lane page (his server must be RESTARTED or the
   page reloaded — the server serves the file as it is; a reload is enough). **In the chat: THE MATERIALS DRAWER** (his wish verbatim, §106 —

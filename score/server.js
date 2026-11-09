@@ -1230,6 +1230,14 @@ const server = http.createServer((req, res) => {
         // [2026-10-03, PLAN 2b-P step 5 — his "can I get the link in chat"] the print stratum, read-only GET: the rendered PDFs
         // (print/score/*.pdf, gitignored) open in his Chrome as http://localhost:5600/print/score/<file>.pdf
         if (url.startsWith('/print/')) { base = path.join(__dirname, '..', 'print'); rel = url.slice('/print'.length); }
+        // [2026-11-09, PLAN 1a.8] THE FUND, read-only GET, with the byte ranges below (the drawer's player seeks): /fund/<file of
+        // bank/materials.json> → the index's root on disk (H:). The root is read from the index at each request — a small file, and
+        // the index is rewritten when the keep folder changes. Nothing outside that root: the startsWith guard below holds here too.
+        if (url.startsWith('/fund/')) {
+            let fr = null; try { fr = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'bank', 'materials.json'), 'utf8')).root; } catch (e) { fr = null; }
+            if (!fr) { res.statusCode = 404; return res.end('no fund index (bank/materials.json)'); }
+            base = path.normalize(String(fr)); rel = decodeURIComponent(url.slice('/fund'.length));
+        }
         // [2026-09-29, his clickable link] the docs stratum, read-only GET — a research page (docs/research/*.html) linked in chat as
         // http://localhost:5600/docs/… opens in his Chrome; a file:// or a claude.ai artifact link opens inside the desktop app instead
         if (url.startsWith('/docs/')) { base = path.join(__dirname, '..', 'docs'); rel = url.slice('/docs'.length); }

@@ -1757,3 +1757,65 @@ easy enough, then yeah, the preview, and then I can advance ahead."*
 in the drawer; (5) click into the preview to start from elsewhere, so a waveform in the drawer too. His own priority: (3) over (4)/(5)
 ("it wouldn't be the worst thing for me to have to drag it in to see the waveform"). The design talk follows in the chat; the decisions
 land here as they are made.
+
+## §107. The drawer talk, continued — nothing of the brick changes; solo AND mute for the electronics lanes (2026-11-09)
+
+**His words:** *"And then there's no change to the other things I asked for, like I can splice, click and edit, and I can, there'll be
+auto fades, but also I can do my own sort of fades or crescendos somehow. And then can we find a different way if, I mean, oh, for the,
+I mean, for the solo button, it would be, ideally I would have solo and mute for those lanes as well."*
+
+**The answer given:** the brick keeps everything §103 built — split at the playhead (SHIFT+N), trims from either edge, the default fades
+(the engine's 30 ms), longer fades by hand in the panel, the level flat · hairpin · a drawn curve A / B / C / the lane's own. The drawer
+only changes how a brick ARRIVES (a drag instead of N + the picker) and adds the waveform. **Found while answering:** the lane SOLO of the
+page gates the NOTES only (`composer.html` ~3992) — the electronics tick (`le_objects.js` tick) never asks it, so soloing a lane today does
+not silence a brick; and there is no per-lane MUTE at all (mute exists per object, `midiMute`). So his wish is a build of its own: S and M
+on each electronics lane, and the electronics tick gating every electronics object by the host's solo set and the new mute set. (The §105
+line "no solo button" on the electronics lanes is reversed by this.)
+
+## §108. THE MATERIALS DRAWER BUILT — PLAN 1a.8 steps 1 … 4, proven on the throwaway (2026-11-09)
+
+**What prompted it.** His word on the plan's top line: *"You can go ahead and plan if you need, and then do the whole build as much as you
+can."* The plan's shape is §106's reading, his picks of the chat (a drop-down from the top · the sound straight from the file · the
+waveform computed once into a side file), and §107's solo-and-mute.
+
+**A correction of §107 (a new entry, never an edit):** §107 said the electronics tick "never asks" the lane solo. It does — `le_objects.js`
+tick has `if (host.isPartAudible && !host.isPartAudible(z.layer)) continue;` since the Decibel piece. What was missing was MUTE alone. The
+build is the smaller one: a mute set on the host, an M button, one line in `isPartAudible`.
+
+**Step 1 — mute.** `composer.html`: `this.mutedParts` beside `soloParts`; an M button on every lane whose track is `elec: true`; `isPartAudible`
+returns false for a muted lane before the solo rule; `updateSoloVisuals` lights the M and dims the lane (`.muteDim`, 0.22). The S stays on the
+electronics lanes (§105's "no solo button" reversed). Not built: mute on the instrument lanes — not asked.
+
+**Step 2 — the peaks.** `tools/materials_index.js`: `wavInfo` now returns the data chunk's offset and length, the bits and the format
+(WAVE_FORMAT_EXTENSIBLE's sub-format read); `wavPeaks` reads the data in 4 MB pieces — PCM 8 / 16 / 24 / 32 and float — the loudest absolute
+sample of every channel per slice, PEAK_BINS = 1200 slices, 0 … 255; written to `bank/materials_peaks.json` keyed by name with the file's
+size and mtime, so a later run re-reads only what changed (`--no-peaks` skips). **Measured:** 57 masters (3.6 GB) in 17.4 s; the file 230 KB;
+the first material's slices min 0 · max 227 · mean 101.
+
+**Step 3 — the drawer.** `electronics/score/le_drawer.js` (new, the engine's — THE SORTING: a fund, an index, a player and a drop are any
+piece's; it knows this piece by nothing but the three URLs and a button id handed in at attach: `peaksUrl` · `fundUrl` · `drawerButton`). A
+mixin on LEObjects after `le_material.js`, wrapping `attach` as the brick does. The drawer: `#leDrawer`, fixed under the bar at `--barH`, 42 vh,
+scrolling, a sticky head (the count and the total length · a filter · the now-playing · ■ · ✕); rows grouped under their kind; a row = name ·
+length · a canvas (the peaks mirrored round the middle; the playhead a 2 px orange line) · ▶ · the note. ONE `Audio` element: a click at
+x on the canvas sets `currentTime = x/width × duration` (after `loadedmetadata` on a new file) and plays; the server's existing byte-range
+branch (the film's, 2026-10-10) makes the seek work. The rows are HTML5-draggable (`text/x-le-material` = the name); the lanes 0 … lanes−1
+take `dragover` / `drop`, the hovered lane outlined in the brick's brown. `composer.html`: the button `#leDrawerBtn` after the bar's gap, the
+script tag, the three options on the attach line. `score/server.js`: `/fund/<rel>` → the index's `root` on H:, read from `bank/materials.json`
+at each request; the existing startsWith guard keeps it inside the root.
+
+**Step 4 — the drop and the brick's waveform.** `le_material.js`: `materialAdd(name, layer, t)` — the key's call is unchanged (active lane,
+playhead), the drop's gives both; `peaksLoad` · `peaksOf` beside `materialLoad`; `materialWave(zone, row)` called from `materialDecorate` at
+every render: the main rect found by its fill color, up to 600 points of the stretch `offset → offset + length` as a fraction of the file,
+a closed path mirrored round the brick's middle, `#4a2f27` at 0.35, inserted right after the rect so the hit areas and the label stay on top.
+
+**Proven ONCE (D13), on the throwaway 5601, by script in the pane:** the button is there · 57 peaks loaded · the drawer opens: 57 rows under
+granular · mix · opening · petals · tuplets · the first canvas 394 × 34 with 7846 inked pixels · `GET /fund/<first file>` with `Range: bytes=0-1023`
+→ 206, `bytes 0-1023/63504102`, audio/wav · the filter "tremolo" leaves 5 rows · `materialAdd(name, 8, 12)` → a brick on Elec 1 at 12 … 42 s with a
+`path.leWave` of 10 020 characters · M on Elec 1 → `isPartAudible(8)` false, lane 0 still true, un-muted true again · the S is on the lane ·
+✕ collapses. palette_check 202 green; the engine's `page_test` PASS. **NOT CLAIMED:** the drag gesture itself and the sound of the preview —
+neither runs from the AI's pane (no hands; no autoplay); his first pass is the proof. **His server must be restarted** for `/fund/` (a route);
+the page reloaded for the rest.
+
+**Rejected:** the preview through the engine (as the panel's "hear 6 s") — it needs the engine up and a message per seek; the file itself
+seeks for free · the waveform computed in the page from the audio (3.6 GB through the browser) · a drawer in the piece's folder (nothing
+in it is this piece's).

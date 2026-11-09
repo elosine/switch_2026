@@ -140,7 +140,13 @@
     /* the electronics lanes: a faint tint of the material brick's brown, a smaller label (half the height) */
     .lane:nth-child(n+9):not(.metaLane):not(.curveLane) { background: rgba(109, 76, 65, 0.035); }
     .lane:nth-child(n+9):not(.metaLane):not(.curveLane) .laneLabel { font-size: 9px; top: 2px; }
-    .lane:nth-child(n+9):not(.metaLane):not(.curveLane) .soloBtn { display: none; }   /* nothing to solo: no instrument on these lanes */
+    /* MUTE (2026-11-09, PLAN 1a.8 step 1, his word "solo and mute for those lanes"): an M beside the S on the electronics lanes; the
+       electronics tick asks isPartAudible, which now says no for a muted lane */
+    .muteBtn { position: absolute; left: 78px; top: 2px; z-index: 3; width: 16px; height: 15px; padding: 0; font-size: 9px; line-height: 13px;
+        border: 1px solid #bbb; background: #fff; color: #999; cursor: pointer; border-radius: 2px; }
+    .muteBtn.on { background: #8c2f2f; border-color: #c05050; color: #fff; }
+    .lane.muteDim svg { opacity: 0.22; }
+    .lane:nth-child(n+9):not(.metaLane):not(.curveLane) .soloBtn, .lane:nth-child(n+9):not(.metaLane):not(.curveLane) .muteBtn { top: 1px; height: 13px; line-height: 11px; }
 
     /* Lane dividers */
     .lane + .lane { border-top: 1px solid #ddd; }
@@ -366,6 +372,7 @@
     <select id="loadSelect" title="everything else: experiments and their named versions - opens a working copy"><option value="">Experiments ▾</option></select>
     <button id="loadBtn" style="display:none">Load</button>
     <span class="barGap"></span>
+    <button id="leDrawerBtn" title="THE MATERIALS DRAWER (PLAN 1a.8): the fund's materials with their waveforms — click a waveform to hear from there; drag a row onto an electronics lane to place a brick; ✕ collapses it">▬ Materials ▾</button>
     <select id="menuInsert" class="barMenu" title="put something in the score: a marker · a zone · a trill (T) · a crescendo (C) · a line wedge · the chosen motive · the chosen stamp → META · the insertion strip · clear all"></select>
     <select id="motiveSelect" title="the motive that Insert ▾ → Place the chosen motive puts at the playhead"><option value="">— motives —</option></select>
     <select id="stampSelect" title="the shape that Insert ▾ → Stamp puts on the META window">
@@ -677,7 +684,8 @@
 <script src="/electronics/le_sine.js"></script>   <!-- PLAN 1.5 · 12.2 · 12.3 (2026-10-06): THE SINE BRICK (S) — the electronics' fourth object, the first the engine MAKES: a sine with a pitch (cents in it), a length, a gliss and a level that may FOLLOW A DRAWN CURVE (A · B · C · a curve on its own lane), sent as /le/sine when the score plays through it. The file is the ENGINE's — a mixin on LEObjects; this page gives it this tag, a key and its curve reader in the attach line -->
 <script src="/electronics/le_performer.js"></script>   <!-- PLAN 1.9 · 17.1 (2026-10-09): THE STRIKE WINDOW (W) — the electronics' sixth object: the ensemble strikes inside it, the engine takes only the onset times (the simulated ear here; the pooled microphones in a concert) and answers after with the rhythm transformed on the banked impulses; its panel; its key -->
 <script src="/electronics/le_strike.js"></script>   <!-- PLAN 1.6 · 14.4 · 14.5 (2026-10-06): THE PERFORMER'S CONTAINER — the electronics' fifth object, the first that DECIDES: a computer player (e1 · e2 · e3) is in a STATE for the length of the brick (far apart · approaching · close pass · break and rejoin · a change between two); one message at its start (/le/performer) and the ENGINE decides sound by sound from what it hears (electronics/sc/performer.scd). THE SIMULATED EAR: while a performer's brick is near, every note on a player's lane is told to the engine as it is about to sound (/le/onset … sim 1). A mixin on LEObjects (the engine's; electronics/score/le_performer.js). No key: the bricks are made by tools/build_three_body.js; the panel edits one. -->
-<script src="/electronics/le_material.js"></script>   <!-- PLAN 1a.7 (2026-11-09): THE MATERIAL BRICK (N) — a stretch of a long, mastered file from the fund (bank/materials.json), streamed by the engine; dragged, trimmed at either edge, split at the playhead (SHIFT+N), faded, its level flat, a hairpin or a drawn curve (electronics/score/le_material.js) -->
+<script src="/electronics/le_material.js"></script>
+<script src="/electronics/le_drawer.js"></script>   <!-- PLAN 1a.8 (2026-11-09): THE MATERIALS DRAWER — the fund as a drawer from the top bar (#leDrawerBtn): every material with its rough waveform (bank/materials_peaks.json), heard straight from its file (/fund/), dragged onto a lane to place a material brick -->   <!-- PLAN 1a.7 (2026-11-09): THE MATERIAL BRICK (N) — a stretch of a long, mastered file from the fund (bank/materials.json), streamed by the engine; dragged, trimmed at either edge, split at the playhead (SHIFT+N), faded, its level flat, a hairpin or a drawn curve (electronics/score/le_material.js) -->
 <script>
 // ============================================
 // INSTRUMENT REGISTRY — Loads instrument_map.json, bridges Layer 2 (musical intent) ↔ Layer 3 (MIDI/sampler)
@@ -1763,9 +1771,18 @@ const Composer = {
             });
         }
 
-        // ---- Per-part solo buttons (composer 2026-08-12) ----
+        // ---- Per-part solo buttons (composer 2026-08-12) — and MUTE on the electronics lanes (2026-11-09, PLAN 1a.8 step 1) ----
         this.soloParts = new Set();
+        this.mutedParts = new Set();
         for (let i = 0; i < META_LAYER; i++) {
+            if (TRACKS[i] && TRACKS[i].elec) {
+                const m = document.createElement('button');
+                m.className = 'muteBtn'; m.textContent = 'M'; m.title = 'Mute this electronics lane (its bricks send nothing)';
+                const layer = i;
+                m.addEventListener('click', (e) => { e.stopPropagation(); if (this.mutedParts.has(layer)) this.mutedParts.delete(layer); else this.mutedParts.add(layer); this.updateSoloVisuals(); });
+                m.addEventListener('mousedown', (e) => e.stopPropagation());
+                this.lanes[i].appendChild(m);
+            }
             const b = document.createElement('button');
             b.className = 'soloBtn';
             b.textContent = 'S';
@@ -3989,6 +4006,7 @@ const Composer = {
     // tickCurvePlayback (sounding notes on un-soloed parts get clean noteOffs
     // via the outside-branch) and tickMotivePlayback.
     isPartAudible(layer) {
+        if (this.mutedParts && this.mutedParts.has(layer)) return false;   // a muted electronics lane (PLAN 1a.8 step 1)
         return !this.soloParts || this.soloParts.size === 0 || this.soloParts.has(layer);
     },
 
@@ -3997,6 +4015,9 @@ const Composer = {
             const btn = this.lanes[i].querySelector('.soloBtn');
             if (btn) btn.classList.toggle('on', this.soloParts.has(i));
             this.lanes[i].classList.toggle('soloDim', this.soloParts.size > 0 && !this.soloParts.has(i));
+            const mb = this.lanes[i].querySelector('.muteBtn'), muted = !!(this.mutedParts && this.mutedParts.has(i));
+            if (mb) mb.classList.toggle('on', muted);
+            this.lanes[i].classList.toggle('muteDim', muted);
         }
     },
 
@@ -18012,7 +18033,7 @@ document.addEventListener('change', (e) => {
 // PLAN 1.1 · 6.3 … 6.5 (2026-10-04): THE ELECTRONICS' BRICKS — this piece's part of it: its keys (M a mic opening · R a return),
 // its player lanes, and how a lane is known to be one of the engine's players (the MIDI port of the lane's instrument, which
 // bank/elec_route.json lists). Before init, so the first drawing of a loaded score already has the bricks' labels.
-if (window.LEObjects) LEObjects.attach(Composer, { keys: { open: 'm', play: 'r', process: 'e', sine: 's', strike: 'w', material: 'n' }, lanes: META_LAYER, indexUrl: '/bank/samples/index.json', materialsUrl: '/bank/materials.json', accel: window.AccelCalc, containers: window.TimeContainers,   // §98: the two calculators the pattern brick may use
+if (window.LEObjects) LEObjects.attach(Composer, { keys: { open: 'm', play: 'r', process: 'e', sine: 's', strike: 'w', material: 'n' }, lanes: META_LAYER, indexUrl: '/bank/samples/index.json', materialsUrl: '/bank/materials.json', peaksUrl: '/bank/materials_peaks.json', fundUrl: '/fund/', drawerButton: 'leDrawerBtn', accel: window.AccelCalc, containers: window.TimeContainers,   // §98: the two calculators the pattern brick may use
     // PLAN 1.5 · 12.3: the sine brick's level from a DRAWN CURVE — the trills' own readers (refCurvesOn · curvesLevelAt), handed in: n heights 0 … 1 over the span, or null where nothing is drawn; ref = A | B | C (the reference curves) or 'lane' (a curve on the brick's own lane)
     curveAt: (ref, z, n) => { const L = ref === 'lane' ? z.layer : CURVE_LAYERS.find(K => CURVE_NAMES[K] === ref); if (L == null) return null; const cs = Composer.refCurvesOn(L, z.startTime, z.endTime); return cs.length ? Array.from({ length: n }, (_, i) => Composer.curvesLevelAt(cs, z.startTime + (z.endTime - z.startTime) * i / (n - 1), 0.5)) : null; },
     portOf: (l) => (Composer.trackInstrument(l) || {}).port, laneLabel: (l) => (TRACKS[l] || {}).short || ('lane ' + l) });

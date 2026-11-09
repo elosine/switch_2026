@@ -194,6 +194,24 @@ electronics part for the FIRST SECTION, the acoustic instruments built around it
   6. **The bounce** (post-production, his word) — an offline render from the save: every brick with its offset, length, fades and level
      curve, summed, mastered (`master_mix.py`) into ONE file for the notation score and the recording. *To be laid out when he reaches it.*
   - held: quad — a stereo simulation of quad in the composer score, the real four channels at the engine; later, his word (SW-2)
+- **1a.8 THE MATERIALS DRAWER — the fund in hand while composing** (2026-11-09, RUNNING_LOG §106 · §107 · §108; his words §106: *"some
+  sort of easy access drawer or panel … full score width … drop down from the top … collapsible … drag the materials onto the lane … some
+  rough waveform … in the drawer preview, I can hear the materials … click to a different part"*) — `done` 2026-11-09, proven on the throwaway;
+  NOT under his hands yet
+  ***Why:*** fifty-seven materials in a picker is a list of names; composing them wants their shapes in view, an ear on each, and a hand
+  that puts one where it goes.
+  1. **Solo and mute on the electronics lanes** (his word §107) — an M beside the S on Elec 1 … 4; `isPartAudible` says no for a muted lane
+     and the electronics tick asks it (it always did for solo — the §107 claim corrected in §108). ☑ 2026-11-09
+  2. **The waveform data** — `tools/materials_index.js` reads each master's samples once (cached by size + mtime) and writes
+     `bank/materials_peaks.json`: 1200 slices a file, the loudest sample of each, 0 … 255. 57 files in 17 s. ☑ 2026-11-09
+  3. **The drawer** — `electronics/score/le_drawer.js` (the ENGINE's: it knows no piece), one tag in the page and a button in the bar
+     (`▬ Materials ▾`): a full-width drawer from under the bar, 42 % of the window, collapsible (✕); a row per material grouped by kind,
+     its waveform on a canvas, a filter; a click on the waveform plays the file FROM THERE, straight from disk through the page's own
+     player (`/fund/<file>`, served with byte ranges by the piece's server — the engine need not be up); ▶ from the start; ■ stops. ☑ 2026-11-09
+  4. **The drop, and the waveform in the brick** — a row dragged onto any lane places a material brick at the drop's time
+     (`materialAdd(name, layer, t)`), selected; every material brick draws the peaks of the stretch it plays inside itself, behind its
+     label, cut to its offset and length, redrawn at every trim. ☑ 2026-11-09
+  - his ear and hand: open — the drag gesture and the preview's sound are not run from the AI's pane (no hands, no autoplay)
 
 *Where the code goes (THE SORTING): the capture, the grab, the stretch and the granulation are the WORKSHOP's tools
 (`live-electronics-engine/corpus/`, for any session); the tremolo and the steered effects are the ENGINE's (`electronics/`, for
