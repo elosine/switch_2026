@@ -5,7 +5,7 @@
 > `COMPOSITION_NOTES.md` verbatim first and get folded into a tier here. Engineering
 > detail stays in `PLAN.md`. Rewritten freely; the sketch pad is the append-only record.
 
-**NOW ►** 2026-11-09 — THE ELECTRONIC SCORE IS IN HIS HANDS NEXT: four electronics lanes (Elec 1 … 4, half height, D11) · THE MATERIALS DRAWER (PLAN 1a.8: `▬ Materials ▾`, waveforms, hear from a click, drag onto a lane, M / S on the lanes) · the material brick (N · SHIFT+N · the panel) · the engine streams it. **► HIS FIRST PASS** — the score server (re)started for `/fund/`, Reaper, the engine (`node tools/startup_check.js`); place a material, play, hear it; faults to SWEEP_LIST. Then the tuplets' keepers by seed, and step 6 the bounce when he reaches it.
+**NOW ►** 2026-11-09 — THE ELECTRONIC SCORE IS IN HIS HANDS NEXT: four electronics lanes (Elec 1 … 4, full height, D11 · §110) · THE MATERIALS DRAWER (PLAN 1a.8: `▬ Materials ▾`, waveforms, hear from a click, drag onto a lane, M / S on the lanes) · the material brick (N · SHIFT+N · the panel) · the engine streams it. **► HIS FIRST PASS** — the score server (re)started for `/fund/`, Reaper, the engine (`node tools/startup_check.js`); place a material, play, hear it; faults to SWEEP_LIST. Then the tuplets' keepers by seed, and step 6 the bounce when he reaches it.
 
 *Before it —* 2026-10-23 — THE START IS DONE: the rack at one level, the score set up for eight parts, the protocol v2.
 

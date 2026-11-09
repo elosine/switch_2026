@@ -5,7 +5,7 @@ starts by a double-click. The AI checks each step before naming the next, and en
 
 | step | what | who | what he should see |
 |---|---|---|---|
-| 1 | **Reaper with THE LAB'S PROJECT** — `reaper\icy_lab.rpp` (one track, ELEC RETURN; no instruments — the lab plays samples inside the engine). The full rack `switch_rack.rpp` is for composing, and has no ELEC RETURN yet | the AI opens it | Reaper up, one track **ELEC RETURN**; nothing plays |
+| 1 | **Reaper with THE LAB'S PROJECT** — `reaper\icy_lab.rpp` (one track, ELEC RETURN; no instruments — the lab plays samples inside the engine). The full rack `switch_rack.rpp` is for composing; its ELEC RETURN (track 25) and the players' sends went in 2026-11-09 (RUNNING_LOG §110) and live in his save | the AI opens it | Reaper up, one track **ELEC RETURN**; nothing plays |
 | 2 | **The engine** — `start_electronics.bat` | HE double-clicks (the AI opens the folder with it selected) | a black window that ends with a line beginning **`LE_READY`** |
 | 3 | **The lab's server** — `start_icy_lab.bat` | HE double-clicks (same folder) | a window saying `icy lab — the page is http://localhost:5620/` |
 | 4 | **The page** — http://localhost:5620/ | the AI gives the link, he opens it in Chrome | the sample box and play |

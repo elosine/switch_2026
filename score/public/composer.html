@@ -106,9 +106,9 @@
     .curveLane .contentGroup circle, .curveLane .contentGroup path.curveHit { pointer-events: auto; }
     .curveLane.points .contentGroup path.curveHit { cursor: inherit !important; }   /* Points on: the pencil, never the bend arrow (composer 2026-09-06) */
     .curveLane .laneLabel { left: auto; right: 8px; pointer-events: none; padding: 1px 5px; border-radius: 2px; background: rgba(247,245,239,0.75); font-size: 10px; }
-    #laneCurveA { top: 50%; height: 10%; border-color: #C2410C; } #laneCurveA .laneLabel { color: #C2410C; }
-    #laneCurveB { top: 60%; height: 10%; border-color: #1D6FA5; } #laneCurveB .laneLabel { color: #1D6FA5; }
-    #laneCurveC { top: 70%; height: 10%; border-color: #6D3B9E; } #laneCurveC .laneLabel { color: #6D3B9E; }
+    #laneCurveA { top: 41.6667%; height: 8.3333%; border-color: #C2410C; } #laneCurveA .laneLabel { color: #C2410C; }
+    #laneCurveB { top: 50%; height: 8.3333%; border-color: #1D6FA5; } #laneCurveB .laneLabel { color: #1D6FA5; }
+    #laneCurveC { top: 58.3333%; height: 8.3333%; border-color: #6D3B9E; } #laneCurveC .laneLabel { color: #6D3B9E; }
     #recBtn.armed { background: #8c2f2f; border-color: #c05050; color: #fff; }
     #recLaneSel, #recTechSel { width: 90px !important; }
     /* Per-part solo (composer 2026-08-12): S in each lane; ALT+click = exclusive */
@@ -121,32 +121,30 @@
     .soloBtn.on { background: #f9a825; border-color: #f57f17; color: #fff; }
     .lane.soloDim svg { opacity: 0.3; }
     body.altdown circle.nodeH { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"><rect x="2" y="7" width="12" height="7" rx="2" fill="%23f48fb1" stroke="%23333"/><rect x="2" y="7" width="5" height="7" rx="2" fill="%23b0bec5" stroke="%23333"/></svg>') 9 9, not-allowed !important; }
-    /* TWELVE lanes (2026-11-09, D11): EIGHT instrument lanes — seven players, the percussionist on two (Percussion + Vibraphone, D7),
-       score order — at 10 % each, then FOUR ELECTRONICS LANES at HALF HEIGHT (5 %) below the cello, his word. The META draw window
-       has its own rule. ONE RULE PER LANE: tools/palette_check.js § 7 holds the count against TRACKS and that the lanes tile to 100 %
-       (in piece 5 a lane without its rule fell on top of lane 1). */
-    .lane:nth-child(1)  { top: 0% ; height: 10%; }
-    .lane:nth-child(2)  { top: 10%; height: 10%; }
-    .lane:nth-child(3)  { top: 20%; height: 10%; }
-    .lane:nth-child(4)  { top: 30%; height: 10%; }
-    .lane:nth-child(5)  { top: 40%; height: 10%; }
-    .lane:nth-child(6)  { top: 50%; height: 10%; }
-    .lane:nth-child(7)  { top: 60%; height: 10%; }
-    .lane:nth-child(8)  { top: 70%; height: 10%; }
-    .lane:nth-child(9)  { top: 80%; height: 5%; }
-    .lane:nth-child(10) { top: 85%; height: 5%; }
-    .lane:nth-child(11) { top: 90%; height: 5%; }
-    .lane:nth-child(12) { top: 95%; height: 5%; }
-    /* the electronics lanes: a faint tint of the material brick's brown, a smaller label (half the height) */
+    /* TWELVE EQUAL lanes (2026-11-09, D11; his revision the same day, §110 — "make the electronics full height"): EIGHT instrument
+       lanes — seven players, the percussionist on two (Percussion + Vibraphone, D7), score order — then FOUR ELECTRONICS LANES below
+       the cello, every lane 100/12 %. The META draw window has its own rule. ONE RULE PER LANE: tools/palette_check.js § 7 holds the
+       count against TRACKS and that the lanes tile to 100 % (in piece 5 a lane without its rule fell on top of lane 1). */
+    .lane:nth-child(1)  { top: 0%; height: 8.3333%; }
+    .lane:nth-child(2)  { top: 8.3333%; height: 8.3333%; }
+    .lane:nth-child(3)  { top: 16.6667%; height: 8.3333%; }
+    .lane:nth-child(4)  { top: 25%; height: 8.3333%; }
+    .lane:nth-child(5)  { top: 33.3333%; height: 8.3333%; }
+    .lane:nth-child(6)  { top: 41.6667%; height: 8.3333%; }
+    .lane:nth-child(7)  { top: 50%; height: 8.3333%; }
+    .lane:nth-child(8)  { top: 58.3333%; height: 8.3333%; }
+    .lane:nth-child(9)  { top: 66.6667%; height: 8.3333%; }
+    .lane:nth-child(10) { top: 75%; height: 8.3333%; }
+    .lane:nth-child(11) { top: 83.3333%; height: 8.3333%; }
+    .lane:nth-child(12) { top: 91.6667%; height: 8.3333%; }
+    /* the electronics lanes: a faint tint of the material brick's brown */
     .lane:nth-child(n+9):not(.metaLane):not(.curveLane) { background: rgba(109, 76, 65, 0.035); }
-    .lane:nth-child(n+9):not(.metaLane):not(.curveLane) .laneLabel { font-size: 9px; top: 2px; }
     /* MUTE (2026-11-09, PLAN 1a.8 step 1, his word "solo and mute for those lanes"): an M beside the S on the electronics lanes; the
        electronics tick asks isPartAudible, which now says no for a muted lane */
     .muteBtn { position: absolute; left: 78px; top: 2px; z-index: 3; width: 16px; height: 15px; padding: 0; font-size: 9px; line-height: 13px;
         border: 1px solid #bbb; background: #fff; color: #999; cursor: pointer; border-radius: 2px; }
     .muteBtn.on { background: #8c2f2f; border-color: #c05050; color: #fff; }
     .lane.muteDim svg { opacity: 0.22; }
-    .lane:nth-child(n+9):not(.metaLane):not(.curveLane) .soloBtn, .lane:nth-child(n+9):not(.metaLane):not(.curveLane) .muteBtn { top: 1px; height: 13px; line-height: 11px; }
 
     /* Lane dividers */
     .lane + .lane { border-top: 1px solid #ddd; }
@@ -545,7 +543,7 @@
         <span class="laneLabel" title="Cello">Cello</span>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
-    <!-- FOUR ELECTRONICS LANES at half height (2026-11-09, D11): the material bricks (N) of the fund live here, layered across
+    <!-- FOUR ELECTRONICS LANES (2026-11-09, D11; full height since §110): the material bricks (N) of the fund live here, layered across
          the four; no instrument, no port — a note placed here sounds nothing. -->
     <div class="lane" id="lane9">
         <span class="laneLabel" title="Electronics 1 — a material lane (the fund's bricks, key N); no instrument">Elec 1</span>

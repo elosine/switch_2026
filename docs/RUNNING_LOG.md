@@ -1841,3 +1841,29 @@ listener stays (it is the better design either way).
 layer 9 at 3.4 s = `clientXToTime` of the cursor, the dragged material's name, its waveform drawn, selected · the outline and the flag
 cleared · a drop on the drawer itself places nothing. `page_test` PASS. **NOT CLAIMED:** his real gesture (a synthetic DragEvent is the pane's
 nearest thing to it). **For the record (SWEEP_LIST):** the class of fault — code that touches the host's DOM at attach must wait for init.
+
+## §110. "I don't hear it when I play the score" — the rack had no ELEC RETURN; and the electronics lanes go full height (2026-11-09)
+
+**His words:** *"I don't hear it when I play the score. And can we revise, let's just make the electronics full height, please, lanes."*
+
+**The lanes first (a decision):** twelve EQUAL lanes of 100/12 % (8.3333 %), the curve windows over piano · violin · cello at the same height
+(`composer.html`'s CSS alone; the half-height label and button rules dropped; the brown tint stays). palette_check 202 green — § 7 holds the
+tiling. D11 amended with a dated line, his words kept. *(A slip on the way: the rules were written `nth-child(1 )` with a space, which § 7's
+regex does not read — 3 rules found of 12, RED; unpadded, GREEN.)*
+
+**The silence — what was suspected first:** the drawer and the brick (the newest code). Ruled out by one fact from the docs: `docs/STARTUP.md`
+row 1 and `docs/NITS.md` (2026-11-07) both say **the full rack `switch_rack.rpp` has NO `ELEC RETURN` track** — only the lab's one-track project
+has it. The engine's master comes back into Reaper on ReaRoute 1 / 2; with no track listening, nothing sounds, whatever the score sends.
+`node tools/elec.js probe` (look only) confirmed: `return ELEC RETURN · not in the rack`, and named the cure in its own MISSING list.
+
+**What was run:** `node tools/elec.js route` — through the bridge, into his OPEN Reaper: the sends (flute → ReaRoute 1, clarinet → 2, sax → 4,
+the twelve percussion tracks → 5, violin → 7, cello → 8) and **the track ELEC RETURN at 25** (input ReaRoute 1 stereo, monitor on, 0 dB). ONE
+undo point, "Electronics route". **The rack is changed and NOT saved — his CTRL+S.** The probe after: the return is there; the MISSING line
+still prints because of the piano (below).
+
+**Two things seen on the way, to NITS, not fixed (D13):** the route table's piano track is named `Piano` and the rack has no such track
+(`NO TRACK named Piano`) · the percussion tracks still carry OLD sends to ReaRoute 4 (the sax's input) beside the new ones to 5. Neither
+touches the materials.
+
+**NOT CLAIMED:** the sound under his hands — his save, F5, play is the proof. If it is still silent after that, the engine window is the next
+read (an engine started before `material.scd` existed knows no `/le/material`): its startup lines say `LE_MATERIALS` or not.

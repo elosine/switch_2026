@@ -179,7 +179,7 @@ electronics part for the FIRST SECTION, the acoustic instruments built around it
   1. **The fund into the engine's reach, and into the page** — `bank/materials.json` (`tools/materials_index.js`: every master of `keep/`,
      name · file · seconds · channels · note); the engine told at start (`LE_MATERIALS`); the page's picker reads the same file. A brick may
      sit on ANY lane; layers = bricks overlapping, on one lane or across lanes. ☑ 2026-11-09 (§103) — **REVISED the same day (§105, D11): FOUR
-     ELECTRONICS LANES of their own, half height, below the cello (Elec 1 … 4); the bricks live there, layered across the four.**
+     ELECTRONICS LANES of their own below the cello (Elec 1 … 4; half height at first, FULL height the same day, §110); the bricks live there, layered across the four.**
   2. **The brick** — `elecMaterial` (`electronics/score/le_material.js`, a mixin; the key N): an OFFSET into the file and a LENGTH; dragged;
      the LEFT edge trims and the offset follows (the sound stays where it was), the RIGHT edge trims the length; never past the file's end;
      SHIFT+N splits the selected brick at the playhead, the second carrying the offset on. ☑ 2026-11-09 (§103)

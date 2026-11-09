@@ -119,3 +119,14 @@
 - **The full rack `reaper/switch_rack.rpp` has NO `ELEC RETURN` track** — 6.1's route (`node tools/elec.js route`, then his re-save) was
   never applied in this piece. The lab uses its own one-track project (`reaper/icy_lab.rpp`); the route is applied to the rack the day
   the composer score first sends to the engine.
+
+### From his first pass in the composer score (2026-11-09, RUNNING_LOG §110)
+
+- **CLOSED — the full rack's ELEC RETURN** (the line above, 2026-11-07): `node tools/elec.js route` run 2026-11-09 — the sends and ELEC RETURN
+  at track 25; in his save once he presses CTRL+S.
+- **`bank/elec_route.json` names the piano's track `Piano`; the rack has no track of that name** (`route` said `NO TRACK named Piano`), so the
+  piano has no send into the engine. Harmless until a mic opening sits on the piano lane. The fix is the track's real name in the table, then
+  `route` again.
+- **The twelve percussion tracks carry OLD sends to ReaRoute 4** (from before the table moved the percussionist to engineIn 5) beside the new
+  ones to ReaRoute 5 — so the percussion also enters the engine on the SAX's input (engineIn 4). Harmless until a mic opening sits on the sax
+  lane. The fix is `unroute` of the stale sends by hand in Reaper, or a tool that removes sends not in the table.

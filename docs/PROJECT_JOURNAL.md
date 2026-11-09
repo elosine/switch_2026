@@ -84,6 +84,10 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 - **MODEL · CLEAR:** his first pass and what he hears — **Fable** (judgment on faults and on the music); a fault's fix that is mechanical — Opus.
   Clear now; `/postclear` resumes at the step above.
 
+- **2026-11-09 — HIS FIRST PASS, two faults and a revision (RUNNING_LOG §109 · §110):** the drawer's drop fixed (§109) · the electronics lanes
+  FULL height at his word (twelve equal lanes) · **"I don't hear it": the full rack had no ELEC RETURN track** (the NITS line of 2026-11-07) —
+  `node tools/elec.js route` run by the AI: the sends and ELEC RETURN at track 25 are in his open Reaper, **UNSAVED until his CTRL+S**. NITS:
+  the route table's piano track name; the old ReaRoute 4 sends. **► He saves the rack, F5, plays.**
 - **2026-11-09 — THE MATERIALS DRAWER BUILT (PLAN 1a.8 steps 1 … 4; RUNNING_LOG §108):** `▬ Materials ▾` in the bar — a full-width drawer, a row per
   material with its waveform (`bank/materials_peaks.json`, by the index tool), click the waveform to hear from there (the file itself, `/fund/`),
   drag a row onto a lane to place a brick; the brick shows its stretch's waveform; M (mute) and S on Elec 1 … 4. Proven on the throwaway; NOT
@@ -323,7 +327,8 @@ in his numbering of 2026-10-11; kept as the source files have them.)*
   *"Okay, let's do 4 lanes, but they can be half lane height. And then yes, below the cello."* Why D8 does not carry: this piece's
   materials are a fund from an outside set, not a player's own input — a brick has no player to sit with. TRACKS 12 (`elec1 … elec4`,
   `elec: true`, no recipe, no port), `PLAYER_LANES` 8, META 12, the curve windows 13 / 14 / 15, `layoutVersion` 10 (a v9 save migrates).
-  *(RUNNING_LOG §105)*
+  *(RUNNING_LOG §105)* **Revised the same day, his word (§110):** *"let's just make the electronics full height, please, lanes"* — twelve equal
+  lanes of 100/12 %; the curve windows over piano · violin · cello follow.
 
 ---
 
