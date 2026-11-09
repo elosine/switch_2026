@@ -84,6 +84,11 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 - **MODEL · CLEAR:** his first pass and what he hears — **Fable** (judgment on faults and on the music); a fault's fix that is mechanical — Opus.
   Clear now; `/postclear` resumes at the step above.
 
+- **2026-11-09 (after the clear) — FOUR ELECTRONICS LANES built and proven on the throwaway (RUNNING_LOG §105, D11):** Elec 1 … 4, half height,
+  below the cello; the material bricks live there. His first pass continues on the twelve-lane page (his server must be RESTARTED or the
+  page reloaded — the server serves the file as it is; a reload is enough). **In the chat: THE MATERIALS DRAWER** (his wish verbatim, §106 —
+  a full-width drawer from the top, collapsible; drag a material onto a lane; a rough waveform on the brick; a preview in the drawer).
+  **MODEL:** the design talk — Fable; its build — Opus once the shape is settled.
 - **2026-11-09 — THE ELECTRONIC SCORE BUILT (PLAN 1a.7 steps 1 … 5; RUNNING_LOG §103, the engine's §74):** the fund (`H:\switch_2026udio  set-2025-04-08c\keep\`, 47 materials) indexed in `bank/materials.json` (`node tools/materials_index.js` after the keep folder changes); the
   material brick in the composer score (key `N` at the playhead on the active lane · SHIFT+N splits the selected one · the panel: material,
   from, length, fades, trim, level flat / hairpin / curve A B C lane · ▶ hear 6 s); the engine streams a brick's stretch from disk
@@ -309,6 +314,11 @@ in his numbering of 2026-10-11; kept as the source files have them.)*
   33 sites in 12 modules, all reading TRACKS; the three lane-number fallbacks set). A helper would change no behaviour — his rule, no
   work not asked for. The protocol's 3.10 is answered by a deviation line, not by code. *(RUNNING_LOG §7)*
 - **D10 · 2026-10-20 — THE PERCUSSION: TWO LANES, THE PITCHED LANE OPEN TO ANY PITCHED INSTRUMENT; the instruments not chosen.** His words: *"I haven't decided what percussion instruments I use. So let's have a pitched lane and a non-pitched lane. And … the pitch lane could have any of the pitch instruments, like marimba, vibraphone, Glock, or crotales."* So: the Percussion lane (unpitched) and the pitched lane stand as copied (D7 confirmed); the pitched lane's ROSTER is every pitched instrument he owns — piece 6's Ricotti four (crotales · glockenspiel · xylophone · marimba, carried) plus piece 5's Xsample vibraphone (on his disk, measured there) — the way piece 6 put all four Ricotti on one lane (its DEC-5); WHICH the piece uses is the music's, later. The libraries: 1a — the clarinet and the alto sax on SI2. *The call's percussion list names the vibraphone and the glockenspiel only; marimba, xylophone and crotales are not on it ("anything large not listed may not be available") — told him, his to weigh when he chooses.* *(RUNNING_LOG §12)*
+- **D11 · 2026-11-09 — FOUR ELECTRONICS LANES, HALF HEIGHT, BELOW THE CELLO (piece 6's D8 reversed for this piece).** His words:
+  *"Okay, let's do 4 lanes, but they can be half lane height. And then yes, below the cello."* Why D8 does not carry: this piece's
+  materials are a fund from an outside set, not a player's own input — a brick has no player to sit with. TRACKS 12 (`elec1 … elec4`,
+  `elec: true`, no recipe, no port), `PLAYER_LANES` 8, META 12, the curve windows 13 / 14 / 15, `layoutVersion` 10 (a v9 save migrates).
+  *(RUNNING_LOG §105)*
 
 ---
 

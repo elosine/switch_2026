@@ -1698,3 +1698,62 @@ slow random walk (a step every half second, smoothed over 6 s — about ±120° 
 from sin, the back a shade quieter and narrower); every mix writes its parts' angles once a second to `<name>.json` beside it — the numbers a
 quad panner reads later. Equal gain, mastered, as before. (The first run smoothed at the sample rate — a ten-minute convolution that would have
 taken hours; the walk is made at 20 points a second and interpolated.)
+
+## §105. FOUR ELECTRONICS LANES, half height, below the cello — piece 6's D8 reversed for this piece (2026-11-09, D11)
+
+**What prompted it.** His first pass in the composer score, after the clear: *"Where is the electronics lane?"* Told there is none (the brick
+goes on any lane, §103's inherited line), he asked for the lineage: *"Let's look at the most recent, the decibel score. How did we handle
+electronics there? Or have we not talked about how to manage electronics in the composer score?"*
+
+**What the lineage says.** Piece 6's D8 (2026-10-04, his words DEC-4): *"I don't think there needs to be an electronics lane. We can just
+incorporate the electronics per instrument lane because they'll always be based … on the performer's own input."* Every electronic sound sat
+on the lane of the player whose input made it, with a sign of origin; the AI's proposed electronics lane was rejected. This piece inherited
+that at §103 without a conversation (*"a brick may sit on ANY lane … no new lanes"*).
+
+**Why it does not carry.** This piece's materials are a fund from an OUTSIDE set (Sound Lab 2025-04-08c: piano · baritone guitar · archtop ·
+drums), not a player's input. A brick belongs to no flute and no cello; the sign-of-origin reasoning that made D8 right has nothing to point
+at. Put to him with one recommendation (one or two lanes of their own, below the cello).
+
+**His decision:** *"Okay, let's do 4 lanes, but they can be half lane height. And then yes, below the cello."* — D11.
+
+**The build (one script, 25 edits in 7 files, every anchor checked first):**
+- `TRACKS` 8 → 12: `elec1 … elec4` (labels Elec 1 … 4, short E1 … E4, `instKey: 'electronics'`, `elec: true`) APPENDED after the cello, so no
+  player's lane index moved. `PLAYER_LANES` (8) beside it — the count the compiler's parts and the multitempo's streams now use, never
+  the electronics lanes. No recipe, no port: `INSTRUMENTS['electronics']` is undefined and every lookup in the page already guards.
+- META 8 → 12; the curve windows A / B / C 9 / 10 / 11 → 13 / 14 / 15 (`CURVE_LAYERS` · `CURVE_NAMES` · `CURVE_COLORS`); `layoutVersion` 9 → 10;
+  `restoreData` migrates a v9 save by one uniform shift of every layer >= 8 by four (the two v9 saves on disk have no META object; the
+  rule is written anyway).
+- The CSS: twelve `.lane:nth-child` rules — the players at 10 %, the four electronics lanes at 5 % (80 · 85 · 90 · 95); the curve windows
+  at 50 / 60 / 70 %, 10 % high, still exactly over piano · violin · cello; the electronics lanes tinted the brick's brown at 3.5 %, a 9 px
+  label, no solo button. Four `<div class="lane">` after the cello's.
+- `tools/palette_check.js`: §§ 1 … 6 run over the PLAYERS (`t.elec` filtered out — no recipe is owed to an electronics lane); § 7 counts
+  every lane and that they tile to 100 %. **GREEN, 202.**
+- `compiler.js`: `partsDefault` = PLAYER_LANES; its META read (`o.layer === partsDefault()`) split off to `metaLayer()` = META_LAYER — the one
+  place that used the part count as the META index. `multitempo.js`: LANES = PLAYER_LANES.
+- The docs: NAMING § 1 the lanes row · CLAUDE.md § Apps · PLAN 1a.7 step 1 amended.
+
+**Proven once (D13), on the throwaway 5601:** the page boots; 12 lanes, labels Flute … Cello, Elec 1 … 4; tops 0 … 70 by 10, then 80 · 85 · 90 ·
+95; heights 10 ×8, 5 ×4; the curve windows' tops 50 / 60 / 70 %; META_LAYER 12, PLAYER_LANES 8, CURVE_LAYERS 13,14,15; `Composer.lanes` 16, every
+element found. Console: two 404s for `bank/strike_responses.json` — an optional file, there before this change. NOT CLAIMED: a brick placed on
+Elec 1 under his hands with the engine up (that is his first pass).
+
+**Rejected:** a separate electronics lane list beside TRACKS (would break the invariant META_LAYER === TRACKS.length that a dozen modules
+read at call time) · a stub recipe `electronics` in `sandbox/instruments.js` to satisfy palette_check § 1 (a port that does not exist, a
+range that means nothing — the check was taught the truth instead).
+
+## §106. THE MATERIALS DRAWER — his wish, verbatim, before the design talk (2026-11-09)
+
+**His words, whole:** *"And then let's discuss the materials. I would like to have some sort of easy access drawer or panel, maybe a drop
+down or something from above, maybe, or let's discuss. You give me some options too. Initially, I think it might be best if it's a full,
+full score width or screen width, drop down from the top, and then, collapsible, so I can collapse it with a click. And then I'd like to
+be able to drag the materials onto the lane. And then actually, I would like to see some rough waveform, if I could, for each of the
+materials I drag in. So let's start there. Oh yeah, and then in the drawer preview, I can hear the materials, and I can actually both
+preview and click to a different part of the preview. So maybe they have their waveforms there as well, I guess. Well, whatever's
+feasible and not too onerous will be fine. It wouldn't be the worst thing for me to have to drag it in to see the waveform. But if it's
+easy enough, then yeah, the preview, and then I can advance ahead."*
+
+**The AI's reading (marked as such):** five wishes, in his order of weight — (1) a full-width drawer from the top, collapsible with a click;
+(2) drag a material from it onto a lane (today: key N, then the panel's picker); (3) a rough waveform ON THE BRICK; (4) hear a material
+in the drawer; (5) click into the preview to start from elsewhere, so a waveform in the drawer too. His own priority: (3) over (4)/(5)
+("it wouldn't be the worst thing for me to have to drag it in to see the waveform"). The design talk follows in the chat; the decisions
+land here as they are made.

@@ -106,9 +106,9 @@
     .curveLane .contentGroup circle, .curveLane .contentGroup path.curveHit { pointer-events: auto; }
     .curveLane.points .contentGroup path.curveHit { cursor: inherit !important; }   /* Points on: the pencil, never the bend arrow (composer 2026-09-06) */
     .curveLane .laneLabel { left: auto; right: 8px; pointer-events: none; padding: 1px 5px; border-radius: 2px; background: rgba(247,245,239,0.75); font-size: 10px; }
-    #laneCurveA { top: 62.5%; height: 12.5%; border-color: #C2410C; } #laneCurveA .laneLabel { color: #C2410C; }
-    #laneCurveB { top: 75%;   height: 12.5%; border-color: #1D6FA5; } #laneCurveB .laneLabel { color: #1D6FA5; }
-    #laneCurveC { top: 87.5%; height: 12.5%; border-color: #6D3B9E; } #laneCurveC .laneLabel { color: #6D3B9E; }
+    #laneCurveA { top: 50%; height: 10%; border-color: #C2410C; } #laneCurveA .laneLabel { color: #C2410C; }
+    #laneCurveB { top: 60%; height: 10%; border-color: #1D6FA5; } #laneCurveB .laneLabel { color: #1D6FA5; }
+    #laneCurveC { top: 70%; height: 10%; border-color: #6D3B9E; } #laneCurveC .laneLabel { color: #6D3B9E; }
     #recBtn.armed { background: #8c2f2f; border-color: #c05050; color: #fff; }
     #recLaneSel, #recTechSel { width: 90px !important; }
     /* Per-part solo (composer 2026-08-12): S in each lane; ALT+click = exclusive */
@@ -121,17 +121,26 @@
     .soloBtn.on { background: #f9a825; border-color: #f57f17; color: #fff; }
     .lane.soloDim svg { opacity: 0.3; }
     body.altdown circle.nodeH { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"><rect x="2" y="7" width="12" height="7" rx="2" fill="%23f48fb1" stroke="%23333"/><rect x="2" y="7" width="5" height="7" rx="2" fill="%23b0bec5" stroke="%23333"/></svg>') 9 9, not-allowed !important; }
-    /* EIGHT instrument lanes — seven players, the percussionist on two (Percussion + Vibraphone, D7); score order.
-       The META draw window has its own rule. ONE RULE PER LANE: tools/palette_check.js § 7 holds the count against TRACKS
+    /* TWELVE lanes (2026-11-09, D11): EIGHT instrument lanes — seven players, the percussionist on two (Percussion + Vibraphone, D7),
+       score order — at 10 % each, then FOUR ELECTRONICS LANES at HALF HEIGHT (5 %) below the cello, his word. The META draw window
+       has its own rule. ONE RULE PER LANE: tools/palette_check.js § 7 holds the count against TRACKS and that the lanes tile to 100 %
        (in piece 5 a lane without its rule fell on top of lane 1). */
-    .lane:nth-child(1) { top: 0%   ; height: 12.5%; }
-    .lane:nth-child(2) { top: 12.5%; height: 12.5%; }
-    .lane:nth-child(3) { top: 25%  ; height: 12.5%; }
-    .lane:nth-child(4) { top: 37.5%; height: 12.5%; }
-    .lane:nth-child(5) { top: 50%  ; height: 12.5%; }
-    .lane:nth-child(6) { top: 62.5%; height: 12.5%; }
-    .lane:nth-child(7) { top: 75%  ; height: 12.5%; }
-    .lane:nth-child(8) { top: 87.5%; height: 12.5%; }
+    .lane:nth-child(1)  { top: 0% ; height: 10%; }
+    .lane:nth-child(2)  { top: 10%; height: 10%; }
+    .lane:nth-child(3)  { top: 20%; height: 10%; }
+    .lane:nth-child(4)  { top: 30%; height: 10%; }
+    .lane:nth-child(5)  { top: 40%; height: 10%; }
+    .lane:nth-child(6)  { top: 50%; height: 10%; }
+    .lane:nth-child(7)  { top: 60%; height: 10%; }
+    .lane:nth-child(8)  { top: 70%; height: 10%; }
+    .lane:nth-child(9)  { top: 80%; height: 5%; }
+    .lane:nth-child(10) { top: 85%; height: 5%; }
+    .lane:nth-child(11) { top: 90%; height: 5%; }
+    .lane:nth-child(12) { top: 95%; height: 5%; }
+    /* the electronics lanes: a faint tint of the material brick's brown, a smaller label (half the height) */
+    .lane:nth-child(n+9):not(.metaLane):not(.curveLane) { background: rgba(109, 76, 65, 0.035); }
+    .lane:nth-child(n+9):not(.metaLane):not(.curveLane) .laneLabel { font-size: 9px; top: 2px; }
+    .lane:nth-child(n+9):not(.metaLane):not(.curveLane) .soloBtn { display: none; }   /* nothing to solo: no instrument on these lanes */
 
     /* Lane dividers */
     .lane + .lane { border-top: 1px solid #ddd; }
@@ -493,8 +502,8 @@
 
 <!-- Lane Container -->
 <div id="laneContainer">
-    <!-- 8 composing tracks: the Switch~ ensemble in score order, top -> bottom (TRACKS below) — seven players, the
-         percussionist on two lanes (D7, 2026-10-20; piece 6's shape).
+    <!-- 12 composing tracks: the Switch~ ensemble in score order, top -> bottom (TRACKS below) — seven players, the
+         percussionist on two lanes (D7, 2026-10-20; piece 6's shape) — then FOUR ELECTRONICS LANES at half height (D11, 2026-11-09).
          THIS BLOCK AND `TRACKS` MUST STAY THE SAME LENGTH — init() maps lane1..laneN off TRACKS, and a missing element
          stops the whole app booting; the lane CSS needs ONE RULE PER LANE too (tools/palette_check.js § 7 holds both). -->
     <div class="lane" id="lane1">
@@ -527,6 +536,24 @@
     </div>
     <div class="lane" id="lane8">
         <span class="laneLabel" title="Cello">Cello</span>
+        <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
+    </div>
+    <!-- FOUR ELECTRONICS LANES at half height (2026-11-09, D11): the material bricks (N) of the fund live here, layered across
+         the four; no instrument, no port — a note placed here sounds nothing. -->
+    <div class="lane" id="lane9">
+        <span class="laneLabel" title="Electronics 1 — a material lane (the fund's bricks, key N); no instrument">Elec 1</span>
+        <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
+    </div>
+    <div class="lane" id="lane10">
+        <span class="laneLabel" title="Electronics 2 — a material lane">Elec 2</span>
+        <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
+    </div>
+    <div class="lane" id="lane11">
+        <span class="laneLabel" title="Electronics 3 — a material lane">Elec 3</span>
+        <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
+    </div>
+    <div class="lane" id="lane12">
+        <span class="laneLabel" title="Electronics 4 — a material lane">Elec 4</span>
         <svg xmlns="http://www.w3.org/2000/svg"><g class="tickGroup"></g><g class="contentGroup"></g></svg>
     </div>
     <div class="lane metaLane" id="laneMeta">
@@ -1447,7 +1474,10 @@ function expandCellRef(cellDef, startMs, durationMs, behaviorOverrides) {
 // piano · strings. `instKey` names the recipe in sandbox/instruments.js; `short` is the stage-picture label.
 // The percussionist has TWO lanes (piece 6's shape, D7): the unpitched instruments, and the vibraphone.
 // THE PIANO IS A ROLE (the profile's roles line): every piano-role module finds its lane by instKey === 'piano'.
-// NO LANE FOR THE ELECTRONICS (piece 6's D8): every electronic sound is drawn on the lane of the player it comes from.
+// THE ELECTRONICS HAVE LANES HERE (2026-11-09, D11 — piece 6's D8 reversed for THIS piece): its materials are a fund from an outside
+// set, not a player's own input, so they get FOUR lanes of their own below the cello, half height, flagged `elec: true`. They have no
+// instrument and no port; INSTRUMENTS[t.instKey] is undefined for them and every lookup guards. The eight PLAYER lanes come first,
+// so no player's lane index moved; META and the curve windows moved down by four.
 const TRACKS = [
     { id: 'flute',      label: 'Flute',      short: 'Fl',   instKey: 'flute' },
     { id: 'clarinet',   label: 'Clarinet',   short: 'Cl',   instKey: 'clarinet' },
@@ -1460,26 +1490,34 @@ const TRACKS = [
     { id: 'piano',      label: 'Piano',      short: 'Pno',  instKey: 'piano' },
     { id: 'violin',     label: 'Violin',     short: 'Vn',   instKey: 'violin' },
     { id: 'cello',      label: 'Cello',      short: 'Vc',   instKey: 'cello' },
+    { id: 'elec1', label: 'Elec 1', short: 'E1', instKey: 'electronics', elec: true },   // D11: a material lane — no recipe, no port
+    { id: 'elec2', label: 'Elec 2', short: 'E2', instKey: 'electronics', elec: true },
+    { id: 'elec3', label: 'Elec 3', short: 'E3', instKey: 'electronics', elec: true },
+    { id: 'elec4', label: 'Elec 4', short: 'E4', instKey: 'electronics', elec: true },
 ];
+// The PLAYER lanes — the first PLAYER_LANES tracks; the tools that deal notes to "every player" (the compiler's part count, the
+// multitempo's streams) count these, never the electronics lanes.
+const PLAYER_LANES = TRACKS.filter(t => !t.elec).length;   // 8
 
 // META drawing layer index (the floating draw window = lanes[META_LAYER]).
-// SWITCH layout (layoutVersion 9, 2026-10-20): EIGHT instrument lanes, so META = 8 and the curve windows are 9 / 10 / 11.
+// SWITCH layout (layoutVersion 10, 2026-11-09, D11): EIGHT instrument lanes + FOUR electronics lanes, so META = 12 and the curve
+// windows are 13 / 14 / 15. v9 (2026-10-20) had the eight alone: META 8, curves 9 / 10 / 11.
 // Piece 6 (v8) had six lanes, META = 6, curves 7 / 8 / 9; piece 5 (v7) eight, META 8; its v6 seven; piece 3 META = 10 (v2).
-const META_LAYER = 8;
+const META_LAYER = 12;
 // The META window (8) is the gestures' shapes and the stamps — not the curve path (CN-23). The three CURVE windows
-// A / B / C are layers 9 / 10 / 11 and float exactly over the last three lanes — Piano, Violin and Cello
-// (CN-24, TRILLS_TOOL §3b). Contract (NAMING §2.2): layers >= tracks.length are the META side — 8 META, 9–11 the
+// A / B / C are layers 13 / 14 / 15 and float exactly over the last three PLAYER lanes — Piano, Violin and Cello
+// (CN-24, TRILLS_TOOL §3b). Contract (NAMING §2.2): layers >= tracks.length are the META side — 12 META, 13–15 the
 // reference curves (waveCurve with curveName) and their pending dots (curveDot).
-const META_LAYERS = [8];
-const META_NAMES = { 8: 'META' };
-const META_COLORS = { 8: '#2E8B57' };
-const CURVE_LAYERS = [9, 10, 11];
+const META_LAYERS = [12];
+const META_NAMES = { 12: 'META' };
+const META_COLORS = { 12: '#2E8B57' };
+const CURVE_LAYERS = [13, 14, 15];   // D11: 9 / 10 / 11 until 2026-11-09
 const AUTO_OPEN_CURVE_WINS = false;   // a curve window holding a curve opened itself at load until 2026-10-07 (§226, his word: off); the A / B / C buttons open them
 const TRILL_EAT_PRE_S = 0.06;      // a note starting within this BEFORE a trill is its attack and is eaten too (the strike window; RUNNING_LOG §112)
 const HELD_LO = 65, HELD_HI = 127;   // a drawn sustained note's dynamic scale (1g item 5, §120): the ensemble's, as the trill's default
 const TRILL_SWITCH_LEAD_MS = 12;   // a plain note's CC0 next to a sounding trill on the same slot goes this late (= the engine's switch-back lead)
-const CURVE_NAMES = { 9: 'A', 10: 'B', 11: 'C' };
-const CURVE_COLORS = { 9: '#C2410C', 10: '#1D6FA5', 11: '#6D3B9E' };
+const CURVE_NAMES = { 13: 'A', 14: 'B', 15: 'C' };
+const CURVE_COLORS = { 13: '#C2410C', 14: '#1D6FA5', 15: '#6D3B9E' };
 const CURVE_OVER = { 9: 5, 10: 6, 11: 7 };   // the lane each window sits on: Piano, Violin, Cello
 
 const Composer = {
@@ -1552,7 +1590,7 @@ const Composer = {
         // Septet: the lane table follows TRACKS (one lane per track + META at index
         // META_LAYER) instead of a literal list of ten — the literal left lanes 7..9
         // null and put META at index 10, which broke init on the first load (0b.4).
-        this.lanes = [...TRACKS.map((_, i) => 'lane' + (i + 1)), 'laneMeta', 'laneCurveA', 'laneCurveB', 'laneCurveC'].map(id => document.getElementById(id));   // META (7) + the curve windows A / B / C (8 / 9 / 10)
+        this.lanes = [...TRACKS.map((_, i) => 'lane' + (i + 1)), 'laneMeta', 'laneCurveA', 'laneCurveB', 'laneCurveC'].map(id => document.getElementById(id));   // META (12) + the curve windows A / B / C (13 / 14 / 15)
         this.tickGroups = this.lanes.map(l => l.querySelector('.tickGroup'));
         this.contentGroups = this.lanes.map(l => l.querySelector('.contentGroup'));
         this.sessionNameInput = document.getElementById('sessionName');
@@ -2549,7 +2587,7 @@ const Composer = {
         const stripEls = (key, val) => key === '_els' ? undefined : val;
         return JSON.parse(JSON.stringify({
             version: 1,
-            layoutVersion: 9,   // SWITCH (2026-10-20, D7): 8 instrument lanes (Fl · Cl · Sax · Perc · Vib · Pno · Vn · Vc), META = 8, the curve windows A / B / C = 9 / 10 / 11. v8 was piece 6 — DECIBEL (2026-10-04, D9): 6 instrument lanes (BFl · BCl · Perc · Vib · Va · Vc), META = 6, the curve windows A / B / C = 7 / 8 / 9. v7 was piece #6 — LGMF: 8 instrument lanes (EH · Bsn · Hn · Tpt · Perc · Vib · Vc · Db), META = 8, the curve windows A / B / C = 9 / 10 / 11. v6 was the same piece with SEVEN lanes, before the bowed vibraphone took lane 5 (D12, 2026-09-18) — restoreData migrates a v6 save. v5 was the TEMPUS septet's seven (fl · bcl · pno · vn1 · vn2 · va · vc) — the same SHAPE, different instruments, which is why the check in restoreData keys on the track ids and not on the lane count (P7)
+            layoutVersion: 10,   // SWITCH (2026-11-09, D11): 8 instrument lanes + 4 electronics lanes (Elec 1 … 4, half height), META = 12, the curve windows A / B / C = 13 / 14 / 15 — restoreData migrates a v9 save (layers >= 8 move down by four). v9 was SWITCH (2026-10-20, D7): 8 instrument lanes (Fl · Cl · Sax · Perc · Vib · Pno · Vn · Vc), META = 8, the curve windows A / B / C = 9 / 10 / 11. v8 was piece 6 — DECIBEL (2026-10-04, D9): 6 instrument lanes (BFl · BCl · Perc · Vib · Va · Vc), META = 6, the curve windows A / B / C = 7 / 8 / 9. v7 was piece #6 — LGMF: 8 instrument lanes (EH · Bsn · Hn · Tpt · Perc · Vib · Vc · Db), META = 8, the curve windows A / B / C = 9 / 10 / 11. v6 was the same piece with SEVEN lanes, before the bowed vibraphone took lane 5 (D12, 2026-09-18) — restoreData migrates a v6 save. v5 was the TEMPUS septet's seven (fl · bcl · pno · vn1 · vn2 · va · vc) — the same SHAPE, different instruments, which is why the check in restoreData keys on the track ids and not on the lane count (P7)
             tracks: TRACKS,
             assets: this.assets || {},
             metadata: {
@@ -2581,6 +2619,13 @@ const Composer = {
             for (const o of this.objects) {
                 if (o.type === 'waveCurve' && o.layer === 7 && o.sonifyNote == null) o.layer = META_LAYER;
             }
+        }
+        // v9 → v10 (2026-11-09, D11): four electronics lanes came in BELOW the cello, so no player lane moved; only META (8 → 12)
+        // and the curve windows (9 · 10 · 11 → 13 · 14 · 15) went down by four — one uniform shift of every layer >= 8.
+        if (data.layoutVersion === 9) {
+            let moved = 0;
+            for (const o of this.objects) if (o.layer >= 8) { o.layer += 4; moved++; }
+            if (moved) console.warn('[restoreData] layoutVersion 9 (this piece before the electronics lanes): ' + moved + ' META / curve object(s) moved down four layers');
         }
         // v6 → v7 (2026-09-18, D12): the bowed vibraphone took lane 5, so everything from lane 5 up
         // moved one down — Vc 5→6, Db 6→7, META 7→8, the curves 8·9·10 → 9·10·11. One uniform shift,

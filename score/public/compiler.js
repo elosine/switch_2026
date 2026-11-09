@@ -29,7 +29,8 @@
 //   + faint echo lobe; playable approximation of the side-lobe shape).
 // Septet port (2026-09-03): the part count is the page's META_LAYER (= TRACKS.length)
 // resolved AT CALL TIME (this file loads before TRACKS exists); 7 stands in under node.
-const partsDefault = () => (typeof META_LAYER !== 'undefined') ? META_LAYER : 7;
+const partsDefault = () => (typeof PLAYER_LANES !== 'undefined') ? PLAYER_LANES : (typeof META_LAYER !== 'undefined') ? META_LAYER : 7;   // D11 (2026-11-09): the PLAYER lanes — the electronics lanes are not parts
+const metaLayer = () => (typeof META_LAYER !== 'undefined') ? META_LAYER : partsDefault();
 
 const GRAIN_ENV_SHAPES = ['sine', 'gaussian', 'quasi-gaussian', 'triangle',
   'trapezoid', 'expodec', 'surge', 'sinc'];
@@ -490,7 +491,7 @@ function compileGrains(C, spec) {
 // Poisson (thinning), envelope mix per the current mass recipe.
 function compileMetaGrains(C, spec) {
   spec = spec || {};
-  const metas = spec.metas || C.objects.filter(o => o.type === 'waveCurve' && o.layer === partsDefault());
+  const metas = spec.metas || C.objects.filter(o => o.type === 'waveCurve' && o.layer === metaLayer());
   if (!metas.length) return { error: 'no META curves in this score' };
   const parts = spec.parts || partsDefault(), R = spec.release != null ? spec.release : 0.3, SEP = 0.05;
   const HUES = ['#1565C0', '#2E7D32', '#7B1FA2', '#C62828', '#E6A23C', '#00838F', '#6D4C41', '#283593', '#00695C', '#AD1457'];

@@ -59,7 +59,7 @@
 'use strict';
 
 const NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-const LANES = (typeof META_LAYER !== 'undefined') ? META_LAYER : 7;   // septet: seven parts; stream i is player i
+const LANES = (typeof PLAYER_LANES !== 'undefined') ? PLAYER_LANES : (typeof META_LAYER !== 'undefined') ? META_LAYER : 7;   // the PLAYER lanes (D11: never the electronics lanes); stream i is player i
 const DEFAULT_TECH = 'staccato';
 const LO = 30, HI = 67;           // the bank's playable range, as in the palette
 const MAX_TERM = 64;

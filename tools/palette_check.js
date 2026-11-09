@@ -28,7 +28,8 @@ const chSrc = rd('score/public/composer.html');
 const tracksLit = chSrc.match(/const TRACKS = \[[\s\S]*?\n\];/);
 if (!tracksLit) { console.error('palette_check: could not find TRACKS in composer.html'); process.exit(2); }
 const TRACKS = new Function('return ' + tracksLit[0].replace(/^const TRACKS = /, '').replace(/;$/, ''))();
-const KEYS = TRACKS.map(t => t.instKey);
+const PLAYERS = TRACKS.filter(t => !t.elec);   // D11 (2026-11-09): the electronics lanes carry no recipe and no port — out of §§ 1 … 6, in § 7
+const KEYS = PLAYERS.map(t => t.instKey);
 
 // ---- a named single-line object literal out of a browser module ----
 function lit(file, name) {
@@ -152,7 +153,7 @@ for (const w of want) {
 console.log('\n7. the composer\'s lanes — one `.lane:nth-child` rule and one lane <div> per track');
 const laneRules = [...chSrc.matchAll(/^\s*\.lane:nth-child\((\d+)\)\s*\{\s*top:\s*([\d.]+)%\s*;\s*height:\s*([\d.]+)%\s*;?\s*\}/gm)]
   .map(m => ({ n: +m[1], top: +m[2], height: +m[3] }));
-ok(laneRules.length === KEYS.length, 'lane CSS: ' + laneRules.length + ' `.lane:nth-child` rule(s) for ' + KEYS.length + ' track(s)');
+ok(laneRules.length === TRACKS.length, 'lane CSS: ' + laneRules.length + ' `.lane:nth-child` rule(s) for ' + TRACKS.length + ' track(s) (' + KEYS.length + ' players + ' + (TRACKS.length - KEYS.length) + ' electronics lanes)');
 ok(laneRules.every((r, i) => r.n === i + 1), 'lane CSS: the rules run 1 … ' + laneRules.length + ' in order, none twice');
 {
   let at = 0, tiled = true;
@@ -160,7 +161,7 @@ ok(laneRules.every((r, i) => r.n === i + 1), 'lane CSS: the rules run 1 … ' + 
   ok(tiled && Math.abs(at - 100) < 0.05, 'lane CSS: the lanes tile the stage top to bottom (they end at ' + Math.round(at * 100) / 100 + ' %)');
 }
 const laneDivs = (chSrc.match(/<div class="lane" id="lane\d+">/g) || []).length;
-ok(laneDivs === KEYS.length, 'the page: ' + laneDivs + ' lane <div>(s) for ' + KEYS.length + ' track(s)');
+ok(laneDivs === TRACKS.length, 'the page: ' + laneDivs + ' lane <div>(s) for ' + TRACKS.length + ' track(s)');
 
 console.log('\n' + (fail ? 'PALETTE RED: ' + fail + ' failure(s), ' + pass + ' ok' : 'PALETTE GREEN: ' + pass + ' checks'));
 process.exit(fail ? 1 : 0);
