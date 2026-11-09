@@ -424,3 +424,21 @@ on F5.)*
 saxophone, clarinet, violin, flute, and then the crotales. Do those notes all fall within the ranges? Can you just do a range check for me?"*
 
 *The AI's reading (not his):* F2 · C3 · G3 · D4 · A4 · E5 in that order of instruments — the check in RUNNING_LOG §126.
+
+### SW-24 · 2026-11-09 — OCTAVE DISPLACEMENT for the two that could not reach (sax C4 · crotales E6) · A CRESCENDO IN ALL PARTS 101.3 → 110 s, p → fff, unison → 6 beats a second · THE STRIKES DRAWER for this ensemble
+
+*His words (dictated, light corrections):*
+
+> *"Okay, let's just use octave displacement. So we'll do a C4 for the alto sax, and we'll do an E6 for the crotales. And then can we do a
+> crescendo in all parts at those pitches? Let's do from 101.3 seconds to 110 seconds. Let's do from piano to — I think three Fs is the loudest,
+> right? — to whatever the loudest dynamic. We'll crescendo both the sine tone and the instrument tones. Keep their balance as it is, and let's
+> gliss all to 6 beats per second, from unison to 6 beats per second. Same rate for every part, or I guess whatever the glissando needs for
+> the same acoustic beating rate. And then after that is the strikes drawer set up for this ensemble? And let's at least have an ordinario
+> version. Actually, for the strings — or whichever instruments have it available — let's use senza vibrato, at least for one of the patches.
+> And then ordinario when that's not available. And then I don't know if you ported over all the harmonies, but I would like everything that I
+> had before in the strikes drawer. I don't know which one is the latest, but everything up to the latest."*
+
+*The AI's reading (not his):* the fifths stand — cello F2 · sax C4 (C3 an octave up) · clarinet G3 · violin D4 · flute A4 · crotales E6 (E5 an octave
+up, the key E4); one pair each, 101.3 → 110 s: the beating 0 → 6 a second in the same 8.7 s for every part (the cents differ by pitch, the
+rate is one), the instrument p → fff, the sine the same rise with its distance from the instrument kept (capped at fff). The strikes drawer: an
+ordinario set with the strings senza vibrato, and the harmony banks whole — RUNNING_LOG §127 answers.

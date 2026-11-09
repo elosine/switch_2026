@@ -60,6 +60,13 @@ const holdR = arg('hold') ? String(arg('hold')).split(',').map(Number) : SAW.hol
 // each lane its own stream unless a seed is said (five lanes rolled alike on one seed, §123)
 const seed0 = +arg('seed', 23 + lane * 101); let seed = seed0; const rnd = () => { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; };
 const breathOverride = arg('breath') ? String(arg('breath')).split(',').map(Number) : null;
+// --cresc from,to (SW-24, §127): the note's dynamic SHAPED from one mark to the other over each pair (the stack performs a shape through the fader),
+// the sine's level a HAIRPIN over the same span, its distance from the note kept (the lane's sine mark less the note's mark), capped at fff;
+// --one: a pair is ONE held tone (no breath cut) — a crescendo is sung in one breath
+const cresc = arg('cresc') ? String(arg('cresc')).split(',') : null;
+if (cresc && (cresc.length !== 2 || !cresc.every((m) => MARKS.includes(m)))) die('--cresc from,to — two marks, ppp … fff');
+const one = has('one');
+const sineLevel = () => { if (!cresc) return { mode: 'flat', mark: String(sineMark) }; const off = sineMark - MARKS.indexOf(noteMark), c = (m) => Math.max(-10, Math.min(7, Math.round((MARKS.indexOf(m) + off) * 100) / 100)); return { mode: 'hairpin', mark: String(c(cresc[0])), to: String(c(cresc[1])) }; };
 const dynCol = (mark) => { const i = MARKS.indexOf(mark); return i < 3 ? 'p' : i <= 4 ? 'mf' : 'f'; };
 const isString = /violin|viola|cello|bass/.test(instKey), isCrotale = WHO === 'sine' && /vib|crot|perc|glock/.test(instKey);
 const y = r3(10 * MARKS.indexOf(noteMark) / 7), vel = Math.round(127 * y / 10);   // the page's own rule for a mark (beat_pair.js §268)
@@ -105,6 +112,7 @@ const MINGAP = BR.ensembleMinGapS || 1.5; let unclear = 0;
 let heldCount = 0;
 function cut(len, t0) {
     const spans = []; let u = 0;
+    if (one) return [[0, r3(len)]];
     if (isCrotale && !breathOverride) {   // bowings of about targetS, never past ceilingS, gapS between (Approaching's beating section)
         const C = BR.crotale || { ceilingS: 8, targetS: 5.8, gapS: 0.6 };
         while (u < len - 0.05) { let bl = Math.min(C.ceilingS, C.targetS * (0.8 + rnd() * 0.4)); if (u + bl > len) bl = len - u; if (bl < 0.8) break; spans.push([r3(u), r3(u + bl)]); u = u + bl + C.gapS; }
@@ -139,26 +147,33 @@ pairs.forEach((P, pi) => {
     const far = Math.max(...bend.map((p) => p[1]));
     if (WHO === 'player' && far > 100 * (inst.playerBendSt != null ? inst.playerBendSt : 1)) die('pair ' + (pi + 1) + ': ' + far + ' c is past the player\'s reach');
     const at = (x) => { if (x <= bend[0][0]) return bend[0][1]; for (let i = 1; i < bend.length; i++) if (x <= bend[i][0]) { const [ta, ca] = bend[i - 1], [tb, cb] = bend[i]; return ca + (cb - ca) * (x - ta) / Math.max(1e-9, tb - ta); } return bend[bend.length - 1][1]; };
+    // A BEND PAST THE SAMPLER'S WHEEL (§127, the cello's 115 c at F2 for 6 beats/s): the note is played on a key as many semitones UP as needed and
+    // its bend re-based from there (the string quartet's rule, beat_pair.js / sine_go.js rekeyChain's one-key case) — the written note is the same
+    const rangeC = 100 * (inst.bendRangeSt > 0 ? inst.bendRangeSt : 1), keyOff = WHO === 'player' && far > rangeC ? Math.ceil((far - rangeC) / 100) : 0;
+    if (keyOff && (key + keyOff > hi)) die('pair ' + (pi + 1) + ': the re-key to ' + pn(key + keyOff) + ' is outside ' + L.voice);
     const spans = cut(len, t), pairId = 'pair-' + (pi + 1), zid = WHO === 'sine' ? 'zn-' + (nextId++) : null;
     spans.forEach(([a, b], k) => {
+        const yFrom = cresc ? r3(10 * MARKS.indexOf(cresc[0]) / 7) : y, yTo = cresc ? r3(10 * MARKS.indexOf(cresc[1]) / 7) : y;
         const n = { id: 'wc-' + (nextId++), type: 'waveCurve', layer: lane, startSeconds: r3(t + a), endSeconds: r3(t + b),
-            nodes: [{ pos: 0, y, smooth: 0.25 }, { pos: 1, y, smooth: 0.25 }], segments: [{ model: 'power', slope: 0 }], color: '#607D8B', fillMode: 'bottom', opacity: 0.55,
+            nodes: [{ pos: 0, y: yFrom, smooth: 0.25 }, { pos: 1, y: yTo, smooth: 0.25 }], segments: [{ model: 'power', slope: 0 }], color: '#607D8B', fillMode: 'bottom', opacity: 0.55,
             properties: { sine: { brick: zid, who: WHO, kind: P.shape, pair: pi + 1, cents: WHO === 'player' ? far : 0, seed: seed0, take: '', was: { technique: L.voice, morphBend: null, sonifyMode: 'plain', velAbs: null, cc7Abs: null, endSeconds: r3(t + b) }, keyOffset: 0, held: { k: k + 1, n: spans.length } } },
-            sonifyNote: key, technique: L.voice, recVel: vel, velAbs: vel, cc7Abs: { lo: 127, hi: 127 } };
+            sonifyNote: key, technique: L.voice };
+        if (!cresc) Object.assign(n, { recVel: vel, velAbs: vel, cc7Abs: { lo: 127, hi: 127 } });   // a flat tone keeps its struck sound (beat_pair's rule); a shaped one is the law's
         if (WHO === 'player') {   // the bend, the piece of the whole this held tone covers, re-based; it re-enters on the cents reached
             const inner = bend.filter((p) => p[0] > a + 1e-6 && p[0] < b - 1e-6).map(([tt, c]) => [r3(tt - a), c]);
             n.morphBend = [[0, r1(at(a))]].concat(inner, [[r3(b - a), r1(at(b))]]);
+            if (keyOff) { n.sonifyNote = key + keyOff; n.morphBend = n.morphBend.map(([tt, c]) => [tt, r1(c - 100 * keyOff)]); n.properties.sine.keyOffset = keyOff; n.properties.sine.written = key; }
             n.properties.sine.held.fromCents = n.morphBend[0][1]; n.properties.sine.held.toCents = n.morphBend[n.morphBend.length - 1][1];
-            n.performanceNotes = pn(key) + ' · ' + pairId + ' ' + P.pts.map((p) => p[1]).join(' → ') + ' beats/s · held tone ' + (k + 1) + ' of ' + spans.length + ': ' + n.morphBend[0][1] + ' → ' + n.morphBend[n.morphBend.length - 1][1] + ' c · ' + noteMark;
+            n.performanceNotes = pn(key) + ' · ' + pairId + ' ' + P.pts.map((p) => p[1]).join(' → ') + ' beats/s · held tone ' + (k + 1) + ' of ' + spans.length + ': ' + n.morphBend[0][1] + ' → ' + n.morphBend[n.morphBend.length - 1][1] + ' c · ' + (cresc ? cresc[0] + ' → ' + cresc[1] : noteMark);
         } else {   // THE PITCH STANDS STILL (his word, SW-19: the crotale cannot bend; the flute at F6 holds) — the sine glides instead
-            n.performanceNotes = pn(key) + (SOCT ? ' (sounds ' + pn(sounding) + ')' : '') + ' STRAIGHT · ' + pairId + ' the sine ' + P.pts.map((p) => p[1]).join(' → ') + ' beats/s · held ' + (k + 1) + ' of ' + spans.length + ' · ' + noteMark;
+            n.performanceNotes = pn(key) + (SOCT ? ' (sounds ' + pn(sounding) + ')' : '') + ' STRAIGHT · ' + pairId + ' the sine ' + P.pts.map((p) => p[1]).join(' → ') + ' beats/s · held ' + (k + 1) + ' of ' + spans.length + ' · ' + (cresc ? cresc[0] + ' → ' + cresc[1] : noteMark);
         }
         notes.push(n);
     });
     if (WHO === 'sine') {   // one sine brick a pair: its gliss the pair's line, in cents at the sine's pitch (eight points at the most)
         const gl = line.map(([tt, h]) => [r3(tt / len), r1(centsFor(sineMidi, h))]).slice(0, 8);
         bricks.push({ id: zid, type: 'zone', layer: lane, startTime: r3(t), endTime: r3(t + len), zoneFunction: 'elec', midiModel: 'elecSine', color: '#7B1FA2', opacity: 0.35, zoneHeight: 0.2, yOffset: 0.08, player: '', instrument: '',
-            elec: { midi: sineMidi, gliss: { kind: 'line', from: 0, to: gl[gl.length - 1][1], points: gl }, level: { mode: 'flat', mark: String(sineMark) }, label: 'the sine glides, ' + pn(sounding) + ' holds', fadeInMs: fadeMs, track: { on: false } },
+            elec: { midi: sineMidi, gliss: { kind: 'line', from: 0, to: gl[gl.length - 1][1], points: gl }, level: sineLevel(), label: 'the sine glides, ' + pn(sounding) + ' holds', fadeInMs: fadeMs, track: { on: false } },
             properties: { sine: { note: notes.length ? notes[notes.length - spans.length].id : null }, beat: { pitch: key, sounding, hz: r2(hz(sineMidi)), who: 'sine', side: 'over', shape: P.shape, line: P.pts, holdS: P.hold, farCents: far, sine: sineMark, note: noteMark, velocity: vel, fadeInMs: fadeMs, seed: seed0 } } });
     }
     said.push(pairId + ' (' + P.shape + ') ' + r3(t) + ' → ' + r3(t + len) + ' s: ' + P.pts.map(([tt, h]) => h + ' at +' + tt + ' s').join(' → ') + ', held ' + P.hold + ' s · ' + (WHO === 'sine' ? 'the sine' : 'the bend') + ' to ' + far + ' c · ' + spans.length + ' held tone(s): ' + spans.map(([a, b]) => r1(b - a) + ' s').join(' '));
@@ -168,7 +183,7 @@ const sineEnd = r3(t);
 if (WHO === 'player') {   // ONE constant sine across every pair (his "keep the sine constant")
     const zid = 'zn-' + (nextId++); notes.forEach((n) => { n.properties.sine.brick = zid; });
     bricks.push({ id: zid, type: 'zone', layer: lane, startTime: sineStart, endTime: sineEnd, zoneFunction: 'elec', midiModel: 'elecSine', color: '#7B1FA2', opacity: 0.35, zoneHeight: 0.2, yOffset: 0.08, player: '', instrument: '',
-        elec: { midi: sineMidi, gliss: { kind: 'none', from: 0, to: 0 }, level: { mode: 'flat', mark: String(sineMark) }, label: 'the tone ' + TRACKS[lane].label + ' beats against', fadeInMs: fadeMs, track: { on: false } },
+        elec: { midi: sineMidi, gliss: { kind: 'none', from: 0, to: 0 }, level: sineLevel(), label: 'the tone ' + TRACKS[lane].label + ' beats against', fadeInMs: fadeMs, track: { on: false } },
         properties: { sine: { note: notes.length ? notes[0].id : null }, beat: { pitch: key, hz: r2(hz(key)), who: 'player', side: 'over', shape: has('roll') ? 'saw-rolled' : 'saw', pairs: pairs.map((P) => ({ line: P.pts, holdS: P.hold, shape: P.shape })), gapS: gapR, sine: sineMark, note: noteMark, velocity: vel, fadeInMs: fadeMs, breath: breathOverride ? { aimS: breathOverride[0], jitterS: breathOverride[1] || 0 } : { rules: 'bank/breath_rules.json' }, seed: seed0 } } });
 }
 s.objects.push(...bricks, ...notes);

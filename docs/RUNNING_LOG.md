@@ -2252,3 +2252,25 @@ the recipes' sounding ranges** (`sandbox/instruments.js`; the call's instruments
 F2 · BARITONE sax C3 · clarinet G3 · violin D4 (on the G string) · flute A4 · bowed VIBRAPHONE E5** — or, if the alto and the crotales must
 stay, start the fifths a fifth higher (C3 · G3 · D4 · A4 · E5 · B5: the alto on G3, the crotales still short of B5 — the crotales want C6 or
 higher whatever the series). Nothing changed in the saves.
+
+## §127. SW-24 — the fifths placed, the crescendo pair in every part; the strikes drawer checked (2026-11-09)
+
+**The pitches (his octave displacement):** cello F2 · alto sax C4 · clarinet G3 · violin D4 · flute A4 · crotales E6 (sounding; the key E4, inside
+`crot_bowed`). **The build (`tools/beat_saw.js`, two options added):** `--cresc from,to` — the note's dynamic SHAPED p → fff over the pair (the
+nodes' heights 2.857 → 10; no struck-sound override: the law performs a shape through the fader), the sine's level a HAIRPIN over the same span
+with its distance from the note kept (the lane's sine mark less the note's) and capped at fff — so the balance holds at the start and
+closes toward the top: cello 4 → 7 · sax 3.25 → 7 · clarinet 3 → 7 · violin 3.25 → 7 · flute 2.5 → 7 · crotale 3.5 → 7; `--one` — a pair is one held
+tone (a crescendo sung in one breath; 8.7 s is inside every ceiling but the winds' at fff — his ear). **The beating:** every part 0 → 6 a second
+over 8.7 s (1.45 s per beat), the cents its own: cello 115 · sax 39 · clarinet 52 · violin 35 · flute 23 · the crotale's SINE 7.8 (the bar straight).
+**The cello's 115 c passes the sampler's wheel (±1.012 st):** the note is played on F♯2 (key 42) with its bend re-based −100 → +15 c — the string
+quartet's one-key rule (beat_pair / sine_go `rekeyChain`), now in beat_saw for any pair that needs it; the written note is F2. The sines
+100.3 → 110 s, in over 1 s. Written into `piece-Section01-D-saxBeatTest` (88 objects).
+
+**THE STRIKES DRAWER, checked, nothing to build:** the drawer's `ordinario` set (`strike_drawer.js` ART_SETS) is ALREADY senza vibrato where it
+exists — violin and cello on `senza_vel`, the winds on their `ord` (the SI2 flute, clarinet and sax have no separate vibrato / non-vibrato
+sustain — `ord` is the one), the percussion `main`, the pitched lane `crot_main_metal`, the piano `main`; `spiccato` · `staccato` · `percussive`
+beside it (palette_check § 3 holds every key against the recipes). **The harmonies:** `bank/harmonies.json` is ONE file, byte-identical in
+pieces 4 · 5 · 6 and here (generated 2026-09-07, PLAN 1d of piece 4): blasts 45 entries · chordShapes 54 entries · the strikes' `live` list
+filled at run time — everything he had, up to the latest, is here. **The drawer's TAKES** (`bank/panel_snapshots.json` panels.strikes — the
+named chords he dealt) are per piece: piece 6's 70 are here as carried (beating01 …, strikes01 …, on piece 6's lanes); piece 5's 239 are in
+`septet_LGMF_2026` and would need their lanes re-mapped to come over — offered, not done.
