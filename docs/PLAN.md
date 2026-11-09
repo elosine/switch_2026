@@ -220,7 +220,9 @@ electronics part for the FIRST SECTION, the acoustic instruments built around it
      (`tools/beat_saw.js`), the peaks held 1.8 … 2.6 s, the breaths by `bank/breath_rules.json` (D12). ☑ built 2026-11-09 — his ear: open
   2. The gliss speed · 3. ONE drawn crescendo read by the sine and the sax together · 4. the electronics under them, a quick fix (SW-11) — *to come*
   5. The other lanes by SW-15's two alternating shapes (A the fast finish · B the slow low one), the octaves of F: cello F3 · violin F4 · clarinet F5 ·
-     flute F6 · the metal F6 / F7 with the sine moving; the ensemble's inhalations never within 1.5 s — *when the sax is settled*
+     flute F6 · the metal F6 / F7 with the sine moving; the ensemble's inhalations never within 1.5 s — ☑ built 2026-11-09 (§123: `beat_saw.js
+     --roll` by `bank/beat_saw.json`; clarinet F5 at 26.4 s · flute F6 at 30 (the sine moves) · cello F3 at 32.8 · violin F4 at 35.9 · the crotale
+     F7 at 39, static, its sine gliding — his entries SW-19); his ear: open; the piano later
   - later: the live balance's method for the performance score (DEC-64's hypothesis)
 
 *Where the code goes (THE SORTING): the capture, the grab, the stretch and the granulation are the WORKSHOP's tools

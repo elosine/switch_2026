@@ -1,0 +1,19 @@
+{
+ "_what": "THE SAWTOOTH OF BEATING PAIRS — HIS ALGORITHM for the lanes after the sax (SW-15, his words 2026-11-09; RUNNING_LOG §120 · §123). Read by tools/beat_saw.js --roll. Two SHAPES alternate on a lane under its sine, each pair beginning at the unison (the sawtooth); every number rolled in its range, seeded, so the lengths differ. A PACE is seconds for the beating to gain one beat a second (his unit, SW-12).",
+ "_A": "THE FAST FINISH — a rise at his slower pace for about two-thirds of the way, then much quicker to the peak; the quick leg exists only above his threshold of 5 … 6 beats a second, which the peak's range and the knee at two-thirds guarantee.",
+ "A": { "peakHz": [8, 10], "kneeShare": 0.6667, "pace1SPerHz": [1.8, 2.6], "pace2SPerHz": [0.8, 1.2] },
+ "_B": "THE SLOW LOW ONE — one slower rise that stays under the threshold.",
+ "B": { "peakHz": [4.8, 6.5], "paceSPerHz": [2.6, 3.6] },
+ "_order": "the alternation: A B A B … (his); `startWith` which comes first on a lane — rolled when absent, so the lanes do not all begin alike",
+ "order": ["A", "B"],
+ "_holdS": "the peak held before the pair ends (his: 1.8 … 2.6 s, SW-16)",
+ "holdS": [1.8, 2.6],
+ "_gapS": "the silence between two pairs on a lane: the player breathes, the sine holds (a player lane) or stops (a lane whose sine moves)",
+ "gapS": [0.8, 1.2],
+ "_sineMarks": "the sine's level by lane, on the ladder (4 dB a mark; ff = 6; 6.25 = ff + 1 dB, his for the sax, SW-14) — the AI's starts for the rest, after Approaching's ear (a low sine louder, a high one softer); his by ear",
+ "sineMarks": { "alto_sax": 6.25, "clarinet": 6, "flute": 5.5, "violin": 6.25, "cello": 7, "bowed_vibraphone": 4.5 },
+ "_noteMarks": "the player's written dynamic by lane (the sax f, his SW-17; the crotale mp after Approaching's DEC-66); the AI's starts for the rest",
+ "noteMarks": { "alto_sax": "f", "clarinet": "f", "flute": "f", "violin": "f", "cello": "f", "bowed_vibraphone": "mp" },
+ "_fadeInMs": "the sine's rise from silence (SW-14; the engine's Line in dB)",
+ "fadeInMs": 1000
+}

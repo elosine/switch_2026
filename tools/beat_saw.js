@@ -1,17 +1,21 @@
 #!/usr/bin/env node
-// beat_saw.js — A SAWTOOTH OF BEATING PAIRS under ONE constant sine (SW-14, RUNNING_LOG §119, 2026-11-09): the player's long tone on a lane,
-// rising from the unison along a LINE of beats a second (his pace), pair after pair — each starts again at the unison — while ONE static sine
-// brick holds the pitch across them all; the long tone is cut into BREATHS by the morph's rule (his: a quarter shorter, a little jitter),
-// each breath re-articulating ON the cents the gliss had reached. The beating in Hz, the cents derived at the pitch (beat_pair.js's rule).
+// beat_saw.js — A SAWTOOTH OF BEATING PAIRS on a lane (SW-14 · SW-15 · SW-18 · SW-19; RUNNING_LOG §119 … §123, 2026-11-09): the player's long
+// tone and a sine at the same pitch, pair after pair, each pair beginning at the UNISON and rising along a line of BEATS A SECOND (his pace),
+// the peak held, a gap, the next. WHO MOVES is the lane's (bank/sine_behaviours.json `who`): a `player` lane bends its note under ONE constant
+// sine; a `sine` lane (the bowed crotale — a bar cannot bend; the flute at F6 — a bend of cents no one can place) holds its note STRAIGHT and
+// the sine glides, one brick a pair. The long tone is cut into held tones by bank/breath_rules.json (a wind's breath · a string's bow · a
+// crotale's bowing), each re-articulating on the cents the gliss had reached. The beating in Hz, the cents derived at the pitch.
 //
-//   node tools/beat_saw.js --score <name> --lane alto_sax --pitch F4 --start 16 --sine-start 15 --sine 6.25 --fade 1000 --note ff
-//        --pairs "0:0,10:5,16:9|h6 ; 0:0,15:6|h2.5 ; 0:0,15.4:7,18.4:10|h2.5 ; 0:0,17.5:5|h2.5" [--gap 1] [--breath 4.5,0.75] [--seed N] [--replace] [--dry]
-//     --pairs   pairs separated by ';' — each a line t:beats,t:beats,… (seconds from the pair's start · beats a second) and |h<seconds> its hold
-//     --gap     the silence between two pairs (the sax breathes there; the sine holds)
-//     --sine    the sine's mark, a name or a number (6.25 = ff + 1 dB on the 4 dB ladder) · --fade its rise from silence in ms
-//     --breath  aim,jitter in seconds — a breath is aim ± jitter, the gap between breaths 0.75 … 1.2 s, a remainder under 1.5 s is not a note
-//     --replace the lane's sine bricks, curve-A objects over them and the notes under them are taken out first
-// THE SORTING: a piece's tool (its lanes, its save); the brick and the notes are the engine's and the stack's objects, as beat_pair.js writes them.
+//   DICTATED:  node tools/beat_saw.js --score <name> --lane alto_sax --pitch F4 --start 16 --pairs "0:0,10:5,16:9 ; 0:0,15:6" [--hold 1.8,2.6]
+//   ROLLED:    node tools/beat_saw.js --score <name> --lane clarinet --pitch F5 --start 26.4 --roll --until 95 [--seed N]
+//              the pairs by bank/beat_saw.json — shapes A (the fast finish) and B (the slow low one) alternating, every number rolled
+//   BOTH:      [--sine <mark>] [--note <mark>] [--fade ms] [--sine-start s] [--gap lo,hi] [--breath aim,jitter] [--avoid] [--replace] [--dry]
+//     --sine / --note   the marks, else bank/beat_saw.json's for the lane · --fade the sine's rise from silence (ms)
+//     --sine-start      where a constant sine begins (a player lane; else one second before --start)
+//     --avoid           the ensemble rule: no inhalation within breath_rules' ensembleMinGapS of another lane's (read from the save) — a held
+//                       tone is stretched or shortened inside its range to clear it; what could not be cleared is said
+//     --replace         this lane's sine bricks and the notes under them are taken out first
+// THE SORTING: a piece's tool (its lanes, its saves, its data files); the objects it writes are the stack's notes and the engine's sine brick.
 'use strict';
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const ROOT = path.join(__dirname, '..');
@@ -25,87 +29,151 @@ const NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 const keyOf = (t) => { if (Number.isFinite(+t)) return Math.round(+t); const m = /^([A-Ga-g])([#b]?)(-?\d)$/.exec(String(t).trim()); if (!m) die('a pitch is a note name (F4) or a MIDI number'); return NAMES.indexOf(m[1].toUpperCase()) + (m[2] === '#' ? 1 : m[2] === 'b' ? -1 : 0) + 12 * (+m[3] + 1); };
 const pn = (m) => NAMES[((Math.round(m) % 12) + 12) % 12] + (Math.floor(Math.round(m) / 12) - 1);
 const hz = (m) => 440 * Math.pow(2, (m - 69) / 12);
-const centsFor = (midi, beats) => 1200 * Math.log2((hz(midi) + beats) / hz(midi));   // the player OVER the sine
+const centsFor = (midi, beats) => 1200 * Math.log2((hz(midi) + beats) / hz(midi));   // the moving one OVER the still one
+const roll = (rnd, r) => r[0] + rnd() * (r[1] - r[0]);
 
+// ---- the data ----
 const name = arg('score'); if (!name) die('--score <name>');
 const file = path.join(ROOT, 'scores', name + '.json'); if (!fs.existsSync(file)) die('no such score: scores/' + name + '.json');
 const INSTRUMENTS = vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'sandbox', 'instruments.js'), 'utf8') + '\n;INSTRUMENTS;', {});
 const TRACKS = vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'score', 'public', 'composer.html'), 'utf8').match(/const TRACKS = (\[[\s\S]*?\]);/)[1], {});
 const LANES = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'sine_behaviours.json'), 'utf8')).lanes;
+const BR = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'breath_rules.json'), 'utf8'));
+const SAW = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'beat_saw.json'), 'utf8'));
 const laneArg = String(arg('lane', 'alto_sax')).toLowerCase();
 const lane = TRACKS.findIndex((t, k) => [String(k), t.id, t.short, t.label, t.instKey].some((x) => String(x || '').toLowerCase() === laneArg));
 if (lane < 0) die('--lane: none of ' + TRACKS.map((t) => t.id).join(', '));
 const instKey = TRACKS[lane].instKey, inst = INSTRUMENTS[instKey], L = LANES[instKey];
 if (!inst || !L) die('the lane ' + laneArg + ' has no part in the sines (bank/sine_behaviours.json)');
-const midi = keyOf(arg('pitch') || die('--pitch')), sineMark = markNum(arg('sine', 'ff')), noteMark = arg('note', 'ff');
+const WHO = L.who === 'sine' ? 'sine' : 'player', SOCT = +L.sineOctave || 0, SCENTS = +L.sineCents || 0;
+const sounding = keyOf(arg('pitch') || die('--pitch'));                 // the pitch HE names: the sounding one
+const key = sounding - SOCT, sineMidi = Math.round((sounding + SCENTS / 100) * 10000) / 10000;   // the player's key · the sine's pitch
+const tech = inst.techniques.find((t) => t.key === L.voice) || die('the voice ' + L.voice + ' is not in the recipe of ' + instKey);
+const lo = tech.rangeLow != null ? tech.rangeLow : inst.rangeLow, hi = tech.rangeHigh != null ? tech.rangeHigh : inst.rangeHigh;
+if (key < lo || key > hi) die(pn(key) + ' is outside ' + L.voice + ' (' + pn(lo) + ' … ' + pn(hi) + ')');
+const sineMark = markNum(arg('sine', SAW.sineMarks[instKey] != null ? SAW.sineMarks[instKey] : 'f')), noteMark = arg('note', SAW.noteMarks[instKey] || 'f');
 if (!MARKS.includes(noteMark)) die('--note: one of ' + MARKS.join(' '));
-const start = +arg('start', 16), sineStart = +arg('sine-start', start - 1), fadeMs = Math.round(+arg('fade', 1000)), gapPairs = +arg('gap', 1);
-// THE BREATHS — his rules as data (bank/breath_rules.json, SW-18 · §122): the held tone 85 … 100 % of the player's ceiling at the written
-// dynamic, one in eight short (50 … 70 %), the inhalation 0.4 … 0.6 s; `--breath aim,jitter` (seconds) overrides them with a plain roll
-const BR = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'breath_rules.json'), 'utf8'));
+const start = +arg('start', 16), fadeMs = Math.round(+arg('fade', SAW.fadeInMs || 1000));
+const sineStart = r3(+arg('sine-start', start - 1));
+const gapR = arg('gap') ? String(arg('gap')).split(',').map(Number) : SAW.gapS;
+const holdR = arg('hold') ? String(arg('hold')).split(',').map(Number) : SAW.holdS;
+// each lane its own stream unless a seed is said (five lanes rolled alike on one seed, §123)
+const seed0 = +arg('seed', 23 + lane * 101); let seed = seed0; const rnd = () => { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; };
 const breathOverride = arg('breath') ? String(arg('breath')).split(',').map(Number) : null;
 const dynCol = (mark) => { const i = MARKS.indexOf(mark); return i < 3 ? 'p' : i <= 4 ? 'mf' : 'f'; };
-const seed0 = +arg('seed', 23); let seed = seed0; const rnd = () => { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; };
-// --hold lo,hi: every peak held for a time rolled in that range (his word 2026-11-09, §121: 1.8 … 2.6 s), over a pair's own |h
-const holdR = arg('hold') ? String(arg('hold')).split(',').map(Number) : null;
-if (holdR && (holdR.length !== 2 || holdR.some((x) => !(x >= 0)) || holdR[1] < holdR[0])) die('--hold lo,hi in seconds');
-const pairs = String(arg('pairs') || die('--pairs')).split(';').map((q) => { const [ln, h] = q.trim().split('|'); const pts = ln.split(',').map((x) => x.split(':').map(Number)); if (pts.some((p) => p.length !== 2 || !Number.isFinite(p[0]) || !(p[1] >= 0))) die('--pairs: t:beats,…|h<s>'); return { pts, hold: h ? +h.replace(/^h/, '') : 2.5 }; });
+const isString = /violin|viola|cello|bass/.test(instKey), isCrotale = WHO === 'sine' && /vib|crot|perc|glock/.test(instKey);
 const y = r3(10 * MARKS.indexOf(noteMark) / 7), vel = Math.round(127 * y / 10);   // the page's own rule for a mark (beat_pair.js §268)
 
+// ---- the pairs: dictated, or rolled by SW-15's two shapes ----
+let pairs;
+if (has('roll')) {
+    const until = +arg('until', 95), orderRolled = SAW.startWith == null && rnd() < 0.5;
+    pairs = []; let t = start, k = orderRolled ? 1 : 0;
+    while (t < until - 5) {
+        const shape = SAW.order[k % SAW.order.length], S = SAW[shape]; let pts;
+        if (shape === 'A') { const P = r1(roll(rnd, S.peakHz)), K = r1(P * S.kneeShare), p1 = roll(rnd, S.pace1SPerHz), p2 = roll(rnd, S.pace2SPerHz); const t1 = r1(K * p1), t2 = r1(t1 + (P - K) * p2); pts = [[0, 0], [t1, K], [t2, P]]; }
+        else { const P = r1(roll(rnd, S.peakHz)), p = roll(rnd, S.paceSPerHz); pts = [[0, 0], [r1(P * p), P]]; }
+        const hold = r1(roll(rnd, holdR)), len = pts[pts.length - 1][0] + hold;
+        if (t + len > until + 3) break;
+        pairs.push({ pts, hold, shape }); t += len + roll(rnd, gapR); k++;
+    }
+    if (!pairs.length) die('--roll: no room for a pair before --until ' + until);
+} else {
+    pairs = String(arg('pairs') || die('--pairs or --roll')).split(';').map((q) => { const [ln, h] = q.trim().split('|'); const pts = ln.split(',').map((x) => x.split(':').map(Number)); if (pts.some((p) => p.length !== 2 || !Number.isFinite(p[0]) || !(p[1] >= 0))) die('--pairs: t:beats,…|h<s>'); return { pts, hold: h ? +h.replace(/^h/, '') : r1(roll(rnd, holdR)), shape: 'dictated' }; });
+}
+
+// ---- the save; the other lanes' inhalations (for --avoid) ----
 const s = JSON.parse(fs.readFileSync(file, 'utf8'));
 let nextId = s.nextId || (Math.max(0, ...s.objects.map((o) => +((/-(\d+)$/.exec(o.id || '') || [])[1] || 0))) + 1);
 if (has('replace')) {
     const bricks = s.objects.filter((o) => o.layer === lane && o.midiModel === 'elecSine');
     const spans = bricks.map((b) => [b.startTime, b.endTime]);
     const under = (o) => spans.some(([a, b]) => (o.startSeconds != null ? o.startSeconds : o.startTime) >= a - 0.01 && (o.endSeconds != null ? o.endSeconds : o.endTime) <= b + 0.01);
-    const gone = s.objects.filter((o) => bricks.includes(o) || (o.type === 'waveCurve' && ((o.layer === lane && o.sonifyNote != null && under(o)) || (o.curveName === 'A' && under(o)))));
+    const gone = s.objects.filter((o) => bricks.includes(o) || (o.type === 'waveCurve' && ((o.layer === lane && o.sonifyNote != null && under(o)) || (o.curveName === 'A' && o.layer >= 13 && under(o)))));
     s.objects = s.objects.filter((o) => !gone.includes(o));
     console.log('replaced: ' + gone.length + ' object(s) taken out (' + bricks.length + ' sine brick(s), the notes and curve-A objects under them)');
 }
-// the pairs: a note (in breaths) per pair; the bend sampled every 0.25 s
-let t = start, breathCount = 0; const notes = [], said = [];
-pairs.forEach((P, pi) => {
-    if (holdR) P.hold = r1(holdR[0] + rnd() * (holdR[1] - holdR[0]));   // the peak held for a rolled while (§121)
-    const line = P.pts.map(([tt, h]) => [tt, h]); const lastT = line[line.length - 1][0]; const len = r3(lastT + P.hold);
-    if (P.hold > 0) line.push([len, line[line.length - 1][1]]);
-    const bend = []; line.forEach(([tt, h], i) => { if (i > 0) { const [t0, h0] = line[i - 1]; if (h0 !== h) for (let x = t0 + 0.25; x < tt - 1e-6; x += 0.25) bend.push([r3(x), r1(centsFor(midi, h0 + (h - h0) * (x - t0) / (tt - t0)))]); } bend.push([r3(tt), r1(centsFor(midi, h))]); });
-    const far = Math.max(...bend.map((p) => p[1]));
-    if (far > 100 * (inst.playerBendSt != null ? inst.playerBendSt : 1)) die('pair ' + (pi + 1) + ': ' + far + ' c is past the player\'s reach');
-    const at = (x) => { if (x <= bend[0][0]) return bend[0][1]; for (let i = 1; i < bend.length; i++) if (x <= bend[i][0]) { const [ta, ca] = bend[i - 1], [tb, cb] = bend[i]; return ca + (cb - ca) * (x - ta) / Math.max(1e-9, tb - ta); } return bend[bend.length - 1][1]; };
-    // the breaths — by the rules (the count runs across the pairs, so "one in eight" is one in eight of the whole), or the override
-    const row = BR.ceilingS.find((q) => midi >= q.lo && midi <= q.hi) || BR.ceilingS[BR.ceilingS.length - 1], ceil = row[dynCol(noteMark)];
+const others = [];   // the inhalation times of the other lanes: the midpoint of each short gap between two notes on a lane
+if (has('avoid')) {
+    const byLane = {};
+    for (const o of s.objects) if (o.type === 'waveCurve' && o.sonifyNote != null && o.layer !== lane && o.layer < 12) (byLane[o.layer] = byLane[o.layer] || []).push(o);
+    for (const arr of Object.values(byLane)) { arr.sort((p, q) => p.startSeconds - q.startSeconds); for (let i = 1; i < arr.length; i++) { const g = arr[i].startSeconds - arr[i - 1].endSeconds; if (g > 0 && g < 2) others.push(r3((arr[i - 1].endSeconds + arr[i].startSeconds) / 2)); } }
+}
+const MINGAP = BR.ensembleMinGapS || 1.5; let unclear = 0;
+
+// ---- the held tones of one pair: a wind's breaths · a string's bows · a crotale's bowings ----
+let heldCount = 0;
+function cut(len, t0) {
     const spans = []; let u = 0;
+    if (isCrotale && !breathOverride) {   // bowings of about targetS, never past ceilingS, gapS between (Approaching's beating section)
+        const C = BR.crotale || { ceilingS: 8, targetS: 5.8, gapS: 0.6 };
+        while (u < len - 0.05) { let bl = Math.min(C.ceilingS, C.targetS * (0.8 + rnd() * 0.4)); if (u + bl > len) bl = len - u; if (bl < 0.8) break; spans.push([r3(u), r3(u + bl)]); u = u + bl + C.gapS; }
+        return spans;
+    }
+    const ceilRow = isString ? BR.bowCeilingS : (BR.ceilingS.find((q) => key >= q.lo && key <= q.hi) || BR.ceilingS[BR.ceilingS.length - 1]);
+    const ceil = ceilRow[dynCol(noteMark)], gapRange = isString ? BR.bowChangeS : BR.inhaleS;
     while (u < len - 0.05) {
-        breathCount++;
-        let bl = breathOverride ? breathOverride[0] + (rnd() * 2 - 1) * (breathOverride[1] || 0)
-            : (breathCount % BR.shortEvery === 0 ? ceil * (BR.shortShare[0] + rnd() * (BR.shortShare[1] - BR.shortShare[0])) : ceil * (BR.heldShare[0] + rnd() * (BR.heldShare[1] - BR.heldShare[0])));
+        heldCount++;
+        const share = heldCount % BR.shortEvery === 0 ? BR.shortShare : BR.heldShare;
+        let bl = breathOverride ? breathOverride[0] + (rnd() * 2 - 1) * (breathOverride[1] || 0) : ceil * roll(rnd, share);
+        const gap = roll(rnd, gapRange);
+        if (others.length && !breathOverride) {   // the ensemble rule: this inhalation clear of every other lane's by MINGAP — slide inside the range
+            const clear = (b) => others.every((x) => Math.abs(t0 + u + b + gap / 2 - x) >= MINGAP);
+            if (!clear(bl)) { const lo2 = ceil * share[0], hi2 = ceil * share[1]; let found = null; for (let d = 0.1; d <= hi2 - lo2 && found == null; d += 0.1) { if (bl + d <= hi2 && clear(bl + d)) found = bl + d; else if (bl - d >= lo2 && clear(bl - d)) found = bl - d; } if (found != null) bl = found; else unclear++; }
+        }
         if (u + bl > len) bl = len - u;
         if (bl < BR.minLastS) break;
         spans.push([r3(u), r3(u + bl)]);
-        u = u + bl + BR.inhaleS[0] + rnd() * (BR.inhaleS[1] - BR.inhaleS[0]);
+        u = u + bl + gap;
     }
-    const pairId = 'pair-' + (pi + 1);
+    return spans;
+}
+
+// ---- the build ----
+let t = start; const notes = [], bricks = [], said = [];
+pairs.forEach((P, pi) => {
+    const line = P.pts.map(([tt, h]) => [tt, h]); const lastT = line[line.length - 1][0]; const len = r3(lastT + P.hold);
+    if (P.hold > 0) line.push([len, line[line.length - 1][1]]);
+    const movingMidi = WHO === 'sine' ? sineMidi : key;
+    const bend = []; line.forEach(([tt, h], i) => { if (i > 0) { const [t0, h0] = line[i - 1]; if (h0 !== h) for (let x = t0 + 0.25; x < tt - 1e-6; x += 0.25) bend.push([r3(x), r1(centsFor(movingMidi, h0 + (h - h0) * (x - t0) / (tt - t0)))]); } bend.push([r3(tt), r1(centsFor(movingMidi, h))]); });
+    const far = Math.max(...bend.map((p) => p[1]));
+    if (WHO === 'player' && far > 100 * (inst.playerBendSt != null ? inst.playerBendSt : 1)) die('pair ' + (pi + 1) + ': ' + far + ' c is past the player\'s reach');
+    const at = (x) => { if (x <= bend[0][0]) return bend[0][1]; for (let i = 1; i < bend.length; i++) if (x <= bend[i][0]) { const [ta, ca] = bend[i - 1], [tb, cb] = bend[i]; return ca + (cb - ca) * (x - ta) / Math.max(1e-9, tb - ta); } return bend[bend.length - 1][1]; };
+    const spans = cut(len, t), pairId = 'pair-' + (pi + 1), zid = WHO === 'sine' ? 'zn-' + (nextId++) : null;
     spans.forEach(([a, b], k) => {
-        const inner = bend.filter((p) => p[0] > a + 1e-6 && p[0] < b - 1e-6).map(([tt, c]) => [r3(tt - a), c]);
-        const mb = [[0, r1(at(a))]].concat(inner, [[r3(b - a), r1(at(b))]]);
-        notes.push({ id: 'wc-' + (nextId++), type: 'waveCurve', layer: lane, startSeconds: r3(t + a), endSeconds: r3(t + b),
+        const n = { id: 'wc-' + (nextId++), type: 'waveCurve', layer: lane, startSeconds: r3(t + a), endSeconds: r3(t + b),
             nodes: [{ pos: 0, y, smooth: 0.25 }, { pos: 1, y, smooth: 0.25 }], segments: [{ model: 'power', slope: 0 }], color: '#607D8B', fillMode: 'bottom', opacity: 0.55,
-            performanceNotes: pn(midi) + ' · ' + pairId + ' ' + P.pts.map((p) => p[1]).join(' → ') + ' beats/s · breath ' + (k + 1) + ' of ' + spans.length + ': ' + mb[0][1] + ' → ' + mb[mb.length - 1][1] + ' c · ' + noteMark,
-            properties: { sine: { brick: null, who: 'player', kind: 'saw', pair: pi + 1, cents: far, seed: seed0, take: '', was: { technique: L.voice, morphBend: null, sonifyMode: 'plain', velAbs: null, cc7Abs: null, endSeconds: r3(t + b) }, keyOffset: 0, breath: { k: k + 1, n: spans.length, fromCents: mb[0][1], toCents: mb[mb.length - 1][1] } } },
-            sonifyNote: midi, technique: L.voice, recVel: vel, velAbs: vel, cc7Abs: { lo: 127, hi: 127 }, morphBend: mb });
+            properties: { sine: { brick: zid, who: WHO, kind: P.shape, pair: pi + 1, cents: WHO === 'player' ? far : 0, seed: seed0, take: '', was: { technique: L.voice, morphBend: null, sonifyMode: 'plain', velAbs: null, cc7Abs: null, endSeconds: r3(t + b) }, keyOffset: 0, held: { k: k + 1, n: spans.length } } },
+            sonifyNote: key, technique: L.voice, recVel: vel, velAbs: vel, cc7Abs: { lo: 127, hi: 127 } };
+        if (WHO === 'player') {   // the bend, the piece of the whole this held tone covers, re-based; it re-enters on the cents reached
+            const inner = bend.filter((p) => p[0] > a + 1e-6 && p[0] < b - 1e-6).map(([tt, c]) => [r3(tt - a), c]);
+            n.morphBend = [[0, r1(at(a))]].concat(inner, [[r3(b - a), r1(at(b))]]);
+            n.properties.sine.held.fromCents = n.morphBend[0][1]; n.properties.sine.held.toCents = n.morphBend[n.morphBend.length - 1][1];
+            n.performanceNotes = pn(key) + ' · ' + pairId + ' ' + P.pts.map((p) => p[1]).join(' → ') + ' beats/s · held tone ' + (k + 1) + ' of ' + spans.length + ': ' + n.morphBend[0][1] + ' → ' + n.morphBend[n.morphBend.length - 1][1] + ' c · ' + noteMark;
+        } else {   // THE PITCH STANDS STILL (his word, SW-19: the crotale cannot bend; the flute at F6 holds) — the sine glides instead
+            n.performanceNotes = pn(key) + (SOCT ? ' (sounds ' + pn(sounding) + ')' : '') + ' STRAIGHT · ' + pairId + ' the sine ' + P.pts.map((p) => p[1]).join(' → ') + ' beats/s · held ' + (k + 1) + ' of ' + spans.length + ' · ' + noteMark;
+        }
+        notes.push(n);
     });
-    said.push(pairId + ' ' + r3(t) + ' → ' + r3(t + len) + ' s: ' + P.pts.map(([tt, h]) => h + ' at +' + tt + ' s').join(' → ') + ', held ' + P.hold + ' s · bend to ' + far + ' c · ' + spans.length + ' breath(s): ' + spans.map(([a, b]) => r1(b - a) + ' s').join(' '));
-    t = r3(t + len + gapPairs);
+    if (WHO === 'sine') {   // one sine brick a pair: its gliss the pair's line, in cents at the sine's pitch (eight points at the most)
+        const gl = line.map(([tt, h]) => [r3(tt / len), r1(centsFor(sineMidi, h))]).slice(0, 8);
+        bricks.push({ id: zid, type: 'zone', layer: lane, startTime: r3(t), endTime: r3(t + len), zoneFunction: 'elec', midiModel: 'elecSine', color: '#7B1FA2', opacity: 0.35, zoneHeight: 0.2, yOffset: 0.08, player: '', instrument: '',
+            elec: { midi: sineMidi, gliss: { kind: 'line', from: 0, to: gl[gl.length - 1][1], points: gl }, level: { mode: 'flat', mark: String(sineMark) }, label: 'the sine glides, ' + pn(sounding) + ' holds', fadeInMs: fadeMs, track: { on: false } },
+            properties: { sine: { note: notes.length ? notes[notes.length - spans.length].id : null }, beat: { pitch: key, sounding, hz: r2(hz(sineMidi)), who: 'sine', side: 'over', shape: P.shape, line: P.pts, holdS: P.hold, farCents: far, sine: sineMark, note: noteMark, velocity: vel, fadeInMs: fadeMs, seed: seed0 } } });
+    }
+    said.push(pairId + ' (' + P.shape + ') ' + r3(t) + ' → ' + r3(t + len) + ' s: ' + P.pts.map(([tt, h]) => h + ' at +' + tt + ' s').join(' → ') + ', held ' + P.hold + ' s · ' + (WHO === 'sine' ? 'the sine' : 'the bend') + ' to ' + far + ' c · ' + spans.length + ' held tone(s): ' + spans.map(([a, b]) => r1(b - a) + ' s').join(' '));
+    t = r3(t + len + (pi < pairs.length - 1 ? roll(rnd, gapR) : 0));
 });
-const sineEnd = r3(t - gapPairs), zid = 'zn-' + (nextId++);
-notes.forEach((n) => { n.properties.sine.brick = zid; });
-const brick = { id: zid, type: 'zone', layer: lane, startTime: sineStart, endTime: sineEnd, zoneFunction: 'elec', midiModel: 'elecSine', color: '#7B1FA2', opacity: 0.35, zoneHeight: 0.2, yOffset: 0.08, player: '', instrument: '',
-    elec: { midi, gliss: { kind: 'none', from: 0, to: 0 }, level: { mode: 'flat', mark: String(sineMark) }, label: 'the tone the sax beats against', fadeInMs: fadeMs, track: { on: false } },
-    properties: { sine: { note: notes.length ? notes[0].id : null }, beat: { pitch: midi, hz: r2(hz(midi)), who: 'player', side: 'over', shape: 'saw', pairs: pairs.map((P) => ({ line: P.pts, holdS: P.hold })), gapS: gapPairs, sine: sineMark, note: noteMark, velocity: vel, fadeInMs: fadeMs, breath: breathOverride ? { aimS: breathOverride[0], jitterS: breathOverride[1] || 0 } : { rules: 'bank/breath_rules.json', heldShare: BR.heldShare, shortEvery: BR.shortEvery, shortShare: BR.shortShare, inhaleS: BR.inhaleS }, seed: seed0 } } };
-s.objects.push(brick, ...notes);
+const sineEnd = r3(t);
+if (WHO === 'player') {   // ONE constant sine across every pair (his "keep the sine constant")
+    const zid = 'zn-' + (nextId++); notes.forEach((n) => { n.properties.sine.brick = zid; });
+    bricks.push({ id: zid, type: 'zone', layer: lane, startTime: sineStart, endTime: sineEnd, zoneFunction: 'elec', midiModel: 'elecSine', color: '#7B1FA2', opacity: 0.35, zoneHeight: 0.2, yOffset: 0.08, player: '', instrument: '',
+        elec: { midi: sineMidi, gliss: { kind: 'none', from: 0, to: 0 }, level: { mode: 'flat', mark: String(sineMark) }, label: 'the tone ' + TRACKS[lane].label + ' beats against', fadeInMs: fadeMs, track: { on: false } },
+        properties: { sine: { note: notes.length ? notes[0].id : null }, beat: { pitch: key, hz: r2(hz(key)), who: 'player', side: 'over', shape: has('roll') ? 'saw-rolled' : 'saw', pairs: pairs.map((P) => ({ line: P.pts, holdS: P.hold, shape: P.shape })), gapS: gapR, sine: sineMark, note: noteMark, velocity: vel, fadeInMs: fadeMs, breath: breathOverride ? { aimS: breathOverride[0], jitterS: breathOverride[1] || 0 } : { rules: 'bank/breath_rules.json' }, seed: seed0 } } });
+}
+s.objects.push(...bricks, ...notes);
 s.objects.sort((p, q) => (p.startTime != null ? p.startTime : p.startSeconds) - (q.startTime != null ? q.startTime : q.startSeconds));
-const breathSaid = breathOverride ? 'breaths ' + breathOverride[0] + ' ± ' + (breathOverride[1] || 0) + ' s (override)' : 'breaths by the rules: held ' + Math.round(BR.heldShare[0] * 100) + ' … ' + Math.round(BR.heldShare[1] * 100) + ' % of a ' + (BR.ceilingS.find((q) => midi >= q.lo && midi <= q.hi) || BR.ceilingS[BR.ceilingS.length - 1])[dynCol(noteMark)] + ' s ceiling at ' + noteMark + ', one in ' + BR.shortEvery + ' short, the inhalation ' + BR.inhaleS.join(' … ') + ' s';
-console.log(TRACKS[lane].label + ' ' + pn(midi) + ' (' + r2(hz(midi)) + ' Hz) · the sine ' + sineStart + ' → ' + sineEnd + ' s at mark ' + sineMark + ', in over ' + fadeMs + ' ms · the note ' + noteMark + ' (velocity ' + vel + ') · ' + breathSaid + ' · seed ' + seed0);
+console.log(TRACKS[lane].label + ' ' + pn(sounding) + (SOCT ? ' (the key ' + pn(key) + ')' : '') + ' (' + r2(hz(sounding)) + ' Hz) · WHO MOVES: ' + (WHO === 'sine' ? 'THE SINE (the ' + TRACKS[lane].label.toLowerCase() + ' holds straight)' : 'the player') + ' · the sine' + (WHO === 'player' ? ' ' + sineStart + ' → ' + sineEnd + ' s constant' : ' a brick a pair') + ' at mark ' + sineMark + ', in over ' + fadeMs + ' ms · the note ' + noteMark + ' (velocity ' + vel + ') · ' + (isCrotale ? 'bowings ~' + (BR.crotale || {}).targetS + ' s' : (isString ? 'bows' : 'breaths') + ' by bank/breath_rules.json') + (has('avoid') ? ' · avoiding ' + others.length + ' inhalation(s) of other lanes' + (unclear ? ' (' + unclear + ' could not be cleared)' : '') : '') + ' · seed ' + seed0);
 console.log(said.join('\n'));
 if (has('dry')) { console.log('(dry: nothing written)'); process.exit(0); }
 s.nextId = nextId; s.metadata = s.metadata || {}; s.metadata.modified = new Date().toISOString();

@@ -11,7 +11,8 @@
    ],
    "sineOctave": 24,
    "sineCents": 17,
-   "_measured": "MEASURED 2026-10-06 on bank/samples/perc-crot-bow-1.wav (the bowed crotale, key 67, captured through the engine): its strongest partial 1583.4 Hz = G6 +17 cents — the key + 24.17 semitones. So a Ricotti crotale SOUNDS TWO OCTAVES ABOVE ITS KEY (as the instrument does above its written pitch), and this one stands 17 cents over equal temperament. ONE KEY was measured: the other 24 may differ by some cents — the sine's unison is then that far off, heard as a slow beating where the draw says none. A sweep of the 25 keys is one pass of his rack, at his word. IN CONCERT the real crotales have their own tuning: the offset is a rehearsal's measure (docs/PERFORMANCE_NOTES.md)."
+   "_measured": "MEASURED 2026-10-06 on bank/samples/perc-crot-bow-1.wav (the bowed crotale, key 67, captured through the engine): its strongest partial 1583.4 Hz = G6 +17 cents — the key + 24.17 semitones. So a Ricotti crotale SOUNDS TWO OCTAVES ABOVE ITS KEY (as the instrument does above its written pitch), and this one stands 17 cents over equal temperament. ONE KEY was measured: the other 24 may differ by some cents — the sine's unison is then that far off, heard as a slow beating where the draw says none. A sweep of the 25 keys is one pass of his rack, at his word. IN CONCERT the real crotales have their own tuning: the offset is a rehearsal's measure (docs/PERFORMANCE_NOTES.md).",
+   "_switch": "2026-11-09 (SW-19, his word): THE CROTALE KEEPS A STATIC PITCH — it cannot bend; the SINE glides. tools/beat_saw.js writes the crotale's notes with NO bend (Approaching's save had glided crotales by a fault he remembers)."
   },
   "cello": {
    "voice": "senza_vel",
@@ -31,6 +32,33 @@
     50
    ],
    "_added": "2026-11-09 (RUNNING_LOG §117): the alto sax bends against a static sine on its ordinario; the cents range is Approaching's start for a wind — the pair tool works in beats a second and derives the cents"
+  },
+  "clarinet": {
+   "voice": "ord",
+   "who": "player",
+   "cents": [
+    8,
+    50
+   ],
+   "_added": "2026-11-09 (§123): the clarinet at F5 (sounding) bends itself — 6 … 16 cents for 2.6 … 6.5 beats a second, a clarinettist's lip; the sine static"
+  },
+  "flute": {
+   "voice": "ord",
+   "who": "sine",
+   "cents": [
+    8,
+    50
+   ],
+   "_added": "2026-11-09 (§123): the flute at F6 HOLDS STRAIGHT and the SINE glides — a bend of 1 … 12 cents is under any player's control (§120's table); the AI's advice, his to reverse (who: player)"
+  },
+  "violin": {
+   "voice": "senza_vel",
+   "who": "player",
+   "cents": [
+    8,
+    50
+   ],
+   "_added": "2026-11-09 (§123): the violin at F4 bends itself (its reach a semitone; 10 beats/s = 49 c); the sine static"
   }
  },
  "_player": "kinds = how often each behaviour is drawn (weights). toUnison: the player starts off the pitch and FINDS it — arriving at a fraction of the length drawn from `settle`, then holding the unison · fromUnison: holds the unison for a fraction drawn from `leave`, then drifts off · through: from one side across the unison to the other (the far side 30 … 100 % as far) · hold: a steady offset, small — a steady slow beating · waver: around the unison, a third of the range at the most. Above or below: a coin. ease = the shape in time: linear · in (slow, then quick) · out (quick, then slow).",

@@ -2173,3 +2173,39 @@ aim,jitter` stays as a plain-roll override.
 **The sax re-cut** (f → the 8 s ceiling; seed 23): the four pairs 16 → 94.5 s, the sine 15 → 94.5 at mark 6.25, in over 1 s; the held tones
 **7.6 · 6.9 · 3.2 | 7.1 · 7.4 · 1.6 | 7.9 · 4.3 · 7.1 | 7.7 · 6.9 · 3.9 s** (the 4.3 is the one-in-eight short; the 3.2 · 1.6 · 3.9 are each pair's
 remainder before its end), the inhalations 0.4 … 0.6 s. NOT CLAIMED: his ear — whether 85 … 100 % of an 8 s guess is this player's breath.
+
+## §123. The pop's real cause — a mid-span start came in over 15 ms; the five lanes rolled by SW-15's shapes, each under its sine (2026-11-09)
+
+**His words:** SW-19 · SW-20. **The engine checked first:** sclang up since 17:29, the fade fix committed 16:24 — the fix WAS running. So the fade
+itself was right and he still heard a pop. **The cause, in the page (`le_sine.js` sineMessage):** my own rule of §119 — *"a playhead that starts
+INSIDE the brick comes in over 15 ms — the sine is already meant to be sounding there"*. He presses play inside the sine's span almost every time
+(the sine begins at 15 s, the sax at 16; he starts at the sax, or anywhere after). Every such start was a 15 ms rise: the pop, "not starting
+from zero". **Fixed:** a start inside the brick fades like its beginning — the brick's own fadeInMs (1 s here); 15 ms only for a brick with
+none. His volume-bus picture is what the engine does (a Line in dB, §121); the page just never asked for it mid-span. SWEEP_LIST 3.
+
+**His questions answered:** F5 — the CLARINET (sounding; the clarion register, stable, bends its 6 … 16 cents); F6 — the FLUTE, holding
+STRAIGHT while the sine glides (a bend of 1 … 12 cents is under any player's control, §120); the violin on F4 and the cello on F3 as he settled;
+the crotale on F7 — the sounding pitch; its key F5 (the Ricotti crotale sounds two octaves above its key, `sine_behaviours` sineOctave 24,
+measured in Approaching), bowed (`crot_bowed`), **the pitch static — NO bend on any crotale note** (his SW-20; the tool writes none for a
+`who: sine` lane), the SINE glides. The vibraphone's F6 is its top bar; the glockenspiel is the call's fallback for F7 (§120).
+
+**The tool (`tools/beat_saw.js`, rewritten):** `--roll --until S` by `bank/beat_saw.json` — SW-15's shapes A (peak 8 … 10; the knee at two-thirds;
+pace 1.8 … 2.6 s per beat, then 0.8 … 1.2) and B (peak 4.8 … 6.5; pace 2.6 … 3.6), alternating, which first rolled per lane; the holds 1.8 … 2.6;
+the gaps 0.8 … 1.2 · `who: sine` lanes — a sine brick a PAIR (its gliss the pair's line in cents at the sine's pitch, ≤ 8 points), the note held
+straight · the held tones by `bank/breath_rules.json` — a wind's breaths; **a string's BOWS** (new rows: a bow 14 · 11 · 8 s at p · mf · f, the
+change 0.05 … 0.12 s — the AI's starts); **a crotale's bowings** (about 5.8 s, never past 8, 0.6 between — Approaching's numbers) · `--avoid`: no
+inhalation within 1.5 s of another lane's (the save read), a held tone slid inside its range to clear; what could not be cleared is counted ·
+each lane its own seed (23 + 101 × lane; on one seed five lanes rolled alike — seen and fixed). **The sine marks (the AI's starts, after
+Approaching's ear — a low sine louder, a high one softer; `bank/beat_saw.json`):** sax 6.25 · clarinet 6 · flute 5.5 · violin 6.25 · cello 7 ·
+crotale 4.5; the notes f, the crotale mp.
+
+**Written into `piece-Section01-D-saxBeatTest` (69 objects: 9 sine bricks, 53 notes; his seven bricks):**
+| lane | pitch | enters | pairs (shape · to … beats/s) | ends | who moves |
+|---|---|---|---|---|---|
+| Alto Sax | F4 | 16 s | the four dictated (SW-14) | 94.5 | the player |
+| Clarinet | F5 | 26.4 s | A → 8.4 · B → 5.6 · A → 9.3 | 86.1 | the player (≤ 23 c) |
+| Flute | F6 | 30 s | A → 9.3 · B → 6.1 · A → 9 | 84.6 | THE SINE (≤ 11.5 c); the flute straight |
+| Cello | F3 | 32.8 s | B → 6 · A → 8.7 · B → 5.7 | 91.1 | the player (≤ 84 c) |
+| Violin | F4 | 35.9 s | B → 5 · A → 8.6 · B → 4.8 | 86.6 | the player (≤ 42 c) |
+| Crotale | F7 (key F5) | 39 s | B → 6.4 · A → 10 | 82.9 | THE SINE (≤ 6.1 c); the bar static, bowed ×7 |
+The ensemble rule cleared most inhalations; a few could not be (said per lane). **NOT CLAIMED:** the sound of any of it — his ear.

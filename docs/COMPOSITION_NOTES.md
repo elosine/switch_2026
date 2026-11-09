@@ -380,3 +380,29 @@ inhales quickly, continues; the ensemble's inhalations fall unpredictably and ra
 
 *(SW-18, his decision 2026-11-09: "numbers good go ahead and apply pls" — the set of RUNNING_LOG §121 is the rule, as data in
 `bank/breath_rules.json` (§122, journal D12).)*
+
+### SW-19 · 2026-11-09 — THE REST OF THE PARTS, their entries · the sine still pops · the violin stays on F4, the cello F3
+
+*His words (dictated, light corrections):*
+
+> *"Okay, the sine tone still is popping in. I don't want to necessarily spend too much more time on this. So let's go ahead and generate the
+> rest of them. I didn't see your response earlier, or maybe I just missed it, regarding the flute or the clarinet for — I guess it's F5. And
+> then, yeah, let's go ahead and generate all the rest of the parts. And we'll come back to the piano. Actually, can the violin do A3? Oh yeah,
+> maybe it can. So in that case … never mind, it's F. So we'll keep that on F4 and then F3 on the cello, yeah. And maybe you can do one more
+> try for their sine tones, see if you can't get it to fade in, even if you have to use a slightly longer fade in. But it really is just
+> popping in. It's not starting from zero. It's starting at some higher level, so it just pops in. But again, if it's going to take a lot more
+> effort to get it right, then let's just move on. But my preference is that we get some sort of fade there. It seems odd that we can't get a
+> fade in somehow — when you just attach it to some sort of volume bus and just fade the volume bus in."*
+>
+> *"And then the entry times are going to be 26.4 for F5, whichever instrument is that. 30 seconds, the flute or the clarinet, whichever is F6.
+> For the cello, 32.8. The violin, 35.9. And then the crotales at F7 — I think it has that range — 39 seconds."*
+
+### SW-20 · 2026-11-09 — THE CROTALE KEEPS A STATIC PITCH; the sine glides instead
+
+*His words:* *"Oh, and I forgot, we need to do the opposite with the crotales since it doesn't bend. And let's make sure we're just bowing F7
+straight with the crotales. I think the last piece, even at the end, we're still glissing that crotales, and they don't gliss. The pitch can't
+change, obviously. So you'll glissando the sine tone instead. But just make sure that the crotale is keeping a static pitch."*
+
+*The AI's reading (not his):* the octaves of F enter in order — the sax F4 (16 s) · F5 (26.4) · F6 (30) · the cello F3 (32.8) · the violin F4
+(35.9) · the crotale F7 (39) — each a sawtooth of pairs by SW-15's two shapes under its own sine; where a player cannot place the bend (the
+crotale; the flute at F6) the note stands still and the sine glides. The piano later. RUNNING_LOG §123 has the assignment and the numbers.

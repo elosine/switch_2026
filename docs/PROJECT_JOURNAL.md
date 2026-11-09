@@ -91,6 +91,10 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
   `piece-Section01-D-saxBeatTest`** (his working file `B` untouched). **► HIS EAR on the four pairs** — the sine's mark the lever; then the method's
   steps 2 … 4 (the gliss speed · one drawn crescendo for both · the electronics under them, quickly) and the other lanes by SW-15's algorithm.
   **MODEL:** his listening and the talk — Fable; the roll of the other lanes once the numbers are his — Opus.
+- **2026-11-09 (late) — THE FIVE OTHER LANES ROLLED (RUNNING_LOG §123; SW-19 · SW-20):** clarinet F5 · flute F6 · cello F3 · violin F4 · the crotale F7
+  (static, its sine gliding) at his entries, by SW-15's shapes (`bank/beat_saw.json`), the held tones by D12's rules (a string's bows, a
+  crotale's bowings added), each lane its own seed; the pop's cause found in the page (a mid-span start rose in 15 ms) and fixed. All in
+  `piece-Section01-D-saxBeatTest` (69 objects). **► HIS EAR on the whole; the sine marks per lane are the AI's starts.**
 - **2026-11-09 — STILL SILENT → THE ENGINE'S CUE (RUNNING_LOG §111):** the route was necessary, not sufficient; traced by measurement to
   `Buffer.cueSoundFile`'s completion function firing before the read (the synth streamed an empty buffer). Fixed in `material.scd` (the read's
   /done awaited; VDiskIn at the file's rate — the fund is 44.1 kHz, the engine 48 kHz); the engine window now shows the server's own errors.
