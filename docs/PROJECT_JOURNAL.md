@@ -61,6 +61,17 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+- **2026-11-09 — THE ELECTRONIC SCORE BUILT (PLAN 1a.7 steps 1 … 5; RUNNING_LOG §103, the engine's §74):** the fund (`H:\switch_2026udio  set-2025-04-08c\keep\`, 47 materials) indexed in `bank/materials.json` (`node tools/materials_index.js` after the keep folder changes); the
+  material brick in the composer score (key `N` at the playhead on the active lane · SHIFT+N splits the selected one · the panel: material,
+  from, length, fades, trim, level flat / hairpin / curve A B C lane · ▶ hear 6 s); the engine streams a brick's stretch from disk
+  (`electronics/sc/material.scd`). Proven offline (`material_test.scd` PASS) and on the throwaway page; NOT under his hands yet.
+  **► NEXT: HIS FIRST PASS WITH THE ENGINE UP** — Reaper with the rack → `start_electronics.bat` (the engine restarted ONCE: the new file and the
+  index load at start) → his score → `N` places a material → play. Faults to `docs/SWEEP_LIST.md`. **Also waiting on his ear:** the ten
+  sequences with characters (`http://localhost:5620/files/tuplets/sequences/processed/index.html`) — the keepers by seed. **Step 6 (the bounce)
+  when he reaches it.** **MODEL · CLEAR:** his pass and its faults — Fable (judgment on what he hears); the bounce is a written step — Opus.
+  This is a good time to clear: the lab's long conversation is behind this entry.
+  `Resume reads:` `docs/PLAN.md` 1a.7 · `docs/STARTUP.md` · `electronics/score/le_material.js` (its head) · `docs/SWEEP_LIST.md`.
+
 - **2026-11-03 — 1a.3 IN HIS HANDS: THE ICY LAB (RUNNING_LOG §44)** — a live patch, `http://localhost:8732/engine/icy-lab.html`
   (preview name `icy-lab` = the workshop's `tools/serve.py`; or he runs it by its full path, `python C:\Users\jwloy\GitHub\live-electronics-engine\tools\serve.py`):
   1 of 12 grabs, the tree as knobs, save-to-menu. **► HE LISTENS AND SAVES SETTINGS; the menu `live-electronics-engine/voices/icy-menu.json`
