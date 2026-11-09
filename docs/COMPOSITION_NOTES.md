@@ -513,3 +513,7 @@ technique per take) — to be checked for the piano's several techniques on one 
 
 *The AI's reading (not his):* for the crescendos (and the notated score's sake) the sine and the player begin TOGETHER — the sine from
 silence over half a second, nothing sounding before the note; the long-tone sines of the first section (a second early) stay as they are.
+
+### SW-30 · 2026-11-09 — crescendo 05 at 127 → 134 s (SwCres05a)
+
+*His words:* *"127 to 134 c5"* — read as crescendo 05 from the take SwCres05a, the series' next rate, 9 beats a second (SwCres04a left for a later one).

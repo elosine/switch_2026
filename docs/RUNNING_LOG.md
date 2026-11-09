@@ -2332,3 +2332,10 @@ beats/s (0.59 s per beat), p → fff, one held tone each, the sines WITH the not
 with its bend −100 → +3. The save: 112 objects. **His musing on 350 ms, answered by the choice of 500:** the engine's dB-linear rise is at
 −30 dB halfway, so 500 ms is already soft at the start and present by its end; 350 would be hardly different to the ear — his to say after
 hearing. NOT CLAIMED: the sound.
+
+## §132. SW-30 — crescendo 05 from SwCres05a, 127 → 134 s, → 9 beats a second (2026-11-09)
+
+**His words:** *"127 to 134 c5"* — the take `SwCres05a` (his c5), the series' next rate 9 (6 · 7 · 8 · 9); `SwCres04a` stands unused. **The take's six placed:**
+flute F♯6 · clarinet D6 · sax C♯4 · violin C♯5 · cello F♯2 · the crotale key F♯4 bowed (sounding F♯6). **Built:** 127 → 134 s (7 s), 0 → 9 beats/s
+(0.78 s per beat), p → fff, one held tone each, the sines with the notes, in over 500 ms. The cello's 162 c at F♯2 re-keyed to G2 (−100 → +62).
+The clarinet's D6 is high (sounding; the recipe's range reaches F6) — his take, his call. The save: 124 objects. NOT CLAIMED: the sound.
