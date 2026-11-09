@@ -101,7 +101,7 @@ const sign = arg('side', 'over') === 'under' ? -1 : 1;
 // bend, so we'll bend the sine instead. But the same patterns"). On such a lane a pitch is the SOUNDING one — the sine's, what the
 // brick shows: a crotale sounds sineOctave above its key.
 const WHO = L.who === 'sine' ? 'sine' : 'player', SOCT = +L.sineOctave || 0, SCENTS = +L.sineCents || 0;
-const BOW = Object.assign({ ceilingS: 8, targetS: 5.8, gapS: 0.6 }, ((readJson('bank/beating_section.json').players || []).find((p) => p.lane === instKey)) || {});   // one bowing of a bar: the beating section's numbers
+const BOW = Object.assign({ ceilingS: 8, targetS: 5.8, gapS: 0.6 }, (((fs.existsSync(path.join(ROOT, 'bank', 'beating_section.json')) ? readJson('bank/beating_section.json') : {}).players || []).find((p) => p.lane === instKey)) || {});   // the Switch~ piece has no beating section file (yet): the defaults   // one bowing of a bar: the beating section's numbers
 const laneLevels = (RULES.levels.lanes && RULES.levels.lanes[instKey]) || {};
 const sineMark = arg('sine', laneLevels.sine || RULES.levels.sine), noteMark = arg('note', laneLevels.note || RULES.levels.note);
 if (!MARKS.includes(sineMark) || !MARKS.includes(noteMark)) die('--sine and --note: one of ' + MARKS.join(' '));
@@ -299,14 +299,29 @@ if (has('roll')) {
 } else {
     // ---- DICTATED: from → to, there at --at, held ----
     const midi = keyOf(arg('pitch') != null ? arg('pitch') : die('--pitch (or --roll --pitches …)'));
+    const lastEnd = Math.max(0, ...s.objects.filter((o) => o.layer === lane).map(endOf)), gR = range(arg('gap', RULES.gapS.join(',')), 'gap');
+    const gap = arg('start') != null ? null : r1(gR[0] + Math.random() * (gR[1] - gR[0]));
+    const start0 = r3(arg('start') != null ? +arg('start') : lastEnd + gap);
+    if (arg('line') != null) {
+        // ---- DICTATED AS A LINE (the Switch~ piece's §117, 2026-11-09 — his two-legged rise: "1 beat per second every 2 seconds for 10 seconds,
+        // then over the next 6 seconds from wherever it is to 9"): --line t:beats,t:beats,… (seconds from the note's start · beats a second),
+        // the last value HELD for --hold seconds (the rules' holdMinS when unsaid); nothing rolled, the length the sum ----
+        const pts = String(arg('line')).split(',').map((q) => q.split(':').map(Number));
+        if (pts.length < 2 || pts.some((q) => q.length !== 2 || !Number.isFinite(q[0]) || !(q[1] >= 0)) || pts.some((q, i) => i > 0 && q[0] <= pts[i - 1][0])) die('--line t:beats,t:beats,… — times rising from 0, beats a second 0 or more');
+        if (pts[0][0] !== 0) pts.unshift([0, pts[0][1]]);
+        const hold = Math.max(0, +arg('hold', RULES.holdMinS)), len = r3(pts[pts.length - 1][0] + hold), line = pts.map(([t, h]) => [r3(t), h]).concat(hold > 0 ? [[len, pts[pts.length - 1][1]]] : []);
+        const p = pair(midi, start0, line, { shape: 'dictated', line: pts, holdS: hold, gapS: gap });
+        out.push(TRACKS[lane].label + ' ' + SineGo.pn(midi) + ' · ' + p.start + ' → ' + p.end + ' s (' + p.len + ' s = the line\'s ' + pts[pts.length - 1][0] + ' s + a hold of ' + hold + ' s' + (gap != null ? ', after a gap of ' + gap + ' s rolled' : '') + ')',
+            '    ' + pts.map(([t, h]) => h + ' beats/s at ' + r3(start0 + t) + ' s').join(' → ') + ', held · ' + p.say);
+    } else {
     const fromHz = +arg('from', 0), toHz = +arg('to', 0), at = Math.max(0.05, Math.min(1, +arg('at', 2 / 3)));
     if (!(fromHz >= 0) || !(toHz >= 0)) die('--from and --to: beats a second, 0 or more');
-    const lastEnd = Math.max(0, ...s.objects.filter((o) => o.layer === lane).map(endOf)), gR = range(arg('gap', RULES.gapS.join(',')), 'gap'), dR = range(arg('dur', '16,25'), 'dur');
-    const gap = arg('start') != null ? null : r1(gR[0] + Math.random() * (gR[1] - gR[0]));
-    const start = r3(arg('start') != null ? +arg('start') : lastEnd + gap), len = r1(dR[0] + Math.random() * (dR[1] - dR[0])), tAt = r3(len * at);
+    const dR = range(arg('dur', '16,25'), 'dur');
+    const start = start0, len = r1(dR[0] + Math.random() * (dR[1] - dR[0])), tAt = r3(len * at);
     const p = pair(midi, start, at >= 1 ? [[0, fromHz], [len, toHz]] : [[0, fromHz], [tAt, toHz], [len, toHz]], { shape: 'dictated', fromHz, toHz, at: r3(at), gapS: gap });
     out.push(TRACKS[lane].label + ' ' + SineGo.pn(midi) + ' · ' + p.start + ' → ' + p.end + ' s (' + p.len + ' s rolled' + (gap != null ? ', after a gap of ' + gap + ' s rolled' : '') + ')',
         '    ' + fromHz + ' → ' + toHz + ' beats/s, there at ' + r3(start + tAt) + ' s, held · ' + p.say);
+    }
 }
 console.log(out.join('\n'));
 if (has('dry')) { console.log('(dry: nothing written)'); process.exit(0); }

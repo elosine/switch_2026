@@ -1,0 +1,43 @@
+{
+ "_doc": "THE BEATING SHAPES — HIS RULES for a beating pair (tools/beat_pair.js), carried WHOLE from Approaching (decibel_TENOR_2026/bank/beat_shapes.json; its DEC-62 · RUNNING_LOG §269 · §270) into the Switch~ piece 2026-11-09 (RUNNING_LOG §115 · §117). Every number is his or marked (AI) there; the lanes' levels below are THIS piece's, his by ear as the tests go. THE BEATING SHAPES — HIS RULES for a beating pair rolled by tools/beat_pair.js --roll (DEC-62; RUNNING_LOG §269 · §270). A PAIR = a player's long note and a STATIC sine brick at the same pitch; the note is bent so the pair beats along a SHAPE, said in beats a second (Hz). HIS DATA: the rules are his dictation, the numbers marked (AI) are the AI's starts that he accepted with 'Okay, good' — his ear's to move. A number changed here is used at the next roll; nothing is rebuilt by itself.",
+ "_levels": "the written dynamics: the sine brick's mark · the player's note. lanes = a lane's OWN marks, by its instrument (this piece's instKeys). alto_sax: his first test 2026-11-09 — the sax at ff, the sine at ff to start, the sine's mark the lever (SW-12).",
+ "levels": {
+  "sine": "f",
+  "note": "p",
+  "lanes": {
+   "alto_sax": {
+    "sine": "ff",
+    "note": "ff"
+   }
+  }
+ },
+ "_gapS": "the silence between two pairs on a lane: a plain roll, equal chance, in this range (his: 'a simple roll'; 4 … 7 first, 6 … 11 since DEC-71).",
+ "gapS": [
+  6,
+  11
+ ],
+ "_shapes": "the three shapes and how often each is rolled (weights; equal — AI). upHold: from the unison up to the peak, held · downHold: it begins AT the peak, comes down, held · upPlateauDown: up to the peak, a plateau, back down, a last hold.",
+ "shapes": {
+  "upHold": 1,
+  "downHold": 1,
+  "upPlateauDown": 1
+ },
+ "_peakHz": "the peak beating, beats a second: at least the first, at most the second (his: 3 and 10). It LEANS LOW (the smaller of two rolls — AI): a high peak forces a long note.",
+ "peakHz": [
+  3,
+  10
+ ],
+ "_floorHz": "a descent never reaches the unison: it ends at this rate or above (his: 0.6). endMaxShare: … and at most this share of its peak (AI: half) — a plain roll between the two.",
+ "floorHz": 0.6,
+ "endMaxShare": 0.5,
+ "_paceSPerHz": "THE GLISS PACE: seconds for the beating to change by 1 a second. The first number is the FASTEST allowed (his: 1 Hz in 2.5 s); the second the slowest rolled (AI: 6). Each rise and each fall rolls its own, leaning fast (the smaller of two rolls).",
+ "paceSPerHz": [
+  2.5,
+  6
+ ],
+ "_hold": "a hold or a plateau: at least holdMinS (his: 2.5), plus an extra of 0 … holdExtraMaxS (AI: 8) that leans short (the smaller of two rolls).",
+ "holdMinS": 2.5,
+ "holdExtraMaxS": 8,
+ "_maxLengthS": "a pair whose parts sum past this is rolled again (his: 60, 'probably never get there'). The length is never rolled: it is the sum of the parts.",
+ "maxLengthS": 60
+}

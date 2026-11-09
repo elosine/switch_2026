@@ -22,6 +22,15 @@
    ],
    "side": "over",
    "_who": "HIS, 2026-10-08 (RUNNING_LOG §262 · §263; DEC-59 · 59b): the beating in BEATS A SECOND, by the pitch — around 30 — and THE CELLO BENDS, the sine static ('we have long established pitch bend for the cello … since piece number one'). On a D2 that is ~550 … 670 cents, a tritone, past the sampler's ±1 st: the GO RE-KEYS the note — the string quartet's rule (#1; #5 §150): the key moves, the bend re-based, the seam a 5 ms overlap (sine_go.js rekeyChain). side over: the cello bends UP (down a tritone from D2 is below its C string)."
+  },
+  "alto_sax": {
+   "voice": "ord",
+   "who": "player",
+   "cents": [
+    8,
+    50
+   ],
+   "_added": "2026-11-09 (RUNNING_LOG §117): the alto sax bends against a static sine on its ordinario; the cents range is Approaching's start for a wind — the pair tool works in beats a second and derives the cents"
   }
  },
  "_player": "kinds = how often each behaviour is drawn (weights). toUnison: the player starts off the pitch and FINDS it — arriving at a fraction of the length drawn from `settle`, then holding the unison · fromUnison: holds the unison for a fraction drawn from `leave`, then drifts off · through: from one side across the unison to the other (the far side 30 … 100 % as far) · hold: a steady offset, small — a steady slow beating · waver: around the unison, a third of the range at the most. Above or below: a coin. ease = the shape in time: linear · in (slow, then quick) · out (quick, then slow).",

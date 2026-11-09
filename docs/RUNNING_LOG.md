@@ -2026,3 +2026,22 @@ Approaching with this piece's lanes' levels); the levers: the sine brick's mark,
 electronics under them, quickly** — the candidates: the material bricks' Trim (dB) in their cards, or ONE number: the engine's master bus
 (`node tools/elec.js bus …`) — but the bus carries the sine too, so the bricks' own trim or a per-lane gain is the right lever; chosen when
 he reaches it · **later** the live-balance method for the performance score (DEC-64's hypothesis stands: a gain threshold with a margin).
+
+## §117. THE FIRST BEATING TEST BUILT — a two-legged rise on F4, the sax ff, the sine ff to start (2026-11-09)
+
+**His words:** SW-12, verbatim. **Answered first:** Approaching's quickest pace 1 beat/s per 2.5 s (DEC-62), the rolls 2.7 · 2.7 · 3.9 s per beat
+(§270 there); a rise to 9 at the quickest 22.5 s. His choice: faster, and in two legs.
+
+**The tool, extended (`tools/beat_pair.js`, the lineage's roller — carried in the copy, its data not):** a dictated LINE — `--line t:beats,…`
+(seconds from the note's start · beats a second), the last value held `--hold` s (the rules' 2.5 unsaid); nothing rolled, the length the sum.
+The read of `bank/beating_section.json` guarded (this piece has none). **The data:** `bank/beat_shapes.json` carried WHOLE from Approaching, its
+`levels.lanes` this piece's — alto_sax { sine ff · note ff } for the test; `bank/sine_behaviours.json` gains the alto sax (voice `ord`, who
+`player`, cents 8 … 50 — the derived cents are the tool's). **His save untouched:** `piece-Section01-D-saxBeatTest` = his `B` + the pair.
+
+**The pair written** (`--pitch F4 --start 16 --line 0:0,10:5,16:9 --hold 6 --sine ff --note ff`): **Alto Sax F4 · 16 → 38 s** (22 s = the line's 16 +
+a hold of 6) — **0 beats/s at 16 s → 5 at 26 s → 9 at 32 s, held to 38** · the bend up to 44.1 c, one note inside the sampler's ±2 st · velocity
+109 (the ladder's ff for the sax) · the sine brick static F4 at ff. The bend is sampled every 0.25 s (straight in Hz is a curve in cents).
+**The first leg is 1 per 2 s — a shade faster than Approaching's fastest (2.5); the second 1 per 1.5 s.** His to hear.
+
+**The order he set for the balance:** the sax fixed at ff; the sine's mark the one lever (P on the brick → Level → Mark). NOT CLAIMED: the
+sound. **NEXT at his word:** step 2 the gliss speed · 3 one drawn crescendo for both · 4 the electronics under them.

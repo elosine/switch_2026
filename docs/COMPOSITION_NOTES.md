@@ -275,3 +275,21 @@ his: (0) the ceiling of beats a second · (1) the sax and the sine balanced, a s
 (3) one drawn crescendo curve read by BOTH the sine and the sax · (4) the electronics brought down under them by a quick, expedient means ·
 (later) the method for the live balance, for the performance score. The lesson he names from Approaching: the volume balance there cost too
 many tests — here one quick fix, heard, then on.
+
+### SW-12 · 2026-11-09 — THE FIRST BEATING TEST: a rise of 1 beat a second every 2 s for 10 s, then to 9 beats a second over 6 s; the sax at ff, the sine's level the lever
+
+*His words (dictated, light corrections):*
+
+> *"Okay, let's do 1 beat per second every 2 seconds for about 12 seconds, and then let's finish the rise much quicker — let's do like 11
+> and 17 … well, I guess we'll have to do even. So let's do for 10 seconds. And then over the next, say, 6 seconds, so 16, let's go from
+> wherever it is to 9 beats a second. And keep the tone at F4, and then the sax will gliss up over that amount of time. And I'll use that
+> just to find the right balance between the two. But actually, let's talk about it first. Let's figure out where to set the sine tone, if
+> that makes sense. I won't know which volume to raise. So do we set the sine tone volume first and then just adjust the sax tone? Maybe
+> it's the other way around. So let's do the sax tone pretty loud. Let's do two Fs, and then we'll adjust the level of the sine tone."*
+
+*(Before it, on the pace: asked how long his rises took and what the quickest pace was — answered: 1 beat a second every 2.5 s at the
+quickest, the rolls 2.7 … 3.9 s per beat; and his *"let's go to 9 beats per second."*)*
+
+*The AI's reading (not his):* the test pair — the sax on F4 at ff, the sine static on F4; the beating 0 → 5 a second over the first 10 s
+(his 1 per 2 s, a shade faster than Approaching's 2.5), then 5 → 9 over 6 s (1 per 1.5 s), held; the order of adjustment his: the sax fixed
+at ff, the sine's mark moved until the beating reads.
