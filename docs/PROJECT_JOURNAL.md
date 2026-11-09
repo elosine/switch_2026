@@ -61,6 +61,29 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+### CHECKPOINT 2026-11-09 — THE LAB'S LONG SESSION CLOSED; HE STARTS IN THE COMPOSER SCORE *(mid-session checkpoint)*
+
+- **The task and its state:** PLAN 1a.7 THE ELECTRONIC SCORE — steps 1 … 5 BUILT and proven offline and on the throwaway (RUNNING_LOG §103);
+  NOT yet under his hands with the engine up. The fund: 57 materials in `bank/materials.json` (mixes · opening · granular · petals · the ten
+  kept tuplet sequences); seven candidate mixes of three and four, each part wandering round a 360° dial (§104), on the materials page
+  `http://localhost:5620/files/keep/index.html` — his verdict on them is open.
+- **His word for after the clear:** *"post clear I want to get started in the composer score."*
+- **► THE NEXT CONCRETE STEP — his first pass, the AI walking him through `docs/STARTUP.md`'s composing order, ONE step at a time:**
+  (1) loopMIDI (HE, first). (2) Reaper with `reaper\switch_rack.rpp` (the AI may open it). (3) `start_electronics.bat` (HE double-clicks; the
+  window ends `LE_READY`; the engine is new since his last run — `material.scd` and the fund's index load here). (4) `start_score_server.bat`
+  (HE). (5) `http://localhost:5600/composer.html` in his Chrome. `node tools/startup_check.js` names any missing step. Then: on a lane, `N` at the
+  playhead places a material brick; the panel picks the material; play — the engine window shows `LE_INFO material · …`; the sound on ELEC RETURN.
+  Faults → `docs/SWEEP_LIST.md`, fixed there (D13: he tests while composing). SHIFT+N splits; the left edge trims with the offset following.
+- **`Resume reads:`** `docs/STARTUP.md` · `docs/PLAN.md` 1a.7 · `electronics/score/le_material.js` (its head comment only).
+- **Pending him:** the seven mixes A … G (keep? which?) · the wandering's pace (one number) · step 6 the bounce, when he reaches it · the petals
+  variations E … J set aside in `petals/_old/` (not deleted).
+- **Deliberately uncommitted (`git status --short`, 2026-11-09):** `.gitignore` · `docs/VERIFICATION_RECIPE.md` · `reaper/switch_rack.rpp` — as
+  recorded 2026-10-23 below (his files, his word) · `reaper/icy_lab.rpp` — HIS lab project, saved by him · `probes/clip_watch*.json/.txt` ·
+  `probes/rec_modes_before.json` · `tools/port/batt-old/` · `tools/port/scratch/` — scratch, left · `bank/set/2025-04-08c/{slow,stretch,stutter,
+  tremolo,tuplets}/` — the lab's page folders from before the audio moved to H: (small; their audio is on H:), left untracked.
+- **MODEL · CLEAR:** his first pass and what he hears — **Fable** (judgment on faults and on the music); a fault's fix that is mechanical — Opus.
+  Clear now; `/postclear` resumes at the step above.
+
 - **2026-11-09 — THE ELECTRONIC SCORE BUILT (PLAN 1a.7 steps 1 … 5; RUNNING_LOG §103, the engine's §74):** the fund (`H:\switch_2026udio  set-2025-04-08c\keep\`, 47 materials) indexed in `bank/materials.json` (`node tools/materials_index.js` after the keep folder changes); the
   material brick in the composer score (key `N` at the playhead on the active lane · SHIFT+N splits the selected one · the panel: material,
   from, length, fades, trim, level flat / hairpin / curve A B C lane · ▶ hear 6 s); the engine streams a brick's stretch from disk
