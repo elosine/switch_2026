@@ -1972,3 +1972,34 @@ on the beating (the sax's sample against a sine at 311.1 Hz — the bed's E♭4 
 sine's label `∿ the tone the sax beats against · D#4 · 20.0 s · curve A ▁▄▄▄▄▄▄▄`; the curve read for it at the fire: 0.005 → 0.4286 held (ppp →
 mp); the two breaths on lane 2 at 16 → 24.86 and 25.78 → 35.36 rendered; the seven material bricks as his. The save itself is HIS (scores/ is
 his to commit, `unsaved_check` first) — not committed here.
+
+## §115. THE BEATS' PACING, AS APPROACHING SETTLED IT — read back from its journal for this piece's tests (2026-11-09)
+
+**His words:** *"Also, for the audible beats section in Approaching, there was a whole working out of the pacing, how I like the pacing for the
+beats growing or, you know, speeding up and slowing down. And I think it might have been frequency dependent. So, and maybe depends on what
+octave or whatever I was in. Can you look at the conversations around that time? I don't know if, I'm sure we have a journal there, and see if
+we can nail down the kind of pacing that I like by frequency. Let's see if we can't codify it a little bit more, and we'll do some tests here
+to see if those ranges work."*
+
+**Where it lives (the question named: what did he decide about the beats' pace, and was it by frequency?):** Approaching's RUNNING_LOG §262
+(his first hearing, the cello) · §268 (the dictated pair tool) · §269 (his rules fed back as arithmetic) · §270 (the roller built, three
+pairs) · DEC-62 … DEC-73 (the sketch pad); the rules AS DATA in `decibel_TENOR_2026/bank/beat_shapes.json`; the roller `tools/beat_pair.js`.
+It IS codified already — his numbers, each with its line of provenance:
+- **THE UNIT IS BEATS A SECOND, NEVER CENTS** — his word at the cello (§262): *"let's do that beats per second. And then let's do it by pitch or
+  frequency."* A beat is a difference in Hz; a bend in cents is a ratio; so the same beating is more cents the lower the note (1 beat/s at D2
+  = 24 c; at E♭4 ≈ 5.6 c). THIS is the frequency dependence he remembers: the rule is written in Hz and the cents are derived at each note's
+  own pitch. The shapes and the pace are the same at every octave.
+- **THE PACE** (DEC-62): the beating rate changes at most 1 beat/s per 2.5 s (0.4 Hz/s); slower is free, rolled 2.5 … 6 s per Hz, leaning fast.
+- **A HOLD or PLATEAU** at least 2.5 s, plus 0 … 8 s leaning short.
+- **THE PEAK** 3 … 10 beats/s, leaning low (a high peak forces a long note: a rise to P takes at least 2.5 · P seconds).
+- **A DESCENT never reaches the unison** — it ends at 0.6 beats/s or above, at most half its peak.
+- **THREE SHAPES, equally likely:** up and hold · down and hold (begins AT the peak) · up, plateau, down, a last hold.
+- **THE LENGTH IS NEVER ROLLED** — it is the sum of the parts; over 60 s is rolled again. **THE GAP** between pairs on a lane 6 … 11 s (DEC-71).
+- **BY LANE, his ear:** the LEVELS — the cello's sine fff over a p note (a low sine is hard to hear), the viola's mf / pp, the bass flute's
+  mf / pp, the crotales' mp / mp; and the SIDE for a very low note (the sine over, never under). What octave changed was the level and the
+  side, not the pace. Nothing after §270 moved peakHz, the pace or the holds (DEC-66 … 78 are levels, gaps, pairs and chords).
+
+**Here:** `tools/beat_pair.js` came across in the copy-forward; `bank/beat_shapes.json` did not (the bank was skeletonised at container 3) —
+one copy, with this piece's lanes' levels, and the roller runs on the alto sax (its `playerBendSt` 1 = 100 cents ≈ 18 beats/s at E♭4, so the
+whole 3 … 10 range is the player's to bend; the sine static). Proposed to him: the file copied, three pairs rolled on E♭4 for the sax, then
+the same on E♭3 and E♭5 to hear whether the pace wants to differ by octave — his tests.
