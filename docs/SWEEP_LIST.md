@@ -11,4 +11,4 @@ at this start, never carried.)*
 
 | # | Date | Where | What I did | What happened | Expected | Blocking |
 |---|---|---|---|---|---|---|
-| — | | | | | | |
+| 1 | 2026-11-09 | the materials drawer (PLAN 1a.8) | dragged a row onto a lane | nothing landed | a material brick at the drop | N — **FIXED the same hour** (RUNNING_LOG §109: the lane wiring ran before the host had lanes; now it waits). Proven on the throwaway by a synthetic drag; closed when his real drag lands |

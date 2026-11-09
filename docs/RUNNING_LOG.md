@@ -1819,3 +1819,25 @@ the page reloaded for the rest.
 **Rejected:** the preview through the engine (as the panel's "hear 6 s") — it needs the engine up and a message per seek; the file itself
 seeks for free · the waveform computed in the page from the audio (3.6 GB through the browser) · a drawer in the piece's folder (nothing
 in it is this piece's).
+
+## §109. The first fault of the drawer, from his hands: "the drag doesn't land on the lane" — fixed (2026-11-09)
+
+**His words:** *"The drawer works, but the drag doesn't land on the lane."*
+
+**What was suspected first, and ruled out:** a document-level drop handler eating the event (none: the page's only drag handlers are a
+list's own rows) · an overlay over the lanes (none: the playhead and the floating time are the only siblings). **Then the rewrite** of the drop
+the robust way — ONE listener on the lanes' container, the lane found from the cursor's Y against the lanes' boxes, the drag known by a flag
+set at dragstart rather than by `dataTransfer.types` — and a synthetic drag on the throwaway (DragEvent dragstart → dragover → drop on the
+element under the cursor) STILL placed nothing, though a capture listener saw the event reach the container with the right Y.
+
+**The cause, found from the page's order:** the attach line runs BEFORE `Composer.init()` (deliberately — "so the first drawing of a loaded
+score already has the bricks' labels", composer.html ~17969), and `Composer.lanes` is made IN init. So at `drawerInit` `h.lanes` was undefined;
+the drop block read its length and threw, inside the attach wrapper's try — the drawer (built before that line) worked, and nothing after it
+(the lane listeners, the resize) was ever wired. The first build had the same fault, hidden by its proof: §108 called `materialAdd` directly
+and never sent a drag event. **The fix:** the wiring is a function that waits, 150 ms at a time, until the host's lanes exist. The robust
+listener stays (it is the better design either way).
+
+**Proven ONCE on the throwaway, by a synthetic drag:** dragstart on a row → dragover over Elec 2's svg: the lane outlined · drop: ONE brick on
+layer 9 at 3.4 s = `clientXToTime` of the cursor, the dragged material's name, its waveform drawn, selected · the outline and the flag
+cleared · a drop on the drawer itself places nothing. `page_test` PASS. **NOT CLAIMED:** his real gesture (a synthetic DragEvent is the pane's
+nearest thing to it). **For the record (SWEEP_LIST):** the class of fault — code that touches the host's DOM at attach must wait for init.
