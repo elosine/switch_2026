@@ -2003,3 +2003,26 @@ It IS codified already — his numbers, each with its line of provenance:
 one copy, with this piece's lanes' levels, and the roller runs on the alto sax (its `playerBendSt` 1 = 100 cents ≈ 18 beats/s at E♭4, so the
 whole 3 … 10 range is the player's to bend; the sine static). Proposed to him: the file copied, three pairs rolled on E♭4 for the sax, then
 the same on E♭3 and E♭5 to hear whether the pace wants to differ by octave — his tests.
+
+## §116. F4 at his word; the method laid out in his order; the ceiling of beats a second answered (2026-11-09)
+
+**His words:** SW-11, verbatim in the sketch pad. **Done at once:** `piece-Section01-C-saxBeats` rebuilt on F4 (MIDI 65; the sine and the two
+breaths — the build script takes the pitch). The bed's E♭ (§114) stands as a measurement; his ear decides the pitch.
+
+**THE CEILING OF BEATS A SECOND, for the sax on F4 (349.2 Hz):**
+- **The player's limit:** the recipe caps the sax's bend at 100 cents (`playerBendSt` 1) — a semitone sharp is F♯4 370.0 Hz → **20.8 beats a
+  second at the most.** (The sampler's range is 2 semitones; the roller re-keys past it anyway.)
+- **The ear's limit:** beats stop being countable and turn into roughness somewhere around **15 … 20 a second** (Approaching's own note, §301:
+  *"above ~20 Hz beating is timbre"*). His rule there set the PEAK at **3 … 10**, leaning low — the useful range.
+- **The cents for a beat at F4:** 1 /s ≈ 5 c · 3 ≈ 15 c · 5 ≈ 25 c · 7 ≈ 34 c · 10 ≈ 49 c · 15 ≈ 72 c · 20 ≈ 96 c (a beat is a difference in Hz:
+  cents = 1200 · log2(1 + beats / 349.2)).
+**So:** the maximum is about 20 a second; the test's slow gliss runs from the unison up to 10 at the most.
+
+**THE ORDER, his (one step at a time; each heard once):** 0 the ceiling (answered) · **1 the balance** sax ↔ sine on F4 with a SLOW upward
+gliss — the roller's dictated mode (`tools/beat_pair.js --pitch F4 --from 0 --to <n> --at …`, after `bank/beat_shapes.json` is copied from
+Approaching with this piece's lanes' levels); the levers: the sine brick's mark, the note's dynamic · **2 the gliss speed** (the pace rule's
+2.5 … 6 s per Hz, his ear here) · **3 one drawn crescendo for BOTH** — the sine already reads curve A; the sax note must read the same curve
+(the stack's lane curves: a note's dynamic from a drawn curve — to look up how a held note takes a curve, before building anything) · **4 the
+electronics under them, quickly** — the candidates: the material bricks' Trim (dB) in their cards, or ONE number: the engine's master bus
+(`node tools/elec.js bus …`) — but the bus carries the sine too, so the bricks' own trim or a per-lane gain is the right lever; chosen when
+he reaches it · **later** the live-balance method for the performance score (DEC-64's hypothesis stands: a gain threshold with a margin).

@@ -253,3 +253,25 @@ asked). Related: SW-7 (the opening under live beating) · SW-1 (the tremolo as t
 MEASURED, not F: its tone is E♭3 with E♭4 above it (RUNNING_LOG §114). The sax takes the long tone on that pitch (E♭4, his to make F4 with a
 word); a generated sine on the same pitch enters at 16 s with a 2.5 s rise and holds, continuous; the sax breathes as the morph's players do
 — each breath round three-quarters of its ceiling, a comfortable gap between. More parts follow the same rule when he reaches them.
+
+### SW-11 · 2026-11-09 — F4, NOT E♭ · THE METHOD FOR THE SAX-AND-SINE BEATS: balance first, then the gliss speed, then drawn crescendos on both, then the balance against the electronics (a quick fix), the live balance later
+
+*His words (dictated, light corrections):*
+
+> *"No, it's definitely F4 and so let's make it F4. So actually let's be a little bit more methodic with this. So first of all, we have to work
+> out a bunch of things. So let's work out the balance between the saxophone and the sine tone first, and then the speed of glissando. And then
+> I want to be able to draw in crescendo curves, which crescendo both the sine tone and the sax tone together. And then I want to balance it
+> against the electronics. Electronics are kind of dominating right now. So at that, when we get there, let's figure out a quick fix for that.
+> Before, the balance, volume balance became too time consuming with a lot of tests and whatnot. Let's try to avoid that and just have a quick
+> expedient solution so I can just hear it. And then we'll have to figure out for the actual performance score, how to, in the live
+> performance, how to create a balance, how to figure out the balance. So let's just do one step at a time. Let's figure out just the F4 with
+> the sine tone first and just get a balance between the two. Let's actually do a relatively slow gliss just so I can hear it from the
+> saxophone going sharp, F4 up to the — you said something about 3 to 10 beats per second. So sorry, even just to figure out the test, I
+> guess the pre-step is to figure out what's the max beats per second. So answer that first and then we'll do the rest, but just organize
+> everything I've told you so far."*
+
+*The AI's reading (not his):* his ear overrules the measurement — F4 it is (the bed's E♭ stands in the record, §114). The order of work is
+his: (0) the ceiling of beats a second · (1) the sax and the sine balanced, a slow upward gliss to hear the beating · (2) the gliss speed ·
+(3) one drawn crescendo curve read by BOTH the sine and the sax · (4) the electronics brought down under them by a quick, expedient means ·
+(later) the method for the live balance, for the performance score. The lesson he names from Approaching: the volume balance there cost too
+many tests — here one quick fix, heard, then on.
