@@ -1589,3 +1589,11 @@ resonators or fuzz cabs, and then some that combines a couple different effects,
   and mix at a 0.75 s beat. Seeds 41 … 50.
 - The petals landed: twelve full passes (625 s, A … D on r1-t190.0 · r2-t124.8 · r2-t110.0) in `keep/petals/`, its banner on the
   materials page with the recipe; the six harmonic variations E … J (120 s, r3-t077.2) as candidates.
+
+## §98. The materials page cleared of the old (2026-11-09)
+
+His word: *"can we take out all the old materials? I'm not sure what is what."* The earlier tuplet renders (the gate-varied three, the
+samples seeds 1 … 6, the first deck runs seeds 11 … 18, their step files) moved to `tuplets/_old/` — kept, not listed. The raw tremolo
+mixes and the processed attacks' 20 s runs no longer listed (the latter live on their own sheet). The page now: KEEPERS — the four
+orchestrated mixes · 21 granular beds · the opening's six · the petals' twelve; CANDIDATES — the six 4-minute tuplets · the ten pooled
+sequences · the six petals variations.
