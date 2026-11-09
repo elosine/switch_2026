@@ -2045,3 +2045,17 @@ a hold of 6) — **0 beats/s at 16 s → 5 at 26 s → 9 at 32 s, held to 38** �
 
 **The order he set for the balance:** the sax fixed at ff; the sine's mark the one lever (P on the brick → Level → Mark). NOT CLAIMED: the
 sound. **NEXT at his word:** step 2 the gliss speed · 3 one drawn crescendo for both · 4 the electronics under them.
+
+## §118. SW-13 applied to the test pair — the sine's early fade, 2 dB under; the sax in breaths along its own bend (2026-11-09)
+
+**His words:** SW-13, verbatim. **Done on `piece-Section01-D-saxBeatTest` (a script on the save; his page reloads it):**
+- **The sine** 15 → 38 s, level `curve A`: a curve A object over the brick — ppp (y 0.05) → mark 5.5 in one second, held. **2 dB = half a mark:**
+  the engine's level law steps 4 dB a mark (material_test: f = +4, p = −8 against mf), so ff − 2 dB is 5.5, a height of 5.5 / 7 (y 7.857).
+  The lever from here: curve A's top (drag its points), or the brick's mark if it goes back to flat.
+- **The sax in breaths** — the morph's rule at ff (level 0.86 → the f row's 8 s ceiling; the aim 6 s ± 2; gaps 0.75 … 1.2 s; seed 23): the one
+  22-second note cut into three — **16 → 21.69 (0 → 28.5 c) · 22.47 → 29.76 (32.4 → 54.9 c… )** *(the printed line below has the exact figures)* —
+  each breath's bend the piece of the whole it covers, re-based, with the boundary cents interpolated, so a breath begins ON the pitch the
+  gliss had reached and the beating resumes where it was; the first breath keeps the note's id (the brick's reference). The brick's `beat`
+  carries `sineFadeS 1` · `sineDbUnderFf 2`.
+**NOT CLAIMED:** the sound; his ear says whether 2 dB is the number.
+**The breaths as written:** 16–23.276 (0 → 18 c) · 24.308–28.934 (20.4 → 34.2 c) · 29.705–35.477 (36.7 → 44.1 c)

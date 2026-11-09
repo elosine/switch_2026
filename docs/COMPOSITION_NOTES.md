@@ -293,3 +293,15 @@ quickest, the rolls 2.7 … 3.9 s per beat; and his *"let's go to 9 beats per se
 *The AI's reading (not his):* the test pair — the sax on F4 at ff, the sine static on F4; the beating 0 → 5 a second over the first 10 s
 (his 1 per 2 s, a shade faster than Approaching's 2.5), then 5 → 9 over 6 s (1 per 1.5 s), held; the order of adjustment his: the sax fixed
 at ff, the sine's mark moved until the beating reads.
+
+### SW-13 · 2026-11-09 — the sine in a second before the sax, 2 dB down to start; the sax breathing again, re-articulating at the pitch the bend had reached
+
+*His words (dictated, light corrections):*
+
+> *"Okay, let's fade the sine tone in about 1 second before, and let's bring the overall sine tone volume down. Let's try like 2 dB to
+> start. And let's put the breaths back into the saxophone. You can keep the pitch the same. Put the breaths back in. So they'll just
+> re-articulate at whatever. It might just be one breath. But they'll re-articulate at the pitch they were at."*
+
+*The AI's reading (not his):* the sine enters from 15 s, up over one second to its level, so it is there before the sax; its level 2 dB under
+the sax's ff (half a mark on the ladder of 4 dB steps); the sax's one bent note cut into breaths by the morph's rule, each new breath
+beginning on the cents the gliss had reached, the beating paused for the breath and resumed where it was.
