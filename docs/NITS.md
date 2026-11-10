@@ -130,3 +130,9 @@
 - **The twelve percussion tracks carry OLD sends to ReaRoute 4** (from before the table moved the percussionist to engineIn 5) beside the new
   ones to ReaRoute 5 — so the percussion also enters the engine on the SAX's input (engineIn 4). Harmless until a mic opening sits on the sax
   lane. The fix is `unroute` of the stale sends by hand in Reaper, or a tool that removes sends not in the table.
+
+### From the counterpoint's volume fix (2026-11-10, RUNNING_LOG §136)
+
+- **The glockenspiel has no measured velocity→loudness curve** (none of the pitched lane's mallet voices has): `tools/vol_fix.js` left its 62
+  notes as played. The card's measurement on the Ricotti glockenspiel (a few velocities at a few pitches, through the rack, the law's
+  method — `protocol/howto/measuring.md`) would let the ladder balance it with the rest; a trim by ear is the quick stand-in.

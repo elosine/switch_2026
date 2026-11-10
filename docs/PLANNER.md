@@ -5,7 +5,7 @@
 > `COMPOSITION_NOTES.md` verbatim first and get folded into a tier here. Engineering
 > detail stays in `PLAN.md`. Rewritten freely; the sketch pad is the append-only record.
 
-**NOW ►** 2026-11-09 — THE ELECTRONIC SCORE IS IN HIS HANDS NEXT: four electronics lanes (Elec 1 … 4, full height, D11 · §110) · THE MATERIALS DRAWER (PLAN 1a.8: `▬ Materials ▾`, waveforms, hear from a click, drag onto a lane, M / S on the lanes) · the material brick (N · SHIFT+N · the panel) · the engine streams it. **► HIS FIRST PASS** — the score server (re)started for `/fund/`, Reaper, the engine (`node tools/startup_check.js`); place a material, play, hear it; faults to SWEEP_LIST. Then the tuplets' keepers by seed, and step 6 the bounce when he reaches it.
+**NOW ►** 2026-11-10 — SECTION 1 IS SKETCHED IN HIS SAVES: the opening bed, the sax's beating under a sine, the five lanes' sawtooths (PLAN 1a.9; `tools/beat_saw.js` · `beat_end.js`), six unison crescendos from his drawer takes; SECTION 2 begun (the piano solo takes, the counterpoint from 199 s — its six parts put on one loudness scale by `tools/vol_fix.js`, §136, the glock excepted). **► HIS EAR next session**: the crescendos (`piece-Section01b-BeatingUnisonCrescendos-B`) and the counterpoint's balance (`piece-Section02-B-08ctpt-VolFix`). Then SW-25 the multi-tempo section (the tubas' record first) and SW-28 the piano-and-electronics duet.
 
 *Before it —* 2026-10-23 — THE START IS DONE: the rack at one level, the score set up for eight parts, the protocol v2.
 

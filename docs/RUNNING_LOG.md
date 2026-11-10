@@ -2375,3 +2375,35 @@ the recipe, so the three appear as options at once. palette_check 202 (14 recipe
 **The flute (`composer.html`):** a guard — the record target follows what the Rec row SHOWS at init and on every return to the page
 (`pageshow`), since a browser may restore a select's shown value without a `change`. Whether that was the flute's path, or a SECOND composer
 tab echoing on its default lane (the flute), his one check tells: one tab open, a key pressed. NOT CLAIMED: the cause of the flute.
+
+## §136. HIS TASK — the counterpoint from 199 s on one loudness scale: the dynamics law's ladder written into the played-in notes (2026-11-10)
+
+**His words (dictated, light corrections):** *"There's a counterpuntal section beginning around 199 seconds. Can you find a relatively simple way to
+get a better volume balance between these six parts? I'll task you with this, and then I'll pick up next session so you can take your time to
+figure it out. But maybe something not too complex that takes a lot of redoing things … maybe scan each part and see which is the loudest and
+try to match the fortes across the board, or the three Fs across the board, or even the velocity numbers across the board by volume. And
+even if we just make some adjustments just for this section, because I'm probably going to have some sort of redistribution of the velocities
+or the dynamic marks anyways — just as long as the p's across these are the same and the fff's across these are the same."* The save:
+`piece-Section02-B-08ctpt-VolFix` (his `-preVolFix` copy beside it).
+
+**What the section is (the save read):** 366 played-in notes, 195 … 253 s, six lanes — flute (staccato) 44 · clarinet (staccato) 42 · alto sax
+(staccato) 54 · the pitched lane on `glock_main_hard` 62 · piano (main) 117 · violin (stac_vel) 47; every note `sonifyMode: plain` with `recVel`
+— **a played-in note SOUNDS AT THE VELOCITY HE STRUCK** (the sender: `velAbs`, else a plain note's `recVel`), and the same velocity is a different
+loudness on every instrument; its HEIGHT is the page's own rule, y = recVel / 127 · 10, so the written marks are his dynamics as played (mostly
+ff and fff here).
+
+**The simple way, the stack's own:** THE LADDER of the dynamics law — `TextureDyn.ladderVel(remap, instKey, midi, level)` → `VelocityRemap.velocityFor`
+through the MEASURED velocity→loudness curves of `bank/velocity_remap.json` (container 5's card: cello · flute · clarinet · alto sax · violin ·
+piano; K-weighted, inverted against the ensemble target) — the velocity that makes a given written dynamic the SAME loudness on each instrument.
+`tools/vol_fix.js` (new): for each plain note in the window, the written level from its height, `velAbs` = the ladder's velocity for that level
+on that instrument and pitch; the height, the time and the technique untouched (the notation unchanged); the played velocity kept in
+`properties.volFix` (`--undo` restores). The residual fader step (the law's 2.29 dB a mark on CC7) is not sent for a plain note — the scale is
+a little compressed, EQUALLY for all five, which is his condition. **The ladder at C5:** flute p 49 · mf 75 · fff 120 · clarinet p 71 · mf 85 ·
+fff 118 · sax p 47 · mf 57 · fff 98 · piano p 89 · mf 109 · fff 123 · violin p 77 · mf 93 · fff 120.
+
+**Applied:** piano 117 notes, mean velocity 103 → 116 · flute 44, 108 → 104 · clarinet 42, 113 → 112 · alto sax 54, 105 → 99 · violin 47, 109 → 109 —
+304 notes on the ladder. **The glockenspiel's 62 LEFT AS PLAYED:** the pitched lane's mallet voices have no measured curve (the law's "not
+reached"); the ladder's fallback, the anchor scale, would have sent its fff to 127 — too loud to trust unmeasured. NITS: measure the
+glockenspiel (the card's method on the Ricotti glock, a few velocities at a few pitches) and run the tool again on that lane.
+**Rejected:** matching by the loudest part or by raw velocities (his first thoughts) — the same velocity is not the same loudness; the law has the
+measured answer. NOT CLAIMED: his ear — next session. `--undo` is one command.
