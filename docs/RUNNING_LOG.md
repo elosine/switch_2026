@@ -2407,3 +2407,44 @@ reached"); the ladder's fallback, the anchor scale, would have sent its fff to 1
 glockenspiel (the card's method on the Ricotti glock, a few velocities at a few pitches) and run the tool again on that lane.
 **Rejected:** matching by the loudest part or by raw velocities (his first thoughts) — the same velocity is not the same loudness; the law has the
 measured answer. NOT CLAIMED: his ear — next session. `--undo` is one command.
+
+## §137. The task done the second way — the section's parts MEASURED through the rack and mapped to one level (2026-11-10)
+
+**His words:** *"Did you actually take measurements? If not, can you play thru each part solo and compare velocities against recorded levels."*
+Then: *"Yes, that's what I was looking for. I think the issue is they're using a different set of articulations. So that's why I say just for
+this section — if we can just calibrate this particular section and find a way to swap volumes when we run this section. I want velocity 100
+in each of these parts to sound approximately the same actual measured level, as much as you can. I'm eventually going to change pitch,
+probably, but I want to at least start with a level playing field. And I'm going to go through and change the dynamics of these. But when I
+change to, for example, velocity 70, I want that velocity 70 to be about the same volume across all six parts."*
+
+**The honest answer first:** §136 measured nothing — it leaned on the calibration card's curves, which were measured on the ordinary voices,
+not on this section's staccato · stac_vel · glock_main_hard. UNDONE (`vol_fix.js --undo`; every note back to its played velocity).
+
+**The measurement (`tools/section_level.js --measure`, with `tools/part_meter.ps1` — a winmm player, the probes' way — and `tools/part_meter.lua` — the
+receiving track's peak sampled every defer tick in Reaper, found by the lane's port and channel):** each lane's voice as the section uses it,
+ISOLATED notes 0.75 s apart (a first pass at the passage's own tempo had every note's window catch its neighbours — all marks read alike; the
+flaw found and dropped), eight velocities × three pitches of the lane's own range in the section, CC7 127 first, CC0 where the voice needs it.
+**The curves (the track's peak, dBFS, the mean over the pitches):**
+| | 16 | 32 | 48 | 64 | 80 | 96 | 112 | 127 | spread over pitches |
+|---|---|---|---|---|---|---|---|---|---|
+| Flute · staccato (Fluteb SI2) | −16 | −13.6 | −10.7 | −7.9 | −5.8 | −4.4 | −3.1 | −2 | 0.7 dB |
+| Clarinet · staccato (ch 12) | −18 | −16.8 | −15 | −13.2 | −11.2 | −9.4 | −7.9 | −6.7 | 2.7 |
+| Alto Sax · staccato (Sax b) | −18.3 | −16.8 | −14.8 | −13.1 | −10.7 | −9 | −7.8 | −6.5 | 2.8 |
+| Glockenspiel · main hard | −37.7 | −38.4 | −38.1 | −31.7 | −28.9 | −24.1 | −16.2 | −9.4 | 23.4 |
+| Piano · main (Kontakt) | −32 | −27.2 | −22.2 | −19.1 | −19.1 | −13.4 | −9.3 | −10.5 | 10.5 |
+| Violin · stac_vel (Xsample) | −32 | −28.1 | −25.3 | −19.9 | −17.9 | −15.7 | −14 | −10.5 | 7 |
+**What it says:** the three SI2 staccatos are HOT and NARROW — 14 dB from velocity 16 to 127, the flute at −2 dBFS on a single note — while
+the piano, the violin and the glockenspiel span 22 … 29 dB and top out at −9 … −10. The same velocity was 15 … 20 dB apart between a wind and a
+string. That is the imbalance he heard.
+
+**The map (`--apply`):** the TARGET curve = the mean of the six, shifted −3.1 dB so its top is the quietest voice's top (−10.5 at 127) — every part
+can reach every level; each note's WRITTEN velocity (recVel — what he struck or types) is read on the target, and `velAbs` becomes the velocity
+on its own lane's curve that gives that level. Sent velocities against written, on average: flute −76 · sax −51 · clarinet −46 · piano −12 ·
+violin +3 · glockenspiel +11; e.g. written 100 → flute 23 · clarinet 48 · sax 48 · piano 92 · violin 104 · glock 115; written 127 → 45 · 80 · 77 ·
+106 · 124 · 123. The notation and the written velocities unchanged; `properties.sectionLevel` on each note; `--undo` restores; **re-run `--apply`
+after his edits** (his "swap volumes when we run this section"). The measurement: `bank/section_levels/piece-Section02-B-08ctpt-VolFix.json`.
+
+**The cost, said:** level by velocity alone squeezes the winds to the soft end of their samples (the flute's loud notes at velocity 23 … 45) — the
+same loudness, a softer tongue. If that timbre is wrong, the other lever is the FADER: a CC7 offset per wind for the section (the law's own
+device, level on the fader, timbre on the velocity) — to build at his word. **Verification:** every mapped note played isolated through the
+rack (`part_meter.js --isolate 0.75`), the levels by written mark across the six — its line follows.

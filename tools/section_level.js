@@ -1,0 +1,134 @@
+#!/usr/bin/env node
+// section_level.js — A LEVEL PLAYING FIELD FOR ONE SECTION'S PARTS (his word 2026-11-10, RUNNING_LOG §137: "I want velocity 100 in each of these
+// parts to sound approximately the same actual measured level … when I change to velocity 70, I want that velocity 70 to be about the same
+// volume across all six parts"). The parts of a passage play ARTICULATIONS the calibration card never measured (staccato · stac_vel · a
+// glockenspiel), so this tool MEASURES them itself, through the rack, and MAPS them:
+//
+//   --measure  each lane's voice as the section uses it, ISOLATED notes at a grid of velocities × three pitches of the lane's own range in the
+//              section, sent to the lane's port and channel (tools/part_meter.ps1), the receiving track's peak sampled in Reaper
+//              (tools/part_meter.lua); per lane a curve velocity → dB (the mean over the pitches); the TARGET curve = the mean of the lanes
+//              → bank/section_levels/<score>.json   (the raw peaks kept)
+//   --apply    for every played-in note in the window: its WRITTEN velocity (recVel — what he struck, or typed) stays; velAbs = the velocity
+//              on THIS lane's curve that gives the TARGET level for that written velocity — so velocity 70 sounds alike on all six. Re-run after
+//              his edits; --undo takes it off. The written velocities and the notation never change.
+//
+//   node tools/section_level.js --measure --score <name> --from 195 --to 253 [--lanes …] [--vels 16,32,…] [--gap 0.75]
+//   node tools/section_level.js --apply   --score <name> --from 195 --to 253 [--undo] [--dry]
+'use strict';
+const fs = require('fs'), path = require('path'), vm = require('vm'), cp = require('child_process'), os = require('os');
+const ROOT = path.join(__dirname, '..');
+const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i >= 0 && process.argv[i + 1] != null && !String(process.argv[i + 1]).startsWith('--') ? process.argv[i + 1] : d; };
+const has = (k) => process.argv.includes('--' + k);
+const die = (m) => { console.error(m); process.exit(2); };
+const INSTRUMENTS = vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'sandbox', 'instruments.js'), 'utf8') + '\n;INSTRUMENTS;', {});
+const TRACKS = vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'score', 'public', 'composer.html'), 'utf8').match(/const TRACKS = (\[[\s\S]*?\]);/)[1], {});
+const BRIDGE = process.env.REAPER_BRIDGE || path.join(process.env.APPDATA, 'REAPER', 'bridge');
+const name = arg('score') || die('--score'), from = +arg('from', 0), to = +arg('to', 1e9);
+const saveFile = path.join(ROOT, 'scores', name + '.json'); if (!fs.existsSync(saveFile)) die('no such score');
+const s = JSON.parse(fs.readFileSync(saveFile, 'utf8'));
+const lanesArg = arg('lanes') ? String(arg('lanes')).split(',') : null;
+const levelsDir = path.join(ROOT, 'bank', 'section_levels'); fs.mkdirSync(levelsDir, { recursive: true });
+const levelsFile = path.join(levelsDir, name + '.json');
+const dB = (a) => (a > 0 ? Math.round(20 * Math.log10(a) * 100) / 100 : -150);
+const r1 = (x) => Math.round(x * 10) / 10;
+const lua = (v) => { if (Array.isArray(v)) return '{' + v.map(lua).join(',') + '}'; if (v && typeof v === 'object') return '{' + Object.entries(v).map(([k, x]) => k + '=' + lua(x)).join(',') + '}'; if (typeof v === 'string') return JSON.stringify(v); return String(v); };
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// the lanes of the section, each with the voice its notes use most
+function sectionLanes() {
+    const out = [];
+    for (let lane = 0; lane < TRACKS.length; lane++) {
+        const t = TRACKS[lane]; if (t.elec) continue;
+        if (lanesArg && !lanesArg.includes(t.instKey) && !lanesArg.includes(t.id)) continue;
+        const notes = s.objects.filter((o) => o.type === 'waveCurve' && o.sonifyNote != null && o.layer === lane && o.startSeconds >= from && o.startSeconds <= to);
+        if (!notes.length) continue;
+        const inst = INSTRUMENTS[t.instKey], byTech = {}; for (const n of notes) (byTech[n.technique] = byTech[n.technique] || []).push(n);
+        const techKey = Object.keys(byTech).sort((a, b) => byTech[b].length - byTech[a].length)[0], tech = inst.techniques.find((q) => q.key === techKey) || inst.techniques[0];
+        const lo = Math.max(tech.rangeLow != null ? tech.rangeLow : inst.rangeLow, Math.min(...notes.map((n) => n.sonifyNote))), hi = Math.min(tech.rangeHigh != null ? tech.rangeHigh : inst.rangeHigh, Math.max(...notes.map((n) => n.sonifyNote)));
+        out.push({ lane, instKey: t.instKey, label: t.label, notes, tech, port: tech.port || inst.port, ch: (tech.channel || 1) - 1, pitches: [lo, Math.round((lo + hi) / 2), hi] });
+    }
+    return out;
+}
+
+// play a schedule into a port while Reaper samples the receiving track's peak; returns { rows, offset } (the series aligned to the first note)
+async function playAndWatch(L, ev, firstT, secs) {
+    const schedFile = path.join(os.tmpdir(), 'section_level_' + L.instKey + '.events.json'); fs.writeFileSync(schedFile, JSON.stringify({ events: ev }));
+    const seriesFile = path.join(BRIDGE, 'outbox', 'part_meter.json'); try { fs.unlinkSync(seriesFile); } catch (e) {}
+    const body = 'CFG = ' + lua({ port: L.port, channel: L.ch + 1, seconds: secs }) + '\n' + fs.readFileSync(path.join(__dirname, 'part_meter.lua'), 'utf8');
+    const tmp = path.join(os.tmpdir(), 'section_level_' + process.pid + '.lua'); fs.writeFileSync(tmp, body);
+    const r = cp.spawnSync(process.execPath, [path.join(ROOT, 'tools', 'reaper_job.js'), 'run', tmp], { encoding: 'utf8' }); try { fs.unlinkSync(tmp); } catch (e) {}
+    let job; try { job = JSON.parse(r.stdout).result; } catch (e) { die('the bridge did not answer for ' + L.label + ': ' + (r.stdout || r.stderr).slice(0, 300)); }
+    if (!job || !job.ok) die('the watch did not start for ' + L.label + ': ' + JSON.stringify(job || r.stdout).slice(0, 300));
+    const p = cp.spawnSync('powershell', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', path.join(__dirname, 'part_meter.ps1'), '-Port', L.port, '-Schedule', schedFile], { encoding: 'utf8' });
+    for (let w = 0; w < (secs + 10) * 1000 && !fs.existsSync(seriesFile); w += 250) await sleep(250);
+    if (!fs.existsSync(seriesFile)) die('the watch wrote nothing for ' + L.label);
+    const series = JSON.parse(fs.readFileSync(seriesFile, 'utf8'));
+    const first = series.rows.find((x) => Math.max(x[1], x[2]) > 0.002);
+    return { rows: series.rows, track: series.track, offset: first ? first[0] - firstT : 0, played: (p.stdout || '').trim() };
+}
+const peakIn = (rows, a, b) => { let m = 0; for (const x of rows) { if (x[0] < a) continue; if (x[0] > b) break; const v = Math.max(x[1], x[2]); if (v > m) m = v; } return m; };
+// a monotone (pooled) curve over the grid and its reading in both directions
+function monotone(pairs) { const p = pairs.slice().sort((a, b) => a[0] - b[0]); for (let i = 1; i < p.length; i++) if (p[i][1] < p[i - 1][1]) p[i][1] = p[i - 1][1]; return p; }
+const interp = (pts, x, ix = 0, iy = 1) => { if (x <= pts[0][ix]) return pts[0][iy]; for (let i = 1; i < pts.length; i++) if (x <= pts[i][ix]) { const a = pts[i - 1], b = pts[i]; return a[iy] + (b[iy] - a[iy]) * (x - a[ix]) / Math.max(1e-9, b[ix] - a[ix]); } return pts[pts.length - 1][iy]; };
+
+(async () => {
+    const lanes = sectionLanes(); if (!lanes.length) die('no played notes in the window');
+    if (has('measure')) {
+        const vels = String(arg('vels', '16,32,48,64,80,96,112,127')).split(',').map(Number), GAP = +arg('gap', 0.75), LEAD = 1, DUR = 0.35;
+        const out = { score: name, from, to, when: new Date().toISOString(), measure: 'the receiving track\'s peak (Track_GetPeakInfo, post-fader) over each isolated note, dBFS', vels, lanes: {} };
+        for (const L of lanes) {
+            const ev = [[0, 0xB0 | L.ch, 7, 127]]; if (L.tech.cc0 != null) ev.push([0, 0xB0 | L.ch, 0, L.tech.cc0]);
+            const grid = []; let k = 0;
+            for (const pitch of L.pitches) for (const vel of vels) { const t = LEAD + k * GAP; ev.push([t, 0x90 | L.ch, pitch, vel], [t + DUR, 0x80 | L.ch, pitch, 0]); grid.push({ t, pitch, vel }); k++; }
+            const secs = Math.ceil(LEAD + k * GAP + 2);
+            process.stdout.write(L.label + ' (' + L.tech.key + ' on ' + L.port + ' ch ' + (L.ch + 1) + ', pitches ' + L.pitches.join(' ') + ') … ');
+            const W = await playAndWatch(L, ev, LEAD, secs);
+            for (const g of grid) g.peakDb = dB(peakIn(W.rows, g.t + W.offset - 0.05, g.t + W.offset + GAP - 0.08));
+            const curve = vels.map((v) => { const a = grid.filter((g) => g.vel === v).map((g) => g.peakDb); return [v, r1(a.reduce((x, y) => x + y, 0) / a.length), r1(Math.max(...a) - Math.min(...a))]; });
+            out.lanes[L.instKey] = { lane: L.lane, label: L.label, track: W.track, technique: L.tech.key, port: L.port, channel: L.ch + 1, pitches: L.pitches, offsetS: r1(W.offset), grid, curve: monotone(curve.map((c) => [c[0], c[1]])), spreadDb: curve.map((c) => [c[0], c[2]]) };
+            console.log(W.track + ' · ' + curve.map((c) => c[0] + ':' + c[1]).join(' ') + ' dB (spread over pitches ' + r1(Math.max(...curve.map((c) => c[2]))) + ' dB at most)');
+        }
+        // the target: the mean of the lanes at each grid velocity
+        const keys = Object.keys(out.lanes);
+        out.target = monotone(vels.map((v) => [v, r1(keys.reduce((a, k) => a + interp(out.lanes[k].curve, v), 0) / keys.length)]));
+        out._what = 'THE SECTION\'S LEVELS (tools/section_level.js --measure): per lane, the voice the section uses, a grid of velocities × three pitches, the receiving track\'s peak; curve = velocity → dB (mean over the pitches, made non-decreasing); target = the mean of the lanes. --apply maps each note\'s written velocity to the velocity on its lane that gives the target level.';
+        fs.writeFileSync(levelsFile, JSON.stringify(out, null, 1) + '\n');
+        console.log('target     ' + out.target.map((c) => c[0] + ':' + c[1]).join(' ') + ' dB');
+        console.log('written: bank/section_levels/' + name + '.json');
+        return;
+    }
+    if (has('apply')) {
+        if (!fs.existsSync(levelsFile)) die('no measurement yet: --measure first');
+        const M = JSON.parse(fs.readFileSync(levelsFile, 'utf8'));
+        // THE TOP OF THE FIELD: the mean curve's top sits above what the quieter voices give at 127 (the piano, the violin, the glock reach
+        // −9 … −10 dB; the winds −2 … −7). The target is the mean curve SHIFTED so its 127 equals the quietest voice's top — every part can reach
+        // every level, the winds are brought down to meet them (--top mean keeps the raw mean and clamps the short ones at 127)
+        const tops = Object.values(M.lanes).map((m) => m.curve[m.curve.length - 1][1]), meanTop = M.target[M.target.length - 1][1];
+        const shift = arg('top', 'min') === 'mean' ? 0 : Math.min(0, Math.min(...tops) - meanTop);
+        if (shift) M.target = M.target.map(([v, d]) => [v, r1(d + shift)]);
+        console.log('the target curve' + (shift ? ' (the mean, shifted ' + r1(shift) + ' dB so its top is the quietest voice\'s top)' : '') + ': ' + M.target.map((c) => c[0] + ':' + c[1]).join(' ') + ' dB');
+        let n = 0; const report = [];
+        for (const L of lanes) {
+            const m = M.lanes[L.instKey]; if (!m) { report.push(L.label + ': not measured — left'); continue; }
+            const inv = m.curve.map((c) => [c[1], c[0]]);   // dB → velocity on this lane (monotone)
+            let short = 0, moved = [];
+            for (const o of L.notes) {
+                if (has('undo')) { if (o.properties && o.properties.sectionLevel) { delete o.velAbs; delete o.properties.sectionLevel; n++; } continue; }
+                if (o.sonifyMode !== 'plain') continue;
+                const written = o.recVel != null ? o.recVel : Math.round((o.nodes[0].y / 10) * 127);
+                const target = interp(M.target, written), top = m.curve[m.curve.length - 1][1];
+                let sent = Math.round(interp(inv, target)); if (target > top + 0.05) { sent = 127; short++; }
+                sent = Math.max(1, Math.min(127, sent));
+                o.velAbs = sent; o.properties = o.properties || {}; o.properties.sectionLevel = { written, sent, targetDb: r1(target), measured: 'bank/section_levels/' + name + '.json' };
+                moved.push(sent - written); n++;
+            }
+            if (!has('undo')) { const mean = moved.length ? r1(moved.reduce((a, b) => a + b, 0) / moved.length) : 0; report.push(L.label.padEnd(11) + L.notes.length + ' notes · sent velocity = written ' + (mean >= 0 ? '+' : '') + mean + ' on average' + (short ? ' · ' + short + ' note(s) wanted more than this voice has at 127' : '')); }
+        }
+        console.log(report.join('\n')); console.log(n + ' note(s) ' + (has('undo') ? 'taken off the field' : 'on the level playing field'));
+        if (has('dry')) { console.log('(dry: nothing written)'); return; }
+        s.metadata = s.metadata || {}; s.metadata.modified = new Date().toISOString(); fs.writeFileSync(saveFile, JSON.stringify(s));
+        console.log('written: scores/' + name + '.json · File ▾ → Reload in the page');
+        return;
+    }
+    die('--measure or --apply');
+})();

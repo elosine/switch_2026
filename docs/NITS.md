@@ -136,3 +136,6 @@
 - **The glockenspiel has no measured velocity→loudness curve** (none of the pitched lane's mallet voices has): `tools/vol_fix.js` left its 62
   notes as played. The card's measurement on the Ricotti glockenspiel (a few velocities at a few pitches, through the rack, the law's
   method — `protocol/howto/measuring.md`) would let the ladder balance it with the rest; a trim by ear is the quick stand-in.
+- *(2026-11-10, §137)* The glockenspiel's `glock_main_hard` now has a measured curve for the counterpoint section (`bank/section_levels/`); the
+  card's full measurement of the pitched lane's mallet voices is still open. **And:** the SI2 staccatos' 14 dB of dynamic range — a level map by
+  velocity alone pushes them to their softest samples; a per-section CC7 offset per wind is the lever to build if his ear objects.
