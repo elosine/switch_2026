@@ -99,6 +99,7 @@ IDs always with their names · questions as lettered options in the chat, never 
   · `docs/SESSION_HYGIENE.md` (clear between chunks; the docs are the handoff) · `docs/VERIFICATION_RECIPE.md` (how to verify in
   the running app without touching his work — re-pointed at 3.3)
 - **The morph tool's memory:** `docs/MORPH_NOTES.md` (carried while the tool lives)
+- **One loudness for one written velocity across a section's parts — the measure · map · verify technique:** `docs/SECTION_LEVEL.md` (`tools/section_level.js` · `part_meter.js`; §137)
 - ‹this piece's own pointers, added as the docs arrive with the code (3): `NAMING.md` · `RACK_SETTINGS.md` · the tool docs · the notation standards›
 
 Do NOT scan or analyze the codebase unprompted. Name the question first, then read only
