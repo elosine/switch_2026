@@ -2502,3 +2502,9 @@ re-deal keeps the counterpoint's contour and not the previous deal's. **Written 
 0.66s 0.91s | 1.68 2.01 | 0.63s | 2.44 1.83 | 0.86s 0.61s | 2.31 2.26 1.56 | 0.85s 0.88s 0.94s | 1.64 2.09 2.10 | 0.89s | 1.71 1.99 | 0.99s 0.99s
 0.87s | 2.18 2.01 2.31 | 0.61s 0.80s 0.99s | 1.96 1.57 — the deal 10 07 06 12 13 02 05 16 08 04 01 03 14 11 15 09 | 12 09 02 13 14 07 11 05 04 06
 15 03 16 01 08 10 | 06 05 08 01 04; 249 pitches changed. NOT CLAIMED: his ear.
+
+## §141. The harmonic rhythm quicker still: 0.5 … 1.5 s (2026-11-10)
+
+**His words:** *"Okay, let's do the longest — let's make them 1.5 seconds. And then we'll take shorts down to 0.5."* **Re-rolled:** longs 1.1 … 1.5 s,
+shorts 0.5 … 0.8 (the class bounds scaled inside his 0.5 … 1.5), the same runs rule, seed 17 — the containers and the deal in the tool's line
+above this entry's commit. NOT CLAIMED: his ear.
