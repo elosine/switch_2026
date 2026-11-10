@@ -19,6 +19,7 @@ local SPEC = {
   { name = "Tam Tams ARO",          channel = 11 },
   { name = "Snare ARO",             channel = 12 },
   { name = "Bass Drum Rim ARO",     channel = 13 },   -- §148: the rim's own track (a clone arrives with no input)
+  { name = "Brake Drums Rubber Mallets ARO", channel = 14 },
 }
 local function devIndex(port)
   for d = 0, reaper.GetNumMIDIInputs() - 1 do

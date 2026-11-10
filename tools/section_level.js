@@ -50,7 +50,10 @@ function sectionLanes() {
         // THE STANDARD (§148): the lane's ORDINARY voice is measured too, at the same grid — a plain note sounds at its written velocity on the
         // ordinary, and the rack's trims (the card, 1b.3) made the ordinaries equal across the instruments; so "velocity 70 on the flutter" should
         // be as loud as "velocity 70 on the ordinary" — that is the target, per lane. The ordinary's own notes are never mapped.
-        const ordKey = inst.ordinary; if (ordKey && !byTech[ordKey] && !has('no-ordinary')) byTech[ordKey] = [];
+        // a lane whose "ordinary" is a placeholder (the percussion lane's `main` — ch 1, whatever track sits there) has no ordinary: it takes the
+        // mean of the real ones (§149: the bongos had become the percussion's standard)
+        let ordKey = inst.ordinary; { const oq = inst.techniques.find((q) => q.key === ordKey); if (!oq || /placeholder/i.test(oq.label || '')) ordKey = null; }
+        if (ordKey && !byTech[ordKey] && !has('no-ordinary')) byTech[ordKey] = [];
         for (const techKey of Object.keys(byTech).sort((a, b) => byTech[b].length - byTech[a].length)) {
             const notes = byTech[techKey].length ? byTech[techKey] : laneNotes, tech = inst.techniques.find((q) => q.key === techKey) || inst.techniques[0];
             const isOrdinary = techKey === ordKey;
@@ -118,6 +121,8 @@ const interp = (pts, x, ix = 0, iy = 1) => { if (x <= pts[0][ix]) return pts[0][
         return;
     }
     if (has('apply')) {
+        const REMAP = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'velocity_remap.json'), 'utf8')), KNOB = {}; for (const [k, v] of Object.entries(REMAP.instruments || {})) if (v.cc7Curve) KNOB[k] = v.cc7Curve;
+        const cc7For = (curve, delta) => { if (delta >= -0.3) return 127; if (delta <= curve[0].delta) return curve[0].cc7; for (let i = 0; i < curve.length - 1; i++) if (delta >= curve[i].delta && delta <= curve[i + 1].delta) { const sp = curve[i + 1].delta - curve[i].delta; return Math.round(curve[i].cc7 + (curve[i + 1].cc7 - curve[i].cc7) * (sp > 1e-9 ? (delta - curve[i].delta) / sp : 0)); } return 127; };
         if (!fs.existsSync(levelsFile)) die('no measurement yet: --measure first');
         const M = JSON.parse(fs.readFileSync(levelsFile, 'utf8'));
         // THE TOP OF THE FIELD: the mean curve's top sits above what the quieter voices give at 127 (the piano, the violin, the glock reach
@@ -152,20 +157,28 @@ const interp = (pts, x, ix = 0, iy = 1) => { if (x <= pts[0][ix]) return pts[0][
         let n = 0; const report = [];
         for (const L of lanes) {
             const m = M.lanes[L.key] || M.lanes[L.instKey]; if (!m) { report.push(L.label + ': not measured — left'); continue; }
-            if (L.isOrdinary) { for (const o of L.notes) if (o.properties && o.properties.sectionLevel) { delete o.velAbs; delete o.properties.sectionLevel; n++; } report.push(L.label.padEnd(11) + L.notes.length + ' notes · THE ORDINARY — the reference, sent as written'); continue; }   // a voice (instKey:technique), or an older per-lane measurement
+            if (L.isOrdinary) { for (const o of L.notes) if (o.properties && o.properties.sectionLevel) { delete o.velAbs; delete o.cc7Plain; delete o.properties.sectionLevel; n++; } report.push(L.label.padEnd(11) + L.notes.length + ' notes · THE ORDINARY — the reference, sent as written'); continue; }   // a voice (instKey:technique), or an older per-lane measurement
             const inv = m.curve.map((c) => [c[1], c[0]]);   // dB → velocity on this lane (monotone)
             let short = 0, moved = [];
             for (const o of L.notes) {
-                if (has('undo')) { if (o.properties && o.properties.sectionLevel) { delete o.velAbs; delete o.properties.sectionLevel; n++; } continue; }
+                if (has('undo')) { if (o.properties && o.properties.sectionLevel) { delete o.velAbs; delete o.cc7Plain; delete o.properties.sectionLevel; n++; } continue; }
                 if (o.sonifyMode !== 'plain') continue;
                 const written = o.recVel != null ? o.recVel : Math.round((o.nodes[0].y / 10) * 127);
                 const target = interp(targetFor(L), written), top = m.curve[m.curve.length - 1][1];
-                let sent = Math.round(interp(inv, target)); if (target > top + 0.05) { sent = 127; short++; }
+                // THE KNOB FOR A KONTAKT VOICE (§149): one slot holds every preset, so the knob is CC7 sent just before the note (the composer's
+                // `cc7Plain`) — used when the voice is LOUDER than the target at the written velocity (the violin's articulations against its
+                // senza: −7 … −20 dB), through the instrument's measured CC7 law (bank/velocity_remap.json); the velocity then stays as written
+                // and the sample keeps its character. A voice QUIETER than the target still climbs the velocity (CC7 cannot add).
+                const atWritten = interp(m.curve, written), law = KNOB[L.instKey];
+                let sent = written, cc7 = null;
+                if (law && !/^SW(Flute|Fluteb|Clar|Sax|Saxb|Perc)$/.test(m.port) && atWritten > target + 0.3) { cc7 = cc7For(law, target - atWritten); }
+                else { sent = Math.round(interp(inv, target)); if (target > top + 0.05) { sent = 127; short++; } }
                 sent = Math.max(1, Math.min(127, sent));
-                o.velAbs = sent; o.properties = o.properties || {}; o.properties.sectionLevel = { written, sent, targetDb: r1(target), measured: 'bank/section_levels/' + name + '.json' };
+                if (cc7 != null) { o.cc7Plain = cc7; delete o.velAbs; } else { o.velAbs = sent; delete o.cc7Plain; }
+                o.properties = o.properties || {}; o.properties.sectionLevel = { written, sent, cc7, targetDb: r1(target), measured: 'bank/section_levels/' + name + '.json' };
                 moved.push(sent - written); n++;
             }
-            if (!has('undo')) { const mean = moved.length ? r1(moved.reduce((a, b) => a + b, 0) / moved.length) : 0; report.push(L.label.padEnd(11) + L.notes.length + ' notes · sent velocity = written ' + (mean >= 0 ? '+' : '') + mean + ' on average' + (short ? ' · ' + short + ' note(s) wanted more than this voice has at 127' : '')); }
+            if (!has('undo')) { const mean = moved.length ? r1(moved.reduce((a, b) => a + b, 0) / moved.length) : 0; const knobbed = L.notes.filter((o) => o.cc7Plain != null).length; report.push(L.label.padEnd(11) + L.notes.length + ' notes · ' + (knobbed ? knobbed + ' by CC7 (' + Math.round(L.notes.filter((o) => o.cc7Plain != null).reduce((a, o) => a + o.cc7Plain, 0) / knobbed) + ' on average), velocity as written · ' : '') + 'sent velocity = written ' + (mean >= 0 ? '+' : '') + mean + ' on average' + (short ? ' · ' + short + ' note(s) wanted more than this voice has at 127' : '')); }
         }
         console.log(report.join('\n')); console.log(n + ' note(s) ' + (has('undo') ? 'taken off the field' : 'on the level playing field'));
         if (has('dry')) { console.log('(dry: nothing written)'); return; }

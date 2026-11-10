@@ -28,6 +28,7 @@ local SPEC = {   -- slug = the key in bank/aro_percussion_catalog.json ('?' = wh
   { name = "Tam Tams ARO",          channel = 11, slug = "tam_tams_a" },           -- the call's large tam-tam; cloned from piece 5 — "Tam Tams (C)", Tam Tam A AIO active (read back)
   { name = "Snare ARO",             channel = 12, slug = "snare" },
   { name = "Bass Drum Rim ARO",     channel = 13, slug = "gran_cassa" },           -- his word 2026-11-10 (§148): the rute on the rim on ITS OWN track so its level is the track's; a clone of Bass Drum ARO (aro_state.js clone), the selection's beaters filter splits the two                -- the call's snare drum — HIS LOAD in Spitfire's browser (a preset never loaded cannot be set as text, piece 5 §35); the fresh instance came up with the plugin's last preset, Piatti (C), until then
+  { name = "Brake Drums Rubber Mallets ARO", channel = 14, slug = "brake_drums" },   -- perc_split.js: "Rubber Mallets" on its own track (§148)
 }
 local function devIndex(port)
   for d = 0, reaper.GetNumMIDIInputs() - 1 do

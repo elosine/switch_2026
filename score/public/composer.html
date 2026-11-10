@@ -9891,6 +9891,7 @@ const Composer = {
     // a morph note faded in carries the window in score seconds and CC7 is multiplied by the weight at this instant. The fade is a
     // statement about the fader, not about the written dynamic, which is why it multiplies the answer rather than changing the curve.
     heldCc7(wc, h, atSec) {
+        if (wc && wc.sonifyMode === 'plain' && wc.cc7Plain != null) return Math.max(0, Math.min(127, Math.round(wc.cc7Plain)));   // §148: the plain note's own knob
         const fade = wc && wc.cc7Fade;
         if (fade) {
             const w = (typeof Morph !== 'undefined' && Morph.fadeWeight)
@@ -11390,7 +11391,9 @@ const Composer = {
                 }
                 // plain (captured) notes replay exactly as monitored: full CC7, dynamics from the played
                 // velocity — not the level-curve map
-                const cc = wc.sonifyMode === 'plain' ? 127
+                // §148: a plain note may carry `cc7Plain` — THE VOLUME KNOB PER ARTICULATION for a Kontakt voice (one slot holds every
+                // preset, so the knob is CC7 sent just before the note; the velocity stays what he wrote). Absent, 127 as always.
+                const cc = wc.sonifyMode === 'plain' ? (wc.cc7Plain != null ? Math.max(0, Math.min(127, Math.round(wc.cc7Plain))) : 127)
                     : ksMode ? this.curveValToCC(Math.max(...wc.nodes.map(n => n.y)) / 10)
                     : this.heldCc7(wc, this.evalWaveCurve(wc, 0));   // 1g item 5: the measured curves (the tuba map without a remap)
                 output.send([0xB0 | ch, 7, cc], at);

@@ -25,10 +25,12 @@ const M = JSON.parse(fs.readFileSync(levelsFile, 'utf8'));
 const save = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', name + '.json'), 'utf8'));
 const interp = (pts, x) => { if (x <= pts[0][0]) return pts[0][1]; for (let i = 1; i < pts.length; i++) if (x <= pts[i][0]) { const a = pts[i - 1], b = pts[i]; return a[1] + (b[1] - a[1]) * (x - a[0]) / Math.max(1e-9, b[0] - a[0]); } return pts[pts.length - 1][1]; };
 const monotone = (p) => { for (let i = 1; i < p.length; i++) if (p[i][1] < p[i - 1][1]) p[i][1] = p[i - 1][1]; return p; };
+const INST = require('vm').runInNewContext(fs.readFileSync(path.join(ROOT, 'sandbox', 'instruments.js'), 'utf8') + '\n;INSTRUMENTS;', {});
+const realOrd = (instKey) => { const I = INST[instKey] || {}; const q = (I.techniques || []).find((t) => t.key === I.ordinary); return (q && !/placeholder/i.test(q.label || '')) ? I.ordinary : null; };   // the percussion's `main` is a placeholder, not an ordinary (§149)
 const live = Object.entries(M.lanes).filter(([, m]) => m.curve[m.curve.length - 1][1] > -60);
-const ords = live.filter(([, m]) => m.ordinary); if (!ords.length) die('the measurement has no ordinary voices — measure without --no-ordinary');
+const ords = live.filter(([, m]) => m.ordinary && realOrd(m.instKey));   // a placeholder ordinary (the percussion) is not one if (!ords.length) die('the measurement has no ordinary voices — measure without --no-ordinary');
 const meanOrd = monotone(M.vels.map((v) => [v, r1(ords.reduce((a, [, m]) => a + interp(m.curve, v), 0) / ords.length)]));
-const ordOf = (m) => { const o = M.lanes[m.instKey + ':' + (require('vm').runInNewContext(fs.readFileSync(path.join(ROOT, 'sandbox', 'instruments.js'), 'utf8') + '\n;INSTRUMENTS;', {})[m.instKey] || {}).ordinary]; return (o && o.ordinary && o.curve[o.curve.length - 1][1] > -60) ? o.curve : meanOrd; };
+const ordOf = (m) => { const k = realOrd(m.instKey), o = k ? M.lanes[m.instKey + ':' + k] : null; return (o && o.ordinary && o.curve[o.curve.length - 1][1] > -60) ? o.curve : meanOrd; };
 // the written velocities each voice plays in the section (its notes' recVel)
 const written = {};
 for (const o of save.objects) { if (o.type !== 'waveCurve' || o.sonifyNote == null || o.startSeconds < M.from || o.startSeconds > M.to) continue; const k = Object.keys(M.lanes).find((key) => M.lanes[key].lane === o.layer && M.lanes[key].technique === o.technique); if (!k) continue; (written[k] = written[k] || []).push(o.recVel != null ? o.recVel : 100); }
@@ -73,11 +75,19 @@ if (has('dry')) { console.log('(dry: nothing applied)'); fs.writeFileSync(levels
 // 1 · the UVI parts, grouped by track (one push per instance)
 const byTrack = {}; for (const r of rows) if (r.kind === 'uvi-part') (byTrack[r.track] = byTrack[r.track] || []).push(r);
 for (const [track, rs] of Object.entries(byTrack)) for (const r of rs) {
-    const res = cp.spawnSync(process.execPath, [path.join(__dirname, 'uvi_part_gain.js'), track, String(r.channel), String(r.gainDb), '--rel'], { encoding: 'utf8' });
-    const line = (res.stdout || res.stderr).trim().split('\n')[0]; console.log('  ' + line); out.applied.push({ voice: r.voice, how: 'uvi part gain ' + (6 + r.gainDb) + ' dB', line });
+    const res = cp.spawnSync(process.execPath, [path.join(__dirname, 'uvi_part_gain.js'), track, String(r.channel), String(r.gainDb)], { encoding: 'utf8' });   // the PROGRAM's gain (CC7 owns the part's — §149)
+    const line = (res.stdout || res.stderr).trim().split('\n')[0]; console.log('  ' + line); out.applied.push({ voice: r.voice, how: 'uvi program gain ' + r.gainDb + ' dB', line });
 }
 // 2 · the ARO tracks: one gain per track (the mean of its voices), fader then the JS remainder
 const perTrack = {}; for (const r of rows) if (r.kind === 'aro-track') (perTrack[r.track] = perTrack[r.track] || []).push(r.gainDb);
+// the gap was measured WITH the track's present fader and FX in the path, so the new level is the present one PLUS the gap (§149: the first
+// pass set the gap as an absolute fader and undid its own trims)
+const present = {};
+if (Object.keys(perTrack).length) {
+    const q = cp.spawnSync(process.execPath, [path.join(ROOT, 'tools', 'reaper_job.js'), '-e', 'local out={} for i=0,reaper.CountTracks(0)-1 do local tr=reaper.GetTrack(0,i) local _,n=reaper.GetTrackName(tr) local fx=nil for f=0,reaper.TrackFX_GetCount(tr)-1 do local _,nm=reaper.TrackFX_GetFXName(tr,f,"") if nm:lower():find("volume adjustment",1,true) then fx=reaper.TrackFX_GetParam(tr,f,0) end end out[n]={fader=20*math.log(reaper.GetMediaTrackInfo_Value(tr,"D_VOL"),10),fx=fx} end return out'], { encoding: 'utf8' });
+    try { Object.assign(present, JSON.parse(q.stdout).result); } catch (e) { die('could not read the tracks\' present levels: ' + (q.stdout || q.stderr).slice(0, 200)); }
+    for (const t of Object.keys(perTrack)) { const p = present[t] || { fader: 0, fx: null }; perTrack[t] = perTrack[t].map((g) => g + p.fader + (p.fx || 0)); }
+}
 // a track's gain: the fader to +12, the JS FX for the rest — capped at --max-extra (8) dB: a peak meter overstates how much a sustained scrape
 // or a spring coil needs (their loudness sits higher on their peak than a staccato's), so beyond +20 dB in all the rest is his ear's call
 const MAXX = +arg('max-extra', 8);

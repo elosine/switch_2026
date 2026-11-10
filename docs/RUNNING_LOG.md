@@ -2770,3 +2770,24 @@ direct probe gives −5.3. The mean over pitches now leaves a dropped reading ou
 Spitfire gains asked: china scrape +30 (capped at +20), spring coil +20, the gran cassa's felt roll and rim +13.5, brake drums +1 · +5.6.
 
 **The plucked piano and the piano's copies** are his two Run Lua script runs (his workflow, kept); the rack is left alone while he runs them.
+
+## §149. The volume pass, first run — three faults of mine, fixed before the second (2026-11-10)
+
+**The pass as run:** the clarinet's ordinary re-measured (−9.3 at 127, the dropped grid healed) · the brake drums' rubber mallets split onto
+their own track (`Brake Drums Rubber Mallets ARO`, ch 14 — `section_gains.js --split`, his rule applied by the tool) · the gains written ·
+everything measured again · the map applied. **The articulations' curves came back UNCHANGED** — the UVI part gains had done nothing.
+1. **The Part's Gain is CC7's target.** The baseline's +6 dB is "the value CC7 = 127 leaves a part at" (uvi_edit.js said so), and the
+   composer sends CC7 127 before every plain note — so a Part-gain edit is undone at the first note. The knob is the PROGRAM's Gain inside the
+   part (factory 0 dB everywhere, untouched by CC7): `uvi_part_gain.js` sets that now (`--part` keeps the old attribute for a reset; the
+   eleven parts put back to +6).
+2. **The percussion lane's "ordinary" is a placeholder.** Its recipe says `ordinary: "main"` — channel 1, whatever track sits there (the bongos).
+   The measure took it for a real ordinary and the percussion's standard became the bongos' curve (with fourteen dropped notes in it); the
+   trims then chased that. A placeholder (its label says so) is no ordinary: the percussion takes the mean of the real ones, in both tools.
+3. **The trims were absolute where the measurement was relative.** The second gap was read with the first trims in the path, and the tool set
+   the fader to the gap — undoing its own work. The new level is the present fader + FX + the gap; the tool reads the present through the
+   bridge first.
+**And the Kontakt knob, built:** a Kontakt voice LOUDER than its ordinary (the violin's articulations, −7 … −20 dB against the senza) no longer
+has its velocity crushed to single digits: the composer's plain note may carry `cc7Plain` — CC7 sent just before the note, in place of the
+127 it always sent (`composer.html`, pre-arm and `heldCc7`); `section_level.js --apply` writes it from the instrument's measured CC7 law
+(`bank/velocity_remap.json`, the card's) and leaves the velocity as written. A voice QUIETER than the target still climbs the velocity — CC7
+cannot add. **His page needs a reload (F5) for the new field.** The second pass runs on these.
