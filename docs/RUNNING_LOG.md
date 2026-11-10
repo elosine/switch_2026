@@ -2460,3 +2460,16 @@ rack (`part_meter.js --isolate 0.75`), the levels by written mark across the six
 **At ff — the section's bulk, 191 notes — the six parts lie within 1.7 dB of each other (−12.8 … −14.5); at fff within 3.8 (the piano and the violin
 at their ceilings, −13); at f within 5 (few notes, pitch-dependent).** Before the map the same written velocity stood 15 … 20 dB apart. The pass's
 raw series and per-note peaks: `probes/part_meter/piece-Section02-B-08ctpt-VolFix-*.json` (scratch, not committed).
+
+## §138. SW-32 held; the drawer's staccato set carries the glockenspiel's hard mallet (2026-11-10)
+
+**His words:** SW-32 (verbatim in the sketch pad). *"And then is there a staccato one in the strikes drawer? You may need to revise it with the
+instruments or the articulations I currently have. I think it's mostly staccato, it might be spiccato for the strings — one of those group
+articulation settings, so I can choose chords using those articulations in the strikes drawer."*
+
+**The drawer's sets (`strike_drawer.js` ART_SETS):** `staccato` — flute · clarinet · alto sax `staccato`, violin · cello `stac_vel`, percussion
+and piano `main`; `spiccato` — the strings `spicc_vel`, the rest as staccato; `ordinario`; `percussive`. The pitched lane had NO entry in the
+staccato set and fell to its ordinary (the crotales' metal mallet); the counterpoint plays that lane on `glock_main_hard`. **Added:** the
+staccato set now names `bowed_vibraphone: 'glock_main_hard'` — one click puts the section's six voices on every row and on everything the
+shuffle deals; a hand pick on a row still sticks (§129). palette_check 202 (§ 3 holds the key against the recipe). The spiccato set left as it
+is (the strings' spiccato, the pitched lane its ordinary).

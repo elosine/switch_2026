@@ -524,3 +524,17 @@ silence over half a second, nothing sounding before the note; the long-tone sine
 
 *The AI's reading (not his):* the next crescendo of the series (→ 10 beats a second), its harmony a ladder of octaves of C from C3, one per
 instrument as their ranges allow: cello C3 · sax C4 · clarinet C5 · flute C6 · violin C7 · the crotale C8 (its top key, C6, sounding two octaves up).
+
+### SW-32 · 2026-11-10 — held: the quiet articulations may want a level change in Reaper; the section's balance against the rest of the piece — an expedient, section-wide lever for the demo, re-evaluated later
+
+*His words (dictated, light corrections):*
+
+> *"Some of the other articulations may be quite quiet. So we may need to consider a volume change or a level change in Reaper, but let's see
+> how it washes out. I'm also a little bit concerned about its balance with the rest of the piece, but maybe we can figure out an expeditious
+> strategy — maybe just change the master volume for this section or something like that. I don't want to again get into the previous sort
+> of measures and adjustments; they were ineffective, I think, or inconsistent at best. So since this is just for the demo, I want some
+> expedient solutions. But just hold on to that. We may need to re-evaluate."*
+
+*The AI's reading (not his):* two levers held, neither pulled — a per-track level in Reaper where an articulation is simply too quiet to reach
+the field (the SECTION_LEVEL doc's "what 127 means"), and one section-wide gain against the rest of the piece (a master move for the section's
+span, or one offset on every part's sent velocity). Chosen when he hears the section; the demo decides how fine.

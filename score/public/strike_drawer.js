@@ -86,7 +86,9 @@ const ART_SETS = {
     // the two winds are on their one placeholder voice in every set — their short voices come with their recipes (container 4)
     // the winds' and the piano's short voices come with their recipes (container 4)
     spiccato: { flute: 'staccato', clarinet: 'staccato', alto_sax: 'staccato', percussion: 'main', piano: 'main', violin: 'spicc_vel', cello: 'spicc_vel' },
-    staccato: { flute: 'staccato', clarinet: 'staccato', alto_sax: 'staccato', percussion: 'main', piano: 'main', violin: 'stac_vel', cello: 'stac_vel' },
+    // the pitched lane joined the staccato set on the GLOCKENSPIEL's hard mallet (2026-11-10, RUNNING_LOG §138 — the counterpoint section's own
+    // voice there; the vibraphone's own short voices wait on the roster). The spiccato set still leaves that lane to its ordinary.
+    staccato: { flute: 'staccato', clarinet: 'staccato', alto_sax: 'staccato', percussion: 'main', bowed_vibraphone: 'glock_main_hard', piano: 'main', violin: 'stac_vel', cello: 'stac_vel' },
     // LGMF, stage 1 of the drawer's adaptation (composer, 2026-09-19): the voices the reference scores play — each instrument's
     // `ordinary` in sandbox/instruments.js (read back from scores/lgmf-ref.json). The vibraphone was on its standard mallets for stage 1
     // at his word; PLAN 1c.2 (the long tones, the same day) put it on the BOWED voice the reference scores play — his "this would
