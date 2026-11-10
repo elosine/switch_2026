@@ -41,8 +41,16 @@ const takes = takeNames.map((k) => { const t = SNAP[k]; if (!t || !t.state) die(
 
 // the containers: a hexagram each across [MIN, MAX]; the last absorbs a short remainder
 const rnd = Roll.mulberry32(seed);
-const containers = []; let t = from;
-while (t < to - 0.01) { const h = Roll.hexagram(rnd); let len = r3(MIN + (h.n - 1) / 63 * (MAX - MIN)); if (to - (t + len) < MIN) len = r3(to - t); containers.push({ start: r3(t), end: r3(t + len), hex: h.n, glyph: h.glyph }); t = r3(t + len); }
+// --contrast (his word, §140): runs of LONG containers interrupted by SHORT ones — a run of 2 … 3 longs (each a hexagram across [--long-lo, MAX]),
+// then 1 … 3 shorts (each across [MIN, --short-hi]), the run lengths rolled; without it every container is a hexagram across [MIN, MAX]
+const CONTRAST = has('contrast'), LONG_LO = +arg('long-lo', 1.5), SHORT_HI = +arg('short-hi', 1.0);
+const containers = []; let t = from, phase = 'long', left = 0;
+while (t < to - 0.01) {
+    const h = Roll.hexagram(rnd); let lo = MIN, hi = MAX, cls = '';
+    if (CONTRAST) { if (left <= 0) { phase = phase === 'long' ? 'short' : 'long'; left = phase === 'long' ? 2 + Math.floor(rnd() * 2) : 1 + Math.floor(rnd() * 3); } left--; cls = phase; if (phase === 'long') { lo = LONG_LO; hi = MAX; } else { lo = MIN; hi = SHORT_HI; } }
+    let len = r3(lo + (h.n - 1) / 63 * (hi - lo)); if (to - (t + len) < MIN) len = r3(to - t);
+    containers.push({ start: r3(t), end: r3(t + len), hex: h.n, glyph: h.glyph, cls }); t = r3(t + len);
+}
 // the deck: exhaustive, re-shuffled when spent, no take twice in a row
 const shuffle = (a) => { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
 let deck = [], last = null;
@@ -60,7 +68,7 @@ for (const c of containers) {
         const [lo, hi] = rangeOf(o), own = T.byLane[o.layer];
         let cands = own && own.length ? own.map((p) => fold(p, lo, hi)) : T.all.map((p) => fold(p, lo, hi));
         if (!own || !own.length) unplacedLane++;
-        const was = o.sonifyNote, pick = cands.reduce((b, p) => (Math.abs(p - was) < Math.abs(b - was) || (Math.abs(p - was) === Math.abs(b - was) && p < b) ? p : b), cands[0]);
+        const was = (o.properties && o.properties.harmony && o.properties.harmony.was != null) ? o.properties.harmony.was : o.sonifyNote, pick = cands.reduce((b, p) => (Math.abs(p - was) < Math.abs(b - was) || (Math.abs(p - was) === Math.abs(b - was) && p < b) ? p : b), cands[0]);
         o.properties = o.properties || {}; if (!o.properties.harmony) o.properties.harmony = { was }; o.properties.harmony.take = T.name; o.properties.harmony.container = containers.indexOf(c) + 1;
         if (pick !== o.sonifyNote) changed++; o.sonifyNote = pick; c.notes++; perLane[o.layer] = (perLane[o.layer] || 0) + 1;
     }
@@ -69,7 +77,7 @@ for (const c of containers) {
 s.objects = s.objects.filter((o) => !(o.type === 'marker' && o.properties && o.properties.harmonyRoll));
 for (const c of containers) s.objects.push({ id: 'mk-' + (nextId++), type: 'marker', layer: 0, time: c.start, label: c.take.name.replace(/^SW-/, '') + ' ' + c.glyph, color: '#8E24AA', groupId: 'harmony-roll', performanceNotes: 'harmony ' + c.take.name + ' · container ' + (containers.indexOf(c) + 1) + ', hexagram ' + c.hex + ', ' + r3(c.end - c.start) + ' s', properties: { harmonyRoll: true, take: c.take.name, hex: c.hex, end: c.end } });
 s.objects.sort((p, q) => (p.startTime != null ? p.startTime : p.startSeconds != null ? p.startSeconds : p.time) - (q.startTime != null ? q.startTime : q.startSeconds != null ? q.startSeconds : q.time));
-console.log(containers.length + ' containers over ' + from + ' … ' + to + ' s (seed ' + seed + '; ' + MIN + ' … ' + MAX + ' s by hexagram): ' + containers.map((c) => r3(c.end - c.start)).join(' '));
+console.log(containers.length + ' containers over ' + from + ' … ' + to + ' s (seed ' + seed + '; ' + MIN + ' … ' + MAX + ' s by hexagram' + (CONTRAST ? ', runs of longs [' + LONG_LO + ' … ' + MAX + '] broken by shorts [' + MIN + ' … ' + SHORT_HI + ']' : '') + '): ' + containers.map((c) => r3(c.end - c.start) + (c.cls === 'short' ? 's' : '')).join(' '));
 console.log('the deal: ' + containers.map((c) => c.take.name.replace(/^SW-ctpt-/, '')).join(' '));
 console.log(notes.length + ' notes · ' + changed + ' pitches changed · ' + unplacedLane + ' note(s) on a lane the take left unplaced (the harmony\'s nearest pitch, folded) · by lane: ' + Object.entries(perLane).map(([l, n]) => TRACKS[l].id + ' ' + n).join(', '));
 if (has('dry')) { console.log('(dry: nothing written)'); process.exit(0); }

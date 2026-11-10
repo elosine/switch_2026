@@ -557,3 +557,13 @@ hexagram per container by three coins, read across the range) — the asymmetric
 sixteen takes are a shuffled deck, dealt one per container, re-shuffled when spent. THE GOAL he names — the stack's time-container and
 dice strategies gathered and compared (the hexagram roll · the morph's "smaller of two rolls" · the beat shapes' pace roll · the breath rule)
 — a plan line, when he reaches it.
+
+### SW-34 · 2026-11-10 — more contrast in the harmonic rhythm: 0.6 … 2.5 s, runs of long containers interrupted by short ones
+
+*His words (dictated, light corrections):*
+
+> *"I think the contrast can be a little bit more. So let's make the longest one shorter — 3.5 is too long, let's make that 2.5 — and let's make
+> the shortest one maybe like 0.7. What I mean by contrast is maybe there'll be like a 0.7 and then a 2 and then a 3 and then a 0.9 — not a
+> short-long alternation necessarily, but interrupted by short ones: maybe a couple long ones and then a short, and then maybe three long ones
+> and then two shorts or three shorts. So that there's a contrast that happens every once in a while. Actually, these are relatively quick —
+> let's keep it at 0.6. Let's try that."*

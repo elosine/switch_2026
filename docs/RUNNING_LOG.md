@@ -2492,3 +2492,13 @@ start names the take and its hexagram. **Written into `piece-Section02-B-08ctpt-
 voice is the crotales' (crot_main_felt); the notes keep THEIR technique (glock_main_hard) and take the pitch, folded into the glock's range.
 NOT CLAIMED: his ear — "let me hear those and then see". **The goal he names** (the dice and time-container strategies gathered): PLAN, a
 line under § 2 when he reaches it.
+
+## §140. SW-34 — the harmonic rhythm re-rolled with contrast: runs of longs broken by shorts, 0.6 … 2.5 s (2026-11-10)
+
+**His words:** SW-34. **`harmony_roll.js --contrast`:** two classes — LONG containers, a hexagram across 1.5 … 2.5 s, in runs of 2 … 3; SHORT ones,
+across 0.6 … 1.0 s, in runs of 1 … 3; the run lengths rolled from the same seeded stream (the AI's class bounds inside his 0.6 … 2.5; his to
+move with `--long-lo` · `--short-hi`). The re-roll reads each note's ORIGINAL pitch (`properties.harmony.was`) for the nearest-voice choice, so a
+re-deal keeps the counterpoint's contour and not the previous deal's. **Written (seed 17):** 37 containers — 0.96s 0.65s 0.84s | 2.26 2.17 |
+0.66s 0.91s | 1.68 2.01 | 0.63s | 2.44 1.83 | 0.86s 0.61s | 2.31 2.26 1.56 | 0.85s 0.88s 0.94s | 1.64 2.09 2.10 | 0.89s | 1.71 1.99 | 0.99s 0.99s
+0.87s | 2.18 2.01 2.31 | 0.61s 0.80s 0.99s | 1.96 1.57 — the deal 10 07 06 12 13 02 05 16 08 04 01 03 14 11 15 09 | 12 09 02 13 14 07 11 05 04 06
+15 03 16 01 08 10 | 06 05 08 01 04; 249 pitches changed. NOT CLAIMED: his ear.
