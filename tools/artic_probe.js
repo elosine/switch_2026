@@ -4,7 +4,7 @@
 // a plucked or struck one decays, a dead preset reads nothing. His questions 2026-11-10 (RUNNING_LOG §142): "tongue ram and jet whistle sound
 // the same?" · "pizz not working".
 //
-//   node tools/artic_probe.js --port SWViolin --channel 1 --items "cc0=69 note=69 ; cc0=5 note=69 ; ks=36 note=67 ch=5" [--dur 1.5] [--gap 2.5]
+//   node tools/artic_probe.js --port SWViolin --channel 1 --items "cc0=69 note=69 ; cc0=5 note=69 ; ks=36 note=67 ch=5" [--dur 1.5] [--gap 2.5] [--watch-channel N]
 //     an item: key=value pairs — note (MIDI, required) · cc0 (sent 150 ms before) · ks (a keyswitch note, 150 ms before, released with the note)
 //              · ch (the item's channel, 1 … 16; else --channel) · vel (100) · dur (seconds; else --dur) · label
 'use strict';
@@ -13,7 +13,7 @@ const ROOT = path.join(__dirname, '..');
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i >= 0 && process.argv[i + 1] != null && !String(process.argv[i + 1]).startsWith('--') ? process.argv[i + 1] : d; };
 const die = (m) => { console.error(m); process.exit(2); };
 const BRIDGE = process.env.REAPER_BRIDGE || path.join(process.env.APPDATA, 'REAPER', 'bridge');
-const port = arg('port') || die('--port'), CH = +arg('channel', 1) - 1, DUR = +arg('dur', 1.5), GAP = +arg('gap', 2.5), LEAD = 1;
+const port = arg('port') || die('--port'), CH = +arg('channel', 1) - 1, WATCH = +arg('watch-channel', 0), TRACK = arg('track'), /* --track "name": meter that track by name; --watch-channel N: meter the track that filters channel N (a per-channel track, e.g. the percussion); 0 = the port's first track */ DUR = +arg('dur', 1.5), GAP = +arg('gap', 3), LEAD = 1;
 const items = String(arg('items') || die('--items')).split(';').map((q, i) => { const o = { label: 'item ' + (i + 1) }; for (const kv of q.trim().split(/\s+/)) { const [k, v] = kv.split('='); if (k) o[k] = isNaN(+v) ? v : +v; } if (o.note == null) die('an item needs note='); return o; });
 const dB = (a) => (a > 0 ? Math.round(20 * Math.log10(a) * 10) / 10 : -150);
 const lua = (v) => { if (Array.isArray(v)) return '{' + v.map(lua).join(',') + '}'; if (v && typeof v === 'object') return '{' + Object.entries(v).map(([k, x]) => k + '=' + lua(x)).join(',') + '}'; if (typeof v === 'string') return JSON.stringify(v); return String(v); };
@@ -34,7 +34,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     const secs = Math.ceil(t + 1.5);
     const schedFile = path.join(os.tmpdir(), 'artic_probe.events.json'); fs.writeFileSync(schedFile, JSON.stringify({ events: ev }));
     const seriesFile = path.join(BRIDGE, 'outbox', 'part_meter.json'); try { fs.unlinkSync(seriesFile); } catch (e) {}
-    const body = 'CFG = ' + lua({ port, channel: 0, seconds: secs }) + '\n' + fs.readFileSync(path.join(__dirname, 'part_meter.lua'), 'utf8');
+    const body = 'CFG = ' + lua(Object.assign({ port, channel: WATCH, seconds: secs }, TRACK ? { track: TRACK } : {})) + '\n' + fs.readFileSync(path.join(__dirname, 'part_meter.lua'), 'utf8');
     const tmp = path.join(os.tmpdir(), 'artic_probe_' + process.pid + '.lua'); fs.writeFileSync(tmp, body);
     const r = cp.spawnSync(process.execPath, [path.join(ROOT, 'tools', 'reaper_job.js'), 'run', tmp], { encoding: 'utf8' }); try { fs.unlinkSync(tmp); } catch (e) {}
     let job; try { job = JSON.parse(r.stdout).result; } catch (e) { die('the bridge did not answer: ' + (r.stdout || r.stderr).slice(0, 300)); }
@@ -43,10 +43,15 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     for (let w = 0; w < (secs + 10) * 1000 && !fs.existsSync(seriesFile); w += 250) await sleep(250);
     if (!fs.existsSync(seriesFile)) die('the watch wrote nothing');
     const S = JSON.parse(fs.readFileSync(seriesFile, 'utf8')), rows = S.rows;
-    const first = rows.find((x) => Math.max(x[1], x[2]) > 0.002), off = first ? first[0] - items[0].t : 0;
+    // THE ALIGNMENT (fixed 2026-11-10, §143): the first sound heard is not always item 1 — when the leading items are dead channels the
+    // old rule (first sound = item 1) shifted every reading one or more items early. The player starts about a second after the watch
+    // (−0.9 s typical, read at every run), so the first sound is assigned to the item whose offset is nearest that latency.
+    const first = rows.find((x) => Math.max(x[1], x[2]) > 0.002), TYP = 0;   // the player starts within about ±1.2 s of the watch; with a gap of 3 s or more the nearest candidate is the right one
+    let off = 0, anchor = null;
+    if (first) { for (const it of items) { const o = first[0] - it.t; if (anchor == null || Math.abs(o - TYP) < Math.abs(off - TYP)) { off = o; anchor = it; } } }
     const at = (tt) => { let m = 0; for (const x of rows) { if (x[0] < tt - 0.06) continue; if (x[0] > tt + 0.06) break; const v = Math.max(x[1], x[2]); if (v > m) m = v; } return dB(m); };
     const peakIn = (a, b) => { let m = 0; for (const x of rows) { if (x[0] < a) continue; if (x[0] > b) break; const v = Math.max(x[1], x[2]); if (v > m) m = v; } return dB(m); };
-    console.log(S.track + ' on ' + port + ' · ' + (p.stdout || '').trim() + ' · aligned by ' + Math.round(off * 1000) + ' ms');
+    console.log(S.track + ' on ' + port + ' · ' + (p.stdout || '').trim() + ' · aligned by ' + Math.round(off * 1000) + ' ms' + (anchor ? ' on ' + anchor.label : ' (nothing heard)'));
     console.log('item'.padEnd(34) + 'peak     +0.1s   +0.3s   +0.6s   +1.0s   +1.4s   verdict');
     for (const it of items) {
         const o = it.t + off, pk = peakIn(o - 0.05, o + it.dur + 0.4), L = [0.1, 0.3, 0.6, 1.0, 1.4].map((d) => at(o + d));

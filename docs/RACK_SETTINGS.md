@@ -18,6 +18,11 @@
 | the flute's two instances | `Flute SI2` · `Fluteb SI2` | **as piece 4 left them** — cloned byte-exact (its Dynamic NOT read yet: piece 4 predates the 1.00 rule) | `build_rack.js` | — |
 | **Realphones** (dSONIQ, VST3) | Reaper's **Monitoring FX** (View → Monitoring FX — global, not the project) | on → **BYPASSED** | bridge job `reaper/bridge/jobs/monitor_fx.lua`, at his ask (2026-10-23) | the power button there |
 | **the SI2 masters at −6 dB** | the three new instances | **NOT SET** — the master read +0.75 dB on one clarinet note (§19) | container 5's pre-flight | — |
+| **Flute SI2 part 13 (Flute Pizzicato = the tongue ram) OUTPUT** | `Flute SI2` part 13 | `$Engine/Out 2` (piece 4) → **main** | as text: `uvi_state.js set-output "Flute SI2" 13 "" --push` (§143) | `set-output … 13 "Out 2" --push` |
+| **the baseline on the flute and the prepared piano** | `Flute SI2` (part 13 had EQ + Maximizer active) · `PianoHarm PP2` · `PianoMute PP2` (Maximizer active) | every insert bypassed but the convolver; gain +6 | `uvi_edit.js baseline` → `encode --push` (§143, his note on the effects) | re-enable in the part’s FX |
+| **the prepared piano’s part channels** | `PianoHarm PP2` part 1 · `PianoMute PP2` part 1 | ch 3 · ch 5 (piece 4) → **ch 6 · ch 7** (this piece’s recipe and tracks) | `tools/uvi_set_channel.js` (§143); the plugin takes a pushed state only after an offline/online cycle — every push does it now | `uvi_set_channel.js "PianoHarm PP2" 1 3` · `… "PianoMute PP2" 1 5` |
+| the prepared piano’s CONVOLVER | both PP2 instances | **bypassed, as piece 4 left it** (a dry prepared piano) — the baseline’s edit of that flag did not take on PP2 | — | his, in the part’s FX |
+| the brake drums’ second FX | `Brake Drums ARO` (cloned from piece 5’s rack, §144) | a `JS: Volume Adjustment` after the plugin — piece 5’s trim, carried with the chunk | `set_track_chunk.js` | remove it, or set it to 0 dB (the baseline) |
 
 **The ports (loopMIDI, machine-global):** fourteen `SW…` values in `HKCU\Software\Tobias Erichsen\loopMIDI\Ports`; the key before them
 exported to `reaper/loopmidi_ports_before_SW_2026-10-20.reg`. **loopMIDI is started by HIM** (or detached) — a loopMIDI the AI's shell

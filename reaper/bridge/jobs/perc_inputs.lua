@@ -14,6 +14,10 @@ local SPEC = {
   { name = "Spring Coil ARO",       channel = 6 },
   { name = "Suspended Cymbals ARO", channel = 7 },
   { name = "Toms ARO",              channel = 8 },
+  { name = "Brake Drums ARO",       channel = 9 },    -- the shore-up's four (2026-11-10, §143) — a chunk set by tools/set_track_chunk.js arrives with no input
+  { name = "Bass Drum ARO",         channel = 10 },
+  { name = "Tam Tams ARO",          channel = 11 },
+  { name = "Snare ARO",             channel = 12 },
 }
 local function devIndex(port)
   for d = 0, reaper.GetNumMIDIInputs() - 1 do

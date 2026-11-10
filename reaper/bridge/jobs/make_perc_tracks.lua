@@ -21,6 +21,12 @@ local SPEC = {   -- slug = the key in bank/aro_percussion_catalog.json ('?' = wh
   { name = "Spring Coil ARO",       channel = 6, slug = "small_metals_spring_coil" },  -- cloned from piece #6's Small Metals (C), the articulation switched
   { name = "Suspended Cymbals ARO", channel = 7, slug = "susp_cymbals_bright" },   -- his load: Suspended Cymbals (C), the BRIGHT All-in-One (§24)
   { name = "Toms ARO",              channel = 8, slug = "toms_high" },             -- his load: Toms (C), the HIGH All-in-One (§25)
+  -- THE SHORE-UP (2026-11-10, RUNNING_LOG §143): the call's battery completed — three cloned as text from piece 5's rack (tools/build_rack.js
+  -- --emit-src p5 → tools/set_track_chunk.js onto the empty track this job makes), the snare HIS load in Spitfire's browser (no earlier rack holds one)
+  { name = "Brake Drums ARO",       channel = 9,  slug = "brake_drums" },          -- his pick ("break drum"); cloned from piece 5
+  { name = "Bass Drum ARO",         channel = 10, slug = "gran_cassa" },           -- the call's bass drum (beside the alt's rim); cloned from piece 5 — its preset is "Bass Drum (GC) (C)", the Gran Cassa All-in-one (read back)
+  { name = "Tam Tams ARO",          channel = 11, slug = "tam_tams_a" },           -- the call's large tam-tam; cloned from piece 5 — "Tam Tams (C)", Tam Tam A AIO active (read back)
+  { name = "Snare ARO",             channel = 12, slug = "snare" },                -- the call's snare drum — HIS LOAD in Spitfire's browser (a preset never loaded cannot be set as text, piece 5 §35); the fresh instance came up with the plugin's last preset, Piatti (C), until then
 }
 local function devIndex(port)
   for d = 0, reaper.GetNumMIDIInputs() - 1 do

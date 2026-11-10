@@ -99,8 +99,12 @@ for i = 0, reaper.CountTracks(0) - 1 do
   local tr = reaper.GetTrack(0, i); local _, n = reaper.GetTrackName(tr)
   if n == want then
     local ok = reaper.SetTrackStateChunk(tr, chunk, false)
+    -- THE RELOAD (2026-11-10, RUNNING_LOG §143): a large instance (Prepared Piano 2, 15 MB of XML) stored the pushed state but kept
+    -- PLAYING its old one — its parts answered on their old channels until the plugin was taken offline and back, which re-instantiates
+    -- it from the stored state. SI2 instances took the state directly; the cycle is harmless for them, so every push does it.
+    reaper.TrackFX_SetOffline(tr, 0, true); reaper.TrackFX_SetOffline(tr, 0, false)
     local ok2, back = reaper.GetTrackStateChunk(tr, '', false)
-    return { track = n, set = ok, bytesBack = #back }
+    return { track = n, set = ok, bytesBack = #back, reloaded = true }
   end
 end
 error('no track named ' .. want)`;

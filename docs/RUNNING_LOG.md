@@ -2532,3 +2532,105 @@ note (the drawer's audition sends them back to back): still a pizz, 3 dB softer 
 measured.** Not found: WHERE his pizz failed — the drawer's row, the Rec row, or playback — and WHICH entry: the open-strings and harmonics
 pizzicati are FIXED-pitch presets (`kind: "fixed"` — only their own strings sound; any other pitch is silent), and `pizz_x_sp_mw` needs the wheel.
 Asked.
+
+## §143. THE MIDI SHORE-UP, part 1 — the rack audited against the lineage's standard; what was text is fixed (2026-11-10)
+
+**His words (the ask, while away):** *"a very thorough review of all the things that got missed and try to implement them … loopMIDI ports
+including the b versions, Reaper tracks, every articulation on its own channel — no keyswitches, CC0 for Xsample, the 4-channel CC7
+round-robin copies, round robin volume copies, the full percussion battery in the session, glissando done right, instrument volumes and
+masters … fix the porting instructions so the next port carries the standard … please just continue through as much as you can do
+independently."* And later: *"there are a number of like effects to turn off in the UVI or to bypass … pay attention to the effects that we
+turned off in the previous ones too."*
+
+**The standard, read from the record** (the home's `protocol/howto/` rack · uvi · kontakt · spitfire-aro, protocol § 4, this piece's
+RACK_SETTINGS § 0): ports by the standard set, a `b` port where a UVI instance overflows 16 parts · one track per instrument, input by
+port NAME · UVI: one part per preset, the three Ordinario curve copies, gain +6, every insert bypassed but the convolver, Dynamic 1.00 ·
+Kontakt (Xsample): four slots ch 1 … 4 of the same instrument, CC0 = preset − 1, round robin off in a saved copy · Spitfire ARO: one
+instance per instrument on its channel of the percussion port, never CC7 · the recipe DERIVED from the rack.
+
+**The rack as it stands (`reaper/bridge/jobs/rack_inputs.lua`, new — every track's LIVE input through the bridge):** 26 tracks; 14 `SW` ports in
+loopMIDI; the five SI2 instances on their ports, all channels; eight ARO tracks on `SWPerc` ch 1 … 8; five Kontakt mallet instances; the
+piano's four tracks on `SWPiano` — `Piano Kontakt` all channels, `PianoPlucked Kontakt` ch 5, `PianoHarm PP2` ch 6, `PianoMute PP2` ch 7;
+violin and cello Kontakt; ELEC RETURN; REC. Every UVI part listed (`uvi_state.js info`): Flute SI2 16 parts (10 of them KS presets),
+Fluteb 6 (staccato · trills KS · whistle tones · three Ordinario copies), Clarinet 16 (copies 14 … 16; no `b`), Alto Sax 16, Alto Sax b
+6 + copies 14 … 16, parts 7 … 13 EMPTY.
+
+**Found, and fixed as text:**
+- **The flute's tongue ram (Flute Pizzicato, part 13) was SILENT** (§142) because its OUTPUT was `$Engine/Out 2`, not the main pair —
+  piece 4 had routed it to a separate output. `uvi_state.js set-output "Flute SI2" 13 "" --push` → it sounds (−6.6 dB peak at 100,
+  decays). Its EQ and Maximizer were ACTIVE where every other part had them bypassed — `uvi_edit.js baseline` run on the whole instance
+  (idempotent for the rest). The flute's `UVI_PARTS` row still said `tongue_ram` = ch 5; regenerated below.
+- **The prepared piano was SILENT on its new channels.** The recipe and the tracks say harmonics ch 6, muted ch 7 (this session's
+  piano fix); the PP2 instances' parts still listened on piece 4's channels 3 · 4 and 5 — a track filtering channel 6 passed channel-6
+  notes to a part listening on 3. `tools/uvi_set_channel.js` (new): the part's MidiChannel rewritten and pushed. **Then still silent** —
+  and the probe with the track opened to all channels showed the LIVE instance answering on 3 and 5 while Reaper's chunk said 6 and 7:
+  the 15 MB Prepared Piano 2 instance STORED the pushed state and kept PLAYING its old one. Taking the FX offline and back
+  (`TrackFX_SetOffline`) re-instantiates it from the stored state — then harmonics on 6 and mutes on 7 SOUND (−9.8 · −10 dB peaks). The
+  cycle is now part of every `uvi_state.js` push. His note on the effects: PP2's Maximizer was active on the mutes and on the second
+  harmonics part — baselined (the convolver's flag on PP2 did not take the edit; it stays as piece 4 left it, bypassed — a dry prepared
+  piano; noted in RACK_SETTINGS, his to turn on).
+- **The piano's Kontakt map, measured (`artic_probe.js --track`, new — the meter on a track BY NAME, needed where several tracks share
+  a port):** `Piano Kontakt` sounds ch 1 (−14.8) and a FAINT ch 2 (−58.9 — piece 4's plucked-piano slot in the same instance, at a
+  volume that is no use); ch 3 … 8 nothing. So the piano has NO curve copies on 2 · 3 · 4 — a SHAPED piano note (the dynamics law
+  sends it to a curve channel) plays nothing, or the faint slot. `PianoPlucked Kontakt`: nothing on any channel 1 … 8 — an empty or
+  silent instance (piece 4's record already said "plucked: NOTHING sounded"). **Kontakt is his hand** (a script runs only inside
+  Kontakt): the slots to make are listed in PLAN § 1c.
+- **The keyswitch presets in use** — his articulations on a shared KS part: the flute's jet whistle (FX KS, C1) and the sax's slap
+  pitched + exploding slap (Slap Modes KS, C1 · D1). The XML of a KS program shows the mechanism: ONE program, several LAYERS (Flute FX
+  KS: "Flute Jet Whistle C1" · "Flute Key Click C#1" · "Flute Tongue Ram D1"; Slap Modes KS: Slap Pitched C1 · Slap Unpitched C#1 ·
+  Exploding Slap Pitched D1), the script choosing among them on the red keys. `tools/uvi_split_ks.js` (new): the program cloned onto
+  free parts, every layer but one bypassed and muted, the clone renamed "<preset> - <layer>", so `apply_uvi_parts.js` places the
+  technique by name and no keyswitch is ever sent. To be run and PROVEN after the alive sweep (the jet whistle's swell on a part that
+  received no key is the proof — the meter can tell a swell from a decay, §142).
+
+**The alive map (`tools/rack_alive.js`, new):** every port, every channel that could hold a voice, one note each, the receiving track's
+peak — the ground truth the rest of the review stands on; running as this is written, its table to `probes/rack_alive/latest.md` and
+§144.
+
+**Not text — his hands, collected in PLAN § 1c:** the Kontakt slots (the piano's three Steinway copies on ch 2 · 3 · 4 and the plucked
+slot moved to ch 5 at a usable volume, or loaded into the empty instance; the violin's and cello's round-robin-off copies in all four
+slots) · the percussion the call names that no earlier rack holds (snare · tam-tam · opera gong · a bass drum beside the alt) loaded in
+Spitfire's browser; what piece 5's rack holds (Brake Drums · Bass Drum · Tam Tams) is cloned as text.
+
+## §144. THE MIDI SHORE-UP, part 2 — the alive map, the keyswitch presets split and proven, the battery completed (2026-11-10)
+
+**The alive map (`tools/rack_alive.js`, every port, every channel, one note each; `probes/rack_alive/latest.md`):** every SI2 part
+answers (the flute's Finger Modes KS part 6 reads nothing at C5 — a by-key preset, its keys are the music's); Fluteb's three Ordinario
+copies · the clarinet's 14 … 16 · the sax b's 14 … 16 all at one level; **the vibraphone and the violin have their four slots** (ch 1 … 4
+within 0.1 dB — the standard holds); the cello four; the Ricotti mallets' slots all live (crotales 9 · glockenspiel 12 · xylophone 10 ·
+marimba 8); the eight ARO tracks each on its channel. **The piano: `Piano Kontakt` ch 1 only** (no curve copies; the ch 2 slot too faint
+to register), `PianoPlucked Kontakt` nothing, `PianoHarm PP2` ch 6 and `PianoMute PP2` ch 7 (after §143's fix).
+
+**Two lessons of the meter, both fixed in `artic_probe.js`:** (1) THE ALIGNMENT — the first sound heard was taken for item 1; when the
+leading items were dead channels every reading shifted one item early (the prepared piano "answering on channel 3" was channel 6 read
+through a dead 3 · 4 · 5). Now the first sound goes to the item whose offset is nearest the player's start, and the items must sit at
+least 3 s apart (the player starts within about ±1.2 s of the watch — a 2 s gap is ambiguous); (2) THE LOADING — a reloaded instance
+answers nothing for some seconds; a probe straight after a push reads SILENT. Both had produced false "silent" verdicts in part 1's
+first readings; the settled re-probes are the ones that count.
+
+**The keyswitch presets split (`tools/uvi_split_ks.js`) — what the meter proved, and what it did not:**
+- **The flute's jet whistle on Fluteb part 10** — the FX KS program cloned across instances, the Key Click and Tongue Ram layers bypassed
+  and muted, the layers in their original order: G4 at 100 reads −5.1 → −12.8 → −8 → −16.4 → −29.1 → −40.4 — the SWELL, and to the
+  decimal the numbers of §142's keyswitched jet whistle (C1 held). **Proven: the jet whistle without a key.** The same program with the
+  Tongue Ram layer live (index 2) reads NOTHING; with the jet whistle moved last, nothing either (the test parts 7 · 8 · 9 emptied —
+  `tools/uvi_empty_part.js`). The FX KS layers hold 1 · 15 · 15 sample players — the jet whistle is one sample, stretched.
+- **The sax's three slaps on Alto Sax SI2 b parts 7 · 8 · 9** — Slap Modes KS cloned within the instance. In the original layer order
+  only the part whose live layer is LAST (the exploding slap) sounded; with the live layer MOVED LAST each part sounds (`--move-last`).
+  Their readings differ by part and by pitch (pitched F4 −10.3 / F5 −8.1 · unpitched −8.8 / −10.7 · exploding −10.1 / −9.6), so three
+  layers play, not one. **What the meter cannot say is WHICH slap each part plays — his ear, when he writes them.** The mechanism (why the
+  flute's program wants its live layer first and the sax's wants it last) is NOT understood; the position that sounds was found by trial,
+  the layers' internal Names (`Layer0` · `Layer 0` · `Layer 1`) the one clue. The recipe: `jet_whistle` → "Flute FX KS - Jet Whistle"
+  (Fluteb ch 10), the three slaps → their parts; no `ks` on any of them; `apply_uvi_parts.js`: flute 29/29 · clarinet 17/17 · sax 32/32
+  placed, the whole Slap Modes KS on b part 4 the one unused part. `palette_check` green (208).
+
+**The battery completed — three cloned as text, one his:** `make_perc_tracks.lua` grew four rows (channels 9 … 12 of `SWPerc`); the
+empty tracks it made took piece 5's track chunks (`build_rack.js --emit-src p5` → `tools/set_track_chunk.js`, new): **Brake Drums (C)** ·
+**Bass Drum (GC) (C)** (the Gran Cassa All-in-one active — the catalog's `gran_cassa`) · **Tam Tams (C)** (Tam Tam A AIO active —
+`tam_tams_a`, piece 5's slug); each sounds at C2 (−14.8 · −15.9 · −25.6). **The snare:** no earlier rack holds one, and a preset never
+loaded cannot be set as text (piece 5 §35) — the fresh instance came up with the plugin's last preset, Piatti (C); HIS LOAD in Spitfire's
+browser, then `aro_state.js info "Snare ARO"` confirms. The call's **opera gong** has no ARO instrument (NITS). `perc_selection.json` 12
+rows → `apply_perc.js`: 42 techniques on the percussion lane; `roster_check` green (339 voices, 27 pending).
+
+**Standing in the record:** the Spitfire plugin's "empty instance" is never empty — it loads whatever it last held; read it back before
+trusting a name. A track clone from an earlier rack may carry a second FX (the brake drums came with a JS Volume Adjustment from piece
+5's trims — left as it came, 0 dB would be the baseline; RACK_SETTINGS).

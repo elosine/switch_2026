@@ -139,3 +139,9 @@
 - *(2026-11-10, §137)* The glockenspiel's `glock_main_hard` now has a measured curve for the counterpoint section (`bank/section_levels/`); the
   card's full measurement of the pitched lane's mallet voices is still open. **And:** the SI2 staccatos' 14 dB of dynamic range — a level map by
   velocity alone pushes them to their softest samples; a per-section CC7 offset per wind is the lever to build if his ear objects.
+- *(2026-11-10, §143)* **The piano's Kontakt instance has no curve copies** — ch 2 holds a faint slot (piece 4's plucked piano at a useless
+  volume), ch 3 · 4 nothing: a SHAPED piano note (the dynamics law's curve channels) plays nothing. And `PianoPlucked Kontakt` (input ch 5)
+  is silent on every channel — an empty or dead instance since piece 4. Both are Kontakt = his hand (PLAN § 1c, the hand steps); the
+  recipe's `plucked` is unplaced until then.
+- *(2026-11-10, §143)* The call's **opera gong** has no Abbey Road Orchestra instrument (the catalog's nearest: wind gong, tam-tams); the
+  rack's tam-tam will stand in until he names a library.

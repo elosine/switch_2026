@@ -64,10 +64,10 @@ const INSTRUMENTS = {
       { key: "dur_0_5s",        label: "Duration 0.5 s",             preset: "Flute Durations KS",          channel: 4,  ks: 48, rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // A4 screenshot: red C2 (48) ✓ manual; C#2 looked black (second switch unconfirmed); white C3→C6+, grey below, no tan
       { key: "dur_1s",          label: "Duration 1 s",               preset: "Flute Durations KS",          channel: 4,  ks: 49, rangeLow: 60, rangeHigh: 96, kind: "pitched", loud: "vel" },   // C#2 — verify (not red on screen)
       // A5 · Flute FX KS
-      { key: "jet_whistle",     label: "Jet Whistle",                preset: "Flute FX KS",                 channel: 5,  ks: 36, rangeLow: 48, rangeHigh: 83, kind: "pitched", loud: "vel" },   // A5 screenshot: red C1 + C#1; tan D1–B1 (38–47) and C5+ (84+); white C2–B4 native; PURPLE C4
+      { key: "jet_whistle",     label: "Jet Whistle",                preset: "Flute FX KS - Jet Whistle",   channel: 10, port: "SWFluteb", rangeLow: 48, rangeHigh: 83, kind: "pitched", loud: "vel" },   // 2026-11-10 (§143): its OWN part — the FX KS program cloned onto Fluteb part 10 with the other layers bypassed (tools/uvi_split_ks.js); no keyswitch is sent   // A5 screenshot: red C1 + C#1; tan D1–B1 (38–47) and C5+ (84+); white C2–B4 native; PURPLE C4
       { key: "key_click",       label: "Key Click",                  preset: "Flute FX KS",                 channel: 5,  ks: 37, rangeLow: 48, rangeHigh: 83, kind: "pitched", loud: "vel" },
       // TONGUE RAM = SI2's "Flute Pizzicato" preset on part 13 (2026-11-10, RUNNING_LOG §142 — MEASURED: the FX KS part's D1 switches nothing; its default is the key click; his word of 2026-09-04 "i dont see a tongue ram in the sampler" stood). The part was SILENT in this rack: his hand loads "Flute Pizzicato" into UVI part 13 (channel 13).
-      { key: "tongue_ram",      label: "Tongue Ram (SI2 Flute Pizzicato)", preset: "Flute Pizzicato",              channel: 13, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel", placed: false },
+      { key: "tongue_ram",      label: "Tongue Ram (SI2 Flute Pizzicato)", preset: "Flute Pizzicato",              channel: 13, rangeLow: 60, rangeHigh: 84, kind: "pitched", loud: "vel" },   // 2026-11-10 (§143): part 13 was loaded all along — its OUTPUT was "Out 2"; set to the main pair, it sounds
       // A6 · Flute Finger Modes KS
       { key: "harmonic_fing",   label: "Harmonic Fingering",         preset: "Flute Finger Modes KS",       channel: 6,  ks: 36, rangeLow: 79, rangeHigh: 96, kind: "pitched", loud: "vel" },   // A6 screenshot: red C1; white only from ≈G4 (display) → C6+ = MIDI ≈79–96 (upper register); grey elsewhere, no tan
       { key: "discolored_fing", label: "Discolored Fingering",       preset: "Flute Finger Modes KS",       channel: 6,  ks: 37, rangeLow: 79, rangeHigh: 96, kind: "pitched", loud: "vel" },   // C#1 not red on screen — verify
@@ -161,9 +161,10 @@ const INSTRUMENTS = {
       { key: "play_sing_gliss", label: "Play and Sing, glissando", preset: "Saxophone Alto Play & Sing", channel: 2, kind: "pitched", loud: "vel", port: "SWSaxb", ks: 37 },
       { key: "play_sing_unison", label: "Play and Sing, unison", preset: "Saxophone Alto Play & Sing", channel: 2, kind: "pitched", loud: "vel", port: "SWSaxb", ks: 38 },
       { key: "ord_1q", label: "Ordinario quarter-tone", preset: "Saxophone Alto Quartertones Ordinario", channel: 3, kind: "pitched", loud: "vel", port: "SWSaxb" },
-      { key: "slap_pitched", label: "Slap, pitched", preset: "Saxophone Alto Slap Modes KS", channel: 4, kind: "pitched", loud: "vel", port: "SWSaxb", ks: 36 },
-      { key: "slap_unpitched", label: "Slap, unpitched", preset: "Saxophone Alto Slap Modes KS", channel: 4, kind: "pitched", loud: "vel", port: "SWSaxb", ks: 37 },
-      { key: "slap_exploding", label: "Exploding slap, pitched", preset: "Saxophone Alto Slap Modes KS", channel: 4, kind: "pitched", loud: "vel", port: "SWSaxb", ks: 38 },
+      // 2026-11-10 (§143): the three slaps on their OWN parts — the Slap Modes KS program cloned onto Alto Sax SI2 b parts 7 · 8 · 9, one layer live in each (tools/uvi_split_ks.js); no keyswitch is sent. Part 4 keeps the whole KS program, unused by the recipe.
+      { key: "slap_pitched", label: "Slap, pitched", preset: "Saxophone Alto Slap Modes KS - Slap Pitched", channel: 7, kind: "pitched", loud: "vel", port: "SWSaxb" },
+      { key: "slap_unpitched", label: "Slap, unpitched", preset: "Saxophone Alto Slap Modes KS - Slap Unpitched", channel: 8, kind: "pitched", loud: "vel", port: "SWSaxb" },
+      { key: "slap_exploding", label: "Exploding slap, pitched", preset: "Saxophone Alto Slap Modes KS - Exploding Slap Pitched", channel: 9, kind: "pitched", loud: "vel", port: "SWSaxb" },
       { key: "staccato", label: "Staccato", preset: "Saxophone Alto Staccato", channel: 5, kind: "pitched", loud: "vel", port: "SWSaxb" },
       { key: "trill_m2", label: "Trill minor 2nd", preset: "Saxophone Alto Trills KS", channel: 6, kind: "pitched", loud: "vel", port: "SWSaxb", ks: 36 },
       { key: "trill_M2", label: "Trill major 2nd", preset: "Saxophone Alto Trills KS", channel: 6, kind: "pitched", loud: "vel", port: "SWSaxb", ks: 37 },
@@ -514,10 +515,11 @@ function xsBassClarinetTechs() {
 }
 
 
+
 // ---- UVI PARTS (generated by tools/apply_uvi_parts.js from the running rack — do not edit by hand) ----
-const UVI_PARTS = {   // read from the running rack 2026-10-21 02:21 — flute: 30 techniques on 22 parts, 3 curve copies · clarinet: 17 techniques on 16 parts, 3 curve copies · alto_sax: 32 techniques on 25 parts, 3 curve copies
+const UVI_PARTS = {   // read from the running rack 2026-11-10 17:29 — flute: 29 techniques on 23 parts, 3 curve copies · clarinet: 17 techniques on 16 parts, 3 curve copies · alto_sax: 32 techniques on 28 parts, 3 curve copies
   flute: {
-    techniques: { aeolian_and_ord: {"port":"SWFlute","channel":1}, aeolian: {"port":"SWFlute","channel":1}, chrom_scale: {"port":"SWFlute","channel":2}, cresc: {"port":"SWFlute","channel":3}, cresc_decresc: {"port":"SWFlute","channel":3}, decresc: {"port":"SWFlute","channel":3}, dur_0_5s: {"port":"SWFlute","channel":4}, dur_1s: {"port":"SWFlute","channel":4}, jet_whistle: {"port":"SWFlute","channel":5}, key_click: {"port":"SWFlute","channel":5}, tongue_ram: {"port":"SWFlute","channel":5}, harmonic_fing: {"port":"SWFlute","channel":6}, discolored_fing: {"port":"SWFlute","channel":6}, flz: {"port":"SWFlute","channel":7}, fortepiano: {"port":"SWFlute","channel":8}, multiphonics: {"port":"SWFlute","channel":9}, ord_to_aeolian: {"port":"SWFlute","channel":10}, aeolian_to_ord: {"port":"SWFlute","channel":10}, ord_to_flz: {"port":"SWFlute","channel":11}, flz_to_ord: {"port":"SWFlute","channel":11}, ord: {"port":"SWFlute","channel":12}, pizzicato: {"port":"SWFlute","channel":13}, play_sing: {"port":"SWFlute","channel":14}, play_sing_unison: {"port":"SWFlute","channel":14}, ord_1q: {"port":"SWFlute","channel":15}, sforzando: {"port":"SWFlute","channel":16}, staccato: {"port":"SWFluteb","channel":1}, trill_m2: {"port":"SWFluteb","channel":2}, trill_M2: {"port":"SWFluteb","channel":2}, whistle_tones: {"port":"SWFluteb","channel":3} },
+    techniques: { aeolian_and_ord: {"port":"SWFlute","channel":1}, aeolian: {"port":"SWFlute","channel":1}, chrom_scale: {"port":"SWFlute","channel":2}, cresc: {"port":"SWFlute","channel":3}, cresc_decresc: {"port":"SWFlute","channel":3}, decresc: {"port":"SWFlute","channel":3}, dur_0_5s: {"port":"SWFlute","channel":4}, dur_1s: {"port":"SWFlute","channel":4}, jet_whistle: {"port":"SWFluteb","channel":10}, key_click: {"port":"SWFlute","channel":5}, tongue_ram: {"port":"SWFlute","channel":13}, harmonic_fing: {"port":"SWFlute","channel":6}, discolored_fing: {"port":"SWFlute","channel":6}, flz: {"port":"SWFlute","channel":7}, fortepiano: {"port":"SWFlute","channel":8}, multiphonics: {"port":"SWFlute","channel":9}, ord_to_aeolian: {"port":"SWFlute","channel":10}, aeolian_to_ord: {"port":"SWFlute","channel":10}, ord_to_flz: {"port":"SWFlute","channel":11}, flz_to_ord: {"port":"SWFlute","channel":11}, ord: {"port":"SWFlute","channel":12}, play_sing: {"port":"SWFlute","channel":14}, play_sing_unison: {"port":"SWFlute","channel":14}, ord_1q: {"port":"SWFlute","channel":15}, sforzando: {"port":"SWFlute","channel":16}, staccato: {"port":"SWFluteb","channel":1}, trill_m2: {"port":"SWFluteb","channel":2}, trill_M2: {"port":"SWFluteb","channel":2}, whistle_tones: {"port":"SWFluteb","channel":3} },
     main: {"port":"SWFlute","channel":12}, curve: [{"port":"SWFluteb","ch":4},{"port":"SWFluteb","ch":5},{"port":"SWFluteb","ch":6}], curveTechniques: ["ord"],
     parts: [{"track":"Flute SI2","part":"Part 1","ch":1,"program":"Flute Aeolian KS"},
             {"track":"Flute SI2","part":"Part 2","ch":2,"program":"Flute Chromatic Scale"},
@@ -540,7 +542,8 @@ const UVI_PARTS = {   // read from the running rack 2026-10-21 02:21 — flute: 
             {"track":"Fluteb SI2","part":"Part 3","ch":3,"program":"Flute Whistle Tones"},
             {"track":"Fluteb SI2","part":"Part 4","ch":4,"program":"Flute Ordinario"},
             {"track":"Fluteb SI2","part":"Part 5","ch":5,"program":"Flute Ordinario"},
-            {"track":"Fluteb SI2","part":"Part 6","ch":6,"program":"Flute Ordinario"}],
+            {"track":"Fluteb SI2","part":"Part 6","ch":6,"program":"Flute Ordinario"},
+            {"track":"Fluteb SI2","part":"Part 10","ch":10,"program":"Flute FX KS - Jet Whistle"}],
   },
   clarinet: {
     techniques: { ord: {"port":"SWClar","channel":1}, aeolian_and_ord: {"port":"SWClar","channel":2}, cresc: {"port":"SWClar","channel":3}, cresc_decresc: {"port":"SWClar","channel":3}, decresc: {"port":"SWClar","channel":3}, dur_0_5s: {"port":"SWClar","channel":4}, dur_1s: {"port":"SWClar","channel":4}, flz: {"port":"SWClar","channel":5}, fortepiano: {"port":"SWClar","channel":6}, glissando_menu: {"port":"SWClar","channel":7}, key_click: {"port":"SWClar","channel":8}, multiphonics: {"port":"SWClar","channel":9}, ord_1q: {"port":"SWClar","channel":10}, sforzando: {"port":"SWClar","channel":11}, staccato: {"port":"SWClar","channel":12}, trill_m2: {"port":"SWClar","channel":13}, trill_M2: {"port":"SWClar","channel":13} },
@@ -563,7 +566,7 @@ const UVI_PARTS = {   // read from the running rack 2026-10-21 02:21 — flute: 
             {"track":"Clarinet SI2","part":"Part 16","ch":16,"program":"Clarinet Ordinario"}],
   },
   alto_sax: {
-    techniques: { ord: {"port":"SWSax","channel":1}, aeolian: {"port":"SWSax","channel":2}, backwards: {"port":"SWSax","channel":3}, bisbigliando: {"port":"SWSax","channel":4}, blow_without_reed: {"port":"SWSax","channel":5}, chrom_scale: {"port":"SWSax","channel":6}, cresc: {"port":"SWSax","channel":7}, cresc_decresc: {"port":"SWSax","channel":7}, decresc: {"port":"SWSax","channel":7}, double_tonguing: {"port":"SWSax","channel":8}, fx_ks: {"port":"SWSax","channel":9}, discolored_fing: {"port":"SWSax","channel":10}, harmonic_fing: {"port":"SWSax","channel":10}, flz: {"port":"SWSax","channel":11}, fortepiano: {"port":"SWSax","channel":12}, glissando_menu: {"port":"SWSax","channel":13}, key_click: {"port":"SWSax","channel":14}, bell_down_up: {"port":"SWSax","channel":15}, bell_left_right: {"port":"SWSax","channel":15}, multiphonics: {"port":"SWSax","channel":16}, ord_to_flz: {"port":"SWSaxb","channel":1}, flz_to_ord: {"port":"SWSaxb","channel":1}, play_sing_m2: {"port":"SWSaxb","channel":2}, play_sing_gliss: {"port":"SWSaxb","channel":2}, play_sing_unison: {"port":"SWSaxb","channel":2}, ord_1q: {"port":"SWSaxb","channel":3}, slap_pitched: {"port":"SWSaxb","channel":4}, slap_unpitched: {"port":"SWSaxb","channel":4}, slap_exploding: {"port":"SWSaxb","channel":4}, staccato: {"port":"SWSaxb","channel":5}, trill_m2: {"port":"SWSaxb","channel":6}, trill_M2: {"port":"SWSaxb","channel":6} },
+    techniques: { ord: {"port":"SWSax","channel":1}, aeolian: {"port":"SWSax","channel":2}, backwards: {"port":"SWSax","channel":3}, bisbigliando: {"port":"SWSax","channel":4}, blow_without_reed: {"port":"SWSax","channel":5}, chrom_scale: {"port":"SWSax","channel":6}, cresc: {"port":"SWSax","channel":7}, cresc_decresc: {"port":"SWSax","channel":7}, decresc: {"port":"SWSax","channel":7}, double_tonguing: {"port":"SWSax","channel":8}, fx_ks: {"port":"SWSax","channel":9}, discolored_fing: {"port":"SWSax","channel":10}, harmonic_fing: {"port":"SWSax","channel":10}, flz: {"port":"SWSax","channel":11}, fortepiano: {"port":"SWSax","channel":12}, glissando_menu: {"port":"SWSax","channel":13}, key_click: {"port":"SWSax","channel":14}, bell_down_up: {"port":"SWSax","channel":15}, bell_left_right: {"port":"SWSax","channel":15}, multiphonics: {"port":"SWSax","channel":16}, ord_to_flz: {"port":"SWSaxb","channel":1}, flz_to_ord: {"port":"SWSaxb","channel":1}, play_sing_m2: {"port":"SWSaxb","channel":2}, play_sing_gliss: {"port":"SWSaxb","channel":2}, play_sing_unison: {"port":"SWSaxb","channel":2}, ord_1q: {"port":"SWSaxb","channel":3}, slap_pitched: {"port":"SWSaxb","channel":7}, slap_unpitched: {"port":"SWSaxb","channel":8}, slap_exploding: {"port":"SWSaxb","channel":9}, staccato: {"port":"SWSaxb","channel":5}, trill_m2: {"port":"SWSaxb","channel":6}, trill_M2: {"port":"SWSaxb","channel":6} },
     main: {"port":"SWSax","channel":1}, curve: [{"port":"SWSaxb","ch":14},{"port":"SWSaxb","ch":15},{"port":"SWSaxb","ch":16}], curveTechniques: ["ord"],
     parts: [{"track":"Alto Sax SI2","part":"Part 1","ch":1,"program":"Saxophone Alto Ordinario"},
             {"track":"Alto Sax SI2","part":"Part 2","ch":2,"program":"Saxophone Alto Aeolian"},
@@ -587,6 +590,9 @@ const UVI_PARTS = {   // read from the running rack 2026-10-21 02:21 — flute: 
             {"track":"Alto Sax SI2 b","part":"Part 4","ch":4,"program":"Saxophone Alto Slap Modes KS"},
             {"track":"Alto Sax SI2 b","part":"Part 5","ch":5,"program":"Saxophone Alto Staccato"},
             {"track":"Alto Sax SI2 b","part":"Part 6","ch":6,"program":"Saxophone Alto Trills KS"},
+            {"track":"Alto Sax SI2 b","part":"Part 7","ch":7,"program":"Saxophone Alto Slap Modes KS - Slap Pitched"},
+            {"track":"Alto Sax SI2 b","part":"Part 8","ch":8,"program":"Saxophone Alto Slap Modes KS - Slap Unpitched"},
+            {"track":"Alto Sax SI2 b","part":"Part 9","ch":9,"program":"Saxophone Alto Slap Modes KS - Exploding Slap Pitched"},
             {"track":"Alto Sax SI2 b","part":"Part 14","ch":14,"program":"Saxophone Alto Ordinario"},
             {"track":"Alto Sax SI2 b","part":"Part 15","ch":15,"program":"Saxophone Alto Ordinario"},
             {"track":"Alto Sax SI2 b","part":"Part 16","ch":16,"program":"Saxophone Alto Ordinario"}],
@@ -604,7 +610,7 @@ applyUviParts(INSTRUMENTS, UVI_PARTS);
 // ---- end of the UVI parts ----
 
 // ---- ARO PERCUSSION (generated by tools/apply_perc.js from bank/perc_selection.json — do not edit by hand) ----
-const ARO_PERC = {   // 8 instrument(s) selected 2026-10-04: bongos ch1 · shime_daiko ch2 · bass_drum_alt ch3 · wood_blocks ch4 · china_cymbals ch5 · small_metals_spring_coil ch6 · susp_cymbals_bright ch7 · toms_high ch8
+const ARO_PERC = {   // 12 instrument(s) selected 2026-11-10: bongos ch1 · shime_daiko ch2 · bass_drum_alt ch3 · wood_blocks ch4 · china_cymbals ch5 · small_metals_spring_coil ch6 · susp_cymbals_bright ch7 · toms_high ch8 · brake_drums ch9 · gran_cassa ch10 · tam_tams_a ch11 · snare ch12
   port: "SWPerc",
   instruments: [
     { slug: "bongos", name: "Bongos", library: "ARO High Percussion", status: "verified", port: "SWPerc", channel: 1, techniques: [
@@ -678,6 +684,40 @@ const ARO_PERC = {   // 8 instrument(s) selected 2026-10-04: bongos ch1 · shime
         keys: [{"midi":53,"label":"12\" Rods Single Hit L"},{"midi":55,"label":"12\" Rods Single Hit R"},{"midi":57,"label":"12\" Rods Roll"},{"midi":77,"label":"10\" Rods Single Hit L"},{"midi":79,"label":"10\" Rods Single Hit R"},{"midi":81,"label":"10\" Rods Roll"}] },
       { key: "toms_high_brushes", label: "Toms High — Brushes", channel: 8, kind: "key", loud: "vel", rangeLow: 54, rangeHigh: 82,
         keys: [{"midi":54,"label":"12\" Brushes Single Hit L"},{"midi":56,"label":"12\" Brushes Single Hit R"},{"midi":58,"label":"12\" Brushes Roll"},{"midi":78,"label":"10\" Brushes Single Hit L"},{"midi":80,"label":"10\" Brushes Single Hit R"},{"midi":82,"label":"10\" Brushes Roll"}] },
+    ] },
+    { slug: "brake_drums", name: "Brake Drums", library: "ARO Metal Percussion", status: "verified", port: "SWPerc", channel: 9, techniques: [
+      { key: "brake_drums_poly_beater", label: "Brake Drums — Poly Beater", channel: 9, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 43,
+        keys: [{"midi":36,"label":"Low · Hit L"},{"midi":37,"label":"Middle · Hit L"},{"midi":38,"label":"Low · Hit R"},{"midi":39,"label":"Middle · Hit R"},{"midi":41,"label":"High · Hit L"},{"midi":43,"label":"High · Hit R"}] },
+      { key: "brake_drums_rubber_mallets", label: "Brake Drums — Rubber Mallets", channel: 9, kind: "key", loud: "vel", rangeLow: 60, rangeHigh: 67,
+        keys: [{"midi":60,"label":"Low · Hit L"},{"midi":61,"label":"Middle · Hit L"},{"midi":62,"label":"Low · Hit R"},{"midi":63,"label":"Middle · Hit R"},{"midi":65,"label":"High · Hit L"},{"midi":67,"label":"High · Hit R"}] },
+    ] },
+    { slug: "gran_cassa", name: "Gran Cassa (Bass Drum GC)", library: "ARO Low Percussion", status: "predicted", port: "SWPerc", channel: 10, techniques: [
+      { key: "gran_cassa_sticks", label: "Gran Cassa (Bass Drum GC) — Sticks", channel: 10, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 40,
+        keys: [{"midi":36,"label":"Hit L"},{"midi":38,"label":"Hit R"},{"midi":40,"label":"Roll"}] },
+      { key: "gran_cassa_hard_felt", label: "Gran Cassa (Bass Drum GC) — Hard Felt", channel: 10, kind: "key", loud: "vel", rangeLow: 41, rangeHigh: 45,
+        keys: [{"midi":41,"label":"Hit L"},{"midi":43,"label":"Hit R"},{"midi":45,"label":"Roll"}] },
+      { key: "gran_cassa_medium_felt", label: "Gran Cassa (Bass Drum GC) — Medium Felt", channel: 10, kind: "key", loud: "vel", rangeLow: 48, rangeHigh: 52,
+        keys: [{"midi":48,"label":"Hit L"},{"midi":50,"label":"Hit R"},{"midi":52,"label":"Roll"}] },
+      { key: "gran_cassa_poly_beater", label: "Gran Cassa (Bass Drum GC) — Poly Beater", channel: 10, kind: "key", loud: "vel", rangeLow: 53, rangeHigh: 57,
+        keys: [{"midi":53,"label":"Hit L"},{"midi":55,"label":"Hit R"},{"midi":57,"label":"Roll"}] },
+      { key: "gran_cassa_super_soft", label: "Gran Cassa (Bass Drum GC) — Super Soft", channel: 10, kind: "key", loud: "vel", rangeLow: 60, rangeHigh: 64,
+        keys: [{"midi":60,"label":"Hit L"},{"midi":62,"label":"Hit R"},{"midi":64,"label":"Roll"}] },
+      { key: "gran_cassa_brushes", label: "Gran Cassa (Bass Drum GC) — Brushes", channel: 10, kind: "key", loud: "vel", rangeLow: 65, rangeHigh: 69,
+        keys: [{"midi":65,"label":"Hit L"},{"midi":67,"label":"Hit R"},{"midi":69,"label":"Roll"}] },
+      { key: "gran_cassa_rute_on_rim", label: "Gran Cassa (Bass Drum GC) — Rute on Rim", channel: 10, kind: "key", loud: "vel", rangeLow: 72, rangeHigh: 76,
+        keys: [{"midi":72,"label":"Hit L"},{"midi":74,"label":"Hit R"},{"midi":76,"label":"Roll"}] },
+    ] },
+    { slug: "tam_tams_a", name: "Tam Tams A", library: "ARO Metal Percussion", status: "verified", port: "SWPerc", channel: 11, techniques: [
+      { key: "tam_tams_a_tam_tam_mallet", label: "Tam Tams A — Tam Tam Mallet", channel: 11, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 44,
+        keys: [{"midi":36,"label":"Tam Tam A 30\" Single Hit"},{"midi":37,"label":"Tam Tam A 30\" Single Hit Choked"},{"midi":38,"label":"Tam Tam A 30\" Single Hit"},{"midi":39,"label":"Tam Tam A 30\" Single Hit Choked"},{"midi":41,"label":"Tam Tam A 30\" Roll"},{"midi":42,"label":"Tam Tam A 30\" Swells"},{"midi":43,"label":"Tam Tam A 30\" Roll Choked"},{"midi":44,"label":"Tam Tam A 30\" Swells Choked"}] },
+      { key: "tam_tams_a_scrape", label: "Tam Tams A — Scrape", channel: 11, kind: "key", loud: "vel", rangeLow: 48, rangeHigh: 56,
+        keys: [{"midi":48,"label":"Tam Tam A 30\" Fast Scrape 1"},{"midi":49,"label":"Tam Tam A 30\" Fast Scrape 2"},{"midi":50,"label":"Tam Tam A 30\" Fast Scrape 3"},{"midi":51,"label":"Tam Tam A 30\" Fast Scrape 4"},{"midi":53,"label":"Tam Tam A 30\" Medium Scrape 1"},{"midi":54,"label":"Tam Tam A 30\" Medium Scrape 2"},{"midi":55,"label":"Tam Tam A 30\" Medium Scrape 3"},{"midi":56,"label":"Tam Tam A 30\" Medium Scrape 4"}] },
+      { key: "tam_tams_a_superball", label: "Tam Tams A — Superball", channel: 11, kind: "key", loud: "vel", rangeLow: 60, rangeHigh: 69,
+        keys: [{"midi":60,"label":"Tam Tam A 30\" Short Drag 1"},{"midi":61,"label":"Tam Tam A 30\" Short Drag 2"},{"midi":62,"label":"Tam Tam A 30\" Short Drag 3"},{"midi":63,"label":"Tam Tam A 30\" Short Drag 4"},{"midi":65,"label":"Tam Tam A 30\" Medium Drag 1"},{"midi":66,"label":"Tam Tam A 30\" Medium Drag 2"},{"midi":67,"label":"Tam Tam A 30\" Medium Drag 3"},{"midi":68,"label":"Tam Tam A 30\" Medium Drag 4"},{"midi":69,"label":"Tam Tam A 30\" Long Continuous Drag"}] },
+    ] },
+    { slug: "snare", name: "Snare", library: "ARO High Percussion", status: "partial", port: "SWPerc", channel: 12, techniques: [
+      { key: "snare", label: "Snare", channel: 12, kind: "key", loud: "vel", rangeLow: 48, rangeHigh: 73,
+        keys: [{"midi":48,"label":"Drag Center L"},{"midi":49,"label":"Drag Edge L"},{"midi":50,"label":"Drag Center R"},{"midi":51,"label":"Drag Edge R"},{"midi":65,"label":"Center Hit L"},{"midi":66,"label":"Edge Hit L"},{"midi":72,"label":"Drag Center L"},{"midi":73,"label":"Drag Edge L"}] },
     ] },
   ],
 };

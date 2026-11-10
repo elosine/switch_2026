@@ -232,13 +232,15 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 - **S1 · 2026-10-20 (Fable)** — the orientation (RUNNING_LOG §1 · §2) · the harvest of piece 6 run in its repo (`#6 §488`, §3) ·
   container 2 (§4) · container 3 whole, and the engine's take (§5 … §10) — his word *"go ahead all here no need for clear and model switch"*.
 
-**NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current. Brought current 2026-11-09 evening.)*
+**NEXT STEPS · MODEL · CLEAR** *(the running thread — THE RHYTHM, CLAUDE.md. Keep current. Brought current 2026-11-10, after the shore-up.)*
 
 | # | Step | Model | Clear first? |
 |---|---|---|---|
 | ☑ | The start (containers 1 … 6, 10.0) · the lab (PLAN 1a.1 … 1a.6) · the electronic score (1a.7) · the drawer (1a.8) · the electronics lanes (D11) | — | — |
 | ☑ | The beating pairs built (SW-10 … SW-31; 1a.9) · the counterpoint's volume fix (§136) | — | — |
-| **►** | **His ear: the beating crescendos · the counterpoint's balance (the glock by ear or measured)** (`piece-Section01-D-saxBeatTest`): the balance (the sine's mark), the pace, the breaths (D12) | Fable | — |
+| ☑ | THE MIDI SHORE-UP, the text half (§143 · §144; PLAN § 1c): the alive map · the prepared piano's channels · the flute's tongue ram · the jet whistle and the slaps on their own parts, no keyswitch · the battery completed (brake drums · bass drum · tam-tams cloned; the snare's track) · the lessons in the home's protocol | — | — |
+| **►** | **HIS HANDS, PLAN § 1c step 4** — the snare's load · the piano's curve copies (`curve_slots.lua` inside Kontakt) · the plucked slot to ch 5 — then his CTRL+S; **his ear** on the saves (the beating crescendos; the slaps: which part is which) | Fable | — |
+| — | 1d the articulation deal (SW-35 into the counterpoint; ranges · swaps · longer notes for flz and bow pressure) · 1e the level map per articulation | Fable (design) · Opus (build) | at the step |
 | — | The method's steps 2 … 4 (SW-11): the gliss speed · ONE drawn crescendo read by the sine AND the sax · the electronics under them, quickly | Fable (design) · Opus (build) | at the step |
 | — | The other lanes by SW-15's algorithm (`bank/beat_saw.json` to write; `beat_saw.js --roll`): clarinet F5 · flute F6 · vibraphone / glockenspiel F6–F7 (the sine moves) · violin F4 · cello F3 | Opus | yes |
 | — | 1a.7 step 6 the bounce, when he reaches it · the tuplets' keepers by seed | Opus | — |

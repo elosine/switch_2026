@@ -6,12 +6,15 @@ local dev = devOf(CFG.port); if not dev then return { ok = false, error = 'no MI
 local tr, trName
 for t = 0, reaper.CountTracks(0) - 1 do
   local x = reaper.GetTrack(0, t); local rin = math.floor(reaper.GetMediaTrackInfo_Value(x, 'I_RECINPUT'))
-  if rin >= 4096 then
+  local _, nm = reaper.GetSetMediaTrackInfo_String(x, 'P_NAME', '', false)
+  if CFG.track then   -- CFG.track: the track BY NAME (the MIDI shore-up, §143 — a port whose first track is not the one in question)
+    if nm == CFG.track then tr = x; trName = nm; break end
+  elseif rin >= 4096 then
     local d = (rin - 4096) >> 5; local ch = (rin - 4096) & 31
-    if d == dev and (ch == 0 or (CFG.channel or 0) == 0 or ch == CFG.channel) then tr = x; local _, n = reaper.GetSetMediaTrackInfo_String(x, 'P_NAME', '', false); trName = n; break end
+    if d == dev and (ch == 0 or (CFG.channel or 0) == 0 or ch == CFG.channel) then tr = x; trName = nm; break end
   end
 end
-if not tr then return { ok = false, error = 'no track listens to ' .. CFG.port .. ' ch ' .. tostring(CFG.channel) } end
+if not tr then return { ok = false, error = CFG.track and ('no track named ' .. CFG.track) or ('no track listens to ' .. CFG.port .. ' ch ' .. tostring(CFG.channel)) } end
 local secs = CFG.seconds or 5
 local sep = package.config:sub(1, 1)
 local outpath = job.root .. sep .. 'outbox' .. sep .. 'part_meter.json'

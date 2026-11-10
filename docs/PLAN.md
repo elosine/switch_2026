@@ -234,6 +234,56 @@ any piece); this piece holds its USES — the set's files, the settings, the fou
   §139) · the morph's "smaller of two rolls" · the beat shapes' pace and hold rolls · the breath rule · the sawtooth's alternation. One page that says
   what each does and when he reached for it, and a shared roller the tools read — when he reaches it; nothing standardised before.
 
+- **1c THE MIDI SHORE-UP — the rack brought to the lineage's standard, three weeks into the composing** (his ask 2026-11-10, RUNNING_LOG
+  §143 · §144) — `doing` (the text half ☑; his hand steps open)
+  ***Why:*** his articulation questions (§142) found a silent part and a keyswitch that switched nothing; his word: *"a very thorough review
+  of all the things that got missed … every articulation on its own channel — no keyswitches … the 4-channel CC7 copies … the full
+  percussion battery … fix the porting instructions so the next port carries the standard."*
+  ***The standard*** (the home's `protocol/howto/`): ports by the standard set, a `b` port where an instance overflows · one track per
+  instrument, input by port NAME · UVI one part per preset, three Ordinario curve copies, gain +6, inserts bypassed but the convolver,
+  Dynamic 1.00 · Kontakt four slots ch 1 … 4, CC0 = preset − 1, round robin off in a saved copy · Spitfire one instance per instrument on
+  its channel, never CC7 · the recipe DERIVED from the rack.
+  1. ☑ **The alive map** — `tools/rack_alive.js`: every port, every channel, one note, the track's peak (`probes/rack_alive/latest.md`);
+     `artic_probe.js --track` meters a track by name, `rack_inputs.lua` lists every live input. The ground truth of the rest.
+  2. ☑ **Fixed as text** — the flute's tongue ram (part 13 was on a dead output pair; now main; the recipe's `tongue_ram` placed) · the
+     prepared piano's parts on this piece's channels 6 · 7 (`uvi_set_channel.js`; a pushed state needs the plugin's reload — every push
+     does it now) · the effects baseline on the flute and the prepared piano (his note; the PP2 convolver left as piece 4 had it) · the
+     flute's jet whistle and the sax's three slaps on their OWN parts, no keyswitch (`uvi_split_ks.js`; the jet whistle PROVEN by its swell,
+     the slaps as three distinct layers — WHICH is which is his ear) · `UVI_PARTS` regenerated, 78/78 placed.
+  3. ☑ **The battery completed as far as text goes** — Brake Drums · Bass Drum (GC) · Tam Tams cloned from piece 5's rack onto `SWPerc`
+     9 · 10 · 11 (`set_track_chunk.js`); a `Snare ARO` track on 12 awaiting his load; `perc_selection.json` 12 rows → `apply_perc.js`.
+  4. **HIS HANDS** (Kontakt and Spitfire only load from their own windows) — each a few clicks, in any order, Reaper open on the rack:
+     - **the snare:** track `Snare ARO` → open the Abbey Road Orchestra plugin → its browser → High Percussion → **Snare** → the (C)
+       All-in-one preset. (It shows Piatti until then — the plugin's last preset, not a load of ours.)
+     - **the piano's curve copies:** track `Piano Kontakt` → Kontakt → the KONTAKT ▾ menu → Run Lua script… → `reaper/kontakt/curve_slots.lua`
+       (slot 1 pinned to channel 1, three copies on 2 · 3 · 4 named "… curve A | B | C"). Until then a SHAPED piano note (a drawn or
+       generated curve) plays nothing.
+     - **the plucked piano:** in that same Kontakt the faint slot on channel 2 is piece 4's Spitfire Plucked Piano at no useful volume —
+       set its MIDI channel to **5** and its volume to 0 dB; or load the Plucked Piano into the empty `PianoPlucked Kontakt` instance
+       (channel 5). The recipe's `plucked` is channel 5 either way.
+     - **the round-robin-off copies** (the standard's one by-hand item, `howto/kontakt.md` § 5): the violin's and the cello's ordinary
+       voice, a copy with round robin off saved as a preset in all four slots, the recipe pointed at its number — WHEN a repeated pitch
+       on the same note bothers him; Approaching skipped it.
+     Then `node tools/rack_alive.js --only "Piano Kontakt,PianoPlucked Kontakt,Snare ARO"` and his CTRL+S in Reaper.
+  5. **Open, with their tools:** the pitch-bend ranges — measured for the cello (1.012 st) and piece 4's flute (2.0); the clarinet's, the
+     sax's and the violin's are the recipe's provisional 2 · 2 · 1 (`balance_schedule.js --bend` + `analyze_bend.py` + `apply_bend_ranges.js`
+     when a glissando is written for them) · the call's opera gong (no ARO instrument — his library to name) · the SI2 masters: the clarinet
+     and sax at −6, the flute's two at −2 as piece 4 left them (the calibration measured them so; a change re-measures).
+  6. ☑ **Written back to the home** (`composition-system/protocol/NEW_PIECE_PROTOCOL.md` § 4 v3 entries; `howto/uvi.md` § 7 · 8;
+     `howto/rack.md` § 4; `howto/kontakt.md` § 2) and to `docs/PROTOCOL_DEVIATIONS.md`: container 4's first sound becomes THE ALIVE MAP;
+     every recipe technique probed; a KS preset an articulation needs is split at 4.4; a UVI push is followed by the reload.
+
+- **1d THE ARTICULATION DEAL — his chosen articulations distributed into the counterpoint** (SW-35; his ask 2026-11-10) — `todo`
+  ***Why:*** *"an algorithm to distribute my chosen articulations into the counterpoint section"* — per lane a list, dealt on rolled time
+  containers (the harmony roll's hexagrams, 1b), with the rules he gave: a pitch outside an articulation's range swaps the articulation
+  (or folds the octave); the flutter tongues and the bow pressures want LONGER notes — a note too short for them is grown or dealt another.
+  The tool reads the recipe's ranges, writes `technique` per note, keeps the old one (`properties.artic.was`), `--undo`.
+
+- **1e THE LEVEL MAP PER ARTICULATION** (his ask 2026-11-10) — `todo`
+  ***Why:*** *"per-articulation volume normalization against a standard level"* — `section_level.js` measured one voice per PART; with 1d a
+  part plays several. The measure becomes per (lane, technique) — the curve of each voice the section uses — and the map per note by ITS
+  technique; where velocity alone cannot reach the level (the SI2 staccatos' 14 dB), a CC7 offset per voice (NITS' lever).
+
 ## 2. Notate — `todo`
 
 *To be laid out when we discuss it.* Piece 6's `docs/NOTATION_SCHEME.md` and its rules rows are the start (H6-37).

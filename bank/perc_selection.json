@@ -47,8 +47,25 @@
   {
    "slug": "toms_high",
    "channel": 8
+  },
+  {
+   "slug": "brake_drums",
+   "channel": 9
+  },
+  {
+   "slug": "gran_cassa",
+   "channel": 10
+  },
+  {
+   "slug": "tam_tams_a",
+   "channel": 11
+  },
+  {
+   "slug": "snare",
+   "channel": 12
   }
  ],
  "_selected": "2026-10-04 — HIS TENTATIVE LIST (COMPOSITION_NOTES DEC-6; RUNNING_LOG §21 … §25): bongos · shime daiko (the samples; a snare drum the alternate in the performance notes) · bass drum alt · wood blocks · China cymbal · spring coil · suspended cymbals (he loaded and chose the BRIGHT All-in-One) · toms (he chose the HIGH All-in-One). One Abbey Road instance per instrument, the track \"<Name> ARO\" on this channel of DECPerc (reaper/bridge/jobs/make_perc_tracks.lua). Every slug was confirmed against the loaded preset: the All-in-One's top key = the catalog's last key.",
- "_provenance": "Skeleton written by the port from piece 6 (decibel_TENOR_2026 @ 9796edd), 2026-10-20 — the new-piece protocol's 3.4. The selection is PIECE 6's (8 instruments) on this piece's port, kept so the recipe's ARO_PERC block and the selection agree (tools/palette_check.js § 6). WHICH percussion this piece uses — from the call's list — is the composer's at container 4; then tools/apply_perc.js."
+ "_provenance": "Skeleton written by the port from piece 6 (decibel_TENOR_2026 @ 9796edd), 2026-10-20 — the new-piece protocol's 3.4. The selection is PIECE 6's (8 instruments) on this piece's port, kept so the recipe's ARO_PERC block and the selection agree (tools/palette_check.js § 6). WHICH percussion this piece uses — from the call's list — is the composer's at container 4; then tools/apply_perc.js.",
+ "_shoreUp": "2026-11-10 (RUNNING_LOG §143 · §144): the call’s battery completed — brake_drums · gran_cassa (the preset Bass Drum (GC) (C)) · tam_tams_a (Tam Tams (C), A active) cloned as text from piece 5’s rack onto SWPerc 9 · 10 · 11; snare on 12 is HIS LOAD (the track holds the plugin’s default, Piatti, until then). The call’s opera gong has no ARO instrument (NITS)."
 }
