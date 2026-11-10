@@ -27,7 +27,13 @@ local NKI = {
   -- ELASTIC copy, as the other three are; the library also ships an "Instruments Fixed" Vibraphone.nki
   -- with the same slot-1 name, so if the curve copies come up wrong that is the line to change.
   ['Vibraphone']               = XS .. 'Xsample_AIL_Installer_Windows/Xsample_Collection/Instruments Elastic/Mallets/Vibraphone.nki',
+  -- THE SWITCH~ PIECE's piano (2026-11-10, RUNNING_LOG §147): the Steinway's .nki from piece 4's script; the plucked piano sits in the SAME
+  -- instance on channel 2 (piece 4's R6) and is handled below, not copied
+  ['8DIO_1969_Legacy_Piano']   = 'H:/8Dio - 1969 Steinway Legacy Grand Piano (Kontakt)/Instrument/8DIO_1969_Legacy_Piano.nki',
+  ['8DIO 1969 Legacy Piano']   = 'H:/8Dio - 1969 Steinway Legacy Grand Piano (Kontakt)/Instrument/8DIO_1969_Legacy_Piano.nki',
 }
+-- a slot that is NOT the main instrument's copy and has its own channel: the plucked piano → channel 5 at 0 dB (the recipe's `plucked`)
+local SIDE = { { match = 'pluck', ch = 5, vol = 0 } }
 local CURVES = { { ch = 2, tag = 'curve A' }, { ch = 3, tag = 'curve B' }, { ch = 4, tag = 'curve C' } }
 
 local log, made = {}, {}
@@ -72,6 +78,19 @@ local function main()
     pcall(Kontakt.set_instrument_volume, idx, vol)
     made[#made + 1] = string.format('  {"name":%s,"idx":%d,"midi_channel":%s,"output_channel":%s,"volume_dB":%s}',
       q(Kontakt.get_instrument_name(idx)), idx, tostring(Kontakt.get_instrument_midi_channel(idx)), tostring(Kontakt.get_instrument_output_channel(idx)), tostring(Kontakt.get_instrument_volume(idx)))
+  end
+  -- 3. The side slots (the plucked piano): found by a word in the name, put on their channel at their volume; nothing loaded, nothing removed
+  for _, sd in ipairs(SIDE) do
+    for _, i in ipairs(Kontakt.get_instrument_indices()) do
+      local nm = Kontakt.get_instrument_name(i)
+      if norm(nm):find(sd.match, 1, true) then
+        pcall(Kontakt.set_instrument_midi_channel, i, sd.ch)
+        pcall(Kontakt.set_instrument_volume, i, sd.vol)
+        made[#made + 1] = string.format('  {"name":%s,"idx":%d,"midi_channel":%s,"output_channel":%s,"volume_dB":%s,"side":true}',
+          q(nm), i, tostring(Kontakt.get_instrument_midi_channel(i)), tostring(Kontakt.get_instrument_output_channel(i)), tostring(Kontakt.get_instrument_volume(i)))
+        note('side_' .. sd.match, nm)
+      end
+    end
   end
   note('instruments_after', #Kontakt.get_instrument_indices())
 end
