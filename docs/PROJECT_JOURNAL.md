@@ -90,10 +90,10 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
   sine's fade from silence made right in the engine (§121, the engine's §78); the material bricks' trim together (SHIFT+click). **HIS WORKING SAVE since 18:39: `piece-Section01b-BeatingUnisonCrescendos-B`** (the D test save renamed by him; D and the earlier B · C · A are history). **► HIS EAR on the four pairs** — the sine's mark the lever; then the method's
   steps 2 … 4 (the gliss speed · one drawn crescendo for both · the electronics under them, quickly) and the other lanes by SW-15's algorithm.
   **MODEL:** his listening and the talk — Fable; the roll of the other lanes once the numbers are his — Opus.
-- **2026-11-10 — HIS TASK DONE: THE COUNTERPOINT (195 … 253 s) ON ONE LOUDNESS SCALE (RUNNING_LOG §136):**  put 304 played-in notes
+- **2026-11-10 — HIS TASK DONE: THE COUNTERPOINT (195 … 253 s) ON ONE LOUDNESS SCALE (RUNNING_LOG §136):** `tools/vol_fix.js` put 304 played-in notes
   of five parts on the dynamics law's ladder (the measured curves); the glockenspiel's 62 left as played (no curve — NITS). In his save
-   (his  copy beside it);  restores. **► NEXT SESSION: his ear on the section; the glock by
-  ear or measured.** Also open from 2026-11-09: his ear on the beating crescendos (); the Rec row /
+  `piece-Section02-B-08ctpt-VolFix` (his `-preVolFix` copy beside it); `--undo` restores. **► NEXT SESSION: his ear on the section; the glock by
+  ear or measured.** Also open from 2026-11-09: his ear on the beating crescendos (`piece-Section01b-BeatingUnisonCrescendos-B`); the Rec row /
   flute question (one tab, F5). **MODEL:** his listening — Fable; a glock measurement — Opus.
 - **2026-11-09 (late) — THE FIVE OTHER LANES ROLLED (RUNNING_LOG §123; SW-19 · SW-20):** clarinet F5 · flute F6 · cello F3 · violin F4 · the crotale F7
   (static, its sine gliding) at his entries, by SW-15's shapes (`bank/beat_saw.json`), the held tones by D12's rules (a string's bows, a
