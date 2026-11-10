@@ -47,13 +47,18 @@ function sectionLanes() {
         const laneNotes = s.objects.filter((o) => o.type === 'waveCurve' && o.sonifyNote != null && o.layer === lane && o.startSeconds >= from && o.startSeconds <= to);
         if (!laneNotes.length) continue;
         const inst = INSTRUMENTS[t.instKey], byTech = {}; for (const n of laneNotes) (byTech[n.technique] = byTech[n.technique] || []).push(n);
+        // THE STANDARD (§148): the lane's ORDINARY voice is measured too, at the same grid — a plain note sounds at its written velocity on the
+        // ordinary, and the rack's trims (the card, 1b.3) made the ordinaries equal across the instruments; so "velocity 70 on the flutter" should
+        // be as loud as "velocity 70 on the ordinary" — that is the target, per lane. The ordinary's own notes are never mapped.
+        const ordKey = inst.ordinary; if (ordKey && !byTech[ordKey] && !has('no-ordinary')) byTech[ordKey] = [];
         for (const techKey of Object.keys(byTech).sort((a, b) => byTech[b].length - byTech[a].length)) {
-            const notes = byTech[techKey], tech = inst.techniques.find((q) => q.key === techKey) || inst.techniques[0];
+            const notes = byTech[techKey].length ? byTech[techKey] : laneNotes, tech = inst.techniques.find((q) => q.key === techKey) || inst.techniques[0];
+            const isOrdinary = techKey === ordKey;
             const ps = [...new Set(notes.map((n) => n.sonifyNote))].sort((a, b) => a - b);
             let pitches;
             if (tech.keys && tech.keys.length) pitches = ps.length <= 3 ? ps : [ps[0], ps[Math.floor(ps.length / 2)], ps[ps.length - 1]];
             else { const lo = Math.max(tech.rangeLow != null ? tech.rangeLow : inst.rangeLow, ps[0]), hi = Math.min(tech.rangeHigh != null ? tech.rangeHigh : inst.rangeHigh, ps[ps.length - 1]); pitches = [...new Set([lo, Math.round((lo + hi) / 2), hi])]; }
-            out.push({ lane, instKey: t.instKey, key: t.instKey + ':' + tech.key, label: t.label + ' ' + tech.key, notes, tech, port: tech.port || inst.port, ch: (tech.channel || 1) - 1, pitches, noCC7: /^SWPerc$/.test(tech.port || inst.port) });   // Spitfire: never send CC7 (howto/spitfire-aro.md § 4)
+            out.push({ lane, instKey: t.instKey, key: t.instKey + ':' + tech.key, label: t.label + ' ' + tech.key, notes: byTech[techKey], tech, isOrdinary, ordKey: t.instKey + ':' + ordKey, port: tech.port || inst.port, ch: (tech.channel || 1) - 1, pitches, noCC7: /^SWPerc$/.test(tech.port || inst.port) });   // Spitfire: never send CC7 (howto/spitfire-aro.md § 4)
         }
     }
     return out;
@@ -96,8 +101,11 @@ const interp = (pts, x, ix = 0, iy = 1) => { if (x <= pts[0][ix]) return pts[0][
             process.stdout.write(L.label + ' (on ' + L.port + ' ch ' + (L.ch + 1) + ', pitches ' + L.pitches.join(' ') + ') … ');
             const W = await playAndWatch(L, ev, LEAD, secs);
             for (const g of grid) g.peakDb = dB(peakIn(W.rows, g.t + W.offset - 0.05, g.t + W.offset + GAP - 0.08));
-            const curve = vels.map((v) => { const a = grid.filter((g) => g.vel === v).map((g) => g.peakDb); return [v, r1(a.reduce((x, y) => x + y, 0) / a.length), r1(Math.max(...a) - Math.min(...a))]; });
-            out.lanes[L.key] = { lane: L.lane, label: L.label, track: W.track, technique: L.tech.key, port: L.port, channel: L.ch + 1, pitches: L.pitches, offsetS: r1(W.offset), grid, curve: monotone(curve.map((c) => [c[0], c[1]])), spreadDb: curve.map((c) => [c[0], c[2]]) };
+            // the mean over the pitches at each velocity — a reading of NOTHING (−100 or under) while another pitch sounded is a dropped event
+            // (§148: a burst of three went missing once in the clarinet's grid and bent its curve to −55 at 127), left out of the mean
+            const curve = vels.map((v) => { const all = grid.filter((g) => g.vel === v).map((g) => g.peakDb); const a = all.filter((x) => x > -100); const use = a.length ? a : all; return [v, r1(use.reduce((x, y) => x + y, 0) / use.length), r1(Math.max(...use) - Math.min(...use))]; });
+            const dropped = grid.filter((g) => g.peakDb <= -100).length; if (dropped && dropped < grid.length) process.stdout.write('(' + dropped + ' dropped) ');
+            out.lanes[L.key] = { lane: L.lane, instKey: L.instKey, ordinary: !!L.isOrdinary, label: L.label, track: W.track, technique: L.tech.key, port: L.port, channel: L.ch + 1, pitches: L.pitches, offsetS: r1(W.offset), grid, curve: monotone(curve.map((c) => [c[0], c[1]])), spreadDb: curve.map((c) => [c[0], c[2]]) };
             console.log(W.track + ' · ' + curve.map((c) => c[0] + ':' + c[1]).join(' ') + ' dB (spread over pitches ' + r1(Math.max(...curve.map((c) => c[2]))) + ' dB at most)');
         }
         // the target: the mean of the lanes at each grid velocity
@@ -115,34 +123,43 @@ const interp = (pts, x, ix = 0, iy = 1) => { if (x <= pts[0][ix]) return pts[0][
         // THE TOP OF THE FIELD: the mean curve's top sits above what the quieter voices give at 127 (the piano, the violin, the glock reach
         // −9 … −10 dB; the winds −2 … −7). The target is the mean curve SHIFTED so its 127 equals the quietest voice's top — every part can reach
         // every level, the winds are brought down to meet them (--top mean keeps the raw mean and clamps the short ones at 127)
-        // a voice that read NOTHING (its top under −60 dB: a dead part, an unloaded preset, dead keys) is left out of the field — it would drag
-        // the target to silence (§146: three such voices pulled the target 120 dB down)
+        // THE STANDARD (§148): when the lanes' ORDINARY voices were measured, each lane's target is ITS ordinary's curve — a plain note at
+        // velocity v on the articulation should be as loud as velocity v on the ordinary (the card's trims made the ordinaries equal across
+        // the instruments). A lane without an ordinary (the percussion, the mallets) takes the mean of the ordinaries. No ceiling shift:
+        // the standard is absolute. Without ordinaries the older rule runs: the mean of the voices, its top the quietest voice's top.
         const dead = Object.entries(M.lanes).filter(([, m]) => m.curve[m.curve.length - 1][1] < -60).map(([k]) => k);
         for (const k of dead) delete M.lanes[k];
         if (dead.length) console.log('left out (read nothing): ' + dead.join(', '));
         const live = Object.values(M.lanes); if (!live.length) die('no voice read anything');
-        M.target = monotone(M.vels.map((v) => [v, r1(live.reduce((a, m) => a + interp(m.curve, v), 0) / live.length)]));   // the mean of the LIVE voices
-        // THE SOFT VOICES (§146): a voice whose top sits more than --soft-floor dB (12) under the mean top — a cymbal scrape, a spring coil —
-        // cannot reach the field; letting it set the ceiling sank every other voice to velocity 1. It stays IN the map (sent at its 127 where
-        // the target is above it, and reported) but does not set the top; a CC7 offset per voice is the lever beyond that (NITS).
-        const meanTop0 = M.target[M.target.length - 1][1], SOFT = +arg('soft-floor', 12);
-        const soft = Object.entries(M.lanes).filter(([, m]) => m.curve[m.curve.length - 1][1] < meanTop0 - SOFT).map(([k]) => k);
-        if (soft.length) console.log('soft voices (more than ' + SOFT + ' dB under the mean top — they do not set the ceiling): ' + soft.join(', '));
-        const setters = Object.entries(M.lanes).filter(([k]) => !soft.includes(k)).map(([, m]) => m);
-        const tops = setters.map((m) => m.curve[m.curve.length - 1][1]), meanTop = meanTop0;
-        const shift = arg('top', 'min') === 'mean' ? 0 : Math.min(0, Math.min(...tops) - meanTop);
-        if (shift) M.target = M.target.map(([v, d]) => [v, r1(d + shift)]);
-        console.log('the target curve' + (shift ? ' (the mean, shifted ' + r1(shift) + ' dB so its top is the quietest voice\'s top)' : '') + ': ' + M.target.map((c) => c[0] + ':' + c[1]).join(' ') + ' dB');
+        const ords = live.filter((m) => m.ordinary);
+        let targetFor;
+        if (ords.length) {
+            const meanOrd = monotone(M.vels.map((v) => [v, r1(ords.reduce((a, m) => a + interp(m.curve, v), 0) / ords.length)]));
+            targetFor = (L) => { const m = M.lanes[L.ordKey]; return (m && m.ordinary) ? m.curve : meanOrd; };
+            console.log('the standard: each lane its ordinary (' + ords.map((m) => m.instKey + ' top ' + m.curve[m.curve.length - 1][1]).join(' · ') + '); lanes without one the mean of the ordinaries: ' + meanOrd.map((c) => c[0] + ':' + c[1]).join(' ') + ' dB');
+        } else {
+            M.target = monotone(M.vels.map((v) => [v, r1(live.reduce((a, m) => a + interp(m.curve, v), 0) / live.length)]));
+            const meanTop0 = M.target[M.target.length - 1][1], SOFT = +arg('soft-floor', 12);
+            const soft = Object.entries(M.lanes).filter(([, m]) => m.curve[m.curve.length - 1][1] < meanTop0 - SOFT).map(([k]) => k);
+            if (soft.length) console.log('soft voices (more than ' + SOFT + ' dB under the mean top — they do not set the ceiling): ' + soft.join(', '));
+            const setters = Object.entries(M.lanes).filter(([k]) => !soft.includes(k)).map(([, m]) => m);
+            const tops = setters.map((m) => m.curve[m.curve.length - 1][1]);
+            const shift = arg('top', 'min') === 'mean' ? 0 : Math.min(0, Math.min(...tops) - meanTop0);
+            if (shift) M.target = M.target.map(([v, d]) => [v, r1(d + shift)]);
+            console.log('the target curve' + (shift ? ' (the mean, shifted ' + r1(shift) + ' dB so its top is the quietest voice\'s top)' : '') + ': ' + M.target.map((c) => c[0] + ':' + c[1]).join(' ') + ' dB');
+            targetFor = () => M.target;
+        }
         let n = 0; const report = [];
         for (const L of lanes) {
-            const m = M.lanes[L.key] || M.lanes[L.instKey]; if (!m) { report.push(L.label + ': not measured — left'); continue; }   // a voice (instKey:technique), or an older per-lane measurement
+            const m = M.lanes[L.key] || M.lanes[L.instKey]; if (!m) { report.push(L.label + ': not measured — left'); continue; }
+            if (L.isOrdinary) { for (const o of L.notes) if (o.properties && o.properties.sectionLevel) { delete o.velAbs; delete o.properties.sectionLevel; n++; } report.push(L.label.padEnd(11) + L.notes.length + ' notes · THE ORDINARY — the reference, sent as written'); continue; }   // a voice (instKey:technique), or an older per-lane measurement
             const inv = m.curve.map((c) => [c[1], c[0]]);   // dB → velocity on this lane (monotone)
             let short = 0, moved = [];
             for (const o of L.notes) {
                 if (has('undo')) { if (o.properties && o.properties.sectionLevel) { delete o.velAbs; delete o.properties.sectionLevel; n++; } continue; }
                 if (o.sonifyMode !== 'plain') continue;
                 const written = o.recVel != null ? o.recVel : Math.round((o.nodes[0].y / 10) * 127);
-                const target = interp(M.target, written), top = m.curve[m.curve.length - 1][1];
+                const target = interp(targetFor(L), written), top = m.curve[m.curve.length - 1][1];
                 let sent = Math.round(interp(inv, target)); if (target > top + 0.05) { sent = 127; short++; }
                 sent = Math.max(1, Math.min(127, sent));
                 o.velAbs = sent; o.properties = o.properties || {}; o.properties.sectionLevel = { written, sent, targetDb: r1(target), measured: 'bank/section_levels/' + name + '.json' };

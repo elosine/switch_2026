@@ -23,6 +23,10 @@
 | **the prepared piano’s part channels** | `PianoHarm PP2` part 1 · `PianoMute PP2` part 1 | ch 3 · ch 5 (piece 4) → **ch 6 · ch 7** (this piece’s recipe and tracks) | `tools/uvi_set_channel.js` (§143); the plugin takes a pushed state only after an offline/online cycle — every push does it now | `uvi_set_channel.js "PianoHarm PP2" 1 3` · `… "PianoMute PP2" 1 5` |
 | the prepared piano’s CONVOLVER | both PP2 instances | **bypassed, as piece 4 left it** (a dry prepared piano) — the baseline’s edit of that flag did not take on PP2 | — | his, in the part’s FX |
 | the brake drums’ second FX | `Brake Drums ARO` (cloned from piece 5’s rack, §144) | a `JS: Volume Adjustment` after the plugin — piece 5’s trim, carried with the chunk | `set_track_chunk.js` | remove it, or set it to 0 dB (the baseline) |
+| **Dynamic Amount on the articulation parts** | `Flute SI2` 7 · 13 · `Fluteb SI2` 1 · 10 · `Clarinet SI2` 5 · 12 · `Alto Sax SI2` 8 · 11 · `Alto Sax SI2 b` 5 · 7 · 8 · 9 | factory (0.43 … 0.80) → **1.00** | `tools/uvi_dynamic.js` → `encode --push` (§147) | the same tool, `--value 0.7` |
+| **Expression mode of the two Flatterzunge parts** | `Flute SI2` 7 · `Clarinet SI2` 5 | `MidiModeMenu` 2 (Mod Wheel) → **1 (Velocity)** | `tools/uvi_script_attr.js` (§147) | `uvi_script_attr.js "Flute SI2" 7 MidiModeMenu 2` |
+| **the Steinway’s curve copies** | `Piano Kontakt` slots 2 · 3 · 4 | made by `reaper/kontakt/curve_slots.lua` (his run, §147); slot volume = the main’s **+ 8.2 dB** (the copies read 8 dB under the main at every velocity) | his Run Lua script, inside Kontakt | the script’s `TRIM_DB` |
+| the plucked piano | `PianoPlucked Kontakt` | the Spitfire Plucked Piano, channel 5, 0 dB — `reaper/kontakt/load_plucked_piano.lua` (his run) | inside Kontakt | — |
 
 **The ports (loopMIDI, machine-global):** fourteen `SW…` values in `HKCU\Software\Tobias Erichsen\loopMIDI\Ports`; the key before them
 exported to `reaper/loopmidi_ports_before_SW_2026-10-20.reg`. **loopMIDI is started by HIM** (or detached) — a loopMIDI the AI's shell

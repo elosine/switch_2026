@@ -54,7 +54,17 @@
   },
   {
    "slug": "gran_cassa",
-   "channel": 10
+   "channel": 10,
+   "beaters": [
+    "Sticks",
+    "Sticks / Hard Felt",
+    "Hard Felt",
+    "Medium Felt",
+    "Medium Felt / Poly Beater",
+    "Poly Beater",
+    "Super Soft",
+    "Brushes"
+   ]
   },
   {
    "slug": "tam_tams_a",
@@ -63,6 +73,14 @@
   {
    "slug": "snare",
    "channel": 12
+  },
+  {
+   "slug": "gran_cassa",
+   "channel": 13,
+   "beaters": [
+    "Rute on Rim"
+   ],
+   "_why": "§148: the rim on its own track, Bass Drum Rim ARO, so its level is the track’s"
   }
  ],
  "_selected": "2026-10-04 — HIS TENTATIVE LIST (COMPOSITION_NOTES DEC-6; RUNNING_LOG §21 … §25): bongos · shime daiko (the samples; a snare drum the alternate in the performance notes) · bass drum alt · wood blocks · China cymbal · spring coil · suspended cymbals (he loaded and chose the BRIGHT All-in-One) · toms (he chose the HIGH All-in-One). One Abbey Road instance per instrument, the track \"<Name> ARO\" on this channel of DECPerc (reaper/bridge/jobs/make_perc_tracks.lua). Every slug was confirmed against the loaded preset: the All-in-One's top key = the catalog's last key.",

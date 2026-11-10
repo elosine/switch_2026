@@ -2702,3 +2702,71 @@ is then −22.1 dB (the rute on the rim); 347 notes mapped. **What this means, a
 (SECTION_LEVEL.md "what 127 means"). The other lever is a CC7 OFFSET PER VOICE (level on the fader, timbre on the velocity; Kontakt and UVI
 take CC7, Spitfire does not) — the composer's notes carry `cc7Abs` already; a `--cc7` mode of the apply would send each voice's offset and keep
 the velocities near the written ones. Built at his word (NITS has the row); until then the field stands as mapped, his ear to judge.
+
+## §147. His run of the Kontakt script; the quiet voices; two SI2 dials behind the flutters (2026-11-10)
+
+**His words:** *"lua curv slots not working"* — then *"I ran the lua … no need to introduce a different work flow, I did it with run lua script.
+was I meant to run it on the other piano tracks?"* — *"which are the quiet instrument/articulations?"*
+
+**The script had failed on ITS FIRST LINE, mine:** this piece had no `reaper/kontakt/out/` folder for the report it writes before touching
+Kontakt, and its instrument table had no entry for the Steinway. Folder made; piece 4's `.nki` paths (the Steinway, the plucked piano) added;
+the plucked slot handled in the same run (any slot named "pluck" → channel 5, 0 dB). **His second run worked** (`out/curve_slots_20261110_154033`):
+one slot before, FOUR after — the Steinway's copies on channels 2 · 3 · 4, same output, same volume. The alive map: ch 1 −14.8 · 2 −23.3 · 3 −23.3
+· 4 −23 dB. **The copies read 8 dB under the main at EVERY velocity** (40: −31.4 / −39.7 · 80: −25.9 / −34 · 120: −8.2 / −16.4 — a pure volume
+gap; the main slot carries something the .nki does not). The script now lifts the copies' slot volume by 8.2 dB (`TRIM_DB`); his re-run sets it.
+**The main instance held ONLY the Steinway** — so the faint channel-2 reading of §143 was not a plucked piano; the plucked piano goes into the
+empty `PianoPlucked Kontakt` instance by `reaper/kontakt/load_plucked_piano.lua` (the Spitfire .nki on H:, channel 5, 0 dB), his Run Lua
+script there. Run Lua script is his workflow; the drag-and-drop line is withdrawn.
+
+**The quiet voices, from the measurement (tops at 127):** loud −2 … −10 (the flute's staccato · tongue ram · jet whistle, the piano's muted,
+the clarinet's staccato, the sax's five, the violin's bartók, the brake drums' poly beater, the piano, the glockenspiel) · middle −13 … −22
+(brake drums rubber · the violin's bow pressure · gettato · behind the bridge · col legno gettato · the gran cassa's rim) · quiet −27 … −37
+(the spring coil · the gran cassa's medium felt — key 52 is a ROLL, flat at every velocity · the china cymbal's scrape).
+
+**Two dials behind the flutters.** The flute's and the clarinet's Flatterzunge read FLAT across velocity (−8.7 · −17.8 at every step). Their
+parts sat at the factory **Dynamic Amount** 0.43 and 0.50 (uvi.md § 4 — the dial piece 5 found; this piece set 1.00 only on the Ordinarios and
+their copies). Set to 1.00 on every part his articulations use (`tools/uvi_dynamic.js`: Flute 7 · 13, Fluteb 1 · 10, Clarinet 5 · 12, Sax 8 · 11,
+Sax b 5 · 7 · 8 · 9). Re-measured: the staccati, slaps, double tonguing, jet whistle, tongue ram and the sax's flutter now span about 40 dB from
+16 to 127 — **but the two flutters went FLAT at −43 and −51.** The script blocks compared attribute by attribute: Ordinario `MidiModeMenu="1"`,
+the two Flatterzunge `"2"` — the EXPRESSION MODE, Velocity against Mod Wheel: in wheel mode velocity moves nothing and the wheel at 0 leaves
+the part 40 dB down (the sax's Flatterzunge ships in velocity mode, hence its 36 dB span). `tools/uvi_script_attr.js` (new — any attribute of
+the script block, as text): both set to 1. Still in wheel mode, not in his lists: Flute Ord & Flatterzunge KS · Play & Sing KS · Trills KS (both
+instruments) · Sax Aeolian · Sax FX KS — left, named here for the day one is wanted. The flutes and clarinets re-measured and the map re-applied
+below.
+
+## §148. THE VOLUME STANDARD — his decision, and how it is built (2026-11-10)
+
+**His words:** *"volume knob but lets have a different solution for the spitfire; and maybe in general, like maybe rute sits on its own track and we
+up the level at the track … I really need the volume situation to be solved. we rehash this every time and it has taken many many hours …
+please make all p and ff and mp etc be at approximately the same loudness and bring everything into a volume standard, its no good if the ctpt
+section is quieter than the rest of the music. also I don't want to wrangle with the cc7 round robin not working right; this is a short section
+lets get it to sound as good as possible and move on."* And on the instructions: *"please give these instructions and future instructions in
+clearer and more well defined simple terms."*
+
+**THE STANDARD, defined.** A plain played-in note sounds at its written velocity on the instrument's ORDINARY voice, and the rack's trims (the
+card, PLAN 1b.3) set the ordinaries against the piece's absolute reference. So the standard for an articulation is: *velocity v on the flutter
+should be as loud as velocity v on the ordinary of the same instrument.* Each lane's ordinary is measured at the same grid as its articulations
+(`section_level.js --measure` now adds it); a lane with no ordinary (the percussion, the mallets lane under the glockenspiel) takes the mean of
+the ordinaries. No "quietest voice sets the ceiling" any more — the standard is absolute, so the section lands where the rest of the music is.
+
+**THE KNOBS, by plugin family** (`tools/section_gains.js`, new — one gain per articulation voice, the mean over the velocities the section
+actually writes of [ordinary − voice]):
+- **UVI (the winds' articulations, the prepared piano's muted):** the PART's gain, as text (`tools/uvi_part_gain.js`, new — the baseline's
+  +6 dB plus or minus the voice's gap). The velocities stay what he wrote; the samples keep their character.
+- **Spitfire (the percussion):** the TRACK — the fader to +12 dB, the remainder in a stock "JS: Volume Adjustment" FX (the lineage's
+  apply_trims rule), capped at +20 in all; one gain per track. His word made it one voice per track where levels differ: the gran cassa's
+  rute on the rim CLONED onto its own track `Bass Drum Rim ARO` (`aro_state.js clone`, `SWPerc` ch 13; the selection's beaters filter splits
+  the two rows; `palette_check` learned that one instrument may sit on two channels).
+- **Kontakt (the violin's articulations, the glockenspiel, the piano):** no knob per articulation — one slot holds every preset — so these
+  are mapped by VELOCITY against the same ordinary (`section_level.js --apply`); the violin's articulations are all LOUDER than its senza
+  (−7 … −20 dB), so velocity down costs no timbre.
+- Then `--measure` again (the curves are now real), then `--apply` for the fine map. No CC7 anywhere — his word.
+
+**The first measure with the ordinaries** (26 voices + 5 ordinaries): the flute's ord −2.3 at 127, the crotales −11, the piano −9.9, the
+violin's senza −25.7 — the ORDINARIES THEMSELVES stand 23 dB apart on a PEAK meter (the card equalised K-weighted loudness, and a bowed
+string's peak sits far under its loudness where a staccato's does not); within an instrument the comparison holds, across instruments the
+mean target is approximate — his ear's call after. The clarinet's ord read −55 at 127: three grid notes had DROPPED (the player stalled); the
+direct probe gives −5.3. The mean over pitches now leaves a dropped reading out (a reading of nothing while another pitch sounded). The
+Spitfire gains asked: china scrape +30 (capped at +20), spring coil +20, the gran cassa's felt roll and rim +13.5, brake drums +1 · +5.6.
+
+**The plucked piano and the piano's copies** are his two Run Lua script runs (his workflow, kept); the rack is left alone while he runs them.

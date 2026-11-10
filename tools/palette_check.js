@@ -143,7 +143,7 @@ const have = (INSTRUMENTS.percussion && INSTRUMENTS.percussion.aroInstruments) |
 ok(rd('sandbox/instruments.js').includes('const ARO_PERC = '), 'the ARO_PERC block is in the recipe');
 ok(have.length === want.length, 'selected ' + want.length + ' percussion instrument(s), the recipe carries ' + have.length + (have.length === want.length ? '' : ' — run tools/apply_perc.js'));
 for (const w of want) {
-  const a = have.find(x => x.slug === w.slug);
+  const a = have.find(x => x.slug === w.slug && x.channel === w.channel) || have.find(x => x.slug === w.slug);   // one instrument may sit on two channels (§148: the gran cassa's rim on its own track)
   ok(!!a && a.channel === w.channel && a.port === (w.port || selPort), 'percussion: ' + w.slug + ' applied on ' + (w.port || selPort) + ' ch' + w.channel);
 }
 
