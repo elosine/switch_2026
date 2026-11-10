@@ -2811,3 +2811,25 @@ ear sets the last few dB, on the fader, per track — no tool between him and it
 
 **The state:** 285 notes mapped on `piece-Section02-C-artics-01` (the ordinaries sent as written); the rack's new levels and parts UNSAVED until
 his CTRL+S; his page needs F5 for `cc7Plain`. PLAN 1e ☑ as a method; his ear next.
+
+## §151. The scattered deal and the dealt dynamics — `piece-Section02-D-scatter-01` (2026-11-10)
+
+**His words:** *"make a new save file, and then drawing from that list of articulations for each instrument, you just do a scattered distribution of
+various ones, and then pitched, if possible, at the designated pitch, the ones I have now, or you might have to change the pitch to get some of the
+other techniques. And then can you do distribution of dynamics? Just going to use P, MF, and FFF. Just those three … a random distribution across
+each part."*
+
+**Built:** `artic_deal.js --scatter` — no runs: every note dealt on its own from the lane's shuffled, exhaustive deck (never the same twice in a row);
+the pitch kept where the articulation's range holds it, folded by octaves where not, swapped where no fold fits (as before). `tools/dyn_deal.js`
+(new) — per lane a shuffled, exhaustive deck of the named dynamics; each note's WRITTEN velocity becomes the score's own anchor (p 83 · mf 100 ·
+fff 127, dyn_ui.js's ladder), the struck velocity kept under `properties.dyn.was`; `--undo`. Then the level map (`section_level.js --apply`, the
+measurement of the C save copied to the new name — the same rack) puts the three dynamics on the standard: every p one loudness, every fff one
+loudness, across the parts, each against its instrument's ordinary.
+
+**The deal (seed 23, from the harmonies save):** 366 notes · 274 changed · 48 grown · 13 folded · 5 swapped · 53 glockenspiel notes to the
+percussion lane. Per lane: flute staccato 12 · flz 10 · tongue ram 11 · jet whistle 11; clarinet staccato 22 · flz 20; sax slap pitched 11 ·
+exploding 11 · staccato 10 · double tonguing 14 · flz 8; piano main 39 · muted 39 · plucked 39; violin col legno gettato 9 · bartók 9 · gettato 9 ·
+behind the bridge 10 · bow pressure 10; the mallets lane: glock 9, the six strikes 8 … 9 each. **The dynamics:** p · mf · fff a third each on every
+lane (the piano 39 · 39 · 39). **The map:** the winds within ±3 of written (the slaps ±10 — their curves bend against the ordinary's), the violin
+and the muted piano on CC7 (60 … 109), the glockenspiel and the plucked up by velocity, the percussion at its 127 where the standard asks more
+(the faders are its knob, §150). One fix in the deal on the way: a note an earlier deal had MOVED belongs to its original lane when re-dealt.

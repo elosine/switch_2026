@@ -68,28 +68,32 @@ for (const [laneId, deckRaw] of Object.entries(DECK.decks)) {
         deck.push({ key, q, instKey: ik, lane: li, moves: li !== L, range: rangeOf(ik, q) });
     }
     if (!deck.length) { report.push(laneId + ': empty deck'); continue; }
-    const notes = notesAll.filter((o) => o.layer === L).sort((a, b) => a.startSeconds - b.startSeconds);
+    const notes = notesAll.filter((o) => ((o.properties && o.properties.artic && o.properties.artic.was) ? o.properties.artic.was.layer : o.layer) === L).sort((a, b) => a.startSeconds - b.startSeconds);   // a note an earlier deal MOVED belongs to its original lane for the re-deal
     if (!notes.length) { report.push(laneId + ': no notes in ' + from + ' … ' + to + ' s'); continue; }
     // the containers, this lane's own roll
     const containers = []; let t = from;
     while (t < to - 0.01) { const h = Roll.hexagram(rnd); let len = r3(MIN + (h.n - 1) / 63 * (MAX - MIN)); if (to - (t + len) < MIN) len = r3(to - t); containers.push({ start: r3(t), end: r3(t + len), hex: h.n, glyph: h.glyph }); t = r3(t + len); }
     let pile = [], last = null;
     for (const c of containers) { if (!pile.length) { pile = shuffle(deck); if (last && pile[0] === last) pile.push(pile.shift()); } c.deal = pile.shift(); last = c.deal; }
+    // --scatter (his word 2026-11-10, §151: "a scattered distribution of various ones"): NO runs — every note is dealt on its own from the
+    // shuffled, exhaustive deck (never the same twice in a row); the containers then only name the deal's position in the log
+    const SCATTER = has('scatter'); let notePile = [], noteLast = null;
+    const dealFor = (c) => { if (!SCATTER) return c.deal; if (!notePile.length) { notePile = shuffle(deck); if (noteLast && notePile[0] === noteLast) notePile.push(notePile.shift()); } const d = notePile.shift(); noteLast = d; return d; };
     // the notes
     for (let i = 0; i < notes.length; i++) {
         const o = notes[i], c = containers.find((x) => o.startSeconds >= x.start && o.startSeconds < x.end); if (!c) continue;
         const was = (o.properties && o.properties.artic && o.properties.artic.was) || { technique: o.technique, endSeconds: o.endSeconds, layer: o.layer, sonifyNote: o.sonifyNote };
         const dur = was.endSeconds - o.startSeconds, next = notes[i + 1], room = next ? next.startSeconds - 0.03 - o.startSeconds : LONG_MIN;
         // the candidates: the container's deal first, then the rest of the deck in its order — the first that can take the note
-        const order = [c.deal, ...deck.filter((d) => d !== c.deal)];
+        const deal0 = dealFor(c), order = [deal0, ...deck.filter((d) => d !== deal0)];
         let pick = null, pitch = was.sonifyNote, end = was.endSeconds, how = '';
         for (const d of order) {
             let p = was.sonifyNote;
             if (d.moves || d.q.kind === 'key' || (d.q.keys && d.q.keys.length)) { p = nearestKey(was.sonifyNote, d.q); if (p == null) p = fold(was.sonifyNote, d.range[0], d.range[1]); if (p == null) p = d.range[0]; if (!d.moves) how += 'keyed '; }   // a by-key voice (the strings' behind-the-bridge pizzicato, a strike): the pitch becomes its nearest KEY
-            else if (p < d.range[0] || p > d.range[1]) { const f = fold(p, d.range[0], d.range[1]); if (f == null) { if (d === c.deal) how += 'range '; continue; } p = f; how += 'folded '; }
+            else if (p < d.range[0] || p > d.range[1]) { const f = fold(p, d.range[0], d.range[1]); if (f == null) { if (d === deal0) how += 'range '; continue; } p = f; how += 'folded '; }
             let e = was.endSeconds;
-            if (LONG.has(d.key) && dur < LONG_MIN) { if (room >= LONG_MIN * ROOM_SHARE) { e = r3(o.startSeconds + Math.min(LONG_MIN, room)); how += 'grown '; } else { if (d === c.deal) how += 'no-room '; continue; } }
-            pick = d; pitch = p; end = e; if (d !== c.deal) how += 'swapped(' + c.deal.key + '→' + d.key + ') '; break;
+            if (LONG.has(d.key) && dur < LONG_MIN) { if (room >= LONG_MIN * ROOM_SHARE) { e = r3(o.startSeconds + Math.min(LONG_MIN, room)); how += 'grown '; } else { if (d === deal0) how += 'no-room '; continue; } }
+            pick = d; pitch = p; end = e; if (d !== deal0) how += 'swapped(' + deal0.key + '→' + d.key + ') '; break;
         }
         if (!pick) { report.push(laneId + ' ' + r3(o.startSeconds) + ' s ' + pn(was.sonifyNote) + ': no articulation of the deck can take it — left as it was'); continue; }
         if (/folded/.test(how)) folded++; if (/grown/.test(how)) grown++; if (/swapped/.test(how)) swapped++; if (pick.moves) moved++;
