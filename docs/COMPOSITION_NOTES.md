@@ -567,3 +567,22 @@ dice strategies gathered and compared (the hexagram roll · the morph's "smaller
 > short-long alternation necessarily, but interrupted by short ones: maybe a couple long ones and then a short, and then maybe three long ones
 > and then two shorts or three shorts. So that there's a contrast that happens every once in a while. Actually, these are relatively quick —
 > let's keep it at 0.6. Let's try that."*
+
+### SW-35 · 2026-11-10 — THE ARTICULATIONS OF THE COUNTERPOINT SECTION, his choices so far (with the fixes as they stand)
+
+*His words, across the exchange (dictated, light corrections):* *"keep flatterzunge, staccato for flute; flute tongue ram and jet whistle sound the
+same? … pizz not working"* — *"those are all just flute ones. There's a pizzicato on the flute, not the violin. You can leave the violin for now.
+Clarinet: flutter tongue, staccato; alto sax: double tongue, flutter, slap pitched, exploding slap."* — *"Perc: scrape china, brake drum, spring
+coil, bass drum. There's a rim, right, for the bass drum alt. Let's get that back in the menu and use that one too. And we can keep the
+glockenspiel, just mix those in."* — *"Piano: ord, plucked and muted; violin and cello: gettato, bow overpressure, bartók pizz, pizzicato behind
+bridge, col legno gettato."*
+
+| part | his articulations | in the recipe as |
+|---|---|---|
+| flute | flatterzunge · staccato · jet whistle · tongue ram (= SI2's "Flute Pizzicato") | `flz` · `staccato` · `jet_whistle` · `tongue_ram` (part 13 — SILENT until his hand loads it, §142) |
+| clarinet | flatterzunge · staccato | `flz` · `staccato` |
+| alto sax | double tonguing · flatterzunge · slap pitched · exploding slap · staccato | `double_tonguing` · `flz` · `slap_pitched` · `slap_exploding` (the slap keyswitches do not switch — one slap plays, §142) · `staccato` |
+| percussion | china cymbal scrape · brake drum · spring coil · bass drum · bass drum alt RIM | `china_cymbals_scrape` · `small_metals_spring_coil` · `bass_drum_alt_*` — the RIM and the BRAKE DRUM are not in the menu yet (the selection and the rack: a short step) |
+| glockenspiel | mixed in | `glock_main_hard` |
+| piano | ordinario · plucked · muted | `main` · `plucked` · `muted` (channels 1 · 5 · 7, §135) |
+| violin · cello | gettato · bow overpressure · bartók pizz · pizzicato behind the bridge · col legno gettato | `gettato_vel` · `bow_op_vel` (also `bow_op_mw`) · `bartok_vel` · `pizz_behind_bridge_vel` (a by-KEY voice, its keys pending) · `col_legno_gett_vel` |
