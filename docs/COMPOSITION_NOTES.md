@@ -538,3 +538,22 @@ instrument as their ranges allow: cello C3 · sax C4 · clarinet C5 · flute C6 
 *The AI's reading (not his):* two levers held, neither pulled — a per-track level in Reaper where an articulation is simply too quiet to reach
 the field (the SECTION_LEVEL doc's "what 127 means"), and one section-wide gain against the rest of the piece (a master move for the section's
 span, or one offset on every part's sent velocity). Chosen when he hears the section; the demo decides how fine.
+
+### SW-33 · 2026-11-10 — THE COUNTERPOINT'S HARMONIES from the drawer's takes SW-ctpt-01 … 16, on a brisk harmonic rhythm rolled as time containers (1.5 … 3.5 s), an exhaustive random draw; the time-container strategies to be gathered as a goal
+
+*His words (dictated, light corrections):*
+
+> *"I want to assign some harmonies from the strikes drawer takes to this counterpuntal section. So you'll change the pitches here. But first I
+> want to work out the time container roll. I think it was with the live electronics — we've done many different versions of this. I don't
+> necessarily need to standardize it now, but we should have as a goal to get a sense of roll-dice strategies or time-container strategies. In
+> this case I want a relatively healthy or brisk pace of harmonic rhythm, harmonic change. I think we recently did something with the live
+> electronics where it was sort of asymmetric — like 1, then 3, then 2, then 6, then 1 again, then 2, then 5, things like that. And then scale
+> it to relatively quick: maybe 1.5 or 2 seconds is the minimum — let's try 1.5 — and maybe 3.5 seconds maximum. Let me hear those and then
+> see. And then they're SW-ctpt 1 through 16. Let's do a random draw of those for each chord change, but exhaustive — run through all 16 first
+> before you redraw a same chord. piece-Section02-B-08ctpt-harmonies01, 200 ~ 253."*
+
+*The AI's reading (not his):* the roll is Approaching's (its three-body section, DEC-36: "like Cage and roll some I Ching time containers" — a
+hexagram per container by three coins, read across the range) — the asymmetric run of lengths he remembers is what that roll gives; the
+sixteen takes are a shuffled deck, dealt one per container, re-shuffled when spent. THE GOAL he names — the stack's time-container and
+dice strategies gathered and compared (the hexagram roll · the morph's "smaller of two rolls" · the beat shapes' pace roll · the breath rule)
+— a plan line, when he reaches it.

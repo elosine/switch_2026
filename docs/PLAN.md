@@ -229,6 +229,11 @@ electronics part for the FIRST SECTION, the acoustic instruments built around it
 (`live-electronics-engine/corpus/`, for any session); the tremolo and the steered effects are the ENGINE's (`electronics/`, for
 any piece); this piece holds its USES — the set's files, the settings, the four voices, their place in the score.*
 
+- **1b THE TIME-CONTAINER AND DICE STRATEGIES, GATHERED** (his goal, SW-33, 2026-11-10) — `todo`
+  ***Why:*** "we've done many different versions of this" — the hexagram roll (Approaching's three-body section; the counterpoint's harmonic rhythm,
+  §139) · the morph's "smaller of two rolls" · the beat shapes' pace and hold rolls · the breath rule · the sawtooth's alternation. One page that says
+  what each does and when he reached for it, and a shared roller the tools read — when he reaches it; nothing standardised before.
+
 ## 2. Notate — `todo`
 
 *To be laid out when we discuss it.* Piece 6's `docs/NOTATION_SCHEME.md` and its rules rows are the start (H6-37).

@@ -2473,3 +2473,22 @@ staccato set and fell to its ordinary (the crotales' metal mallet); the counterp
 staccato set now names `bowed_vibraphone: 'glock_main_hard'` — one click puts the section's six voices on every row and on everything the
 shuffle deals; a hand pick on a row still sticks (§129). palette_check 202 (§ 3 holds the key against the recipe). The spiccato set left as it
 is (the strings' spiccato, the pitched lane its ordinary).
+
+## §139. SW-33 — the counterpoint's harmonies dealt from his sixteen takes on hexagram-rolled containers (2026-11-10)
+
+**His words:** SW-33. **Lineage first (his "I think it was with the live electronics"):** the time-container roll of the stack is Approaching's
+three-body section — `score/public/three_body_roll.js` (carried here, pure, node-loadable): `hexagram(rnd)` = Cage's three coins six times → the
+King Wen number 1 … 64, read across a container's range `lo + (n − 1)/63 · (hi − lo)`. The asymmetric run of lengths he remembers is this roll's
+nature. Used as it is.
+
+**`tools/harmony_roll.js` (new, the piece's):** containers over 200 … 253 s, each a hexagram across 1.5 … 3.5 s (seed 17); a DECK of the sixteen
+takes `SW-ctpt-01 … 16` shuffled, one dealt at each container's start, re-shuffled when spent (its first never the one just dealt — his
+"exhaustive"); every played-in note inside a container takes a pitch of its container's take: the take's voice ON THE NOTE'S LANE nearest the
+note's own pitch (the counterpoint's contour kept; several voices on a lane → the nearest), a lane the take left unplaced → the harmony's
+nearest pitch folded into the voice's range; the old pitch kept in `properties.harmony.was`, `--undo` restores; a MARKER at each container
+start names the take and its hexagram. **Written into `piece-Section02-B-08ctpt-harmonies01`:** 22 containers — 3.28 · 3.02 · 1.63 · 2.52 · 1.56 ·
+2.93 · 1.79 · 2.10 · 2.80 · 1.69 · 2.14 · 2.99 · 2.93 · 2.77 · 2.77 · 3.47 · 1.63 · 2.33 · 1.94 · 2.68 · 2.01 · 2.04 s — the deal 12 13 07 01 05 08 02 14 15
+16 09 04 10 06 03 11 | 08 14 03 09 13 06; 296 notes, 285 pitches changed, 8 on lanes a take left unplaced (folded). The takes' pitched-lane
+voice is the crotales' (crot_main_felt); the notes keep THEIR technique (glock_main_hard) and take the pitch, folded into the glock's range.
+NOT CLAIMED: his ear — "let me hear those and then see". **The goal he names** (the dice and time-container strategies gathered): PLAN, a
+line under § 2 when he reaches it.
