@@ -34,6 +34,10 @@ local NKI = {
 }
 -- a slot that is NOT the main instrument's copy and has its own channel: the plucked piano → channel 5 at 0 dB (the recipe's `plucked`)
 local SIDE = { { match = 'pluck', ch = 5, vol = 0 } }
+-- a freshly loaded copy of the Steinway read 8.2 dB UNDER the main slot at every velocity (2026-11-10, §147: −31.4/−39.7 at 40 · −25.9/−34 at
+-- 80 · −8.2/−16.4 at 120) — the main slot carries a setting the .nki does not. The copies' slot volume is lifted by this much, so the four
+-- slots read alike (kontakt.md § 2: all four in the same state).
+local TRIM_DB = { ['8DIO_1969_Legacy_Piano'] = 8.2 }
 local CURVES = { { ch = 2, tag = 'curve A' }, { ch = 3, tag = 'curve B' }, { ch = 4, tag = 'curve C' } }
 
 local log, made = {}, {}
@@ -75,7 +79,7 @@ local function main()
     end
     pcall(Kontakt.set_instrument_midi_channel, idx, c.ch)
     pcall(Kontakt.set_instrument_output_channel, idx, out_ch)
-    pcall(Kontakt.set_instrument_volume, idx, vol)
+    pcall(Kontakt.set_instrument_volume, idx, vol + (TRIM_DB[base] or TRIM_DB[norm(base)] or 0))
     made[#made + 1] = string.format('  {"name":%s,"idx":%d,"midi_channel":%s,"output_channel":%s,"volume_dB":%s}',
       q(Kontakt.get_instrument_name(idx)), idx, tostring(Kontakt.get_instrument_midi_channel(idx)), tostring(Kontakt.get_instrument_output_channel(idx)), tostring(Kontakt.get_instrument_volume(idx)))
   end
