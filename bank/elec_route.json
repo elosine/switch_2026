@@ -54,7 +54,7 @@
   },
   {
    "name": "pno",
-   "track": "Piano",
+   "track": "Piano Kontakt",
    "engineIn": 6,
    "port": "SWPiano",
    "testNote": 60
