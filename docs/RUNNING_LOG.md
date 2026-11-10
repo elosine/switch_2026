@@ -2348,3 +2348,11 @@ octave) · alto sax C4 (its middle) · clarinet C5 (the clarion) · flute C6 (cl
 C7 (its very top) was set aside: a 7-second crescendo to fff on the flute's highest note is a strain; the violin's C7 is ordinary.
 **Built:** 137 → 144.15 s (7.15 s), 0 → 10 beats/s (0.72 s per beat — the series 6 · 7 · 8 · 9 · 10), p → fff, one held tone each, the sines with
 the notes, in over 500 ms; the cello's 128 c at C3 re-keyed to C♯3 (−100 → +28). The save: 136 objects. NOT CLAIMED: the sound.
+
+## §134. The C-octave crescendo ends with the electronic zone, 144.45 s (2026-11-09)
+
+**His words:** *"The card on the electronic zone, zone 35, shows me it ends at 144.45. But the C crescendos don't end at the same time. Can we
+extend those so they all end at the same time as the electronic zone?"* **Done on his save:** zn-35 is the material brick `opening-mix-orchestrated-9m45`
+(85.05 → 144.45); the C crescendo's six notes and six sines (137 →) now end at 144.45 — the notes' shapes reach fff at the new end, the bend's
+last cents held over the extra 0.3 s; the crotale's gliding sine keeps its line in time and holds its last value. The tool's end for a
+dictated pair is the line's; a `--end` that snaps to a brick's end is a line to add when it comes up again.
