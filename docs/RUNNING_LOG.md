@@ -2833,3 +2833,33 @@ behind the bridge 10 · bow pressure 10; the mallets lane: glock 9, the six stri
 lane (the piano 39 · 39 · 39). **The map:** the winds within ±3 of written (the slaps ±10 — their curves bend against the ordinary's), the violin
 and the muted piano on CC7 (60 … 109), the glockenspiel and the plucked up by velocity, the percussion at its 127 where the standard asks more
 (the faders are its knob, §150). One fix in the deal on the way: a note an earlier deal had MOVED belongs to its original lane when re-dealt.
+
+## §152. PARITY BY LOUDNESS, for this save — the section's own card, and the knobs set from it (2026-11-10)
+
+**His words:** *"the message to change to plucked piano goes in too early because the end of that solo is plucked … the flute is so much quieter
+than everything. The percussion is way too loud … just do an analysis of each of the notes that we have now in this save file … whichever notes
+are P, they should all sound P together … I want the FF bass drum notes to come out at the same LUFS as the flutter tongue flute … a solution
+just for what's there now, instead of some universal solution."*
+
+**The window was wrong, mine:** the deal ran from 195 s; the counterpoint starts at **200.19** (the first note not the piano's) and the piano solo's
+tail (195.04 … 196.23, a hundred notes) had been dealt plucked and muted. Re-dealt from 200 (seed 23, scattered; the dynamics p · mf · fff dealt
+per lane): 296 notes, 54 of the glockenspiel's to the percussion lane; the solo untouched.
+
+**THE SECTION'S OWN CARD — the lineage's loudness measure, not the peak meter:** `tools/section_card.js` writes the card recorder's timetable for
+every voice the save plays (31 voices with the lanes' ordinaries, each at its own three pitches at the written p 83 · mf 100 · fff 127); the REC
+track rebuilt for the new tracks, REC the only writer, `probes/card_run.ps1` recorded 465 s (`reaper/Media/32-REC-261110_1826.wav`), `probes/
+analyze_card.py` read every note (252/252), K-weighted, the loudest 400 ms taken for all (every note of the section is short). **What it read —
+his ear was right and the peak meter wrong:** at fff the flute's staccato −39 · tongue ram −43 · jet whistle −40 against its ordinary −30 and
+flutter −32; the percussion rim −19 · the gran cassa's felt roll −27 · the brake drums' rubber −26 · the muted piano −22 · the plucked −26; the
+violin's behind-the-bridge −47.5 · col legno gettato −42. A scrape or a drum peaks low and sounds loud; a flute staccato the reverse.
+
+**`tools/section_parity.js` — one loudness per written dynamic, for every note:** the target per dynamic = the mean of the voices (p −40.2 · mf −37 ·
+fff −33 dB); then, per voice, the knob that reaches it: a UVI voice's PROGRAM gain moved by its mean gap (`uvi_part_gain.js --add`: the flute's
+tongue ram +11.1 · staccato +4.6 · jet whistle +6.1 · the sax's staccato +5.6 · slaps +4.2 · +4.8 · its flutter −4.3 · double tonguing −3.2 · the
+clarinet's staccato +3.9 · flutter −1.8 · the flute's flutter −3.1 · the muted piano −11.8), then the velocity on the shifted curve; a Spitfire
+track's level from its notes' mean gap (the rim −10.4 · the gran cassa −8.4 · the rubber −7.4 · the spring coil −3.4 · the brake drums +7.2 · the
+china +2.4 — relative to the present, the fader then the JS FX); a Kontakt voice louder than the target by CC7 per note (the bartók, gettato, bow
+pressure, the plucked and the Steinway where loud), softer by velocity — and the violin's track **+6 dB** (`--kontakt-trim`, the one global move:
+the senza elsewhere in the piece is 6 dB hotter than the card set it; his to hear). Every note keeps its written dynamic; what is sent changed.
+**Still short at 127 after all that:** the violin's behind-the-bridge (−47.5 — a quiet sound by nature), the gran cassa's felt roll (flat across
+velocity), a few flute staccati and jet whistles at fff, three glockenspiel notes. The rack saved through the bridge.

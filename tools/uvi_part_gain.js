@@ -11,7 +11,7 @@
 //   node tools/uvi_part_gain.js "<track>" --table                         # one line per part: program gain · part gain, in dB
 'use strict';
 const fs = require('fs'), path = require('path'), os = require('os'), cp = require('child_process');
-const args = process.argv.slice(2), dry = args.includes('--dry'), PART = args.includes('--part');
+const args = process.argv.slice(2), dry = args.includes('--dry'), PART = args.includes('--part'), ADD = args.includes('--add');   // --add: the value is ADDED to the part's present program gain
 const [track] = args;
 if (!track) { console.error('usage: uvi_part_gain.js "<track>" <parts> <dB> [--part] | "<track>" --table'); process.exit(2); }
 const STATE = path.join(__dirname, 'uvi_state.js');
@@ -31,8 +31,9 @@ for (const p of parts().sort((a, b) => b.no - a.no)) {   // highest first: offse
     if (!want.includes(p.no)) continue;
     if (PART) { console.log(track + ' · part ' + p.no + ' (' + (progName(p) || '(empty)').replace(/&amp;/g, '&') + '): PART gain ' + gainOf(p.tag) + ' → ' + val + ' dB'); const nt = p.tag.replace(/ Gain="[^"]*"/, ' Gain="' + lin + '"'); s = s.slice(0, p.index) + nt + s.slice(p.index + p.tag.length); continue; }
     if (!p.prog) { console.log(track + ' · part ' + p.no + ': empty — no program to set'); continue; }
-    console.log(track + ' · part ' + p.no + ' (' + (progName(p) || '?').replace(/&amp;/g, '&') + '): program gain ' + gainOf(p.prog.tag) + ' → ' + val + ' dB');
-    const nt = p.prog.tag.replace(/ Gain="[^"]*"/, ' Gain="' + lin + '"'); s = s.slice(0, p.prog.index) + nt + s.slice(p.prog.index + p.prog.tag.length);
+    const target = ADD ? Math.round((gainOf(p.prog.tag) + val) * 10) / 10 : val, linHere = Math.pow(10, target / 20).toFixed(7);
+    console.log(track + ' · part ' + p.no + ' (' + (progName(p) || '?').replace(/&amp;/g, '&') + '): program gain ' + gainOf(p.prog.tag) + ' → ' + target + ' dB');
+    const nt = p.prog.tag.replace(/ Gain="[^"]*"/, ' Gain="' + linHere + '"'); s = s.slice(0, p.prog.index) + nt + s.slice(p.prog.index + p.prog.tag.length);
 }
 if (dry) { fs.unlinkSync(xml); console.log('(dry: nothing pushed)'); process.exit(0); }
 fs.writeFileSync(xml, s);
