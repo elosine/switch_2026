@@ -2339,3 +2339,12 @@ hearing. NOT CLAIMED: the sound.
 flute F♯6 · clarinet D6 · sax C♯4 · violin C♯5 · cello F♯2 · the crotale key F♯4 bowed (sounding F♯6). **Built:** 127 → 134 s (7 s), 0 → 9 beats/s
 (0.78 s per beat), p → fff, one held tone each, the sines with the notes, in over 500 ms. The cello's 162 c at F♯2 re-keyed to G2 (−100 → +62).
 The clarinet's D6 is high (sounding; the recipe's range reaches F6) — his take, his call. The save: 124 objects. NOT CLAIMED: the sound.
+
+## §133. SW-31 — the C-octave crescendo, 137 → 144.15 s, → 10 beats a second (2026-11-09)
+
+**His words:** *"137 144.15 c octaves c3 up as best as can fit"*. **The ladder, by range** (the recipes' sounding ranges): cello C3 (the C string's
+octave) · alto sax C4 (its middle) · clarinet C5 (the clarion) · flute C6 (clear and easy) · violin C7 (high, inside its E7 top — a bend of
+8 c there) · the crotale C8 (the key C6 — the top of the bowed crotale's roster, sounding two octaves up). The alternative with the flute on
+C7 (its very top) was set aside: a 7-second crescendo to fff on the flute's highest note is a strain; the violin's C7 is ordinary.
+**Built:** 137 → 144.15 s (7.15 s), 0 → 10 beats/s (0.72 s per beat — the series 6 · 7 · 8 · 9 · 10), p → fff, one held tone each, the sines with
+the notes, in over 500 ms; the cello's 128 c at C3 re-keyed to C♯3 (−100 → +28). The save: 136 objects. NOT CLAIMED: the sound.

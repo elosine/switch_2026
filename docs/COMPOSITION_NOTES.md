@@ -517,3 +517,10 @@ silence over half a second, nothing sounding before the note; the long-tone sine
 ### SW-30 · 2026-11-09 — crescendo 05 at 127 → 134 s (SwCres05a)
 
 *His words:* *"127 to 134 c5"* — read as crescendo 05 from the take SwCres05a, the series' next rate, 9 beats a second (SwCres04a left for a later one).
+
+### SW-31 · 2026-11-09 — crescendo at 137 → 144.15 s on C OCTAVES from C3 up, "as best as can fit"
+
+*His words:* *"137 144.15 c octaves c3 up as best as can fit"*
+
+*The AI's reading (not his):* the next crescendo of the series (→ 10 beats a second), its harmony a ladder of octaves of C from C3, one per
+instrument as their ranges allow: cello C3 · sax C4 · clarinet C5 · flute C6 · violin C7 · the crotale C8 (its top key, C6, sounding two octaves up).
