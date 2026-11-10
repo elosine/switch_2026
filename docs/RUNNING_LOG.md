@@ -2448,3 +2448,15 @@ after his edits** (his "swap volumes when we run this section"). The measurement
 same loudness, a softer tongue. If that timbre is wrong, the other lever is the FADER: a CC7 offset per wind for the section (the law's own
 device, level on the fader, timbre on the velocity) — to build at his word. **Verification:** every mapped note played isolated through the
 rack (`part_meter.js --isolate 0.75`), the levels by written mark across the six — its line follows.
+**VERIFIED (every mapped note played isolated through the rack, `part_meter.js --isolate 0.75`, the level by WRITTEN mark, dBFS peak):**
+| | mf | f | ff | fff |
+|---|---|---|---|---|
+| Flute | −16.6 (1) | −19.0 (8) | −14.3 (26) | −11.9 (9) |
+| Clarinet | −18.5 (1) | −17.9 (3) | −12.8 (24) | −11.6 (14) |
+| Alto Sax | −17.6 (2) | −16.7 (15) | −13.7 (26) | −11.5 (11) |
+| Glockenspiel | — | −16.7 (12) | −13.4 (44) | −9.9 (6) |
+| Piano | −19.2 (12) | −14.1 (18) | −13.0 (45) | −13.2 (34) |
+| Violin | — | −19.5 (8) | −14.5 (26) | −13.7 (13) |
+**At ff — the section's bulk, 191 notes — the six parts lie within 1.7 dB of each other (−12.8 … −14.5); at fff within 3.8 (the piano and the violin
+at their ceilings, −13); at f within 5 (few notes, pitch-dependent).** Before the map the same written velocity stood 15 … 20 dB apart. The pass's
+raw series and per-note peaks: `probes/part_meter/piece-Section02-B-08ctpt-VolFix-*.json` (scratch, not committed).
