@@ -240,7 +240,8 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 | ☑ | The beating pairs built (SW-10 … SW-31; 1a.9) · the counterpoint's volume fix (§136) | — | — |
 | ☑ | THE MIDI SHORE-UP, the text half (§143 · §144; PLAN § 1c): the alive map · the prepared piano's channels · the flute's tongue ram · the jet whistle and the slaps on their own parts, no keyswitch · the battery completed (brake drums · bass drum · tam-tams cloned; the snare's track) · the lessons in the home's protocol | — | — |
 | **►** | **HIS HANDS, PLAN § 1c step 4** — the snare's load · the piano's curve copies (`curve_slots.lua` inside Kontakt) · the plucked slot to ch 5 — then his CTRL+S; **his ear** on the saves (the beating crescendos; the slaps: which part is which) | Fable | — |
-| — | 1d the articulation deal (SW-35 into the counterpoint; ranges · swaps · longer notes for flz and bow pressure) · 1e the level map per articulation | Fable (design) · Opus (build) | at the step |
+| ☑ | 1d the articulation deal BUILT (§145: `artic_deal.js`, the decks `bank/artic_deal.json`; the first deal `scores/piece-Section02-C-artics-01`) · 1e the level map per articulation (26 voices measured and mapped, §146) | — | — |
+| — | **His ear on `piece-Section02-C-artics-01`** (the deal's markers name each container's articulation; `--seed` re-deals; the decks are his to edit) — then the next section | Fable | — |
 | — | The method's steps 2 … 4 (SW-11): the gliss speed · ONE drawn crescendo read by the sine AND the sax · the electronics under them, quickly | Fable (design) · Opus (build) | at the step |
 | — | The other lanes by SW-15's algorithm (`bank/beat_saw.json` to write; `beat_saw.js --roll`): clarinet F5 · flute F6 · vibraphone / glockenspiel F6–F7 (the sine moves) · violin F4 · cello F3 | Opus | yes |
 | — | 1a.7 step 6 the bounce, when he reaches it · the tuplets' keepers by seed | Opus | — |

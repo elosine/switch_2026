@@ -688,24 +688,28 @@ const ARO_PERC = {   // 12 instrument(s) selected 2026-11-10: bongos ch1 · shim
     { slug: "brake_drums", name: "Brake Drums", library: "ARO Metal Percussion", status: "verified", port: "SWPerc", channel: 9, techniques: [
       { key: "brake_drums_poly_beater", label: "Brake Drums — Poly Beater", channel: 9, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 43,
         keys: [{"midi":36,"label":"Low · Hit L"},{"midi":37,"label":"Middle · Hit L"},{"midi":38,"label":"Low · Hit R"},{"midi":39,"label":"Middle · Hit R"},{"midi":41,"label":"High · Hit L"},{"midi":43,"label":"High · Hit R"}] },
-      { key: "brake_drums_rubber_mallets", label: "Brake Drums — Rubber Mallets", channel: 9, kind: "key", loud: "vel", rangeLow: 60, rangeHigh: 67,
-        keys: [{"midi":60,"label":"Low · Hit L"},{"midi":61,"label":"Middle · Hit L"},{"midi":62,"label":"Low · Hit R"},{"midi":63,"label":"Middle · Hit R"},{"midi":65,"label":"High · Hit L"},{"midi":67,"label":"High · Hit R"}] },
+      { key: "brake_drums_rubber_mallets", label: "Brake Drums — Rubber Mallets", channel: 9, kind: "key", loud: "vel", rangeLow: 48, rangeHigh: 55,
+        keys: [{"midi":48,"label":"Low · Hit L"},{"midi":49,"label":"Middle · Hit L"},{"midi":50,"label":"Low · Hit R"},{"midi":51,"label":"Middle · Hit R"},{"midi":53,"label":"High · Hit L"},{"midi":55,"label":"High · Hit R"}] },
     ] },
-    { slug: "gran_cassa", name: "Gran Cassa (Bass Drum GC)", library: "ARO Low Percussion", status: "predicted", port: "SWPerc", channel: 10, techniques: [
+    { slug: "gran_cassa", name: "Gran Cassa (Bass Drum GC)", library: "ARO Low Percussion", status: "partial", port: "SWPerc", channel: 10, techniques: [
       { key: "gran_cassa_sticks", label: "Gran Cassa (Bass Drum GC) — Sticks", channel: 10, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 40,
         keys: [{"midi":36,"label":"Hit L"},{"midi":38,"label":"Hit R"},{"midi":40,"label":"Roll"}] },
+      { key: "gran_cassa_sticks_hard_felt", label: "Gran Cassa (Bass Drum GC) — Sticks / Hard Felt", channel: 10, kind: "key", loud: "vel", rangeLow: 37, rangeHigh: 44,
+        keys: [{"midi":37,"label":"sounds (key sweep 2026-11-10; the name is the block’s)"},{"midi":39,"label":"sounds (key sweep 2026-11-10; the name is the block’s)"},{"midi":42,"label":"sounds (key sweep 2026-11-10; the name is the block’s)"},{"midi":44,"label":"sounds (key sweep 2026-11-10; the name is the block’s)"}] },
       { key: "gran_cassa_hard_felt", label: "Gran Cassa (Bass Drum GC) — Hard Felt", channel: 10, kind: "key", loud: "vel", rangeLow: 41, rangeHigh: 45,
         keys: [{"midi":41,"label":"Hit L"},{"midi":43,"label":"Hit R"},{"midi":45,"label":"Roll"}] },
       { key: "gran_cassa_medium_felt", label: "Gran Cassa (Bass Drum GC) — Medium Felt", channel: 10, kind: "key", loud: "vel", rangeLow: 48, rangeHigh: 52,
         keys: [{"midi":48,"label":"Hit L"},{"midi":50,"label":"Hit R"},{"midi":52,"label":"Roll"}] },
+      { key: "gran_cassa_medium_felt_poly_beater", label: "Gran Cassa (Bass Drum GC) — Medium Felt / Poly Beater", channel: 10, kind: "key", loud: "vel", rangeLow: 49, rangeHigh: 56,
+        keys: [{"midi":49,"label":"sounds (key sweep 2026-11-10; the name is the block’s)"},{"midi":51,"label":"sounds (key sweep 2026-11-10; the name is the block’s)"},{"midi":54,"label":"sounds (key sweep 2026-11-10; the name is the block’s)"},{"midi":56,"label":"sounds (key sweep 2026-11-10; the name is the block’s)"}] },
       { key: "gran_cassa_poly_beater", label: "Gran Cassa (Bass Drum GC) — Poly Beater", channel: 10, kind: "key", loud: "vel", rangeLow: 53, rangeHigh: 57,
         keys: [{"midi":53,"label":"Hit L"},{"midi":55,"label":"Hit R"},{"midi":57,"label":"Roll"}] },
       { key: "gran_cassa_super_soft", label: "Gran Cassa (Bass Drum GC) — Super Soft", channel: 10, kind: "key", loud: "vel", rangeLow: 60, rangeHigh: 64,
-        keys: [{"midi":60,"label":"Hit L"},{"midi":62,"label":"Hit R"},{"midi":64,"label":"Roll"}] },
+        keys: [{"midi":60,"label":"Hit L"},{"midi":61,"label":"sounds (key sweep 2026-11-10; the name is the block’s)"},{"midi":62,"label":"Hit R"},{"midi":63,"label":"sounds (key sweep 2026-11-10; the name is the block’s)"},{"midi":64,"label":"Roll"}] },
       { key: "gran_cassa_brushes", label: "Gran Cassa (Bass Drum GC) — Brushes", channel: 10, kind: "key", loud: "vel", rangeLow: 65, rangeHigh: 69,
         keys: [{"midi":65,"label":"Hit L"},{"midi":67,"label":"Hit R"},{"midi":69,"label":"Roll"}] },
-      { key: "gran_cassa_rute_on_rim", label: "Gran Cassa (Bass Drum GC) — Rute on Rim", channel: 10, kind: "key", loud: "vel", rangeLow: 72, rangeHigh: 76,
-        keys: [{"midi":72,"label":"Hit L"},{"midi":74,"label":"Hit R"},{"midi":76,"label":"Roll"}] },
+      { key: "gran_cassa_rute_on_rim", label: "Gran Cassa (Bass Drum GC) — Rute on Rim", channel: 10, kind: "key", loud: "vel", rangeLow: 71, rangeHigh: 75,
+        keys: [{"midi":71,"label":"sounds (key sweep 2026-11-10; the name is the block’s)"},{"midi":72,"label":"Hit L"},{"midi":73,"label":"sounds (key sweep 2026-11-10; the name is the block’s)"},{"midi":74,"label":"Hit R"},{"midi":75,"label":"sounds (key sweep 2026-11-10; the name is the block’s)"}] },
     ] },
     { slug: "tam_tams_a", name: "Tam Tams A", library: "ARO Metal Percussion", status: "verified", port: "SWPerc", channel: 11, techniques: [
       { key: "tam_tams_a_tam_tam_mallet", label: "Tam Tams A — Tam Tam Mallet", channel: 11, kind: "key", loud: "vel", rangeLow: 36, rangeHigh: 44,
@@ -838,6 +842,22 @@ function applyMeasuredBend(all, measured) {   // the measured range replaces the
 }
 applyMeasuredBend(INSTRUMENTS, MEASURED_BEND);
 // ---- end of the measured bend ranges ----
+
+// ---- MEASURED KEYS (generated by tools/apply_keys.js — do not edit by hand) ----
+const MEASURED_KEYS = {   // the keys a by-key voice sounds on, read by tools/key_sweep.js; bank/measured_keys.json is the source
+  violin: {
+    "pizz_behind_bridge_vel": [55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76],   // 2026-11-10 (§146) · key_sweep.js "Violin XS" --cc0 80 --keys 36-103: 55 … 76 sound (G2 … E4), nothing outside; levels −23.6 … −26.4 dB at 100
+  },
+};
+function applyMeasuredKeys(all, measured) {   // a by-key voice gets its measured key table and the span of those keys as its range
+  for (const [inst, voices] of Object.entries(measured || {})) {
+    const I = all[inst]; if (!I) continue;
+    for (const [key, ks] of Object.entries(voices)) { const q = I.techniques.find((t) => t.key === key); if (!q || !ks || !ks.length) continue;
+      q.keys = ks.map((m) => ({ midi: m, label: "key " + m + " (measured)" })); q.rangeLow = Math.min(...ks); q.rangeHigh = Math.max(...ks); q.keysMeasured = true; }
+  }
+}
+applyMeasuredKeys(INSTRUMENTS, MEASURED_KEYS);
+// ---- end of the measured keys ----
 
 
 // ---- 1m.4.1 (2026-09-22): THE SI2 THREE KNOW THEMSELVES ----

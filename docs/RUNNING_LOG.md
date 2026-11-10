@@ -2665,3 +2665,40 @@ cassa's medium felt · one roll per lane (each lane changes articulation at its 
 uses, keyed `instKey:technique`; `--apply` maps each note by its own technique's curve; an older per-lane file still reads. Two details from
 §144's lessons: the grid plays its loudest velocity first in each pitch block (the series aligns on the first sound heard; a velocity-16 note can
 be under the threshold), and no CC7 is sent on the Spitfire port. The measure of the 26 voices runs after the alive sweep (the meter is one).
+
+## §146. The level map per articulation, first run — what the measure found, and the three fixes it forced (2026-11-10)
+
+**The first measure of the 26 voices** (`section_level.js --measure` on `piece-Section02-C-artics-01`) read three voices at NOTHING and
+several far down; the first `--apply` then put the target 120 dB under the floor — every note sent at velocity 1. Three faults, each fixed:
+1. **The meter took the wrong track for the piano's voices.** `part_meter.lua` found the first track on the port that matched the channel
+   OR listened to all channels — on `SWPiano` that is `Piano Kontakt` (all channels) for EVERY channel, so the prepared piano's muted and
+   plucked voices were metered on the Steinway's track and read −150. Now a track filtering exactly the channel wins; the all-channel track
+   is the fallback.
+2. **A voice that reads nothing must not shape the field.** `--apply` now leaves out any voice whose top is under −60 dB (a dead part, an
+   unloaded preset, dead keys — the plucked piano until his Kontakt step) and takes the target as the mean of the LIVE voices.
+3. **Two percussion key maps were wrong, and one by-key voice had no keys.** `tools/key_sweep.js` on the three cloned instruments: the
+   brake drums' All in One sounds 36 … 39 · 41 · 43 (poly beater) and 48 … 51 · 53 · 55 (rubber — the catalog had that block at 60 … 67, an
+   octave up, so every rubber-mallet note was dead); the gran cassa sounds 36 … 45 · 48 … 57 · 60 … 65 · 67 · 69 · 71 … 75 (the catalog's
+   "predicted" map had every other key — the rute on the rim at 72 · 74 · 76 half dead); the tam-tam A's sweep is masked by its own ring
+   (keys 42 · 43 · 45 … 59 read under the ringing — the sweep waits 2.5 s at most; its catalog entry, verified in piece 5, stands).
+   `bank/aro_percussion_catalog.json` corrected for the two (the catalog's names kept where its key sounds, the rest named by their block;
+   the gran cassa's status `partial`), `apply_perc.js` re-run (44 techniques). **The violin's pizzicato behind the bridge** is a BY-KEY voice
+   whose keys the recipe held as "pending" since the start — the deal had folded pitches into a range the sampler does not play. Swept with
+   its preset (CC0 80): **55 … 76 sound** (G2 … E4, −23.6 … −26.4 dB at 100), nothing outside. A new mechanism on the lineage's pattern:
+   `bank/measured_keys.json` → `tools/apply_keys.js` → a MEASURED_KEYS block in the recipe (`applyMeasuredKeys` gives the voice its key
+   table and the keys' span as its range) — the first of the 27 pending by-key voices measured; the rest go the same way as the music
+   asks for them. `artic_deal.js` deals a by-key voice onto its nearest key (its behind-the-bridge notes now on 55 · 64 · 71 · 76).
+**The deal re-run** (seed 17, the same containers): 366 notes · 230 changed · 53 grown · 13 folded · 10 swapped · 51 strikes. **The re-measure
+of the percussion, piano and violin voices** (`--lanes` now MERGES into the existing measurement) and the map follow below.
+
+**The re-measure (percussion · piano · violin), and the map.** The prepared piano's muted voice now reads on ITS track (−27 … −4.7 dB, 16 … 127);
+the plucked piano reads nothing (the dead instance — his Kontakt step) and is left out; the brake drums' rubber block sounds (−38 … −13.3);
+the rute on the rim −50 … −22; the violin's behind-the-bridge keys −35 … −19.7. **One more rule the field needed:** three voices sit far under
+everyone — the china scrape (top −36.9), the spring coil (−26.8), the gran cassa's medium felt (−27.9, flat across velocity) — and the rule
+"the ceiling is the quietest voice's top" sank every other voice to velocity 1. Now a SOFT VOICE (its top more than 12 dB under the mean top,
+`--soft-floor`) stays in the map but does not set the ceiling: it is sent at 127 where the target is above it and reported. The field's top
+is then −22.1 dB (the rute on the rim); 347 notes mapped. **What this means, and his one decision:** the SI2 voices (tops −2 … −8 dB) reach
+−22 only near the bottom of their velocity range — the winds' staccati and flutters are sent at written −85 … −100, their softest samples
+(SECTION_LEVEL.md "what 127 means"). The other lever is a CC7 OFFSET PER VOICE (level on the fader, timbre on the velocity; Kontakt and UVI
+take CC7, Spitfire does not) — the composer's notes carry `cc7Abs` already; a `--cc7` mode of the apply would send each voice's offset and keep
+the velocities near the written ones. Built at his word (NITS has the row); until then the field stands as mapped, his ear to judge.

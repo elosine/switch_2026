@@ -273,13 +273,16 @@ any piece); this piece holds its USES — the set's files, the settings, the fou
      `howto/rack.md` § 4; `howto/kontakt.md` § 2) and to `docs/PROTOCOL_DEVIATIONS.md`: container 4's first sound becomes THE ALIVE MAP;
      every recipe technique probed; a KS preset an articulation needs is split at 4.4; a UVI push is followed by the reload.
 
-- **1d THE ARTICULATION DEAL — his chosen articulations distributed into the counterpoint** (SW-35; his ask 2026-11-10) — `todo`
+- **1d THE ARTICULATION DEAL — his chosen articulations distributed into the counterpoint** (SW-35; his ask 2026-11-10) — ☑ built 2026-11-10
+  (§145: `tools/artic_deal.js` · `bank/artic_deal.json`; the first deal in `scores/piece-Section02-C-artics-01`, seed 17, markers on — his ear;
+  the decks are his to edit, the tool re-dealt with `--seed`)
   ***Why:*** *"an algorithm to distribute my chosen articulations into the counterpoint section"* — per lane a list, dealt on rolled time
   containers (the harmony roll's hexagrams, 1b), with the rules he gave: a pitch outside an articulation's range swaps the articulation
   (or folds the octave); the flutter tongues and the bow pressures want LONGER notes — a note too short for them is grown or dealt another.
   The tool reads the recipe's ranges, writes `technique` per note, keeps the old one (`properties.artic.was`), `--undo`.
 
-- **1e THE LEVEL MAP PER ARTICULATION** (his ask 2026-11-10) — `todo`
+- **1e THE LEVEL MAP PER ARTICULATION** (his ask 2026-11-10) — `doing` (§145: `section_level.js` measures one voice per (lane, technique);
+  the 26 voices of `piece-Section02-C-artics-01` measured and mapped 2026-11-10 — §146 has the numbers)
   ***Why:*** *"per-articulation volume normalization against a standard level"* — `section_level.js` measured one voice per PART; with 1d a
   part plays several. The measure becomes per (lane, technique) — the curve of each voice the section uses — and the map per note by ITS
   technique; where velocity alone cannot reach the level (the SI2 staccatos' 14 dB), a CC7 offset per voice (NITS' lever).

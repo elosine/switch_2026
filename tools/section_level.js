@@ -84,7 +84,9 @@ const interp = (pts, x, ix = 0, iy = 1) => { if (x <= pts[0][ix]) return pts[0][
     const lanes = sectionLanes(); if (!lanes.length) die('no played notes in the window');
     if (has('measure')) {
         const vels = String(arg('vels', '16,32,48,64,80,96,112,127')).split(',').map(Number), GAP = +arg('gap', 0.75), LEAD = 1, DUR = 0.35;
-        const out = { score: name, from, to, when: new Date().toISOString(), measure: 'the receiving track\'s peak (Track_GetPeakInfo, post-fader) over each isolated note, dBFS', vels, lanes: {} };
+        // with --lanes an existing measurement is kept and only the named lanes' voices re-measured (a re-measure after a fix, §146)
+        const out = (lanesArg && fs.existsSync(levelsFile)) ? Object.assign(JSON.parse(fs.readFileSync(levelsFile, 'utf8')), { when: new Date().toISOString() }) : { score: name, from, to, when: new Date().toISOString(), measure: 'the receiving track\'s peak (Track_GetPeakInfo, post-fader) over each isolated note, dBFS', vels, lanes: {} };
+        if (lanesArg) for (const k of Object.keys(out.lanes)) if (lanes.some((L) => L.key === k)) delete out.lanes[k];
         for (const L of lanes) {
             const ev = L.noCC7 ? [] : [[0, 0xB0 | L.ch, 7, 127]]; if (L.tech.cc0 != null) ev.push([0, 0xB0 | L.ch, 0, L.tech.cc0]);
             const grid = []; let k = 0;
@@ -113,7 +115,21 @@ const interp = (pts, x, ix = 0, iy = 1) => { if (x <= pts[0][ix]) return pts[0][
         // THE TOP OF THE FIELD: the mean curve's top sits above what the quieter voices give at 127 (the piano, the violin, the glock reach
         // −9 … −10 dB; the winds −2 … −7). The target is the mean curve SHIFTED so its 127 equals the quietest voice's top — every part can reach
         // every level, the winds are brought down to meet them (--top mean keeps the raw mean and clamps the short ones at 127)
-        const tops = Object.values(M.lanes).map((m) => m.curve[m.curve.length - 1][1]), meanTop = M.target[M.target.length - 1][1];
+        // a voice that read NOTHING (its top under −60 dB: a dead part, an unloaded preset, dead keys) is left out of the field — it would drag
+        // the target to silence (§146: three such voices pulled the target 120 dB down)
+        const dead = Object.entries(M.lanes).filter(([, m]) => m.curve[m.curve.length - 1][1] < -60).map(([k]) => k);
+        for (const k of dead) delete M.lanes[k];
+        if (dead.length) console.log('left out (read nothing): ' + dead.join(', '));
+        const live = Object.values(M.lanes); if (!live.length) die('no voice read anything');
+        M.target = monotone(M.vels.map((v) => [v, r1(live.reduce((a, m) => a + interp(m.curve, v), 0) / live.length)]));   // the mean of the LIVE voices
+        // THE SOFT VOICES (§146): a voice whose top sits more than --soft-floor dB (12) under the mean top — a cymbal scrape, a spring coil —
+        // cannot reach the field; letting it set the ceiling sank every other voice to velocity 1. It stays IN the map (sent at its 127 where
+        // the target is above it, and reported) but does not set the top; a CC7 offset per voice is the lever beyond that (NITS).
+        const meanTop0 = M.target[M.target.length - 1][1], SOFT = +arg('soft-floor', 12);
+        const soft = Object.entries(M.lanes).filter(([, m]) => m.curve[m.curve.length - 1][1] < meanTop0 - SOFT).map(([k]) => k);
+        if (soft.length) console.log('soft voices (more than ' + SOFT + ' dB under the mean top — they do not set the ceiling): ' + soft.join(', '));
+        const setters = Object.entries(M.lanes).filter(([k]) => !soft.includes(k)).map(([, m]) => m);
+        const tops = setters.map((m) => m.curve[m.curve.length - 1][1]), meanTop = meanTop0;
         const shift = arg('top', 'min') === 'mean' ? 0 : Math.min(0, Math.min(...tops) - meanTop);
         if (shift) M.target = M.target.map(([v, d]) => [v, r1(d + shift)]);
         console.log('the target curve' + (shift ? ' (the mean, shifted ' + r1(shift) + ' dB so its top is the quietest voice\'s top)' : '') + ': ' + M.target.map((c) => c[0] + ':' + c[1]).join(' ') + ' dB');

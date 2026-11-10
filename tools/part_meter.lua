@@ -11,7 +11,10 @@ for t = 0, reaper.CountTracks(0) - 1 do
     if nm == CFG.track then tr = x; trName = nm; break end
   elseif rin >= 4096 then
     local d = (rin - 4096) >> 5; local ch = (rin - 4096) & 31
-    if d == dev and (ch == 0 or (CFG.channel or 0) == 0 or ch == CFG.channel) then tr = x; trName = nm; break end
+    -- the track that filters EXACTLY this channel wins; a track on all channels is the fallback (§146: the piano's all-channel Kontakt track
+    -- had been taken for every piano voice, and the prepared piano's tracks never metered)
+    if d == dev and (CFG.channel or 0) ~= 0 and ch == CFG.channel then tr = x; trName = nm; break end
+    if d == dev and not tr and (ch == 0 or (CFG.channel or 0) == 0) then tr = x; trName = nm end
   end
 end
 if not tr then return { ok = false, error = CFG.track and ('no track named ' .. CFG.track) or ('no track listens to ' .. CFG.port .. ' ch ' .. tostring(CFG.channel)) } end

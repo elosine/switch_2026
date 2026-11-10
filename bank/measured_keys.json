@@ -1,0 +1,33 @@
+{
+ "_what": "THE MEASURED KEYS of the by-key voices (tools/apply_keys.js writes them into sandbox/instruments.js as MEASURED_KEYS). Read by tools/key_sweep.js on the live rack; the entry names when and how.",
+ "violin": {
+  "pizz_behind_bridge_vel": {
+   "keys": [
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76
+   ],
+   "when": "2026-11-10 (§146)",
+   "how": "key_sweep.js \"Violin XS\" --cc0 80 --keys 36-103: 55 … 76 sound (G2 … E4), nothing outside; levels −23.6 … −26.4 dB at 100"
+  }
+ }
+}

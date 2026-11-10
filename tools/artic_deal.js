@@ -47,7 +47,10 @@ const shuffle = (a) => { const b = a.slice(); for (let i = b.length - 1; i > 0; 
 const techOf = (instKey, key) => (INSTRUMENTS[instKey] || { techniques: [] }).techniques.find((q) => q.key === key);
 const rangeOf = (instKey, q) => { const I = INSTRUMENTS[instKey]; return [q.rangeLow != null ? q.rangeLow : I.rangeLow, q.rangeHigh != null ? q.rangeHigh : I.rangeHigh]; };
 const fold = (p, lo, hi) => { let x = p; while (x < lo) x += 12; while (x > hi) x -= 12; return x >= lo && x <= hi ? x : null; };
-const nearestKey = (p, q) => { if (q.keys && q.keys.length) return q.keys.reduce((b, k) => Math.abs(k.midi - p) < Math.abs(b.midi - p) ? k : b, q.keys[0]).midi; return null; };
+// the keys of a by-key voice, whatever shape the recipe gives them: [{midi, label}] (a strike's table), [60, 62 …], or {midi: label} / {label: midi}
+// a by-key voice whose keys are still "pending" (a string) has NO key table: its pitch is folded into the range instead
+const keyList = (q) => { const k = q.keys; if (!k || typeof k !== 'object') return []; if (Array.isArray(k)) return k.map((x) => (typeof x === 'number' ? x : x && x.midi)).filter((x) => Number.isFinite(x)); const ks = Object.keys(k).map(Number); if (ks.every(Number.isFinite)) return ks; return Object.values(k).map(Number).filter(Number.isFinite); };
+const nearestKey = (p, q) => { const ks = keyList(q); if (!ks.length) return null; return ks.reduce((b, k) => Math.abs(k - p) < Math.abs(b - p) ? k : b, ks[0]); };
 
 const notesAll = s.objects.filter((o) => o.type === 'waveCurve' && o.sonifyNote != null && o.startSeconds >= from && o.startSeconds < to && !TRACKS[o.layer].elec);
 const report = []; let changed = 0, grown = 0, swapped = 0, folded = 0, moved = 0; const tally = {};
@@ -82,7 +85,7 @@ for (const [laneId, deckRaw] of Object.entries(DECK.decks)) {
         let pick = null, pitch = was.sonifyNote, end = was.endSeconds, how = '';
         for (const d of order) {
             let p = was.sonifyNote;
-            if (d.moves) { p = nearestKey(was.sonifyNote, d.q); if (p == null) p = fold(was.sonifyNote, d.range[0], d.range[1]); if (p == null) p = d.range[0]; }
+            if (d.moves || d.q.kind === 'key' || (d.q.keys && d.q.keys.length)) { p = nearestKey(was.sonifyNote, d.q); if (p == null) p = fold(was.sonifyNote, d.range[0], d.range[1]); if (p == null) p = d.range[0]; if (!d.moves) how += 'keyed '; }   // a by-key voice (the strings' behind-the-bridge pizzicato, a strike): the pitch becomes its nearest KEY
             else if (p < d.range[0] || p > d.range[1]) { const f = fold(p, d.range[0], d.range[1]); if (f == null) { if (d === c.deal) how += 'range '; continue; } p = f; how += 'folded '; }
             let e = was.endSeconds;
             if (LONG.has(d.key) && dur < LONG_MIN) { if (room >= LONG_MIN * ROOM_SHARE) { e = r3(o.startSeconds + Math.min(LONG_MIN, room)); how += 'grown '; } else { if (d === c.deal) how += 'no-room '; continue; } }
