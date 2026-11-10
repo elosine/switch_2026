@@ -2508,3 +2508,27 @@ re-deal keeps the counterpoint's contour and not the previous deal's. **Written 
 **His words:** *"Okay, let's do the longest — let's make them 1.5 seconds. And then we'll take shorts down to 0.5."* **Re-rolled:** longs 1.1 … 1.5 s,
 shorts 0.5 … 0.8 (the class bounds scaled inside his 0.5 … 1.5), the same runs rule, seed 17 — the containers and the deal in the tool's line
 above this entry's commit. NOT CLAIMED: his ear.
+
+## §142. His three articulation questions, measured: the flute's tongue ram, the jet whistle, the violin's pizzicato (2026-11-10)
+
+**His words:** *"Harmonies good. Articulations: keep flatterzunge, staccato for flute; flute tongue ram and jet whistle sound the same? Can you work
+out if one of them needs changing? Pizz not working."*
+
+**The tool (`tools/artic_probe.js`, new):** isolated items into one port — a CC0 or a keyswitch at a lead, a note, its length — the receiving track's
+peak sampled in Reaper; per item the peak and the level at 0.1 · 0.3 · 0.6 · 1.0 · 1.4 s after the onset: a sustaining voice holds, a plucked or
+struck one decays, a dead preset reads nothing (`part_meter.ps1` · `.lua` behind it).
+
+**The flute's FX KS part (ch 5), G4 at 100:** jet whistle (C1 = 36): −5.1 peak, −15.9 → −8 → −15 → −28 — a SWELL, its own shape · key click (C#1 =
+37): −6.8, −8 → −14 → −24 → −35 · tongue ram (D1 = 38): −6, −6 → −12 → −22 → −34 · NO keyswitch: −6, −7 → −13 → −21 → −34. **So D1 switches nothing —
+tongue ram and the bare preset are the same sound (the key click's), and only C1 is a switch that changes it.** The recipe had said so since
+piece 4 ("UNVERIFIED … his word 2026-09-04: i dont see a tongue ram in the sampler"). SI2's tongue ram is its "Flute Pizzicato" preset (the
+recipe's `pizzicato` key, `notate: "tongue ram"`, part 13): **SILENT here** (−79 dB: the part is not loaded in this rack's UVI). **Done:** the
+recipe's `tongue_ram` now IS the Flute Pizzicato preset on channel 13 (`placed: false` until his hand loads it; the duplicate `pizzicato` key
+folded in). His hand: UVI, the flute instance, part 13 ← "Flute Pizzicato", MIDI channel 13. The jet whistle stays as it is — it works.
+
+**The violin's pizzicato, A4 at 100 (`cc0` = the preset − 1):** senza (5) SUSTAINS −24 … −25; pizz #70 (69) DECAYS −15 → −21 → −30 → −42 → −56; pizz
+vib #71, pizz open #72 (an open A), sul pont #77 — all decay; a note with no CC0 after keeps the last preset. With the CC0 at the SAME INSTANT as the
+note (the drawer's audition sends them back to back): still a pizz, 3 dB softer at the attack. **The sampler's pizzicato works by every road
+measured.** Not found: WHERE his pizz failed — the drawer's row, the Rec row, or playback — and WHICH entry: the open-strings and harmonics
+pizzicati are FIXED-pitch presets (`kind: "fixed"` — only their own strings sound; any other pitch is silent), and `pizz_x_sp_mw` needs the wheel.
+Asked.
