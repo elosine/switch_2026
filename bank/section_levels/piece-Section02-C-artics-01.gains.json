@@ -1,0 +1,450 @@
+{
+ "score": "piece-Section02-C-artics-01",
+ "when": "2026-11-10T21:48:58.701Z",
+ "what": "per articulation voice: the mean dB from its lane's ordinary over the section's written velocities; applied as a UVI part gain or an ARO track trim; Kontakt voices left to section_level.js --apply",
+ "rows": [
+  {
+   "voice": "percussion:brake_drums_poly_beater",
+   "track": "Brake Drums ARO",
+   "port": "SWPerc",
+   "channel": 9,
+   "notes": 16,
+   "gainDb": 2.4,
+   "spreadDb": 3.1,
+   "kind": "aro-track"
+  },
+  {
+   "voice": "percussion:brake_drums_rubber_mallets",
+   "track": "Brake Drums Rubber Mallets ARO",
+   "port": "SWPerc",
+   "channel": 14,
+   "notes": 9,
+   "gainDb": 6.8,
+   "spreadDb": 3.9,
+   "kind": "aro-track"
+  },
+  {
+   "voice": "percussion:china_cymbals_scrape",
+   "track": "China Cymbal ARO",
+   "port": "SWPerc",
+   "channel": 5,
+   "notes": 8,
+   "gainDb": 22.6,
+   "spreadDb": 4.9,
+   "kind": "aro-track"
+  },
+  {
+   "voice": "percussion:gran_cassa_medium_felt",
+   "track": "Bass Drum ARO",
+   "port": "SWPerc",
+   "channel": 10,
+   "notes": 3,
+   "gainDb": 13,
+   "spreadDb": 0.9,
+   "kind": "aro-track"
+  },
+  {
+   "voice": "percussion:gran_cassa_rute_on_rim",
+   "track": "Bass Drum Rim ARO",
+   "port": "SWPerc",
+   "channel": 13,
+   "notes": 10,
+   "gainDb": 14.6,
+   "spreadDb": 2.9,
+   "kind": "aro-track"
+  },
+  {
+   "voice": "percussion:small_metals_spring_coil",
+   "track": "Spring Coil ARO",
+   "port": "SWPerc",
+   "channel": 6,
+   "notes": 5,
+   "gainDb": 20.3,
+   "spreadDb": 3.3,
+   "kind": "aro-track"
+  },
+  {
+   "voice": "alto_sax:double_tonguing",
+   "track": "Alto Sax SI2",
+   "port": "SWSax",
+   "channel": 8,
+   "notes": 11,
+   "gainDb": 3.3,
+   "spreadDb": 4.1,
+   "kind": "uvi-part"
+  },
+  {
+   "voice": "alto_sax:flz",
+   "track": "Alto Sax SI2",
+   "port": "SWSax",
+   "channel": 11,
+   "notes": 10,
+   "gainDb": 2,
+   "spreadDb": 4,
+   "kind": "uvi-part"
+  },
+  {
+   "voice": "alto_sax:slap_exploding",
+   "track": "Alto Sax SI2 b",
+   "port": "SWSaxb",
+   "channel": 9,
+   "notes": 9,
+   "gainDb": 2.8,
+   "spreadDb": 4.7,
+   "kind": "uvi-part"
+  },
+  {
+   "voice": "alto_sax:slap_pitched",
+   "track": "Alto Sax SI2 b",
+   "port": "SWSaxb",
+   "channel": 7,
+   "notes": 12,
+   "gainDb": 2.6,
+   "spreadDb": 4.9,
+   "kind": "uvi-part"
+  },
+  {
+   "voice": "alto_sax:staccato",
+   "track": "Alto Sax SI2 b",
+   "port": "SWSaxb",
+   "channel": 5,
+   "notes": 12,
+   "gainDb": 2.4,
+   "spreadDb": 4.2,
+   "kind": "uvi-part"
+  },
+  {
+   "voice": "clarinet:flz",
+   "track": "Clarinet SI2",
+   "port": "SWClar",
+   "channel": 5,
+   "notes": 21,
+   "gainDb": -1.8,
+   "spreadDb": 0.9,
+   "kind": "uvi-part"
+  },
+  {
+   "voice": "clarinet:staccato",
+   "track": "Clarinet SI2",
+   "port": "SWClar",
+   "channel": 12,
+   "notes": 21,
+   "gainDb": -3.5,
+   "spreadDb": 1.1,
+   "kind": "uvi-part"
+  },
+  {
+   "voice": "flute:flz",
+   "track": "Flute SI2",
+   "port": "SWFlute",
+   "channel": 7,
+   "notes": 10,
+   "gainDb": -0.2,
+   "spreadDb": 0.3,
+   "kind": "uvi-part"
+  },
+  {
+   "voice": "flute:jet_whistle",
+   "track": "Fluteb SI2",
+   "port": "SWFluteb",
+   "channel": 10,
+   "notes": 11,
+   "gainDb": 2.6,
+   "spreadDb": 0.7,
+   "kind": "uvi-part"
+  },
+  {
+   "voice": "flute:staccato",
+   "track": "Fluteb SI2",
+   "port": "SWFluteb",
+   "channel": 1,
+   "notes": 11,
+   "gainDb": 0.1,
+   "spreadDb": 1,
+   "kind": "uvi-part"
+  },
+  {
+   "voice": "flute:tongue_ram",
+   "track": "Flute SI2",
+   "port": "SWFlute",
+   "channel": 13,
+   "notes": 12,
+   "gainDb": 2,
+   "spreadDb": 2.7,
+   "kind": "uvi-part"
+  },
+  {
+   "voice": "piano:muted",
+   "track": "PianoMute PP2",
+   "port": "SWPiano",
+   "channel": 7,
+   "notes": 17,
+   "gainDb": -2.6,
+   "spreadDb": 1.6,
+   "kind": "uvi-part"
+  },
+  {
+   "voice": "bowed_vibraphone:glock_main_hard",
+   "track": "Glockenspiel RM",
+   "port": "SWGlock",
+   "channel": 2,
+   "notes": 11,
+   "gainDb": 3.9,
+   "spreadDb": 9.4,
+   "kind": "velocity"
+  },
+  {
+   "voice": "piano:plucked",
+   "track": "PianoPlucked Kontakt",
+   "port": "SWPiano",
+   "channel": 5,
+   "notes": 19,
+   "gainDb": 3.9,
+   "spreadDb": 2.9,
+   "kind": "velocity"
+  },
+  {
+   "voice": "violin:bartok_vel",
+   "track": "Violin XS",
+   "port": "SWViolin",
+   "channel": 1,
+   "notes": 5,
+   "gainDb": -19.5,
+   "spreadDb": 2.1,
+   "kind": "velocity"
+  },
+  {
+   "voice": "violin:bow_op_vel",
+   "track": "Violin XS",
+   "port": "SWViolin",
+   "channel": 1,
+   "notes": 12,
+   "gainDb": -11.6,
+   "spreadDb": 1.6,
+   "kind": "velocity"
+  },
+  {
+   "voice": "violin:col_legno_gett_vel",
+   "track": "Violin XS",
+   "port": "SWViolin",
+   "channel": 1,
+   "notes": 13,
+   "gainDb": -7.6,
+   "spreadDb": 3,
+   "kind": "velocity"
+  },
+  {
+   "voice": "violin:gettato_vel",
+   "track": "Violin XS",
+   "port": "SWViolin",
+   "channel": 1,
+   "notes": 7,
+   "gainDb": -10.8,
+   "spreadDb": 0.1,
+   "kind": "velocity"
+  },
+  {
+   "voice": "violin:pizz_behind_bridge_vel",
+   "track": "Violin XS",
+   "port": "SWViolin",
+   "channel": 1,
+   "notes": 10,
+   "gainDb": -6.4,
+   "spreadDb": 0.9,
+   "kind": "velocity"
+  }
+ ],
+ "applied": [
+  {
+   "voice": "alto_sax:double_tonguing",
+   "how": "uvi program gain 3.3 dB",
+   "line": "Alto Sax SI2 · part 8 (Saxophone Alto Double Tonguing): program gain 0 → 3.3 dB"
+  },
+  {
+   "voice": "alto_sax:flz",
+   "how": "uvi program gain 2 dB",
+   "line": "Alto Sax SI2 · part 11 (Saxophone Alto Flatterzunge): program gain 0 → 2 dB"
+  },
+  {
+   "voice": "alto_sax:slap_exploding",
+   "how": "uvi program gain 2.8 dB",
+   "line": "Alto Sax SI2 b · part 9 (Saxophone Alto Slap Modes KS - Exploding Slap Pitched): program gain 0 → 2.8 dB"
+  },
+  {
+   "voice": "alto_sax:slap_pitched",
+   "how": "uvi program gain 2.6 dB",
+   "line": "Alto Sax SI2 b · part 7 (Saxophone Alto Slap Modes KS - Slap Pitched): program gain 0 → 2.6 dB"
+  },
+  {
+   "voice": "alto_sax:staccato",
+   "how": "uvi program gain 2.4 dB",
+   "line": "Alto Sax SI2 b · part 5 (Saxophone Alto Staccato): program gain 0 → 2.4 dB"
+  },
+  {
+   "voice": "clarinet:flz",
+   "how": "uvi program gain -1.8 dB",
+   "line": "Clarinet SI2 · part 5 (Clarinet Flatterzunge): program gain 0 → -1.8 dB"
+  },
+  {
+   "voice": "clarinet:staccato",
+   "how": "uvi program gain -3.5 dB",
+   "line": "Clarinet SI2 · part 12 (Clarinet Staccato): program gain 0 → -3.5 dB"
+  },
+  {
+   "voice": "flute:flz",
+   "how": "uvi program gain -0.2 dB",
+   "line": "Flute SI2 · part 7 (Flute Flatterzunge): program gain 0 → -0.2 dB"
+  },
+  {
+   "voice": "flute:tongue_ram",
+   "how": "uvi program gain 2 dB",
+   "line": "Flute SI2 · part 13 (Flute Pizzicato): program gain 0 → 2 dB"
+  },
+  {
+   "voice": "flute:jet_whistle",
+   "how": "uvi program gain 2.6 dB",
+   "line": "Fluteb SI2 · part 10 (Flute FX KS - Jet Whistle): program gain 0 → 2.6 dB"
+  },
+  {
+   "voice": "flute:staccato",
+   "how": "uvi program gain 0.1 dB",
+   "line": "Fluteb SI2 · part 1 (Flute Staccato): program gain 0 → 0.1 dB"
+  },
+  {
+   "voice": "piano:muted",
+   "how": "uvi program gain -2.6 dB",
+   "line": "read back: xml identical to what was pushed = true | compressed 283029 | header 496"
+  },
+  {
+   "how": "aro track trims (fader + JS remainder)",
+   "trims": [
+    {
+     "name": "Brake Drums ARO",
+     "faderDb": -5.4,
+     "extraDb": 0
+    },
+    {
+     "name": "Brake Drums Rubber Mallets ARO",
+     "faderDb": 3.6,
+     "extraDb": 0
+    },
+    {
+     "name": "China Cymbal ARO",
+     "faderDb": 12,
+     "extraDb": 8
+    },
+    {
+     "name": "Bass Drum ARO",
+     "faderDb": 12,
+     "extraDb": 3.9
+    },
+    {
+     "name": "Bass Drum Rim ARO",
+     "faderDb": 12,
+     "extraDb": 6.5
+    },
+    {
+     "name": "Spring Coil ARO",
+     "faderDb": 12,
+     "extraDb": 8
+    }
+   ],
+   "result": {
+    "applied": 6,
+    "missingTracks": [],
+    "note": "not saved — his CTRL+S",
+    "ok": true,
+    "tracks": [
+     {
+      "extraAsked": 0,
+      "faderAsked": -5.4,
+      "faderDb": -5.4,
+      "fxDb": 0,
+      "fxIndex": 1,
+      "fxParam": "Adjustment (dB)",
+      "name": "Brake Drums ARO",
+      "ok": true
+     },
+     {
+      "extraAsked": 0,
+      "faderAsked": 3.6,
+      "faderDb": 3.6,
+      "fxDb": 0,
+      "fxIndex": 1,
+      "fxParam": "Adjustment (dB)",
+      "name": "Brake Drums Rubber Mallets ARO",
+      "ok": true
+     },
+     {
+      "extraAsked": 8,
+      "faderAsked": 12,
+      "faderDb": 12,
+      "fxDb": 8,
+      "fxIndex": 1,
+      "fxParam": "Adjustment (dB)",
+      "name": "China Cymbal ARO",
+      "ok": true
+     },
+     {
+      "extraAsked": 3.9,
+      "faderAsked": 12,
+      "faderDb": 12,
+      "fxDb": 3.9,
+      "fxIndex": 1,
+      "fxParam": "Adjustment (dB)",
+      "name": "Bass Drum ARO",
+      "ok": true
+     },
+     {
+      "extraAsked": 6.5,
+      "faderAsked": 12,
+      "faderDb": 12,
+      "fxDb": 6.5,
+      "fxIndex": 1,
+      "fxParam": "Adjustment (dB)",
+      "name": "Bass Drum Rim ARO",
+      "ok": true
+     },
+     {
+      "extraAsked": 8,
+      "faderAsked": 12,
+      "faderDb": 12,
+      "fxDb": 8,
+      "fxIndex": 1,
+      "fxParam": "Adjustment (dB)",
+      "name": "Spring Coil ARO",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "voice": "bowed_vibraphone:glock_main_hard",
+   "how": "velocity (section_level.js --apply maps it against the ordinary)"
+  },
+  {
+   "voice": "piano:plucked",
+   "how": "velocity (section_level.js --apply maps it against the ordinary)"
+  },
+  {
+   "voice": "violin:bartok_vel",
+   "how": "velocity (section_level.js --apply maps it against the ordinary)"
+  },
+  {
+   "voice": "violin:bow_op_vel",
+   "how": "velocity (section_level.js --apply maps it against the ordinary)"
+  },
+  {
+   "voice": "violin:col_legno_gett_vel",
+   "how": "velocity (section_level.js --apply maps it against the ordinary)"
+  },
+  {
+   "voice": "violin:gettato_vel",
+   "how": "velocity (section_level.js --apply maps it against the ordinary)"
+  },
+  {
+   "voice": "violin:pizz_behind_bridge_vel",
+   "how": "velocity (section_level.js --apply maps it against the ordinary)"
+  }
+ ]
+}

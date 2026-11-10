@@ -2,7 +2,7 @@
  "score": "piece-Section02-C-artics-01",
  "from": 195,
  "to": 253,
- "when": "2026-11-10T18:06:27.989Z",
+ "when": "2026-11-10T21:51:15.709Z",
  "measure": "the receiving track's peak (Track_GetPeakInfo, post-fader) over each isolated note, dBFS",
  "vels": [
   16,
@@ -17,6 +17,8 @@
  "lanes": {
   "flute:tongue_ram": {
    "lane": 0,
+   "instKey": "flute",
+   "ordinary": false,
    "label": "Flute tongue_ram",
    "track": "Flute SI2",
    "technique": "tongue_ram",
@@ -27,191 +29,191 @@
     76,
     84
    ],
-   "offsetS": 0.5,
+   "offsetS": 0.6,
    "grid": [
     {
      "t": 1,
      "pitch": 67,
      "vel": 127,
-     "peakDb": -3.32
+     "peakDb": 0.09
     },
     {
      "t": 1.75,
      "pitch": 67,
      "vel": 112,
-     "peakDb": -5.22
+     "peakDb": -2.3
     },
     {
      "t": 2.5,
      "pitch": 67,
      "vel": 96,
-     "peakDb": -7.54
+     "peakDb": -5.44
     },
     {
      "t": 3.25,
      "pitch": 67,
      "vel": 80,
-     "peakDb": -10.1
+     "peakDb": -9.32
     },
     {
      "t": 4,
      "pitch": 67,
      "vel": 64,
-     "peakDb": -12.85
+     "peakDb": -14.23
     },
     {
      "t": 4.75,
      "pitch": 67,
      "vel": 48,
-     "peakDb": -15.42
+     "peakDb": -20.48
     },
     {
      "t": 5.5,
      "pitch": 67,
      "vel": 32,
-     "peakDb": -17.68
+     "peakDb": -29.06
     },
     {
      "t": 6.25,
      "pitch": 67,
      "vel": 16,
-     "peakDb": -19.47
+     "peakDb": -39.38
     },
     {
      "t": 7,
      "pitch": 76,
      "vel": 127,
-     "peakDb": -2.78
+     "peakDb": -0.78
     },
     {
      "t": 7.75,
      "pitch": 76,
      "vel": 112,
-     "peakDb": -5.82
+     "peakDb": -3.24
     },
     {
      "t": 8.5,
      "pitch": 76,
      "vel": 96,
-     "peakDb": -8.63
+     "peakDb": -6.51
     },
     {
      "t": 9.25,
      "pitch": 76,
      "vel": 80,
-     "peakDb": -11.35
+     "peakDb": -10.57
     },
     {
      "t": 10,
      "pitch": 76,
      "vel": 64,
-     "peakDb": -13.07
+     "peakDb": -15.63
     },
     {
      "t": 10.75,
      "pitch": 76,
      "vel": 48,
-     "peakDb": -16.73
+     "peakDb": -21.8
     },
     {
      "t": 11.5,
      "pitch": 76,
      "vel": 32,
-     "peakDb": -18.98
+     "peakDb": -30.4
     },
     {
      "t": 12.25,
      "pitch": 76,
      "vel": 16,
-     "peakDb": -19.06
+     "peakDb": -40.31
     },
     {
      "t": 13,
      "pitch": 84,
      "vel": 127,
-     "peakDb": -3.14
+     "peakDb": 0.28
     },
     {
      "t": 13.75,
      "pitch": 84,
      "vel": 112,
-     "peakDb": -5.05
+     "peakDb": -2.13
     },
     {
      "t": 14.5,
      "pitch": 84,
      "vel": 96,
-     "peakDb": -7.4
+     "peakDb": -5.32
     },
     {
      "t": 15.25,
      "pitch": 84,
      "vel": 80,
-     "peakDb": -10
+     "peakDb": -9.22
     },
     {
      "t": 16,
      "pitch": 84,
      "vel": 64,
-     "peakDb": -12.75
+     "peakDb": -14.16
     },
     {
      "t": 16.75,
      "pitch": 84,
      "vel": 48,
-     "peakDb": -15.42
+     "peakDb": -20.45
     },
     {
      "t": 17.5,
      "pitch": 84,
      "vel": 32,
-     "peakDb": -17.84
+     "peakDb": -29.23
     },
     {
      "t": 18.25,
      "pitch": 84,
      "vel": 16,
-     "peakDb": -19.56
+     "peakDb": -39.43
     }
    ],
    "curve": [
     [
      16,
-     -19.4
+     -39.7
     ],
     [
      32,
-     -18.2
+     -29.6
     ],
     [
      48,
-     -15.9
+     -20.9
     ],
     [
      64,
-     -12.9
+     -14.7
     ],
     [
      80,
-     -10.5
+     -9.7
     ],
     [
      96,
-     -7.9
+     -5.8
     ],
     [
      112,
-     -5.4
+     -2.6
     ],
     [
      127,
-     -3.1
+     -0.1
     ]
    ],
    "spreadDb": [
     [
      16,
-     0.5
+     0.9
     ],
     [
      32,
@@ -219,11 +221,11 @@
     ],
     [
      48,
-     1.3
+     1.4
     ],
     [
      64,
-     0.3
+     1.5
     ],
     [
      80,
@@ -235,16 +237,18 @@
     ],
     [
      112,
-     0.8
+     1.1
     ],
     [
      127,
-     0.5
+     1.1
     ]
    ]
   },
   "flute:jet_whistle": {
    "lane": 0,
+   "instKey": "flute",
+   "ordinary": false,
    "label": "Flute jet_whistle",
    "track": "Fluteb SI2",
    "technique": "jet_whistle",
@@ -261,218 +265,220 @@
      "t": 1,
      "pitch": 72,
      "vel": 127,
-     "peakDb": -4.91
+     "peakDb": -0.9
     },
     {
      "t": 1.75,
      "pitch": 72,
      "vel": 112,
-     "peakDb": -5.96
+     "peakDb": -3.59
     },
     {
      "t": 2.5,
      "pitch": 72,
      "vel": 96,
-     "peakDb": -7.16
+     "peakDb": -5.15
     },
     {
      "t": 3.25,
      "pitch": 72,
      "vel": 80,
-     "peakDb": -8.67
+     "peakDb": -7.27
     },
     {
      "t": 4,
      "pitch": 72,
      "vel": 64,
-     "peakDb": -10.86
+     "peakDb": -10.44
     },
     {
      "t": 4.75,
      "pitch": 72,
      "vel": 48,
-     "peakDb": -13.73
+     "peakDb": -15.42
     },
     {
      "t": 5.5,
      "pitch": 72,
      "vel": 32,
-     "peakDb": -17.08
+     "peakDb": -23.26
     },
     {
      "t": 6.25,
      "pitch": 72,
      "vel": 16,
-     "peakDb": -20.13
+     "peakDb": -36.28
     },
     {
      "t": 7,
      "pitch": 77,
      "vel": 127,
-     "peakDb": -5.47
+     "peakDb": -2.87
     },
     {
      "t": 7.75,
      "pitch": 77,
      "vel": 112,
-     "peakDb": -6.5
+     "peakDb": -2.75
     },
     {
      "t": 8.5,
      "pitch": 77,
      "vel": 96,
-     "peakDb": -6.3
+     "peakDb": -5.72
     },
     {
      "t": 9.25,
      "pitch": 77,
      "vel": 80,
-     "peakDb": -7.85
+     "peakDb": -6.45
     },
     {
      "t": 10,
      "pitch": 77,
      "vel": 64,
-     "peakDb": -10
+     "peakDb": -9.61
     },
     {
      "t": 10.75,
      "pitch": 77,
      "vel": 48,
-     "peakDb": -12.79
+     "peakDb": -15.88
     },
     {
      "t": 11.5,
      "pitch": 77,
      "vel": 32,
-     "peakDb": -17.38
+     "peakDb": -22.12
     },
     {
      "t": 12.25,
      "pitch": 77,
      "vel": 16,
-     "peakDb": -20.7
+     "peakDb": -35.47
     },
     {
      "t": 13,
      "pitch": 82,
      "vel": 127,
-     "peakDb": -4.78
+     "peakDb": -3.59
     },
     {
      "t": 13.75,
      "pitch": 82,
      "vel": 112,
-     "peakDb": -5.8
+     "peakDb": -4.86
     },
     {
      "t": 14.5,
      "pitch": 82,
      "vel": 96,
-     "peakDb": -7.01
+     "peakDb": -5.72
     },
     {
      "t": 15.25,
      "pitch": 82,
      "vel": 80,
-     "peakDb": -8.64
+     "peakDb": -8.65
     },
     {
      "t": 16,
      "pitch": 82,
      "vel": 64,
-     "peakDb": -10.93
+     "peakDb": -11.94
     },
     {
      "t": 16.75,
      "pitch": 82,
      "vel": 48,
-     "peakDb": -13.9
+     "peakDb": -17.01
     },
     {
      "t": 17.5,
      "pitch": 82,
      "vel": 32,
-     "peakDb": -17.33
+     "peakDb": -23.46
     },
     {
      "t": 18.25,
      "pitch": 82,
      "vel": 16,
-     "peakDb": -21.23
+     "peakDb": -38.82
     }
    ],
    "curve": [
     [
      16,
-     -20.7
+     -36.9
     ],
     [
      32,
-     -17.3
+     -22.9
     ],
     [
      48,
-     -13.5
+     -16.1
     ],
     [
      64,
-     -10.6
+     -10.7
     ],
     [
      80,
-     -8.4
+     -7.5
     ],
     [
      96,
-     -6.8
+     -5.5
     ],
     [
      112,
-     -6.1
+     -3.7
     ],
     [
      127,
-     -5.1
+     -2.5
     ]
    ],
    "spreadDb": [
     [
      16,
-     1.1
+     3.4
     ],
     [
      32,
-     0.3
+     1.3
     ],
     [
      48,
-     1.1
+     1.6
     ],
     [
      64,
-     0.9
+     2.3
     ],
     [
      80,
-     0.8
+     2.2
     ],
     [
      96,
-     0.9
+     0.6
     ],
     [
      112,
-     0.7
+     2.1
     ],
     [
      127,
-     0.7
+     2.7
     ]
    ]
   },
   "flute:staccato": {
    "lane": 0,
+   "instKey": "flute",
+   "ordinary": false,
    "label": "Flute staccato",
    "track": "Fluteb SI2",
    "technique": "staccato",
@@ -489,171 +495,171 @@
      "t": 1,
      "pitch": 70,
      "vel": 127,
-     "peakDb": -2.6
+     "peakDb": -2.26
     },
     {
      "t": 1.75,
      "pitch": 70,
      "vel": 112,
-     "peakDb": -4.32
+     "peakDb": -3.5
     },
     {
      "t": 2.5,
      "pitch": 70,
      "vel": 96,
-     "peakDb": -5.1
+     "peakDb": -4.99
     },
     {
      "t": 3.25,
      "pitch": 70,
      "vel": 80,
-     "peakDb": -6.22
+     "peakDb": -7.14
     },
     {
      "t": 4,
      "pitch": 70,
      "vel": 64,
-     "peakDb": -9.14
+     "peakDb": -10.34
     },
     {
      "t": 4.75,
      "pitch": 70,
      "vel": 48,
-     "peakDb": -11.21
+     "peakDb": -15.11
     },
     {
      "t": 5.5,
      "pitch": 70,
      "vel": 32,
-     "peakDb": -14.02
+     "peakDb": -22.23
     },
     {
      "t": 6.25,
      "pitch": 70,
      "vel": 16,
-     "peakDb": -16.79
+     "peakDb": -34.41
     },
     {
      "t": 7,
      "pitch": 80,
      "vel": 127,
-     "peakDb": -1.55
+     "peakDb": -2.06
     },
     {
      "t": 7.75,
      "pitch": 80,
      "vel": 112,
-     "peakDb": -2.71
+     "peakDb": -2.9
     },
     {
      "t": 8.5,
      "pitch": 80,
      "vel": 96,
-     "peakDb": -3.7
+     "peakDb": -4.78
     },
     {
      "t": 9.25,
      "pitch": 80,
      "vel": 80,
-     "peakDb": -5.3
+     "peakDb": -6.34
     },
     {
      "t": 10,
      "pitch": 80,
      "vel": 64,
-     "peakDb": -7.33
+     "peakDb": -9.69
     },
     {
      "t": 10.75,
      "pitch": 80,
      "vel": 48,
-     "peakDb": -10.14
+     "peakDb": -14.89
     },
     {
      "t": 11.5,
      "pitch": 80,
      "vel": 32,
-     "peakDb": -13.09
+     "peakDb": -21.72
     },
     {
      "t": 12.25,
      "pitch": 80,
      "vel": 16,
-     "peakDb": -15.57
+     "peakDb": -34.42
     },
     {
      "t": 13,
      "pitch": 89,
      "vel": 127,
-     "peakDb": -2.31
+     "peakDb": -2.58
     },
     {
      "t": 13.75,
      "pitch": 89,
      "vel": 112,
-     "peakDb": -3.31
+     "peakDb": -3.69
     },
     {
      "t": 14.5,
      "pitch": 89,
      "vel": 96,
-     "peakDb": -4.49
+     "peakDb": -5.84
     },
     {
      "t": 15.25,
      "pitch": 89,
      "vel": 80,
-     "peakDb": -6.06
+     "peakDb": -7.14
     },
     {
      "t": 16,
      "pitch": 89,
      "vel": 64,
-     "peakDb": -8.13
+     "peakDb": -11
     },
     {
      "t": 16.75,
      "pitch": 89,
      "vel": 48,
-     "peakDb": -10.9
+     "peakDb": -15.15
     },
     {
      "t": 17.5,
      "pitch": 89,
      "vel": 32,
-     "peakDb": -13.85
+     "peakDb": -22.57
     },
     {
      "t": 18.25,
      "pitch": 89,
      "vel": 16,
-     "peakDb": -16.39
+     "peakDb": -35.29
     }
    ],
    "curve": [
     [
      16,
-     -16.2
+     -34.7
     ],
     [
      32,
-     -13.7
+     -22.2
     ],
     [
      48,
-     -10.7
+     -15
     ],
     [
      64,
-     -8.2
+     -10.3
     ],
     [
      80,
-     -5.9
+     -6.9
     ],
     [
      96,
-     -4.4
+     -5.2
     ],
     [
      112,
@@ -661,13 +667,13 @@
     ],
     [
      127,
-     -2.2
+     -2.3
     ]
    ],
    "spreadDb": [
     [
      16,
-     1.2
+     0.9
     ],
     [
      32,
@@ -675,32 +681,34 @@
     ],
     [
      48,
-     1.1
+     0.3
     ],
     [
      64,
-     1.8
+     1.3
     ],
     [
      80,
-     0.9
+     0.8
     ],
     [
      96,
-     1.4
+     1.1
     ],
     [
      112,
-     1.6
+     0.8
     ],
     [
      127,
-     1.1
+     0.5
     ]
    ]
   },
   "flute:flz": {
    "lane": 0,
+   "instKey": "flute",
+   "ordinary": false,
    "label": "Flute flz",
    "track": "Flute SI2",
    "technique": "flz",
@@ -717,218 +725,450 @@
      "t": 1,
      "pitch": 74,
      "vel": 127,
-     "peakDb": -6.91
+     "peakDb": -0.7
     },
     {
      "t": 1.75,
      "pitch": 74,
      "vel": 112,
-     "peakDb": -6.96
+     "peakDb": -1.96
     },
     {
      "t": 2.5,
      "pitch": 74,
      "vel": 96,
-     "peakDb": -6.91
+     "peakDb": -4.11
     },
     {
      "t": 3.25,
      "pitch": 74,
      "vel": 80,
-     "peakDb": -6.93
+     "peakDb": -7.02
     },
     {
      "t": 4,
      "pitch": 74,
      "vel": 64,
-     "peakDb": -6.86
+     "peakDb": -9.31
     },
     {
      "t": 4.75,
      "pitch": 74,
      "vel": 48,
-     "peakDb": -6.92
+     "peakDb": -14.08
     },
     {
      "t": 5.5,
      "pitch": 74,
      "vel": 32,
-     "peakDb": -6.87
+     "peakDb": -20.57
     },
     {
      "t": 6.25,
      "pitch": 74,
      "vel": 16,
-     "peakDb": -6.87
+     "peakDb": -33.05
     },
     {
      "t": 7,
      "pitch": 85,
      "vel": 127,
-     "peakDb": -9
+     "peakDb": -3.21
     },
     {
      "t": 7.75,
      "pitch": 85,
      "vel": 112,
-     "peakDb": -8.96
+     "peakDb": -4.46
     },
     {
      "t": 8.5,
      "pitch": 85,
      "vel": 96,
-     "peakDb": -8.87
+     "peakDb": -4.7
     },
     {
      "t": 9.25,
      "pitch": 85,
      "vel": 80,
-     "peakDb": -8.8
+     "peakDb": -7.08
     },
     {
      "t": 10,
      "pitch": 85,
      "vel": 64,
-     "peakDb": -8.89
+     "peakDb": -10.25
     },
     {
      "t": 10.75,
      "pitch": 85,
      "vel": 48,
-     "peakDb": -8.95
+     "peakDb": -15.5
     },
     {
      "t": 11.5,
      "pitch": 85,
      "vel": 32,
-     "peakDb": -9.01
+     "peakDb": -23.84
     },
     {
      "t": 12.25,
      "pitch": 85,
      "vel": 16,
-     "peakDb": -8.98
+     "peakDb": -35.28
     },
     {
      "t": 13,
      "pitch": 96,
      "vel": 127,
-     "peakDb": -10.26
+     "peakDb": -2.37
     },
     {
      "t": 13.75,
      "pitch": 96,
      "vel": 112,
-     "peakDb": -10.07
+     "peakDb": -3.14
     },
     {
      "t": 14.5,
      "pitch": 96,
      "vel": 96,
-     "peakDb": -10.06
+     "peakDb": -5.2
     },
     {
      "t": 15.25,
      "pitch": 96,
      "vel": 80,
-     "peakDb": -10.08
+     "peakDb": -7.03
     },
     {
      "t": 16,
      "pitch": 96,
      "vel": 64,
-     "peakDb": -10.07
+     "peakDb": -10.19
     },
     {
      "t": 16.75,
      "pitch": 96,
      "vel": 48,
-     "peakDb": -10.08
+     "peakDb": -15.47
     },
     {
      "t": 17.5,
      "pitch": 96,
      "vel": 32,
-     "peakDb": -10.09
+     "peakDb": -23.12
     },
     {
      "t": 18.25,
      "pitch": 96,
      "vel": 16,
-     "peakDb": -10.26
+     "peakDb": -34.59
     }
    ],
    "curve": [
     [
      16,
-     -8.7
+     -34.3
     ],
     [
      32,
-     -8.7
+     -22.5
     ],
     [
      48,
-     -8.6
+     -15
     ],
     [
      64,
-     -8.6
+     -9.9
     ],
     [
      80,
-     -8.6
+     -7
     ],
     [
      96,
-     -8.6
+     -4.7
     ],
     [
      112,
-     -8.6
+     -3.2
     ],
     [
      127,
-     -8.6
+     -2.1
     ]
    ],
    "spreadDb": [
     [
      16,
-     3.4
+     2.2
     ],
     [
      32,
-     3.2
+     3.3
     ],
     [
      48,
-     3.2
+     1.4
     ],
     [
      64,
-     3.2
+     0.9
     ],
     [
      80,
-     3.2
+     0.1
     ],
     [
      96,
-     3.2
+     1.1
     ],
     [
      112,
-     3.1
+     2.5
     ],
     [
      127,
-     3.4
+     2.5
+    ]
+   ]
+  },
+  "flute:ord": {
+   "lane": 0,
+   "instKey": "flute",
+   "ordinary": true,
+   "label": "Flute ord",
+   "track": "Flute SI2",
+   "technique": "ord",
+   "port": "SWFlute",
+   "channel": 12,
+   "pitches": [
+    67,
+    82,
+    96
+   ],
+   "offsetS": 0.6,
+   "grid": [
+    {
+     "t": 1,
+     "pitch": 67,
+     "vel": 127,
+     "peakDb": -3.65
+    },
+    {
+     "t": 1.75,
+     "pitch": 67,
+     "vel": 112,
+     "peakDb": -4.63
+    },
+    {
+     "t": 2.5,
+     "pitch": 67,
+     "vel": 96,
+     "peakDb": -5.72
+    },
+    {
+     "t": 3.25,
+     "pitch": 67,
+     "vel": 80,
+     "peakDb": -7.33
+    },
+    {
+     "t": 4,
+     "pitch": 67,
+     "vel": 64,
+     "peakDb": -9.34
+    },
+    {
+     "t": 4.75,
+     "pitch": 67,
+     "vel": 48,
+     "peakDb": -11.97
+    },
+    {
+     "t": 5.5,
+     "pitch": 67,
+     "vel": 32,
+     "peakDb": -15.34
+    },
+    {
+     "t": 6.25,
+     "pitch": 67,
+     "vel": 16,
+     "peakDb": -17.48
+    },
+    {
+     "t": 7,
+     "pitch": 82,
+     "vel": 127,
+     "peakDb": -1.14
+    },
+    {
+     "t": 7.75,
+     "pitch": 82,
+     "vel": 112,
+     "peakDb": -2.29
+    },
+    {
+     "t": 8.5,
+     "pitch": 82,
+     "vel": 96,
+     "peakDb": -4.34
+    },
+    {
+     "t": 9.25,
+     "pitch": 82,
+     "vel": 80,
+     "peakDb": -5.72
+    },
+    {
+     "t": 10,
+     "pitch": 82,
+     "vel": 64,
+     "peakDb": -7.88
+    },
+    {
+     "t": 10.75,
+     "pitch": 82,
+     "vel": 48,
+     "peakDb": -10.57
+    },
+    {
+     "t": 11.5,
+     "pitch": 82,
+     "vel": 32,
+     "peakDb": -12.96
+    },
+    {
+     "t": 12.25,
+     "pitch": 82,
+     "vel": 16,
+     "peakDb": -15.43
+    },
+    {
+     "t": 13,
+     "pitch": 96,
+     "vel": 127,
+     "peakDb": -2.12
+    },
+    {
+     "t": 13.75,
+     "pitch": 96,
+     "vel": 112,
+     "peakDb": -3.22
+    },
+    {
+     "t": 14.5,
+     "pitch": 96,
+     "vel": 96,
+     "peakDb": -4.36
+    },
+    {
+     "t": 15.25,
+     "pitch": 96,
+     "vel": 80,
+     "peakDb": -5.71
+    },
+    {
+     "t": 16,
+     "pitch": 96,
+     "vel": 64,
+     "peakDb": -7.84
+    },
+    {
+     "t": 16.75,
+     "pitch": 96,
+     "vel": 48,
+     "peakDb": -10.65
+    },
+    {
+     "t": 17.5,
+     "pitch": 96,
+     "vel": 32,
+     "peakDb": -21.94
+    },
+    {
+     "t": 18.25,
+     "pitch": 96,
+     "vel": 16,
+     "peakDb": -40.91
+    }
+   ],
+   "curve": [
+    [
+     16,
+     -24.6
+    ],
+    [
+     32,
+     -16.7
+    ],
+    [
+     48,
+     -11.1
+    ],
+    [
+     64,
+     -8.4
+    ],
+    [
+     80,
+     -6.3
+    ],
+    [
+     96,
+     -4.8
+    ],
+    [
+     112,
+     -3.4
+    ],
+    [
+     127,
+     -2.3
+    ]
+   ],
+   "spreadDb": [
+    [
+     16,
+     25.5
+    ],
+    [
+     32,
+     9
+    ],
+    [
+     48,
+     1.4
+    ],
+    [
+     64,
+     1.5
+    ],
+    [
+     80,
+     1.6
+    ],
+    [
+     96,
+     1.4
+    ],
+    [
+     112,
+     2.3
+    ],
+    [
+     127,
+     2.5
     ]
    ]
   },
   "clarinet:staccato": {
    "lane": 1,
+   "instKey": "clarinet",
+   "ordinary": false,
    "label": "Clarinet staccato",
    "track": "Clarinet SI2",
    "technique": "staccato",
@@ -945,193 +1185,193 @@
      "t": 1,
      "pitch": 52,
      "vel": 127,
-     "peakDb": -6.2
+     "peakDb": -8.88
     },
     {
      "t": 1.75,
      "pitch": 52,
      "vel": 112,
-     "peakDb": -7.46
+     "peakDb": -10.88
     },
     {
      "t": 2.5,
      "pitch": 52,
      "vel": 96,
-     "peakDb": -8.22
+     "peakDb": -13.38
     },
     {
      "t": 3.25,
      "pitch": 52,
      "vel": 80,
-     "peakDb": -10.79
+     "peakDb": -16.34
     },
     {
      "t": 4,
      "pitch": 52,
      "vel": 64,
-     "peakDb": -11.98
+     "peakDb": -20.51
     },
     {
      "t": 4.75,
      "pitch": 52,
      "vel": 48,
-     "peakDb": -13.64
+     "peakDb": -25.87
     },
     {
      "t": 5.5,
      "pitch": 52,
      "vel": 32,
-     "peakDb": -15.05
+     "peakDb": -33.83
     },
     {
      "t": 6.25,
      "pitch": 52,
      "vel": 16,
-     "peakDb": -16.13
+     "peakDb": -44.9
     },
     {
      "t": 7,
      "pitch": 71,
      "vel": 127,
-     "peakDb": -5.43
+     "peakDb": -9
     },
     {
      "t": 7.75,
      "pitch": 71,
      "vel": 112,
-     "peakDb": -6.73
+     "peakDb": -10.94
     },
     {
      "t": 8.5,
      "pitch": 71,
      "vel": 96,
-     "peakDb": -8.29
+     "peakDb": -13.48
     },
     {
      "t": 9.25,
      "pitch": 71,
      "vel": 80,
-     "peakDb": -9.97
+     "peakDb": -16.46
     },
     {
      "t": 10,
      "pitch": 71,
      "vel": 64,
-     "peakDb": -11.81
+     "peakDb": -20.58
     },
     {
      "t": 10.75,
      "pitch": 71,
      "vel": 48,
-     "peakDb": -13.71
+     "peakDb": -26.14
     },
     {
      "t": 11.5,
      "pitch": 71,
      "vel": 32,
-     "peakDb": -15.28
+     "peakDb": -34.23
     },
     {
      "t": 12.25,
      "pitch": 71,
      "vel": 16,
-     "peakDb": -16.36
+     "peakDb": -45.23
     },
     {
      "t": 13,
      "pitch": 89,
      "vel": 127,
-     "peakDb": -5.9
+     "peakDb": -9.69
     },
     {
      "t": 13.75,
      "pitch": 89,
      "vel": 112,
-     "peakDb": -7.31
+     "peakDb": -11.43
     },
     {
      "t": 14.5,
      "pitch": 89,
      "vel": 96,
-     "peakDb": -9.37
+     "peakDb": -14.49
     },
     {
      "t": 15.25,
      "pitch": 89,
      "vel": 80,
-     "peakDb": -10.65
+     "peakDb": -17.3
     },
     {
      "t": 16,
      "pitch": 89,
      "vel": 64,
-     "peakDb": -12.53
+     "peakDb": -21.21
     },
     {
      "t": 16.75,
      "pitch": 89,
      "vel": 48,
-     "peakDb": -14.91
+     "peakDb": -26.92
     },
     {
      "t": 17.5,
      "pitch": 89,
      "vel": 32,
-     "peakDb": -16.56
+     "peakDb": -35.77
     },
     {
      "t": 18.25,
      "pitch": 89,
      "vel": 16,
-     "peakDb": -18.24
+     "peakDb": -47.15
     }
    ],
    "curve": [
     [
      16,
-     -16.9
+     -45.8
     ],
     [
      32,
-     -15.6
+     -34.6
     ],
     [
      48,
-     -14.1
+     -26.3
     ],
     [
      64,
-     -12.1
+     -20.8
     ],
     [
      80,
-     -10.5
+     -16.7
     ],
     [
      96,
-     -8.6
+     -13.8
     ],
     [
      112,
-     -7.2
+     -11.1
     ],
     [
      127,
-     -5.8
+     -9.2
     ]
    ],
    "spreadDb": [
     [
      16,
-     2.1
+     2.3
     ],
     [
      32,
-     1.5
+     1.9
     ],
     [
      48,
-     1.3
+     1.1
     ],
     [
      64,
@@ -1139,7 +1379,7 @@
     ],
     [
      80,
-     0.8
+     1
     ],
     [
      96,
@@ -1147,7 +1387,7 @@
     ],
     [
      112,
-     0.7
+     0.5
     ],
     [
      127,
@@ -1157,6 +1397,8 @@
   },
   "clarinet:flz": {
    "lane": 1,
+   "instKey": "clarinet",
+   "ordinary": false,
    "label": "Clarinet flz",
    "track": "Clarinet SI2",
    "technique": "flz",
@@ -1173,218 +1415,450 @@
      "t": 1,
      "pitch": 50,
      "vel": 127,
-     "peakDb": -12.87
+     "peakDb": -9.99
     },
     {
      "t": 1.75,
      "pitch": 50,
      "vel": 112,
-     "peakDb": -12.87
+     "peakDb": -11.86
     },
     {
      "t": 2.5,
      "pitch": 50,
      "vel": 96,
-     "peakDb": -12.88
+     "peakDb": -13.36
     },
     {
      "t": 3.25,
      "pitch": 50,
      "vel": 80,
-     "peakDb": -12.83
+     "peakDb": -16.44
     },
     {
      "t": 4,
      "pitch": 50,
      "vel": 64,
-     "peakDb": -12.87
+     "peakDb": -20.45
     },
     {
      "t": 4.75,
      "pitch": 50,
      "vel": 48,
-     "peakDb": -12.89
+     "peakDb": -25.68
     },
     {
      "t": 5.5,
      "pitch": 50,
      "vel": 32,
-     "peakDb": -12.82
+     "peakDb": -33.37
     },
     {
      "t": 6.25,
      "pitch": 50,
      "vel": 16,
-     "peakDb": -12.81
+     "peakDb": -44.43
     },
     {
      "t": 7,
      "pitch": 70,
      "vel": 127,
-     "peakDb": -26.31
+     "peakDb": -9.1
     },
     {
      "t": 7.75,
      "pitch": 70,
      "vel": 112,
-     "peakDb": -25.71
+     "peakDb": -10.94
     },
     {
      "t": 8.5,
      "pitch": 70,
      "vel": 96,
-     "peakDb": -26.95
+     "peakDb": -13.32
     },
     {
      "t": 9.25,
      "pitch": 70,
      "vel": 80,
-     "peakDb": -26.49
+     "peakDb": -16.44
     },
     {
      "t": 10,
      "pitch": 70,
      "vel": 64,
-     "peakDb": -31.93
+     "peakDb": -20.47
     },
     {
      "t": 10.75,
      "pitch": 70,
      "vel": 48,
-     "peakDb": -26.69
+     "peakDb": -33.17
     },
     {
      "t": 11.5,
      "pitch": 70,
      "vel": 32,
-     "peakDb": -26.57
+     "peakDb": -46.24
     },
     {
      "t": 12.25,
      "pitch": 70,
      "vel": 16,
-     "peakDb": -26.34
+     "peakDb": -57.2
     },
     {
      "t": 13,
      "pitch": 89,
      "vel": 127,
-     "peakDb": -14.17
+     "peakDb": -8.16
     },
     {
      "t": 13.75,
      "pitch": 89,
      "vel": 112,
-     "peakDb": -14.05
+     "peakDb": -9.93
     },
     {
      "t": 14.5,
      "pitch": 89,
      "vel": 96,
-     "peakDb": -13.75
+     "peakDb": -12.83
     },
     {
      "t": 15.25,
      "pitch": 89,
      "vel": 80,
-     "peakDb": -13.41
+     "peakDb": -16.18
     },
     {
      "t": 16,
      "pitch": 89,
      "vel": 64,
-     "peakDb": -13.23
+     "peakDb": -19.55
     },
     {
      "t": 16.75,
      "pitch": 89,
      "vel": 48,
-     "peakDb": -12.94
+     "peakDb": -24.05
     },
     {
      "t": 17.5,
      "pitch": 89,
      "vel": 32,
-     "peakDb": -13.47
+     "peakDb": -31.99
     },
     {
      "t": 18.25,
      "pitch": 89,
      "vel": 16,
-     "peakDb": -13.87
+     "peakDb": -43.19
     }
    ],
    "curve": [
     [
      16,
-     -17.7
+     -48.3
     ],
     [
      32,
-     -17.6
+     -37.2
     ],
     [
      48,
-     -17.5
+     -27.6
     ],
     [
      64,
-     -17.5
+     -20.2
     ],
     [
      80,
-     -17.5
+     -16.4
     ],
     [
      96,
-     -17.5
+     -13.2
     ],
     [
      112,
-     -17.5
+     -10.9
     ],
     [
      127,
-     -17.5
+     -9.1
     ]
    ],
    "spreadDb": [
     [
      16,
-     13.5
+     14
     ],
     [
      32,
-     13.8
+     14.3
     ],
     [
      48,
-     13.8
+     9.1
     ],
     [
      64,
-     19.1
+     0.9
     ],
     [
      80,
-     13.7
+     0.3
     ],
     [
      96,
-     14.1
+     0.5
     ],
     [
      112,
-     12.8
+     1.9
     ],
     [
      127,
-     13.4
+     1.8
+    ]
+   ]
+  },
+  "clarinet:ord": {
+   "lane": 1,
+   "instKey": "clarinet",
+   "ordinary": true,
+   "label": "Clarinet ord",
+   "track": "Clarinet SI2",
+   "technique": "ord",
+   "port": "SWClar",
+   "channel": 1,
+   "pitches": [
+    50,
+    70,
+    89
+   ],
+   "offsetS": 0.5,
+   "grid": [
+    {
+     "t": 1,
+     "pitch": 50,
+     "vel": 127,
+     "peakDb": -10.32
+    },
+    {
+     "t": 1.75,
+     "pitch": 50,
+     "vel": 112,
+     "peakDb": -12.15
+    },
+    {
+     "t": 2.5,
+     "pitch": 50,
+     "vel": 96,
+     "peakDb": -14.09
+    },
+    {
+     "t": 3.25,
+     "pitch": 50,
+     "vel": 80,
+     "peakDb": -17.26
+    },
+    {
+     "t": 4,
+     "pitch": 50,
+     "vel": 64,
+     "peakDb": -21.14
+    },
+    {
+     "t": 4.75,
+     "pitch": 50,
+     "vel": 48,
+     "peakDb": -22.86
+    },
+    {
+     "t": 5.5,
+     "pitch": 50,
+     "vel": 32,
+     "peakDb": -30.62
+    },
+    {
+     "t": 6.25,
+     "pitch": 50,
+     "vel": 16,
+     "peakDb": -41.53
+    },
+    {
+     "t": 7,
+     "pitch": 70,
+     "vel": 127,
+     "peakDb": -11.63
+    },
+    {
+     "t": 7.75,
+     "pitch": 70,
+     "vel": 112,
+     "peakDb": -13.45
+    },
+    {
+     "t": 8.5,
+     "pitch": 70,
+     "vel": 96,
+     "peakDb": -12.37
+    },
+    {
+     "t": 9.25,
+     "pitch": 70,
+     "vel": 80,
+     "peakDb": -15.43
+    },
+    {
+     "t": 10,
+     "pitch": 70,
+     "vel": 64,
+     "peakDb": -19.44
+    },
+    {
+     "t": 10.75,
+     "pitch": 70,
+     "vel": 48,
+     "peakDb": -24.16
+    },
+    {
+     "t": 11.5,
+     "pitch": 70,
+     "vel": 32,
+     "peakDb": -31.92
+    },
+    {
+     "t": 12.25,
+     "pitch": 70,
+     "vel": 16,
+     "peakDb": -42.54
+    },
+    {
+     "t": 13,
+     "pitch": 89,
+     "vel": 127,
+     "peakDb": -5.96
+    },
+    {
+     "t": 13.75,
+     "pitch": 89,
+     "vel": 112,
+     "peakDb": -7.83
+    },
+    {
+     "t": 14.5,
+     "pitch": 89,
+     "vel": 96,
+     "peakDb": -11.23
+    },
+    {
+     "t": 15.25,
+     "pitch": 89,
+     "vel": 80,
+     "peakDb": -14.4
+    },
+    {
+     "t": 16,
+     "pitch": 89,
+     "vel": 64,
+     "peakDb": -18.44
+    },
+    {
+     "t": 16.75,
+     "pitch": 89,
+     "vel": 48,
+     "peakDb": -23.82
+    },
+    {
+     "t": 17.5,
+     "pitch": 89,
+     "vel": 32,
+     "peakDb": -31.83
+    },
+    {
+     "t": 18.25,
+     "pitch": 89,
+     "vel": 16,
+     "peakDb": -42.61
+    }
+   ],
+   "curve": [
+    [
+     16,
+     -42.2
+    ],
+    [
+     32,
+     -31.5
+    ],
+    [
+     48,
+     -23.6
+    ],
+    [
+     64,
+     -19.7
+    ],
+    [
+     80,
+     -15.7
+    ],
+    [
+     96,
+     -12.6
+    ],
+    [
+     112,
+     -11.1
+    ],
+    [
+     127,
+     -9.3
+    ]
+   ],
+   "spreadDb": [
+    [
+     16,
+     1.1
+    ],
+    [
+     32,
+     1.3
+    ],
+    [
+     48,
+     1.3
+    ],
+    [
+     64,
+     2.7
+    ],
+    [
+     80,
+     2.9
+    ],
+    [
+     96,
+     2.9
+    ],
+    [
+     112,
+     5.6
+    ],
+    [
+     127,
+     5.7
     ]
    ]
   },
   "alto_sax:staccato": {
    "lane": 2,
+   "instKey": "alto_sax",
+   "ordinary": false,
    "label": "Alto Sax staccato",
    "track": "Alto Sax SI2 b",
    "technique": "staccato",
@@ -1401,179 +1875,179 @@
      "t": 1,
      "pitch": 54,
      "vel": 127,
-     "peakDb": -6.33
+     "peakDb": -4.72
     },
     {
      "t": 1.75,
      "pitch": 54,
      "vel": 112,
-     "peakDb": -7.63
+     "peakDb": -5.83
     },
     {
      "t": 2.5,
      "pitch": 54,
      "vel": 96,
-     "peakDb": -9.23
+     "peakDb": -8.36
     },
     {
      "t": 3.25,
      "pitch": 54,
      "vel": 80,
-     "peakDb": -10.91
+     "peakDb": -12.24
     },
     {
      "t": 4,
      "pitch": 54,
      "vel": 64,
-     "peakDb": -12.77
+     "peakDb": -15.5
     },
     {
      "t": 4.75,
      "pitch": 54,
      "vel": 48,
-     "peakDb": -14.64
+     "peakDb": -21.05
     },
     {
      "t": 5.5,
      "pitch": 54,
      "vel": 32,
-     "peakDb": -16.29
+     "peakDb": -29.99
     },
     {
      "t": 6.25,
      "pitch": 54,
      "vel": 16,
-     "peakDb": -17.51
+     "peakDb": -40.36
     },
     {
      "t": 7,
      "pitch": 66,
      "vel": 127,
-     "peakDb": -6.42
+     "peakDb": -4.02
     },
     {
      "t": 7.75,
      "pitch": 66,
      "vel": 112,
-     "peakDb": -7.75
+     "peakDb": -5.93
     },
     {
      "t": 8.5,
      "pitch": 66,
      "vel": 96,
-     "peakDb": -9.36
+     "peakDb": -8.5
     },
     {
      "t": 9.25,
      "pitch": 66,
      "vel": 80,
-     "peakDb": -11.06
+     "peakDb": -11.54
     },
     {
      "t": 10,
      "pitch": 66,
      "vel": 64,
-     "peakDb": -12.91
+     "peakDb": -15.63
     },
     {
      "t": 10.75,
      "pitch": 66,
      "vel": 48,
-     "peakDb": -14.81
+     "peakDb": -21.22
     },
     {
      "t": 11.5,
      "pitch": 66,
      "vel": 32,
-     "peakDb": -16.62
+     "peakDb": -29.55
     },
     {
      "t": 12.25,
      "pitch": 66,
      "vel": 16,
-     "peakDb": -18.1
+     "peakDb": -40.94
     },
     {
      "t": 13,
      "pitch": 77,
      "vel": 127,
-     "peakDb": -6.48
+     "peakDb": -4.08
     },
     {
      "t": 13.75,
      "pitch": 77,
      "vel": 112,
-     "peakDb": -7.83
+     "peakDb": -6.01
     },
     {
      "t": 14.5,
      "pitch": 77,
      "vel": 96,
-     "peakDb": -9.5
+     "peakDb": -8.6
     },
     {
      "t": 15.25,
      "pitch": 77,
      "vel": 80,
-     "peakDb": -11.31
+     "peakDb": -11.81
     },
     {
      "t": 16,
      "pitch": 77,
      "vel": 64,
-     "peakDb": -13.26
+     "peakDb": -16.01
     },
     {
      "t": 16.75,
      "pitch": 77,
      "vel": 48,
-     "peakDb": -15.19
+     "peakDb": -21.63
     },
     {
      "t": 17.5,
      "pitch": 77,
      "vel": 32,
-     "peakDb": -17.01
+     "peakDb": -30
     },
     {
      "t": 18.25,
      "pitch": 77,
      "vel": 16,
-     "peakDb": -18.42
+     "peakDb": -41.22
     }
    ],
    "curve": [
     [
      16,
-     -18
+     -40.8
     ],
     [
      32,
-     -16.6
+     -29.8
     ],
     [
      48,
-     -14.9
+     -21.3
     ],
     [
      64,
-     -13
+     -15.7
     ],
     [
      80,
-     -11.1
+     -11.9
     ],
     [
      96,
-     -9.4
+     -8.5
     ],
     [
      112,
-     -7.7
+     -5.9
     ],
     [
      127,
-     -6.4
+     -4.3
     ]
    ],
    "spreadDb": [
@@ -1583,11 +2057,11 @@
     ],
     [
      32,
-     0.7
+     0.4
     ],
     [
      48,
-     0.5
+     0.6
     ],
     [
      64,
@@ -1595,11 +2069,11 @@
     ],
     [
      80,
-     0.4
+     0.7
     ],
     [
      96,
-     0.3
+     0.2
     ],
     [
      112,
@@ -1607,12 +2081,14 @@
     ],
     [
      127,
-     0.2
+     0.7
     ]
    ]
   },
   "alto_sax:slap_pitched": {
    "lane": 2,
+   "instKey": "alto_sax",
+   "ordinary": false,
    "label": "Alto Sax slap_pitched",
    "track": "Alto Sax SI2 b",
    "technique": "slap_pitched",
@@ -1629,193 +2105,193 @@
      "t": 1,
      "pitch": 50,
      "vel": 127,
-     "peakDb": -6.1
+     "peakDb": -4.92
     },
     {
      "t": 1.75,
      "pitch": 50,
      "vel": 112,
-     "peakDb": -7.43
+     "peakDb": -6.83
     },
     {
      "t": 2.5,
      "pitch": 50,
      "vel": 96,
-     "peakDb": -8.97
+     "peakDb": -9.33
     },
     {
      "t": 3.25,
      "pitch": 50,
      "vel": 80,
-     "peakDb": -10.67
+     "peakDb": -10.95
     },
     {
      "t": 4,
      "pitch": 50,
      "vel": 64,
-     "peakDb": -12.71
+     "peakDb": -15.18
     },
     {
      "t": 4.75,
      "pitch": 50,
      "vel": 48,
-     "peakDb": -14.5
+     "peakDb": -20.72
     },
     {
      "t": 5.5,
      "pitch": 50,
      "vel": 32,
-     "peakDb": -17.51
+     "peakDb": -28.83
     },
     {
      "t": 6.25,
      "pitch": 50,
      "vel": 16,
-     "peakDb": -17.3
+     "peakDb": -41.36
     },
     {
      "t": 7,
      "pitch": 63,
      "vel": 127,
-     "peakDb": -6.51
+     "peakDb": -5.33
     },
     {
      "t": 7.75,
      "pitch": 63,
      "vel": 112,
-     "peakDb": -7.83
+     "peakDb": -7.24
     },
     {
      "t": 8.5,
      "pitch": 63,
      "vel": 96,
-     "peakDb": -9.44
+     "peakDb": -9.78
     },
     {
      "t": 9.25,
      "pitch": 63,
      "vel": 80,
-     "peakDb": -11.17
+     "peakDb": -12.89
     },
     {
      "t": 10,
      "pitch": 63,
      "vel": 64,
-     "peakDb": -14.22
+     "peakDb": -16.71
     },
     {
      "t": 10.75,
      "pitch": 63,
      "vel": 48,
-     "peakDb": -16.29
+     "peakDb": -21.09
     },
     {
      "t": 11.5,
      "pitch": 63,
      "vel": 32,
-     "peakDb": -16.8
+     "peakDb": -29.54
     },
     {
      "t": 12.25,
      "pitch": 63,
      "vel": 16,
-     "peakDb": -19.78
+     "peakDb": -41
     },
     {
      "t": 13,
      "pitch": 75,
      "vel": 127,
-     "peakDb": -6.28
+     "peakDb": -3.68
     },
     {
      "t": 13.75,
      "pitch": 75,
      "vel": 112,
-     "peakDb": -7.59
+     "peakDb": -5.59
     },
     {
      "t": 14.5,
      "pitch": 75,
      "vel": 96,
-     "peakDb": -9.2
+     "peakDb": -9.56
     },
     {
      "t": 15.25,
      "pitch": 75,
      "vel": 80,
-     "peakDb": -10.94
+     "peakDb": -11.25
     },
     {
      "t": 16,
      "pitch": 75,
      "vel": 64,
-     "peakDb": -13.07
+     "peakDb": -15.6
     },
     {
      "t": 16.75,
      "pitch": 75,
      "vel": 48,
-     "peakDb": -15.19
+     "peakDb": -22.83
     },
     {
      "t": 17.5,
      "pitch": 75,
      "vel": 32,
-     "peakDb": -17.25
+     "peakDb": -29.98
     },
     {
      "t": 18.25,
      "pitch": 75,
      "vel": 16,
-     "peakDb": -19.03
+     "peakDb": -41.65
     }
    ],
    "curve": [
     [
      16,
-     -18.7
+     -41.3
     ],
     [
      32,
-     -17.2
+     -29.4
     ],
     [
      48,
-     -15.3
+     -21.5
     ],
     [
      64,
-     -13.3
+     -15.8
     ],
     [
      80,
-     -10.9
+     -11.7
     ],
     [
      96,
-     -9.2
+     -9.6
     ],
     [
      112,
-     -7.6
+     -6.6
     ],
     [
      127,
-     -6.3
+     -4.6
     ]
    ],
    "spreadDb": [
     [
      16,
-     2.5
+     0.6
     ],
     [
      32,
-     0.7
+     1.2
     ],
     [
      48,
-     1.8
+     2.1
     ],
     [
      64,
@@ -1823,24 +2299,26 @@
     ],
     [
      80,
-     0.5
+     1.9
     ],
     [
      96,
-     0.5
+     0.4
     ],
     [
      112,
-     0.4
+     1.7
     ],
     [
      127,
-     0.4
+     1.7
     ]
    ]
   },
   "alto_sax:double_tonguing": {
    "lane": 2,
+   "instKey": "alto_sax",
+   "ordinary": false,
    "label": "Alto Sax double_tonguing",
    "track": "Alto Sax SI2",
    "technique": "double_tonguing",
@@ -1857,179 +2335,179 @@
      "t": 1,
      "pitch": 56,
      "vel": 127,
-     "peakDb": -5.82
+     "peakDb": -2.31
     },
     {
      "t": 1.75,
      "pitch": 56,
      "vel": 112,
-     "peakDb": -6.82
+     "peakDb": -4.26
     },
     {
      "t": 2.5,
      "pitch": 56,
      "vel": 96,
-     "peakDb": -8.44
+     "peakDb": -6.87
     },
     {
      "t": 3.25,
      "pitch": 56,
      "vel": 80,
-     "peakDb": -10.16
+     "peakDb": -9.69
     },
     {
      "t": 4,
      "pitch": 56,
      "vel": 64,
-     "peakDb": -11.91
+     "peakDb": -14
     },
     {
      "t": 4.75,
      "pitch": 56,
      "vel": 48,
-     "peakDb": -13.74
+     "peakDb": -19.42
     },
     {
      "t": 5.5,
      "pitch": 56,
      "vel": 32,
-     "peakDb": -15.28
+     "peakDb": -27.39
     },
     {
      "t": 6.25,
      "pitch": 56,
      "vel": 16,
-     "peakDb": -16.24
+     "peakDb": -38
     },
     {
      "t": 7,
      "pitch": 66,
      "vel": 127,
-     "peakDb": -9.34
+     "peakDb": -6.2
     },
     {
      "t": 7.75,
      "pitch": 66,
      "vel": 112,
-     "peakDb": -10.59
+     "peakDb": -9.1
     },
     {
      "t": 8.5,
      "pitch": 66,
      "vel": 96,
-     "peakDb": -13.28
+     "peakDb": -10.91
     },
     {
      "t": 9.25,
      "pitch": 66,
      "vel": 80,
-     "peakDb": -13.97
+     "peakDb": -13.72
     },
     {
      "t": 10,
      "pitch": 66,
      "vel": 64,
-     "peakDb": -16.49
+     "peakDb": -18.64
     },
     {
      "t": 10.75,
      "pitch": 66,
      "vel": 48,
-     "peakDb": -17.98
+     "peakDb": -23.18
     },
     {
      "t": 11.5,
      "pitch": 66,
      "vel": 32,
-     "peakDb": -19.1
+     "peakDb": -32.18
     },
     {
      "t": 12.25,
      "pitch": 66,
      "vel": 16,
-     "peakDb": -20.04
+     "peakDb": -41.79
     },
     {
      "t": 13,
      "pitch": 76,
      "vel": 127,
-     "peakDb": -6.83
+     "peakDb": -3.44
     },
     {
      "t": 13.75,
      "pitch": 76,
      "vel": 112,
-     "peakDb": -8.08
+     "peakDb": -5.25
     },
     {
      "t": 14.5,
      "pitch": 76,
      "vel": 96,
-     "peakDb": -9.66
+     "peakDb": -7.86
     },
     {
      "t": 15.25,
      "pitch": 76,
      "vel": 80,
-     "peakDb": -11.25
+     "peakDb": -10.94
     },
     {
      "t": 16,
      "pitch": 76,
      "vel": 64,
-     "peakDb": -13.37
+     "peakDb": -14.82
     },
     {
      "t": 16.75,
      "pitch": 76,
      "vel": 48,
-     "peakDb": -15.19
+     "peakDb": -20.57
     },
     {
      "t": 17.5,
      "pitch": 76,
      "vel": 32,
-     "peakDb": -16.5
+     "peakDb": -28.35
     },
     {
      "t": 18.25,
      "pitch": 76,
      "vel": 16,
-     "peakDb": -17.63
+     "peakDb": -39.55
     }
    ],
    "curve": [
     [
      16,
-     -18
+     -39.8
     ],
     [
      32,
-     -17
+     -29.3
     ],
     [
      48,
-     -15.6
+     -21.1
     ],
     [
      64,
-     -13.9
+     -15.8
     ],
     [
      80,
-     -11.8
+     -11.5
     ],
     [
      96,
-     -10.5
-    ],
-    [
-     112,
      -8.5
     ],
     [
+     112,
+     -6.2
+    ],
+    [
      127,
-     -7.3
+     -4
     ]
    ],
    "spreadDb": [
@@ -2039,11 +2517,11 @@
     ],
     [
      32,
-     3.8
+     4.8
     ],
     [
      48,
-     4.2
+     3.8
     ],
     [
      64,
@@ -2051,24 +2529,26 @@
     ],
     [
      80,
-     3.8
+     4
     ],
     [
      96,
-     4.8
+     4
     ],
     [
      112,
-     3.8
+     4.8
     ],
     [
      127,
-     3.5
+     3.9
     ]
    ]
   },
   "alto_sax:flz": {
    "lane": 2,
+   "instKey": "alto_sax",
+   "ordinary": false,
    "label": "Alto Sax flz",
    "track": "Alto Sax SI2",
    "technique": "flz",
@@ -2079,191 +2559,191 @@
     63,
     76
    ],
-   "offsetS": 0.5,
+   "offsetS": 0.6,
    "grid": [
     {
      "t": 1,
      "pitch": 50,
      "vel": 127,
-     "peakDb": -5.27
+     "peakDb": -3.54
     },
     {
      "t": 1.75,
      "pitch": 50,
      "vel": 112,
-     "peakDb": -6.55
+     "peakDb": -5.31
     },
     {
      "t": 2.5,
      "pitch": 50,
      "vel": 96,
-     "peakDb": -8.21
+     "peakDb": -7.76
     },
     {
      "t": 3.25,
      "pitch": 50,
      "vel": 80,
-     "peakDb": -9.84
+     "peakDb": -10.78
     },
     {
      "t": 4,
      "pitch": 50,
      "vel": 64,
-     "peakDb": -11.77
+     "peakDb": -15.16
     },
     {
      "t": 4.75,
      "pitch": 50,
      "vel": 48,
-     "peakDb": -13.55
+     "peakDb": -20.4
     },
     {
      "t": 5.5,
      "pitch": 50,
      "vel": 32,
-     "peakDb": -15.2
+     "peakDb": -28.65
     },
     {
      "t": 6.25,
      "pitch": 50,
      "vel": 16,
-     "peakDb": -16.14
+     "peakDb": -39.52
     },
     {
      "t": 7,
      "pitch": 63,
      "vel": 127,
-     "peakDb": -7.51
+     "peakDb": -5.79
     },
     {
      "t": 7.75,
      "pitch": 63,
      "vel": 112,
-     "peakDb": -8.86
+     "peakDb": -7.71
     },
     {
      "t": 8.5,
      "pitch": 63,
      "vel": 96,
-     "peakDb": -10.34
+     "peakDb": -10.22
     },
     {
      "t": 9.25,
      "pitch": 63,
      "vel": 80,
-     "peakDb": -12.05
+     "peakDb": -13.28
     },
     {
      "t": 10,
      "pitch": 63,
      "vel": 64,
-     "peakDb": -13.95
+     "peakDb": -17.38
     },
     {
      "t": 10.75,
      "pitch": 63,
      "vel": 48,
-     "peakDb": -15.76
+     "peakDb": -22.82
     },
     {
      "t": 11.5,
      "pitch": 63,
      "vel": 32,
-     "peakDb": -17.28
+     "peakDb": -30.72
     },
     {
      "t": 12.25,
      "pitch": 63,
      "vel": 16,
-     "peakDb": -18.32
+     "peakDb": -41.57
     },
     {
      "t": 13,
      "pitch": 76,
      "vel": 127,
-     "peakDb": -5.43
+     "peakDb": -3.68
     },
     {
      "t": 13.75,
      "pitch": 76,
      "vel": 112,
-     "peakDb": -6.75
+     "peakDb": -5.47
     },
     {
      "t": 14.5,
      "pitch": 76,
      "vel": 96,
-     "peakDb": -8.29
+     "peakDb": -8.17
     },
     {
      "t": 15.25,
      "pitch": 76,
      "vel": 80,
-     "peakDb": -10.05
+     "peakDb": -10.89
     },
     {
      "t": 16,
      "pitch": 76,
      "vel": 64,
-     "peakDb": -11.95
+     "peakDb": -15.11
     },
     {
      "t": 16.75,
      "pitch": 76,
      "vel": 48,
-     "peakDb": -13.78
+     "peakDb": -20.69
     },
     {
      "t": 17.5,
      "pitch": 76,
      "vel": 32,
-     "peakDb": -15.36
+     "peakDb": -28.67
     },
     {
      "t": 18.25,
      "pitch": 76,
      "vel": 16,
-     "peakDb": -16.37
+     "peakDb": -39.84
     }
    ],
    "curve": [
     [
      16,
-     -16.9
+     -40.3
     ],
     [
      32,
-     -15.9
+     -29.3
     ],
     [
      48,
-     -14.4
+     -21.3
     ],
     [
      64,
-     -12.6
+     -15.9
     ],
     [
      80,
-     -10.6
+     -11.6
     ],
     [
      96,
-     -8.9
+     -8.7
     ],
     [
      112,
-     -7.4
+     -6.2
     ],
     [
      127,
-     -6.1
+     -4.3
     ]
    ],
    "spreadDb": [
     [
      16,
-     2.2
+     2
     ],
     [
      32,
@@ -2271,32 +2751,34 @@
     ],
     [
      48,
-     2.2
+     2.4
     ],
     [
      64,
-     2.2
-    ],
-    [
-     80,
-     2.2
-    ],
-    [
-     96,
-     2.1
-    ],
-    [
-     112,
      2.3
     ],
     [
+     80,
+     2.5
+    ],
+    [
+     96,
+     2.5
+    ],
+    [
+     112,
+     2.4
+    ],
+    [
      127,
-     2.2
+     2.3
     ]
    ]
   },
   "alto_sax:slap_exploding": {
    "lane": 2,
+   "instKey": "alto_sax",
+   "ordinary": false,
    "label": "Alto Sax slap_exploding",
    "track": "Alto Sax SI2 b",
    "technique": "slap_exploding",
@@ -2307,191 +2789,421 @@
     63,
     75
    ],
+   "offsetS": 0.5,
+   "grid": [
+    {
+     "t": 1,
+     "pitch": 50,
+     "vel": 127,
+     "peakDb": -4.69
+    },
+    {
+     "t": 1.75,
+     "pitch": 50,
+     "vel": 112,
+     "peakDb": -6.6
+    },
+    {
+     "t": 2.5,
+     "pitch": 50,
+     "vel": 96,
+     "peakDb": -9.14
+    },
+    {
+     "t": 3.25,
+     "pitch": 50,
+     "vel": 80,
+     "peakDb": -12.22
+    },
+    {
+     "t": 4,
+     "pitch": 50,
+     "vel": 64,
+     "peakDb": -16.34
+    },
+    {
+     "t": 4.75,
+     "pitch": 50,
+     "vel": 48,
+     "peakDb": -21.95
+    },
+    {
+     "t": 5.5,
+     "pitch": 50,
+     "vel": 32,
+     "peakDb": -30.12
+    },
+    {
+     "t": 6.25,
+     "pitch": 50,
+     "vel": 16,
+     "peakDb": -41.3
+    },
+    {
+     "t": 7,
+     "pitch": 63,
+     "vel": 127,
+     "peakDb": -3.4
+    },
+    {
+     "t": 7.75,
+     "pitch": 63,
+     "vel": 112,
+     "peakDb": -6.74
+    },
+    {
+     "t": 8.5,
+     "pitch": 63,
+     "vel": 96,
+     "peakDb": -7.97
+    },
+    {
+     "t": 9.25,
+     "pitch": 63,
+     "vel": 80,
+     "peakDb": -11.18
+    },
+    {
+     "t": 10,
+     "pitch": 63,
+     "vel": 64,
+     "peakDb": -15.38
+    },
+    {
+     "t": 10.75,
+     "pitch": 63,
+     "vel": 48,
+     "peakDb": -21.1
+    },
+    {
+     "t": 11.5,
+     "pitch": 63,
+     "vel": 32,
+     "peakDb": -29.77
+    },
+    {
+     "t": 12.25,
+     "pitch": 63,
+     "vel": 16,
+     "peakDb": -41.65
+    },
+    {
+     "t": 13,
+     "pitch": 75,
+     "vel": 127,
+     "peakDb": -3.61
+    },
+    {
+     "t": 13.75,
+     "pitch": 75,
+     "vel": 112,
+     "peakDb": -5.67
+    },
+    {
+     "t": 14.5,
+     "pitch": 75,
+     "vel": 96,
+     "peakDb": -8.49
+    },
+    {
+     "t": 15.25,
+     "pitch": 75,
+     "vel": 80,
+     "peakDb": -12.01
+    },
+    {
+     "t": 16,
+     "pitch": 75,
+     "vel": 64,
+     "peakDb": -16.56
+    },
+    {
+     "t": 16.75,
+     "pitch": 75,
+     "vel": 48,
+     "peakDb": -22.45
+    },
+    {
+     "t": 17.5,
+     "pitch": 75,
+     "vel": 32,
+     "peakDb": -31.34
+    },
+    {
+     "t": 18.25,
+     "pitch": 75,
+     "vel": 16,
+     "peakDb": -43.72
+    }
+   ],
+   "curve": [
+    [
+     16,
+     -42.2
+    ],
+    [
+     32,
+     -30.4
+    ],
+    [
+     48,
+     -21.8
+    ],
+    [
+     64,
+     -16.1
+    ],
+    [
+     80,
+     -11.8
+    ],
+    [
+     96,
+     -8.5
+    ],
+    [
+     112,
+     -6.3
+    ],
+    [
+     127,
+     -3.9
+    ]
+   ],
+   "spreadDb": [
+    [
+     16,
+     2.4
+    ],
+    [
+     32,
+     1.6
+    ],
+    [
+     48,
+     1.3
+    ],
+    [
+     64,
+     1.2
+    ],
+    [
+     80,
+     1
+    ],
+    [
+     96,
+     1.2
+    ],
+    [
+     112,
+     1.1
+    ],
+    [
+     127,
+     1.3
+    ]
+   ]
+  },
+  "alto_sax:ord": {
+   "lane": 2,
+   "instKey": "alto_sax",
+   "ordinary": true,
+   "label": "Alto Sax ord",
+   "track": "Alto Sax SI2",
+   "technique": "ord",
+   "port": "SWSax",
+   "channel": 1,
+   "pitches": [
+    50,
+    64,
+    77
+   ],
    "offsetS": 0.6,
    "grid": [
     {
      "t": 1,
      "pitch": 50,
      "vel": 127,
-     "peakDb": -6.11
+     "peakDb": -6.42
     },
     {
      "t": 1.75,
      "pitch": 50,
      "vel": 112,
-     "peakDb": -8.83
+     "peakDb": -6.89
     },
     {
      "t": 2.5,
      "pitch": 50,
      "vel": 96,
-     "peakDb": -10.43
+     "peakDb": -7.48
     },
     {
      "t": 3.25,
      "pitch": 50,
      "vel": 80,
-     "peakDb": -10.73
+     "peakDb": -8.56
     },
     {
      "t": 4,
      "pitch": 50,
      "vel": 64,
-     "peakDb": -14.04
+     "peakDb": -13.64
     },
     {
      "t": 4.75,
      "pitch": 50,
      "vel": 48,
-     "peakDb": -15.96
+     "peakDb": -18.15
     },
     {
      "t": 5.5,
      "pitch": 50,
      "vel": 32,
-     "peakDb": -17.61
+     "peakDb": -22.66
     },
     {
      "t": 6.25,
      "pitch": 50,
      "vel": 16,
-     "peakDb": -18.89
+     "peakDb": -34.46
     },
     {
      "t": 7,
-     "pitch": 63,
+     "pitch": 64,
      "vel": 127,
-     "peakDb": -7.62
+     "peakDb": -5.84
     },
     {
      "t": 7.75,
-     "pitch": 63,
+     "pitch": 64,
      "vel": 112,
-     "peakDb": -8.66
+     "peakDb": -6.15
     },
     {
      "t": 8.5,
-     "pitch": 63,
+     "pitch": 64,
      "vel": 96,
-     "peakDb": -10.65
+     "peakDb": -6.93
     },
     {
      "t": 9.25,
-     "pitch": 63,
+     "pitch": 64,
      "vel": 80,
-     "peakDb": -12.49
+     "peakDb": -7.93
     },
     {
      "t": 10,
-     "pitch": 63,
+     "pitch": 64,
      "vel": 64,
-     "peakDb": -13.92
+     "peakDb": -13.4
     },
     {
      "t": 10.75,
-     "pitch": 63,
+     "pitch": 64,
      "vel": 48,
-     "peakDb": -16.49
+     "peakDb": -16.37
     },
     {
      "t": 11.5,
-     "pitch": 63,
+     "pitch": 64,
      "vel": 32,
-     "peakDb": -18.65
+     "peakDb": -21.93
     },
     {
      "t": 12.25,
-     "pitch": 63,
+     "pitch": 64,
      "vel": 16,
-     "peakDb": -19.14
+     "peakDb": -34.63
     },
     {
      "t": 13,
-     "pitch": 75,
+     "pitch": 77,
      "vel": 127,
-     "peakDb": -6.41
+     "peakDb": -7.15
     },
     {
      "t": 13.75,
-     "pitch": 75,
+     "pitch": 77,
      "vel": 112,
-     "peakDb": -7.87
+     "peakDb": -7.38
     },
     {
      "t": 14.5,
-     "pitch": 75,
+     "pitch": 77,
      "vel": 96,
-     "peakDb": -9.76
+     "peakDb": -8.18
     },
     {
      "t": 15.25,
-     "pitch": 75,
+     "pitch": 77,
      "vel": 80,
-     "peakDb": -11.9
+     "peakDb": -9.29
     },
     {
      "t": 16,
-     "pitch": 75,
+     "pitch": 77,
      "vel": 64,
-     "peakDb": -14.23
+     "peakDb": -12.53
     },
     {
      "t": 16.75,
-     "pitch": 75,
+     "pitch": 77,
      "vel": 48,
-     "peakDb": -16.43
+     "peakDb": -15.76
     },
     {
      "t": 17.5,
-     "pitch": 75,
+     "pitch": 77,
      "vel": 32,
-     "peakDb": -18.8
+     "peakDb": -21.45
     },
     {
      "t": 18.25,
-     "pitch": 75,
+     "pitch": 77,
      "vel": 16,
-     "peakDb": -22.69
+     "peakDb": -34.56
     }
    ],
    "curve": [
     [
      16,
-     -20.2
+     -34.6
     ],
     [
      32,
-     -18.4
+     -22
     ],
     [
      48,
-     -16.3
+     -16.8
     ],
     [
      64,
-     -14.1
+     -13.2
     ],
     [
      80,
-     -11.7
+     -8.6
     ],
     [
      96,
-     -10.3
+     -7.5
     ],
     [
      112,
-     -8.5
+     -6.8
     ],
     [
      127,
-     -6.7
+     -6.5
     ]
    ],
    "spreadDb": [
     [
      16,
-     3.8
+     0.2
     ],
     [
      32,
@@ -2499,260 +3211,34 @@
     ],
     [
      48,
-     0.5
+     2.4
     ],
     [
      64,
-     0.3
+     1.1
     ],
     [
      80,
-     1.8
+     1.4
     ],
     [
      96,
-     0.9
+     1.3
     ],
     [
      112,
-     1
+     1.2
     ],
     [
      127,
-     1.5
-    ]
-   ]
-  },
-  "bowed_vibraphone:glock_main_hard": {
-   "lane": 4,
-   "label": "Vibraphone glock_main_hard",
-   "track": "Glockenspiel RM",
-   "technique": "glock_main_hard",
-   "port": "SWGlock",
-   "channel": 2,
-   "pitches": [
-    62,
-    69,
-    76
-   ],
-   "offsetS": 0.5,
-   "grid": [
-    {
-     "t": 1,
-     "pitch": 62,
-     "vel": 127,
-     "peakDb": -13.4
-    },
-    {
-     "t": 1.75,
-     "pitch": 62,
-     "vel": 112,
-     "peakDb": -17.2
-    },
-    {
-     "t": 2.5,
-     "pitch": 62,
-     "vel": 96,
-     "peakDb": -28.91
-    },
-    {
-     "t": 3.25,
-     "pitch": 62,
-     "vel": 80,
-     "peakDb": -33.05
-    },
-    {
-     "t": 4,
-     "pitch": 62,
-     "vel": 64,
-     "peakDb": -38.21
-    },
-    {
-     "t": 4.75,
-     "pitch": 62,
-     "vel": 48,
-     "peakDb": -45.1
-    },
-    {
-     "t": 5.5,
-     "pitch": 62,
-     "vel": 32,
-     "peakDb": -49.68
-    },
-    {
-     "t": 6.25,
-     "pitch": 62,
-     "vel": 16,
-     "peakDb": -58.49
-    },
-    {
-     "t": 7,
-     "pitch": 69,
-     "vel": 127,
-     "peakDb": -7.08
-    },
-    {
-     "t": 7.75,
-     "pitch": 69,
-     "vel": 112,
-     "peakDb": -13.22
-    },
-    {
-     "t": 8.5,
-     "pitch": 69,
-     "vel": 96,
-     "peakDb": -26.61
-    },
-    {
-     "t": 9.25,
-     "pitch": 69,
-     "vel": 80,
-     "peakDb": -28.72
-    },
-    {
-     "t": 10,
-     "pitch": 69,
-     "vel": 64,
-     "peakDb": -35.41
-    },
-    {
-     "t": 10.75,
-     "pitch": 69,
-     "vel": 48,
-     "peakDb": -40.44
-    },
-    {
-     "t": 11.5,
-     "pitch": 69,
-     "vel": 32,
-     "peakDb": -46.59
-    },
-    {
-     "t": 12.25,
-     "pitch": 69,
-     "vel": 16,
-     "peakDb": -54.19
-    },
-    {
-     "t": 13,
-     "pitch": 76,
-     "vel": 127,
-     "peakDb": -10.36
-    },
-    {
-     "t": 13.75,
-     "pitch": 76,
-     "vel": 112,
-     "peakDb": -15.03
-    },
-    {
-     "t": 14.5,
-     "pitch": 76,
-     "vel": 96,
-     "peakDb": -19.9
-    },
-    {
-     "t": 15.25,
-     "pitch": 76,
-     "vel": 80,
-     "peakDb": -27
-    },
-    {
-     "t": 16,
-     "pitch": 76,
-     "vel": 64,
-     "peakDb": -28.84
-    },
-    {
-     "t": 16.75,
-     "pitch": 76,
-     "vel": 48,
-     "peakDb": -34.13
-    },
-    {
-     "t": 17.5,
-     "pitch": 76,
-     "vel": 32,
-     "peakDb": -38.33
-    },
-    {
-     "t": 18.25,
-     "pitch": 76,
-     "vel": 16,
-     "peakDb": -48.08
-    }
-   ],
-   "curve": [
-    [
-     16,
-     -53.6
-    ],
-    [
-     32,
-     -44.9
-    ],
-    [
-     48,
-     -39.9
-    ],
-    [
-     64,
-     -34.2
-    ],
-    [
-     80,
-     -29.6
-    ],
-    [
-     96,
-     -25.1
-    ],
-    [
-     112,
-     -15.1
-    ],
-    [
-     127,
-     -10.3
-    ]
-   ],
-   "spreadDb": [
-    [
-     16,
-     10.4
-    ],
-    [
-     32,
-     11.4
-    ],
-    [
-     48,
-     11
-    ],
-    [
-     64,
-     9.4
-    ],
-    [
-     80,
-     6
-    ],
-    [
-     96,
-     9
-    ],
-    [
-     112,
-     4
-    ],
-    [
-     127,
-     6.3
+     1.3
     ]
    ]
   },
   "percussion:brake_drums_poly_beater": {
    "lane": 3,
+   "instKey": "percussion",
+   "ordinary": false,
    "label": "Percussion brake_drums_poly_beater",
    "track": "Brake Drums ARO",
    "technique": "brake_drums_poly_beater",
@@ -2761,89 +3247,89 @@
    "pitches": [
     43
    ],
-   "offsetS": 0.7,
+   "offsetS": 0.6,
    "grid": [
     {
      "t": 1,
      "pitch": 43,
      "vel": 127,
-     "peakDb": -9.84
+     "peakDb": -12.26
     },
     {
      "t": 1.75,
      "pitch": 43,
      "vel": 112,
-     "peakDb": -14.39
+     "peakDb": -14.08
     },
     {
      "t": 2.5,
      "pitch": 43,
      "vel": 96,
-     "peakDb": -19.11
+     "peakDb": -18.57
     },
     {
      "t": 3.25,
      "pitch": 43,
      "vel": 80,
-     "peakDb": -18.27
+     "peakDb": -17.81
     },
     {
      "t": 4,
      "pitch": 43,
      "vel": 64,
-     "peakDb": -23.54
+     "peakDb": -23.13
     },
     {
      "t": 4.75,
      "pitch": 43,
      "vel": 48,
-     "peakDb": -28.75
+     "peakDb": -28.51
     },
     {
      "t": 5.5,
      "pitch": 43,
      "vel": 32,
-     "peakDb": -30.11
+     "peakDb": -29.69
     },
     {
      "t": 6.25,
      "pitch": 43,
      "vel": 16,
-     "peakDb": -34.11
+     "peakDb": -33.66
     }
    ],
    "curve": [
     [
      16,
-     -34.1
+     -33.7
     ],
     [
      32,
-     -30.1
+     -29.7
     ],
     [
      48,
-     -28.7
+     -28.5
     ],
     [
      64,
-     -23.5
+     -23.1
     ],
     [
      80,
-     -18.3
+     -17.8
     ],
     [
      96,
-     -18.3
+     -17.8
     ],
     [
      112,
-     -14.4
+     -14.1
     ],
     [
      127,
-     -9.8
+     -12.3
     ]
    ],
    "spreadDb": [
@@ -2883,11 +3369,13 @@
   },
   "percussion:gran_cassa_rute_on_rim": {
    "lane": 3,
+   "instKey": "percussion",
+   "ordinary": false,
    "label": "Percussion gran_cassa_rute_on_rim",
-   "track": "Bass Drum ARO",
+   "track": "Bass Drum Rim ARO",
    "technique": "gran_cassa_rute_on_rim",
    "port": "SWPerc",
-   "channel": 10,
+   "channel": 13,
    "pitches": [
     71,
     72,
@@ -2899,223 +3387,225 @@
      "t": 1,
      "pitch": 71,
      "vel": 127,
-     "peakDb": -23.01
+     "peakDb": -19.16
     },
     {
      "t": 1.75,
      "pitch": 71,
      "vel": 112,
-     "peakDb": -28.77
+     "peakDb": -23.56
     },
     {
      "t": 2.5,
      "pitch": 71,
      "vel": 96,
-     "peakDb": -33.12
+     "peakDb": -28.22
     },
     {
      "t": 3.25,
      "pitch": 71,
      "vel": 80,
-     "peakDb": -38.78
+     "peakDb": -33.34
     },
     {
      "t": 4,
      "pitch": 71,
      "vel": 64,
-     "peakDb": -42.14
+     "peakDb": -36.1
     },
     {
      "t": 4.75,
      "pitch": 71,
      "vel": 48,
-     "peakDb": -48.82
+     "peakDb": -42.63
     },
     {
      "t": 5.5,
      "pitch": 71,
      "vel": 32,
-     "peakDb": -51.31
+     "peakDb": -45.61
     },
     {
      "t": 6.25,
      "pitch": 71,
      "vel": 16,
-     "peakDb": -56.43
+     "peakDb": -46.61
     },
     {
      "t": 7,
      "pitch": 72,
      "vel": 127,
-     "peakDb": -17.38
+     "peakDb": -10.92
     },
     {
      "t": 7.75,
      "pitch": 72,
      "vel": 112,
-     "peakDb": -20.72
+     "peakDb": -13.39
     },
     {
      "t": 8.5,
      "pitch": 72,
      "vel": 96,
-     "peakDb": -19.73
+     "peakDb": -15.86
     },
     {
      "t": 9.25,
      "pitch": 72,
      "vel": 80,
-     "peakDb": -28.53
+     "peakDb": -24.28
     },
     {
      "t": 10,
      "pitch": 72,
      "vel": 64,
-     "peakDb": -33.3
+     "peakDb": -27.3
     },
     {
      "t": 10.75,
      "pitch": 72,
      "vel": 48,
-     "peakDb": -38.55
+     "peakDb": -28.94
     },
     {
      "t": 11.5,
      "pitch": 72,
      "vel": 32,
-     "peakDb": -35.99
+     "peakDb": -33.5
     },
     {
      "t": 12.25,
      "pitch": 72,
      "vel": 16,
-     "peakDb": -46.77
+     "peakDb": -39.63
     },
     {
      "t": 13,
      "pitch": 75,
      "vel": 127,
-     "peakDb": -25.94
+     "peakDb": -17.88
     },
     {
      "t": 13.75,
      "pitch": 75,
      "vel": 112,
-     "peakDb": -28.49
+     "peakDb": -21.39
     },
     {
      "t": 14.5,
      "pitch": 75,
      "vel": 96,
-     "peakDb": -31.82
+     "peakDb": -25.38
     },
     {
      "t": 15.25,
      "pitch": 75,
      "vel": 80,
-     "peakDb": -38.38
+     "peakDb": -29.93
     },
     {
      "t": 16,
      "pitch": 75,
      "vel": 64,
-     "peakDb": -43.61
+     "peakDb": -35.89
     },
     {
      "t": 16.75,
      "pitch": 75,
      "vel": 48,
-     "peakDb": -45.93
+     "peakDb": -37.61
     },
     {
      "t": 17.5,
      "pitch": 75,
      "vel": 32,
-     "peakDb": -50.69
+     "peakDb": -42.41
     },
     {
      "t": 18.25,
      "pitch": 75,
      "vel": 16,
-     "peakDb": -47.47
+     "peakDb": -43.53
     }
    ],
    "curve": [
     [
      16,
-     -50.2
+     -43.3
     ],
     [
      32,
-     -46
+     -40.5
     ],
     [
      48,
-     -44.4
+     -36.4
     ],
     [
      64,
-     -39.7
+     -33.1
     ],
     [
      80,
-     -35.2
+     -29.2
     ],
     [
      96,
-     -28.2
+     -23.2
     ],
     [
      112,
-     -26
+     -19.4
     ],
     [
      127,
-     -22.1
+     -16
     ]
    ],
    "spreadDb": [
     [
      16,
-     9.7
+     7
     ],
     [
      32,
-     15.3
+     12.1
     ],
     [
      48,
-     10.3
+     13.7
     ],
     [
      64,
-     10.3
+     8.8
     ],
     [
      80,
-     10.3
+     9.1
     ],
     [
      96,
-     13.4
+     12.4
     ],
     [
      112,
-     8.1
+     10.2
     ],
     [
      127,
-     8.6
+     8.2
     ]
    ]
   },
   "percussion:brake_drums_rubber_mallets": {
    "lane": 3,
+   "instKey": "percussion",
+   "ordinary": false,
    "label": "Percussion brake_drums_rubber_mallets",
-   "track": "Brake Drums ARO",
+   "track": "Brake Drums Rubber Mallets ARO",
    "technique": "brake_drums_rubber_mallets",
    "port": "SWPerc",
-   "channel": 9,
+   "channel": 14,
    "pitches": [
     55
    ],
@@ -3125,83 +3615,83 @@
      "t": 1,
      "pitch": 55,
      "vel": 127,
-     "peakDb": -13.34
+     "peakDb": -13.96
     },
     {
      "t": 1.75,
      "pitch": 55,
      "vel": 112,
-     "peakDb": -14.29
+     "peakDb": -16.93
     },
     {
      "t": 2.5,
      "pitch": 55,
      "vel": 96,
-     "peakDb": -20.79
+     "peakDb": -22.66
     },
     {
      "t": 3.25,
      "pitch": 55,
      "vel": 80,
-     "peakDb": -23.04
+     "peakDb": -24.85
     },
     {
      "t": 4,
      "pitch": 55,
      "vel": 64,
-     "peakDb": -29.24
+     "peakDb": -30.65
     },
     {
      "t": 4.75,
      "pitch": 55,
      "vel": 48,
-     "peakDb": -31.07
+     "peakDb": -33.24
     },
     {
      "t": 5.5,
      "pitch": 55,
      "vel": 32,
-     "peakDb": -35.55
+     "peakDb": -36.44
     },
     {
      "t": 6.25,
      "pitch": 55,
      "vel": 16,
-     "peakDb": -37.98
+     "peakDb": -38.86
     }
    ],
    "curve": [
     [
      16,
-     -38
+     -38.9
     ],
     [
      32,
-     -35.5
+     -36.4
     ],
     [
      48,
-     -31.1
+     -33.2
     ],
     [
      64,
-     -29.2
+     -30.6
     ],
     [
      80,
-     -23
+     -24.8
     ],
     [
      96,
-     -20.8
+     -22.7
     ],
     [
      112,
-     -14.3
+     -16.9
     ],
     [
      127,
-     -13.3
+     -14
     ]
    ],
    "spreadDb": [
@@ -3241,6 +3731,8 @@
   },
   "percussion:china_cymbals_scrape": {
    "lane": 3,
+   "instKey": "percussion",
+   "ordinary": false,
    "label": "Percussion china_cymbals_scrape",
    "track": "China Cymbal ARO",
    "technique": "china_cymbals_scrape",
@@ -3250,167 +3742,167 @@
     66,
     68
    ],
-   "offsetS": 1,
+   "offsetS": 0.9,
    "grid": [
     {
      "t": 1,
      "pitch": 66,
      "vel": 127,
-     "peakDb": -34.97
+     "peakDb": -26.99
     },
     {
      "t": 1.75,
      "pitch": 66,
      "vel": 112,
-     "peakDb": -40.14
+     "peakDb": -31.82
     },
     {
      "t": 2.5,
      "pitch": 66,
      "vel": 96,
-     "peakDb": -46.51
+     "peakDb": -38.48
     },
     {
      "t": 3.25,
      "pitch": 66,
      "vel": 80,
-     "peakDb": -49.4
+     "peakDb": -41.28
     },
     {
      "t": 4,
      "pitch": 66,
      "vel": 64,
-     "peakDb": -54.39
+     "peakDb": -45.95
     },
     {
      "t": 4.75,
      "pitch": 66,
      "vel": 48,
-     "peakDb": -57.33
+     "peakDb": -49.65
     },
     {
      "t": 5.5,
      "pitch": 66,
      "vel": 32,
-     "peakDb": -61.7
+     "peakDb": -54.34
     },
     {
      "t": 6.25,
      "pitch": 66,
      "vel": 16,
-     "peakDb": -53.65
+     "peakDb": -52.55
     },
     {
      "t": 7,
      "pitch": 68,
      "vel": 127,
-     "peakDb": -38.86
+     "peakDb": -30.86
     },
     {
      "t": 7.75,
      "pitch": 68,
      "vel": 112,
-     "peakDb": -43.15
+     "peakDb": -35.36
     },
     {
      "t": 8.5,
      "pitch": 68,
      "vel": 96,
-     "peakDb": -50.41
+     "peakDb": -41.63
     },
     {
      "t": 9.25,
      "pitch": 68,
      "vel": 80,
-     "peakDb": -49
+     "peakDb": -39.53
     },
     {
      "t": 10,
      "pitch": 68,
      "vel": 64,
-     "peakDb": -55.4
+     "peakDb": -47.17
     },
     {
      "t": 10.75,
      "pitch": 68,
      "vel": 48,
-     "peakDb": -58.99
+     "peakDb": -50.23
     },
     {
      "t": 11.5,
      "pitch": 68,
      "vel": 32,
-     "peakDb": -64.12
+     "peakDb": -55.55
     },
     {
      "t": 12.25,
      "pitch": 68,
      "vel": 16,
-     "peakDb": -66.41
+     "peakDb": -58.77
     }
    ],
    "curve": [
     [
      16,
-     -60
+     -55.7
     ],
     [
      32,
-     -60
-    ],
-    [
-     48,
-     -58.2
-    ],
-    [
-     64,
      -54.9
     ],
     [
+     48,
+     -49.9
+    ],
+    [
+     64,
+     -46.6
+    ],
+    [
      80,
-     -49.2
+     -40.4
     ],
     [
      96,
-     -48.5
+     -40.1
     ],
     [
      112,
-     -41.6
+     -33.6
     ],
     [
      127,
-     -36.9
+     -28.9
     ]
    ],
    "spreadDb": [
     [
      16,
-     12.8
+     6.2
     ],
     [
      32,
-     2.4
+     1.2
     ],
     [
      48,
-     1.7
+     0.6
     ],
     [
      64,
-     1
+     1.2
     ],
     [
      80,
-     0.4
+     1.8
     ],
     [
      96,
-     3.9
+     3.2
     ],
     [
      112,
-     3
+     3.5
     ],
     [
      127,
@@ -3420,6 +3912,8 @@
   },
   "percussion:small_metals_spring_coil": {
    "lane": 3,
+   "instKey": "percussion",
+   "ordinary": false,
    "label": "Percussion small_metals_spring_coil",
    "track": "Spring Coil ARO",
    "technique": "small_metals_spring_coil",
@@ -3429,176 +3923,178 @@
     63,
     68
    ],
-   "offsetS": 0.6,
+   "offsetS": 0.5,
    "grid": [
     {
      "t": 1,
      "pitch": 63,
      "vel": 127,
-     "peakDb": -25.09
+     "peakDb": -14.81
     },
     {
      "t": 1.75,
      "pitch": 63,
      "vel": 112,
-     "peakDb": -25.48
+     "peakDb": -21.85
     },
     {
      "t": 2.5,
      "pitch": 63,
      "vel": 96,
-     "peakDb": -35.36
+     "peakDb": -25.5
     },
     {
      "t": 3.25,
      "pitch": 63,
      "vel": 80,
-     "peakDb": -42.52
+     "peakDb": -32.7
     },
     {
      "t": 4,
      "pitch": 63,
      "vel": 64,
-     "peakDb": -46.12
+     "peakDb": -38.69
     },
     {
      "t": 4.75,
      "pitch": 63,
      "vel": 48,
-     "peakDb": -48.79
+     "peakDb": -40.14
     },
     {
      "t": 5.5,
      "pitch": 63,
      "vel": 32,
-     "peakDb": -56.06
+     "peakDb": -47.19
     },
     {
      "t": 6.25,
      "pitch": 63,
      "vel": 16,
-     "peakDb": -59.51
+     "peakDb": -52.56
     },
     {
      "t": 7,
      "pitch": 68,
      "vel": 127,
-     "peakDb": -28.42
+     "peakDb": -22.35
     },
     {
      "t": 7.75,
      "pitch": 68,
      "vel": 112,
-     "peakDb": -35.6
+     "peakDb": -26.11
     },
     {
      "t": 8.5,
      "pitch": 68,
      "vel": 96,
-     "peakDb": -43.28
+     "peakDb": -33.71
     },
     {
      "t": 9.25,
      "pitch": 68,
      "vel": 80,
-     "peakDb": -44.09
+     "peakDb": -41.48
     },
     {
      "t": 10,
      "pitch": 68,
      "vel": 64,
-     "peakDb": -51.52
+     "peakDb": -43.19
     },
     {
      "t": 10.75,
      "pitch": 68,
      "vel": 48,
-     "peakDb": -53.79
+     "peakDb": -46.85
     },
     {
      "t": 11.5,
      "pitch": 68,
      "vel": 32,
-     "peakDb": -60.08
+     "peakDb": -51.62
     },
     {
      "t": 12.25,
      "pitch": 68,
      "vel": 16,
-     "peakDb": -62.87
+     "peakDb": -55.5
     }
    ],
    "curve": [
     [
      16,
-     -61.2
+     -54
     ],
     [
      32,
-     -58.1
+     -49.4
     ],
     [
      48,
-     -51.3
+     -43.5
     ],
     [
      64,
-     -48.8
+     -40.9
     ],
     [
      80,
-     -43.3
+     -37.1
     ],
     [
      96,
-     -39.3
+     -29.6
     ],
     [
      112,
-     -30.5
+     -24
     ],
     [
      127,
-     -26.8
+     -18.6
     ]
    ],
    "spreadDb": [
     [
      16,
-     3.4
+     2.9
     ],
     [
      32,
-     4
+     4.4
     ],
     [
      48,
-     5
+     6.7
     ],
     [
      64,
-     5.4
+     4.5
     ],
     [
      80,
-     1.6
+     8.8
     ],
     [
      96,
-     7.9
+     8.2
     ],
     [
      112,
-     10.1
+     4.3
     ],
     [
      127,
-     3.3
+     7.5
     ]
    ]
   },
   "percussion:gran_cassa_medium_felt": {
    "lane": 3,
+   "instKey": "percussion",
+   "ordinary": false,
    "label": "Percussion gran_cassa_medium_felt",
    "track": "Bass Drum ARO",
    "technique": "gran_cassa_medium_felt",
@@ -3613,83 +4109,83 @@
      "t": 1,
      "pitch": 52,
      "vel": 127,
-     "peakDb": -27.95
+     "peakDb": -23.02
     },
     {
      "t": 1.75,
      "pitch": 52,
      "vel": 112,
-     "peakDb": -25.93
+     "peakDb": -22.33
     },
     {
      "t": 2.5,
      "pitch": 52,
      "vel": 96,
-     "peakDb": -27.15
+     "peakDb": -22.98
     },
     {
      "t": 3.25,
      "pitch": 52,
      "vel": 80,
-     "peakDb": -25.56
+     "peakDb": -21.79
     },
     {
      "t": 4,
      "pitch": 52,
      "vel": 64,
-     "peakDb": -27.33
+     "peakDb": -23.69
     },
     {
      "t": 4.75,
      "pitch": 52,
      "vel": 48,
-     "peakDb": -26.47
+     "peakDb": -22.05
     },
     {
      "t": 5.5,
      "pitch": 52,
      "vel": 32,
-     "peakDb": -27.17
+     "peakDb": -23.24
     },
     {
      "t": 6.25,
      "pitch": 52,
      "vel": 16,
-     "peakDb": -26.53
+     "peakDb": -20.85
     }
    ],
    "curve": [
     [
      16,
-     -26.5
+     -20.8
     ],
     [
      32,
-     -26.5
+     -20.8
     ],
     [
      48,
-     -26.5
+     -20.8
     ],
     [
      64,
-     -26.5
+     -20.8
     ],
     [
      80,
-     -25.6
+     -20.8
     ],
     [
      96,
-     -25.6
+     -20.8
     ],
     [
      112,
-     -25.6
+     -20.8
     ],
     [
      127,
-     -25.6
+     -20.8
     ]
    ],
    "spreadDb": [
@@ -3727,8 +4223,470 @@
     ]
    ]
   },
+  "bowed_vibraphone:glock_main_hard": {
+   "lane": 4,
+   "instKey": "bowed_vibraphone",
+   "ordinary": false,
+   "label": "Vibraphone glock_main_hard",
+   "track": "Glockenspiel RM",
+   "technique": "glock_main_hard",
+   "port": "SWGlock",
+   "channel": 2,
+   "pitches": [
+    62,
+    69,
+    76
+   ],
+   "offsetS": 0.6,
+   "grid": [
+    {
+     "t": 1,
+     "pitch": 62,
+     "vel": 127,
+     "peakDb": -14.78
+    },
+    {
+     "t": 1.75,
+     "pitch": 62,
+     "vel": 112,
+     "peakDb": -19.06
+    },
+    {
+     "t": 2.5,
+     "pitch": 62,
+     "vel": 96,
+     "peakDb": -30.36
+    },
+    {
+     "t": 3.25,
+     "pitch": 62,
+     "vel": 80,
+     "peakDb": -35.26
+    },
+    {
+     "t": 4,
+     "pitch": 62,
+     "vel": 64,
+     "peakDb": -40.73
+    },
+    {
+     "t": 4.75,
+     "pitch": 62,
+     "vel": 48,
+     "peakDb": -46.25
+    },
+    {
+     "t": 5.5,
+     "pitch": 62,
+     "vel": 32,
+     "peakDb": -49.37
+    },
+    {
+     "t": 6.25,
+     "pitch": 62,
+     "vel": 16,
+     "peakDb": -56.61
+    },
+    {
+     "t": 7,
+     "pitch": 69,
+     "vel": 127,
+     "peakDb": -8.46
+    },
+    {
+     "t": 7.75,
+     "pitch": 69,
+     "vel": 112,
+     "peakDb": -14.43
+    },
+    {
+     "t": 8.5,
+     "pitch": 69,
+     "vel": 96,
+     "peakDb": -26.11
+    },
+    {
+     "t": 9.25,
+     "pitch": 69,
+     "vel": 80,
+     "peakDb": -28.03
+    },
+    {
+     "t": 10,
+     "pitch": 69,
+     "vel": 64,
+     "peakDb": -36.92
+    },
+    {
+     "t": 10.75,
+     "pitch": 69,
+     "vel": 48,
+     "peakDb": -40.17
+    },
+    {
+     "t": 11.5,
+     "pitch": 69,
+     "vel": 32,
+     "peakDb": -46.14
+    },
+    {
+     "t": 12.25,
+     "pitch": 69,
+     "vel": 16,
+     "peakDb": -52.47
+    },
+    {
+     "t": 13,
+     "pitch": 76,
+     "vel": 127,
+     "peakDb": -11.73
+    },
+    {
+     "t": 13.75,
+     "pitch": 76,
+     "vel": 112,
+     "peakDb": -18.8
+    },
+    {
+     "t": 14.5,
+     "pitch": 76,
+     "vel": 96,
+     "peakDb": -21.17
+    },
+    {
+     "t": 15.25,
+     "pitch": 76,
+     "vel": 80,
+     "peakDb": -25.2
+    },
+    {
+     "t": 16,
+     "pitch": 76,
+     "vel": 64,
+     "peakDb": -31.94
+    },
+    {
+     "t": 16.75,
+     "pitch": 76,
+     "vel": 48,
+     "peakDb": -35.4
+    },
+    {
+     "t": 17.5,
+     "pitch": 76,
+     "vel": 32,
+     "peakDb": -40.77
+    },
+    {
+     "t": 18.25,
+     "pitch": 76,
+     "vel": 16,
+     "peakDb": -52.12
+    }
+   ],
+   "curve": [
+    [
+     16,
+     -53.7
+    ],
+    [
+     32,
+     -45.4
+    ],
+    [
+     48,
+     -40.6
+    ],
+    [
+     64,
+     -36.5
+    ],
+    [
+     80,
+     -29.5
+    ],
+    [
+     96,
+     -25.9
+    ],
+    [
+     112,
+     -17.4
+    ],
+    [
+     127,
+     -11.7
+    ]
+   ],
+   "spreadDb": [
+    [
+     16,
+     4.5
+    ],
+    [
+     32,
+     8.6
+    ],
+    [
+     48,
+     10.9
+    ],
+    [
+     64,
+     8.8
+    ],
+    [
+     80,
+     10.1
+    ],
+    [
+     96,
+     9.2
+    ],
+    [
+     112,
+     4.6
+    ],
+    [
+     127,
+     6.3
+    ]
+   ]
+  },
+  "bowed_vibraphone:crot_main_metal": {
+   "lane": 4,
+   "instKey": "bowed_vibraphone",
+   "ordinary": true,
+   "label": "Vibraphone crot_main_metal",
+   "track": "Crotales RM",
+   "technique": "crot_main_metal",
+   "port": "SWCrotales",
+   "channel": 3,
+   "pitches": [
+    62,
+    69,
+    76
+   ],
+   "offsetS": 0.6,
+   "grid": [
+    {
+     "t": 1,
+     "pitch": 62,
+     "vel": 127,
+     "peakDb": -10.61
+    },
+    {
+     "t": 1.75,
+     "pitch": 62,
+     "vel": 112,
+     "peakDb": -15.78
+    },
+    {
+     "t": 2.5,
+     "pitch": 62,
+     "vel": 96,
+     "peakDb": -19.15
+    },
+    {
+     "t": 3.25,
+     "pitch": 62,
+     "vel": 80,
+     "peakDb": -23.58
+    },
+    {
+     "t": 4,
+     "pitch": 62,
+     "vel": 64,
+     "peakDb": -25.22
+    },
+    {
+     "t": 4.75,
+     "pitch": 62,
+     "vel": 48,
+     "peakDb": -30.81
+    },
+    {
+     "t": 5.5,
+     "pitch": 62,
+     "vel": 32,
+     "peakDb": -38.42
+    },
+    {
+     "t": 6.25,
+     "pitch": 62,
+     "vel": 16,
+     "peakDb": -45.93
+    },
+    {
+     "t": 7,
+     "pitch": 69,
+     "vel": 127,
+     "peakDb": -16.23
+    },
+    {
+     "t": 7.75,
+     "pitch": 69,
+     "vel": 112,
+     "peakDb": -13.95
+    },
+    {
+     "t": 8.5,
+     "pitch": 69,
+     "vel": 96,
+     "peakDb": -16.16
+    },
+    {
+     "t": 9.25,
+     "pitch": 69,
+     "vel": 80,
+     "peakDb": -18.6
+    },
+    {
+     "t": 10,
+     "pitch": 69,
+     "vel": 64,
+     "peakDb": -26.4
+    },
+    {
+     "t": 10.75,
+     "pitch": 69,
+     "vel": 48,
+     "peakDb": -28.38
+    },
+    {
+     "t": 11.5,
+     "pitch": 69,
+     "vel": 32,
+     "peakDb": -34.08
+    },
+    {
+     "t": 12.25,
+     "pitch": 69,
+     "vel": 16,
+     "peakDb": -36.06
+    },
+    {
+     "t": 13,
+     "pitch": 76,
+     "vel": 127,
+     "peakDb": -10.21
+    },
+    {
+     "t": 13.75,
+     "pitch": 76,
+     "vel": 112,
+     "peakDb": -13.68
+    },
+    {
+     "t": 14.5,
+     "pitch": 76,
+     "vel": 96,
+     "peakDb": -17.22
+    },
+    {
+     "t": 15.25,
+     "pitch": 76,
+     "vel": 80,
+     "peakDb": -20.92
+    },
+    {
+     "t": 16,
+     "pitch": 76,
+     "vel": 64,
+     "peakDb": -22.94
+    },
+    {
+     "t": 16.75,
+     "pitch": 76,
+     "vel": 48,
+     "peakDb": -27.28
+    },
+    {
+     "t": 17.5,
+     "pitch": 76,
+     "vel": 32,
+     "peakDb": -35.72
+    },
+    {
+     "t": 18.25,
+     "pitch": 76,
+     "vel": 16,
+     "peakDb": -43.49
+    }
+   ],
+   "curve": [
+    [
+     16,
+     -41.8
+    ],
+    [
+     32,
+     -36.1
+    ],
+    [
+     48,
+     -28.8
+    ],
+    [
+     64,
+     -24.9
+    ],
+    [
+     80,
+     -21
+    ],
+    [
+     96,
+     -17.5
+    ],
+    [
+     112,
+     -14.5
+    ],
+    [
+     127,
+     -12.3
+    ]
+   ],
+   "spreadDb": [
+    [
+     16,
+     9.9
+    ],
+    [
+     32,
+     4.3
+    ],
+    [
+     48,
+     3.5
+    ],
+    [
+     64,
+     3.5
+    ],
+    [
+     80,
+     5
+    ],
+    [
+     96,
+     3
+    ],
+    [
+     112,
+     2.1
+    ],
+    [
+     127,
+     6
+    ]
+   ]
+  },
   "piano:main": {
    "lane": 5,
+   "instKey": "piano",
+   "ordinary": true,
    "label": "Piano main",
    "track": "Piano Kontakt",
    "technique": "main",
@@ -3745,31 +4703,31 @@
      "t": 1,
      "pitch": 43,
      "vel": 127,
-     "peakDb": -9.28
+     "peakDb": -9.29
     },
     {
      "t": 1.75,
      "pitch": 43,
      "vel": 112,
-     "peakDb": -8.16
+     "peakDb": -8.22
     },
     {
      "t": 2.5,
      "pitch": 43,
      "vel": 96,
-     "peakDb": -11.56
+     "peakDb": -10.17
     },
     {
      "t": 3.25,
      "pitch": 43,
      "vel": 80,
-     "peakDb": -21.06
+     "peakDb": -21.64
     },
     {
      "t": 4,
      "pitch": 43,
      "vel": 64,
-     "peakDb": -21.11
+     "peakDb": -21.08
     },
     {
      "t": 4.75,
@@ -3781,19 +4739,19 @@
      "t": 5.5,
      "pitch": 43,
      "vel": 32,
-     "peakDb": -22.15
+     "peakDb": -22.13
     },
     {
      "t": 6.25,
      "pitch": 43,
      "vel": 16,
-     "peakDb": -33.52
+     "peakDb": -33.57
     },
     {
      "t": 7,
      "pitch": 67,
      "vel": 127,
-     "peakDb": -10.41
+     "peakDb": -9.86
     },
     {
      "t": 7.75,
@@ -3805,19 +4763,19 @@
      "t": 8.5,
      "pitch": 67,
      "vel": 96,
-     "peakDb": -10.82
+     "peakDb": -10.53
     },
     {
      "t": 9.25,
      "pitch": 67,
      "vel": 80,
-     "peakDb": -18.77
+     "peakDb": -17.36
     },
     {
      "t": 10,
      "pitch": 67,
      "vel": 64,
-     "peakDb": -17.39
+     "peakDb": -17.38
     },
     {
      "t": 10.75,
@@ -3829,13 +4787,13 @@
      "t": 11.5,
      "pitch": 67,
      "vel": 32,
-     "peakDb": -36.13
+     "peakDb": -36.12
     },
     {
      "t": 12.25,
      "pitch": 67,
      "vel": 16,
-     "peakDb": -44.09
+     "peakDb": -44.06
     },
     {
      "t": 13,
@@ -3847,19 +4805,19 @@
      "t": 13.75,
      "pitch": 91,
      "vel": 112,
-     "peakDb": -9.25
+     "peakDb": -9.39
     },
     {
      "t": 14.5,
      "pitch": 91,
      "vel": 96,
-     "peakDb": -9.89
+     "peakDb": -11.3
     },
     {
      "t": 15.25,
      "pitch": 91,
      "vel": 80,
-     "peakDb": -17.46
+     "peakDb": -17.47
     },
     {
      "t": 16,
@@ -3871,19 +4829,19 @@
      "t": 16.75,
      "pitch": 91,
      "vel": 48,
-     "peakDb": -19.52
+     "peakDb": -19.91
     },
     {
      "t": 17.5,
      "pitch": 91,
      "vel": 32,
-     "peakDb": -23.44
+     "peakDb": -22.02
     },
     {
      "t": 18.25,
      "pitch": 91,
      "vel": 16,
-     "peakDb": -42.24
+     "peakDb": -42.29
     }
    ],
    "curve": [
@@ -3893,45 +4851,45 @@
     ],
     [
      32,
-     -27.2
+     -26.8
     ],
     [
      48,
-     -23.3
+     -23.5
     ],
     [
      64,
-     -18.7
+     -18.6
     ],
     [
      80,
-     -18.7
+     -18.6
     ],
     [
      96,
-     -10.8
+     -10.7
     ],
     [
      112,
-     -8.7
+     -8.8
     ],
     [
      127,
-     -8.7
+     -8.8
     ]
    ],
    "spreadDb": [
     [
      16,
-     10.6
+     10.5
     ],
     [
      32,
-     14
+     14.1
     ],
     [
      48,
-     6.1
+     5.7
     ],
     [
      64,
@@ -3939,15 +4897,15 @@
     ],
     [
      80,
-     3.6
+     4.3
     ],
     [
      96,
-     1.7
+     1.1
     ],
     [
      112,
-     1.1
+     1.2
     ],
     [
      127,
@@ -3957,6 +4915,8 @@
   },
   "piano:plucked": {
    "lane": 5,
+   "instKey": "piano",
+   "ordinary": false,
    "label": "Piano plucked",
    "track": "PianoPlucked Kontakt",
    "technique": "plucked",
@@ -3967,224 +4927,226 @@
     60,
     75
    ],
-   "offsetS": 0,
+   "offsetS": 0.5,
    "grid": [
     {
      "t": 1,
      "pitch": 44,
      "vel": 127,
-     "peakDb": -150
+     "peakDb": -13.01
     },
     {
      "t": 1.75,
      "pitch": 44,
      "vel": 112,
-     "peakDb": -150
+     "peakDb": -12.02
     },
     {
      "t": 2.5,
      "pitch": 44,
      "vel": 96,
-     "peakDb": -150
+     "peakDb": -15.93
     },
     {
      "t": 3.25,
      "pitch": 44,
      "vel": 80,
-     "peakDb": -150
+     "peakDb": -19
     },
     {
      "t": 4,
      "pitch": 44,
      "vel": 64,
-     "peakDb": -150
+     "peakDb": -21.45
     },
     {
      "t": 4.75,
      "pitch": 44,
      "vel": 48,
-     "peakDb": -150
+     "peakDb": -25.23
     },
     {
      "t": 5.5,
      "pitch": 44,
      "vel": 32,
-     "peakDb": -150
+     "peakDb": -29.74
     },
     {
      "t": 6.25,
      "pitch": 44,
      "vel": 16,
-     "peakDb": -150
+     "peakDb": -36.49
     },
     {
      "t": 7,
      "pitch": 60,
      "vel": 127,
-     "peakDb": -150
+     "peakDb": -8.79
     },
     {
      "t": 7.75,
      "pitch": 60,
      "vel": 112,
-     "peakDb": -150
+     "peakDb": -12.45
     },
     {
      "t": 8.5,
      "pitch": 60,
      "vel": 96,
-     "peakDb": -150
+     "peakDb": -12.77
     },
     {
      "t": 9.25,
      "pitch": 60,
      "vel": 80,
-     "peakDb": -150
+     "peakDb": -18.25
     },
     {
      "t": 10,
      "pitch": 60,
      "vel": 64,
-     "peakDb": -150
+     "peakDb": -22.06
     },
     {
      "t": 10.75,
      "pitch": 60,
      "vel": 48,
-     "peakDb": -150
+     "peakDb": -26.24
     },
     {
      "t": 11.5,
      "pitch": 60,
      "vel": 32,
-     "peakDb": -150
+     "peakDb": -28.62
     },
     {
      "t": 12.25,
      "pitch": 60,
      "vel": 16,
-     "peakDb": -150
+     "peakDb": -34.11
     },
     {
      "t": 13,
      "pitch": 75,
      "vel": 127,
-     "peakDb": -150
+     "peakDb": -9.04
     },
     {
      "t": 13.75,
      "pitch": 75,
      "vel": 112,
-     "peakDb": -150
+     "peakDb": -14.37
     },
     {
      "t": 14.5,
      "pitch": 75,
      "vel": 96,
-     "peakDb": -150
+     "peakDb": -16.24
     },
     {
      "t": 15.25,
      "pitch": 75,
      "vel": 80,
-     "peakDb": -150
+     "peakDb": -16.67
     },
     {
      "t": 16,
      "pitch": 75,
      "vel": 64,
-     "peakDb": -150
+     "peakDb": -24.18
     },
     {
      "t": 16.75,
      "pitch": 75,
      "vel": 48,
-     "peakDb": -150
+     "peakDb": -26.56
     },
     {
      "t": 17.5,
      "pitch": 75,
      "vel": 32,
-     "peakDb": -150
+     "peakDb": -32.61
     },
     {
      "t": 18.25,
      "pitch": 75,
      "vel": 16,
-     "peakDb": -150
+     "peakDb": -33.86
     }
    ],
    "curve": [
     [
      16,
-     -150
+     -34.8
     ],
     [
      32,
-     -150
+     -30.3
     ],
     [
      48,
-     -150
+     -26
     ],
     [
      64,
-     -150
+     -22.6
     ],
     [
      80,
-     -150
+     -18
     ],
     [
      96,
-     -150
+     -15
     ],
     [
      112,
-     -150
+     -12.9
     ],
     [
      127,
-     -150
+     -10.3
     ]
    ],
    "spreadDb": [
     [
      16,
-     0
+     2.6
     ],
     [
      32,
-     0
+     4
     ],
     [
      48,
-     0
+     1.3
     ],
     [
      64,
-     0
+     2.7
     ],
     [
      80,
-     0
+     2.3
     ],
     [
      96,
-     0
+     3.5
     ],
     [
      112,
-     0
+     2.3
     ],
     [
      127,
-     0
+     4.2
     ]
    ]
   },
   "piano:muted": {
    "lane": 5,
+   "instKey": "piano",
+   "ordinary": false,
    "label": "Piano muted",
    "track": "PianoMute PP2",
    "technique": "muted",
@@ -4201,67 +5163,67 @@
      "t": 1,
      "pitch": 43,
      "vel": 127,
-     "peakDb": -3.5
+     "peakDb": -4.65
     },
     {
      "t": 1.75,
      "pitch": 43,
      "vel": 112,
-     "peakDb": -4.53
+     "peakDb": -5.5
     },
     {
      "t": 2.5,
      "pitch": 43,
      "vel": 96,
-     "peakDb": -7.77
+     "peakDb": -6.93
     },
     {
      "t": 3.25,
      "pitch": 43,
      "vel": 80,
-     "peakDb": -9.16
+     "peakDb": -10.55
     },
     {
      "t": 4,
      "pitch": 43,
      "vel": 64,
-     "peakDb": -12.38
+     "peakDb": -13.06
     },
     {
      "t": 4.75,
      "pitch": 43,
      "vel": 48,
-     "peakDb": -16.87
+     "peakDb": -16.6
     },
     {
      "t": 5.5,
      "pitch": 43,
      "vel": 32,
-     "peakDb": -21.09
+     "peakDb": -21.3
     },
     {
      "t": 6.25,
      "pitch": 43,
      "vel": 16,
-     "peakDb": -25.36
+     "peakDb": -27.29
     },
     {
      "t": 7,
      "pitch": 64,
      "vel": 127,
-     "peakDb": -6.56
+     "peakDb": -6.57
     },
     {
      "t": 7.75,
      "pitch": 64,
      "vel": 112,
-     "peakDb": -8.55
+     "peakDb": -9.43
     },
     {
      "t": 8.5,
      "pitch": 64,
      "vel": 96,
-     "peakDb": -10.58
+     "peakDb": -10.59
     },
     {
      "t": 9.25,
@@ -4273,25 +5235,25 @@
      "t": 10,
      "pitch": 64,
      "vel": 64,
-     "peakDb": -15.69
+     "peakDb": -15.7
     },
     {
      "t": 10.75,
      "pitch": 64,
      "vel": 48,
-     "peakDb": -19.75
+     "peakDb": -19.76
     },
     {
      "t": 11.5,
      "pitch": 64,
      "vel": 32,
-     "peakDb": -24.73
+     "peakDb": -24.71
     },
     {
      "t": 12.25,
      "pitch": 64,
      "vel": 16,
-     "peakDb": -29.13
+     "peakDb": -29.26
     },
     {
      "t": 13,
@@ -4315,13 +5277,13 @@
      "t": 15.25,
      "pitch": 85,
      "vel": 80,
-     "peakDb": -10.48
+     "peakDb": -10.47
     },
     {
      "t": 16,
      "pitch": 85,
      "vel": 64,
-     "peakDb": -14.84
+     "peakDb": -14.13
     },
     {
      "t": 16.75,
@@ -4333,23 +5295,23 @@
      "t": 17.5,
      "pitch": 85,
      "vel": 32,
-     "peakDb": -23.78
+     "peakDb": -22.99
     },
     {
      "t": 18.25,
      "pitch": 85,
      "vel": 16,
-     "peakDb": -26.42
+     "peakDb": -26.41
     }
    ],
    "curve": [
     [
      16,
-     -27
+     -27.7
     ],
     [
      32,
-     -23.2
+     -23
     ],
     [
      48,
@@ -4361,58 +5323,60 @@
     ],
     [
      80,
-     -10.7
+     -11.2
     ],
     [
      96,
-     -8.9
+     -8.6
     ],
     [
      112,
-     -6.3
+     -6.9
     ],
     [
      127,
-     -4.7
+     -5.1
     ]
    ],
    "spreadDb": [
     [
      16,
-     3.8
-    ],
-    [
-     32,
-     3.6
-    ],
-    [
-     48,
      2.9
     ],
     [
-     64,
-     3.3
-    ],
-    [
-     80,
+     32,
      3.4
     ],
     [
+     48,
+     3.2
+    ],
+    [
+     64,
+     2.6
+    ],
+    [
+     80,
+     2.1
+    ],
+    [
      96,
-     2.8
+     3.7
     ],
     [
      112,
-     4
+     3.9
     ],
     [
      127,
-     3.1
+     2.6
     ]
    ]
   },
   "violin:col_legno_gett_vel": {
    "lane": 6,
+   "instKey": "violin",
+   "ordinary": false,
    "label": "Violin col_legno_gett_vel",
    "track": "Violin XS",
    "technique": "col_legno_gett_vel",
@@ -4423,103 +5387,103 @@
     70,
     85
    ],
-   "offsetS": 0.7,
+   "offsetS": 0.6,
    "grid": [
     {
      "t": 1,
      "pitch": 55,
      "vel": 127,
-     "peakDb": -21.3
+     "peakDb": -21.22
     },
     {
      "t": 1.75,
      "pitch": 55,
      "vel": 112,
-     "peakDb": -25.74
+     "peakDb": -25.55
     },
     {
      "t": 2.5,
      "pitch": 55,
      "vel": 96,
-     "peakDb": -24.37
+     "peakDb": -25.28
     },
     {
      "t": 3.25,
      "pitch": 55,
      "vel": 80,
-     "peakDb": -27.53
+     "peakDb": -27.52
     },
     {
      "t": 4,
      "pitch": 55,
      "vel": 64,
-     "peakDb": -28
+     "peakDb": -29.04
     },
     {
      "t": 4.75,
      "pitch": 55,
      "vel": 48,
-     "peakDb": -31.19
+     "peakDb": -32.57
     },
     {
      "t": 5.5,
      "pitch": 55,
      "vel": 32,
-     "peakDb": -32.05
+     "peakDb": -32.08
     },
     {
      "t": 6.25,
      "pitch": 55,
      "vel": 16,
-     "peakDb": -36.93
+     "peakDb": -37.11
     },
     {
      "t": 7,
      "pitch": 70,
      "vel": 127,
-     "peakDb": -22.26
+     "peakDb": -20.58
     },
     {
      "t": 7.75,
      "pitch": 70,
      "vel": 112,
-     "peakDb": -19.84
+     "peakDb": -150
     },
     {
      "t": 8.5,
      "pitch": 70,
      "vel": 96,
-     "peakDb": -25.28
+     "peakDb": -150
     },
     {
      "t": 9.25,
      "pitch": 70,
      "vel": 80,
-     "peakDb": -22.95
+     "peakDb": -150
     },
     {
      "t": 10,
      "pitch": 70,
      "vel": 64,
-     "peakDb": -27.91
+     "peakDb": -49.68
     },
     {
      "t": 10.75,
      "pitch": 70,
      "vel": 48,
-     "peakDb": -26.79
+     "peakDb": -26.71
     },
     {
      "t": 11.5,
      "pitch": 70,
      "vel": 32,
-     "peakDb": -32.82
+     "peakDb": -31.37
     },
     {
      "t": 12.25,
      "pitch": 70,
      "vel": 16,
-     "peakDb": -31.13
+     "peakDb": -31.03
     },
     {
      "t": 13,
@@ -4531,43 +5495,43 @@
      "t": 13.75,
      "pitch": 85,
      "vel": 112,
-     "peakDb": -17.97
+     "peakDb": -17.95
     },
     {
      "t": 14.5,
      "pitch": 85,
      "vel": 96,
-     "peakDb": -19.08
+     "peakDb": -17.73
     },
     {
      "t": 15.25,
      "pitch": 85,
      "vel": 80,
-     "peakDb": -22.64
+     "peakDb": -21.25
     },
     {
      "t": 16,
      "pitch": 85,
      "vel": 64,
-     "peakDb": -22.64
+     "peakDb": -21.35
     },
     {
      "t": 16.75,
      "pitch": 85,
      "vel": 48,
-     "peakDb": -26.3
+     "peakDb": -24.94
     },
     {
      "t": 17.5,
      "pitch": 85,
      "vel": 32,
-     "peakDb": -25.34
+     "peakDb": -25.39
     },
     {
      "t": 18.25,
      "pitch": 85,
      "vel": 16,
-     "peakDb": -30.8
+     "peakDb": -30.81
     }
    ],
    "curve": [
@@ -4577,7 +5541,7 @@
     ],
     [
      32,
-     -30.1
+     -29.6
     ],
     [
      48,
@@ -4585,7 +5549,7 @@
     ],
     [
      64,
-     -26.2
+     -28.1
     ],
     [
      80,
@@ -4593,54 +5557,56 @@
     ],
     [
      96,
-     -22.9
+     -21.5
     ],
     [
      112,
-     -21.2
+     -21.5
     ],
     [
      127,
-     -19.9
+     -19.3
     ]
    ],
    "spreadDb": [
     [
      16,
-     6.1
+     6.3
     ],
     [
      32,
-     7.5
+     6.7
     ],
     [
      48,
-     4.9
+     7.6
     ],
     [
      64,
-     5.4
+     28.3
     ],
     [
      80,
-     4.9
+     6.3
     ],
     [
      96,
-     6.2
+     7.6
     ],
     [
      112,
-     7.8
+     7.6
     ],
     [
      127,
-     6.2
+     5.1
     ]
    ]
   },
   "violin:bow_op_vel": {
    "lane": 6,
+   "instKey": "violin",
+   "ordinary": false,
    "label": "Violin bow_op_vel",
    "track": "Violin XS",
    "technique": "bow_op_vel",
@@ -4657,218 +5623,220 @@
      "t": 1,
      "pitch": 55,
      "vel": 127,
-     "peakDb": -15.98
+     "peakDb": -15.85
     },
     {
      "t": 1.75,
      "pitch": 55,
      "vel": 112,
-     "peakDb": -17.13
+     "peakDb": -17.94
     },
     {
      "t": 2.5,
      "pitch": 55,
      "vel": 96,
-     "peakDb": -19.52
+     "peakDb": -19.23
     },
     {
      "t": 3.25,
      "pitch": 55,
      "vel": 80,
-     "peakDb": -20.97
+     "peakDb": -20.78
     },
     {
      "t": 4,
      "pitch": 55,
      "vel": 64,
-     "peakDb": -22.27
+     "peakDb": -22.49
     },
     {
      "t": 4.75,
      "pitch": 55,
      "vel": 48,
-     "peakDb": -25.21
+     "peakDb": -24.27
     },
     {
      "t": 5.5,
      "pitch": 55,
      "vel": 32,
-     "peakDb": -26.54
+     "peakDb": -26.95
     },
     {
      "t": 6.25,
      "pitch": 55,
      "vel": 16,
-     "peakDb": -28.59
+     "peakDb": -29.27
     },
     {
      "t": 7,
      "pitch": 70,
      "vel": 127,
-     "peakDb": -13.24
+     "peakDb": -14.88
     },
     {
      "t": 7.75,
      "pitch": 70,
      "vel": 112,
-     "peakDb": -14.78
+     "peakDb": -16.27
     },
     {
      "t": 8.5,
      "pitch": 70,
      "vel": 96,
-     "peakDb": -16.8
+     "peakDb": -16.69
     },
     {
      "t": 9.25,
      "pitch": 70,
      "vel": 80,
-     "peakDb": -18.15
+     "peakDb": -19.52
     },
     {
      "t": 10,
      "pitch": 70,
      "vel": 64,
-     "peakDb": -19.94
+     "peakDb": -21.52
     },
     {
      "t": 10.75,
      "pitch": 70,
      "vel": 48,
-     "peakDb": -21.78
+     "peakDb": -21.8
     },
     {
      "t": 11.5,
      "pitch": 70,
      "vel": 32,
-     "peakDb": -23.93
+     "peakDb": -23.92
     },
     {
      "t": 12.25,
      "pitch": 70,
      "vel": 16,
-     "peakDb": -26.51
+     "peakDb": -28.04
     },
     {
      "t": 13,
      "pitch": 85,
      "vel": 127,
-     "peakDb": -14.18
+     "peakDb": -14.49
     },
     {
      "t": 13.75,
      "pitch": 85,
      "vel": 112,
-     "peakDb": -16.83
+     "peakDb": -16.39
     },
     {
      "t": 14.5,
      "pitch": 85,
      "vel": 96,
-     "peakDb": -17.36
+     "peakDb": -18.18
     },
     {
      "t": 15.25,
      "pitch": 85,
      "vel": 80,
-     "peakDb": -19.77
+     "peakDb": -19.19
     },
     {
      "t": 16,
      "pitch": 85,
      "vel": 64,
-     "peakDb": -20.76
+     "peakDb": -21.06
     },
     {
      "t": 16.75,
      "pitch": 85,
      "vel": 48,
-     "peakDb": -23.94
+     "peakDb": -22.95
     },
     {
      "t": 17.5,
      "pitch": 85,
      "vel": 32,
-     "peakDb": -25.18
+     "peakDb": -25.14
     },
     {
      "t": 18.25,
      "pitch": 85,
      "vel": 16,
-     "peakDb": -27.71
+     "peakDb": -27.34
     }
    ],
    "curve": [
     [
      16,
-     -27.6
+     -28.2
     ],
     [
      32,
-     -25.2
+     -25.3
     ],
     [
      48,
-     -23.6
+     -23
     ],
     [
      64,
-     -21
+     -21.7
     ],
     [
      80,
-     -19.6
+     -19.8
     ],
     [
      96,
-     -17.9
+     -18
     ],
     [
      112,
-     -16.2
+     -16.9
     ],
     [
      127,
-     -14.5
+     -15.1
     ]
    ],
    "spreadDb": [
     [
      16,
-     2.1
+     1.9
     ],
     [
      32,
-     2.6
+     3
     ],
     [
      48,
-     3.4
+     2.5
     ],
     [
      64,
-     2.3
+     1.4
     ],
     [
      80,
-     2.8
+     1.6
     ],
     [
      96,
-     2.7
+     2.5
     ],
     [
      112,
-     2.3
+     1.7
     ],
     [
      127,
-     2.7
+     1.4
     ]
    ]
   },
   "violin:pizz_behind_bridge_vel": {
    "lane": 6,
+   "instKey": "violin",
+   "ordinary": false,
    "label": "Violin pizz_behind_bridge_vel",
    "track": "Violin XS",
    "technique": "pizz_behind_bridge_vel",
@@ -4879,37 +5847,37 @@
     71,
     76
    ],
-   "offsetS": 0.6,
+   "offsetS": 0.5,
    "grid": [
     {
      "t": 1,
      "pitch": 55,
      "vel": 127,
-     "peakDb": -22.37
+     "peakDb": -23.73
     },
     {
      "t": 1.75,
      "pitch": 55,
      "vel": 112,
-     "peakDb": -24.46
+     "peakDb": -24.5
     },
     {
      "t": 2.5,
      "pitch": 55,
      "vel": 96,
-     "peakDb": -25.48
+     "peakDb": -26.83
     },
     {
      "t": 3.25,
      "pitch": 55,
      "vel": 80,
-     "peakDb": -26.36
+     "peakDb": -27.9
     },
     {
      "t": 4,
      "pitch": 55,
      "vel": 64,
-     "peakDb": -28.83
+     "peakDb": -30.26
     },
     {
      "t": 4.75,
@@ -4921,157 +5889,157 @@
      "t": 5.5,
      "pitch": 55,
      "vel": 32,
-     "peakDb": -33.03
+     "peakDb": -34.3
     },
     {
      "t": 6.25,
      "pitch": 55,
      "vel": 16,
-     "peakDb": -34.71
+     "peakDb": -35.95
     },
     {
      "t": 7,
      "pitch": 71,
      "vel": 127,
-     "peakDb": -20.45
+     "peakDb": -21.86
     },
     {
      "t": 7.75,
      "pitch": 71,
      "vel": 112,
-     "peakDb": -24.88
+     "peakDb": -24.97
     },
     {
      "t": 8.5,
      "pitch": 71,
      "vel": 96,
-     "peakDb": -23.51
+     "peakDb": -24.9
     },
     {
      "t": 9.25,
      "pitch": 71,
      "vel": 80,
-     "peakDb": -26.91
+     "peakDb": -28.3
     },
     {
      "t": 10,
      "pitch": 71,
      "vel": 64,
-     "peakDb": -27.01
+     "peakDb": -28.49
     },
     {
      "t": 10.75,
      "pitch": 71,
      "vel": 48,
-     "peakDb": -30.7
+     "peakDb": -32.07
     },
     {
      "t": 11.5,
      "pitch": 71,
      "vel": 32,
-     "peakDb": -31.01
+     "peakDb": -32.49
     },
     {
      "t": 12.25,
      "pitch": 71,
      "vel": 16,
-     "peakDb": -36.33
+     "peakDb": -36.51
     },
     {
      "t": 13,
      "pitch": 76,
      "vel": 127,
-     "peakDb": -16.25
+     "peakDb": -17.64
     },
     {
      "t": 13.75,
      "pitch": 76,
      "vel": 112,
-     "peakDb": -24.26
+     "peakDb": -24.2
     },
     {
      "t": 14.5,
      "pitch": 76,
      "vel": 96,
-     "peakDb": -19.24
+     "peakDb": -20.66
     },
     {
      "t": 15.25,
      "pitch": 76,
      "vel": 80,
-     "peakDb": -26.07
+     "peakDb": -27.64
     },
     {
      "t": 16,
      "pitch": 76,
      "vel": 64,
-     "peakDb": -22.74
+     "peakDb": -24.21
     },
     {
      "t": 16.75,
      "pitch": 76,
      "vel": 48,
-     "peakDb": -29.97
+     "peakDb": -31.25
     },
     {
      "t": 17.5,
      "pitch": 76,
      "vel": 32,
-     "peakDb": -26.8
+     "peakDb": -28.24
     },
     {
      "t": 18.25,
      "pitch": 76,
      "vel": 16,
-     "peakDb": -34.26
+     "peakDb": -35.83
     }
    ],
    "curve": [
     [
      16,
-     -35.1
+     -36.1
     ],
     [
      32,
-     -30.3
+     -31.7
     ],
     [
      48,
-     -30.3
+     -31.2
     ],
     [
      64,
-     -26.2
+     -27.7
     ],
     [
      80,
-     -26.2
+     -27.7
     ],
     [
      96,
-     -22.7
+     -24.1
     ],
     [
      112,
-     -22.7
+     -24.1
     ],
     [
      127,
-     -19.7
+     -21.1
     ]
    ],
    "spreadDb": [
     [
      16,
-     2.1
+     0.7
     ],
     [
      32,
-     6.2
+     6.1
     ],
     [
      48,
-     0.7
+     1.9
     ],
     [
      64,
@@ -5079,7 +6047,7 @@
     ],
     [
      80,
-     0.8
+     0.7
     ],
     [
      96,
@@ -5087,7 +6055,7 @@
     ],
     [
      112,
-     0.6
+     0.8
     ],
     [
      127,
@@ -5097,6 +6065,8 @@
   },
   "violin:gettato_vel": {
    "lane": 6,
+   "instKey": "violin",
+   "ordinary": false,
    "label": "Violin gettato_vel",
    "track": "Violin XS",
    "technique": "gettato_vel",
@@ -5119,212 +6089,214 @@
      "t": 1.75,
      "pitch": 71,
      "vel": 112,
-     "peakDb": -18.3
+     "peakDb": -17.1
     },
     {
      "t": 2.5,
      "pitch": 71,
      "vel": 96,
-     "peakDb": -18.89
+     "peakDb": -17.6
     },
     {
      "t": 3.25,
      "pitch": 71,
      "vel": 80,
-     "peakDb": -22.3
+     "peakDb": -20.74
     },
     {
      "t": 4,
      "pitch": 71,
      "vel": 64,
-     "peakDb": -23.05
+     "peakDb": -21.54
     },
     {
      "t": 4.75,
      "pitch": 71,
      "vel": 48,
-     "peakDb": -26.68
+     "peakDb": -24.96
     },
     {
      "t": 5.5,
      "pitch": 71,
      "vel": 32,
-     "peakDb": -27.73
+     "peakDb": -26.44
     },
     {
      "t": 6.25,
      "pitch": 71,
      "vel": 16,
-     "peakDb": -31.9
+     "peakDb": -30.5
     },
     {
      "t": 7,
      "pitch": 78,
      "vel": 127,
-     "peakDb": -15.45
+     "peakDb": -16.75
     },
     {
      "t": 7.75,
      "pitch": 78,
      "vel": 112,
-     "peakDb": -20.04
+     "peakDb": -18.61
     },
     {
      "t": 8.5,
      "pitch": 78,
      "vel": 96,
-     "peakDb": -20.2
+     "peakDb": -18.85
     },
     {
      "t": 9.25,
      "pitch": 78,
      "vel": 80,
-     "peakDb": -23.85
+     "peakDb": -23.17
     },
     {
      "t": 10,
      "pitch": 78,
      "vel": 64,
-     "peakDb": -22.94
+     "peakDb": -22.74
     },
     {
      "t": 10.75,
      "pitch": 78,
      "vel": 48,
-     "peakDb": -28.14
+     "peakDb": -26.74
     },
     {
      "t": 11.5,
      "pitch": 78,
      "vel": 32,
-     "peakDb": -27.86
+     "peakDb": -29.06
     },
     {
      "t": 12.25,
      "pitch": 78,
      "vel": 16,
-     "peakDb": -33.54
+     "peakDb": -33.09
     },
     {
      "t": 13,
      "pitch": 85,
      "vel": 127,
-     "peakDb": -14.6
+     "peakDb": -16.03
     },
     {
      "t": 13.75,
      "pitch": 85,
      "vel": 112,
-     "peakDb": -16.25
+     "peakDb": -17.06
     },
     {
      "t": 14.5,
      "pitch": 85,
      "vel": 96,
-     "peakDb": -18.18
+     "peakDb": -18.03
     },
     {
      "t": 15.25,
      "pitch": 85,
      "vel": 80,
-     "peakDb": -20.22
+     "peakDb": -20.55
     },
     {
      "t": 16,
      "pitch": 85,
      "vel": 64,
-     "peakDb": -22.15
+     "peakDb": -23.2
     },
     {
      "t": 16.75,
      "pitch": 85,
      "vel": 48,
-     "peakDb": -24.59
+     "peakDb": -25.52
     },
     {
      "t": 17.5,
      "pitch": 85,
      "vel": 32,
-     "peakDb": -27.01
+     "peakDb": -28.36
     },
     {
      "t": 18.25,
      "pitch": 85,
      "vel": 16,
-     "peakDb": -29.98
+     "peakDb": -30.04
     }
    ],
    "curve": [
     [
      16,
-     -31.8
+     -31.2
     ],
     [
      32,
-     -27.5
+     -28
     ],
     [
      48,
-     -26.5
+     -25.7
     ],
     [
      64,
-     -22.7
+     -22.5
     ],
     [
      80,
-     -22.1
+     -21.5
     ],
     [
      96,
-     -19.1
-    ],
-    [
-     112,
      -18.2
     ],
     [
+     112,
+     -17.6
+    ],
+    [
      127,
-     -14.7
+     -15.6
     ]
    ],
    "spreadDb": [
     [
      16,
-     3.6
+     3.1
     ],
     [
      32,
-     0.8
+     2.6
     ],
     [
      48,
-     3.6
+     1.8
     ],
     [
      64,
-     0.9
+     1.7
     ],
     [
      80,
-     3.6
+     2.6
     ],
     [
      96,
-     2
+     1.3
     ],
     [
      112,
-     3.8
+     1.6
     ],
     [
      127,
-     1.4
+     2.7
     ]
    ]
   },
   "violin:bartok_vel": {
    "lane": 6,
+   "instKey": "violin",
+   "ordinary": false,
    "label": "Violin bartok_vel",
    "track": "Violin XS",
    "technique": "bartok_vel",
@@ -5335,109 +6307,109 @@
     78,
     87
    ],
-   "offsetS": 0.6,
+   "offsetS": 0.5,
    "grid": [
     {
      "t": 1,
      "pitch": 69,
      "vel": 127,
-     "peakDb": -6.1
+     "peakDb": -6.2
     },
     {
      "t": 1.75,
      "pitch": 69,
      "vel": 112,
-     "peakDb": -7.24
+     "peakDb": -7.25
     },
     {
      "t": 2.5,
      "pitch": 69,
      "vel": 96,
-     "peakDb": -9.23
+     "peakDb": -8.47
     },
     {
      "t": 3.25,
      "pitch": 69,
      "vel": 80,
-     "peakDb": -10.27
+     "peakDb": -9.62
     },
     {
      "t": 4,
      "pitch": 69,
      "vel": 64,
-     "peakDb": -11.61
+     "peakDb": -11
     },
     {
      "t": 4.75,
      "pitch": 69,
      "vel": 48,
-     "peakDb": -12.46
+     "peakDb": -12.34
     },
     {
      "t": 5.5,
      "pitch": 69,
      "vel": 32,
-     "peakDb": -14.65
+     "peakDb": -13.96
     },
     {
      "t": 6.25,
      "pitch": 69,
      "vel": 16,
-     "peakDb": -16.2
+     "peakDb": -16.09
     },
     {
      "t": 7,
      "pitch": 78,
      "vel": 127,
-     "peakDb": -10.61
+     "peakDb": -10.63
     },
     {
      "t": 7.75,
      "pitch": 78,
      "vel": 112,
-     "peakDb": -11.65
+     "peakDb": -11.75
     },
     {
      "t": 8.5,
      "pitch": 78,
      "vel": 96,
-     "peakDb": -12.9
+     "peakDb": -12.89
     },
     {
      "t": 9.25,
      "pitch": 78,
      "vel": 80,
-     "peakDb": -14.17
+     "peakDb": -14.11
     },
     {
      "t": 10,
      "pitch": 78,
      "vel": 64,
-     "peakDb": -15.5
+     "peakDb": -15.43
     },
     {
      "t": 10.75,
      "pitch": 78,
      "vel": 48,
-     "peakDb": -16.9
+     "peakDb": -16.87
     },
     {
      "t": 11.5,
      "pitch": 78,
      "vel": 32,
-     "peakDb": -18.31
+     "peakDb": -19.5
     },
     {
      "t": 12.25,
      "pitch": 78,
      "vel": 16,
-     "peakDb": -19.79
+     "peakDb": -19.84
     },
     {
      "t": 13,
      "pitch": 87,
      "vel": 127,
-     "peakDb": -6.11
+     "peakDb": -6.13
     },
     {
      "t": 13.75,
@@ -5449,37 +6421,37 @@
      "t": 14.5,
      "pitch": 87,
      "vel": 96,
-     "peakDb": -8.36
+     "peakDb": -8.41
     },
     {
      "t": 15.25,
      "pitch": 87,
      "vel": 80,
-     "peakDb": -9.62
+     "peakDb": -9.61
     },
     {
      "t": 16,
      "pitch": 87,
      "vel": 64,
-     "peakDb": -10.88
+     "peakDb": -10.9
     },
     {
      "t": 16.75,
      "pitch": 87,
      "vel": 48,
-     "peakDb": -12.28
+     "peakDb": -12.3
     },
     {
      "t": 17.5,
      "pitch": 87,
      "vel": 32,
-     "peakDb": -13.78
+     "peakDb": -13.77
     },
     {
      "t": 18.25,
      "pitch": 87,
      "vel": 16,
-     "peakDb": -15.24
+     "peakDb": -15.28
     }
    ],
    "curve": [
@@ -5489,23 +6461,23 @@
     ],
     [
      32,
-     -15.6
+     -15.7
     ],
     [
      48,
-     -13.9
+     -13.8
     ],
     [
      64,
-     -12.7
+     -12.4
     ],
     [
      80,
-     -11.4
+     -11.1
     ],
     [
      96,
-     -10.2
+     -9.9
     ],
     [
      112,
@@ -5513,17 +6485,17 @@
     ],
     [
      127,
-     -7.6
+     -7.7
     ]
    ],
    "spreadDb": [
     [
      16,
-     4.5
+     4.6
     ],
     [
      32,
-     4.5
+     5.7
     ],
     [
      48,
@@ -5531,11 +6503,11 @@
     ],
     [
      64,
-     4.6
+     4.5
     ],
     [
      80,
-     4.6
+     4.5
     ],
     [
      96,
@@ -5543,11 +6515,241 @@
     ],
     [
      112,
-     4.5
+     4.6
     ],
     [
      127,
      4.5
+    ]
+   ]
+  },
+  "violin:senza_vel": {
+   "lane": 6,
+   "instKey": "violin",
+   "ordinary": true,
+   "label": "Violin senza_vel",
+   "track": "Violin XS",
+   "technique": "senza_vel",
+   "port": "SWViolin",
+   "channel": 1,
+   "pitches": [
+    55,
+    71,
+    87
+   ],
+   "offsetS": 0.5,
+   "grid": [
+    {
+     "t": 1,
+     "pitch": 55,
+     "vel": 127,
+     "peakDb": -28.36
+    },
+    {
+     "t": 1.75,
+     "pitch": 55,
+     "vel": 112,
+     "peakDb": -28.13
+    },
+    {
+     "t": 2.5,
+     "pitch": 55,
+     "vel": 96,
+     "peakDb": -32.48
+    },
+    {
+     "t": 3.25,
+     "pitch": 55,
+     "vel": 80,
+     "peakDb": -32.88
+    },
+    {
+     "t": 4,
+     "pitch": 55,
+     "vel": 64,
+     "peakDb": -33.54
+    },
+    {
+     "t": 4.75,
+     "pitch": 55,
+     "vel": 48,
+     "peakDb": -41.94
+    },
+    {
+     "t": 5.5,
+     "pitch": 55,
+     "vel": 32,
+     "peakDb": -41.19
+    },
+    {
+     "t": 6.25,
+     "pitch": 55,
+     "vel": 16,
+     "peakDb": -50.84
+    },
+    {
+     "t": 7,
+     "pitch": 71,
+     "vel": 127,
+     "peakDb": -23.91
+    },
+    {
+     "t": 7.75,
+     "pitch": 71,
+     "vel": 112,
+     "peakDb": -23.76
+    },
+    {
+     "t": 8.5,
+     "pitch": 71,
+     "vel": 96,
+     "peakDb": -28.62
+    },
+    {
+     "t": 9.25,
+     "pitch": 71,
+     "vel": 80,
+     "peakDb": -29.15
+    },
+    {
+     "t": 10,
+     "pitch": 71,
+     "vel": 64,
+     "peakDb": -34.15
+    },
+    {
+     "t": 10.75,
+     "pitch": 71,
+     "vel": 48,
+     "peakDb": -39.56
+    },
+    {
+     "t": 11.5,
+     "pitch": 71,
+     "vel": 32,
+     "peakDb": -41.28
+    },
+    {
+     "t": 12.25,
+     "pitch": 71,
+     "vel": 16,
+     "peakDb": -47.96
+    },
+    {
+     "t": 13,
+     "pitch": 87,
+     "vel": 127,
+     "peakDb": -24.18
+    },
+    {
+     "t": 13.75,
+     "pitch": 87,
+     "vel": 112,
+     "peakDb": -35.47
+    },
+    {
+     "t": 14.5,
+     "pitch": 87,
+     "vel": 96,
+     "peakDb": -29.93
+    },
+    {
+     "t": 15.25,
+     "pitch": 87,
+     "vel": 80,
+     "peakDb": -30.09
+    },
+    {
+     "t": 16,
+     "pitch": 87,
+     "vel": 64,
+     "peakDb": -40.49
+    },
+    {
+     "t": 16.75,
+     "pitch": 87,
+     "vel": 48,
+     "peakDb": -38.27
+    },
+    {
+     "t": 17.5,
+     "pitch": 87,
+     "vel": 32,
+     "peakDb": -39.29
+    },
+    {
+     "t": 18.25,
+     "pitch": 87,
+     "vel": 16,
+     "peakDb": -50.58
+    }
+   ],
+   "curve": [
+    [
+     16,
+     -49.8
+    ],
+    [
+     32,
+     -40.6
+    ],
+    [
+     48,
+     -39.9
+    ],
+    [
+     64,
+     -36.1
+    ],
+    [
+     80,
+     -30.7
+    ],
+    [
+     96,
+     -30.3
+    ],
+    [
+     112,
+     -29.1
+    ],
+    [
+     127,
+     -25.5
+    ]
+   ],
+   "spreadDb": [
+    [
+     16,
+     2.9
+    ],
+    [
+     32,
+     2
+    ],
+    [
+     48,
+     3.7
+    ],
+    [
+     64,
+     7
+    ],
+    [
+     80,
+     3.7
+    ],
+    [
+     96,
+     3.9
+    ],
+    [
+     112,
+     11.7
+    ],
+    [
+     127,
+     4.4
     ]
    ]
   }
@@ -5555,35 +6757,35 @@
  "target": [
   [
    16,
-   -33.7
+   -38.2
   ],
   [
    32,
-   -31
+   -30.7
   ],
   [
    48,
-   -28.9
+   -25.5
   ],
   [
    64,
-   -26.4
+   -21.5
   ],
   [
    80,
-   -24
+   -18
   ],
   [
    96,
-   -21.9
+   -15.2
   ],
   [
    112,
-   -19.5
+   -12.7
   ],
   [
    127,
-   -17.7
+   -10.6
   ]
  ],
  "_what": "THE SECTION'S LEVELS (tools/section_level.js --measure): per lane, the voice the section uses, a grid of velocities × three pitches, the receiving track's peak; curve = velocity → dB (mean over the pitches, made non-decreasing); target = the mean of the lanes. --apply maps each note's written velocity to the velocity on its lane that gives the target level."

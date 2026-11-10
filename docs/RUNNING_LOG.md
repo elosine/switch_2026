@@ -2791,3 +2791,23 @@ has its velocity crushed to single digits: the composer's plain note may carry `
 127 it always sent (`composer.html`, pre-arm and `heldCc7`); `section_level.js --apply` writes it from the instrument's measured CC7 law
 (`bank/velocity_remap.json`, the card's) and leaves the velocity as written. A voice QUIETER than the target still climbs the velocity — CC7
 cannot add. **His page needs a reload (F5) for the new field.** The second pass runs on these.
+
+## §150. The volume pass, second run — the section on the piece's standard (2026-11-10)
+
+**The winds, on the knob:** the program gains written (sax double tonguing +3.3 · flutter +2 · the three slaps +2.4 … +2.8 · staccato +2.4; clarinet
+flutter −1.8 · staccato −3.5; flute flutter −0.2 · staccato +0.1 · jet whistle +2.6 · tongue ram +2); measured again, the map sends every
+wind articulation within about ±2 of its WRITTEN velocity (the jet whistle +5, the tongue ram −6, the pitched slap +5 — the shapes of their
+curves against the ordinary's). **The strings, on CC7:** the violin's five articulations keep their written velocity and carry CC7 60 … 104
+(bartók 60 · bow pressure 82 · gettato 82 · col legno gettato 95 · behind the bridge 104). The prepared piano's muted: CC7 116 — it answers
+CC7 as a UVI part does, so its small gap went that way. **The quiet ones, on velocity:** the glockenspiel +11 · the plucked piano +15 (18 of 19
+notes at its 127 — its slot sits 4 dB under the Steinway; his Kontakt run of `load_plucked_piano.lua` could carry +4 dB, next time).
+
+**The percussion, on the track — and where the meter stops being a judge.** China cymbal and spring coil at the cap (fader +12 · FX +8); the gran
+cassa's felt roll fader +12 · FX +3.9, its rim +12 · FX +6.5 on its own track; the brake drums −5.4 and their rubber mallets +3.6 on theirs.
+The re-measure reads them still 12 … 24 under the ordinaries' mean at 127 — but the readings of a one-shot's PEAK move 2 … 6 dB between passes
+with nothing changed, and a scrape or a coil sits higher in loudness than its peak says. So the meter has done what it can for the one-shots:
+they are up by 15 … 20 dB and on their own faders; the card's own rule says a one-shot's velocity is its dynamic and its balance is a trim. His
+ear sets the last few dB, on the fader, per track — no tool between him and it.
+
+**The state:** 285 notes mapped on `piece-Section02-C-artics-01` (the ordinaries sent as written); the rack's new levels and parts UNSAVED until
+his CTRL+S; his page needs F5 for `cc7Plain`. PLAN 1e ☑ as a method; his ear next.
