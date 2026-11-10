@@ -1758,7 +1758,11 @@ const Composer = {
                 const ord = inst && inst.ordinary && techs.find(tq => tq.key === inst.ordinary) ? inst.ordinary : (techs.length ? techs[0].key : '');
                 if (techs.length) { recTechSel.value = ord; this.recTech = ord; }
             };
-            fillRecTechs();
+            // 2026-11-09 (RUNNING_LOG §135): Chrome RESTORES a select's shown value on F5 without a `change` event — the row read "Piano" while
+            // recTargetLayer was still 0, and his keyboard echoed on the FLUTE. The state follows what the row shows, at init and on every return.
+            const syncRecFromRow = () => { const v = parseInt(recLaneSel.value); if (Number.isFinite(v) && v !== this.recTargetLayer) { this.recTargetLayer = v; fillRecTechs(); } };
+            syncRecFromRow(); fillRecTechs(); syncRecFromRow();
+            window.addEventListener('pageshow', syncRecFromRow);
             recLaneSel.addEventListener('change', () => { this.recTargetLayer = parseInt(recLaneSel.value) || 0; fillRecTechs(); });
             recTechSel.addEventListener('change', () => { this.recTech = recTechSel.value; });
             recBtn.addEventListener('click', async () => {

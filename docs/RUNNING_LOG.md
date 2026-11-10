@@ -2356,3 +2356,22 @@ extend those so they all end at the same time as the electronic zone?"* **Done o
 (85.05 → 144.45); the C crescendo's six notes and six sines (137 →) now end at 144.45 — the notes' shapes reach fff at the new end, the bend's
 last cents held over the extra 0.3 s; the crotale's gliding sine keeps its line in time and holds its last value. The tool's end for a
 dictated pair is the line's; a `--end` that snaps to a brick's end is a line to add when it comes up again.
+
+## §135. His keyboard sounds the piano AND the flute; the piano's four tracks were all on every channel; the piano's four voices (2026-11-09)
+
+**His words:** *"When I have piano on, it plays all the MIDI. It's like Omni … piano only has the one struck playing the placeholder. It'd be good to
+have the plucked piano and then the muted or harmonic as well as an option."* Then: *"It's still just playing piano and flute."* His screenshot:
+the Rec row on Piano · struck; the status line *"key 58 is outside Ordinario (60–96) — not sent"* — the FLUTE's ordinario range: at that key the
+page's echo went to the flute.
+
+**Read (the rack through the bridge, read-only):** the four piano tracks — Piano Kontakt · PianoPlucked Kontakt · PianoHarm PP2 · PianoMute PP2 —
+ALL on `SWPiano · all channels`: one piano note sounded all four instruments (his "omni"). The keyboard reaches the rack ONLY through the
+page (`onHwMidi` → `recRouting` → the Rec row's lane and technique); no Reaper track listens to the Keystation.
+**Done in his open Reaper (unsaved, his CTRL+S):** the three other piano tracks on their own channels — plucked 5 · harmonics 6 · muted 7; the
+struck piano keeps all channels (its flat notes on 1, its curve copies 2 … 4). **The recipe (`sandbox/instruments.js` piano):** the four voices
+as techniques on those channels, `curveTechniques: ["main"]` (the law: a voice with no curve copy is sampled once on its own channel); piece 4
+had them on 2 · 3 · 5 — here 2 … 4 are the struck piano's curves, so they moved. The Rec row's technique list and the drawer's row menus read
+the recipe, so the three appear as options at once. palette_check 202 (14 recipe keys unregistered — noted by the check, as before); roster 327.
+**The flute (`composer.html`):** a guard — the record target follows what the Rec row SHOWS at init and on every return to the page
+(`pageshow`), since a browser may restore a select's shown value without a `change`. Whether that was the flute's path, or a SECOND composer
+tab echoing on its default lane (the flute), his one check tells: one tab open, a key pressed. NOT CLAIMED: the cause of the flute.
