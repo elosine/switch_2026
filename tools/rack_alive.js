@@ -16,7 +16,7 @@ const ROOT = path.join(__dirname, '..');
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i >= 0 && process.argv[i + 1] != null && !String(process.argv[i + 1]).startsWith('--') ? process.argv[i + 1] : d; };
 const DUR = arg('dur', '1.0'), GAP = arg('gap', '3.2')   /* ≥ 3: the alignment needs the items farther apart than the player's start jitter (artic_probe.js) */;
 const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
-const PERC = [['Bongos ARO', 1], ['Shime Daiko ARO', 2], ['Bass Drum Alt ARO', 3], ['Wood Blocks ARO', 4], ['China Cymbal ARO', 5], ['Spring Coil ARO', 6], ['Suspended Cymbals ARO', 7], ['Toms ARO', 8]];
+const PERC = [['Bongos ARO', 1], ['Shime Daiko ARO', 2], ['Bass Drum Alt ARO', 3], ['Wood Blocks ARO', 4], ['China Cymbal ARO', 5], ['Spring Coil ARO', 6], ['Suspended Cymbals ARO', 7], ['Toms ARO', 8], ['Brake Drums ARO', 9], ['Bass Drum ARO', 10], ['Tam Tams ARO', 11], ['Snare ARO', 12]];
 const PLAN = [
     { port: 'SWFlute', note: 72, channels: range(1, 16) },
     { port: 'SWFluteb', note: 72, channels: range(1, 8) },

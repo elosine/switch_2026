@@ -4,6 +4,8 @@
 // volume across all six parts"). The parts of a passage play ARTICULATIONS the calibration card never measured (staccato · stac_vel · a
 // glockenspiel), so this tool MEASURES them itself, through the rack, and MAPS them:
 //
+//   (PLAN 1e, 2026-11-10, §145: ONE VOICE PER (lane, technique) the section's notes use — after the articulation deal a lane plays several;
+//    a voice's key in the levels file is "instKey:technique"; --apply maps each note by ITS technique's curve; older per-lane files still read)
 //   --measure  each lane's voice as the section uses it, ISOLATED notes at a grid of velocities × three pitches of the lane's own range in the
 //              section, sent to the lane's port and channel (tools/part_meter.ps1), the receiving track's peak sampled in Reaper
 //              (tools/part_meter.lua); per lane a curve velocity → dB (the mean over the pitches); the TARGET curve = the mean of the lanes
@@ -34,18 +36,25 @@ const r1 = (x) => Math.round(x * 10) / 10;
 const lua = (v) => { if (Array.isArray(v)) return '{' + v.map(lua).join(',') + '}'; if (v && typeof v === 'object') return '{' + Object.entries(v).map(([k, x]) => k + '=' + lua(x)).join(',') + '}'; if (typeof v === 'string') return JSON.stringify(v); return String(v); };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-// the lanes of the section, each with the voice its notes use most
+// THE VOICES of the section: one per (lane, technique) its notes use (PLAN 1e, 2026-11-10 — until §145 one voice per LANE, the technique
+// its notes used most; after the articulation deal a lane plays several, each its own curve). A voice's key is "instKey:technique"; its
+// pitches are three of the notes' own (low · middle · high), inside the technique's range; a keyed strike's are the keys the notes use.
 function sectionLanes() {
     const out = [];
     for (let lane = 0; lane < TRACKS.length; lane++) {
         const t = TRACKS[lane]; if (t.elec) continue;
         if (lanesArg && !lanesArg.includes(t.instKey) && !lanesArg.includes(t.id)) continue;
-        const notes = s.objects.filter((o) => o.type === 'waveCurve' && o.sonifyNote != null && o.layer === lane && o.startSeconds >= from && o.startSeconds <= to);
-        if (!notes.length) continue;
-        const inst = INSTRUMENTS[t.instKey], byTech = {}; for (const n of notes) (byTech[n.technique] = byTech[n.technique] || []).push(n);
-        const techKey = Object.keys(byTech).sort((a, b) => byTech[b].length - byTech[a].length)[0], tech = inst.techniques.find((q) => q.key === techKey) || inst.techniques[0];
-        const lo = Math.max(tech.rangeLow != null ? tech.rangeLow : inst.rangeLow, Math.min(...notes.map((n) => n.sonifyNote))), hi = Math.min(tech.rangeHigh != null ? tech.rangeHigh : inst.rangeHigh, Math.max(...notes.map((n) => n.sonifyNote)));
-        out.push({ lane, instKey: t.instKey, label: t.label, notes, tech, port: tech.port || inst.port, ch: (tech.channel || 1) - 1, pitches: [lo, Math.round((lo + hi) / 2), hi] });
+        const laneNotes = s.objects.filter((o) => o.type === 'waveCurve' && o.sonifyNote != null && o.layer === lane && o.startSeconds >= from && o.startSeconds <= to);
+        if (!laneNotes.length) continue;
+        const inst = INSTRUMENTS[t.instKey], byTech = {}; for (const n of laneNotes) (byTech[n.technique] = byTech[n.technique] || []).push(n);
+        for (const techKey of Object.keys(byTech).sort((a, b) => byTech[b].length - byTech[a].length)) {
+            const notes = byTech[techKey], tech = inst.techniques.find((q) => q.key === techKey) || inst.techniques[0];
+            const ps = [...new Set(notes.map((n) => n.sonifyNote))].sort((a, b) => a - b);
+            let pitches;
+            if (tech.keys && tech.keys.length) pitches = ps.length <= 3 ? ps : [ps[0], ps[Math.floor(ps.length / 2)], ps[ps.length - 1]];
+            else { const lo = Math.max(tech.rangeLow != null ? tech.rangeLow : inst.rangeLow, ps[0]), hi = Math.min(tech.rangeHigh != null ? tech.rangeHigh : inst.rangeHigh, ps[ps.length - 1]); pitches = [...new Set([lo, Math.round((lo + hi) / 2), hi])]; }
+            out.push({ lane, instKey: t.instKey, key: t.instKey + ':' + tech.key, label: t.label + ' ' + tech.key, notes, tech, port: tech.port || inst.port, ch: (tech.channel || 1) - 1, pitches, noCC7: /^SWPerc$/.test(tech.port || inst.port) });   // Spitfire: never send CC7 (howto/spitfire-aro.md § 4)
+        }
     }
     return out;
 }
@@ -77,15 +86,16 @@ const interp = (pts, x, ix = 0, iy = 1) => { if (x <= pts[0][ix]) return pts[0][
         const vels = String(arg('vels', '16,32,48,64,80,96,112,127')).split(',').map(Number), GAP = +arg('gap', 0.75), LEAD = 1, DUR = 0.35;
         const out = { score: name, from, to, when: new Date().toISOString(), measure: 'the receiving track\'s peak (Track_GetPeakInfo, post-fader) over each isolated note, dBFS', vels, lanes: {} };
         for (const L of lanes) {
-            const ev = [[0, 0xB0 | L.ch, 7, 127]]; if (L.tech.cc0 != null) ev.push([0, 0xB0 | L.ch, 0, L.tech.cc0]);
+            const ev = L.noCC7 ? [] : [[0, 0xB0 | L.ch, 7, 127]]; if (L.tech.cc0 != null) ev.push([0, 0xB0 | L.ch, 0, L.tech.cc0]);
             const grid = []; let k = 0;
-            for (const pitch of L.pitches) for (const vel of vels) { const t = LEAD + k * GAP; ev.push([t, 0x90 | L.ch, pitch, vel], [t + DUR, 0x80 | L.ch, pitch, 0]); grid.push({ t, pitch, vel }); k++; }
+            const order = vels.slice().sort((a, b) => b - a);   // loudest first in each pitch block: the series is aligned on the FIRST sound heard, and a velocity-16 note may be under the threshold (§144's lesson)
+            for (const pitch of L.pitches) for (const vel of order) { const t = LEAD + k * GAP; ev.push([t, 0x90 | L.ch, pitch, vel], [t + DUR, 0x80 | L.ch, pitch, 0]); grid.push({ t, pitch, vel }); k++; }
             const secs = Math.ceil(LEAD + k * GAP + 2);
-            process.stdout.write(L.label + ' (' + L.tech.key + ' on ' + L.port + ' ch ' + (L.ch + 1) + ', pitches ' + L.pitches.join(' ') + ') … ');
+            process.stdout.write(L.label + ' (on ' + L.port + ' ch ' + (L.ch + 1) + ', pitches ' + L.pitches.join(' ') + ') … ');
             const W = await playAndWatch(L, ev, LEAD, secs);
             for (const g of grid) g.peakDb = dB(peakIn(W.rows, g.t + W.offset - 0.05, g.t + W.offset + GAP - 0.08));
             const curve = vels.map((v) => { const a = grid.filter((g) => g.vel === v).map((g) => g.peakDb); return [v, r1(a.reduce((x, y) => x + y, 0) / a.length), r1(Math.max(...a) - Math.min(...a))]; });
-            out.lanes[L.instKey] = { lane: L.lane, label: L.label, track: W.track, technique: L.tech.key, port: L.port, channel: L.ch + 1, pitches: L.pitches, offsetS: r1(W.offset), grid, curve: monotone(curve.map((c) => [c[0], c[1]])), spreadDb: curve.map((c) => [c[0], c[2]]) };
+            out.lanes[L.key] = { lane: L.lane, label: L.label, track: W.track, technique: L.tech.key, port: L.port, channel: L.ch + 1, pitches: L.pitches, offsetS: r1(W.offset), grid, curve: monotone(curve.map((c) => [c[0], c[1]])), spreadDb: curve.map((c) => [c[0], c[2]]) };
             console.log(W.track + ' · ' + curve.map((c) => c[0] + ':' + c[1]).join(' ') + ' dB (spread over pitches ' + r1(Math.max(...curve.map((c) => c[2]))) + ' dB at most)');
         }
         // the target: the mean of the lanes at each grid velocity
@@ -109,7 +119,7 @@ const interp = (pts, x, ix = 0, iy = 1) => { if (x <= pts[0][ix]) return pts[0][
         console.log('the target curve' + (shift ? ' (the mean, shifted ' + r1(shift) + ' dB so its top is the quietest voice\'s top)' : '') + ': ' + M.target.map((c) => c[0] + ':' + c[1]).join(' ') + ' dB');
         let n = 0; const report = [];
         for (const L of lanes) {
-            const m = M.lanes[L.instKey]; if (!m) { report.push(L.label + ': not measured — left'); continue; }
+            const m = M.lanes[L.key] || M.lanes[L.instKey]; if (!m) { report.push(L.label + ': not measured — left'); continue; }   // a voice (instKey:technique), or an older per-lane measurement
             const inv = m.curve.map((c) => [c[1], c[0]]);   // dB → velocity on this lane (monotone)
             let short = 0, moved = [];
             for (const o of L.notes) {

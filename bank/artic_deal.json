@@ -1,0 +1,25 @@
+{
+ "_what": "THE ARTICULATION DEAL (PLAN 1d, 2026-11-10; RUNNING_LOG §145) — his chosen articulations for the counterpoint section (SW-35), per lane, as the deck tools/artic_deal.js deals from. Edit the lists, not the tool. A deck entry is a recipe technique key of the lane's instrument; an entry with `lane` moves the note to that lane (the percussionist's unpitched strikes dealt among the glockenspiel's notes: 'we can keep the glockenspiel, just mix those in'). `long` names the articulations that want a LONGER note (his word: 'grow longer notes for flz / bow pressure'): a note shorter than longMinS is grown toward it within the lane's room, or dealt another articulation when there is no room.",
+ "containerS": { "min": 1.5, "max": 6.0 },
+ "longMinS": 0.5,
+ "longRoomShare": 0.6,
+ "long": ["flz", "bow_op_vel"],
+ "decks": {
+  "flute": ["flz", "staccato", "jet_whistle", "tongue_ram"],
+  "clarinet": ["flz", "staccato"],
+  "alto_sax": ["double_tonguing", "flz", "slap_pitched", "slap_exploding", "staccato"],
+  "piano": ["main", "plucked", "muted"],
+  "violin": ["gettato_vel", "bow_op_vel", "bartok_vel", "pizz_behind_bridge_vel", "col_legno_gett_vel"],
+  "cello": ["gettato_vel", "bow_op_vel", "bartok_vel", "pizz_behind_bridge_vel", "col_legno_gett_vel"],
+  "vibraphone": [
+   "glock_main_hard",
+   { "technique": "china_cymbals_scrape", "lane": "percussion" },
+   { "technique": "brake_drums_poly_beater", "lane": "percussion" },
+   { "technique": "brake_drums_rubber_mallets", "lane": "percussion" },
+   { "technique": "small_metals_spring_coil", "lane": "percussion" },
+   { "technique": "gran_cassa_medium_felt", "lane": "percussion" },
+   { "technique": "gran_cassa_rute_on_rim", "lane": "percussion" }
+  ]
+ },
+ "_notes": "The percussion entries: his 'scrape china · brake drum · spring coil · bass drum · the rim' — the bass drum is the Gran Cassa (C) cloned at §144 (medium felt as the plain hit; 'rute on rim' as the rim — the Alt has no rim in its catalog entry). The piano's `plucked` plays only once his Kontakt hand step (PLAN 1c step 4) is done. The cello has no notes in the section as saved; its deck waits."
+}

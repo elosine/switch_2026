@@ -2634,3 +2634,34 @@ rows → `apply_perc.js`: 42 techniques on the percussion lane; `roster_check` g
 **Standing in the record:** the Spitfire plugin's "empty instance" is never empty — it loads whatever it last held; read it back before
 trusting a name. A track clone from an earlier rack may carry a second FX (the brake drums came with a JS Volume Adjustment from piece
 5's trims — left as it came, 0 dB would be the baseline; RACK_SETTINGS).
+
+## §145. PLAN 1d · 1e built — his articulations dealt into the counterpoint; the level map goes per articulation (2026-11-10)
+
+**His words (SW-35 and the ask):** *"an algorithm to distribute my chosen articulations into the counterpoint section"* — with *"ranges, swaps,
+longer notes for flz / bow pressure"*, then *"per-articulation volume normalization against a standard level."*
+
+**The deal (`tools/artic_deal.js`, the lists in `bank/artic_deal.json` — his SW-35 as data):** per lane the section is cut into time containers
+by the hexagram roll (the lineage's; 1.5 … 6 s here), each container dealt the next articulation of a shuffled, exhaustive deck; every note in
+the container takes it. The rules as he gave them: a pitch outside the articulation's range is folded by octaves into it, or the note takes the
+next articulation that can hold it (a SWAP); the flutter tongues and the bow overpressure want a LONGER note — a note under 0.5 s is GROWN
+toward 0.5 within the lane's room (the next note's start less 30 ms), or, with no room, takes another articulation. A deck entry may name
+another LANE: the percussionist's strikes (china scrape · brake drums poly beater and rubber mallets · spring coil · the gran cassa's medium
+felt and its rute on the rim) are dealt among the GLOCKENSPIEL's notes and the dealt notes MOVE to the percussion lane, the pitch becoming
+the strike's nearest key — his *"we can keep the glockenspiel, just mix those in"*, read as one player's two lanes. Every change under
+`properties.artic.was`; `--undo`; markers per container (`--markers`).
+
+**The first deal, seed 17, on `piece-Section02-B-08ctpt-harmonies01` → `scores/piece-Section02-C-artics-01` (a NEW save; his stays):** 366 notes,
+230 changed · 53 grown (the clarinet's and the sax's flutters from 0.1 … 0.27 s to 0.5) · 13 folded · 10 swapped · 51 glockenspiel notes
+become strikes. Per lane: flute jet whistle 11 · staccato 11 · tongue ram 12 · flz 10; clarinet staccato 21 · flz 21; sax double tonguing 11 ·
+staccato 12 · flz 10 · slap pitched 12 · exploding 9; piano main 81 · muted 17 · plucked 19 (the plucked SILENT until his Kontakt step, PLAN 1c
+step 4); violin behind-the-bridge 10 · bartók 5 · overpressure 12 · col legno gettato 13 · gettato 7; glockenspiel 11 kept. The cello has no
+notes in the section as saved. **26 voices** where the volume fix had six.
+
+**What I decided for him, his to reverse:** the ordinary is NOT in a lane's deck unless he lists it (the piano's `main` is listed; the flute's,
+clarinet's, sax's and violin's decks are his articulations only — the staccato he said to keep is there) · the bass drum "plain" is the gran
+cassa's medium felt · one roll per lane (each lane changes articulation at its own moments) · the deal writes a new save.
+
+**The level map per articulation (1e) — `section_level.js` extended:** a VOICE is now (lane, technique) — one curve per articulation the section
+uses, keyed `instKey:technique`; `--apply` maps each note by its own technique's curve; an older per-lane file still reads. Two details from
+§144's lessons: the grid plays its loudest velocity first in each pitch block (the series aligns on the first sound heard; a velocity-16 note can
+be under the threshold), and no CC7 is sent on the Spitfire port. The measure of the 26 voices runs after the alive sweep (the meter is one).
