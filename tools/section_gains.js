@@ -45,6 +45,30 @@ rows.sort((a, b) => a.kind.localeCompare(b.kind) || a.voice.localeCompare(b.voic
 console.log('voice'.padEnd(44) + 'track'.padEnd(22) + 'notes  gain dB  spread  how');
 for (const r of rows) console.log(r.voice.padEnd(44) + r.track.padEnd(22) + String(r.notes).padStart(5) + String(r.gainDb).padStart(9) + String(r.spreadDb).padStart(8) + '  ' + r.kind);
 const out = { score: name, when: new Date().toISOString(), what: 'per articulation voice: the mean dB from its lane\'s ordinary over the section\'s written velocities; applied as a UVI part gain or an ARO track trim; Kontakt voices left to section_level.js --apply', rows, applied: [] };
+// ONE VOICE, ONE TRACK (his rule, §148): a Spitfire track whose voices want gains more than --split-db (3) apart cannot serve them with one
+// fader — every voice but the one nearest the track's mean gets its own track (tools/perc_split.js), then the measurement must be redone for
+// the percussion (the tracks changed) before the trims: --split does the splits and stops.
+if (has('split')) {
+    const SPLIT = +arg('split-db', 3); const I = require('vm').runInNewContext(fs.readFileSync(path.join(ROOT, 'sandbox', 'instruments.js'), 'utf8') + '\n;INSTRUMENTS;', {});
+    const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
+    const byTr = {}; for (const r of rows) if (r.kind === 'aro-track') (byTr[r.track] = byTr[r.track] || []).push(r);
+    let n = 0;
+    for (const [track, rs] of Object.entries(byTr)) {
+        if (rs.length < 2) continue; const gs = rs.map((r) => r.gainDb); if (Math.max(...gs) - Math.min(...gs) <= SPLIT) continue;
+        const mean = gs.reduce((a, b) => a + b, 0) / gs.length; const keep = rs.reduce((b, r) => Math.abs(r.gainDb - mean) < Math.abs(b.gainDb - mean) ? r : b, rs[0]);
+        for (const r of rs) {
+            if (r === keep) continue;
+            const tech = r.voice.split(':')[1], q = (I.percussion.techniques.find((x) => x.key === tech) || {}); const beater = (q.label || '').split(' — ')[1];
+            if (!beater) { console.log('  ' + r.voice + ': no beater in its label — not split'); continue; }
+            const slug = tech.slice(0, tech.length - slugify(beater).length - 1);
+            console.log('  split: ' + track + ' → "' + beater + '" of ' + slug + ' (wants ' + r.gainDb + ' dB where the track mean is ' + r1(mean) + ')');
+            if (!has('dry')) { const res = cp.spawnSync(process.execPath, [path.join(__dirname, 'perc_split.js'), slug, beater], { encoding: 'utf8' }); console.log((res.stdout || res.stderr).trim().split('\n').map((l) => '    ' + l).join('\n')); }
+            n++;
+        }
+    }
+    console.log(n ? (has('dry') ? '(dry) ' : '') + n + ' voice(s) to their own tracks — now: section_level.js --measure --lanes percussion, then section_gains.js again' : 'no track needs splitting (voices within ' + SPLIT + ' dB)');
+    process.exit(0);
+}
 if (has('dry')) { console.log('(dry: nothing applied)'); fs.writeFileSync(levelsFile.replace(/\.json$/, '.gains.json'), JSON.stringify(out, null, 1) + '\n'); process.exit(0); }
 // 1 · the UVI parts, grouped by track (one push per instance)
 const byTrack = {}; for (const r of rows) if (r.kind === 'uvi-part') (byTrack[r.track] = byTrack[r.track] || []).push(r);
