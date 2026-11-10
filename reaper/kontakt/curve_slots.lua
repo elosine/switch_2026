@@ -57,7 +57,10 @@ local function main()
   local NKI_N = {}; for k, v in pairs(NKI) do NKI_N[norm(k)] = v end
   local idxs = Kontakt.get_instrument_indices()
   assert(idxs[1], 'the multi is empty')
+  -- the BASE slot is the one whose name carries no " curve A|B|C" tag — after a first run the copies may come first in the index order
+  -- (2026-11-10, §148: the second run found "… curve A" in slot 1 and stopped)
   local first = idxs[1]
+  for _, i in ipairs(idxs) do local nm = Kontakt.get_instrument_name(i) if not nm:find(' curve [ABC]$') then first = i break end end
   local base = Kontakt.get_instrument_name(first)
   note('slot1_name', base); note('instruments_before', #idxs)
   local path = NKI[base] or NKI_N[norm(base)]
