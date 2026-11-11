@@ -235,7 +235,7 @@ any piece); this piece holds its USES — the set's files, the settings, the fou
   what each does and when he reached for it, and a shared roller the tools read — when he reaches it; nothing standardised before.
 
 - **1c THE MIDI SHORE-UP — the rack brought to the lineage's standard, three weeks into the composing** (his ask 2026-11-10, RUNNING_LOG
-  §143 · §144) — `doing` (the text half ☑; his hand steps open)
+  §143 · §144) — `done` but step 5's open items (the text half ☑; his hand steps ☑ 2026-11-10)
   ***Why:*** his articulation questions (§142) found a silent part and a keyswitch that switched nothing; his word: *"a very thorough review
   of all the things that got missed … every articulation on its own channel — no keyswitches … the 4-channel CC7 copies … the full
   percussion battery … fix the porting instructions so the next port carries the standard."*
@@ -252,7 +252,9 @@ any piece); this piece holds its USES — the set's files, the settings, the fou
      the slaps as three distinct layers — WHICH is which is his ear) · `UVI_PARTS` regenerated, 78/78 placed.
   3. ☑ **The battery completed as far as text goes** — Brake Drums · Bass Drum (GC) · Tam Tams cloned from piece 5's rack onto `SWPerc`
      9 · 10 · 11 (`set_track_chunk.js`); a `Snare ARO` track on 12 awaiting his load; `perc_selection.json` 12 rows → `apply_perc.js`.
-  4. **HIS HANDS** (Kontakt and Spitfire only load from their own windows) — each a few clicks, in any order, Reaper open on the rack:
+  4. ☑ **HIS HANDS — ALL DONE 2026-11-10 20:30 … 20:33** (the curve copies at +8.2 dB and the plucked piano by his Run Lua script, the reports in
+     `reaper/kontakt/out/`; the snare loaded by him; the rack saved 20:33). *(The list below is the record; nothing here is to be asked again.)*
+     (Kontakt and Spitfire only load from their own windows) — each a few clicks, in any order, Reaper open on the rack:
      - **the snare:** track `Snare ARO` → open the Abbey Road Orchestra plugin → its browser → High Percussion → **Snare** → the (C)
        All-in-one preset. (It shows Piatti until then — the plugin's last preset, not a load of ours.)
      - **the piano's curve copies:** track `Piano Kontakt` → Kontakt → the KONTAKT ▾ menu → Run Lua script… → `reaper/kontakt/curve_slots.lua`
