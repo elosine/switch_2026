@@ -2,7 +2,7 @@
  "schema": 1,
  "_what": "THE FUND'S INDEX — every mastered material of the keep folder (tools/materials_index.js): the composer score's picker and the engine's streaming player read it (electronics/score/le_material.js · electronics/sc/material.scd). GENERATED — run the tool again after the keep folder changes.",
  "root": "H:/switch_2026/audio/set-2025-04-08c/keep",
- "written": "2026-11-11T01:32:40",
+ "written": "2026-11-11T02:32:16",
  "materials": [
   {
    "name": "granular-B1-perc-seed1",
@@ -417,6 +417,15 @@
    "sr": 44100,
    "kind": "petals",
    "note": "petals C3 on r2-t110.0-x625-4pass from 0 s · C with a minor third — the banks a minor third apart · fund 35 · first 5 · spread 1.33 · bank B +3 st · ring 7 … 15 s"
+  },
+  {
+   "name": "petals-C3-r2-t110_0-x625-4pass-seg1-ring",
+   "file": "petals/petals-C3-r2-t110.0-x625-4pass-seg1-ring-master.wav",
+   "seconds": 208.41,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals C3 on r2-t110.0-x625-4pass · a SEGMENT 0.000 … 185.889 s (185.9 s) that RINGS OUT — the bed stopped at its end, the ring left 22.5 s · C with a minor third — the banks a minor third apart · fund 35 · first 5 · spread 1.33 · bank B +3 st · ring 7 … 15 s · seed 7 · level matched to petals-C3-r2-t110.0-x625-4pass-from0-master.wav (-0.3 dB)"
   },
   {
    "name": "petals-C4-r3-t077_2-x625-4pass-from0",

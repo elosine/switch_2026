@@ -2969,3 +2969,14 @@ SECTION_LEVEL · the card and parity), without a question to him. A level item t
 to the chat. He hears the music; a fault reaches the AI only when HE says something is off, and then it is fixed, not discussed. The violin
 re-hear of §158 is withdrawn from his list (it was the AI's note). What counts as crucial: a passage that cannot sound at all, or a level
 that would wreck a take he is about to keep — and then one line, the fix proposed, his one-word answer.
+
+## §160. The second ringing petal — C3 on Elec 1, 269 … 454.9 s (2026-11-10)
+
+**His words:** *"piece-Section03-a-petalsGrain-02 Can you do the ringing with the pedals that is an electric one and ends around 454.86? Just the
+same thing. Let the resonators ring. You can cut the sound file, stop the sound file playing at that point, but let the resonators ring."*
+
+The brick (zn-3126): `petals-C3-r2-t110_0-x625-4pass-from0`, the file's 0 … 185.9 s, placed at 269 … 454.9. Made again by §157's road
+(`petals_segment.py`): C3's bank (fund 35 · first 5 · spread 1.33 · bank B +3 st · ring 7 … 15 s) on the bed `r2-t110.0-x625-4pass` from 0 (cold,
+as the long render), the bed stopped at 185.889 s, the ring left 22.5 s (1.5 × 15), 30 ms in, mastered, matched to the long master over the
+stretch (−0.3 dB). **The result:** `keep/petals/petals-C3-r2-t110.0-x625-4pass-seg1-ring-master.wav`, 208.4 s; indexed (62 materials); in the
+drawer as `petals-C3-r2-t110_0-x625-4pass-seg1-ring`. His to drag over the brick at 269; the engine restarted once. His save untouched.
