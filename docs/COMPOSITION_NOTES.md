@@ -661,3 +661,38 @@ partials. Then show proposals and how why you chose those funds and the timing o
 
 *The AI's reading (marked as such):* "reconstitution" = *Recombination* (piece 5, `septet_LGMF_2026`), whose six fundamentals formed a semi-cluster
 of roots with chords of just partials (LG-18 … LG-28). The analysis and the proposals: `docs/proposals/SECTION3_JI_FUNDAMENTALS.md`.
+
+### SW-42 · 2026-11-11 — A MULTI-TEMPO PHASE-SHIFTING MODULE (the brief, part one — "hold this, more coming")
+
+*His words (dictated, light corrections):* *"Now I want to work on another module, a multi-tempo phase shifting module. I want to be able to
+take in harmony, like takes from the strike store. So that'll be like the starting point. And it could grab the — I don't know how the takes
+work, if they record the articulation — but it can grab the articulation too. But I don't need the strike rhythm, the spread-out rhythm. And
+then what I'd like to do, and this will evolve, so let's build it parts at a time. The first thing I'd like to try to do is have a starting
+tempo or starting tempos in all the different parts. So it might be a little bit more complicated than I suggest, but we'll be able to take
+the individual things from the strike store. So for example, if I make a take that has the flute playing its flutter tongue articulation on
+C#4, then the tempo machine will be able to re-articulate that. And then also probably need to be able to not only re-articulate it at a
+certain tempo, but also the duration of each articulation. Like, does it last a full beat or is it just a short staccato? Those types of things
+may need some flexibility in the multi-tempo part, but also can take the default from the articulation in the strike store. So like if it's
+the percussive one or the spiccato one. But then the nitty-gritty of the tempo is: let's say I start at a tempo like 60 beats per minute.
+Well, this is the first thing I want to do, and then we can talk about the others, and then we might have to rebuild it if the other
+requirements require a different architecture. But we'll cross that bridge when we come to it. So let's say I start at 60 beats per minute.
+Then I want to be able to have a speed with which they go out of phase. I need some help figuring out how to do that. I guess what I mean is,
+do ones accelerate or do ones decelerate? We can figure that out. But I don't want to be punching in however many — there's like 7 numbers —
+every time. So let's just start simple with: one stays the same, everyone else accelerates at a slightly different rate and they go out of
+phase. The idea is that they're growing out of phase, right? And then an easy way to have different permutations of that. So it might be like
+a dice roll, I'm not sure, but we'll have to figure that out. I haven't really thought out those details. But a way for them to slowly go out
+of phase, and then a way to, as I'm listening, maybe pause a state. So as they're going out of phase, I can hit a button and they'll lock, they
+won't accelerate or decelerate anymore. And I can capture that phase shift state. So maybe I should start with the end result. It'll probably
+be something like: we start at the same tempo, things shift out of phase, and then hold at a certain phase-shifted pattern for a little while.
+And then they start shifting again, and then they shift into like a multi-tempo pattern. So that's probably ultimately what will determine the
+way it shifts. So maybe I don't need too many choices, but just a destination. That makes sense. Except for the first one, I'll need some sort
+of choice. So let's say the first thing I choose is, everyone accelerates at a pace slightly greater than its neighbor. So they all sort of go
+out of phase. And then I freeze a couple states with that version. So I'm backing up, but yeah, we'll need both. We'll need a strategy for
+just shifting out of phase in random ways, so I can listen to lock patterns. And then we'll also need a destination method where I want one
+tempo or one set of tempos to go to another, and they shift out of phase over a certain amount of time to get there. So back to the scenario:
+they shift out of phase, I hold at a phase pattern, and then I plug a destination multi-tempo maybe, like every part being at a slightly
+different tempo. And there should be a way to hear all those, dial those in easily and hear all those. Kind of like the shuffle, I like that
+from the strike drawer. Hold this, more coming."*
+
+*The AI's reading (marked as such):* held, not read yet — the brief continues. A note for the planning that follows: the score already has a
+`multitempo_panel.js` and a `pulse_seq_panel.js` (piece 5's), to be read before any design.
