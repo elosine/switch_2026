@@ -586,3 +586,16 @@ bridge, col legno gettato."*
 | glockenspiel | mixed in | `glock_main_hard` |
 | piano | ordinario · plucked · muted | `main` · `plucked` · `muted` (channels 1 · 5 · 7, §135) |
 | violin · cello | gettato · bow overpressure · bartók pizz · pizzicato behind the bridge · col legno gettato | `gettato_vel` · `bow_op_vel` (also `bow_op_mw`) · `bartok_vel` · `pizz_behind_bridge_vel` (a by-KEY voice, its keys pending) · `col_legno_gett_vel` |
+
+### SW-36 · 2026-11-10 — THE FORM: PETALS PASSAGES ALTERNATING WITH THE GRANULAR; the granular as a trio
+
+*His words (dictated, light corrections):* *"Composition note: alternate petals passages with the granular. The petals will be accompanied by all the
+sustaining instruments, and then the granular section will be a trio of the electronics, percussion, and piano. Piano will use a lot of striking
+strings with palm, with the pedal down, and percussion will use like bass drum rolls. And maybe things like tambourines. I have to give it some
+thought. Or like cluster strikes at crotales, things like that."*
+
+*The AI's reading (marked as such):* two alternating states — the PETALS (the fund's sixteen petals, 1a.7) carried by every sustaining instrument,
+and the GRANULAR (the 21 beds) as a trio: electronics · percussion · piano. The piano's device there: palm strikes on the strings, pedal down (a
+prepared-piano technique the call allows — non-metallic, nothing on the dampers; the recipe has no such voice yet — his hand or a sample to find).
+The percussion's: bass drum rolls (the gran cassa's roll keys are in the rack), perhaps tambourines (not in the call's list — the ARO catalog has
+them), or cluster strikes on the crotales. Open, by his word: "I have to give it some thought."

@@ -2895,3 +2895,10 @@ flute's F5 recurs just as often (11 of 44) — the same folding; offered. A copy
 **His words:** *"yes pls do for flute — piece-Section02-B-ctpt-draft01d."* 01d carries the earlier edits (13 thinned, 4 mutes made plain). The
 flute's F5: 11 of 44, every second one swapped from its take — 201.61 → F#5 (tongue ram) · 210.44 → E5 (tongue ram) · 228.66 → E5 (staccato) ·
 234.07 → F#5 (jet whistle) · 246.74 → D#5 (tongue ram); six F5 stay. A copy of 01d as it was in the session's scratchpad.
+
+## §156. SW-36 — the form: petals passages alternating with the granular, the granular a trio (2026-11-10)
+
+His composition note, verbatim in `COMPOSITION_NOTES.md` SW-36: the petals with all the sustaining instruments; the granular as electronics ·
+percussion · piano (palm strikes on the strings, pedal down · bass drum rolls · maybe tambourines or crotale clusters — "I have to give it some
+thought"). Nothing built; the note is the form's first statement. A palm-strike piano voice does not exist in the rack: when he reaches it, a
+sample or a prepared-piano preset (PP2 has none named so; the catalog's percussion has no piano) — a conversation then.
