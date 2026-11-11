@@ -696,3 +696,26 @@ from the strike drawer. Hold this, more coming."*
 
 *The AI's reading (marked as such):* held, not read yet — the brief continues. A note for the planning that follows: the score already has a
 `multitempo_panel.js` and a `pulse_seq_panel.js` (piece 5's), to be read before any design.
+
+### SW-42 (continued) · 2026-11-11 — the brief, part two: phase states · multi-tempo patterns · destinations · cuts · harmony per container · minimal GUI
+
+*His words (dictated, light corrections):* *"So then I was saying different ways of having different tempo configurations. And I think just as a
+general principle, there's just too many choices. So maybe like a shuffle thing, but also I can dial in specific choices, or I think with the
+sequences drawer and other things, we had typical patterns, or at least concepts of ways to get different multi-tempo patterns, like maybe
+highly complex, non-repeating, or ones that repeat on a 12-second cycle or something like that. I don't know. I'll lean on you for those
+strategies. Anyways, one aspect will be these phase states, phase-shifted states. Another aspect will be different multi-tempo patterns. And I
+guess it depends on how many players, etc. So I'll probably have favorites, like the strikes takes, ones that I like better than others.
+Anyways, I find the multi-tempo state: the ensemble starts at a fixed tempo, same tempo, and then they phase shift. They might do it a couple
+times, they hold at certain states, and then eventually they move to this multi-tempo configuration. And then it'll be some variation of all
+those things. So then the next thing is, might they phase shift until they converge at the same tempo — something like that. That will most
+likely be a popular technique. I'd like to be able to do that, over a certain amount of time. And they can also have held phase-shifted
+destinations in between there. And then they come back to unison tempo, and then maybe they phase shift, this time to a phase state, a saved,
+out-of-phase state. So the machine would calculate whatever acceleration, deceleration they need to get to that phase-shifted state by a
+certain destination, and then on and on. Then maybe they phase shift until another multi-tempo, and then maybe there's just a quick — also
+allow for quick cuts, like a cross cut from one multi-tempo to another, or quickly into unison, that sort of thing. And then a bit like the
+sequences drawer, but that is perhaps a little bit overwrought, I'd like to be able to apply a harmony to any given time section. So maybe
+there's time containers or something like that that I can apply. And I think in general, the principle should be just very, very minimal
+design. I'm just interested in the functionality. And I find a lot of mistakes and pitfalls happen in the GUI, but I want it to be usable. So
+maybe just minimal GUI. I usually learn what I need when I start doing it. So that might be something, again, we have to rebuild or build in
+later. Yes, but that's the basic idea. If you can plan this out, scope it, and then build it yourself, go ahead and do so. We don't have to
+run the planning process. But you can check in with me now or at any point in time if there are points of clarification."*
