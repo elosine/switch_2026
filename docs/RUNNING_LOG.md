@@ -3025,3 +3025,21 @@ shoulder 24 s · stair up, straight down 16 s. Eighteen shapes, 480 … 896 s. T
 **Proven once on the throwaway (5601, the recipe's stubs):** the save opens (1632 objects), the silhouette stands four lanes tall over 275 …
 465 s with the cello's pink swells under it and the petal brick on Elec 1 — the screenshot sent to him. In `scores/piece-Section03-w_cello-hills-graphic-01`
 (from the hills save; his `w_cello` untouched). He opens it with File ▾ → Open; the curves on the four lanes are silent and his to delete or move.
+
+## §163. SW-41 — the petals analyzed; a sequence of just fundamentals proposed over the C3 petal (2026-11-11)
+
+**His words:** SW-41. **The page:** `docs/proposals/SECTION3_JI_FUNDAMENTALS.md`.
+
+**What is in the score:** every current Section 3 save carries ONE petal on Elec 1 — C3 (269 … 477 s); the four A4 cuts of the earlier
+`petalsGrain` are gone from the saves (analyzed too). **Measured (an averaged 65536-point spectrum of each clip, the peaks above −40 dB):**
+C3's strongest partials 472 (0 dB) · 316 (−5) · 211 (−7) · 632 (−9) · 328 · 658 · 442 · 422 · 367 Hz — ONE series: 4 · 6 · 9 · 12 × 52.6 Hz =
+G♯1 (+23 c), with 7 and 8 weaker. The design's 35 Hz × (5 + 1.33 n) lands on that series by its spacing (46.5 Hz); the bed chose which sing.
+A4: a plain G2 (99 Hz) series, partials 4 … 9, with its quarter-tone shadow. The two roots a semitone apart — neighbors in Recombination's
+semi-cluster. **The method read from piece 5 (LG-18 … LG-28):** a semi-cluster of roots F♯1 G♯1 A1 B♭1 B1 C2, a path through them (middle,
+outward, the bottom last), chords of the colored partials 5 · 7 · 10 · 11 · 14, the bass on the root, tempered doublings beating at the
+deviation. **The containers:** the petal's own hills (§161's nodes) — seven: 275 · 325 · 355 · 371 · 414 · 430 · 457 … 477.
+**Each root's partials laid against the petal's peaks (a hit within 30 c):** G♯1 hits 4 6 7 8 9 12 (home) · B♭1 8 (= the petal's peak) 11 ·
+C2 5 10 · F♯1 7 9 14 · A1 6 7 8 12 but a semitone off everywhere (friction) · G1 9 13 (almost nothing) · B1 only weak ones (left out).
+**Proposal A (recommended):** G♯1 · C2 · F♯1 · B♭1 · A1 · G♯1 · G1 — home, outward, the friction chord before the return, home with the
+full series on the loudest hills, a semitone under as the ring dies. **Proposal B:** the drift G♯1 · A1 · B♭1 · B1 · C2 · G♯1 · G1.
+Winds and strings just (the samplers bend per note), piano and vibraphone tempered doublings. His one decision: A, B, or another path.

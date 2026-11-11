@@ -652,3 +652,12 @@ cursor to play along and record against; the sound of each shape under it on the
 *The AI's reading (marked as such):* two ideas, noted as given, not elaborated — tuning by just intonation (ratios on a fundamental rather than
 equal temperament; the samplers take the pitch bend per note, the sine lanes any frequency), and crescendos in several tempi at once that drift
 in and out of phase with each other (the multitempo panel and the pulse sequencer exist in the score). Open until he says more.
+
+### SW-41 · 2026-11-11 — a sequence of just-intonation fundamentals over the petals, as in Recombination
+
+*His words (verbatim):* *"Can you analyze the petals segments in the score, the clips I'm using the two or 3 inserted in the score and develop a
+sequence of just intonation fundamentals. See the lake George piece reconstitution. I make sequences out of shifting chords made of just intoned
+partials. Then show proposals and how why you chose those funds and the timing of containers"*
+
+*The AI's reading (marked as such):* "reconstitution" = *Recombination* (piece 5, `septet_LGMF_2026`), whose six fundamentals formed a semi-cluster
+of roots with chords of just partials (LG-18 … LG-28). The analysis and the proposals: `docs/proposals/SECTION3_JI_FUNDAMENTALS.md`.
