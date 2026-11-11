@@ -78,7 +78,8 @@ Object.assign(D, {
         const title = 'HARMONIC SERIES · from the fundamental';
         let h = '<div class="skBanner" data-bank="spectrum" title="' + esc(title) + ' — click to ' + (folded ? 'expand' : 'collapse') + '" style="position:' + (folded ? 'static' : 'sticky') + ';top:0;z-index:1;background:#1b1b20;padding:3px 8px;cursor:pointer;color:#e8cf9a;border-bottom:1px solid #333;font-weight:600;white-space:nowrap;display:flex;gap:6px;align-items:center">' +
             (folded ? '&#9656; ' : '&#9662; ') + '<span style="flex:1 1 auto;overflow:hidden;text-overflow:ellipsis">' + esc(title) + '</span>' +
-            '<input class="skSpFund" value="' + esc(sp.fund) + '" title="the fundamental — a note name (E1, C2, Bb1) or a MIDI number; ENTER applies" style="' + INP + ';width:34px;font-weight:normal"></div>';
+            '<input class="skSpFund" value="' + esc(sp.fund) + '" title="the fundamental — a note name (E1, C2, Bb1) or a MIDI number; ENTER applies" style="' + INP + ';width:34px;font-weight:normal">' +
+            this.jiRootChips(sp.fund) + '</div>';
         if (!folded) {
             if (fund == null) h += '<div style="padding:2px 8px;color:#e88">not a note name</div>';
             else {
@@ -108,7 +109,23 @@ Object.assign(D, {
             else if (ev.key === 'Escape') { ev.preventDefault(); inp.value = this.spec().fund; inp.blur(); }
         });
         inp.addEventListener('change', () => { if (inp.dataset.done) { delete inp.dataset.done; return; } this.setSpecFund(inp.value); });
+        banner.querySelectorAll('.skSpRoot').forEach(el => el.addEventListener('click', ev => { ev.stopPropagation(); this.setSpecFund(el.dataset.root); }));
         list.querySelectorAll('.skSpRow').forEach(el => el.addEventListener('click', () => this.select(el.dataset.id)));
+    },
+
+    // THE PIECE'S ROOTS AT HAND (the Switch~ piece, SW-41 · RUNNING_LOG §164, 2026-11-11): a chip per root of `bank/ji_roots.json` beside
+    // the fundamental box — a click types it. The file is the piece's (its path through the semi-cluster, his to edit); absent, no chips.
+    jiRootChips(cur) {
+        if (this._jiRoots === undefined) {
+            this._jiRoots = null;
+            fetch('/bank/ji_roots.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(j => { this._jiRoots = (j && Array.isArray(j.roots)) ? j.roots : []; if (this._jiRoots.length) this.renderBanners(); }).catch(() => { this._jiRoots = []; });
+        }
+        const roots = this._jiRoots || [];
+        if (!roots.length) return '';
+        const norm = s => String(s || '').replace(/♯/g, '#').replace(/♭/g, 'b').toUpperCase();
+        return '<span class="skSpRoots" style="flex:none;display:inline-flex;gap:3px;margin-left:6px;font-weight:normal">' + roots.map(r =>
+            '<span class="skSpRoot" data-root="' + esc(r.name) + '" title="' + esc((r.label || r.name) + (r.why ? ' — ' + r.why : '')) + '" style="cursor:pointer;padding:0 4px;border:1px solid #555;border-radius:3px;font-size:10px;' +
+            (norm(r.name) === norm(cur) ? 'background:#e39ac6;color:#111' : 'color:#e39ac6') + '">' + esc(r.name) + '</span>').join('') + '</span>';
     },
 
     // ---------------------------------------------------------------- the keyboard: the range lines on the keys, the columns, the labels

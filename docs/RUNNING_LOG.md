@@ -3043,3 +3043,23 @@ C2 5 10 · F♯1 7 9 14 · A1 6 7 8 12 but a semitone off everywhere (friction) 
 **Proposal A (recommended):** G♯1 · C2 · F♯1 · B♭1 · A1 · G♯1 · G1 — home, outward, the friction chord before the return, home with the
 full series on the loudest hills, a semitone under as the ring dies. **Proposal B:** the drift G♯1 · A1 · B♭1 · B1 · C2 · G♯1 · G1.
 Winds and strings just (the samplers bend per note), piano and vibraphone tempered doublings. His one decision: A, B, or another path.
+
+## §164. Proposal A taken: the roots at hand in the strikes drawer; the empty containers in the sequence library; the chart (2026-11-11)
+
+**His words:** *"Ok for proposal A … in the strikes drawer, there's the just intonation harmony section. Can you make sure all of those roots
+are available there? … it puts the root and then the full just intonation harmonic series above it. And then I can orchestrate from that.
+And then secondly, can you create in the sequences drawer … a sequence … just put in the time containers from those petals fragments as you
+propose in A? Don't fill them yet … give me a chart or something about what roots to use in each block. … I'm going to try a couple
+different orchestrations of the roots, and then I'll insert them in to those containers."*
+
+**The roots.** The HARMONIC SERIES banner (spectrum_ui.js, piece 5's 1c.4) takes ANY fundamental typed into its box — so every root was
+already reachable; what was missing was having them at hand. Built: a chip per root beside the box, read from the piece's
+`bank/ji_roots.json` (F♯1 · G1 · G♯1 · A1 · A♯1 · C2, each with its why in the hover), a click types it (`setSpecFund`); the current one
+lit. The file is the piece's (THE SORTING: it knows this piece's roots); the chip code is the drawer's, six lines, no chips when the file
+is absent. A root is spelled as the box accepts it (A#1, not B♭1).
+
+**The sequence.** `S3 petal roots A` written into `bank/sequences.json` under the library panel (the drawer's own row shape: seven boxes
+`take ''` · `chord []` — RESTS until he drops a take in each — `dur` 50 · 30 · 16 · 43 · 16 · 27 · 20 s, change `attack`; the breath, waves,
+edges and roll dials take the drawer's defaults when it loads the row). 202 s, to be inserted at 275. The comment carries the roots per box.
+**The chart:** the proposal page § 9. Nothing in his saves touched. **His server must be RESTARTED or the page reloaded** for the chips
+(spectrum_ui.js is a page file — a reload is enough; the library is read from disk when the sequence drawer opens).

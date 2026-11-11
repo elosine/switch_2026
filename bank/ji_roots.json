@@ -1,0 +1,11 @@
+{
+ "_about": "THE PIECE'S JUST-INTONATION ROOTS, at hand in the strikes drawer's HARMONIC SERIES banner as chips beside the fundamental box (spectrum_ui.js jiRootChips; SW-41, RUNNING_LOG §163 · §164). The order here is by pitch; the PATH through them for Section 3 (proposal A) is G#1 · C2 · F#1 · A#1 · A1 · G#1 · G1 — docs/proposals/SECTION3_JI_FUNDAMENTALS.md. His to edit: a name is a note name the fundamental box accepts (A#1, not Bb1).",
+ "roots": [
+  { "name": "F#1", "label": "F♯1", "why": "a whole tone under home; its 7th, 9th and 14th partials sit on the petal's E, G♯ and E" },
+  { "name": "G1", "label": "G1", "why": "the earlier petal's root (A4 was a G2 series); a semitone under home — almost nothing coincides" },
+  { "name": "G#1", "label": "G♯1 — HOME", "why": "the C3 petal IS this series: partials 4 · 6 · 9 · 12 (G♯3 D♯4 A♯4 D♯5) are its loudest notes" },
+  { "name": "A1", "label": "A1 — the friction chord", "why": "a semitone over home: A against the petal's A♯, G against its G♯" },
+  { "name": "A#1", "label": "A♯1 (B♭1)", "why": "its 8th partial is the petal's loudest note; its 11th (E5 −49¢) near the petal's 632 Hz" },
+  { "name": "C2", "label": "C2", "why": "Recombination's 5 · 7 · 10 set: E4 −14, A♯4 −31, E5 −14 — a near chord with the major third the petal only hints at" }
+ ]
+}

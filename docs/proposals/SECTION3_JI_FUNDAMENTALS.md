@@ -93,7 +93,25 @@ The same seven containers; the root rises a semitone each time and falls back: *
 hear as a line; less tied to what the petal actually sounds (B1 shares almost nothing with it), and the friction chord (A1) comes first
 rather than before the return.
 
-## 8 · The one decision
+## 9 · THE CHART — his word for A (2026-11-11): the roots per box, the boxes empty, the orchestration his
+
+The sequence **`S3 petal roots A`** is in the sequence drawer's library (`bank/sequences.json` → the drawer's `library` list): seven EMPTY
+boxes (rests), to be inserted at **275 s**. The roots are at hand as chips in the strikes drawer's HARMONIC SERIES banner (a click types the
+fundamental; the just series fills the keyboard; orchestrate, save the take, drop it in the box).
+
+| box | from | to | seconds | root | the petal there | the chip |
+|---|---|---|---|---|---|---|
+| 1 | 275 | 325 | 50 | **G♯1** | the rise — home, the petal's own series | `G#1` |
+| 2 | 325 | 355 | 30 | **C2** | the first two hills | `C2` |
+| 3 | 355 | 371 | 16 | **F♯1** | a hill between two valleys | `F#1` |
+| 4 | 371 | 414 | 43 | **B♭1** | the two big hills — its 8th partial is the petal's loudest note | `A#1` |
+| 5 | 414 | 430 | 16 | **A1** | a hill between valleys — the friction chord | `A1` |
+| 6 | 430 | 457 | 27 | **G♯1** | the loudest hills — home again | `G#1` |
+| 7 | 457 | 477 | 20 | **G1** | the ring dies — a semitone under | `G1` |
+
+The partials in § 6 are the AI's suggestion only; he said he will try his own orchestrations of each root.
+
+## 8 · The one decision *(answered 2026-11-11: A)*
 
 A, B, or a different path through the same six roots. The timing (the hills) and the partial sets are then written into the save by a
 tool (the chords as struck or shaped notes on the players' lanes, the cents as bend), his to hear.
