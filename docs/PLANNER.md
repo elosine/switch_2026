@@ -5,7 +5,7 @@
 > `COMPOSITION_NOTES.md` verbatim first and get folded into a tier here. Engineering
 > detail stays in `PLAN.md`. Rewritten freely; the sketch pad is the append-only record.
 
-**NOW ►** 2026-11-10 — SECTION 1 IS SKETCHED IN HIS SAVES: the opening bed, the sax's beating under a sine, the five lanes' sawtooths (PLAN 1a.9; `tools/beat_saw.js` · `beat_end.js`), six unison crescendos from his drawer takes; SECTION 2 begun (the piano solo takes, the counterpoint from 199 s — its six parts put on one loudness scale by `tools/vol_fix.js`, §136, the glock excepted). **► HIS EAR next session**: the crescendos (`piece-Section01b-BeatingUnisonCrescendos-B`) and the counterpoint's balance (`piece-Section02-B-08ctpt-VolFix`). Then SW-25 the multi-tempo section (the tubas' record first) and SW-28 the piano-and-electronics duet.
+**NOW ►** 2026-11-10 — SECTION 2’S COUNTERPOINT IS IN HIS SAVES (`piece-Section02-B-ctpt-draft01d`): his articulations dealt per note, p · mf · fff dealt, every written dynamic at ONE LOUDNESS by the section’s recorded card (`section_card.js` → `section_parity.js`, §152), the recurring pitches thinned (`thin_pitch.js`); the rack shored up and saved (§143 · §144). THE FORM STATED (SW-36): petals passages alternating with a granular trio (electronics · percussion · piano) — his ear on the draft, then the form’s conversation. His hands open: `curve_slots.lua` once more on Piano Kontakt · the snare’s load.
 
 *Before it —* 2026-10-23 — THE START IS DONE: the rack at one level, the score set up for eight parts, the protocol v2.
 

@@ -61,6 +61,32 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+### CHECKPOINT 2026-11-10 — THE COUNTERPOINT DEALT AND LEVELED; THE FORM STATED (SW-36) *(mid-session checkpoint)*
+
+- **The task and its state:** Section 2's counterpoint (200 … 253 s) is in HIS saves — `piece-Section02-B-ctpt-draft01d` is the latest: his
+  articulations dealt per note (`artic_deal.js --scatter`, seed 23), the dynamics p · mf · fff dealt per lane (`dyn_deal.js`), the levels on
+  PARITY BY LOUDNESS (`section_card.js` → the recorded card `bank/section_levels/piece-Section02-D-scatter-01.card.json` → `section_parity.js`:
+  every written dynamic at one loudness across the parts; RUNNING_LOG §152), the recurring pitches thinned from their takes' harmonies
+  (`thin_pitch.js`: the piano's G#s, the clarinet's F6, the flute's F5; §153 … §155), four two-hand mutes next to a pluck made plain. The rack
+  shored up (§143 · §144) and saved through the bridge; the rack's hand-set values in RACK_SETTINGS § 0.
+- **His last word:** SW-36 (`COMPOSITION_NOTES.md`) — the form: petals passages alternating with the granular; the granular a trio of
+  electronics · percussion · piano (palm strikes on the strings, pedal down · bass drum rolls · maybe tambourines or crotale clusters —
+  "I have to give it some thought").
+- **► THE NEXT CONCRETE STEP:** his ear on `piece-Section02-B-ctpt-draft01d` (File ▾ → Open), then whatever he names — most likely the FORM
+  (SW-36): a conversation first (the planning method, one topic at a time), nothing built before his word. The palm-strike piano voice
+  does not exist in the rack (§156) — when he reaches it, one question.
+- **Resume reads:** `docs/COMPOSITION_NOTES.md` SW-36 · `docs/PLAN.md` § 1c step 4 (his hand steps) — nothing else beyond §2.
+- **Decisions pending him:** (a) the violin's track sits +6 dB from the card (parity's one global move, §152) — keep or undo after this
+  section; (b) a third Run Lua script of `reaper/kontakt/curve_slots.lua` on Piano Kontakt (the Steinway copies' +8 dB; my script fixed) and
+  the snare's load in Spitfire's browser (PLAN § 1c step 4); (c) the plucked piano sits 4 dB under the standard at its top.
+- **Deliberately uncommitted (git status):** `reaper/switch_rack.rpp` — HIS rack, saved through the bridge, committed only at his word ·
+  `.gitignore` · `bank/materials.json` · `bank/panel_snapshots.json` · `docs/VERIFICATION_RECIPE.md` · `reaper/icy_lab.rpp` — modified before
+  this session's work, left for their own wrap · `scores/*.json` (48) — his saves, never committed without his word · `bank/set/2025-04-08c/*` —
+  his audio set folders · `probes/*.log · *.json · artic_probe/ · part_meter/ · rack_alive/<stamps>` — the session's measurement records
+  (the kept ones are committed: `probes/rack_alive/latest.md`, `probes/key_sweep/*.json`, `probes/section_card.json`) · `tools/port/batt-old/ ·
+  scratch/` — the port's leftovers.
+- **Model to resume on:** Fable — the next step is his ear and the form's design (judgment), not execution.
+
 ### CHECKPOINT 2026-11-09 — THE LAB'S LONG SESSION CLOSED; HE STARTS IN THE COMPOSER SCORE *(mid-session checkpoint)*
 
 - **The task and its state:** PLAN 1a.7 THE ELECTRONIC SCORE — steps 1 … 5 BUILT and proven offline and on the throwaway (RUNNING_LOG §103);
@@ -239,7 +265,9 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 | ☑ | The start (containers 1 … 6, 10.0) · the lab (PLAN 1a.1 … 1a.6) · the electronic score (1a.7) · the drawer (1a.8) · the electronics lanes (D11) | — | — |
 | ☑ | The beating pairs built (SW-10 … SW-31; 1a.9) · the counterpoint's volume fix (§136) | — | — |
 | ☑ | THE MIDI SHORE-UP, the text half (§143 · §144; PLAN § 1c): the alive map · the prepared piano's channels · the flute's tongue ram · the jet whistle and the slaps on their own parts, no keyswitch · the battery completed (brake drums · bass drum · tam-tams cloned; the snare's track) · the lessons in the home's protocol | — | — |
-| **►** | **HIS HANDS, PLAN § 1c step 4** — the snare's load · the piano's curve copies (`curve_slots.lua` inside Kontakt) · the plucked slot to ch 5 — then his CTRL+S; **his ear** on the saves (the beating crescendos; the slaps: which part is which) | Fable | — |
+| ☑ | The volume by LOUDNESS (§148 … §152: the section card · parity) · the counterpoint dealt (1d) and thinned (§153 … §155) · SW-36 the form stated | — | — |
+| **►** | **His ear on `piece-Section02-B-ctpt-draft01d`; then the FORM (SW-36) — a conversation, the planning method, nothing built before his word** | Fable | — |
+| — | His hands when convenient: `curve_slots.lua` on Piano Kontakt (third run) · the snare’s load (PLAN § 1c step 4) · keep or undo the violin track’s +6 dB | — | — |
 | ☑ | 1d the articulation deal BUILT (§145: `artic_deal.js`, the decks `bank/artic_deal.json`; the first deal `scores/piece-Section02-C-artics-01`) · 1e the level map per articulation (26 voices measured and mapped, §146) | — | — |
 | — | **His ear on `piece-Section02-C-artics-01`** (the deal's markers name each container's articulation; `--seed` re-deals; the decks are his to edit) — then the next section | Fable | — |
 | — | The method's steps 2 … 4 (SW-11): the gliss speed · ONE drawn crescendo read by the sine AND the sax · the electronics under them, quickly | Fable (design) · Opus (build) | at the step |

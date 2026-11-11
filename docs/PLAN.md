@@ -283,6 +283,7 @@ any piece); this piece holds its USES — the set's files, the settings, the fou
 
 - **1e THE LEVEL MAP PER ARTICULATION** (his ask 2026-11-10) — `doing` (§145: `section_level.js` measures one voice per (lane, technique);
   the 26 voices of `piece-Section02-C-artics-01` measured and mapped 2026-11-10 — §146 has the numbers)
+  — ☑ 2026-11-10 (§148 … §152): THE VOLUME STANDARD BY LOUDNESS — the section’s own card recorded (`tools/section_card.js` → `probes/card_run.ps1` → `analyze_card.py`), then `tools/section_parity.js`: one loudness per written dynamic across the parts; the knobs — a UVI voice’s PROGRAM gain · a Spitfire TRACK (one voice per track, `perc_split.js`) · a Kontakt voice’s CC7 per note (`cc7Plain`) · a Kontakt track trim by his word. The peak-meter path (`section_level.js`) stays as the quick tool; the card is the judge.
   ***Why:*** *"per-articulation volume normalization against a standard level"* — `section_level.js` measured one voice per PART; with 1d a
   part plays several. The measure becomes per (lane, technique) — the curve of each voice the section uses — and the map per note by ITS
   technique; where velocity alone cannot reach the level (the SI2 staccatos' 14 dB), a CC7 offset per voice (NITS' lever).
