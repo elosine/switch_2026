@@ -2889,3 +2889,9 @@ that recurs on a lane, every Nth occurrence swapped for the nearest other pitch 
 articulation, dynamic and level untouched; `--undo`. **The clarinet's F6:** 11 of its 42 notes (the harmony roll folding takes 02 · 09 · 16 onto
 F6); every second one swapped — 206.69 → B5 · 213.31 → E6 · 215.86 → E6 · 226.15 → B5 · 241.29 → B5; six F6 stay. Seen and not touched: the
 flute's F5 recurs just as often (11 of 44) — the same folding; offered. A copy of 01c as it was is in the session's scratchpad.
+
+## §155. The flute's F5 thinned, on his draft01d (2026-11-10)
+
+**His words:** *"yes pls do for flute — piece-Section02-B-ctpt-draft01d."* 01d carries the earlier edits (13 thinned, 4 mutes made plain). The
+flute's F5: 11 of 44, every second one swapped from its take — 201.61 → F#5 (tongue ram) · 210.44 → E5 (tongue ram) · 228.66 → E5 (staccato) ·
+234.07 → F#5 (jet whistle) · 246.74 → D#5 (tongue ram); six F5 stay. A copy of 01d as it was in the session's scratchpad.
