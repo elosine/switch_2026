@@ -2863,3 +2863,17 @@ pressure, the plucked and the Steinway where loud), softer by velocity — and t
 the senza elsewhere in the piece is 6 dB hotter than the card set it; his to hear). Every note keeps its written dynamic; what is sent changed.
 **Still short at 127 after all that:** the violin's behind-the-bridge (−47.5 — a quiet sound by nature), the gran cassa's felt roll (flat across
 velocity), a few flute staccati and jet whistles at fff, three glockenspiel notes. The rack saved through the bridge.
+
+## §153. Two piano asks on his draft — the G#s thinned from the harmony, the two-hand mutes next to a pluck made plain (2026-11-10)
+
+**His words:** *"In the piano there is a lot of G-sharp of various octaves. Can you swap some of those out? Look up the harmony it's meant to be
+in — not just the lane, the full strike it comes from — and replace it with another note from that harmony. And there are some very close
+muted notes with plucked; the mute is a two-hand thing. Where there's successive close ones — only the very close ones — make the mute a
+standard note. Use piece-Section02-B-ctpt-draft01b."*
+
+**The G#s:** 17 of the piano's 47 notes were G# (G#2 · G#3) — the harmony roll had folded each take's piano voice to the nearest pitch, and five
+takes (02 · 12 · 13 · 14 · 15) put the piano on G#. Every SECOND G# in time order (eight) takes another pitch of ITS take's full voice set (all
+lanes, `bank/panel_snapshots.json`), the nearest to the original that is not a G#; the odd ones stay. The old pitch under `properties.gsSwap`.
+**The mutes:** four muted notes sat within 0.4 s of a plucked one (0.14 · 0.20 · 0.36 · 0.39 s) — made `main`; their parity recomputed on the
+Steinway's card curve (CC7 where it is louder than the note's target, velocity where softer). A copy of the save as it was is in the session's
+scratchpad. His step: File ▾ → Open the save again.
