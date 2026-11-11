@@ -2902,3 +2902,34 @@ His composition note, verbatim in `COMPOSITION_NOTES.md` SW-36: the petals with 
 percussion · piano (palm strikes on the strings, pedal down · bass drum rolls · maybe tambourines or crotale clusters — "I have to give it some
 thought"). Nothing built; the note is the form's first statement. A palm-strike piano voice does not exist in the rack: when he reaches it, a
 sample or a prepared-piano preset (PP2 has none named so; the catalog's percussion has no piano) — a conversation then.
+
+## §157. SW-37 — four petals segments that ring out (2026-11-10)
+
+**His words:** *"in the save file on Elec 1, starting at 269 seconds, there are 4 segments cut from one of the petals … just your standard,
+I think it was 30 milliseconds, fade in. But where they end, is there any way you can let them ring? … stop play on the underlying sound file
+bed, but you'd let the harmonic filters ring until they're done."* (SW-37; the save `piece-Section03-a-petalsGrain`.)
+
+**Where the segments come from** (the save's four material bricks on Elec 1, all of `petals-A4-r3-t077.2-x625-4pass-from0`; a brick's offset
+is the file's time, and the file's time is the bed's — the long render started the bed at 0):
+
+| brick | in the score | in the file / the bed |
+|---|---|---|
+| zn-3100 | 269.0 … 300.6 s | 0 … 31.6 s |
+| zn-3107 | 307.1 … 362.3 | 293.7 … 348.9 |
+| zn-3108 | 364.5 … 417.7 | 388.5 … 441.7 |
+| zn-3110 | 419.7 … 451.7 | 441.7 … 473.7 |
+
+**How they were made again** (`live-electronics-engine/corpus/petals_segment.py`, round `petals_bed.scd`): the same bank (A4: fund 200 ·
+first 2 · spread 0.5 · bank B +0.25 st · ring 7.75 … 9.5 s) on the same bed, from 20 s BEFORE the segment so the 26 resonators hold the bed's
+energy at the cut as they did in the long render (a cold start would spend the first ring time building up — segment 1 starts cold, as the
+long file did); the pre-roll cut off; the bed STOPS at the segment's end and the ring is left 1.5 × ringHi = 14.25 s (−90 dB), its last second
+faded; 30 ms fade in. Then the long render's road: −1 dBFS peak → `master_mix.py` → and the level MATCHED by RMS to the long master over the
+same stretch, so each sits where he heard it (the match: −6.5 · −0.1 · −0.6 · −11.5 dB — the first and the last stretches are quiet in the
+long file; the middle two were already at the master's level). `petals_bed.scd` took two optional arguments for it — a seed (the rings · wobble
+rates · shuffle drawn once; the four share seed 7 — the long render's own draw was never seeded, so the pitches are the same and the shimmer
+differs) and the tail's length.
+
+**The result:** four materials in the fund (`keep/petals/petals-A4-r3-t077.2-x625-4pass-seg1-ring-master.wav` … `seg4`; 45.9 · 69.4 · 67.5 ·
+46.3 s — each the segment plus its ring), their notes in the folder's `recipe.json`, the index re-run (61 materials; `bank/materials.json`,
+the peaks). In the drawer as `petals-A4-r3-t077_2-x625-4pass-seg1-ring` … `seg4-ring`. His to drag over the four bricks; the engine
+restarted once for the new rows. Nothing in his save touched.

@@ -2,7 +2,7 @@
  "schema": 1,
  "_what": "THE FUND'S INDEX — every mastered material of the keep folder (tools/materials_index.js): the composer score's picker and the engine's streaming player read it (electronics/score/le_material.js · electronics/sc/material.scd). GENERATED — run the tool again after the keep folder changes.",
  "root": "H:/switch_2026/audio/set-2025-04-08c/keep",
- "written": "2026-11-09T04:53:27",
+ "written": "2026-11-11T01:32:40",
  "materials": [
   {
    "name": "granular-B1-perc-seed1",
@@ -318,6 +318,42 @@
    "sr": 44100,
    "kind": "petals",
    "note": "petals A4 on r3-t077.2-x625-4pass from 0 s · A spaced wider — spread 0.5: the cluster 400 … 1600 Hz in 100 Hz steps, bank B a quarter-tone up · fund 200 · first 2 · spread 0.5 · bank B +0.25 st · ring 7.75 … 9.5 s"
+  },
+  {
+   "name": "petals-A4-r3-t077_2-x625-4pass-seg1-ring",
+   "file": "petals/petals-A4-r3-t077.2-x625-4pass-seg1-ring-master.wav",
+   "seconds": 45.88,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals A4 on r3-t077.2-x625-4pass · a SEGMENT 0.000 … 31.613 s (31.6 s) that RINGS OUT — the bed stopped at its end, the ring left 14.2 s · A spaced wider — spread 0.5: the cluster 400 … 1600 Hz in 100 Hz steps, bank B a quarter-tone up · fund 200 · first 2 · spread 0.5 · bank B +0.25 st · ring 7.75 … 9.5 s · seed 7 · level matched to petals-A4-r3-t077.2-x625-4pass-from0-master.wav (-6.5 dB)"
+  },
+  {
+   "name": "petals-A4-r3-t077_2-x625-4pass-seg2-ring",
+   "file": "petals/petals-A4-r3-t077.2-x625-4pass-seg2-ring-master.wav",
+   "seconds": 69.44,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals A4 on r3-t077.2-x625-4pass · a SEGMENT 293.738 … 348.909 s (55.2 s) that RINGS OUT — the bed stopped at its end, the ring left 14.2 s · A spaced wider — spread 0.5: the cluster 400 … 1600 Hz in 100 Hz steps, bank B a quarter-tone up · fund 200 · first 2 · spread 0.5 · bank B +0.25 st · ring 7.75 … 9.5 s · seed 7 · level matched to petals-A4-r3-t077.2-x625-4pass-from0-master.wav (-0.1 dB)"
+  },
+  {
+   "name": "petals-A4-r3-t077_2-x625-4pass-seg3-ring",
+   "file": "petals/petals-A4-r3-t077.2-x625-4pass-seg3-ring-master.wav",
+   "seconds": 67.5,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals A4 on r3-t077.2-x625-4pass · a SEGMENT 388.476 … 441.708 s (53.2 s) that RINGS OUT — the bed stopped at its end, the ring left 14.2 s · A spaced wider — spread 0.5: the cluster 400 … 1600 Hz in 100 Hz steps, bank B a quarter-tone up · fund 200 · first 2 · spread 0.5 · bank B +0.25 st · ring 7.75 … 9.5 s · seed 7 · level matched to petals-A4-r3-t077.2-x625-4pass-from0-master.wav (-0.6 dB)"
+  },
+  {
+   "name": "petals-A4-r3-t077_2-x625-4pass-seg4-ring",
+   "file": "petals/petals-A4-r3-t077.2-x625-4pass-seg4-ring-master.wav",
+   "seconds": 46.27,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals A4 on r3-t077.2-x625-4pass · a SEGMENT 441.708 … 473.708 s (32.0 s) that RINGS OUT — the bed stopped at its end, the ring left 14.2 s · A spaced wider — spread 0.5: the cluster 400 … 1600 Hz in 100 Hz steps, bank B a quarter-tone up · fund 200 · first 2 · spread 0.5 · bank B +0.25 st · ring 7.75 … 9.5 s · seed 7 · level matched to petals-A4-r3-t077.2-x625-4pass-from0-master.wav (-11.5 dB)"
   },
   {
    "name": "petals-B-r1-t190_0-x625-4pass-from0",

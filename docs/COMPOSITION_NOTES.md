@@ -599,3 +599,16 @@ and the GRANULAR (the 21 beds) as a trio: electronics · percussion · piano. Th
 prepared-piano technique the call allows — non-metallic, nothing on the dampers; the recipe has no such voice yet — his hand or a sample to find).
 The percussion's: bass drum rolls (the gran cassa's roll keys are in the rack), perhaps tambourines (not in the call's list — the ARO catalog has
 them), or cluster strikes on the crotales. Open, by his word: "I have to give it some thought."
+
+### SW-37 · 2026-11-10 — FOUR PETALS SEGMENTS THAT RING OUT (Section 3, Elec 1 from 269 s)
+
+*His words (dictated, light corrections):* *"In the save file on Elec 1, starting at 269 seconds, there are 4 segments cut from one of the petals.
+I was wondering if you can see all the time code and see where exactly these segments come from. If we can do just your standard, I think it was
+30 milliseconds or something like that, fade in. But where they end, is there any way you can let them ring? So I guess you would have to
+reprocess them for that long. And when it gets to the end of the segment, you would just stop play on the underlying sound file bed, but
+you'd let the harmonic filters ring until they're done. And if you can produce me 4 segments like that, that would be good while I work on
+the rest."* — the save `piece-Section03-a-petalsGrain`.
+
+*The AI's reading (marked as such):* the four bricks on Elec 1 are cuts of `petals-A4-r3-t077.2-x625-4pass-from0` (the file's 0 … 31.6 s ·
+293.7 … 348.9 · 388.5 … 441.7 · 441.7 … 473.7). Each is re-rendered from the bed as its own material: the bed stops where the brick ends, the
+26 resonators ring out to silence; a 30 ms fade in at the start.
