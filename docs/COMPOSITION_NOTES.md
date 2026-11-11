@@ -630,3 +630,17 @@ they sound like. This is the save file for the hills: piece-Section03-w_cello."*
 
 *The AI's reading (marked as such):* the hills are the cello's dynamic curve under the petal, a tremolo whose swells follow the petal's own
 loudness; the pitches (two strings) come after the workshop, which is the catalog of hand shapes on the three adjacent string pairs.
+
+### SW-39 · 2026-11-10 — THE HILLS AS A GRAPHIC SCORE, four lanes tall; a variety of hill shapes
+
+*His words (dictated, light corrections):* *"Can you create me a graphic score? If it's possible, another experimental score, or if you have to
+make another page, that's fine. I like wider, I mean, higher lanes, something like the two cello, two percussion [piece 2, the two pianos and
+two percussion]. I guess that was 4 parts, so 4 lane, the height, if there was like 4 or 5, about that. And then can you just produce the hills
+you made? And I'll have like the scrolling cursor and all that. Actually, probably better if you could make it in the composer score, because I'm
+going to record some MIDI and stuff. So I guess if you just made a separate save score and just did it over, you can just combine several lanes,
+like 4 of those lanes, something like that. And then in addition, can you make a variety of sizes? So, shorter, just a large variety of sizes,
+shorter hills, taller hills, up and then straight down, like sawtooth type. Ones that plateau, almost square wave type, that plateau for a while
+and then come down. Just a wide variety."*
+
+*The AI's reading (marked as such):* a tall picture of each hill in the composer score itself — four stacked lanes as one canvas — with the
+cursor to play along and record against; the sound of each shape under it on the cello; then a catalog of shapes to hear and see.

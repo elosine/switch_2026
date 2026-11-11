@@ -3004,3 +3004,24 @@ a fourth and a fifth where it still reads as a hand. Not exhaustive: 8 per pair 
 tight 2nd and the octave always in — 24 samples, shuffled, 4 s each, 1.5 s between, both notes STRUCK at mf (the ladder velocity per pitch)
 on `trem_vel`, a marker naming each (`01 C–G · minor 2nd · F#2+G2`). In `scores/piece-Section03-w_cello-pairs-01` (the cello alone, from
 1 s, 133 s long); the sheet `docs/workshops/piece-Section03-w_cello-pairs-01.md`. `--seed` re-draws; `--per` sets how many a pair.
+
+## §162. SW-39 — the hills as a graphic score in the composer score, four lanes tall; the catalog of eighteen shapes (2026-11-10)
+
+**His words:** SW-39 (`COMPOSITION_NOTES.md`).
+
+**The mechanism — no app change:** a `waveCurve` with NO pitch is silent (`sonify_core.js` line 207 skips it). So a tall shape is drawn as
+FOUR silent curves, one per lane, each lane showing its own horizontal band of the height (the bottom lane 0 … ¼, the next ¼ … ½ …), filled
+to the lane's floor; stacked, they read as one silhouette four lanes high. The shape is sampled every 0.5 s so the bands clip it exactly
+(straight segments between the samples). The four lanes: percussion · vibraphone · piano · violin (3 … 6), the ones directly above the cello,
+so the mountain stands over the lane he records into; the cello keeps its SOUNDING shaped notes (§161's, the law's Rules 1 · 2) beneath.
+`tools/hills_graphic.js`. The petal hills are redrawn tall from the shaped notes' recorded nodes (a cosine ease between them).
+
+**The catalog, from 480 s, 4 s between (each a marker, a tall picture, a sounding pair D3 + A3 on `trem_vel`):** short hill 6 s p … mp · the
+same tall p … f · medium 15 s p … mf · medium tall pp … ff · long 30 s p … mf · long tallest ppp … fff · sawtooth short 10 s and long 25 s
+(a slow climb, straight down) · reverse sawtooth short and long (straight up, a slow fall) · square short 12 s (up 2, plateau 8, down 2) and
+long 28 s (4 · 20 · 4) · plateau rounded 40 s pp … f · slow up quick down 18 s · quick up slow down 18 s · double hill 20 s · hill with a
+shoulder 24 s · stair up, straight down 16 s. Eighteen shapes, 480 … 896 s. The sheet `docs/workshops/piece-Section03-w_cello-hills-graphic-01.md`.
+
+**Proven once on the throwaway (5601, the recipe's stubs):** the save opens (1632 objects), the silhouette stands four lanes tall over 275 …
+465 s with the cello's pink swells under it and the petal brick on Elec 1 — the screenshot sent to him. In `scores/piece-Section03-w_cello-hills-graphic-01`
+(from the hills save; his `w_cello` untouched). He opens it with File ▾ → Open; the curves on the four lanes are silent and his to delete or move.
