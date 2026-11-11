@@ -2980,3 +2980,27 @@ The brick (zn-3126): `petals-C3-r2-t110_0-x625-4pass-from0`, the file's 0 … 18
 as the long render), the bed stopped at 185.889 s, the ring left 22.5 s (1.5 × 15), 30 ms in, mastered, matched to the long master over the
 stretch (−0.3 dB). **The result:** `keep/petals/petals-C3-r2-t110.0-x625-4pass-seg1-ring-master.wav`, 208.4 s; indexed (62 materials); in the
 drawer as `petals-C3-r2-t110_0-x625-4pass-seg1-ring`. His to drag over the brick at 269; the engine restarted once. His save untouched.
+
+## §161. SW-38 — the cello hills from the petal's envelope; the two-string pairs workshop (2026-11-10)
+
+**His words:** SW-38 (`COMPOSITION_NOTES.md`), the save `piece-Section03-w_cello`.
+
+**The hills (`tools/cello_hills.js`):** the brick under the window is the ringing C3 petal (zn-3129, 269 … 477.4 s); its file read over
+275 … 465 s — a 1 s RMS envelope, smoothed over 9 s; the local peaks and valleys at least 6 s apart are the nodes (19 of them, 275 … 464 s:
+the rise from −31.8 dB to the plateau of hills at −18 … −26 dB, then the ring's fall). Written by the DYNAMICS LAW as a SHAPED note (Rules
+1 · 2): struck at mf for its pitch (`velAbs` 86 / 89), the fader between the two written dynamics **p … f** (`cc7Abs` 59 … 94 on the cello's
+measured curve), every node on its own table value, the segments bezier, the nodes smooth 0.25. The envelope's quietest point before the end
+is written p, its loudest f; the tail lands on p (a first pass squeezed every valley up to mf because the ring's dying tail set the bottom —
+corrected, the inner nodes set it). TWO shaped notes with the same shape, the open D and A strings (50 · 57) on the tremolo voice
+`trem_vel` — provisional pitches, the two strings of the tremolo, his to change after the workshop. In `scores/piece-Section03-w_cello-hills-01`
+(a new save beside his, his untouched), a marker HILLS at 275. Piece 2's hills: its human journal names them (waves of the percussion with
+instruments joining, two hills in quick alternation); its saves hold no multi-node curves to read — not duplicated, as he said.
+
+**The workshop (`tools/cello_pairs_workshop.js`):** the four strings C2 · G2 · D3 · A3, three adjacent pairs; a double stop = the lower string
+stopped p semitones up, the upper q (0 = open), the interval 7 + q − p. The hand shapes: the open fifth · the unison (the lower string a fifth
+up, the upper open) · the seconds and thirds (the lower stopped 3 … 6 up, the upper open) · the fourth · the sixths and the seventh (one to
+three fingers apart across the strings) · the octave (the big stretch, the upper stopped 5 up over the open lower). Each shape also shifted up
+a fourth and a fifth where it still reads as a hand. Not exhaustive: 8 per pair drawn at random (seed 3), the open fifth, the unison, the
+tight 2nd and the octave always in — 24 samples, shuffled, 4 s each, 1.5 s between, both notes STRUCK at mf (the ladder velocity per pitch)
+on `trem_vel`, a marker naming each (`01 C–G · minor 2nd · F#2+G2`). In `scores/piece-Section03-w_cello-pairs-01` (the cello alone, from
+1 s, 133 s long); the sheet `docs/workshops/piece-Section03-w_cello-pairs-01.md`. `--seed` re-draws; `--per` sets how many a pair.

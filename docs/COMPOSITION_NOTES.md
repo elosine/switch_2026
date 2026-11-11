@@ -612,3 +612,21 @@ the rest."* — the save `piece-Section03-a-petalsGrain`.
 *The AI's reading (marked as such):* the four bricks on Elec 1 are cuts of `petals-A4-r3-t077.2-x625-4pass-from0` (the file's 0 … 31.6 s ·
 293.7 … 348.9 · 388.5 … 441.7 · 441.7 … 473.7). Each is re-rendered from the bed as its own material: the bed stops where the brick ends, the
 26 resonators ring out to silence; a 30 ms fade in at the start.
+
+### SW-38 · 2026-11-10 — THE CELLO HILLS over the petal (275 … 465 s) and a two-string workshop
+
+*His words (dictated, light corrections):* *"272–465 in the cello part, can you create a smooth rolling curve, peaks and valleys that more or less
+follows sort of the trajectory of the petals clip that I have in there? And in fact, just, yeah, you can start at 275. Just start at those two
+times, start and end. These will become like two-string travel curves. So sort of keep that in mind in terms of slope. I don't know if that
+means anything, but you can follow the general trajectory of that sound file, but you can think about it in terms of swells of tremolo. And you
+can look at piece number two, the two piano, two percussion, to get a sense of those hills. You don't have to duplicate that, but it might give
+you a sense of those which worked. And then after that, can you give me like a little workshop of cello? So these will be like sort of
+two-string tremolos or ostinati. And I just want to hear a variety of intervals. Just figure out what's sort of natural for the fingers on the
+three sets of two strings, like the two lower ones, the two middle ones, and the two higher ones. Just work out all the intervals, the small
+one, the sort of big stretch between the two. And then move the hand position a little bit. I don't need it to be so exhaustive, but just give
+me a sense of the different hand positions and those different intervals. And then maybe have the workshop sample kind of jump around. So like
+a low one and then quite high one, and then a couple that aren't too far apart. Just give me a kind of random assortment so I can hear what
+they sound like. This is the save file for the hills: piece-Section03-w_cello."*
+
+*The AI's reading (marked as such):* the hills are the cello's dynamic curve under the petal, a tremolo whose swells follow the petal's own
+loudness; the pitches (two strings) come after the workshop, which is the catalog of hand shapes on the three adjacent string pairs.
