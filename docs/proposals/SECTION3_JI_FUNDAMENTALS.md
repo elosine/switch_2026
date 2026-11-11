@@ -111,6 +111,55 @@ fundamental; the just series fills the keyboard; orchestrate, save the take, dro
 
 The partials in § 6 are the AI's suggestion only; he said he will try his own orchestrations of each root.
 
+## 10 · THE SECOND READING — `piece-Section03-C-Harmonies` (2026-11-11): four petals layered, 269 … 531 s, the roots TOGETHER
+
+*His ask: "reanalyze the harmony throughout, not individually, but together, and see if there's a changing of roots … when there's 2 present,
+then whatever the best root for that combined harmony, etc."*
+
+**What is in the save (all four end at 531.46 s):**
+
+| petal | lane | enters | its series by design | what it actually adds (the strong peaks) |
+|---|---|---|---|---|
+| C3 (r2-t110) | Elec 1 | 269.0 | 35 Hz · first 5 · spread 1.33 · bank B +3 st | 213 G♯3 · 467–473 A♯4 · 658 E5 · 327 E4 · 270 C♯4 |
+| B (r1-t190) | Elec 3 | 312.2 | 60 Hz · first 3 · spread 1.33 · bank B +4 st — an 80 Hz comb from 180 | 232 A♯3 · 742 F♯5 · 425–430 G♯4 · 170 F3 |
+| A (r1-t190) | Elec 4 | 363.9 | 200 Hz · first 2 · spread 0.33 · +¼ st — 66 Hz steps from 400 | 464–472 A♯4 · 742 · 657 · 864 A5 · 831 G♯5 |
+| D4 (r3-t077) | Elec 1 | 440.6 | as B with a whole tone, the short ring (1 … 2 s) | 407–421 G♯4 · 209 G♯3 · 316 D♯4 · 271 C♯4 |
+
+**How it was read:** the four files summed at their score offsets; an averaged spectrum per layer state and per 20 s block; every root D1 … C3
+scored by the peak energy that sits within ±22 cents of its partials 1 … 16, lower partials counting more (1/n), a tie within 10 % going to
+the simpler root. **The caveat that governs everything here:** every petal's partial wobbles ± half a semitone by design (the slow LFO on
+each resonator), and B · D4 are inharmonic combs — so a root fit is a central tendency with a quarter-tone of slack, and the margins between
+the first three roots are small. The map below is what the energy favors, not a chord anyone wrote.
+
+**The layer states, scored whole (the first three roots, score · the partials the winner claims):**
+
+| state | time | 1st | 2nd | 3rd | the winner's hits |
+|---|---|---|---|---|---|
+| C3 alone | 269 … 312 | A2 0.55 | D♯2 0.49 | G♯1 0.45 | A2: 3 E4 · 4 A4 · 6 E5 · 8 A5 — the E strand; G♯1 claims the other strand, G♯3 · A♯4 |
+| C3 + B | 312 … 364 | **A♯2 0.81** | C3 0.54 | F♯1 0.53 | A♯2: 2 A♯3 (232, the top peak) · 3 F4 · 4 A♯4 — B's comb puts A♯ on top |
+| C3 + B + A | 364 … 440 | **A♯2 0.46** | G♯1 0.37 | D♯2 0.34 | A♯2: 3 F4 · 4 A♯4 (464 · 472, the two top peaks) |
+| all four | 440 … 531 | **G♯2 0.44** | C♯2 0.31 | G♯1 0.26 | G♯2: 2 G♯3 (209) · 4 G♯4 (418) · 8 G♯5 — D4 and A pile onto G♯ |
+
+**Within the states, 20 s blocks:** 269–289 A2 · 289–309 G♯2 · 309–329 A♯2 · 329–349 E2 · 349–369 D♯2 · 369–389 A♯2 · 389–409 G♯2 · 409–429
+D♯2 · 429–449 C3 (one peak, 260) · 449–469 G♯2 · 469–489 G♯2 · 489–509 G♯2 (0.73, the clearest block of all) · 509–529 G♯2.
+
+**THE ROOT MAP, read from that** (the G♯ family — G♯1 · G♯2 · D♯2 its fifth — is one root; A♯ is its 9th partial made a root of its own):
+
+| block | from | to | root | why |
+|---|---|---|---|---|
+| 1 | 269 | 312 | **G♯1** (or A2) | C3 alone: two strands, G♯3 + A♯4 against E4 + E5; G♯1 keeps the whole passage's home, A2 would take the E strand instead |
+| 2 | 312 | 364 | **B♭1** (A♯) | B's comb enters: A♯3 becomes the loudest note; the clearest change of root in the passage |
+| 3 | 364 | 389 | **B♭1** | A enters on A♯4 — B♭ confirmed |
+| 4 | 389 | 409 | **G♯1** | the G♯3 strand comes forward (213 · 209 · 216) |
+| 5 | 409 | 440 | **E♭2** (D♯) | the fifth of G♯: D♯4 (314) · A♯4 (466–472) · A♯3 (233) — the same family, a different floor |
+| 6 | 440 | 489 | **G♯1** | D4 enters: G♯3 · G♯4 (407–421) · D♯4 — home, with C♯4 (271) rubbing a semitone under D |
+| 7 | 489 | 531 | **G♯1** | the clearest G♯ of all (489 … 509), then the four beds stop and the rings die (to ≈ 554) |
+
+**So the roots do change, and simply:** G♯ → B♭ (at 312, when B enters) → back to G♯ (389) → its fifth E♭ (409) → G♯ to the end (440 on).
+Three roots, one family plus B♭. Proposal A's F♯1 · C2 · A1 are not supported by the layered sound; B♭1 is, exactly where A had it.
+**Container timings for the sequence:** 269 · 312 · 364 · 389 · 409 · 440 · 489 · 531 (then the rings, to 554). The chips `D#2` and `A2`
+are added beside the others. Nothing built; his word on the map first.
+
 ## 8 · The one decision *(answered 2026-11-11: A)*
 
 A, B, or a different path through the same six roots. The timing (the hills) and the partial sets are then written into the save by a

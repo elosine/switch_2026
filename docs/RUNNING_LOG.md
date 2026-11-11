@@ -3102,3 +3102,28 @@ resolves to 842 attacks over 112 s with the fan's lags 0 · 1/7 · 2/7 … exact
 **Decided by the AI, his to reverse:** LOCK means "every stream back to the bpm, the lags as they stand" (a phase pattern, not a tempi
 pattern — he said *"they won't accelerate or decelerate anymore"*); a line's harmony is its take's; the cut's marker names the hold after
 it; the plan is the truth on Insert (an insert replaces its own group). `docs/PHASE_TOOL.md` is the page.
+
+## §166. `piece-Section03-C-Harmonies`: four petals ringing out; the roots read TOGETHER over the layers (2026-11-11)
+
+**His words:** *"There is a new assortment of petals there in Elec 1, 3, and 4. Some of them are layered on top of each other. So at the end,
+there's 4 petals parts together. It ends at 531 about. It starts at 269. First, the ending ones: can you snip all four of those so the
+resonators continue to resonate at the end, like you've done before. And then can you reanalyze the harmony throughout, not individually,
+but together, and see if there's a changing of roots. It's longer now. And come up with the root map and the timings for those root changes
+for the just intonation. You don't have to build the sequence yet."*
+
+**The four rings (§157's road, `petals_segment.py`, seed 7, each matched to its long master):** C3 on r2-t110 0 … 262.5 s (+0.9 dB, 285 s with
+its 22.5 s ring) · B on r1-t190 0 … 219.2 s (+0.2 dB, 242 s) · A on r1-t190 0 … 167.6 s (−3.5 dB, 182 s) · D4 on r3-t077 0 … 90.9 s (−4.9 dB,
+94 s — its ring is 1 … 2 s, so 3 s of tail). In the drawer: `petals-C3-…-seg2-ring` · `petals-B-…-seg1-ring` · `petals-A-…-seg1-ring` ·
+`petals-D4-…-seg1-ring` (66 materials). His to drag over the four bricks (C3 at 269 on Elec 1 · B at 312.2 on Elec 3 · A at 363.9 on Elec 4 ·
+D4 at 440.6 on Elec 1); the engine restarted once. **Note:** his bricks carry long fade-ins (1.2 · 2.7 · 2.45 · 2.0 s); those are the brick's
+own and stay.
+
+**The reading together** (`docs/proposals/SECTION3_JI_FUNDAMENTALS.md` § 10): the four files summed at their offsets; a root scored per layer
+state and per 20 s block by the peak energy within ±22 c of its partials 1 … 16, lower partials weighted 1/n, a tie within 10 % to the
+simpler root (a first scoring with 1/√n let C1 and D♯1 "win" by claiming G♯1's notes as their partials 8 … 20 — corrected). **The caveat:**
+every partial wobbles ± ½ semitone by design and B · D4 are inharmonic combs, so the margins are small and a root is a central tendency.
+**The result:** C3 alone 269 … 312 is two strands (G♯3 + A♯4 against E4 + E5: A2 0.55 · D♯2 0.49 · G♯1 0.45); B's comb at 312 puts A♯3 on top
+— A♯2 0.81 against 0.54, the one clear change; with A (364 …) A♯ still leads (0.46 vs G♯1 0.37), G♯ coming forward 389 … 409 and D♯ (the fifth)
+409 … 440; with D4 (440 … 531) G♯ wins every block (G♯2 0.44 … 0.73), clearest at 489 … 509. **The map:** G♯1 (269) → B♭1 (312) → G♯1 (389) →
+E♭2 (409) → G♯1 (440, to the end; the rings die ≈ 554). Container timings 269 · 312 · 364 · 389 · 409 · 440 · 489 · 531. Proposal A's F♯1 · C2 ·
+A1 are not supported by the layered sound; its B♭1 is. The chips gained `D#2` and `A2`. Nothing built; his word on the map.

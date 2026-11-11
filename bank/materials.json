@@ -2,7 +2,7 @@
  "schema": 1,
  "_what": "THE FUND'S INDEX — every mastered material of the keep folder (tools/materials_index.js): the composer score's picker and the engine's streaming player read it (electronics/score/le_material.js · electronics/sc/material.scd). GENERATED — run the tool again after the keep folder changes.",
  "root": "H:/switch_2026/audio/set-2025-04-08c/keep",
- "written": "2026-11-11T02:32:16",
+ "written": "2026-11-11T20:33:27",
  "materials": [
   {
    "name": "granular-B1-perc-seed1",
@@ -293,6 +293,15 @@
    "note": "petals A on r1-t190.0-x625-4pass from 0 s · his defaults — a dense cluster 400 … 1200 Hz, bank B a quarter-tone up: shimmer · fund 200 · first 2 · spread 0.33 · bank B +0.25 st · ring 7.75 … 9.5 s"
   },
   {
+   "name": "petals-A-r1-t190_0-x625-4pass-seg1-ring",
+   "file": "petals/petals-A-r1-t190.0-x625-4pass-seg1-ring-master.wav",
+   "seconds": 181.83,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals A on r1-t190.0-x625-4pass · a SEGMENT 0.000 … 167.563 s (167.6 s) that RINGS OUT — the bed stopped at its end, the ring left 14.2 s · his defaults — a dense cluster 400 … 1200 Hz, bank B a quarter-tone up: shimmer · fund 200 · first 2 · spread 0.33 · bank B +0.25 st · ring 7.75 … 9.5 s · seed 7 · level matched to petals-A-r1-t190.0-x625-4pass-from0-master.wav (-3.5 dB)"
+  },
+  {
    "name": "petals-A2-r2-t124_8-x625-4pass-from0",
    "file": "petals/petals-A2-r2-t124.8-x625-4pass-from0-master.wav",
    "seconds": 634.52,
@@ -365,6 +374,15 @@
    "note": "petals B on r1-t190.0-x625-4pass from 0 s · his set line, low — wide steps from 180 Hz, the second bank a major third up · fund 60 · first 3 · spread 1.33 · bank B +4 st · ring 7 … 15 s"
   },
   {
+   "name": "petals-B-r1-t190_0-x625-4pass-seg1-ring",
+   "file": "petals/petals-B-r1-t190.0-x625-4pass-seg1-ring-master.wav",
+   "seconds": 241.75,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals B on r1-t190.0-x625-4pass · a SEGMENT 0.000 … 219.231 s (219.2 s) that RINGS OUT — the bed stopped at its end, the ring left 22.5 s · his set line, low — wide steps from 180 Hz, the second bank a major third up · fund 60 · first 3 · spread 1.33 · bank B +4 st · ring 7 … 15 s · seed 7 · level matched to petals-B-r1-t190.0-x625-4pass-from0-master.wav (+0.2 dB)"
+  },
+  {
    "name": "petals-B2-r2-t124_8-x625-4pass-from0",
    "file": "petals/petals-B2-r2-t124.8-x625-4pass-from0-master.wav",
    "seconds": 640.02,
@@ -428,6 +446,15 @@
    "note": "petals C3 on r2-t110.0-x625-4pass · a SEGMENT 0.000 … 185.889 s (185.9 s) that RINGS OUT — the bed stopped at its end, the ring left 22.5 s · C with a minor third — the banks a minor third apart · fund 35 · first 5 · spread 1.33 · bank B +3 st · ring 7 … 15 s · seed 7 · level matched to petals-C3-r2-t110.0-x625-4pass-from0-master.wav (-0.3 dB)"
   },
   {
+   "name": "petals-C3-r2-t110_0-x625-4pass-seg2-ring",
+   "file": "petals/petals-C3-r2-t110.0-x625-4pass-seg2-ring-master.wav",
+   "seconds": 284.98,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals C3 on r2-t110.0-x625-4pass · a SEGMENT 0.000 … 262.463 s (262.5 s) that RINGS OUT — the bed stopped at its end, the ring left 22.5 s · C with a minor third — the banks a minor third apart · fund 35 · first 5 · spread 1.33 · bank B +3 st · ring 7 … 15 s · seed 7 · level matched to petals-C3-r2-t110.0-x625-4pass-from0-master.wav (+0.9 dB)"
+  },
+  {
    "name": "petals-C4-r3-t077_2-x625-4pass-from0",
    "file": "petals/petals-C4-r3-t077.2-x625-4pass-from0-master.wav",
    "seconds": 640.02,
@@ -471,6 +498,15 @@
    "sr": 44100,
    "kind": "petals",
    "note": "petals D4 on r3-t077.2-x625-4pass from 0 s · D — B4 with the shortest ring (1 … 2 s) · fund 60 · first 3 · spread 1.33 · bank B +2 st · ring 1 … 2 s"
+  },
+  {
+   "name": "petals-D4-r3-t077_2-x625-4pass-seg1-ring",
+   "file": "petals/petals-D4-r3-t077.2-x625-4pass-seg1-ring-master.wav",
+   "seconds": 93.93,
+   "channels": 2,
+   "sr": 44100,
+   "kind": "petals",
+   "note": "petals D4 on r3-t077.2-x625-4pass · a SEGMENT 0.000 … 90.913 s (90.9 s) that RINGS OUT — the bed stopped at its end, the ring left 3.0 s · D — B4 with the shortest ring (1 … 2 s) · fund 60 · first 3 · spread 1.33 · bank B +2 st · ring 1 … 2 s · seed 7 · level matched to petals-D4-r3-t077.2-x625-4pass-from0-master.wav (-4.9 dB)"
   },
   {
    "name": "tuplets-mix-all-char-c11123-seed112",
