@@ -2877,3 +2877,15 @@ lanes, `bank/panel_snapshots.json`), the nearest to the original that is not a G
 **The mutes:** four muted notes sat within 0.4 s of a plucked one (0.14 · 0.20 · 0.36 · 0.39 s) — made `main`; their parity recomputed on the
 Steinway's card curve (CC7 where it is louder than the note's target, velocity where softer). A copy of the save as it was is in the session's
 scratchpad. His step: File ▾ → Open the save again.
+
+## §154. The clarinet's F6 thinned the same way; the piano fixes carried onto his draft01c (2026-11-10)
+
+**His words:** *"around 212.2 in the clarinet, and it could be other instruments as well, but I think it's mostly clarinet, there's a lot of F6. Can
+you do the same thing — keep the same articulation, a different pitch from that pitch set. Then it is piece-Section02-B-ctpt-draft01c."*
+
+His 01c had been saved from the page before §153's edits reached 01b, so both piano fixes were applied to 01c again (the four mutes next to a
+pluck → plain; the G#s thinned, the same eight). **The tool, now general: `tools/thin_pitch.js`** — a pitch (or a pitch class at every octave)
+that recurs on a lane, every Nth occurrence swapped for the nearest other pitch of ITS take's full voice set, inside the technique's range;
+articulation, dynamic and level untouched; `--undo`. **The clarinet's F6:** 11 of its 42 notes (the harmony roll folding takes 02 · 09 · 16 onto
+F6); every second one swapped — 206.69 → B5 · 213.31 → E6 · 215.86 → E6 · 226.15 → B5 · 241.29 → B5; six F6 stay. Seen and not touched: the
+flute's F5 recurs just as often (11 of 44) — the same folding; offered. A copy of 01c as it was is in the session's scratchpad.
