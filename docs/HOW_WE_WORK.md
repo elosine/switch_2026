@@ -126,6 +126,8 @@ The journal is the recovery anchor. If a decision matters enough to survive cont
 - Forgetting your own to-dos — journal §7, reviewed at session end.
 - Losing context between sessions — §2 Resume Here, updated every session end.
 - The AI not knowing what's going on — it reads the plan + journal at session start, not the codebase.
+- **The volume** (his rule 2026-11-10, RUNNING_LOG §159) — levels, faders, trims, parity, CC7 are the AI's to sort by the law and the
+  tools; nothing of it is put to you unless a passage cannot sound or you say something is off. The rest goes to NITS.
 
 ## From piece #6's harvest (added 2026-10-04 — `septet_LGMF_2026/docs/HARVEST.md` H-1 · H-2 · H-3 · H-6)
 

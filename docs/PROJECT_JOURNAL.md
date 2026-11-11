@@ -78,7 +78,7 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 - **Resume reads:** `docs/COMPOSITION_NOTES.md` SW-36 · `docs/PLAN.md` § 1c step 4 (his hand steps) — nothing else beyond §2.
 - **Decisions pending him:** (a) the violin's track sits +6 dB from the card (parity's one global move, §152) — keep or undo after this
   section — DECIDED 2026-11-10 (§158): the fader STAYS at +2.70 dB for the piece, no separate track; each section leveled by parity;
-  Section 1's violin long tones (34.9 … 137 s) to be re-heard; (b) ☑ DONE 2026-11-10 20:30 … 20:33 — the curve copies (+8.2 dB), the plucked
+  **§159 HIS RULE: NO VOLUME TASK OR QUESTION REACHES HIM — the AI sorts levels alone; real-but-not-blocking items to NITS;** (b) ☑ DONE 2026-11-10 20:30 … 20:33 — the curve copies (+8.2 dB), the plucked
   piano and the snare, the rack saved; NOT to be asked again; (c) the plucked piano sits 4 dB under the standard at its top.
 - **Deliberately uncommitted (git status):** `reaper/switch_rack.rpp` — HIS rack, saved through the bridge, committed only at his word ·
   `.gitignore` · `bank/materials.json` · `bank/panel_snapshots.json` · `docs/VERIFICATION_RECIPE.md` · `reaper/icy_lab.rpp` — modified before
@@ -290,6 +290,9 @@ schedule keeping, no route framed around a date.
 ---
 
 ## §3 Principles
+
+- **THE VOLUME IS THE AI'S (his rule 2026-11-10, RUNNING_LOG §159):** no volume task, check or decision is put to him unless a passage
+  cannot sound or he says something is off. The AI settles levels by the law and the tools; the rest goes to NITS.
 
 *(Lessons never to repeat. Numbered, append-only. **1–33 are inherited** — one line each here; the full text,
 dates and lab-journal sections are in `septet_2026/docs/PROJECT_JOURNAL.md` §3 (1–18), `septet_LGMF_2026/docs/PROJECT_JOURNAL.md`

@@ -2955,3 +2955,17 @@ strike, swell, texture, sequence and trill tools …), so one section's violin o
 
 **DECIDED (his word):** the Violin XS fader stays at +2.70 dB for the piece; no separate track; each section leveled by parity as Section 2
 was; Section 1's violin re-heard later. Nothing built.
+
+## §159. HIS STANDING RULE — the volume is the AI's; no volume task or decision reaches him unless crucial or he hears something off (2026-11-10)
+
+**His words:** *"let's just, if I can be protected a little bit from these little volume tasks. Like I said, we've been working on this for
+months and months now. So let's, unless it's crucial or unless I say something is off, let's just put aside all these volume things. The
+original mandate was AI was meant to sort it. I didn't want to be bothered with it anymore, and I didn't have time or didn't want to invest
+any more time in it because it's just not working out correctly. We were able to get that passage working, but let's not carry on any of
+these decisions unless they're absolutely necessary."*
+
+**The rule, from now on:** the sound path's levels are the AI's to sort and to settle, by the law and the tools in hand (DYNAMICS_LAW ·
+SECTION_LEVEL · the card and parity), without a question to him. A level item that is real but not blocking goes to `docs/NITS.md`, not
+to the chat. He hears the music; a fault reaches the AI only when HE says something is off, and then it is fixed, not discussed. The violin
+re-hear of §158 is withdrawn from his list (it was the AI's note). What counts as crucial: a passage that cannot sound at all, or a level
+that would wreck a take he is about to keep — and then one line, the fix proposed, his one-word answer.
