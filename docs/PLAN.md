@@ -234,6 +234,11 @@ any piece); this piece holds its USES — the set's files, the settings, the fou
   §139) · the morph's "smaller of two rolls" · the beat shapes' pace and hold rolls · the breath rule · the sawtooth's alternation. One page that says
   what each does and when he reached for it, and a shared roller the tools read — when he reaches it; nothing standardised before.
 
+- **1f THE PHASE MACHINE — a take re-articulated by every player as a pulse stream, the streams driven out of phase and back by a plan** (SW-42,
+  2026-11-11) — `done` (first build): `score/public/phase_engine.js` (pure; `tools/phase_check.js`) · `phase_panel.js` (the PHASE button) · the store
+  `bank/phase_states.json`; `docs/PHASE_TOOL.md`; RUNNING_LOG §165. ***Why:*** his words — *"the ensemble starts at a fixed tempo … they phase shift … hold
+  at certain states … move to this multi-tempo configuration … converge at the same tempo … quick cuts … apply a harmony to any given time section …
+  very, very minimal design."* Parts at a time, by his word: what he learns using it is the next part.
 - **1c THE MIDI SHORE-UP — the rack brought to the lineage's standard, three weeks into the composing** (his ask 2026-11-10, RUNNING_LOG
   §143 · §144) — `done` but step 5's open items (the text half ☑; his hand steps ☑ 2026-11-10)
   ***Why:*** his articulation questions (§142) found a silent part and a keyswitch that switched nothing; his word: *"a very thorough review

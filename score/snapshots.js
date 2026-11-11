@@ -60,7 +60,9 @@ const NAME_RE = /^[A-Za-z0-9._ -]{1,64}$/;
 // LGMF PLAN 1o.3 (2026-09-22) — a FIFTH:
 //   patterns   — bank/patterns.json, THE PATTERN LIBRARY of the strikes drawer's texture take (a pattern is a document of its own carrying a
 //                copy of its onsets): named keepers and an untitled stack of 50, autosaved as the sequence library is. RESTART the server.
-const STORES = { panels: 'panel_snapshots.json', sequences: 'sequences.json', rhythms: 'rhythm_takes.json', rhythmseqs: 'rhythm_sequences.json', patterns: 'patterns.json' };
+// The Switch~ piece's SW-42 (2026-11-11) — a SIXTH:
+//   phase      — bank/phase_states.json, THE PHASE MACHINE's favorites (phase patterns · tempi patterns) and its plans. RESTART the server.
+const STORES = { panels: 'panel_snapshots.json', sequences: 'sequences.json', rhythms: 'rhythm_takes.json', rhythmseqs: 'rhythm_sequences.json', patterns: 'patterns.json', phase: 'phase_states.json' };
 
 function storeFor(key) {
     if (key == null || key === '') return STORES.panels;

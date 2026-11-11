@@ -635,6 +635,10 @@
      Loads AFTER pulse_seq_panel so its MT button anchors to Pulse. -->
 <script src="/multitempo.js"></script>
 <script src="/multitempo_panel.js" defer></script>
+<!-- The Switch~ piece's SW-42 (2026-11-11): THE PHASE MACHINE — a take re-articulated by every player as a pulse stream, the streams
+     driven out of phase and back by a plan (hold · shift · cut); phase_engine.js is pure (tools/phase_check.js); the panel anchors its
+     PHASE button to MT and takes its notes and routes from the strikes drawer, so it loads AFTER strike_drawer.js and harmony_sel.js. -->
+<script src="/phase_engine.js"></script>
 <script src="/cresc.js"></script>   <!-- PLAN 1l: the crescendo — the shapes, the end rule, the object (pure) -->
 <script src="/spacing.js"></script>   <!-- PLAN 1l: the one spacing rule — a player is free 150 ms after its last sound ENDS, between gestures (pure) -->
 <script src="/sounding.js"></script>   <!-- PLAN 1t step 1: WHAT IS SOUNDING over a window — one read for the crescendo panel's ticks and the orchestration panel's (pure) -->
@@ -674,7 +678,9 @@
 <script src="/sine_go.js" defer></script>   <!-- PLAN 1.5 · 12.5 (2026-10-06): THE GO — `∿ sines` · seed · `∿ off` on the harmony strip: select the played notes, `take ▾` for their pitches, `∿ sines`: each note its lane's senza-vibrato voice, a sine brick over it (electronics/score/le_sine.js), a bend drawn ON the note (its morphBend — the note player's own bend stream); the crotales hold and their sine glisses. A mixin on harmony_sel.js (it wraps ensure and back); nothing in the playback path -->
 <script src="/sequence.js" defer></script>   <!-- PLAN 1d.1 (LGMF, 2026-09-19): the SEQUENCE generator — a recipe in, every player's notes out (pure; tools/sequence_check.js; docs/SEQUENCE_TOOL.md) -->
 <script src="/sequence_ui.js" defer></script>   <!-- PLAN 1d.2: the SEQUENCE drawer — a strip under the strikes drawer: boxes of take · seconds · dyn, Hear through the drawer's player, Insert + the recipe into databases.sequences. After every drawer mixin; strike_drawer.js is not changed -->
-<script src="/rhythm_seq_ui.js" defer></script>   <!-- LGMF PLAN 1l.3: the RHYTHM SEQUENCE panel — a clone of the sequence drawer (a silent harmony row, the map; a rhythm row on top). AFTER sequence_ui.js: it uses the drawer's curve-channel hook and its wave presets -->
+<script src="/rhythm_seq_ui.js" defer></script>
+<script src="/phase_panel.js" defer></script>   <!-- SW-42: THE PHASE MACHINE's panel (after the strikes drawer and harmony_sel) -->
+   <!-- LGMF PLAN 1l.3: the RHYTHM SEQUENCE panel — a clone of the sequence drawer (a silent harmony row, the map; a rhythm row on top). AFTER sequence_ui.js: it uses the drawer's curve-channel hook and its wave presets -->
 <script src="/cresc_run.js" defer></script>   <!-- CN-59 (2026-09-09): crescRun(...) — overlapping, accelerating, shortening crescendos, one console line per version; SPACE plays it -->
 <script src="/chord_run.js" defer></script>   <!-- 2026-09-10: chordRun(...) — a series of chords, one per onset, dealt over the free players by 1k's engine; one console line per version -->
 <script src="/beating_panel.js" defer></script>   <!-- PLAN 1f step 4: the BEATING panel (docs/BEATING_TOOL.md §6) -->

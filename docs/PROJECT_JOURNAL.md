@@ -267,7 +267,8 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 | ☑ | The beating pairs built (SW-10 … SW-31; 1a.9) · the counterpoint's volume fix (§136) | — | — |
 | ☑ | THE MIDI SHORE-UP, the text half (§143 · §144; PLAN § 1c): the alive map · the prepared piano's channels · the flute's tongue ram · the jet whistle and the slaps on their own parts, no keyswitch · the battery completed (brake drums · bass drum · tam-tams cloned; the snare's track) · the lessons in the home's protocol | — | — |
 | ☑ | The volume by LOUDNESS (§148 … §152: the section card · parity) · the counterpoint dealt (1d) and thinned (§153 … §155) · SW-36 the form stated | — | — |
-| **►** | **His ear on `piece-Section02-B-ctpt-draft01d`; then the FORM (SW-36) — a conversation, the planning method, nothing built before his word** | Fable | — |
+| ☑ | 2026-11-11: SW-37 · 38 · 39 (the ringing petals · the cello hills and the pairs workshop · the hills as a graphic score) · SW-41 (the just roots, the empty containers) · **SW-42 THE PHASE MACHINE built (§165, PLAN 1f, `docs/PHASE_TOOL.md`)** | — | — |
+| **►** | **His hands on the phase machine (PHASE beside MT; his server restarted once for its store) — what he learns is the next part; and the Section 3 roots into the containers** | Fable | — |
 | ☑ | His hands (PLAN § 1c step 4): the curve copies · the plucked piano · the snare — all done 2026-11-10, the rack saved. The violin’s +6 dB: STAYS (§158, his word 2026-11-10) | — | — |
 | ☑ | 1d the articulation deal BUILT (§145: `artic_deal.js`, the decks `bank/artic_deal.json`; the first deal `scores/piece-Section02-C-artics-01`) · 1e the level map per articulation (26 voices measured and mapped, §146) | — | — |
 | — | **His ear on `piece-Section02-C-artics-01`** (the deal's markers name each container's articulation; `--seed` re-deals; the decks are his to edit) — then the next section | Fable | — |

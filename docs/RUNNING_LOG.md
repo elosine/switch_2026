@@ -3063,3 +3063,42 @@ is absent. A root is spelled as the box accepts it (A#1, not B♭1).
 edges and roll dials take the drawer's defaults when it loads the row). 202 s, to be inserted at 275. The comment carries the roots per box.
 **The chart:** the proposal page § 9. Nothing in his saves touched. **His server must be RESTARTED or the page reloaded** for the chips
 (spectrum_ui.js is a page file — a reload is enough; the library is read from disk when the sequence drawer opens).
+
+## §165. SW-42 BUILT — THE PHASE MACHINE: a take re-articulated as pulse streams, driven out of phase and back by a plan (2026-11-11)
+
+**His words:** SW-42 and its continuation (`COMPOSITION_NOTES.md`): *"plan this out, scope it, and then build it yourself … minimal GUI."*
+
+**Lineage read first:** piece 5's `multitempo_panel.js` (several tempi by small-integer RATIOS against one bpm, a repeating cycle — audition
+only, writes nothing) and `pulse_seq_panel.js` (its measured lookahead scheduler); the strikes drawer's `notesFor('orch')` (a take's notes
+per lane with technique · velocity anchor · cents · the articulation's own length) and its `playNotes` (the routes, the remapped velocity
+and CC7, the CC0 and the bend); the sequence drawer's `insert` (notes into the score as one group, the recipe into `databases`).
+Drift — tempi that never realign — was exactly what the multitempo rig put OUT of scope ("drift belongs to the phase machinery"). Built here.
+
+**The engine (`score/public/phase_engine.js`, pure, node-loadable; `tools/phase_check.js` eight checks, all green):** N streams, each a
+tempo T and a phase P (beats elapsed); an attack when P crosses an integer. A PLAN of segments: `hold D` · `shift D → target` · `cut →
+target`. A shift's tempo profile is a straight ramp T0 → T1 plus a parabolic bulge k·u(1−u); when the target names PHASES, k is solved in
+closed form so the beats travelled land on the asked fraction — the nearest count whose bulge keeps the mid-tempo within ½ … 1½ of the
+ramp's mean (a glide, not a lurch); none reachable → a warning, k = 0. The attacks of a segment are the integer crossings of the analytic
+P(u), found by bisection. STRATEGIES → a state {tempi, offsets}: unison (aligned, or lags kept) · phase fan · random · pairs · canon · tempi
+neighbors (his "everyone accelerates at a pace slightly greater than its neighbor") · ratios (the rig's repeating sets) · spread · random ·
+cycle (tempi snapped to multiples of 60/C so the pattern repeats every C s — his "12-second cycle") · a favorite by name. `stateAt(t)` gives
+the tempi, phases and lags at any moment (CAPTURE); `lockAt(t)` cuts the plan at t — a shift to the state reached, a cut to the reference
+tempo keeping the lags, a hold for the segment's remaining time, the later segments unchanged (his LOCK).
+
+**The panel (`score/public/phase_panel.js`, the PHASE button beside MT):** take · bpm · note length (the articulation's own, or a fraction of
+the beat) · the streams as chips (a take's placed lanes; a click mutes one) · the plan as lines (kind · seconds · target with AMOUNT and a
+seed re-rolled by ⟳ · a take for the line) with the resolved tempi and lags shown live on each line · favorites (capture phase · capture
+tempi · click to hear one held 12 s) · save/load plan · Play · Stop · LOCK · Insert at playhead. Playing: every attack scheduled on one
+absolute base through the drawer's routes exactly as Hear sends them; LOCK cancels the pending timers and re-schedules the locked plan from
+that moment; the status line reads the tempi and lags four times a second. INSERT: plain struck notes (`recVel` the take's anchor, a bend
+for a just note) in `grp-phase-<id>`, a marker per line naming its kind and tempi, the plan into `databases.phase`. The library: a SIXTH
+snapshot store, `bank/phase_states.json` (`score/snapshots.js`; favorites and plans; his server restarted once).
+
+**Proven once on the throwaway (5601):** the store answers; the take `SW-ctpt-01` gives 7 streams (flute F♯6 · clarinet D3 · sax G4 ·
+perc E4 · piano G2 · violin D♯6 · cello E3); an eight-line plan (hold · neighbors 2 % · hold · phase fan · hold · cut 3:4:5 · hold · unison)
+resolves to 842 attacks over 112 s with the fan's lags 0 · 1/7 · 2/7 … exact and the converge landing every stream on the beat; Insert at
+500 s wrote 842 notes on the seven lanes with the markers and the database entry. The sound itself is his Chrome's (no Web MIDI in the pane).
+
+**Decided by the AI, his to reverse:** LOCK means "every stream back to the bpm, the lags as they stand" (a phase pattern, not a tempi
+pattern — he said *"they won't accelerate or decelerate anymore"*); a line's harmony is its take's; the cut's marker names the hold after
+it; the plan is the truth on Insert (an insert replaces its own group). `docs/PHASE_TOOL.md` is the page.
