@@ -644,3 +644,11 @@ and then come down. Just a wide variety."*
 
 *The AI's reading (marked as such):* a tall picture of each hill in the composer score itself — four stacked lanes as one canvas — with the
 cursor to play along and record against; the sound of each shape under it on the cello; then a catalog of shapes to hear and see.
+
+### SW-40 · 2026-11-11 — just intonation; multi-tempo phase crescendos
+
+*His words (verbatim):* *"Comp note just intonation, multi tempo phase crescendos."*
+
+*The AI's reading (marked as such):* two ideas, noted as given, not elaborated — tuning by just intonation (ratios on a fundamental rather than
+equal temperament; the samplers take the pitch bend per note, the sine lanes any frequency), and crescendos in several tempi at once that drift
+in and out of phase with each other (the multitempo panel and the pulse sequencer exist in the score). Open until he says more.
