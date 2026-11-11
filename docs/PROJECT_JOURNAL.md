@@ -77,8 +77,9 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
   does not exist in the rack (§156) — when he reaches it, one question.
 - **Resume reads:** `docs/COMPOSITION_NOTES.md` SW-36 · `docs/PLAN.md` § 1c step 4 (his hand steps) — nothing else beyond §2.
 - **Decisions pending him:** (a) the violin's track sits +6 dB from the card (parity's one global move, §152) — keep or undo after this
-  section; (b) ☑ DONE 2026-11-10 20:30 … 20:33 — the curve copies (+8.2 dB), the plucked piano and the snare, the rack saved; NOT to be
-  asked again; (c) the plucked piano sits 4 dB under the standard at its top.
+  section — DECIDED 2026-11-10 (§158): the fader STAYS at +2.70 dB for the piece, no separate track; each section leveled by parity;
+  Section 1's violin long tones (34.9 … 137 s) to be re-heard; (b) ☑ DONE 2026-11-10 20:30 … 20:33 — the curve copies (+8.2 dB), the plucked
+  piano and the snare, the rack saved; NOT to be asked again; (c) the plucked piano sits 4 dB under the standard at its top.
 - **Deliberately uncommitted (git status):** `reaper/switch_rack.rpp` — HIS rack, saved through the bridge, committed only at his word ·
   `.gitignore` · `bank/materials.json` · `bank/panel_snapshots.json` · `docs/VERIFICATION_RECIPE.md` · `reaper/icy_lab.rpp` — modified before
   this session's work, left for their own wrap · `scores/*.json` (48) — his saves, never committed without his word · `bank/set/2025-04-08c/*` —
@@ -267,7 +268,7 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 | ☑ | THE MIDI SHORE-UP, the text half (§143 · §144; PLAN § 1c): the alive map · the prepared piano's channels · the flute's tongue ram · the jet whistle and the slaps on their own parts, no keyswitch · the battery completed (brake drums · bass drum · tam-tams cloned; the snare's track) · the lessons in the home's protocol | — | — |
 | ☑ | The volume by LOUDNESS (§148 … §152: the section card · parity) · the counterpoint dealt (1d) and thinned (§153 … §155) · SW-36 the form stated | — | — |
 | **►** | **His ear on `piece-Section02-B-ctpt-draft01d`; then the FORM (SW-36) — a conversation, the planning method, nothing built before his word** | Fable | — |
-| ☑ | His hands (PLAN § 1c step 4): the curve copies · the plucked piano · the snare — all done 2026-11-10, the rack saved. Still his: keep or undo the violin track’s +6 dB | — | — |
+| ☑ | His hands (PLAN § 1c step 4): the curve copies · the plucked piano · the snare — all done 2026-11-10, the rack saved. The violin’s +6 dB: STAYS (§158, his word 2026-11-10) | — | — |
 | ☑ | 1d the articulation deal BUILT (§145: `artic_deal.js`, the decks `bank/artic_deal.json`; the first deal `scores/piece-Section02-C-artics-01`) · 1e the level map per articulation (26 voices measured and mapped, §146) | — | — |
 | — | **His ear on `piece-Section02-C-artics-01`** (the deal's markers name each container's articulation; `--seed` re-deals; the decks are his to edit) — then the next section | Fable | — |
 | — | The method's steps 2 … 4 (SW-11): the gliss speed · ONE drawn crescendo read by the sine AND the sax · the electronics under them, quickly | Fable (design) · Opus (build) | at the step |

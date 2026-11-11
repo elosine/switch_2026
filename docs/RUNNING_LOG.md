@@ -2933,3 +2933,25 @@ differs) and the tail's length.
 46.3 s — each the segment plus its ring), their notes in the folder's `recipe.json`, the index re-run (61 materials; `bank/materials.json`,
 the peaks). In the drawer as `petals-A4-r3-t077_2-x625-4pass-seg1-ring` … `seg4-ring`. His to drag over the four bricks; the engine
 restarted once for the new rows. Nothing in his save touched.
+
+## §158. The violin's +6 dB stays — the fader is the piece's floor, parity brings the rest down (2026-11-10)
+
+**His words:** *"what we should do for the violin is have a separate violin track for just this section … However, again, I don't want to get
+lost in this volume morass. It's just become a unending rabbit hole. But how confident are we that the original violin setting is good for
+the other sections? … why is it need to be +6 here? Or does it actually need to be +6 everywhere else? … why don't you go ahead and make
+this separate track … we'll just leave it at +6 for this section, use the separate track, but then reevaluate later for the violin for the
+rest of the piece."* — then, on the analysis: *"ok leave it at +2.7, no separate track."*
+
+**The analysis put to him.** The +6 (§152, `--kontakt-trim "Violin XS:6"`) was for the violin's quiet extended articulations in Section 2
+(gettato · col legno · bow pressure · behind the bridge), 6 dB under the other parts at the same written dynamic; a Kontakt voice is lowered per
+note by CC7 but cannot be lifted past its ceiling, so the only lift was the track's fader: calibrated −3.30 dB (`apply_trims.lua`), now +2.70.
+The ordinary violin (senza · spiccato) was calibrated at the start at −3.30, so with the fader at +2.70 it plays 6 dB hot wherever a section is
+NOT leveled — but the leveling pass (the section card → parity) lowers any voice above target per note, so with every section through that
+pass the fader can stay: it is the floor for the quietest voice, everything louder comes down per note. The one stretch known hot now: Section
+1's violin long tones (34.9 … 137 s, shaped notes whose CC7 table came from the old calibration), his to hear when he passes it.
+**Why no separate track:** the Reaper half is easy (a clone at +2.70, a `b` port); the score half is the morass he named — every save holds the
+whole piece (0 … 610 s), and the violin's route is resolved per instrument in about a dozen tools (sonify_core · morph_emit · the cresc,
+strike, swell, texture, sequence and trill tools …), so one section's violin on another track needs a time-based redirect across all of them.
+
+**DECIDED (his word):** the Violin XS fader stays at +2.70 dB for the piece; no separate track; each section leveled by parity as Section 2
+was; Section 1's violin re-heard later. Nothing built.
