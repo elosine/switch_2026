@@ -3231,3 +3231,53 @@ with a seed for variety later if he wants it.
 **His word:** *"Yes, put the ruler in at 0.05%."* **Done:** the fan is the Golomb ruler 0 · 1 · 4 · 10 · 18 · 23 · 25 — piano 0 · flute 1 · clarinet 4 ·
 alto sax 10 · glockenspiel 18 · violin 23 · cello 25 — the page's knob now **unit %** (0.05; the cello +1.25 %). The capture record's field keeps
 its name `stepPct` (now the unit). F5, no restart.
+
+## §174. The multi-tempos — his brief; the strikes measured for tightness; the grid-and-periods reading put to him (2026-11-12)
+
+**His words (the drift held where it is):** *"let's discuss how to get some interesting multi-tempos and then transition between them … in a way
+similar to those scattered strikes … fast enough or slow enough where the strikes are quite clustered, quite close to each other, but maybe
+they're repeats … a local complexity where the strikes are all kind of in interesting clusters, close enough that you can still hear the
+individual articulations … look at some of those strikes I made to get a sense of the tightness of the rhythm or the margins … with the
+repetitions, be somewhat interesting … I'll probably resolve number 2 by having them change between tempi, accelerate or decelerate into
+tempos. But they'll need to rest a little bit just for performability. Let's find some interesting destination tempos, then work on shifting
+between those, then maybe eventually introduce this phase drift … sketch a simple way to audition these things."*
+
+**His strikes measured** (`bank/scattered_strikes.json`, 106 strikes, 900 note-to-note gaps): a strike is ~8 notes (median; up to 35) inside
+~180 ms (10 % … 90 %: 53 … 622 ms); the gaps inside it are mostly chordal — median 10 ms, 90 % under 83 ms — with 500 ms between strikes.
+So "close enough to hear each articulation" sits around **50 … 80 ms** between hits; under ~20 ms it is a chord.
+
+**The reading put to him:** any multi-tempo set is two numbers — the GRID (the tightest gap allowed between two hits, in ms) and each player's
+PERIOD as a whole number of grid steps. From those: the DENSITY (hits/s = the sum of 1/period), the CYCLE (the whole pattern repeats after
+the least common multiple of the periods), and the BUNCHING — periods that share factors pile their hits around the common beats
+(clusters) and thin out between; periods with nothing in common interleave evenly. Hence "interesting" = mostly shared factors (clusters
+that come round every few seconds) plus one or two odd periods (so the whole never quite repeats). Example at an 80 ms grid: 6 · 8 · 9 · 10 ·
+12 · 14 · 15 steps = 125 · 94 · 83 · 75 · 62 · 54 · 50 bpm, nine hits a second, the five even-ish ones back together every 29 s, the full
+cycle 3.4 min. Transitions: each player glides its own period from set A to set B over N seconds (its own accelerando or ritardando), or
+cuts. The audition: a second block on the workshop page — grid · the seven periods · ⟳ (a seeded roll within a density and a cycle
+length) · Play · a B set and "shift A → B over N s" · capture as favorites. Piece 5's multitempo rig had the ratio idea; this is built bare
+on the workshop page at his word (SW-43). His word pending.
+
+## §175. THE DESTINATIONS BUILT — six fixed multi-tempo sets on the workshop page, no dials (2026-11-12)
+
+**His word:** *"I don't necessarily want too many dials. I accept your analysis … start with the destination ones … a few different ones [that]
+sound different to each other in your estimation, and let me hear those as just units themselves … if a phase is an issue, then that too
+should sound different from each other … I think what I really need to do is hear things and then decide what those dials need to be."*
+
+**Built** (`workshop/phase/index.html`, the block "Multi-tempo destinations"): the grid 80 ms; six sets, each the seven periods in grid steps
+(flute · clarinet · sax · glock · piano · violin · cello) with a start offset in steps where a shared beat would otherwise be a chord — the
+offset of one step (80 ms) makes it a flam, the "close enough to hear each articulation" of §174. A set is a button; ▶ Play set; ■ Stop;
+keys 1 … 6 and ENTER. The page states each set's density, its full cycle and its bpm per player:
+
+| set | periods (steps) | hits/s | the whole repeats | bpm fl cl sax glk pno vn vc | the character |
+|---|---|---|---|---|---|
+| A loop | 4 6 8 12 16 24 48 | 9.4 | 3.8 s | 188 125 94 63 47 31 16 | every period divides the next — a tight metric loop |
+| B clusters | 6 8 9 10 12 14 15 | 9.1 | 3.4 min | 125 94 83 75 63 54 50 | shared factors bunch; 14 and 15 stray |
+| C even | 5 7 9 11 13 16 17 | 9.3 | hours | 150 107 83 68 58 47 44 | nothing shared — an even interleave, the far end |
+| D slow | 10 12 15 16 18 20 24 | 5.7 | 58 s | 75 63 50 47 42 38 31 | the bunching an octave slower; the big recurrence every 4.8 s |
+| E two speeds | 5 6 7 20 24 28 30 | 8.4 | 67 s | 150 125 107 38 31 27 25 | a fast trio over a slow quartet |
+| F swarm | 12 13 14 15 16 17 18 | 5.9 | a day | 63 58 54 50 47 44 42 | one cluster that smears over three beats — the drift at speed |
+
+The scheduler is the drift's (`startStreams`); LOCK · DRIFT · CAPTURE belong to the drift block and are off while a set plays. Proven
+once on the preview (his server held 5630, so the preview took 5631): the six buttons, set B's periods 480 … 1200 ms and offsets, the beat
+counts after 2 s (5 4 3 3 3 2 2), Stop clean, no console errors. **► HIS EAR on the six as units; then the transitions (each player's own
+glide from set to set, or a cut).**
