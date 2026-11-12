@@ -13,8 +13,9 @@
   The routes are the piece's own (sandbox/instruments.js): the staccato voice of each player, the glockenspiel's Shorts (Hard).
   STEP TWO (§174 · §175): THE DESTINATIONS — a few fixed multi-tempo sets, each a unit, no dials: a grid of 80 ms (the tightest gap, from his
   strikes) and each player's period a whole number of grid steps, with a start offset in steps so shared beats land as flams, not chords.
-  STEP THREE (§177): THE TRANSITION — hold a set, then every player glides its own tempo (a straight line in bpm) to the other set's over
-  T seconds, then hold there; slow · middle · quick = 40 · 20 · 8 s; one bar shows where it is.
+  STEP THREE (§177 · §178): THE TRANSITION — a chain of four slots: hold a set (≈ 2 s), then every player glides its own tempo (a straight
+  line in bpm) to the next slot's over the chosen time (40 · 20 · 8 · 4 · 2 s), each hold and glide jittered by a fixed factor so no two
+  are the same; one bar shows where it is.
 -->
 <style>
   :root { color-scheme: dark; }
@@ -27,7 +28,8 @@
   button.on { background: #2e9e8e; border-color: #2e9e8e; color: #fff; }
   button:disabled { opacity: .45; cursor: default; }
   label { color: #9aa3ad; }
-  input[type=number] { font: inherit; width: 70px; padding: 5px 7px; background: #0f1113; color: #e6e9ee; border: 1px solid #3a3f46; border-radius: 5px; }
+  select { font: inherit; padding: 5px 7px; background: #0f1113; color: #e6e9ee; border: 1px solid #3a3f46; border-radius: 5px; }
+  input[type=number] {
   table { border-collapse: collapse; margin-top: 8px; }
   th, td { padding: 4px 12px 4px 0; text-align: left; font-variant-numeric: tabular-nums; }
   th { color: #7f8790; font-weight: 500; }
@@ -38,7 +40,7 @@
   #state { color: #9fe3d3; min-height: 22px; }
   .tbar { position: relative; display: inline-flex; width: 600px; height: 16px; border-radius: 4px; overflow: hidden; background: #23272d; vertical-align: middle; }
   .tbar .z { height: 100%; }
-  #tz1 { background: #2a3a44; } #tz2 { background: #2e9e8e55; } #tz3 { background: #3a3f46; }
+  .tbar .hold { background: #2a3a44; } .tbar .glide { background: #2e9e8e55; } .tbar .z + .z { border-left: 1px solid #15171a; }
   .tbar i { position: absolute; top: 0; width: 3px; height: 16px; background: #9fe3d3; left: 0; }
   #midi { color: #c99; }
   #locks { margin-top: 18px; color: #b9c0c8; }
@@ -83,16 +85,13 @@
 <div id="setWhy" class="dim" style="max-width:900px"></div>
 
 <h1 style="margin-top:26px">Transition</h1>
-<div class="sub">hold the first set 6 s · every player glides its own tempo to the second set's · hold there</div>
+<div class="sub">four slots · hold each about 2 s · between them every player glides its own tempo · the times vary a little, fixed (§178)</div>
+<div class="row" id="chain"></div>
 <div class="row">
-  <label>from <select id="trFrom"></select></label>
-  <label>to <select id="trTo"></select></label>
-  <button class="tr" data-t="40">slow · 40 s</button>
-  <button class="tr" data-t="20">middle · 20 s</button>
-  <button class="tr" data-t="8">quick · 8 s</button>
+  <button id="playTr">▶ Play chain</button>
   <button id="stopTr" disabled>■ Stop</button>
 </div>
-<div class="row"><span class="tbar" id="tbar"><span class="z" id="tz1"></span><span class="z" id="tz2"></span><span class="z" id="tz3"></span><i id="tmark"></i></span><span id="trState" class="dim"></span></div>
+<div class="row"><span class="tbar" id="tbar"><i id="tmark"></i></span><span id="trState" class="dim"></span></div>
 
 <div id="locks"></div>
 
@@ -176,19 +175,32 @@ function playSet() {
   const set = SETS[S.set];
   startStreams('set', PLAYERS.map((p, i) => ({ period: set.per[i] * GRID_MS, offsetMs: (set.off[i] || 0) * GRID_MS })));
 }
-const HOLD_MS = 6000, TR_SHOW_MS = 20000;   // the first hold; the bar shows this much of the last hold
-function startTransition(fromIdx, toIdx, T) {
+// THE CHAIN (§178): four slots, three glides; the holds ≈ 2 s and the glides at the chosen speed, each × a fixed jitter so none repeats
+const SPEEDS = [['slow', 40], ['middle', 20], ['quick', 8], ['4 s', 4], ['2 s', 2]];
+const HOLD_JIT = [1.0, 0.8, 1.3, 0.9], GLIDE_JIT = [1.25, 0.9, 1.1];   // fixed, his word: "just so they're not exactly the same"
+const HOLD_MS = 2000, TR_SHOW_MS = 12000;
+function startTransition(slots, speeds) {   // slots: 4 set indexes; speeds: 3 glide seconds
   if (S.playing) return;
-  const A = SETS[fromIdx], B = SETS[toIdx];
-  S.tr = { from: fromIdx, to: toIdx, T: T * 1000, r0: A.per.map((p) => 1 / (p * GRID_MS)), r1: B.per.map((p) => 1 / (p * GRID_MS)) };
+  const segs = []; let at = 0;
+  slots.forEach((si, k) => {
+    const hold = k === slots.length - 1 ? TR_SHOW_MS : Math.round(HOLD_MS * HOLD_JIT[k % HOLD_JIT.length]);
+    segs.push({ kind: 'hold', set: si, from: at, ms: hold }); at += hold;
+    if (k < slots.length - 1) { const g = Math.round(speeds[k] * 1000 * GLIDE_JIT[k % GLIDE_JIT.length]); segs.push({ kind: 'glide', set: si, to: slots[k + 1], from: at, ms: g }); at += g; }
+  });
+  S.tr = { segs, total: at, rates: SETS.map((s) => s.per.map((p) => 1 / (p * GRID_MS))) };
+  const A = SETS[slots[0]];
   startStreams('shift', PLAYERS.map((p, i) => ({ period: A.per[i] * GRID_MS, offsetMs: (A.off[i] || 0) * GRID_MS })));
+  $('tbar').querySelectorAll('.z').forEach((z) => z.remove());
+  segs.forEach((g) => { const z = document.createElement('span'); z.className = 'z ' + g.kind; z.style.width = (100 * g.ms / at) + '%'; $('tbar').insertBefore(z, $('tmark')); });
 }
-function trProgress() {   // 0 … 1 through the glide; <0 while holding the first set; >1 holding the second
-  const el = performance.now() - S.t0; return (el - HOLD_MS) / S.tr.T;
+function trSeg() {   // the segment now, and the way through it
+  const el = performance.now() - S.t0; const segs = S.tr.segs;
+  let g = segs[segs.length - 1]; for (const s of segs) if (el < s.from + s.ms) { g = s; break; }
+  return { g, u: Math.max(0, Math.min(1, (el - g.from) / g.ms)), el };
 }
 function trApply() {
-  const u = Math.max(0, Math.min(1, trProgress()));
-  S.streams.forEach((s, i) => { const r = S.tr.r0[i] + (S.tr.r1[i] - S.tr.r0[i]) * u; s.period = 1 / r; });
+  const { g, u } = trSeg(); const r0 = S.tr.rates[g.set], r1 = g.kind === 'glide' ? S.tr.rates[g.to] : r0;
+  S.streams.forEach((s, i) => { s.period = 1 / (r0[i] + (r1[i] - r0[i]) * (g.kind === 'glide' ? u : 0)); });
 }
 function startStreams(mode, specs) {
   const now = performance.now();
@@ -257,7 +269,7 @@ function stop() {
 // ---- the page
 function ui() {
   const dr = S.playing && S.mode === 'drift', st = S.playing && S.mode === 'set', sh = S.playing && S.mode === 'shift';
-  document.querySelectorAll('button.tr').forEach((b) => { b.disabled = S.playing; }); $('stopTr').disabled = !sh;
+  $('playTr').disabled = S.playing; $('stopTr').disabled = !sh;
   $('play').disabled = S.playing; $('stop').disabled = !dr; $('playSet').disabled = S.playing; $('stopSet').disabled = !st;
   $('lock').disabled = !dr || S.locked; $('drift').disabled = !dr || !S.locked; $('capture').disabled = !dr;
   $('setInfo').textContent = setInfo(SETS[S.set]); $('setWhy').textContent = SETS[S.set].why;
@@ -282,18 +294,20 @@ function paint() {
   if (S.playing) { $('state').textContent = (S.mode === 'shift' ? trText() : S.mode === 'set' ? 'set ' + SETS[S.set].name : S.locked ? 'LOCKED at ' + c.bpm + ' — the lags hold' : 'drifting') + ' · ' + elapsedS().toFixed(0) + ' s'; S.raf = requestAnimationFrame(paint); }
 }
 function trText() {
-  const u = trProgress(), A = SETS[S.tr.from].name, B = SETS[S.tr.to].name;
-  return u < 0 ? 'holding ' + A : u < 1 ? A + ' → ' + B + ' · ' + Math.round(u * 100) + ' %' : 'AT ' + B;
+  const { g, u } = trSeg(); const n = (i) => SETS[i].name;
+  return g.kind === 'hold' ? (g === S.tr.segs[0] ? 'holding ' : 'AT ') + n(g.set) : n(g.set) + ' → ' + n(g.to) + ' · ' + Math.round(u * 100) + ' %';
 }
 function paintTr() {
-  const total = HOLD_MS + S.tr.T + TR_SHOW_MS, el = Math.min(total, performance.now() - S.t0);
-  $('tz1').style.width = (100 * HOLD_MS / total) + '%'; $('tz2').style.width = (100 * S.tr.T / total) + '%'; $('tz3').style.width = (100 * TR_SHOW_MS / total) + '%';
-  $('tmark').style.left = (600 * el / total) + 'px'; $('trState').textContent = trText();
+  const el = Math.min(S.tr.total, performance.now() - S.t0);
+  $('tmark').style.left = (600 * el / S.tr.total) + 'px'; $('trState').textContent = trText();
 }
 $('play').onclick = play; $('stop').onclick = stop; $('stopTr').onclick = stop;
-SETS.forEach((s, i) => { for (const id of ['trFrom', 'trTo']) { const o = document.createElement('option'); o.value = i; o.textContent = s.name; $(id).appendChild(o); } });
-$('trFrom').value = SETS.findIndex((s) => s.name === 'E two speeds'); $('trTo').value = SETS.findIndex((s) => s.name === 'F swarm');
-document.querySelectorAll('button.tr').forEach((b) => { b.onclick = () => startTransition(+$('trFrom').value, +$('trTo').value, +b.dataset.t); }); $('playSet').onclick = playSet; $('stopSet').onclick = stop;
+const SLOT0 = ['E two speeds', 'F swarm', 'B clusters', 'G three speeds'].map((n) => SETS.findIndex((s) => s.name === n)), SPEED0 = [1, 2, 4];
+for (let k = 0; k < 4; k++) {
+  const sel = document.createElement('select'); sel.className = 'slot'; SETS.forEach((s, i) => { const o = document.createElement('option'); o.value = i; o.textContent = s.name; sel.appendChild(o); }); sel.value = SLOT0[k]; $('chain').appendChild(sel);
+  if (k < 3) { const sp = document.createElement('select'); sp.className = 'speed'; SPEEDS.forEach(([n, s], i) => { const o = document.createElement('option'); o.value = s; o.textContent = '→ ' + n; sp.appendChild(o); }); sp.value = SPEEDS[SPEED0[k]][1]; $('chain').appendChild(sp); }
+}
+$('playTr').onclick = () => startTransition([...document.querySelectorAll('select.slot')].map((s) => +s.value), [...document.querySelectorAll('select.speed')].map((s) => +s.value)); $('playSet').onclick = playSet; $('stopSet').onclick = stop;
 SETS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = s.name; b.title = s.why; b.onclick = () => { S.set = i; if (S.playing && S.mode === 'set') { stop(); playSet(); } ui(); }; $('sets').appendChild(b); }); $('lock').onclick = lock; $('drift').onclick = drift; $('capture').onclick = capture;
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT') return;

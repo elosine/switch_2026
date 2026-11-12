@@ -3313,3 +3313,17 @@ marker; the text "holding E" → "E → F · 50 %" → "AT F". The phase at arri
 periods 400 … 2400 at the start, 565 … 1800 at 50 % (linear in rate), exactly F's 960 … 1440 at the end, the bar's widths 21 · 7 · 71 %
 for 6 · 2 · 20 s, Stop clean, no console errors. **► HIS EAR: the three speeds; then whatever he names — a snap to the set's offsets at
 arrival, rests, or the drift between.**
+
+## §178. THE CHAIN — four slots, five speeds, the holds and the glides jittered by fixed factors (2026-11-12)
+
+**His words:** *"let's put 4 slots in then, and a couple more steps towards faster, around a 4-second and around a 2-second. And for each
+transition, just a little bit of jitter … if it's the 2-second one, the next one is some variation of that, like 2.5 seconds or 1.8 seconds.
+And the resting time is somewhere around 2 seconds, same, some variation. You can just fix those … just so they're not exactly the same."*
+
+**Built** (the Transition block remade): four slot pull-downs (E two speeds · F swarm · B clusters · G three speeds preset), a speed
+pull-down between each pair — **slow 40 · middle 20 · quick 8 · 4 s · 2 s** — ▶ Play chain · Stop. The plan: hold slot 1 · glide · hold ·
+glide · hold · glide · hold the last. The holds ≈ 2 s × the fixed factors 1.0 · 0.8 · 1.3 · 0.9; the glides = the chosen seconds × 1.25 ·
+0.9 · 1.1 — so the "2 s" glides come as 2.5 · 1.8 · 2.2 s, his own numbers. The bar: seven zones in proportion (the holds dark, the glides lit),
+the marker, the text "holding E" · "E → F · 50 %" · "AT F" · … · "AT G". Proven once on the preview with 2 s everywhere: the segments
+2000 · 2500 · 1600 · 1800 · 2600 · 2200 · (12000 shown) ms, 50 % through the first glide the periods half-way in rate (565 … 1800), at the
+end exactly G's (320 … 2400), Stop clean, no console errors.
