@@ -3281,3 +3281,20 @@ The scheduler is the drift's (`startStreams`); LOCK · DRIFT · CAPTURE belong t
 once on the preview (his server held 5630, so the preview took 5631): the six buttons, set B's periods 480 … 1200 ms and offsets, the beat
 counts after 2 s (5 4 3 3 3 2 2), Stop clean, no console errors. **► HIS EAR on the six as units; then the transitions (each player's own
 glide from set to set, or a cut).**
+
+## §176. Five more destinations at his word: a second clusters, a second even, a second two speeds, a second swarm, and three speeds (2026-11-12)
+
+**His words:** *"put aside the loop and the slow … give me like a different version of the remaining … clusters, an alternative not quite the
+same as the original … same with the even, and then the rest, two speeds and swarm. And then is there a three speeds? Can I hear something
+like that?"* A and D stay on the page, set aside by him. **Added** (grid 80 ms, periods in steps fl cl sax glk pno vn vc):
+
+| set | periods | hits/s | repeats | bpm | the difference from its first |
+|---|---|---|---|---|---|
+| B2 clusters ii | 7 8 10 12 14 16 21 | 7.9 | 2.2 min | 107 94 75 63 54 47 36 | two families — the sevens (7 14 21) bunch together, the eights (8 16) together; slower |
+| C2 even ii | 6 7 11 13 17 19 23 | 7.9 | days | 125 107 68 58 44 39 33 | wider and thinner: fast winds over a sparse low end |
+| E2 two speeds ii | 20 24 30 · 6 7 8 9 | 8.4 | 3.4 min | 38 31 25 · 125 107 94 83 | the layers swapped: a fast quartet (glock piano strings) over a slow wind trio |
+| F2 swarm ii | 8 9 10 11 12 13 14 | 8.2 | hours | 94 … 54 | the swarm faster and tighter; it smears within two beats |
+| G three speeds | 4 5 · 9 10 12 · 24 30 | 10.2 | 29 s | 188 150 · 83 75 63 · 31 25 | a fast pair, a middle trio, a slow pair |
+
+Eleven sets on the page; keys 1 … 9 reach the first nine, the buttons all. Proven by the page's own numbers (the script parsed and run
+offline); the sound is his.

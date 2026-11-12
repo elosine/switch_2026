@@ -56,7 +56,7 @@
   <button id="drift" disabled>DRIFT</button>
   <button id="capture" disabled>CAPTURE</button>
   <button id="stop" disabled>■ Stop</button>
-  <span class="dim">SPACE play / stop · L lock · D drift · C capture · 1 … 6 a set · ENTER play the set</span>
+  <span class="dim">SPACE play / stop · L lock · D drift · C capture · 1 … 9 a set · ENTER play the set</span>
 </div>
 <div id="state">—</div>
 <div id="midi"></div>
@@ -101,14 +101,24 @@ const SETS = [
     why: 'every period divides the next: a tight metric loop that comes round every 3.8 s; the offsets of one step turn the shared beats into flams' },
   { name: 'B clusters',  per: [6, 8, 9, 10, 12, 14, 15],   off: [0, 1, 0, 1, 0, 2, 3],
     why: 'mostly shared factors (6 8 9 10 12 bunch on their common beats) with two strays, 14 and 15, so the whole takes 3.4 min to repeat' },
+  { name: 'B2 clusters ii', per: [7, 8, 10, 12, 14, 16, 21], off: [0, 1, 0, 1, 2, 0, 1],
+    why: 'two families: the sevens (flute glock cello at 7 14 21) bunch with each other, the eights (clarinet violin) with each other, sax and piano join both; slower than B, the whole every 2.2 min' },
   { name: 'C even',      per: [5, 7, 9, 11, 13, 16, 17],   off: [0, 0, 0, 0, 0, 0, 0],
     why: 'nothing in common: an even interleave, no clusters, no repeat within an hour — the far end of the dial' },
+  { name: 'C2 even ii',  per: [6, 7, 11, 13, 17, 19, 23],  off: [0, 0, 0, 0, 0, 0, 0],
+    why: 'nothing shared again, but wider and thinner: 125 down to 33 bpm, eight hits a second — the fast winds over a sparse low end' },
   { name: 'D slow',      per: [10, 12, 15, 16, 18, 20, 24], off: [0, 1, 0, 1, 0, 1, 2],
     why: 'the same bunching an octave slower: every player 31 … 75 bpm, six hits a second, the big recurrence every 4.8 s, the whole every 58 s' },
   { name: 'E two speeds', per: [5, 6, 7, 20, 24, 28, 30],  off: [0, 0, 0, 1, 0, 1, 2],
     why: 'a fast trio (flute clarinet sax at 150 125 107) over a slow quartet (37 31 27 25): two layers, the slow one bunching under the fast one' },
+  { name: 'E2 two speeds ii', per: [20, 24, 30, 6, 7, 8, 9], off: [0, 1, 2, 0, 0, 0, 0],
+    why: 'the layers swapped: a fast quartet (glock piano violin cello at 125 107 94 83) over a slow wind trio (38 31 25)' },
   { name: 'F swarm',     per: [12, 13, 14, 15, 16, 17, 18], off: [0, 0, 0, 0, 0, 0, 0],
     why: 'near-equal periods: one cluster that smears out over three beats and never quite re-forms — the phase drift at speed' },
+  { name: 'F2 swarm ii', per: [8, 9, 10, 11, 12, 13, 14],   off: [0, 0, 0, 0, 0, 0, 0],
+    why: 'the swarm faster and tighter: 94 down to 54 bpm, nine hits a second, the cluster smears within two beats' },
+  { name: 'G three speeds', per: [4, 5, 9, 10, 12, 24, 30], off: [0, 0, 0, 1, 0, 0, 1],
+    why: 'three layers: a fast pair (flute clarinet 188 150), a middle trio (sax glock piano 83 75 63), a slow pair (violin cello 31 25); the whole every 29 s' },
 ];
 const gcd = (a, b) => b ? gcd(b, a % b) : a; const lcm = (a, b) => a / gcd(a, b) * b;
 function setInfo(set) {
@@ -241,7 +251,7 @@ SETS.forEach((s, i) => { const b = document.createElement('button'); b.textConte
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT') return;
   if (e.code === 'Space') { e.preventDefault(); S.playing ? stop() : play(); }
-  else if (e.key >= '1' && e.key <= '6') { S.set = +e.key - 1; if (S.playing && S.mode === 'set') { stop(); playSet(); } ui(); }
+  else if (e.key >= '1' && e.key <= '9' && +e.key <= SETS.length) { S.set = +e.key - 1; if (S.playing && S.mode === 'set') { stop(); playSet(); } ui(); }
   else if (e.key === 'Enter') { if (!S.playing) playSet(); }
   else if (e.key === 'l' || e.key === 'L') lock();
   else if (e.key === 'd' || e.key === 'D') drift();
