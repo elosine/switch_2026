@@ -34,7 +34,7 @@
         "../live-electronics-engine/tools/serve.py"
       ],
       "port": 8732,
-      "_note": "the WORKSHOP's JavaScript icy lab (live-electronics-engine/engine/icy-lab.html) \u2014 superseded 2026-11-07 by icy-live, the lab over the engine; kept for the JS read"
+      "_note": "the WORKSHOP's JavaScript icy lab (live-electronics-engine/engine/icy-lab.html) — superseded 2026-11-07 by icy-live, the lab over the engine; kept for the JS read"
     },
     {
       "name": "icy-live",
@@ -49,7 +49,16 @@
         "5620"
       ],
       "port": 5620,
-      "_note": "THE ICY LAB over the engine (electronics/score/icy_lab.html): its own small server \u2014 the page and the relay to the engine, no composer score (his word 2026-11-07). The engine runs beside it (start_electronics.bat)."
+      "_note": "THE ICY LAB over the engine (electronics/score/icy_lab.html): its own small server — the page and the relay to the engine, no composer score (his word 2026-11-07). The engine runs beside it (start_electronics.bat)."
+    },
+    {
+      "name": "phase-workshop",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "tools/phase_workshop.js"
+      ],
+      "port": 5630,
+      "_note": "THE PHASE WORKSHOP (SW-43): its own page workshop/phase/index.html, its own small server, no composer score. He runs it by full path: node C:UsersjwloyGitHubswitch_2026\toolsphase_workshop.js"
     }
   ]
 }

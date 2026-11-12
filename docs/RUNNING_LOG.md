@@ -3127,3 +3127,78 @@ every partial wobbles ± ½ semitone by design and B · D4 are inharmonic combs,
 409 … 440; with D4 (440 … 531) G♯ wins every block (G♯2 0.44 … 0.73), clearest at 489 … 509. **The map:** G♯1 (269) → B♭1 (312) → G♯1 (389) →
 E♭2 (409) → G♯1 (440, to the end; the rings die ≈ 554). Container timings 269 · 312 · 364 · 389 · 409 · 440 · 489 · 531. Proposal A's F♯1 · C2 ·
 A1 are not supported by the layered sound; its B♭1 is. The chips gained `D#2` and `A2`. Nothing built; his word on the map.
+
+## §167. The prominent pitch at 275 s in `piece-Section03-F-MultiTempo01` — D5, confirmed by measurement (2026-11-12)
+
+**His ask (after the clear):** *"around 275 seconds at my latest save file in the composer. I just want to confirm there's a prominent pitch.
+I'm hearing that as D5 … It comes in and then it holds."*
+
+**What sounds there:** two granular beds only, no instrument notes 262 … 300 s — `granular-G5-expodec-seed1` on Elec 1 (from 269.05, file
+offset 36.97 s) and `granular-G9-expodec+perc-seed1` on Elec 3 (from 269.15, offset 44.82 s). **How read:** both files sliced at their score
+offsets, summed, averaged spectra (16384-point Hann, half overlap) over 270 … 300 s and per 2 s block. **The result:** the strong peak in the
+500 … 700 Hz band is **592 Hz = D5 +14 cents** (D5 = 587.3), present from 274 s, rising to its top 278 … 283 s (−3.5 dB under the loudest peak
+of the whole spectrum, which is the low cluster A♯3 237 Hz · B3 · C4 · D4 296 · C♯4 · D♯4), gone by 284; from 290 s the band's peak moves to
+619 Hz = D♯5 −9 c. Both beds carry the 592: G5 louder (−4.8 dB under its own top) than G9 (−8.2). **So his ear is right: D5, a shade sharp
+(+14 c), 274 … 284 s, the clearest 278 … 283, over a low cluster whose top note is D4 +14 c — the same D an octave down.**
+
+## §168. He could not find the phase machine — the PHASE button was hidden by the Panels ▾ menu (2026-11-12)
+
+**His words:** *"No, I don't think the multi-tempo is the one I'm looking for … I wanted something very, very simple, not using the previous
+builds … find that prompt … If you find it, feed it back to me and summarize."* Then, with a screenshot of his bar and its Panels ▾ menu:
+*"I just can't find it then, if that's the case. Could you show me how to get here?"*
+
+**The prompt is SW-42** (COMPOSITION_NOTES, 2026-11-11, two parts), fed back in the chat in short. **The build against it is the PHASE button**
+(§165) — but his bar showed neither PHASE nor MT, and Panels ▾ listed Strikes … Multitempo and no Phase. **The cause:** since the bar's tidy
+(composer.html line 202 · 365) the panel buttons live in `#barHidden` and are reached through Panels ▾, whose entries are a FIXED list
+(`menuPanels`, line 458); `phase_panel.js` anchored its button after `mtBtn`, in the hidden bar, and the list never named it. The throwaway
+proof (§165) clicked the button by its id, so it never met the menu. **The fix:** `['phBtn', 'Phase']` added to the list (one line). He
+reloads (F5) and opens Panels ▾ → Phase. SWEEP_LIST row 4. His verdict on the build itself is still to come; a bare rebuild from the brief
+is the fallback he named.
+
+## §169. The phase workshop started over (SW-43): the Reich benchmark looked up; the drift strategy put to him (2026-11-12)
+
+**What prompted it:** SW-43 — *"let's start over … its own page … one step at a time … hear those in unison, 60 BPM, then gradually shift out of
+phase … look up the speed of the phase shift [in Reich] … a logical strategy for all the parts going out of phase with each other, not at the
+same pace."* The PHASE panel (§165) is set aside: a page he did not ask for in that shape, built whole where he wanted parts.
+
+**The benchmark, looked up (web, 2026-11-12; no primary measurement of Reich's tapes exists in print — the figures are secondary analyses):**
+*It's Gonna Rain* (1965, the first phase piece; *Come Out* 1966 the second): the two loops repeat 392 against 393 times over the main phasing
+section, i.e. a speed difference of 1/392 ≈ **0.26 %**; that section takes about five minutes to come round one whole loop, which makes the
+loop ≈ 0.77 s (arithmetic from the two figures, not a sourced length). *Come Out*'s later loop ≈ 610 ms (a performance-practice note). Reich's
+own account: two machines not quite the same speed, one loop slipping slightly behind. **Carried to 60 BPM:** a 0.26 % difference between two
+players = one beat apart after ≈ 390 beats (6½ min); half a beat apart (the farthest) after ≈ 3¼ min. *Piano Phase* (1967) is the other model
+and a different mechanism: the mover accelerates for some seconds, arrives a sixteenth ahead, and LOCKS — a step every ten to thirty seconds,
+a tempo difference of the order of 1 … 3 % while moving.
+
+**The strategy, as reasoned:** (1) *constant* small tempo differences (the tapes), not continuous acceleration — a part that keeps
+accelerating runs away in tempo within minutes, and the drift is then heard as a tempo change, not as phase. (2) Seven parts at seven tempi
+spaced evenly (60 · 60+d · 60+2d …) all pass through moments where several re-coincide (when the +d part is one beat ahead, the +2d part is
+two beats ahead — everyone together again); uneven spacing (the steps growing by a factor ≈ 1.3 … 1.6) keeps the pairs from realigning at
+one moment. (3) One-sided (one stays, six faster, his first idea) drags the ensemble's felt tempo upward; symmetric (one stays, three a
+little faster, three a little slower) keeps the center at 60 and the spread reads as the ensemble widening about a still point —
+recommended. (4) "Stay out of phase" is impossible with constant tempi (every pair realigns every 1/δ beats); it is what LOCK is for:
+when the spread is right, every part snaps to 60 and keeps its lag — the next step, by his word.
+**Put to him:** the neighbor step d at Reich's 0.26 % as the one number, symmetric and uneven; his word pending.
+
+## §170. THE PHASE WORKSHOP BUILT — step one: D5 staccato in unison at 60, the fan drifts, LOCK · DRIFT · CAPTURE (2026-11-12)
+
+**His word:** *"Good analysis. Yes, let's go with that recommendation. And is there a lock button as well? … keep it at the fixed rate, but then
+lock at those tempo … 60 beats per minute then. And also a way to gather data from those locks … lock and then listen to it continue at that
+phase shift and then capture what distance they're at. And then continue from there if I wanted to. So just that much."*
+
+**Built:** `workshop/phase/index.html` (a page of its own) served by `tools/phase_workshop.js` on **5630** (the next free port; launch name
+`phase-workshop`); the locks he captures in `bank/phase_locks.json` (POST `/locks`). **The seven voices** from `sandbox/instruments.js` — flute
+staccato `SWFluteb` 1 · clarinet staccato `SWClar` 12 · alto sax staccato `SWSaxb` 5 · glockenspiel Shorts (Hard) `SWGlock` 9 · piano struck
+`SWPiano` 1 · violin and cello Staccato Velocity (#19) CC0 18 on `SWViolin` · `SWCello` 1. The key is 74 (D5) everywhere but the glockenspiel: it
+is mapped at WRITTEN pitch (range 55 … 84), so it gets 62 and sounds D6, an octave over the rest — the nearest octave it has. **The fan** (§169):
+the piano the anchor at the bpm; the others at bpm × (1 + f·step %), f = +1 flute · −1.3 clarinet · +1.69 sax · −2.2 glock · +2.86 violin · −3.71
+cello — symmetric, the steps growing by 1.3; the step 0.26 % (Reich's tapes). **The scheduler** is the proven shape (morph_emit §319 · §320): a
+60 ms timer fills a 250 ms horizon, every note stamped on the Web MIDI clock; the note 180 ms long (the staccato samples are short anyway).
+**LOCK:** every stream's period set to the bpm's, its next beat left where it is — the lag holds. **DRIFT:** each stream's own period again,
+from where it stands. **CAPTURE:** the lag of every player against the piano (beats, folded to ±½, + = ahead; and ms), the elapsed time,
+bpm, step, locked or drifting — saved and listed on the page. **Stop:** all-notes-off and all-sound-off on every route. Keys: SPACE · L · D · C.
+Velocity 100 flat for every voice — the level is the AI's (§159); if a voice stands out, a trim here, not a question.
+
+**Proven once, on the preview (no Web MIDI there):** at step 5 % for 2.9 s the seven periods 952 · 1070 · 922 · 1124 · 1000 · 875 · 1228 ms, the
+lags spread (flute 0.19 ahead … violin 0.5); LOCK → every period 1000; DRIFT → the fan's periods back; Stop clean; the POST to `/locks` saved
+record 1 (then emptied). The sound and the ports are his Chrome's to prove. The preview server was stopped: 5630 is his.

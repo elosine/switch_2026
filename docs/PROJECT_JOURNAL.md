@@ -63,6 +63,8 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 
 ### CHECKPOINT 2026-11-12 — SECTION 3: THE PETALS RING, THE HILLS, THE ROOTS, THE PHASE MACHINE *(mid-session checkpoint)*
 
+- **2026-11-12 (later) — THE PHASE WORKSHOP, STARTED OVER (SW-43, RUNNING_LOG §167 … §170):** the PHASE panel of SW-42 set aside (found hidden — SWEEP row 4, fixed; his verdict: too much). A page of its own — `workshop/phase/index.html`, `node tools/phase_workshop.js` → `http://localhost:5630/` — D5 staccato on seven players in unison at 60, the symmetric uneven fan at 0.26 % (Reich’s tapes, §169), LOCK · DRIFT · CAPTURE (`bank/phase_locks.json`). Proven on the preview without MIDI; **► HIS EAR in his Chrome (loopMIDI · Reaper with the rack · the server by its full path); what he learns is step two.** The D5 at 275 s confirmed (§167). The root map (§166) still awaits his word; every root of it is already a chip.
+
 - **The task and its state (2026-11-10 … 12, RUNNING_LOG §157 … §166):** Section 3 is being composed in his saves (`piece-Section03-…`,
   the latest `piece-Section03-C-Harmonies`: four petals layered on Elec 1 · 3 · 4, 269 … 531 s). Built for it: (a) the ringing petals —
   every brick he names made again from its bed so the resonators die after the bed stops (`live-electronics-engine/corpus/petals_segment.py`;

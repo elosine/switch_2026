@@ -719,3 +719,25 @@ design. I'm just interested in the functionality. And I find a lot of mistakes a
 maybe just minimal GUI. I usually learn what I need when I start doing it. So that might be something, again, we have to rebuild or build in
 later. Yes, but that's the basic idea. If you can plan this out, scope it, and then build it yourself, go ahead and do so. We don't have to
 run the planning process. But you can check in with me now or at any point in time if there are points of clarification."*
+
+### SW-43 · 2026-11-12 — THE PHASE WORKSHOP, STARTED OVER: its own page, one step at a time; D5 staccato in unison at 60, drifting apart at Reich's pace
+
+*His words (dictated, light corrections), after seeing the PHASE panel's description and finding it too much:* *"Let's start over. I just wanted a
+workshop, so maybe we can build its own page. Let's not attach it to the composer score yet. I find those drawers and panels tend to be too
+complicated. Anyways, they don't work well. And if we need to build it into a panel, we'll do it later. And let's just go ahead and take it one
+step at a time. So let's grab that — I think it was a D5 — and let's just start. What I want to do initially, I want to hear those in unison.
+Let's just start at 60 BPM. And then I want to hear those in unison and then gradually shift out of phase. I think I just get overwhelmed, there's
+too many controls. I don't want to make any of these choices just yet until I decide what choices I need to make. So why don't we have them
+drift out of phase relatively slowly? So if you could look up — I think there's lots of analysis about the original Steve Reich, like Come Out,
+I forget which one was the first one, it's probably Come Out — and the speed of the phase shift. I think he was using the natural tape
+machine's flux, but I think there have been analyses that give you a sense of how quickly those things are falling out of phase. So let's do
+something on that pace. Those are maybe two; I think he multiplies it later. We don't need to use Steve Reich as a model, we just need to get
+the speed. What I'd like to hear is, using staccato, the staccato voice on that D5. Anyone who can't reach it will just use a different
+octave. And you can just use the glockenspiel for the percussion. Then look up that rate and give me some advice about how to have all the
+parts go out of phase with each other, but not at the same pace. Even though we're looking up that rate, that's just a benchmark. I want all
+the parts to go out of phase and stay out of phase with each other. So each one needs to be a little — if they're all accelerating, for
+example, each one needs to accelerate a little bit faster than the last one. Or if you think having some decelerate would be better, we can
+try that as well. But we have to discuss that. Let's figure out a logical strategy for that."*
+
+*The AI's reading (marked as such):* the PHASE panel of SW-42 (§165) is set aside, not deleted; the workshop is a bare page of its own, grown one
+step at a time, each step his. The Reich benchmark and the drift strategy: RUNNING_LOG §169.

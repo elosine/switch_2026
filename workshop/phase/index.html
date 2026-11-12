@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Phase Workshop</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--
+  THE PHASE WORKSHOP — SW-43 (2026-11-12), RUNNING_LOG §169 · §170. His word: a page of its own, not the composer score; one step at a time.
+  STEP ONE: seven players on D5 staccato (the glockenspiel an octave up — it is mapped at written pitch), in unison at 60, then drifting
+  apart at constant small tempo differences, a symmetric uneven fan about the piano (the step = Reich's tapes, 0.26 %, RUNNING_LOG §169).
+  LOCK snaps every player to the bpm keeping its lag; DRIFT lets the fan run again from where it stands; CAPTURE writes the lags to
+  bank/phase_locks.json through tools/phase_workshop.js. Web MIDI straight to the rack (his Chrome; loopMIDI and Reaper up).
+  The routes are the piece's own (sandbox/instruments.js): the staccato voice of each player, the glockenspiel's Shorts (Hard).
+-->
+<style>
+  :root { color-scheme: dark; }
+  body { background: #15171a; color: #d8dbe0; font: 15px/1.45 system-ui, Segoe UI, sans-serif; margin: 0; padding: 18px 22px; }
+  h1 { font-size: 18px; margin: 0 0 4px; color: #9fe3d3; font-weight: 600; }
+  .sub { color: #7f8790; margin-bottom: 14px; }
+  .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 10px 0; }
+  button { font: inherit; padding: 7px 16px; border-radius: 6px; border: 1px solid #3a3f46; background: #23272d; color: #e6e9ee; cursor: pointer; }
+  button:hover { background: #2c3139; }
+  button.on { background: #2e9e8e; border-color: #2e9e8e; color: #fff; }
+  button:disabled { opacity: .45; cursor: default; }
+  label { color: #9aa3ad; }
+  input[type=number] { font: inherit; width: 70px; padding: 5px 7px; background: #0f1113; color: #e6e9ee; border: 1px solid #3a3f46; border-radius: 5px; }
+  table { border-collapse: collapse; margin-top: 8px; }
+  th, td { padding: 4px 12px 4px 0; text-align: left; font-variant-numeric: tabular-nums; }
+  th { color: #7f8790; font-weight: 500; }
+  td.num { text-align: right; padding-right: 18px; }
+  .bar { position: relative; width: 240px; height: 10px; background: #23272d; border-radius: 3px; display: inline-block; vertical-align: middle; }
+  .bar i { position: absolute; top: 0; width: 3px; height: 10px; background: #9fe3d3; border-radius: 2px; }
+  .bar b { position: absolute; left: 50%; top: 0; width: 1px; height: 10px; background: #4a5058; }
+  #state { color: #9fe3d3; min-height: 22px; }
+  #midi { color: #c99; }
+  #locks { margin-top: 18px; color: #b9c0c8; }
+  #locks div { margin: 3px 0; }
+  .dim { color: #6c737b; }
+  code { color: #c9d1d9; background: #0f1113; padding: 1px 5px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<h1>Phase workshop</h1>
+<div class="sub">D5 staccato, seven players · unison, then the fan drifts apart · <b>LOCK</b> holds the lags at one tempo · <b>CAPTURE</b> writes them down</div>
+
+<div class="row">
+  <label>bpm <input id="bpm" type="number" value="60" min="20" max="240" step="1"></label>
+  <label>step % <input id="step" type="number" value="0.26" min="0.01" max="5" step="0.01" title="the tempo difference between neighbors in the fan — Reich's tapes: 0.26 %"></label>
+  <label>vel <input id="vel" type="number" value="100" min="1" max="127" step="1"></label>
+</div>
+<div class="row">
+  <button id="play">▶ Play</button>
+  <button id="lock" disabled>LOCK</button>
+  <button id="drift" disabled>DRIFT</button>
+  <button id="capture" disabled>CAPTURE</button>
+  <button id="stop" disabled>■ Stop</button>
+  <span class="dim">SPACE play / stop · L lock · D drift · C capture</span>
+</div>
+<div id="state">—</div>
+<div id="midi"></div>
+
+<table id="players">
+  <thead><tr><th>player</th><th>voice</th><th>tempo</th><th>ahead of the piano</th><th></th></tr></thead>
+  <tbody></tbody>
+</table>
+
+<div id="locks"></div>
+
+<script>
+'use strict';
+// ---- the seven players: the piece's own routes (sandbox/instruments.js); key = the MIDI note sent (74 = D5; the glock sounds two octaves up)
+const PLAYERS = [
+  { name: 'Flute',        voice: 'staccato',       port: 'SWFluteb', ch: 1,  key: 74, fan: +1.00 },
+  { name: 'Clarinet',     voice: 'staccato',       port: 'SWClar',   ch: 12, key: 74, fan: -1.30 },
+  { name: 'Alto sax',     voice: 'staccato',       port: 'SWSaxb',   ch: 5,  key: 74, fan: +1.69 },
+  { name: 'Glockenspiel', voice: 'shorts (hard)',  port: 'SWGlock',  ch: 9,  key: 62, fan: -2.20, note: 'sounds D6' },
+  { name: 'Piano',        voice: 'struck',         port: 'SWPiano',  ch: 1,  key: 74, fan:  0.00, anchor: true },
+  { name: 'Violin',       voice: 'staccato (#19)', port: 'SWViolin', ch: 1,  key: 74, fan: +2.86, cc0: 18 },
+  { name: 'Cello',        voice: 'staccato (#19)', port: 'SWCello',  ch: 1,  key: 74, fan: -3.71, cc0: 18 },
+];
+// the fan: the piano stays; three a little faster, three a little slower; the steps grow by 1.3 each so no two pairs realign at one moment
+const AHEAD_MS = 250, TICK_MS = 60, NOTE_MS = 180;
+
+const $ = (id) => document.getElementById(id);
+const S = { outs: {}, playing: false, locked: false, t0: 0, streams: [], timer: null, raf: null, captures: 0 };
+
+// ---- MIDI
+async function midi() {
+  if (typeof navigator.requestMIDIAccess !== 'function') { $('midi').textContent = 'this browser has no Web MIDI — open the page in Chrome'; return false; }
+  try {
+    const acc = await navigator.requestMIDIAccess();
+    acc.outputs.forEach((o) => { S.outs[o.name.toLowerCase()] = o; });
+    const missing = PLAYERS.filter((p) => !S.outs[p.port.toLowerCase()]).map((p) => p.port);
+    $('midi').textContent = missing.length ? 'ports not found (is loopMIDI running?): ' + [...new Set(missing)].join(' · ') : '';
+    return missing.length < PLAYERS.length;
+  } catch (e) { $('midi').textContent = 'MIDI refused: ' + (e.message || e) + ' — allow MIDI for this page (padlock → MIDI devices)'; return false; }
+}
+const outOf = (p) => S.outs[p.port.toLowerCase()] || null;
+const chOf = (p) => (p.ch - 1) & 0x0F;
+
+// ---- the streams
+function periodMs(p, bpm, stepPct) { return 60000 / (bpm * (1 + p.fan * stepPct / 100)); }
+function cfg() { return { bpm: +$('bpm').value || 60, step: +$('step').value || 0, vel: Math.max(1, Math.min(127, +$('vel').value || 100)) }; }
+
+function play() {
+  if (S.playing) return;
+  const c = cfg(); const now = performance.now();
+  S.t0 = now + 120; S.playing = true; S.locked = false;
+  S.streams = PLAYERS.map((p) => ({ p, out: outOf(p), period: periodMs(p, c.bpm, c.step), own: periodMs(p, c.bpm, c.step), next: S.t0, n: 0 }));
+  for (const s of S.streams) if (s.out && s.p.cc0 != null) s.out.send([0xB0 | chOf(s.p), 0, s.p.cc0]);   // the Xsample articulation, once
+  S.timer = setInterval(tick, TICK_MS); tick();
+  S.raf = requestAnimationFrame(paint);
+  ui();
+}
+function tick() {
+  if (!S.playing) return;
+  const c = cfg(); const horizon = performance.now() + AHEAD_MS;
+  for (const s of S.streams) {
+    while (s.next <= horizon) {
+      if (s.out) {
+        s.out.send([0x90 | chOf(s.p), s.p.key, c.vel], s.next);
+        s.out.send([0x80 | chOf(s.p), s.p.key, 0], s.next + NOTE_MS);
+      }
+      s.next += s.period; s.n++;
+    }
+  }
+}
+function lock() {
+  if (!S.playing || S.locked) return;
+  const c = cfg(); const P = 60000 / c.bpm;
+  for (const s of S.streams) s.period = P;     // every stream at the bpm, its lag kept (its next beat stays where it is)
+  S.locked = true; ui();
+}
+function drift() {
+  if (!S.playing || !S.locked) return;
+  for (const s of S.streams) s.period = s.own;  // the fan runs again from where it stands
+  S.locked = false; ui();
+}
+function lags() {
+  const a = S.streams.find((s) => s.p.anchor); const P = a.period;
+  return S.streams.map((s) => {
+    let d = (a.next - s.next) % P; if (d > P / 2) d -= P; if (d <= -P / 2) d += P;   // + = ahead of the piano, − = behind
+    return { name: s.p.name, mult: +(s.period ? (60000 / s.period) : 0).toFixed(3), lagMs: Math.round(d), lagBeats: +(d / P).toFixed(3) };
+  });
+}
+function elapsedS() { return Math.max(0, (performance.now() - S.t0) / 1000); }
+async function capture() {
+  if (!S.playing) return;
+  const c = cfg();
+  const rec = { at: new Date().toISOString(), elapsedS: +elapsedS().toFixed(1), bpm: c.bpm, stepPct: c.step, locked: S.locked, players: lags() };
+  let line = fmtLock(rec, '…');
+  try {
+    const r = await fetch('/locks', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(rec) });
+    const j = await r.json(); line = fmtLock(rec, j.ok ? '#' + j.id : 'not saved: ' + j.error);
+  } catch (e) { line = fmtLock(rec, 'not saved (no server?)'); }
+  const d = document.createElement('div'); d.textContent = line; $('locks').prepend(d);
+}
+function fmtLock(rec, tag) {
+  return tag + '  at ' + rec.elapsedS + ' s · bpm ' + rec.bpm + ' · step ' + rec.stepPct + ' % · ' + (rec.locked ? 'locked' : 'drifting') + '  —  ' +
+    rec.players.map((p) => p.name + ' ' + (p.lagBeats >= 0 ? '+' : '') + p.lagBeats).join(' · ');
+}
+function stop() {
+  if (!S.playing) return;
+  S.playing = false; S.locked = false; clearInterval(S.timer); S.timer = null; cancelAnimationFrame(S.raf);
+  for (const s of S.streams) if (s.out) { s.out.send([0xB0 | chOf(s.p), 123, 0]); s.out.send([0xB0 | chOf(s.p), 120, 0]); }
+  ui(); paint();
+}
+
+// ---- the page
+function ui() {
+  $('play').disabled = S.playing; $('stop').disabled = !S.playing;
+  $('lock').disabled = !S.playing || S.locked; $('drift').disabled = !S.playing || !S.locked; $('capture').disabled = !S.playing;
+  $('lock').classList.toggle('on', S.locked);
+  $('state').textContent = !S.playing ? '—' : (S.locked ? 'LOCKED at ' + cfg().bpm + ' — the lags hold' : 'drifting');
+}
+function paint() {
+  const tb = $('players').querySelector('tbody'); const c = cfg();
+  const L = S.playing ? lags() : null;
+  tb.innerHTML = PLAYERS.map((p, i) => {
+    const bpm = S.playing ? L[i].mult : +(c.bpm * (1 + p.fan * c.step / 100)).toFixed(3);
+    const lag = S.playing ? L[i].lagBeats : 0;
+    const x = Math.round(120 + lag * 240);
+    return '<tr><td>' + p.name + (p.anchor ? ' <span class="dim">(anchor)</span>' : '') + (p.note ? ' <span class="dim">' + p.note + '</span>' : '') + '</td>' +
+      '<td class="dim">' + p.voice + ' · ' + p.port + ' ch ' + p.ch + (outOf(p) ? '' : ' <span style="color:#c99">no port</span>') + '</td>' +
+      '<td class="num">' + bpm.toFixed(3) + '</td>' +
+      '<td class="num">' + (S.playing ? (lag >= 0 ? '+' : '') + lag.toFixed(3) + ' beat' : '') + '</td>' +
+      '<td><span class="bar"><b></b><i style="left:' + x + 'px"></i></span></td></tr>';
+  }).join('');
+  if (S.playing) { $('state').textContent = (S.locked ? 'LOCKED at ' + c.bpm + ' — the lags hold' : 'drifting') + ' · ' + elapsedS().toFixed(0) + ' s'; S.raf = requestAnimationFrame(paint); }
+}
+$('play').onclick = play; $('stop').onclick = stop; $('lock').onclick = lock; $('drift').onclick = drift; $('capture').onclick = capture;
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.code === 'Space') { e.preventDefault(); S.playing ? stop() : play(); }
+  else if (e.key === 'l' || e.key === 'L') lock();
+  else if (e.key === 'd' || e.key === 'D') drift();
+  else if (e.key === 'c' || e.key === 'C') capture();
+});
+window.addEventListener('beforeunload', stop);
+(async () => {
+  await midi(); paint();
+  try { const j = await (await fetch('/locks')).json(); (j.locks || []).slice().reverse().forEach((rec) => { const d = document.createElement('div'); d.textContent = fmtLock(rec, '#' + rec.id); $('locks').appendChild(d); }); } catch (e) {}
+})();
+</script>
+</body>
+</html>
