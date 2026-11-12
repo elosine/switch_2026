@@ -61,6 +61,40 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+### CHECKPOINT 2026-11-12 — SECTION 3: THE PETALS RING, THE HILLS, THE ROOTS, THE PHASE MACHINE *(mid-session checkpoint)*
+
+- **The task and its state (2026-11-10 … 12, RUNNING_LOG §157 … §166):** Section 3 is being composed in his saves (`piece-Section03-…`,
+  the latest `piece-Section03-C-Harmonies`: four petals layered on Elec 1 · 3 · 4, 269 … 531 s). Built for it: (a) the ringing petals —
+  every brick he names made again from its bed so the resonators die after the bed stops (`live-electronics-engine/corpus/petals_segment.py`;
+  nine `…-ring` materials in the fund, 66 in all; §157 · §160 · §166); (b) the cello HILLS from the petal's envelope (`tools/cello_hills.js`,
+  shaped notes by the law) and the two-string pairs workshop (`tools/cello_pairs_workshop.js`; §161), and the hills as a GRAPHIC score four lanes
+  tall with a catalog of eighteen shapes (`tools/hills_graphic.js`; §162); (c) the just-intonation roots: the petals analyzed, proposal A taken
+  (`docs/proposals/SECTION3_JI_FUNDAMENTALS.md`), the roots as chips in the strikes drawer's HARMONIC SERIES banner (`bank/ji_roots.json`), the
+  empty seven-box sequence `S3 petal roots A` in the sequence library (§163 · §164); then the SECOND READING on the layered save — the roots
+  together: G♯1 (269) → B♭1 (312) → G♯1 (389) → E♭2 (409) → G♯1 (440 … 531), containers 269 · 312 · 364 · 389 · 409 · 440 · 489 · 531 (§166,
+  proposal § 10) — **his word on this map is pending**; (d) **THE PHASE MACHINE** (SW-42, PLAN 1f, `docs/PHASE_TOOL.md`, §165): the PHASE button
+  beside MT — a take re-articulated by every player as a pulse stream, a plan of hold · shift · cut, strategies with a seed, LOCK and CAPTURE
+  while playing, favorites in `bank/phase_states.json` (a sixth store — HIS SERVER RESTARTED ONCE), Insert at playhead. Proven on the throwaway;
+  the sound not yet under his hands. Standing since 2026-11-10: §159 — NO VOLUME TASK OR QUESTION REACHES HIM; the violin's fader stays +2.70.
+- **The latest deliverable:** the four ringing petals of `piece-Section03-C-Harmonies` in the drawer (`petals-C3-…-seg2-ring` · `petals-B-…-
+  seg1-ring` · `petals-A-…-seg1-ring` · `petals-D4-…-seg1-ring`) and the root map (proposal § 10).
+- **► THE NEXT CONCRETE STEP:** wait for his word on the second root map (G♯ · B♭ · G♯ · E♭ · G♯ with its eight timings). On "yes" (or his
+  changes): rewrite the sequence `S3 petal roots A` in `bank/sequences.json` as EIGHT empty boxes with those durations (43 · 52 · 25 · 20 · 31 ·
+  49 · 42 s, from 269; the same node one-liner as §164's, the comment carrying the roots per box) and tell him the chart. He orchestrates each
+  root from the chips and drops the takes into the boxes. Meanwhile his hands are on the phase machine: faults go to `docs/SWEEP_LIST.md`.
+- **Resume reads:** `docs/proposals/SECTION3_JI_FUNDAMENTALS.md` § 10 (the map and its timings) · `docs/PHASE_TOOL.md` (if he reports on the
+  phase machine) — nothing else beyond §2.
+- **Decisions pending him:** the second root map (above) · the phase machine's first use (what he learns is the next part, PLAN 1f) · the
+  cello pairs workshop (which intervals) · the hills' pitches (D3 + A3 are placeholders).
+- **Deliberately uncommitted (`git status --short`, 2026-11-12):** `reaper/switch_rack.rpp` · `reaper/icy_lab.rpp` — HIS, saved by him ·
+  `bank/panel_snapshots.json` · `bank/sequences.json` — his takes and his sequence row, autosaved by the page (the AI's row `S3 petal roots A`
+  was committed at edad2fa; what changed since is his) · `.gitignore` · `docs/VERIFICATION_RECIPE.md` — as recorded 2026-10-23 · `scores/*.json`
+  (59) — his saves and the AI's derived saves (`…-hills-01` · `…-pairs-01` · `…-hills-graphic-01`), never committed without his word ·
+  `bank/set/2025-04-08c/*` · `probes/*` · `tools/port/batt-old/ · scratch/` — as before. **In the workshop repo `live-electronics-engine`:**
+  `corpus/petals_bed.scd` (modified: a seed and a tail argument) and `corpus/petals_segment.py` (new) are UNCOMMITTED — auto mode refused the
+  commit there twice ("Modify Shared Resources"); he commits them himself or switches mode: `git add corpus/petals_bed.scd corpus/petals_segment.py`.
+- **Model to resume on:** Fable — his verdict on the map and the phase machine's first faults are judgment; the sequence rewrite is one line.
+
 ### CHECKPOINT 2026-11-10 — THE COUNTERPOINT DEALT AND LEVELED; THE FORM STATED (SW-36) *(mid-session checkpoint)*
 
 - **The task and its state:** Section 2's counterpoint (200 … 253 s) is in HIS saves — `piece-Section02-B-ctpt-draft01d` is the latest: his

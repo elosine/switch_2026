@@ -5,7 +5,7 @@
 > `COMPOSITION_NOTES.md` verbatim first and get folded into a tier here. Engineering
 > detail stays in `PLAN.md`. Rewritten freely; the sketch pad is the append-only record.
 
-**NOW ►** 2026-11-10 — SECTION 2’S COUNTERPOINT IS IN HIS SAVES (`piece-Section02-B-ctpt-draft01d`): his articulations dealt per note, p · mf · fff dealt, every written dynamic at ONE LOUDNESS by the section’s recorded card (`section_card.js` → `section_parity.js`, §152), the recurring pitches thinned (`thin_pitch.js`); the rack shored up and saved (§143 · §144). THE FORM STATED (SW-36): petals passages alternating with a granular trio (electronics · percussion · piano) — his ear on the draft, then the form’s conversation. His hands open: `curve_slots.lua` once more on Piano Kontakt · the snare’s load.
+**NOW ►** 2026-11-12 — SECTION 3 IN HIS SAVES (`piece-Section03-C-Harmonies`: four petals layered 269 … 531 s, each now with a RINGING version in the drawer). Pending his word: the second root map read from the layered sound — G♯1 (269) → B♭1 (312) → G♯1 (389) → E♭2 (409) → G♯1 (440 … 531), containers 269 · 312 · 364 · 389 · 409 · 440 · 489 · 531 (`docs/proposals/SECTION3_JI_FUNDAMENTALS.md` § 10); on his yes the sequence `S3 petal roots A` is rewritten to those eight boxes. THE PHASE MACHINE is built (PLAN 1f, `docs/PHASE_TOOL.md`) — the PHASE button, his first use next. The cello hills and the pairs workshop wait on his ear. RUNNING_LOG §157 … §166.
 
 *Before it —* 2026-10-23 — THE START IS DONE: the rack at one level, the score set up for eight parts, the protocol v2.
 
