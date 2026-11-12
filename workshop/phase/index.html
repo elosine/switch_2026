@@ -7,7 +7,7 @@
 <!--
   THE PHASE WORKSHOP — SW-43 (2026-11-12), RUNNING_LOG §169 · §170. His word: a page of its own, not the composer score; one step at a time.
   STEP ONE: seven players on D5 staccato (the glockenspiel an octave up — it is mapped at written pitch), in unison at 60, then drifting
-  apart at constant small tempo differences, a symmetric uneven fan about the piano (the step = Reich's tapes, 0.26 %, RUNNING_LOG §169).
+  apart at constant small tempo differences, a one-sided uneven fan above the piano (his word: no tempo slower than 60) (the step = Reich's tapes, 0.26 %, RUNNING_LOG §169).
   LOCK snaps every player to the bpm keeping its lag; DRIFT lets the fan run again from where it stands; CAPTURE writes the lags to
   bank/phase_locks.json through tools/phase_workshop.js. Web MIDI straight to the rack (his Chrome; loopMIDI and Reaper up).
   The routes are the piece's own (sandbox/instruments.js): the staccato voice of each player, the glockenspiel's Shorts (Hard).
@@ -71,14 +71,15 @@
 // ---- the seven players: the piece's own routes (sandbox/instruments.js); key = the MIDI note sent (74 = D5; the glock sounds two octaves up)
 const PLAYERS = [
   { name: 'Flute',        voice: 'staccato',       port: 'SWFluteb', ch: 1,  key: 74, fan: +1.00 },
-  { name: 'Clarinet',     voice: 'staccato',       port: 'SWClar',   ch: 12, key: 74, fan: -1.30 },
+  { name: 'Clarinet',     voice: 'staccato',       port: 'SWClar',   ch: 12, key: 74, fan: +1.30 },
   { name: 'Alto sax',     voice: 'staccato',       port: 'SWSaxb',   ch: 5,  key: 74, fan: +1.69 },
-  { name: 'Glockenspiel', voice: 'shorts (hard)',  port: 'SWGlock',  ch: 9,  key: 62, fan: -2.20, note: 'sounds D6' },
+  { name: 'Glockenspiel', voice: 'shorts (hard)',  port: 'SWGlock',  ch: 9,  key: 62, fan: +2.20, note: 'sounds D6' },
   { name: 'Piano',        voice: 'struck',         port: 'SWPiano',  ch: 1,  key: 74, fan:  0.00, anchor: true },
   { name: 'Violin',       voice: 'staccato (#19)', port: 'SWViolin', ch: 1,  key: 74, fan: +2.86, cc0: 18 },
-  { name: 'Cello',        voice: 'staccato (#19)', port: 'SWCello',  ch: 1,  key: 74, fan: -3.71, cc0: 18 },
+  { name: 'Cello',        voice: 'staccato (#19)', port: 'SWCello',  ch: 1,  key: 74, fan: +3.71, cc0: 18 },
 ];
-// the fan: the piano stays; three a little faster, three a little slower; the steps grow by 1.3 each so no two pairs realign at one moment
+// the fan (his word 2026-11-12: no tempo slower than 60): the piano stays; every other player a little faster than the last, the steps
+// growing by 1.3 each so no two pairs realign at one moment
 const AHEAD_MS = 250, TICK_MS = 60, NOTE_MS = 180;
 
 const $ = (id) => document.getElementById(id);

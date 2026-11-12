@@ -3202,3 +3202,10 @@ Velocity 100 flat for every voice — the level is the AI's (§159); if a voice 
 **Proven once, on the preview (no Web MIDI there):** at step 5 % for 2.9 s the seven periods 952 · 1070 · 922 · 1124 · 1000 · 875 · 1228 ms, the
 lags spread (flute 0.19 ahead … violin 0.5); LOCK → every period 1000; DRIFT → the fan's periods back; Stop clean; the POST to `/locks` saved
 record 1 (then emptied). The sound and the ports are his Chrome's to prove. The preview server was stopped: 5630 is his.
+
+## §171. The fan made one-sided at his word: no tempo slower than 60 (2026-11-12)
+
+**His words:** *"can we, at least for the initial one, can we have everyone … not accelerating, everyone faster than 60 is all I mean to say.
+No tempo slower than 60."* **Done:** the piano stays at the bpm; the others at bpm × (1 + f·step %), f = +1 flute · +1.3 clarinet · +1.69
+sax · +2.2 glockenspiel · +2.86 violin · +3.71 cello (the same uneven steps, all upward). The symmetric fan of §169 is recorded there as the
+alternative, his to ask for. The page is served as it is on disk: F5, no restart.
