@@ -37,6 +37,7 @@
   .bar { position: relative; width: 240px; height: 10px; background: #23272d; border-radius: 3px; display: inline-block; vertical-align: middle; }
   .bar i { position: absolute; top: 0; width: 3px; height: 10px; background: #9fe3d3; border-radius: 2px; }
   .bar b { position: absolute; left: 50%; top: 0; width: 1px; height: 10px; background: #4a5058; }
+  .bar em { position: absolute; left: 0; top: 0; width: 100%; height: 10px; background: #9fe3d3; border-radius: 3px; opacity: 0; }
   #state { color: #9fe3d3; min-height: 22px; }
   .tbar { position: relative; display: inline-flex; width: 600px; height: 16px; border-radius: 4px; overflow: hidden; background: #23272d; vertical-align: middle; }
   .tbar .z { height: 100%; }
@@ -70,7 +71,7 @@
 <div id="midi"></div>
 
 <table id="players">
-  <thead><tr><th>player</th><th>voice</th><th>tempo</th><th>ahead of the piano</th><th></th></tr></thead>
+  <thead><tr><th>player</th><th>voice</th><th>tempo</th><th>ahead of the piano</th><th>the hits · in a glide, the way across</th></tr></thead>
   <tbody></tbody>
 </table>
 
@@ -85,7 +86,7 @@
 <div id="setWhy" class="dim" style="max-width:900px"></div>
 
 <h1 style="margin-top:26px">Transition</h1>
-<div class="sub">four slots · hold each about 2 s · between them every player glides its own tempo · the times vary a little, fixed (§178)</div>
+<div class="sub">four slots, each with its hold · between them every player glides its own tempo at the chosen speed · the times vary a little, fixed (§178) · the chain ends with the last hold</div>
 <div class="row" id="chain"></div>
 <div class="row">
   <button id="playTr">▶ Play chain</button>
@@ -178,12 +179,12 @@ function playSet() {
 // THE CHAIN (§178): four slots, three glides; the holds ≈ 2 s and the glides at the chosen speed, each × a fixed jitter so none repeats
 const SPEEDS = [['slow', 40], ['middle', 20], ['quick', 8], ['4 s', 4], ['2 s', 2]];
 const HOLD_JIT = [1.0, 0.8, 1.3, 0.9], GLIDE_JIT = [1.25, 0.9, 1.1];   // fixed, his word: "just so they're not exactly the same"
-const HOLD_MS = 2000, TR_SHOW_MS = 12000;
-function startTransition(slots, speeds) {   // slots: 4 set indexes; speeds: 3 glide seconds
+const HOLDS = [['1 s', 1], ['2 s', 2], ['4 s', 4], ['8 s', 8], ['15 s', 15], ['30 s', 30]];   // the hold per slot, × its fixed jitter
+function startTransition(slots, holds, speeds) {   // slots: 4 set indexes; holds: 4 seconds; speeds: 3 glide seconds
   if (S.playing) return;
   const segs = []; let at = 0;
   slots.forEach((si, k) => {
-    const hold = k === slots.length - 1 ? TR_SHOW_MS : Math.round(HOLD_MS * HOLD_JIT[k % HOLD_JIT.length]);
+    const hold = Math.round(holds[k] * 1000 * HOLD_JIT[k % HOLD_JIT.length]);
     segs.push({ kind: 'hold', set: si, from: at, ms: hold }); at += hold;
     if (k < slots.length - 1) { const g = Math.round(speeds[k] * 1000 * GLIDE_JIT[k % GLIDE_JIT.length]); segs.push({ kind: 'glide', set: si, to: slots[k + 1], from: at, ms: g }); at += g; }
   });
@@ -214,7 +215,7 @@ function startStreams(mode, specs) {
 function tick() {
   if (!S.playing) return;
   const c = cfg(); const horizon = performance.now() + AHEAD_MS;
-  if (S.mode === 'shift') trApply();
+  if (S.mode === 'shift') { if (performance.now() - S.t0 > S.tr.total) { stop(); return; } trApply(); }   // the chain ends with its last hold
   for (const s of S.streams) {
     while (s.next <= horizon) {
       if (s.out) {
@@ -279,16 +280,20 @@ function ui() {
 }
 function paint() {
   const tb = $('players').querySelector('tbody'); const c = cfg();
-  const L = S.playing ? lags() : null;
+  const L = S.playing && S.mode === 'drift' ? lags() : null; const now = performance.now();
+  const seg = S.playing && S.mode === 'shift' ? trSeg() : null;
   tb.innerHTML = PLAYERS.map((p, i) => {
-    const bpm = S.playing ? L[i].mult : +(c.bpm * (1 + p.fan * c.step / 100)).toFixed(3);
-    const lag = S.playing ? L[i].lagBeats : 0;
-    const x = Math.round(120 + lag * 240);
+    const s = S.playing ? S.streams[i] : null;
+    const bpm = s ? +(60000 / s.period).toFixed(3) : +(c.bpm * (1 + p.fan * c.step / 100)).toFixed(3);
+    const lag = L ? L[i].lagBeats : 0;
+    const x = S.mode === 'drift' ? Math.round(120 + lag * 240) : seg && seg.g.kind === 'glide' ? Math.round(seg.u * 237) : (seg ? 237 : -9);   // drift: the lag about the middle; a glide: the way across
+    let last = s ? s.next - s.period : 0; if (s && last > now) last -= s.period;   // the latest hit that has SOUNDED (next may sit 250 ms ahead)
+    const flash = s ? Math.max(0, 1 - (now - last) / 260) : 0;   // it lights the bar, fading over a quarter second
     return '<tr><td>' + p.name + (p.anchor ? ' <span class="dim">(anchor)</span>' : '') + (p.note ? ' <span class="dim">' + p.note + '</span>' : '') + '</td>' +
       '<td class="dim">' + p.voice + ' · ' + p.port + ' ch ' + p.ch + (outOf(p) ? '' : ' <span style="color:#c99">no port</span>') + '</td>' +
       '<td class="num">' + bpm.toFixed(3) + '</td>' +
-      '<td class="num">' + (S.playing && S.mode === 'drift' ? (lag >= 0 ? '+' : '') + lag.toFixed(3) + ' beat' : '') + '</td>' +
-      '<td>' + (S.mode === 'drift' ? '<span class="bar"><b></b><i style="left:' + x + 'px"></i></span>' : '') + '</td></tr>';
+      '<td class="num">' + (L ? (lag >= 0 ? '+' : '') + lag.toFixed(3) + ' beat' : '') + '</td>' +
+      '<td><span class="bar"><em style="opacity:' + flash.toFixed(2) + '"></em>' + (S.mode === 'drift' ? '<b></b>' : '') + '<i style="left:' + x + 'px"></i></span></td></tr>';
   }).join('');
   if (S.playing && S.mode === 'shift') paintTr();
   if (S.playing) { $('state').textContent = (S.mode === 'shift' ? trText() : S.mode === 'set' ? 'set ' + SETS[S.set].name : S.locked ? 'LOCKED at ' + c.bpm + ' — the lags hold' : 'drifting') + ' · ' + elapsedS().toFixed(0) + ' s'; S.raf = requestAnimationFrame(paint); }
@@ -305,9 +310,10 @@ $('play').onclick = play; $('stop').onclick = stop; $('stopTr').onclick = stop;
 const SLOT0 = ['E two speeds', 'F swarm', 'B clusters', 'G three speeds'].map((n) => SETS.findIndex((s) => s.name === n)), SPEED0 = [1, 2, 4];
 for (let k = 0; k < 4; k++) {
   const sel = document.createElement('select'); sel.className = 'slot'; SETS.forEach((s, i) => { const o = document.createElement('option'); o.value = i; o.textContent = s.name; sel.appendChild(o); }); sel.value = SLOT0[k]; $('chain').appendChild(sel);
+  const hd = document.createElement('select'); hd.className = 'hold'; HOLDS.forEach(([n, s]) => { const o = document.createElement('option'); o.value = s; o.textContent = 'hold ' + n; hd.appendChild(o); }); hd.value = 2; $('chain').appendChild(hd);
   if (k < 3) { const sp = document.createElement('select'); sp.className = 'speed'; SPEEDS.forEach(([n, s], i) => { const o = document.createElement('option'); o.value = s; o.textContent = '→ ' + n; sp.appendChild(o); }); sp.value = SPEEDS[SPEED0[k]][1]; $('chain').appendChild(sp); }
 }
-$('playTr').onclick = () => startTransition([...document.querySelectorAll('select.slot')].map((s) => +s.value), [...document.querySelectorAll('select.speed')].map((s) => +s.value)); $('playSet').onclick = playSet; $('stopSet').onclick = stop;
+$('playTr').onclick = () => startTransition([...document.querySelectorAll('select.slot')].map((s) => +s.value), [...document.querySelectorAll('select.hold')].map((s) => +s.value), [...document.querySelectorAll('select.speed')].map((s) => +s.value)); $('playSet').onclick = playSet; $('stopSet').onclick = stop;
 SETS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = s.name; b.title = s.why; b.onclick = () => { S.set = i; if (S.playing && S.mode === 'set') { stop(); playSet(); } ui(); }; $('sets').appendChild(b); }); $('lock').onclick = lock; $('drift').onclick = drift; $('capture').onclick = capture;
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT') return;

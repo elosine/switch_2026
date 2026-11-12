@@ -3327,3 +3327,13 @@ glide · hold · glide · hold the last. The holds ≈ 2 s × the fixed factors 
 the marker, the text "holding E" · "E → F · 50 %" · "AT F" · … · "AT G". Proven once on the preview with 2 s everywhere: the segments
 2000 · 2500 · 1600 · 1800 · 2600 · 2200 · (12000 shown) ms, 50 % through the first glide the periods half-way in rate (565 … 1800), at the
 end exactly G's (320 … 2400), Stop clean, no console errors.
+
+## §179. The holds chosen per slot; the animation back — every row flashes on its hit (2026-11-12)
+
+**His words:** *"can I have some choices for the holds as well? All four. And then can I get the animation back so I can see visually where
+they are?"* **Built:** a hold pull-down after each slot — 1 · 2 · 4 · 8 · 15 · 30 s (× the fixed jitter 1.0 · 0.8 · 1.3 · 0.9); the chain now
+ENDS with the last hold (Stop is sent). The table's last column lives again in every mode: each player's bar LIGHTS on its hit and fades
+over a quarter second (the latest hit that has sounded, not the one 250 ms ahead in the driver), so the clusters are seen as they are
+heard; in a glide the bar's marker crosses from left to right as that player's tempo goes from one set's to the next; in the drift it is
+the lag about the middle, as before. Proven once on the preview: the holds 1 s → segments 1000 · 2500 · 800 · 1800 · 1300 · 2200 · 900 ms,
+the chain ended by itself, the rows' flashes and the glide marker at 40 %, no console errors.
