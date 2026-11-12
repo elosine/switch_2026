@@ -3337,3 +3337,27 @@ over a quarter second (the latest hit that has sounded, not the one 250 ms ahead
 heard; in a glide the bar's marker crosses from left to right as that player's tempo goes from one set's to the next; in the drift it is
 the lag about the middle, as before. Proven once on the preview: the holds 1 s → segments 1000 · 2500 · 800 · 1800 · 1300 · 2200 · 900 ms,
 the chain ended by itself, the rows' flashes and the glide marker at 40 %, no console errors.
+
+## §180. The pace of the granular section from 269 s (`piece-Section03-F-MultiTempo01`), measured on the four beds summed (2026-11-12)
+
+**His ask:** *"look at the section starting around 269 and give me a general tempo. It's not super regular, but it has a general pace, or
+even a couple tempos as you go through. There's the four granular parts, so they're combined."* **The four:** `granular-G5-expodec` (Elec,
+269.05 → 472, offset 36.97 s) · `G9-expodec+perc` (269.15 → 464, offset 44.82) · `G8-rexpodec` (296.25 → 477, offset 0) · `B2-perc` (301.59 →
+477, offset 32.59), summed at their score offsets. **Two readings.** (1) Spectral flux at 10 ms, the autocorrelation 0.25 … 2 s per 15 s
+window: NO regular pulse — the strongest repeat's strength 0.05 … 0.18 against 1 for a clock; the grains run at ≈ 13 onsets/s, median gap
+60 ms (the tightness of his strikes, §174). (2) The loud SWELLS (RMS at 20 ms, the 2 s local mean removed, peaks over the 85th percentile at
+least 250 ms apart), per 30 s: 269–299 2.1/s, median gap 380 ms · 299–329 1.5/s, 520 ms · 329–359 2.0/s, 360 · 359–389 2.0/s, 360 · 389–419
+1.5/s, 560 · 419–449 2.3/s, 360. The envelope's slow repeats sit at 1.6 … 3.5 s but weakly (r ≤ 0.14). Each bed alone: G5 2.0 swells/s · G9
+1.6 · G8 2.2 · B2 1.1. **So:** no tempo in the clock sense; a general pace of about two swells a second (a 360 ms gap ≈ 165 bpm if counted
+as beats, or ≈ 83 as half-beats), slackening twice to about 110 (299–329 and 389–419) — those are the "couple of tempos"; under it the
+grain rattle at 13/s; over it a loose swell cycle of 2 … 3½ s.
+
+## §181. A tap tempo on the composer score — the button TAP after Panels ▾, the key K (2026-11-12)
+
+**His words:** *"Can you put a tap tempo button on the composer score? … use the space bar or something — oh no, that's to play — any other
+key then. Because it's just when I leave the browser window, it stops playing."* **Built:** `score/public/tap_tempo.js`, loaded by
+`composer.html` after the phase panel: a TAP button in the bar right after Panels ▾ with its readout, and the key **K** (free — T is the
+trill, SPACE play, C · B · M · R taken); a run of taps within 2.5 s of each other, the readout the mean of the last eight gaps in bpm with the
+count; a pause over 2.5 s starts a new run; nothing written anywhere. The listener runs in the capture phase so no panel swallows K; it
+ignores taps typed into a field. Proven once on the throwaway 5601: four taps 500 ms apart → "119.8 bpm · 4", a 2.7 s pause → "— bpm";
+one 404 in the page's own loads (`bank/strike_responses.json`) is older than this and not touched. His server serves the file as it is: F5.
