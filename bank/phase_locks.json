@@ -1,4 +1,66 @@
 {
  "_about": "THE PHASE WORKSHOP's captured locks (SW-43): each the lag of every player against the anchor at the moment he pressed Capture. Written by tools/phase_workshop.js; his to prune.",
- "locks": []
+ "locks": [
+  {
+   "id": 1,
+   "savedAt": "2026-11-12T21:19:10.107Z",
+   "at": "his word 2026-11-12",
+   "elapsedS": 70,
+   "bpm": 68,
+   "stepPct": 0.095,
+   "locked": true,
+   "note": "HIS SAVED STATE (§182): the Golomb drift at 68 bpm, unit 0.095 %, after 70 s — the From-the-drift block starts here",
+   "players": [
+    {
+     "name": "Flute",
+     "mult": 68.065,
+     "lagBeats": 0.075,
+     "aheadBeatsUnfolded": 0.075,
+     "lagMs": 66
+    },
+    {
+     "name": "Clarinet",
+     "mult": 68.258,
+     "lagBeats": 0.301,
+     "aheadBeatsUnfolded": 0.301,
+     "lagMs": 266
+    },
+    {
+     "name": "Alto sax",
+     "mult": 68.646,
+     "lagBeats": -0.246,
+     "aheadBeatsUnfolded": 0.754,
+     "lagMs": -217
+    },
+    {
+     "name": "Glockenspiel",
+     "mult": 69.163,
+     "lagBeats": 0.357,
+     "aheadBeatsUnfolded": 1.357,
+     "lagMs": 315
+    },
+    {
+     "name": "Piano",
+     "mult": 68,
+     "lagBeats": 0,
+     "aheadBeatsUnfolded": 0,
+     "lagMs": 0
+    },
+    {
+     "name": "Violin",
+     "mult": 69.486,
+     "lagBeats": -0.267,
+     "aheadBeatsUnfolded": 1.733,
+     "lagMs": -235
+    },
+    {
+     "name": "Cello",
+     "mult": 69.615,
+     "lagBeats": -0.116,
+     "aheadBeatsUnfolded": 1.884,
+     "lagMs": -102
+    }
+   ]
+  }
+ ]
 }

@@ -94,6 +94,20 @@
 </div>
 <div class="row"><span class="tbar" id="tbar"><i id="tmark"></i></span><span id="trState" class="dim"></span></div>
 
+<h1 style="margin-top:26px">From the drift</h1>
+<div class="sub">start right at the drift's state after N seconds, frozen at the bpm · hold · glide to a set over T seconds · hold there until Stop</div>
+<div class="row">
+  <label>bpm <input id="dBpm" type="number" value="68" min="20" max="240" step="1"></label>
+  <label>unit % <input id="dUnit" type="number" value="0.095" min="0.005" max="1" step="0.005"></label>
+  <label>after <input id="dAfter" type="number" value="70" min="0" max="3600" step="1"> s</label>
+  <label>hold <input id="dHold" type="number" value="2" min="0" max="60" step="0.5"> s</label>
+  <label>to <select id="dTo"></select></label>
+  <label>over <input id="dGlide" type="number" value="20" min="0.5" max="300" step="0.5"> s</label>
+  <button id="playD">▶ Play</button>
+  <button id="stopD" disabled>■ Stop</button>
+</div>
+<div class="row"><span class="tbar" id="dbar"><i id="dmark"></i></span><span id="dState" class="dim"></span></div>
+
 <div id="locks"></div>
 
 <script>
@@ -185,22 +199,42 @@ function startTransition(slots, holds, speeds) {   // slots: 4 set indexes; hold
   const segs = []; let at = 0;
   slots.forEach((si, k) => {
     const hold = Math.round(holds[k] * 1000 * HOLD_JIT[k % HOLD_JIT.length]);
-    segs.push({ kind: 'hold', set: si, from: at, ms: hold }); at += hold;
-    if (k < slots.length - 1) { const g = Math.round(speeds[k] * 1000 * GLIDE_JIT[k % GLIDE_JIT.length]); segs.push({ kind: 'glide', set: si, to: slots[k + 1], from: at, ms: g }); at += g; }
+    segs.push({ kind: 'hold', set: si, from: at, ms: hold, rA: rateOf(SETS[si]) }); at += hold;
+    if (k < slots.length - 1) { const g = Math.round(speeds[k] * 1000 * GLIDE_JIT[k % GLIDE_JIT.length]); segs.push({ kind: 'glide', set: si, to: slots[k + 1], from: at, ms: g, rA: rateOf(SETS[si]), rB: rateOf(SETS[slots[k + 1]]) }); at += g; }
   });
-  S.tr = { segs, total: at, rates: SETS.map((s) => s.per.map((p) => 1 / (p * GRID_MS))) };
+  S.tr = { segs, total: at, ends: true, bar: $('tbar'), mark: $('tmark'), state: $('trState'), names: slots.map((i) => SETS[i].name) };
   const A = SETS[slots[0]];
   startStreams('shift', PLAYERS.map((p, i) => ({ period: A.per[i] * GRID_MS, offsetMs: (A.off[i] || 0) * GRID_MS })));
-  $('tbar').querySelectorAll('.z').forEach((z) => z.remove());
-  segs.forEach((g) => { const z = document.createElement('span'); z.className = 'z ' + g.kind; z.style.width = (100 * g.ms / at) + '%'; $('tbar').insertBefore(z, $('tmark')); });
+  drawBar();
 }
-function trSeg() {   // the segment now, and the way through it
+const rateOf = (set) => set.per.map((p) => 1 / (p * GRID_MS));   // hits per ms, per player
+function drawBar() {
+  const bar = S.tr.bar, shown = S.tr.segs.reduce((s, g) => s + Math.min(g.ms, 12000), 0);   // an endless last hold shows as 12 s
+  bar.querySelectorAll('.z').forEach((z) => z.remove());
+  S.tr.segs.forEach((g) => { const z = document.createElement('span'); z.className = 'z ' + g.kind; z.style.width = (100 * Math.min(g.ms, 12000) / shown) + '%'; bar.insertBefore(z, S.tr.mark); });
+  S.tr.shown = shown;
+}
+// FROM THE DRIFT (§182): start AT the drift's state after N seconds (the lags it would have), locked at the bpm; hold; glide to a set over T; hold until Stop
+function startFromDrift(bpm, unit, afterS, holdS, toIdx, glideS) {
+  if (S.playing) return;
+  const beat = 60000 / bpm, rLock = PLAYERS.map(() => 1 / beat), B = SETS[toIdx];
+  const ahead = PLAYERS.map((p) => afterS * (bpm / 60) * p.fan * unit / 100);   // beats ahead of the piano after N s of drift
+  const segs = [
+    { kind: 'hold', from: 0, ms: Math.round(holdS * 1000), rA: rLock, label: 'the drift at ' + afterS + ' s, locked at ' + bpm },
+    { kind: 'glide', from: Math.round(holdS * 1000), ms: Math.round(glideS * 1000), rA: rLock, rB: rateOf(B), label: 'drift → ' + B.name },
+    { kind: 'hold', from: Math.round((holdS + glideS) * 1000), ms: 1e9, rA: rateOf(B), label: 'AT ' + B.name + ' — until Stop' },
+  ];
+  S.tr = { segs, total: 1e9, ends: false, bar: $('dbar'), mark: $('dmark'), state: $('dState') };
+  startStreams('shift', PLAYERS.map((p, i) => ({ period: beat, offsetMs: ((1 - (ahead[i] % 1) + 1) % 1) * beat })));   // ahead by x beats = its next beat x·beat EARLIER
+  drawBar();
+}
+function trSeg() {   // the segment now, and the way through it (the rates ride on the segment: rA, and rB for a glide)
   const el = performance.now() - S.t0; const segs = S.tr.segs;
   let g = segs[segs.length - 1]; for (const s of segs) if (el < s.from + s.ms) { g = s; break; }
   return { g, u: Math.max(0, Math.min(1, (el - g.from) / g.ms)), el };
 }
 function trApply() {
-  const { g, u } = trSeg(); const r0 = S.tr.rates[g.set], r1 = g.kind === 'glide' ? S.tr.rates[g.to] : r0;
+  const { g, u } = trSeg(); const r0 = g.rA, r1 = g.kind === 'glide' ? g.rB : r0;
   S.streams.forEach((s, i) => { s.period = 1 / (r0[i] + (r1[i] - r0[i]) * (g.kind === 'glide' ? u : 0)); });
 }
 function startStreams(mode, specs) {
@@ -215,7 +249,7 @@ function startStreams(mode, specs) {
 function tick() {
   if (!S.playing) return;
   const c = cfg(); const horizon = performance.now() + AHEAD_MS;
-  if (S.mode === 'shift') { if (performance.now() - S.t0 > S.tr.total) { stop(); return; } trApply(); }   // the chain ends with its last hold
+  if (S.mode === 'shift') { if (S.tr.ends && performance.now() - S.t0 > S.tr.total) { stop(); return; } trApply(); }   // the chain ends with its last hold
   for (const s of S.streams) {
     while (s.next <= horizon) {
       if (s.out) {
@@ -270,7 +304,7 @@ function stop() {
 // ---- the page
 function ui() {
   const dr = S.playing && S.mode === 'drift', st = S.playing && S.mode === 'set', sh = S.playing && S.mode === 'shift';
-  $('playTr').disabled = S.playing; $('stopTr').disabled = !sh;
+  $('playTr').disabled = S.playing; $('stopTr').disabled = !sh; $('playD').disabled = S.playing; $('stopD').disabled = !sh;
   $('play').disabled = S.playing; $('stop').disabled = !dr; $('playSet').disabled = S.playing; $('stopSet').disabled = !st;
   $('lock').disabled = !dr || S.locked; $('drift').disabled = !dr || !S.locked; $('capture').disabled = !dr;
   $('setInfo').textContent = setInfo(SETS[S.set]); $('setWhy').textContent = SETS[S.set].why;
@@ -299,14 +333,17 @@ function paint() {
   if (S.playing) { $('state').textContent = (S.mode === 'shift' ? trText() : S.mode === 'set' ? 'set ' + SETS[S.set].name : S.locked ? 'LOCKED at ' + c.bpm + ' — the lags hold' : 'drifting') + ' · ' + elapsedS().toFixed(0) + ' s'; S.raf = requestAnimationFrame(paint); }
 }
 function trText() {
-  const { g, u } = trSeg(); const n = (i) => SETS[i].name;
-  return g.kind === 'hold' ? (g === S.tr.segs[0] ? 'holding ' : 'AT ') + n(g.set) : n(g.set) + ' → ' + n(g.to) + ' · ' + Math.round(u * 100) + ' %';
+  const { g, u } = trSeg(); const n = (i) => SETS[i].name; const base = g.label || (g.kind === 'hold' ? (g === S.tr.segs[0] ? 'holding ' : 'AT ') + n(g.set) : n(g.set) + ' → ' + n(g.to));
+  return g.kind === 'glide' ? base + ' · ' + Math.round(u * 100) + ' %' : base;
 }
 function paintTr() {
-  const el = Math.min(S.tr.total, performance.now() - S.t0);
-  $('tmark').style.left = (600 * el / S.tr.total) + 'px'; $('trState').textContent = trText();
+  const el = performance.now() - S.t0; let x = 0;   // the marker: each zone in its shown width
+  for (const g of S.tr.segs) { const w = Math.min(g.ms, 12000); if (el < g.from + g.ms) { x += w * Math.min(1, (el - g.from) / g.ms); break; } x += w; }
+  S.tr.mark.style.left = (600 * x / S.tr.shown) + 'px'; S.tr.state.textContent = trText();
 }
-$('play').onclick = play; $('stop').onclick = stop; $('stopTr').onclick = stop;
+$('play').onclick = play; $('stop').onclick = stop; $('stopTr').onclick = stop; $('stopD').onclick = stop;
+SETS.forEach((s, i) => { const o = document.createElement('option'); o.value = i; o.textContent = s.name; $('dTo').appendChild(o); }); $('dTo').value = SETS.findIndex((s) => s.name === 'F2 swarm ii');
+$('playD').onclick = () => startFromDrift(+$('dBpm').value || 60, +$('dUnit').value || 0, +$('dAfter').value || 0, +$('dHold').value || 0, +$('dTo').value, +$('dGlide').value || 1);
 const SLOT0 = ['E two speeds', 'F swarm', 'B clusters', 'G three speeds'].map((n) => SETS.findIndex((s) => s.name === n)), SPEED0 = [1, 2, 4];
 for (let k = 0; k < 4; k++) {
   const sel = document.createElement('select'); sel.className = 'slot'; SETS.forEach((s, i) => { const o = document.createElement('option'); o.value = i; o.textContent = s.name; sel.appendChild(o); }); sel.value = SLOT0[k]; $('chain').appendChild(sel);

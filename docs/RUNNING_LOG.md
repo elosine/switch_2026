@@ -3361,3 +3361,19 @@ trill, SPACE play, C · B · M · R taken); a run of taps within 2.5 s of each o
 count; a pause over 2.5 s starts a new run; nothing written anywhere. The listener runs in the capture phase so no panel swallows K; it
 ignores taps typed into a field. Proven once on the throwaway 5601: four taps 500 ms apart → "119.8 bpm · 4", a 2.7 s pause → "— bpm";
 one 404 in the page's own loads (`bank/strike_responses.json`) is older than this and not touched. His server serves the file as it is: F5.
+
+## §182. His first state saved — 68 bpm, unit 0.095 %, 70 s in; FROM THE DRIFT: start there, hold, glide to a set, hold until Stop (2026-11-12)
+
+**His words:** *"just save this for me. 68 BPM at 0.095 unit percentage, for 70 seconds. And then build me a transition to go from that state
+right there — I don't want to have to play through 70 seconds every time. Freeze it there for maybe a second or two, then a transition to
+swarm 2, a dial for the amount of time it takes, and when it gets there it can just hold there until I stop."*
+
+**Saved:** `bank/phase_locks.json` record 1 — the Golomb drift at 68 bpm, unit 0.095 %, after 70 s. The lags are arithmetic (70 s × 68/60
+beats × the ruler mark × 0.095 %): flute +0.075 beat · clarinet +0.301 · sax +0.754 (reads −0.246) · glock +1.357 (reads +0.357) · piano 0 ·
+violin +1.733 (−0.267) · cello +1.884 (−0.116). **Built** (the block "From the drift"): bpm 68 · unit 0.095 · after 70 s · hold 2 s · to (F2
+swarm ii preset) · over 20 s (his dial) · ▶ Play · Stop. It starts AT that state — every player's first beat placed at its lag, all locked at
+the bpm — holds, glides every player from 68 to the set's tempo over the dial's seconds, then holds the set until he stops (no end). Under
+the hood the plan's segments now carry their own rate tables (rA → rB) so a plan can start from any state, not only from a set; the bar
+draws an endless hold as 12 s. Proven once on the preview: the first beats at 0.925 · 0.699 · 0.246 · 0.643 · 1 · 0.267 · 0.116 of a beat
+(each = 1 − its lag), 50 % through the glide the periods 742 … 987 (linear in rate from 882 to F2's 640 … 1120), at the end exactly F2's,
+still playing after; the four-slot chain still ends by itself; no console errors.
