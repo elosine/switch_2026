@@ -3209,3 +3209,25 @@ record 1 (then emptied). The sound and the ports are his Chrome's to prove. The 
 No tempo slower than 60."* **Done:** the piano stays at the bpm; the others at bpm × (1 + f·step %), f = +1 flute · +1.3 clarinet · +1.69
 sax · +2.2 glockenspiel · +2.86 violin · +3.71 cello (the same uneven steps, all upward). The symmetric fan of §169 is recorded there as the
 alternative, his to ask for. The page is served as it is on disk: F5, no restart.
+
+## §172. "Can the fan be irregular?" — every pair its own relationship: a Golomb ruler for the tempi (2026-11-12, his word pending)
+
+**His words:** *"like this with the fixed tempo, but … can the fan be irregular? What I'm interested in is a totally irregular sort of rhythm,
+so that each part has a slightly different rhythm relationship to all the others … if it's symmetric, then the flute and the clarinet will have
+a similar relationship to the flute and the alto sax and the clarinet and the alto sax … let's see if we can zero in on what I'm looking for."*
+
+**The reading:** two pulses at tempi a and b make one "phase rhythm" whose period is 1/(b − a) beats; seven players make 21 pairs, 21 such
+rhythms. He wants all 21 DIFFERENT. The geometric fan (steps × 1.3) fails that quietly: its differences 0.69 vs 0.66, 1.17 vs 1.2, 1.51 vs 1.56
+are the same rhythm to the ear. **The answer is a Golomb ruler** — marks on a line with every distance between two marks distinct; the best
+seven-mark ruler is 0 · 1 · 4 · 10 · 18 · 23 · 25, its 21 differences 1 … 10, 13, 14, 15, 17 … 19, 21 … 25, all distinct. Tempo offsets in those
+proportions give every pair its own rate. **The price:** the widest pair is 25 × the narrowest; the ear also needs the rates to differ by a
+ratio (≈ 15 %) not a count, which the ruler's small differences 1 · 2 · 3 do not quite keep — a seeded search for sets whose 21 differences
+all differ by ≥ 15 % is the shuffle version. **Put to him:** the ruler as the fan, the unit 0.05 % (pairs from 0.05 % — 33 min to come round — to
+1.25 % — 80 s; the median pair 0.65 %), the piano at 0, then flute 1 · clarinet 4 · sax 10 · glock 18 · violin 23 · cello 25; a ⟳ shuffle
+with a seed for variety later if he wants it.
+
+## §173. The ruler in, at 0.05 % (2026-11-12)
+
+**His word:** *"Yes, put the ruler in at 0.05%."* **Done:** the fan is the Golomb ruler 0 · 1 · 4 · 10 · 18 · 23 · 25 — piano 0 · flute 1 · clarinet 4 ·
+alto sax 10 · glockenspiel 18 · violin 23 · cello 25 — the page's knob now **unit %** (0.05; the cello +1.25 %). The capture record's field keeps
+its name `stepPct` (now the unit). F5, no restart.
