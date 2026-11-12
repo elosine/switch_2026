@@ -13,6 +13,8 @@
   The routes are the piece's own (sandbox/instruments.js): the staccato voice of each player, the glockenspiel's Shorts (Hard).
   STEP TWO (§174 · §175): THE DESTINATIONS — a few fixed multi-tempo sets, each a unit, no dials: a grid of 80 ms (the tightest gap, from his
   strikes) and each player's period a whole number of grid steps, with a start offset in steps so shared beats land as flams, not chords.
+  STEP THREE (§177): THE TRANSITION — hold a set, then every player glides its own tempo (a straight line in bpm) to the other set's over
+  T seconds, then hold there; slow · middle · quick = 40 · 20 · 8 s; one bar shows where it is.
 -->
 <style>
   :root { color-scheme: dark; }
@@ -34,6 +36,10 @@
   .bar i { position: absolute; top: 0; width: 3px; height: 10px; background: #9fe3d3; border-radius: 2px; }
   .bar b { position: absolute; left: 50%; top: 0; width: 1px; height: 10px; background: #4a5058; }
   #state { color: #9fe3d3; min-height: 22px; }
+  .tbar { position: relative; display: inline-flex; width: 600px; height: 16px; border-radius: 4px; overflow: hidden; background: #23272d; vertical-align: middle; }
+  .tbar .z { height: 100%; }
+  #tz1 { background: #2a3a44; } #tz2 { background: #2e9e8e55; } #tz3 { background: #3a3f46; }
+  .tbar i { position: absolute; top: 0; width: 3px; height: 16px; background: #9fe3d3; left: 0; }
   #midi { color: #c99; }
   #locks { margin-top: 18px; color: #b9c0c8; }
   #locks div { margin: 3px 0; }
@@ -75,6 +81,18 @@
   <span id="setInfo" class="dim"></span>
 </div>
 <div id="setWhy" class="dim" style="max-width:900px"></div>
+
+<h1 style="margin-top:26px">Transition</h1>
+<div class="sub">hold the first set 6 s · every player glides its own tempo to the second set's · hold there</div>
+<div class="row">
+  <label>from <select id="trFrom"></select></label>
+  <label>to <select id="trTo"></select></label>
+  <button class="tr" data-t="40">slow · 40 s</button>
+  <button class="tr" data-t="20">middle · 20 s</button>
+  <button class="tr" data-t="8">quick · 8 s</button>
+  <button id="stopTr" disabled>■ Stop</button>
+</div>
+<div class="row"><span class="tbar" id="tbar"><span class="z" id="tz1"></span><span class="z" id="tz2"></span><span class="z" id="tz3"></span><i id="tmark"></i></span><span id="trState" class="dim"></span></div>
 
 <div id="locks"></div>
 
@@ -128,7 +146,7 @@ function setInfo(set) {
 }
 
 const $ = (id) => document.getElementById(id);
-const S = { outs: {}, playing: false, locked: false, t0: 0, streams: [], timer: null, raf: null, captures: 0, mode: 'drift', set: 0 };
+const S = { outs: {}, playing: false, locked: false, t0: 0, streams: [], timer: null, raf: null, captures: 0, mode: 'drift', set: 0, tr: null };
 
 // ---- MIDI
 async function midi() {
@@ -158,6 +176,20 @@ function playSet() {
   const set = SETS[S.set];
   startStreams('set', PLAYERS.map((p, i) => ({ period: set.per[i] * GRID_MS, offsetMs: (set.off[i] || 0) * GRID_MS })));
 }
+const HOLD_MS = 6000, TR_SHOW_MS = 20000;   // the first hold; the bar shows this much of the last hold
+function startTransition(fromIdx, toIdx, T) {
+  if (S.playing) return;
+  const A = SETS[fromIdx], B = SETS[toIdx];
+  S.tr = { from: fromIdx, to: toIdx, T: T * 1000, r0: A.per.map((p) => 1 / (p * GRID_MS)), r1: B.per.map((p) => 1 / (p * GRID_MS)) };
+  startStreams('shift', PLAYERS.map((p, i) => ({ period: A.per[i] * GRID_MS, offsetMs: (A.off[i] || 0) * GRID_MS })));
+}
+function trProgress() {   // 0 … 1 through the glide; <0 while holding the first set; >1 holding the second
+  const el = performance.now() - S.t0; return (el - HOLD_MS) / S.tr.T;
+}
+function trApply() {
+  const u = Math.max(0, Math.min(1, trProgress()));
+  S.streams.forEach((s, i) => { const r = S.tr.r0[i] + (S.tr.r1[i] - S.tr.r0[i]) * u; s.period = 1 / r; });
+}
 function startStreams(mode, specs) {
   const now = performance.now();
   S.t0 = now + 120; S.playing = true; S.locked = false; S.mode = mode;
@@ -170,6 +202,7 @@ function startStreams(mode, specs) {
 function tick() {
   if (!S.playing) return;
   const c = cfg(); const horizon = performance.now() + AHEAD_MS;
+  if (S.mode === 'shift') trApply();
   for (const s of S.streams) {
     while (s.next <= horizon) {
       if (s.out) {
@@ -223,13 +256,14 @@ function stop() {
 
 // ---- the page
 function ui() {
-  const dr = S.playing && S.mode === 'drift', st = S.playing && S.mode === 'set';
+  const dr = S.playing && S.mode === 'drift', st = S.playing && S.mode === 'set', sh = S.playing && S.mode === 'shift';
+  document.querySelectorAll('button.tr').forEach((b) => { b.disabled = S.playing; }); $('stopTr').disabled = !sh;
   $('play').disabled = S.playing; $('stop').disabled = !dr; $('playSet').disabled = S.playing; $('stopSet').disabled = !st;
   $('lock').disabled = !dr || S.locked; $('drift').disabled = !dr || !S.locked; $('capture').disabled = !dr;
   $('setInfo').textContent = setInfo(SETS[S.set]); $('setWhy').textContent = SETS[S.set].why;
   document.querySelectorAll('#sets button').forEach((b, i) => b.classList.toggle('on', i === S.set));
   $('lock').classList.toggle('on', S.locked);
-  $('state').textContent = !S.playing ? '—' : S.mode === 'set' ? 'set ' + SETS[S.set].name : (S.locked ? 'LOCKED at ' + cfg().bpm + ' — the lags hold' : 'drifting');
+  $('state').textContent = !S.playing ? '—' : S.mode === 'shift' ? 'transition' : S.mode === 'set' ? 'set ' + SETS[S.set].name : (S.locked ? 'LOCKED at ' + cfg().bpm + ' — the lags hold' : 'drifting');
 }
 function paint() {
   const tb = $('players').querySelector('tbody'); const c = cfg();
@@ -244,9 +278,22 @@ function paint() {
       '<td class="num">' + (S.playing && S.mode === 'drift' ? (lag >= 0 ? '+' : '') + lag.toFixed(3) + ' beat' : '') + '</td>' +
       '<td>' + (S.mode === 'drift' ? '<span class="bar"><b></b><i style="left:' + x + 'px"></i></span>' : '') + '</td></tr>';
   }).join('');
-  if (S.playing) { $('state').textContent = (S.mode === 'set' ? 'set ' + SETS[S.set].name : S.locked ? 'LOCKED at ' + c.bpm + ' — the lags hold' : 'drifting') + ' · ' + elapsedS().toFixed(0) + ' s'; S.raf = requestAnimationFrame(paint); }
+  if (S.playing && S.mode === 'shift') paintTr();
+  if (S.playing) { $('state').textContent = (S.mode === 'shift' ? trText() : S.mode === 'set' ? 'set ' + SETS[S.set].name : S.locked ? 'LOCKED at ' + c.bpm + ' — the lags hold' : 'drifting') + ' · ' + elapsedS().toFixed(0) + ' s'; S.raf = requestAnimationFrame(paint); }
 }
-$('play').onclick = play; $('stop').onclick = stop; $('playSet').onclick = playSet; $('stopSet').onclick = stop;
+function trText() {
+  const u = trProgress(), A = SETS[S.tr.from].name, B = SETS[S.tr.to].name;
+  return u < 0 ? 'holding ' + A : u < 1 ? A + ' → ' + B + ' · ' + Math.round(u * 100) + ' %' : 'AT ' + B;
+}
+function paintTr() {
+  const total = HOLD_MS + S.tr.T + TR_SHOW_MS, el = Math.min(total, performance.now() - S.t0);
+  $('tz1').style.width = (100 * HOLD_MS / total) + '%'; $('tz2').style.width = (100 * S.tr.T / total) + '%'; $('tz3').style.width = (100 * TR_SHOW_MS / total) + '%';
+  $('tmark').style.left = (600 * el / total) + 'px'; $('trState').textContent = trText();
+}
+$('play').onclick = play; $('stop').onclick = stop; $('stopTr').onclick = stop;
+SETS.forEach((s, i) => { for (const id of ['trFrom', 'trTo']) { const o = document.createElement('option'); o.value = i; o.textContent = s.name; $(id).appendChild(o); } });
+$('trFrom').value = SETS.findIndex((s) => s.name === 'E two speeds'); $('trTo').value = SETS.findIndex((s) => s.name === 'F swarm');
+document.querySelectorAll('button.tr').forEach((b) => { b.onclick = () => startTransition(+$('trFrom').value, +$('trTo').value, +b.dataset.t); }); $('playSet').onclick = playSet; $('stopSet').onclick = stop;
 SETS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = s.name; b.title = s.why; b.onclick = () => { S.set = i; if (S.playing && S.mode === 'set') { stop(); playSet(); } ui(); }; $('sets').appendChild(b); }); $('lock').onclick = lock; $('drift').onclick = drift; $('capture').onclick = capture;
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT') return;

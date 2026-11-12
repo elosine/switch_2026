@@ -3298,3 +3298,18 @@ like that?"* A and D stay on the page, set aside by him. **Added** (grid 80 ms, 
 
 Eleven sets on the page; keys 1 … 9 reach the first nine, the buttons all. Proven by the page's own numbers (the script parsed and run
 offline); the sound is his.
+
+## §177. THE TRANSITION BUILT — hold · glide · hold, with a bar; three speeds (2026-11-12)
+
+**His words:** *"let me hear a transition from two speeds to swarm. Just the originals is fine. Put some kind of graphic there, like you did
+before with the phase part, so I can see when they've reached the destination. A couple variations: quite slow, a Goldilocks middle, and
+relatively quick. Hold the original a few seconds, then the transition, then hold the destination."*
+
+**Built** (the block "Transition"): from · to (any two sets; E two speeds → F swarm preset) · **slow 40 s · middle 20 s · quick 8 s** · Stop.
+The first set holds 6 s; then every player's tempo moves in a STRAIGHT LINE IN BPM from its period in the first set to its period in the
+second over T seconds (its own accelerando or ritardando — in E → F the fast wind trio slows 150 → 63 … 107 → 54 while the slow quartet
+speeds up 38 → 50 … 25 → 42); then the second set holds. The bar: three zones (the hold · the glide, lit · 20 s of the last hold) and a
+marker; the text "holding E" → "E → F · 50 %" → "AT F". The phase at arrival is whatever the glides leave; no snap. Proven once on the preview:
+periods 400 … 2400 at the start, 565 … 1800 at 50 % (linear in rate), exactly F's 960 … 1440 at the end, the bar's widths 21 · 7 · 71 %
+for 6 · 2 · 20 s, Stop clean, no console errors. **► HIS EAR: the three speeds; then whatever he names — a snap to the set's offsets at
+arrival, rests, or the drift between.**
