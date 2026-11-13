@@ -3399,3 +3399,20 @@ live for 70 s (unit 0.095 %) → 32 s to F2 swarm ii → hold F2 (a field, 8 s �
 and glides from any start. Proven once on the preview: swarm 2 → 78 at 50 % the periods 699 … 912 (linear in rate), at the end all 769 ms
 (= 78); the sequence's five segments as kept, the drift's tempi 68.06 … 69.61 at the start, 50 % into the first glide 742 … 974 ms, 75 % into
 the second 81.9 … 71.9 bpm, the end all 78 and still playing; the sequence line was blank at load (ui() not run at start) — fixed.
+
+## §185. "They don't reach perfect unison" — the cheat: a bulge on each ramp, the glide arrives ON THE BEAT (2026-11-12)
+
+**His words:** *"I think there's some phase shifting, so you have to cheat a little bit. They don't reach perfect unison. The way I used to do
+it was find out how much extra needs to be accommodated for in the phase, and then add that little tiny bit to the acceleration or
+deceleration amount. There must be a way to calculate so they can be in total unison instead of at the same tempo but out of phase."*
+
+**The reasoning:** the beats a player makes during a glide are the area under its tempo ramp; a straight ramp therefore fixes where its
+phase lands, and seven straight ramps land seven different fractions of a beat. The fix is his, made exact: a sine bulge on the ramp
+(zero at both ends, so the start and end tempi stay what they were) adds or removes any fraction up to half a beat; its size is δ·π/(2T),
+where δ is the fraction needed (folded to ±½) and T the glide's seconds. **Built:** the plan runner now integrates each player's PHASE
+(2 ms steps, a beat fired where it crosses a whole number — the old next += period could not place an arrival exactly); on entering a
+glide it predicts every player's landing, sets the target — unison: the piano's own landing, all on one beat; a set: the set's flam offsets
+— and lays the bulge. Every glide on the page arrives aligned now: the chain, from the drift, swarm 2 → unison, the sequence. **Proven
+once on the preview:** swarm 2 → unison 78 over 20 s: the bulges −0.47 … +0.49 beat, the tempo's peak deviation ≤ 3 % (the clarinet −2.85,
+the cello +2.95), at the end all seven periods 769 ms and their last beats within **0.5 ms** of each other, the phases 0.087 … 0.086; the
+sequence's glide to F2 swarm ii lands every player on F2's grid within 0.3 ms. No console errors.

@@ -221,7 +221,7 @@ function startTransition(slots, holds, speeds) {   // slots: 4 set indexes; hold
   slots.forEach((si, k) => {
     const hold = Math.round(holds[k] * 1000 * HOLD_JIT[k % HOLD_JIT.length]);
     segs.push({ kind: 'hold', set: si, from: at, ms: hold, rA: rateOf(SETS[si]) }); at += hold;
-    if (k < slots.length - 1) { const g = Math.round(speeds[k] * 1000 * GLIDE_JIT[k % GLIDE_JIT.length]); segs.push({ kind: 'glide', set: si, to: slots[k + 1], from: at, ms: g, rA: rateOf(SETS[si]), rB: rateOf(SETS[slots[k + 1]]) }); at += g; }
+    if (k < slots.length - 1) { const g = Math.round(speeds[k] * 1000 * GLIDE_JIT[k % GLIDE_JIT.length]); segs.push({ kind: 'glide', set: si, to: slots[k + 1], from: at, ms: g, rA: rateOf(SETS[si]), rB: rateOf(SETS[slots[k + 1]]), toSet: SETS[slots[k + 1]] }); at += g; }
   });
   S.tr = { segs, total: at, ends: true, bar: $('tbar'), mark: $('tmark'), state: $('trState'), names: slots.map((i) => SETS[i].name) };
   const A = SETS[slots[0]];
@@ -256,7 +256,7 @@ function playSeq() {   // the whole sequence from the top: the drift live, then 
   const D = SEQ.drift, F2 = setByName(SEQ.g1.to), h = +$('seqHold').value, T2 = +$('seqG2').value || 1, bpm2 = +$('seqBpm2').value || 78;
   const fan = fanRates(D.bpm, D.unit);
   runPlan([{ kind: 'hold', s: D.s, rA: fan, label: 'the drift · ' + D.bpm + ' bpm · unit ' + D.unit + ' %' },
-           { kind: 'glide', s: SEQ.g1.s, rA: fan, rB: rateOf(F2), label: 'drift → ' + F2.name },
+           { kind: 'glide', s: SEQ.g1.s, rA: fan, rB: rateOf(F2), toSet: F2, label: 'drift → ' + F2.name },
            { kind: 'hold', s: h, rA: rateOf(F2), label: 'AT ' + F2.name },
            { kind: 'glide', s: T2, rA: rateOf(F2), rB: unisonRates(bpm2), label: F2.name + ' → unison ' + bpm2 },
            { kind: 'hold', rA: unisonRates(bpm2), label: 'AT unison ' + bpm2 + ' — until Stop' }],
@@ -269,7 +269,7 @@ function startFromDrift(bpm, unit, afterS, holdS, toIdx, glideS) {
   const ahead = PLAYERS.map((p) => afterS * (bpm / 60) * p.fan * unit / 100);   // beats ahead of the piano after N s of drift
   const segs = [
     { kind: 'hold', from: 0, ms: Math.round(holdS * 1000), rA: rLock, label: 'the drift at ' + afterS + ' s, locked at ' + bpm },
-    { kind: 'glide', from: Math.round(holdS * 1000), ms: Math.round(glideS * 1000), rA: rLock, rB: rateOf(B), label: 'drift → ' + B.name },
+    { kind: 'glide', from: Math.round(holdS * 1000), ms: Math.round(glideS * 1000), rA: rLock, rB: rateOf(B), toSet: B, label: 'drift → ' + B.name },
     { kind: 'hold', from: Math.round((holdS + glideS) * 1000), ms: 1e9, rA: rateOf(B), label: 'AT ' + B.name + ' — until Stop' },
   ];
   S.tr = { segs, total: 1e9, ends: false, bar: $('dbar'), mark: $('dmark'), state: $('dState') };
@@ -281,14 +281,50 @@ function trSeg() {   // the segment now, and the way through it (the rates ride 
   let g = segs[segs.length - 1]; for (const s of segs) if (el < s.from + s.ms) { g = s; break; }
   return { g, u: Math.max(0, Math.min(1, (el - g.from) / g.ms)), el };
 }
-function trApply() {
-  const { g, u } = trSeg(); const r0 = g.rA, r1 = g.kind === 'glide' ? g.rB : r0;
-  S.streams.forEach((s, i) => { s.period = 1 / (r0[i] + (r1[i] - r0[i]) * (g.kind === 'glide' ? u : 0)); });
+function segAt(el) { const segs = S.tr.segs; let g = segs[segs.length - 1]; for (const s of segs) if (el < s.from + s.ms) { g = s; break; } return { g, u: Math.max(0, Math.min(1, (el - g.from) / g.ms)) }; }
+// THE CHEAT, his word (§185): a straight ramp in bpm arrives at the tempo but not on the beat. The beats a player makes over the glide are the area
+// under its ramp; a sine bulge on the ramp (zero at both ends, so the tempi stay exact) adds or takes away up to half a beat, chosen so that
+// every player's phase at the end matches the target — unison on the beat, or the set's own flam offsets. The bulge's size is δ·π / (2·T): at
+// 20 s that is under 4 % of tempo at its peak, inaudible as a tempo change.
+function planBulge(g, el) {
+  const left = g.ms - (el - g.from); if (left <= 0) { g.bulge = PLAYERS.map(() => 0); return; }
+  const rNow = PLAYERS.map((p, i) => g.rA[i] + (g.rB[i] - g.rA[i]) * ((el - g.from) / g.ms));
+  const pred = S.streams.map((s, i) => s.phase + left * (rNow[i] + g.rB[i]) / 2);          // where the straight ramp would leave each phase
+  const a = PLAYERS.findIndex((p) => p.anchor);
+  const target = PLAYERS.map((p, i) => g.toSet ? (1 - ((g.toSet.off[i] || 0) * GRID_MS) / (g.toSet.per[i] * GRID_MS)) : pred[a]);   // the set's flam offsets, else all on the piano's beat
+  g.bulge = PLAYERS.map((p, i) => { let d = (target[i] - pred[i]) % 1; if (d > 0.5) d -= 1; if (d <= -0.5) d += 1; return d * Math.PI / (2 * left); });
+  g.bulgeFrom = el; g.bulgeMs = left;
+}
+function rateAt(g, el, i) {
+  if (g.kind !== 'glide') return g.rA[i];
+  const u = Math.max(0, Math.min(1, (el - g.from) / g.ms)); let r = g.rA[i] + (g.rB[i] - g.rA[i]) * u;
+  if (g.bulge) { const v = (el - g.bulgeFrom) / g.bulgeMs; if (v > 0 && v < 1) r += g.bulge[i] * Math.sin(Math.PI * v); }
+  return r;
+}
+function tickShift(horizon, vel) {
+  const STEP = 2; let t = Math.max(S.lastT, S.t0);
+  while (t < horizon) {
+    const tn = Math.min(t + STEP, horizon), el = t - S.t0; const { g } = segAt(el);
+    if (g.kind === 'glide' && !g.bulge) planBulge(g, el);
+    S.streams.forEach((s, i) => {
+      const r = rateAt(g, el, i), ph = s.phase + r * (tn - t); s.period = 1 / r;
+      while (ph >= s.beat) {
+        const tb = t + (s.beat - s.phase) / r;
+        if (s.out) { s.out.send([0x90 | chOf(s.p), s.p.key, vel], tb); s.out.send([0x80 | chOf(s.p), s.p.key, 0], tb + NOTE_MS); }
+        s.last = tb; s.next = tb + s.period; s.n++; s.beat++;
+      }
+      s.phase = ph;
+    });
+    t = tn;
+  }
+  S.lastT = horizon;
 }
 function startStreams(mode, specs) {
   const now = performance.now();
   S.t0 = now + 120; S.playing = true; S.locked = false; S.mode = mode;
-  S.streams = PLAYERS.map((p, i) => ({ p, out: outOf(p), period: specs[i].period, own: specs[i].period, next: S.t0 + specs[i].offsetMs, n: 0 }));
+  S.streams = PLAYERS.map((p, i) => ({ p, out: outOf(p), period: specs[i].period, own: specs[i].period, next: S.t0 + specs[i].offsetMs, n: 0,
+                                       phase: 1 - specs[i].offsetMs / specs[i].period, beat: 1, last: null }));   // the plan runner integrates the phase: beat 1 falls at the offset
+  S.lastT = S.t0;
   for (const s of S.streams) if (s.out && s.p.cc0 != null) s.out.send([0xB0 | chOf(s.p), 0, s.p.cc0]);   // the Xsample articulation, once
   S.timer = setInterval(tick, TICK_MS); tick();
   S.raf = requestAnimationFrame(paint);
@@ -297,7 +333,7 @@ function startStreams(mode, specs) {
 function tick() {
   if (!S.playing) return;
   const c = cfg(); const horizon = performance.now() + AHEAD_MS;
-  if (S.mode === 'shift') { if (S.tr.ends && performance.now() - S.t0 > S.tr.total) { stop(); return; } trApply(); }   // the chain ends with its last hold
+  if (S.mode === 'shift') { if (S.tr.ends && performance.now() - S.t0 > S.tr.total) { stop(); return; } tickShift(horizon, c.vel); return; }   // the chain ends with its last hold
   for (const s of S.streams) {
     while (s.next <= horizon) {
       if (s.out) {
@@ -370,7 +406,7 @@ function paint() {
     const bpm = s ? +(60000 / s.period).toFixed(3) : +(c.bpm * (1 + p.fan * c.step / 100)).toFixed(3);
     const lag = L ? L[i].lagBeats : 0;
     const x = S.mode === 'drift' ? Math.round(120 + lag * 240) : seg && seg.g.kind === 'glide' ? Math.round(seg.u * 237) : (seg ? 237 : -9);   // drift: the lag about the middle; a glide: the way across
-    let last = s ? s.next - s.period : 0; if (s && last > now) last -= s.period;   // the latest hit that has SOUNDED (next may sit 250 ms ahead)
+    let last = s ? (s.last != null ? s.last : s.next - s.period) : 0; if (s && last > now) last -= s.period;   // the latest hit that has SOUNDED (next may sit 250 ms ahead)
     const flash = s ? Math.max(0, 1 - (now - last) / 260) : 0;   // it lights the bar, fading over a quarter second
     return '<tr><td>' + p.name + (p.anchor ? ' <span class="dim">(anchor)</span>' : '') + (p.note ? ' <span class="dim">' + p.note + '</span>' : '') + '</td>' +
       '<td class="dim">' + p.voice + ' · ' + p.port + ' ch ' + p.ch + (outOf(p) ? '' : ' <span style="color:#c99">no port</span>') + '</td>' +
