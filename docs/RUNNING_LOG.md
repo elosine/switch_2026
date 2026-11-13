@@ -3710,3 +3710,12 @@ arithmetic (the three beats, the cut's mean, 33 s of ruler 3 at 0.917 %), all at
 T landing on its grid, holds the set. Proven once on the preview: the lock's offsets 0.985 · 0.894 · 0.713 · 1.076 · 0.35 · 0.349 · 0.895 of a
 beat, all at 90; 49 % through the glide 109.4 … 84.1; at the end F5's 133.3 · 120 · 109.1 · 100 · 92.3 · 85.7 · 80, every player on its grid
 within 0.3 ms; no console errors. The whole form still ends at the lock; swarm 5 joins it when T is his.
+
+## §212. 21 s to swarm 5, then at once to unison 120, on the beat at 480 (2026-11-12)
+
+**His words:** *"let's go 21 seconds. But as soon as it reaches swarm 5, let's start moving to unison, to 120, and have 120 hit at 480 in the
+composer score. Let me hear how that sounds."* **Built:** the block "Drift 3 → swarm 5 → unison 120": over 21 · then unison at score 480 · at
+120 bpm; the lock 4 s (435.4 → 439.4), 21 s to swarm 5 (arriving 460.4 on its grid), 19.6 s on to unison 120 on the beat at 480, held. The whole
+form grows the same way and now runs **277.8 → 480, 202.2 s**. Proven once on the preview: the segments 4 · 21 · 19.6 · ∞; at 460.5 swarm 5's
+tempi (133.2 … 80.7, the next glide 1 % in); at 480.2 all 120 within 0.4 ms; the whole form's last segments the same, ending at 480.00; no
+console errors.

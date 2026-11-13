@@ -71,7 +71,7 @@
   "block": "Drift 2 → swarm 3 → the new unison (the page)",
   "note": "his words 2026-11-12 (§205): reach swarm iii by 383, sustain until the ~388 wall, 400.3 new unison"
  },
- "wholeForm": "score 277.8: unison 68 → drift (ruler 1, 0.279 %) 23.86 s → 301.66 the wall: 22.61 s to F2 swarm ii → 324.27 hold 6 s → 10.81 s to unison 78, on the beat at 341.08 (D5) → hold 9.81 s → 350.89 the ramp 3 s into ruler 2 (0.843 %) → 353.89 the burst: drift 2 18.21 s → 372.10 the wall: 10.9 s to F3 swarm iii → 383 hold 5.72 s → 388.72 the wall: 11.58 s to unison 90, on the beat at 400.3 → three beats of it → 402.3 the fourth beat is drift 3 (ruler 3, 0.917 %) for 33 s → 435.4 LOCKED at 90, held 4 s → 439.4 … (next: a destination above 90). 157.6 s to the end of the lock.",
+ "wholeForm": "score 277.8: unison 68 → drift (ruler 1, 0.279 %) 23.86 s → 301.66 the wall: 22.61 s to F2 swarm ii → 324.27 hold 6 s → 10.81 s to unison 78, on the beat at 341.08 (D5) → hold 9.81 s → 350.89 the ramp 3 s into ruler 2 (0.843 %) → 353.89 the burst: drift 2 18.21 s → 372.10 the wall: 10.9 s to F3 swarm iii → 383 hold 5.72 s → 388.72 the wall: 11.58 s to unison 90, on the beat at 400.3 → three beats → 402.3 the fourth is drift 3 (ruler 3, 0.917 %) 33 s → 435.4 LOCKED at 90, 4 s → 439.4: 21 s to F5 swarm v → 460.4: 19.6 s to unison 120, on the beat at 480 → hold. 202.2 s, 277.8 → 480.",
  "drift3": {
   "fromUnisonBpm": 90,
   "startScoreS": 400.3,
@@ -88,9 +88,13 @@
   "lockForS": 4
  },
  "next2": {
-  "destination": "F5 swarm v (133 120 109 100 92 86 80, median 100)",
+  "destination": "F5 swarm v (133 120 109 100 92 86 80)",
   "fromScoreS": 439.4,
-  "glideS": null,
-  "note": "his word 2026-11-12: swarm 5; the glide length pending"
+  "glideS": 21,
+  "arriveScoreS": 460.4,
+  "thenUnisonBpm": 120,
+  "thenUnisonScoreS": 480,
+  "glide2S": 19.6,
+  "note": "his words 2026-11-12 (§212): 21 s to swarm 5, then at once to unison 120, on the beat at 480"
  }
 }
