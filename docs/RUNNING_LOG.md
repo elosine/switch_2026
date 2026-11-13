@@ -3568,3 +3568,10 @@ playing, no console errors.
 from the burst (353.89) the fan runs 55 s, to score 408.89, then LOCK fires by itself — every player at 78, its lag kept — and holds until
 he stops or presses DRIFT; 0 = never. Recorded in `bank/phase_sequence.json` as `drift2`. (His browser had crashed; both servers were still
 up — 5600 and 5630 — the links given again.)
+
+## §199. A set's tempi shown in the table on the click, before Play (2026-11-12)
+
+**His words:** *"if I click on one of these multi-tempo destinations, the tempi change up in the players before — now they change when I hit
+play set, but not if I click on the button. Start there."* **Built:** clicking a set (or its number key) while idle shows that set's tempo per
+player in the table at once; touching the drift's bpm or unit, or playing the drift, brings the drift's tempi back. Also pending from the same
+message, held for after he sees the tempi: Elec 2's wall after 371 (Drift 2 to last until it); closer-knit destinations in the categories.

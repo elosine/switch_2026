@@ -238,7 +238,7 @@ function cfg() { return { bpm: +$('bpm').value || 60, step: +$('step').value || 
 
 function play() {
   if (S.playing) return;
-  const c = cfg(); S.ramp = null; S.score0 = null;
+  const c = cfg(); S.ramp = null; S.score0 = null; S.view = 'drift';
   startStreams('drift', PLAYERS.map((p) => ({ period: periodMs(p, c.bpm, c.step), offsetMs: 0 })));
 }
 // DRIFT 2 (§196): from the unison at the bpm, a few seconds of it, then the ramp into the second ruler's fan, its tempi reached AT THE BURST (score 353.89),
@@ -491,7 +491,7 @@ function paint() {
   const seg = S.playing && S.mode === 'shift' ? trSeg() : null;
   tb.innerHTML = PLAYERS.map((p, i) => {
     const s = S.playing ? S.streams[i] : null;
-    const bpm = s ? +(60000 / s.period).toFixed(3) : +(c.bpm * (1 + p.fan * c.step / 100)).toFixed(3);
+    const bpm = s ? +(60000 / s.period).toFixed(3) : S.view === 'set' ? +(60000 / (SETS[S.set].per[i] * GRID_MS)).toFixed(3) : +(c.bpm * (1 + p.fan * c.step / 100)).toFixed(3);   // idle: the picked set's tempi, else the drift's (§199)
     const lag = L ? L[i].lagBeats : 0;
     const x = S.mode === 'drift' ? Math.round(120 + lag * 240) : seg && seg.g.kind === 'glide' ? Math.round(seg.u * 237) : (seg ? 237 : -9);   // drift: the lag about the middle; a glide: the way across
     let last = s ? (s.last != null ? s.last : s.next - s.period) : 0; if (s && last > now) last -= s.period;   // the latest hit that has SOUNDED (next may sit 250 ms ahead)
@@ -563,11 +563,12 @@ for (let k = 0; k < 4; k++) {
   if (k < 3) { const sp = document.createElement('select'); sp.className = 'speed'; SPEEDS.forEach(([n, s], i) => { const o = document.createElement('option'); o.value = s; o.textContent = '→ ' + n; sp.appendChild(o); }); sp.value = SPEEDS[SPEED0[k]][1]; $('chain').appendChild(sp); }
 }
 $('playTr').onclick = () => startTransition([...document.querySelectorAll('select.slot')].map((s) => +s.value), [...document.querySelectorAll('select.hold')].map((s) => +s.value), [...document.querySelectorAll('select.speed')].map((s) => +s.value)); $('playSet').onclick = playSet; $('stopSet').onclick = stop;
-SETS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = s.name; b.title = s.why; b.onclick = () => { S.set = i; if (S.playing && S.mode === 'set') { stop(); playSet(); } ui(); }; $('sets').appendChild(b); }); $('lock').onclick = lock; $('drift').onclick = drift; $('capture').onclick = capture;
+SETS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = s.name; b.title = s.why; b.onclick = () => { S.set = i; S.view = 'set'; if (S.playing && S.mode === 'set') { stop(); playSet(); } ui(); if (!S.playing) paint(); }; $('sets').appendChild(b); }); $('lock').onclick = lock; $('drift').onclick = drift; $('capture').onclick = capture;
+['bpm', 'step'].forEach((id) => $(id).addEventListener('input', () => { S.view = 'drift'; if (!S.playing) paint(); }));
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT') return;
   if (e.code === 'Space') { e.preventDefault(); S.playing ? stop() : play(); }
-  else if (e.key >= '1' && e.key <= '9' && +e.key <= SETS.length) { S.set = +e.key - 1; if (S.playing && S.mode === 'set') { stop(); playSet(); } ui(); }
+  else if (e.key >= '1' && e.key <= '9' && +e.key <= SETS.length) { S.set = +e.key - 1; S.view = 'set'; if (!S.playing) setTimeout(paint, 0); if (S.playing && S.mode === 'set') { stop(); playSet(); } ui(); }
   else if (e.key === 'Enter') { if (!S.playing) playSet(); }
   else if (e.key === 'l' || e.key === 'L') lock();
   else if (e.key === 'd' || e.key === 'D') drift();
