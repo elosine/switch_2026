@@ -5,9 +5,9 @@
    "step": 1,
    "what": "unison start, then THE DRIFT",
    "bpm": 68,
-   "unitPct": 0.095,
+   "unitPct": 0.279,
    "seconds": 70,
-   "note": "the Golomb ruler 0 1 4 10 18 23 25 (piano · flute · clarinet · sax · glock · violin · cello), nobody slower than 68"
+   "note": "the Golomb ruler 0 1 4 10 18 23 25, nobody slower than 68; the length = the wall minus the first hit (23.86 s); the unit 0.279 = 0.095 × 70 / 23.86, so the fan reaches at the wall the same spread state 1 had at 70 s (his word 2026-11-12)"
   },
   {
    "step": 2,
@@ -32,5 +32,5 @@
    "what": "hold unison 78 until Stop"
   }
  ],
- "oneLine": "unison 68 → drift (unit 0.095 %) 70 s → 32 s to F2 swarm ii → hold 8 s → 18 s to unison 78 → hold until Stop"
+ "oneLine": "score 277.8: unison 68 → drift (unit 0.279 %) 23.86 s → at the wall 301.66: 32 s to F2 swarm ii → hold 8 s → 18 s to unison 78 → hold until Stop"
 }

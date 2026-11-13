@@ -241,7 +241,8 @@ function drawBar() {
   S.tr.shown = shown;
 }
 // THE SEQUENCE (§184) — his piece's order so far, kept here and in bank/phase_sequence.json; each step's seconds are the page's fields
-const SEQ = { drift: { bpm: 68, unit: 0.095, s: 70 },   // drift.s is overridden by the marks: glide start − first hit (§190) g1: { to: 'F2 swarm ii', s: 32 }, hold2: { s: 8 }, g2: { to: 'unison', bpm: 78, s: 18 } };
+// the drift's s is overridden by the marks (glide start − first hit, §190); its unit 0.279 = 0.095 × 70 / 23.86 — the same spread by the wall as state 1 had at 70 s (his word)
+const SEQ = { drift: { bpm: 68, unit: 0.279, s: 70 }, g1: { to: 'F2 swarm ii', s: 32 }, hold2: { s: 8 }, g2: { to: 'unison', bpm: 78, s: 18 } };
 const unisonRates = (bpm) => PLAYERS.map(() => bpm / 60000);
 const fanRates = (bpm, unit) => PLAYERS.map((p) => bpm * (1 + p.fan * unit / 100) / 60000);
 const setByName = (n) => SETS[SETS.findIndex((s) => s.name === n)];

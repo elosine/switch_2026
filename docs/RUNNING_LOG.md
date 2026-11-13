@@ -3472,3 +3472,11 @@ hit at score" 277.8 (kept) and "glide starts at score" 301.66 (Elec 1's wall, §
 and the line, the total (23.86 + 32 + 8 + 18 = 81.86 s → the unison at 78 arrives at score 359.66) and the beds follow the marks live.
 `bank/phase_sequence.json` carries the marks. **A consequence put to him in one line:** at 23.86 s the fan has a third of the spread he saved
 at 70 s (state 1); the unit 0.28 % would reach that spread by the wall — his call, the unit left at 0.095.
+
+## §191. The same drift by the wall: the unit 0.279 % (2026-11-12)
+
+**His words:** *"calculate for me how to get to the same drift, the same amount of drift by that amount of time instead of 70 seconds. Before
+it was 0.095 for 70 seconds. I want to get to the same place, over however many seconds it is."* **The arithmetic:** the spread is unit ×
+seconds (each player's lead = seconds × bpm/60 × its mark × unit), so the same place in 23.86 s needs 0.095 × 70 / 23.86 = **0.279 %** (the
+cello then +7 % faster than 68, at 72.7, for those 24 s). Set as the sequence's unit; the drift block and state 1 keep 0.095 / 70 as the
+record. Also: §190's edit left a comment mid-line in `SEQ` (half the object commented out) — caught by the parse check, fixed here.
