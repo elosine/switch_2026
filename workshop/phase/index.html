@@ -184,6 +184,8 @@
 <div class="row">
   <button id="playForm">▶ Play the whole form</button>
   <button id="stopForm" disabled>■ Stop</button>
+  <label>beds <input id="bedsVol2" type="range" min="0" max="1" step="0.01" value="0.8" style="width:140px;vertical-align:middle"></label>
+  <label>players vel <input id="vel2" type="number" value="100" min="1" max="127" step="1"></label>
   <span id="formState" class="dim"></span>
 </div>
 <div class="row"><span class="tbar wide" id="formbar"><i id="formmark"></i></span></div>
@@ -637,7 +639,9 @@ $('play').onclick = play; $('stop').onclick = stop; $('stopTr').onclick = stop; 
 SETS.forEach((s, i) => { const o = document.createElement('option'); o.value = i; o.textContent = s.name; $('s3To').appendChild(o); }); $('s3To').value = SETS.findIndex((s) => s.name === 'F3 swarm iii');
 $('stopS2').onclick = stop; $('stopSeq').onclick = stop; $('playS2').onclick = playS2; $('playSeq').onclick = playSeq;
 ['seqHold', 'seqBpm2', 'seqUnison', 'seqBpm', 'seqUnit', 'bedsAt', 'seqWall', 'seqArrive'].forEach((id) => $(id).addEventListener('input', ui));
-$('bedsVol').addEventListener('input', () => A.els.forEach((el) => { el.volume = +$('bedsVol').value; }));
+$('bedsVol').addEventListener('input', () => { $('bedsVol2').value = $('bedsVol').value; A.els.forEach((el) => { el.volume = +$('bedsVol').value; }); });
+$('bedsVol2').addEventListener('input', () => { $('bedsVol').value = $('bedsVol2').value; A.els.forEach((el) => { el.volume = +$('bedsVol2').value; }); });   // the same level, a second handle by the whole form (§207)
+$('vel2').addEventListener('input', () => { $('vel').value = $('vel2').value; }); $('vel').addEventListener('input', () => { $('vel2').value = $('vel').value; });
 $('bedsOn').addEventListener('change', () => { if ($('bedsOn').checked) bedsPrepare(); });
 if ($('bedsOn').checked) bedsPrepare();
 SETS.forEach((s, i) => { const o = document.createElement('option'); o.value = i; o.textContent = s.name; $('dTo').appendChild(o); }); $('dTo').value = SETS.findIndex((s) => s.name === 'F2 swarm ii');

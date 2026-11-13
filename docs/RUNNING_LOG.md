@@ -3654,3 +3654,9 @@ fan now carries `noAlign` (tempi only, no bulge); a plan draws on its own canvas
 does not start. Proven once on the preview: the eleven segments as above; at 324.3 F2's tempi; at 341.2 unison 78, the seven within
 0.5 ms; at 353.95 ruler 2's tempi (78.7 … 94.4, the piano 78); at 383.1 F3's; at 400.4 all 90 within 0.5 ms; the form drawn on its canvas;
 no console errors.
+
+## §207. A level slider by the whole form (2026-11-12)
+
+**His words:** *"vol slider pls."* **Built:** beside ▶ Play the whole form, a second handle of the beds' level (the same level as the sequence
+block's slider, the two mirrored, live while playing) and a second box of the players' velocity (mirrored with the top one; it takes effect on
+the next hits, as the top one does).
