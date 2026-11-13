@@ -49,12 +49,13 @@
   "unisonBpm": 78,
   "unisonForS": 4,
   "rampS": 3,
-  "unitPct": 0.279,
+  "unitPct": 0.843,
   "ruler": "0 1 7 11 20 23 25 (flute clarinet sax glock · piano 0 · violin cello)",
   "driftForS": 18.21,
   "then": "at Elec 2 wall, 372.10: the glide to F3 swarm iii (its length his to say); the LOCK at the wall is the page holding the state until that glide is built in",
   "note": "his words 2026-11-12 (§196 · §198)",
-  "untilScoreS": 372.1
+  "untilScoreS": 372.1,
+  "unitNote": "0.843 = 0.279 × 55 / 18.21 — the ground of 55 s at 0.279 covered by the wall (his word 2026-11-12, §204); the cello +21 % (94 bpm) at the burst"
  },
  "next": {
   "destination": "F3 swarm iii (107 94 83 75 68 63 58, median 75)",

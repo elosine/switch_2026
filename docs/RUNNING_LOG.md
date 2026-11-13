@@ -3623,3 +3623,11 @@ only). **The ground:** NOT adjusted — the unit stayed 0.279 %, so 18.21 s reac
 needs 0.279 × 55 / 18.21 = **0.843 %** (the cello then 25 × 0.843 = +21 % at the burst, 94 bpm — reached inside the 3 s ramp, no longer slight);
 the FIRST drift's ground (0.279 × 23.86 = 6.66 %·s) in 18.21 s needs **0.366 %** (the cello 85). Put to him; recommended 0.366 unless the
 bigger spread is the point.
+
+## §204. Drift 2 compensated: unit 0.843 % — the 55-second ground by the wall (2026-11-12)
+
+**His words:** *"check that we did compensate for the first drift — I wanted it to reach the same place. And do the same with drift 2: cover
+the same amount of ground up to 55 seconds, but in 18 seconds."* **The first drift:** yes — 0.279 % = 0.095 × 70 / 23.86 (§191), the leads at
+the wall matching state 1's within 1 %. **Drift 2:** the unit set to **0.843 %** = 0.279 × 55 / 18.21; at the burst the fan runs 78 · 78.7 · 82.6 ·
+85.2 · 91.1 · 93.1 · 94.4 (piano · flute · clarinet · sax · glock · violin · cello), reached inside the 3 s ramp — the ramp box is there if that
+jump is too much. The "Drift 2 → swarm 3" block reads the same unit, so its start follows.
