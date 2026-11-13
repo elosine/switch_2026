@@ -147,19 +147,35 @@
 <div class="row" id="seqLights"></div>
 <div class="row"><canvas id="seqScroll" width="900" height="72" style="border-radius:6px;background:#0f1113"></canvas></div>
 
+<h1 style="margin-top:26px">Drift 2 — from the unison at 78, at the burst</h1>
+<div class="sub">the second ruler 0 · 1 · 7 · 11 · 20 · 23 · 25 (flute · clarinet · sax · glock · violin · cello; the piano stays) · a few seconds of unison, a short ramp, the fan's tempi reached at the burst, then the drift · LOCK holds, CAPTURE writes the lags and the score time</div>
+<div class="row">
+  <label>unison <input id="d2Bpm" type="number" value="78" min="20" max="240" step="1"> bpm</label>
+  <label>unit <input id="d2Unit" type="number" value="0.279" min="0.005" max="2" step="0.001"> %</label>
+  <label>unison for <input id="d2Pre" type="number" value="4" min="0" max="60" step="0.5"> s</label>
+  <label title="the slight accelerations: from the unison into each player's fan tempo, done by the burst">ramp <input id="d2Ramp" type="number" value="3" min="0.1" max="30" step="0.1"> s</label>
+  <label title="Elec 1's burst (§196)">the burst at score <input id="d2Burst" type="number" value="353.89" min="0" max="600" step="0.01"> s</label>
+  <button id="play2">▶ Play drift 2</button>
+  <button id="lock2" disabled>LOCK</button>
+  <button id="drift2" disabled>DRIFT</button>
+  <button id="capture2" disabled>CAPTURE</button>
+  <button id="stop2" disabled>■ Stop</button>
+</div>
+<div id="d2State" class="dim"></div>
+
 <div id="locks"></div>
 
 <script>
 'use strict';
 // ---- the seven players: the piece's own routes (sandbox/instruments.js); key = the MIDI note sent (74 = D5; the glock sounds two octaves up)
 const PLAYERS = [
-  { name: 'Flute',        voice: 'staccato',       port: 'SWFluteb', ch: 1,  key: 74, fan: 1 },
-  { name: 'Clarinet',     voice: 'staccato',       port: 'SWClar',   ch: 12, key: 74, fan: 4 },
-  { name: 'Alto sax',     voice: 'staccato',       port: 'SWSaxb',   ch: 5,  key: 74, fan: 10 },
-  { name: 'Glockenspiel', voice: 'shorts (hard)',  port: 'SWGlock',  ch: 9,  key: 62, fan: 18, note: 'sounds D6' },
-  { name: 'Piano',        voice: 'struck',         port: 'SWPiano',  ch: 1,  key: 74, fan: 0, anchor: true },
-  { name: 'Violin',       voice: 'staccato (#19)', port: 'SWViolin', ch: 1,  key: 74, fan: 23, cc0: 18 },
-  { name: 'Cello',        voice: 'staccato (#19)', port: 'SWCello',  ch: 1,  key: 74, fan: 25, cc0: 18 },
+  { name: 'Flute',        voice: 'staccato',       port: 'SWFluteb', ch: 1,  key: 74, fan: 1, fan2: 1 },
+  { name: 'Clarinet',     voice: 'staccato',       port: 'SWClar',   ch: 12, key: 74, fan: 4, fan2: 7 },
+  { name: 'Alto sax',     voice: 'staccato',       port: 'SWSaxb',   ch: 5,  key: 74, fan: 10, fan2: 11 },
+  { name: 'Glockenspiel', voice: 'shorts (hard)',  port: 'SWGlock',  ch: 9,  key: 62, fan: 18, fan2: 20, note: 'sounds D6' },
+  { name: 'Piano',        voice: 'struck',         port: 'SWPiano',  ch: 1,  key: 74, fan: 0, fan2: 0, anchor: true },
+  { name: 'Violin',       voice: 'staccato (#19)', port: 'SWViolin', ch: 1,  key: 74, fan: 23, fan2: 23, cc0: 18 },
+  { name: 'Cello',        voice: 'staccato (#19)', port: 'SWCello',  ch: 1,  key: 74, fan: 25, fan2: 25, cc0: 18 },
 ];
 // the fan is a GOLOMB RULER (RUNNING_LOG §172, his word 2026-11-12): marks 0 · 1 · 4 · 10 · 18 · 23 · 25 — every one of the 21 pair
 // differences is distinct, so every pair of players makes its own phase rhythm; the piano at 0, nobody slower than the bpm; unit = 0.05 %
@@ -216,13 +232,24 @@ const outOf = (p) => S.outs[p.port.toLowerCase()] || null;
 const chOf = (p) => (p.ch - 1) & 0x0F;
 
 // ---- the streams
-function periodMs(p, bpm, stepPct) { return 60000 / (bpm * (1 + p.fan * stepPct / 100)); }
+function periodMs(p, bpm, stepPct, key) { return 60000 / (bpm * (1 + p[key || 'fan'] * stepPct / 100)); }
 function cfg() { return { bpm: +$('bpm').value || 60, step: +$('step').value || 0, vel: Math.max(1, Math.min(127, +$('vel').value || 100)) }; }
 
 function play() {
   if (S.playing) return;
-  const c = cfg();
+  const c = cfg(); S.ramp = null; S.score0 = null;
   startStreams('drift', PLAYERS.map((p) => ({ period: periodMs(p, c.bpm, c.step), offsetMs: 0 })));
+}
+// DRIFT 2 (§196): from the unison at the bpm, a few seconds of it, then the ramp into the second ruler's fan, its tempi reached AT THE BURST (score 353.89),
+// then the drift — LOCK · DRIFT · CAPTURE as in the first; the beds under it so he hears it in place
+function play2() {
+  if (S.playing) return;
+  const bpm = +$('d2Bpm').value || 78, unit = +$('d2Unit').value || 0, pre = +$('d2Pre').value || 0, ramp = Math.max(0.1, +$('d2Ramp').value || 0), burst = +$('d2Burst').value || 0;
+  const P = 60000 / bpm;
+  startStreams('drift', PLAYERS.map((p) => ({ period: P, offsetMs: 0 })));
+  for (const s of S.streams) s.own = periodMs(s.p, bpm, unit, 'fan2');
+  S.ramp = { from: S.t0 + pre * 1000, ms: ramp * 1000, unisonPeriod: P }; S.score0 = burst - pre - ramp; S.ruler = 'fan2'; S.d2 = { bpm, unit };
+  if ($('bedsOn').checked) bedsStart(S.t0, S.score0);
 }
 function playSet() {
   if (S.playing) return;
@@ -282,8 +309,8 @@ function bedsPrepare() {
   if (A.els.length) return;
   A.els = BEDS.map((b) => { const el = new Audio('/fund/' + b.file); el.preload = 'auto'; el.volume = +$('bedsVol').value; return el; });
 }
-function bedsStart(t0) {   // t0: the sequence's start on the performance clock; score time at t0 = bedsAt
-  bedsPrepare(); const score0 = +$('bedsAt').value || 0; A.plan = [];
+function bedsStart(t0, scoreAt) {   // t0: the start on the performance clock; the score time at t0 (the sequence: bedsAt)
+  bedsPrepare(); const score0 = scoreAt != null ? scoreAt : (+$('bedsAt').value || 0); A.plan = [];
   BEDS.forEach((b, i) => {
     const el = A.els[i]; const delay = (b.at - score0) * 1000;   // ms after t0 that this bed begins (negative: it is already sounding)
     const go = () => { const lead = Math.max(0, -(b.at - score0)); el.currentTime = b.off + lead + Math.max(0, (performance.now() - t0 - Math.max(0, delay)) / 1000); el.play().catch(() => {}); };
@@ -366,7 +393,7 @@ function tickShift(horizon, vel) {
   S.lastT = horizon;
 }
 function startStreams(mode, specs) {
-  const now = performance.now();
+  const now = performance.now(); S.d2 = null; S.ruler = 'fan';
   S.t0 = now + 120; S.playing = true; S.locked = false; S.mode = mode;
   S.streams = PLAYERS.map((p, i) => ({ p, out: outOf(p), period: specs[i].period, own: specs[i].period, next: S.t0 + specs[i].offsetMs, n: 0,
                                        phase: 1 - specs[i].offsetMs / specs[i].period, beat: 1, last: null }));   // the plan runner integrates the phase: beat 1 falls at the offset
@@ -379,6 +406,11 @@ function startStreams(mode, specs) {
 function tick() {
   if (!S.playing) return;
   const c = cfg(); const horizon = performance.now() + AHEAD_MS;
+  if (S.mode === 'drift' && S.ramp && !S.locked) {   // Drift 2 (§196): the periods slide from the unison's to each player's own, linear in tempo
+    const u = Math.max(0, Math.min(1, (performance.now() - S.ramp.from) / S.ramp.ms)); const rU = 1 / S.ramp.unisonPeriod;
+    for (const s of S.streams) s.period = 1 / (rU + (1 / s.own - rU) * u);
+    if (u >= 1) S.ramp = null;
+  }
   if (S.mode === 'shift') { if (S.tr.ends && performance.now() - S.t0 > S.tr.total) { stop(); return; } tickShift(horizon, c.vel); return; }   // the chain ends with its last hold
   for (const s of S.streams) {
     while (s.next <= horizon) {
@@ -392,7 +424,7 @@ function tick() {
 }
 function lock() {
   if (!S.playing || S.locked || S.mode !== 'drift') return;
-  const c = cfg(); const P = 60000 / c.bpm;
+  const c = cfg(); const P = 60000 / (S.d2 ? S.d2.bpm : c.bpm); S.ramp = null;
   for (const s of S.streams) s.period = P;     // every stream at the bpm, its lag kept (its next beat stays where it is)
   S.locked = true; ui();
 }
@@ -412,7 +444,7 @@ function elapsedS() { return Math.max(0, (performance.now() - S.t0) / 1000); }
 async function capture() {
   if (!S.playing || S.mode !== 'drift') return;
   const c = cfg();
-  const rec = { at: new Date().toISOString(), elapsedS: +elapsedS().toFixed(1), bpm: c.bpm, stepPct: c.step, locked: S.locked, players: lags() };
+  const rec = { at: new Date().toISOString(), elapsedS: +elapsedS().toFixed(1), bpm: S.d2 ? S.d2.bpm : c.bpm, stepPct: S.d2 ? S.d2.unit : c.step, locked: S.locked, players: lags(), ruler: S.d2 ? 'fan2 0 1 7 11 20 23 25' : 'fan 0 1 4 10 18 23 25', score: S.score0 != null ? +(S.score0 + elapsedS()).toFixed(2) : null };
   let line = fmtLock(rec, '…');
   try {
     const r = await fetch('/locks', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(rec) });
@@ -442,10 +474,12 @@ function ui() {
   const tot = m.u - m.a; $('seqTotal').textContent = 'total ' + Math.floor(tot / 60) + ':' + String(Math.round(tot % 60)).padStart(2, '0') + ' (' + tot.toFixed(2) + ' s) to the unison';
   $('play').disabled = S.playing; $('stop').disabled = !dr; $('playSet').disabled = S.playing; $('stopSet').disabled = !st;
   $('lock').disabled = !dr || S.locked; $('drift').disabled = !dr || !S.locked; $('capture').disabled = !dr;
+  $('play2').disabled = S.playing; $('lock2').disabled = !dr || S.locked || !S.d2; $('drift2').disabled = !dr || !S.locked || !S.d2; $('capture2').disabled = !dr || !S.d2; $('stop2').disabled = !(dr && S.d2);
+  $('lock2').classList.toggle('on', S.locked && !!S.d2);
   $('setInfo').textContent = setInfo(SETS[S.set]); $('setWhy').textContent = SETS[S.set].why;
   document.querySelectorAll('#sets button').forEach((b, i) => b.classList.toggle('on', i === S.set));
   $('lock').classList.toggle('on', S.locked);
-  $('state').textContent = !S.playing ? '—' : S.mode === 'shift' ? 'transition' : S.mode === 'set' ? 'set ' + SETS[S.set].name : (S.locked ? 'LOCKED at ' + cfg().bpm + ' — the lags hold' : 'drifting');
+  $('state').textContent = !S.playing ? '—' : S.mode === 'shift' ? 'transition' : S.mode === 'set' ? 'set ' + SETS[S.set].name : (S.locked ? 'LOCKED at ' + (S.d2 ? S.d2.bpm : cfg().bpm) + ' — the lags hold' : 'drifting');
 }
 function paint() {
   const tb = $('players').querySelector('tbody'); const c = cfg();
@@ -465,7 +499,10 @@ function paint() {
       '<td><span class="bar"><em style="opacity:' + flash.toFixed(2) + '"></em>' + (S.mode === 'drift' ? '<b></b>' : '') + '<i style="left:' + x + 'px"></i></span></td></tr>';
   }).join('');
   if (S.playing && S.mode === 'shift') { paintTr(); seqScrollDraw(); const L = $('seqLights').children; if (L.length === S.streams.length && S.tr.score0 != null) S.streams.forEach((s, i) => { let last = s.last != null ? s.last : -1e9; const fl = Math.max(0, 1 - (now - last) / 260); L[i].style.background = 'rgba(159,227,211,' + (0.08 + 0.9 * fl).toFixed(2) + ')'; L[i].style.color = fl > 0.4 ? '#15171a' : '#9aa3ad'; }); }
-  if (S.playing) { $('state').textContent = (S.mode === 'shift' ? trText() : S.mode === 'set' ? 'set ' + SETS[S.set].name : S.locked ? 'LOCKED at ' + c.bpm + ' — the lags hold' : 'drifting') + ' · ' + elapsedS().toFixed(0) + ' s'; S.raf = requestAnimationFrame(paint); }
+  if (S.playing) { const d2 = S.mode === 'drift' && S.d2 ? (S.ramp ? (now < S.ramp.from ? 'DRIFT 2 · unison at ' + S.d2.bpm : 'DRIFT 2 · the ramp into the fan') : 'DRIFT 2 · ') : '';
+    $('state').textContent = (S.mode === 'shift' ? trText() : S.mode === 'set' ? 'set ' + SETS[S.set].name : S.locked ? d2 + 'LOCKED at ' + (S.d2 ? S.d2.bpm : c.bpm) + ' — the lags hold' : (S.ramp ? d2 : d2 + 'drifting')) + ' · ' + elapsedS().toFixed(0) + ' s' + (S.score0 != null && S.mode === 'drift' ? ' · score ' + (S.score0 + elapsedS()).toFixed(1) : '');
+    const d2s = $('d2State'); if (d2s) d2s.textContent = S.d2 ? $('state').textContent : '';
+    S.raf = requestAnimationFrame(paint); }
 }
 function trText() {
   const { g, u } = trSeg(); const n = (i) => SETS[i].name; const base = g.label || (g.kind === 'hold' ? (g === S.tr.segs[0] ? 'holding ' : 'AT ') + n(g.set) : n(g.set) + ' → ' + n(g.to));
@@ -505,7 +542,7 @@ function paintTr() {
   const W = S.tr.wide || 600; S.tr.mark.style.left = (W * x / S.tr.shown) + 'px';
   S.tr.state.textContent = (S.tr.score0 != null ? 'score ' + (S.tr.score0 + el / 1000).toFixed(1) + ' · ' : '') + trText();
 }
-$('play').onclick = play; $('stop').onclick = stop; $('stopTr').onclick = stop; $('stopD').onclick = stop; $('stopS2').onclick = stop; $('stopSeq').onclick = stop; $('playS2').onclick = playS2; $('playSeq').onclick = playSeq;
+$('play').onclick = play; $('stop').onclick = stop; $('stopTr').onclick = stop; $('play2').onclick = play2; $('lock2').onclick = lock; $('drift2').onclick = drift; $('capture2').onclick = capture; $('stop2').onclick = stop; $('stopD').onclick = stop; $('stopS2').onclick = stop; $('stopSeq').onclick = stop; $('playS2').onclick = playS2; $('playSeq').onclick = playSeq;
 ['seqHold', 'seqBpm2', 'seqUnison', 'seqBpm', 'seqUnit', 'bedsAt', 'seqWall', 'seqArrive'].forEach((id) => $(id).addEventListener('input', ui));
 $('bedsVol').addEventListener('input', () => A.els.forEach((el) => { el.volume = +$('bedsVol').value; }));
 $('bedsOn').addEventListener('change', () => { if ($('bedsOn').checked) bedsPrepare(); });

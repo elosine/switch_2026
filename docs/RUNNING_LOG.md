@@ -3523,3 +3523,28 @@ band of its own color — the drift green · the glide to swarm 2 blue · swarm 
 held gold — with its name and its score times written in it; a ruler ticked every second, the score time every five; the score time at
 the playhead. The wide bar, the marks and the lights stay. Proven once on the preview (a picture of the strip mid-sequence: the blue
 glide under the playhead, the purple hold and the orange glide ahead, the ruler 320 … 335).
+
+## §196. "A burst in Elec 1 around 3:54" = score 353.89; DRIFT 2 — a second ruler, reached at the burst (2026-11-12)
+
+**His words:** *"There's a moment, like a burst in electronic one around 3:54. Find the precise moment. At that moment I want to start another
+phase shifting sequence, the same method, a variation slightly different in character. Some slight accelerations for a moment — they should
+reach their target tempos by this point. Add just that phase shift sequence into the workshop so I can dial in where I want it to get to,
+the rhythm that I like."*
+
+**The moment.** "3:54" was the dictation's hearing of *three fifty-four*: the composer's time display is in seconds, and Elec 1 has nothing
+at 234 s (G5 begins at 269); at file 3:54 of G5 (score 466) there are only +7 dB bumps. At **score 353.89** G5 steps +26 dB (30 ms RMS,
+100 ms after minus before), its loudest frame at 354.09 — the burst. (Also seen and set aside: Elec 2's B4 has a +53 dB burst at 232.35.)
+
+**The variation.** The first ruler was 0 · 1 · 4 · 10 · 18 · 23 · 25. The second is **0 · 1 · 7 · 11 · 20 · 23 · 25** — another perfect
+seven-mark Golomb ruler of the same length (every pair still its own rate), its gaps dealt differently: the flute and clarinet far apart
+now (1 and 7 against 1 and 4), the sax near the clarinet (11 against 7), the glock up at 20; the same order of players, the piano the anchor.
+Slightly different in character, not another thing.
+
+**Built** (the block "Drift 2 — from the unison at 78, at the burst"): unison 78 bpm · unit 0.279 % · unison for 4 s · ramp 3 s · the burst at
+score 353.89 · ▶ Play drift 2 · LOCK · DRIFT · CAPTURE · Stop. The streams start in unison at 78 (score 346.89 with those numbers), hold it
+`pre` seconds, then each slides linear in tempo into its fan-2 tempo, arriving exactly at the burst, then drift; LOCK · DRIFT · CAPTURE are
+the first drift's (a capture now records the ruler and the score time); the beds play underneath from the same score origin, so he hears
+it in place. The drift block's table shows the tempi and the lags as before. Proven once on the preview: unison 78 → mid-ramp 78.1 … 80.5 →
+at score 353.87 the fan's own tempi 78.22 · 79.51 · 80.38 · 82.32 · 78 · 82.97 · 83.4 (ruler 2 at 0.279 %); LOCK → every period 769 ms;
+DRIFT → the fan back; Stop clean; no console errors. (The preview's fast-forward does not advance the drift's beats, so its lag readout
+stayed at zero there — the drift's own lags were proven at §170.)
