@@ -3463,3 +3463,12 @@ LEFT-EDGE drag — the sound stays, the brick shows more of it — which is righ
 He reloads (F5) the composer score; the file is served as it is.
 **Proven once on the throwaway 5601** (his save loaded read-only, nothing saved): the brick `zn-3155` given start 300.78 in the panel went
 from 301.6 … 476.678 to 300.78 … 475.858 — the length 175.078 kept, the offset 32589 kept. Nothing else touched.
+
+## §190. Coordinated: the first hit kept at 277.8; the glide to swarm 2 begins at the wall, 301.66 (2026-11-12)
+
+**His words:** *"help me coordinate all this. The starting point for the sequence was good — whatever that starting point was, let's mark
+that. And I want the transition to swarm 2 to start right at that point of that wall."* **Built:** two marks in the sequence block — "first
+hit at score" 277.8 (kept) and "glide starts at score" 301.66 (Elec 1's wall, §189); the drift now lasts the distance between them, **23.86 s**,
+and the line, the total (23.86 + 32 + 8 + 18 = 81.86 s → the unison at 78 arrives at score 359.66) and the beds follow the marks live.
+`bank/phase_sequence.json` carries the marks. **A consequence put to him in one line:** at 23.86 s the fan has a third of the spread he saved
+at 70 s (state 1); the unit 0.28 % would reach that spread by the wall — his call, the unit left at 0.095.
