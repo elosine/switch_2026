@@ -3660,3 +3660,15 @@ no console errors.
 **His words:** *"vol slider pls."* **Built:** beside ▶ Play the whole form, a second handle of the beds' level (the same level as the sequence
 block's slider, the two mirrored, live while playing) and a second box of the players' velocity (mirrored with the top one; it takes effect on
 the next hits, as the top one does).
+
+## §208. DRIFT 3 — a third ruler dealt the other way round, from the unison at 90 (2026-11-12)
+
+**His words:** *"find me a new drift, and set up the drift from the 90, and let me hear it. It looks like there's about 39 and a half seconds left."*
+**The new drift:** the ruler **0 · 1 · 11 · 16 · 19 · 23 · 25** (a third perfect seven-mark ruler) dealt the OTHER way round — piano 0 · cello 1 ·
+violin 11 · glockenspiel 16 · sax 19 · clarinet 23 · flute 25 — so this time the bass holds with the piano and the treble runs: a different
+character from the first two, where the cello flew. **Built** (the block "Drift 3 — from the unison at 90"): unison 90 · at score 400.3 ·
+unison for 2 s · ramp 3 s · unit 0.389 % (drift 2's ground, 0.843 × 18.21, spread over his 39.5 s; drift 1's ground would be 0.169) · drift for
+39.5 s, then LOCK (to score 444.8) · LOCK · DRIFT · CAPTURE · Stop; no beds. At the ramp's end the fan runs 90 · 90.35 · 93.85 · 95.6 · 96.65 ·
+98.05 · 98.75 (piano · cello · violin · glock · sax · clarinet · flute). Proven once on the preview: unison 90 → after the ramp exactly those
+tempi; the lock by itself after 39.5 s (all 667 ms, "DRIFT 3 · LOCKED at 90", score 445.0); the buttons live; no console errors. Not yet in the
+whole form — at his word, once heard.
