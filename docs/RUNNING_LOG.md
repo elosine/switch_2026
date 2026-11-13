@@ -3385,3 +3385,17 @@ immediately over 32 seconds to swarm 2. Then from there, let's just start there.
 **Kept:** the From-the-drift defaults now hold 0 · over 32; lock record 1 carries `then: {hold 0, to F2 swarm ii, over 32 s}`. **F2 swarm ii:**
 periods 8 … 14 steps of 80 ms = 94 · 83 · 75 · 68 · 63 · 58 · 54 bpm (flute … cello); the median is the glockenspiel's, 11 steps = 880 ms =
 **68.2 bpm** — the same 68 his drift sits at, so the piano's tempo barely moves in the glide (68 → 62.5) while the winds rise and the strings fall.
+
+## §184. Swarm 2 → unison at 78; THE SEQUENCE compiled on the page and in `bank/phase_sequence.json` (2026-11-12)
+
+**His words:** *"let's go to 78 then. Can you do swarm 2 and then adjustable duration to 78 unison? And keep the whole sequence somewhere.
+For this one let me just hear the transition. But also somewhere else on the page, compile the whole sequence so I can listen to it."*
+
+**Built:** (1) the block "Swarm 2 → unison": start at F2 swarm ii (its own offsets), every player glides to ONE tempo (78, a field) over the
+dial's seconds (20 preset), then holds until Stop — the same tempo, the lags as the glides leave them (an aligned arrival is a later
+ask). (2) "The sequence": a line stating the order and ▶ Play the sequence, which plays it WHOLE from the top — unison at 68 → the drift
+live for 70 s (unit 0.095 %) → 32 s to F2 swarm ii → hold F2 (a field, 8 s — not his number yet) → to unison at 78 over a field's seconds (20)
+→ hold until Stop. The order is kept in `bank/phase_sequence.json` and in the page's `SEQ`; a general `runPlan` runs any list of holds
+and glides from any start. Proven once on the preview: swarm 2 → 78 at 50 % the periods 699 … 912 (linear in rate), at the end all 769 ms
+(= 78); the sequence's five segments as kept, the drift's tempi 68.06 … 69.61 at the start, 50 % into the first glide 742 … 974 ms, 75 % into
+the second 81.9 … 71.9 bpm, the end all 78 and still playing; the sequence line was blank at load (ui() not run at start) — fixed.

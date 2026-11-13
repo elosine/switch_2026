@@ -108,6 +108,27 @@
 </div>
 <div class="row"><span class="tbar" id="dbar"><i id="dmark"></i></span><span id="dState" class="dim"></span></div>
 
+<h1 style="margin-top:26px">Swarm 2 → unison</h1>
+<div class="sub">start at F2 swarm ii · every player glides to one tempo over T seconds · hold there until Stop</div>
+<div class="row">
+  <label>unison at <input id="s2Bpm" type="number" value="78" min="20" max="240" step="1"> bpm</label>
+  <label>over <input id="s2Over" type="number" value="20" min="0.5" max="300" step="0.5"> s</label>
+  <button id="playS2">▶ Play</button>
+  <button id="stopS2" disabled>■ Stop</button>
+</div>
+<div class="row"><span class="tbar" id="s2bar"><i id="s2mark"></i></span><span id="s2State" class="dim"></span></div>
+
+<h1 style="margin-top:26px">The sequence</h1>
+<div class="sub" id="seqText"></div>
+<div class="row">
+  <label>hold swarm 2 <input id="seqHold" type="number" value="8" min="0" max="300" step="1"> s</label>
+  <label>then to unison at <input id="seqBpm2" type="number" value="78" min="20" max="240" step="1"> bpm</label>
+  <label>over <input id="seqG2" type="number" value="20" min="0.5" max="300" step="0.5"> s</label>
+  <button id="playSeq">▶ Play the sequence</button>
+  <button id="stopSeq" disabled>■ Stop</button>
+</div>
+<div class="row"><span class="tbar" id="seqbar"><i id="seqmark"></i></span><span id="seqState" class="dim"></span></div>
+
 <div id="locks"></div>
 
 <script>
@@ -214,6 +235,33 @@ function drawBar() {
   S.tr.segs.forEach((g) => { const z = document.createElement('span'); z.className = 'z ' + g.kind; z.style.width = (100 * Math.min(g.ms, 12000) / shown) + '%'; bar.insertBefore(z, S.tr.mark); });
   S.tr.shown = shown;
 }
+// THE SEQUENCE (§184) — his piece's order so far, kept here and in bank/phase_sequence.json; each step's seconds are the page's fields
+const SEQ = { drift: { bpm: 68, unit: 0.095, s: 70 }, g1: { to: 'F2 swarm ii', s: 32 }, hold2: { s: 8 }, g2: { to: 'unison', bpm: 78, s: 20 } };
+const unisonRates = (bpm) => PLAYERS.map(() => bpm / 60000);
+const fanRates = (bpm, unit) => PLAYERS.map((p) => bpm * (1 + p.fan * unit / 100) / 60000);
+const setByName = (n) => SETS[SETS.findIndex((s) => s.name === n)];
+const setSpecs = (set) => PLAYERS.map((p, i) => ({ period: set.per[i] * GRID_MS, offsetMs: (set.off[i] || 0) * GRID_MS }));
+function runPlan(steps, first, ids) {   // steps: [{kind, s, rA, rB?, label}] in order; first: the streams' start; ids: the bar, its marker, its text
+  if (S.playing) return;
+  let at = 0; const segs = steps.map((st) => { const ms = st.s == null ? 1e9 : Math.round(st.s * 1000); const g = Object.assign({}, st, { from: at, ms }); at += ms; return g; });
+  S.tr = { segs, total: at, ends: false, bar: $(ids[0]), mark: $(ids[1]), state: $(ids[2]) };
+  startStreams('shift', first); drawBar();
+}
+function playS2() {   // swarm 2 → unison at the bpm, over the dial's seconds, then hold until Stop
+  const F2 = setByName('F2 swarm ii'), bpm = +$('s2Bpm').value || 78, T = +$('s2Over').value || 1;
+  runPlan([{ kind: 'glide', s: T, rA: rateOf(F2), rB: unisonRates(bpm), label: 'F2 swarm ii → unison ' + bpm },
+           { kind: 'hold', rA: unisonRates(bpm), label: 'AT unison ' + bpm + ' — until Stop' }], setSpecs(F2), ['s2bar', 's2mark', 's2State']);
+}
+function playSeq() {   // the whole sequence from the top: the drift live, then every glide and hold as kept
+  const D = SEQ.drift, F2 = setByName(SEQ.g1.to), h = +$('seqHold').value, T2 = +$('seqG2').value || 1, bpm2 = +$('seqBpm2').value || 78;
+  const fan = fanRates(D.bpm, D.unit);
+  runPlan([{ kind: 'hold', s: D.s, rA: fan, label: 'the drift · ' + D.bpm + ' bpm · unit ' + D.unit + ' %' },
+           { kind: 'glide', s: SEQ.g1.s, rA: fan, rB: rateOf(F2), label: 'drift → ' + F2.name },
+           { kind: 'hold', s: h, rA: rateOf(F2), label: 'AT ' + F2.name },
+           { kind: 'glide', s: T2, rA: rateOf(F2), rB: unisonRates(bpm2), label: F2.name + ' → unison ' + bpm2 },
+           { kind: 'hold', rA: unisonRates(bpm2), label: 'AT unison ' + bpm2 + ' — until Stop' }],
+          PLAYERS.map((p, i) => ({ period: 1 / fan[i], offsetMs: 0 })), ['seqbar', 'seqmark', 'seqState']);
+}
 // FROM THE DRIFT (§182): start AT the drift's state after N seconds (the lags it would have), locked at the bpm; hold; glide to a set over T; hold until Stop
 function startFromDrift(bpm, unit, afterS, holdS, toIdx, glideS) {
   if (S.playing) return;
@@ -304,7 +352,8 @@ function stop() {
 // ---- the page
 function ui() {
   const dr = S.playing && S.mode === 'drift', st = S.playing && S.mode === 'set', sh = S.playing && S.mode === 'shift';
-  $('playTr').disabled = S.playing; $('stopTr').disabled = !sh; $('playD').disabled = S.playing; $('stopD').disabled = !sh;
+  $('playTr').disabled = S.playing; $('stopTr').disabled = !sh; $('playD').disabled = S.playing; $('stopD').disabled = !sh; $('playS2').disabled = S.playing; $('stopS2').disabled = !sh; $('playSeq').disabled = S.playing; $('stopSeq').disabled = !sh;
+  $('seqText').textContent = 'unison at ' + SEQ.drift.bpm + ' → the drift, unit ' + SEQ.drift.unit + ' %, for ' + SEQ.drift.s + ' s → ' + SEQ.g1.to + ' over ' + SEQ.g1.s + ' s → hold ' + $('seqHold').value + ' s → unison at ' + $('seqBpm2').value + ' over ' + $('seqG2').value + ' s → hold until Stop';
   $('play').disabled = S.playing; $('stop').disabled = !dr; $('playSet').disabled = S.playing; $('stopSet').disabled = !st;
   $('lock').disabled = !dr || S.locked; $('drift').disabled = !dr || !S.locked; $('capture').disabled = !dr;
   $('setInfo').textContent = setInfo(SETS[S.set]); $('setWhy').textContent = SETS[S.set].why;
@@ -341,7 +390,8 @@ function paintTr() {
   for (const g of S.tr.segs) { const w = Math.min(g.ms, 12000); if (el < g.from + g.ms) { x += w * Math.min(1, (el - g.from) / g.ms); break; } x += w; }
   S.tr.mark.style.left = (600 * x / S.tr.shown) + 'px'; S.tr.state.textContent = trText();
 }
-$('play').onclick = play; $('stop').onclick = stop; $('stopTr').onclick = stop; $('stopD').onclick = stop;
+$('play').onclick = play; $('stop').onclick = stop; $('stopTr').onclick = stop; $('stopD').onclick = stop; $('stopS2').onclick = stop; $('stopSeq').onclick = stop; $('playS2').onclick = playS2; $('playSeq').onclick = playSeq;
+['seqHold', 'seqBpm2', 'seqG2'].forEach((id) => $(id).addEventListener('input', ui));
 SETS.forEach((s, i) => { const o = document.createElement('option'); o.value = i; o.textContent = s.name; $('dTo').appendChild(o); }); $('dTo').value = SETS.findIndex((s) => s.name === 'F2 swarm ii');
 $('playD').onclick = () => startFromDrift(+$('dBpm').value || 60, +$('dUnit').value || 0, +$('dAfter').value || 0, +$('dHold').value || 0, +$('dTo').value, +$('dGlide').value || 1);
 const SLOT0 = ['E two speeds', 'F swarm', 'B clusters', 'G three speeds'].map((n) => SETS.findIndex((s) => s.name === n)), SPEED0 = [1, 2, 4];
@@ -363,7 +413,7 @@ document.addEventListener('keydown', (e) => {
 });
 window.addEventListener('beforeunload', stop);
 (async () => {
-  await midi(); paint();
+  await midi(); ui(); paint();
   try { const j = await (await fetch('/locks')).json(); (j.locks || []).slice().reverse().forEach((rec) => { const d = document.createElement('div'); d.textContent = fmtLock(rec, '#' + rec.id); $('locks').appendChild(d); }); } catch (e) {}
 })();
 </script>
