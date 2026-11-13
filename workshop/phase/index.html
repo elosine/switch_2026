@@ -164,6 +164,18 @@
 </div>
 <div id="d2State" class="dim"></div>
 
+<h1 style="margin-top:26px">Drift 2 → swarm 3</h1>
+<div class="sub">the tail of Drift 2 as it stands at the wall (its fan still drifting, the lags it has by then) · at the wall every player glides to the set over T seconds, landing on its grid · hold until Stop</div>
+<div class="row">
+  <label>the wall at score <input id="s3Wall" type="number" value="372.10" min="0" max="600" step="0.01"> s</label>
+  <label title="how much of Drift 2's drift is heard before the wall">drift before it <input id="s3Before" type="number" value="4" min="0" max="30" step="0.5"> s</label>
+  <label>to <select id="s3To"></select></label>
+  <label>over <input id="s3Over" type="number" value="20" min="0.5" max="300" step="0.5"> s</label>
+  <button id="playS3">▶ Play</button>
+  <button id="stopS3" disabled>■ Stop</button>
+</div>
+<div class="row"><span class="tbar" id="s3bar"><i id="s3mark"></i></span><span id="s3State" class="dim"></span></div>
+
 <div id="locks"></div>
 
 <script>
@@ -347,6 +359,24 @@ function playSeq() {   // the whole sequence from the top, every stretch from th
   S.tr.score0 = +$('bedsAt').value || 0; S.tr.wide = 900; seqMarksDraw();
   if ($('bedsOn').checked) bedsStart(S.t0);
 }
+// DRIFT 2 → SWARM 3 (§202): the state of Drift 2 at (wall − before) is arithmetic — each player's beats since Drift 2 began = unison·pre +
+// the ramp's mean rate·ramp + its own rate·(the drift so far); the fraction of that is where its next beat falls. The fan keeps drifting to the
+// wall, then the glide (aligned to the set's grid, §185), then the set held.
+function playS3() {
+  if (S.playing) return;
+  const bpm = +$('d2Bpm').value || 78, unit = +$('d2Unit').value || 0, pre = +$('d2Pre').value || 0, ramp = +$('d2Ramp').value || 0, burst = +$('d2Burst').value || 0;
+  const wall = +$('s3Wall').value || 0, before = Math.max(0, +$('s3Before').value || 0), T = +$('s3Over').value || 1, B = SETS[+$('s3To').value];
+  const fan = PLAYERS.map((p) => bpm * (1 + p.fan2 * unit / 100) / 60), rA = bpm / 60;   // beats per second
+  const drifted = Math.max(0, wall - before - burst);                                      // seconds of the fan before this block begins
+  const beats = PLAYERS.map((p, i) => pre * rA + ramp * (rA + fan[i]) / 2 + drifted * fan[i]);
+  const first = PLAYERS.map((p, i) => { const per = 1000 / fan[i]; const fr = beats[i] - Math.floor(beats[i]); return { period: per, offsetMs: ((1 - fr) % 1) * per }; });
+  const fanMs = fan.map((r) => r / 1000);
+  runPlan([{ kind: 'hold', s: before, rA: fanMs, label: 'Drift 2, drifting' },
+           { kind: 'glide', s: T, rA: fanMs, rB: rateOf(B), toSet: B, label: 'Drift 2 → ' + B.name },
+           { kind: 'hold', rA: rateOf(B), label: 'AT ' + B.name + ' — until Stop' }], first, ['s3bar', 's3mark', 's3State']);
+  S.tr.score0 = wall - before;
+  if ($('bedsOn').checked) bedsStart(S.t0, S.tr.score0);
+}
 // FROM THE DRIFT (§182): start AT the drift's state after N seconds (the lags it would have), locked at the bpm; hold; glide to a set over T; hold until Stop
 function startFromDrift(bpm, unit, afterS, holdS, toIdx, glideS) {
   if (S.playing) return;
@@ -480,7 +510,7 @@ function stop() {
 // ---- the page
 function ui() {
   const dr = S.playing && S.mode === 'drift', st = S.playing && S.mode === 'set', sh = S.playing && S.mode === 'shift';
-  $('playTr').disabled = S.playing; $('stopTr').disabled = !sh; $('playD').disabled = S.playing; $('stopD').disabled = !sh; $('playS2').disabled = S.playing; $('stopS2').disabled = !sh; $('playSeq').disabled = S.playing; $('stopSeq').disabled = !sh;
+  $('playTr').disabled = S.playing; $('stopTr').disabled = !sh; $('playD').disabled = S.playing; $('stopD').disabled = !sh; $('playS3').disabled = S.playing; $('stopS3').disabled = !sh; $('playS2').disabled = S.playing; $('stopS2').disabled = !sh; $('playSeq').disabled = S.playing; $('stopSeq').disabled = !sh;
   const m = { a: +$('bedsAt').value, w: +$('seqWall').value, s2: +$('seqArrive').value, h: +$('seqHold').value, u: +$('seqUnison').value };
   $('seqText').textContent = 'score ' + m.a + ': unison at ' + $('seqBpm').value + ' → the drift, unit ' + $('seqUnit').value + ' %, ' + driftS() + ' s → the wall ' + m.w + ': ' + glide1S() + ' s to ' + SEQ.g1.to +
     ' → at ' + m.s2 + ', hold ' + m.h + ' s → ' + glide2S() + ' s to unison at ' + $('seqBpm2').value + ', on the beat at ' + m.u + ' (D5) → hold until Stop';
@@ -558,7 +588,9 @@ function paintTr() {
   const W = S.tr.wide || 600; S.tr.mark.style.left = (W * x / S.tr.shown) + 'px';
   S.tr.state.textContent = (S.tr.score0 != null ? 'score ' + (S.tr.score0 + el / 1000).toFixed(1) + ' · ' : '') + trText();
 }
-$('play').onclick = play; $('stop').onclick = stop; $('stopTr').onclick = stop; $('play2').onclick = play2; $('lock2').onclick = lock; $('drift2').onclick = drift; $('capture2').onclick = capture; $('stop2').onclick = stop; $('stopD').onclick = stop; $('stopS2').onclick = stop; $('stopSeq').onclick = stop; $('playS2').onclick = playS2; $('playSeq').onclick = playSeq;
+$('play').onclick = play; $('stop').onclick = stop; $('stopTr').onclick = stop; $('play2').onclick = play2; $('lock2').onclick = lock; $('drift2').onclick = drift; $('capture2').onclick = capture; $('stop2').onclick = stop; $('stopD').onclick = stop; $('stopS3').onclick = stop; $('playS3').onclick = playS3;
+SETS.forEach((s, i) => { const o = document.createElement('option'); o.value = i; o.textContent = s.name; $('s3To').appendChild(o); }); $('s3To').value = SETS.findIndex((s) => s.name === 'F3 swarm iii');
+$('stopS2').onclick = stop; $('stopSeq').onclick = stop; $('playS2').onclick = playS2; $('playSeq').onclick = playSeq;
 ['seqHold', 'seqBpm2', 'seqUnison', 'seqBpm', 'seqUnit', 'bedsAt', 'seqWall', 'seqArrive'].forEach((id) => $(id).addEventListener('input', ui));
 $('bedsVol').addEventListener('input', () => A.els.forEach((el) => { el.volume = +$('bedsVol').value; }));
 $('bedsOn').addEventListener('change', () => { if ($('bedsOn').checked) bedsPrepare(); });

@@ -3603,3 +3603,14 @@ swarm 3 and remind me where we are in the sequence."* **Measured:** Elec 2 (G9, 
 (peak −9 dBFS); smaller steps at 371.16 (+17), 374.75 (+14), 376.12 (+15). **Set:** Drift 2's "drift for" 18.21 s — from the burst 353.89 to the
 wall 372.10 — where it LOCKS (the page's way of holding the state) until the glide to **F3 swarm iii** is built in; that glide's length is
 his to say. The record carries `next`.
+
+## §202. The block "Drift 2 → swarm 3": the tail of Drift 2 at the wall, the glide over his dial, swarm 3 held (2026-11-12)
+
+**His words:** *"set up in the workshop just that transition from the end of drift 2 to swarm 3, and let me adjust the time, so I can hear it."*
+**Built:** the wall at 372.10 · drift before it 4 s · to (F3 swarm iii preset) · over T (20 s preset) · ▶ Play · Stop · its bar. The state of
+Drift 2 at (wall − before) is arithmetic, not played through: each player's beats since Drift 2 began = unison × pre + the ramp's mean rate ×
+ramp + its own rate × the drift so far; the fraction of that places its next beat. The fan keeps drifting to the wall; at the wall every
+player glides to the set over T, landing on the set's grid (§185); the set holds until Stop. The beds under it if "with the beds" is on.
+Proven once on the preview: the start at ruler 2's tempi 78.22 … 83.44 (score 368.10), "Drift 2, drifting" before the wall, 49 % through
+the glide 94.1 … 70.0, at the end exactly F3's 107.14 · 93.75 · 83.33 · 75 · 68.18 · 62.5 · 57.69 and every player on F3's grid within 0.4 ms;
+no console errors.
