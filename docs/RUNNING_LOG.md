@@ -3696,3 +3696,8 @@ cello · violin · glock · sax · clarinet · flute). **The destinations above 
 Nineteen sets on the page (about 15 hits/s each above 90 — the price of seven players all over 90). Proven once on the preview: the
 chained block's segments … 11.58 → unison 90 · 2 (3 beats) · 0.1 into drift 3 · 33 · 4 LOCKED · ∞; at 401.5 all 90; at 402.6 the fan's tempi
 above; at 436.5 all 90 again (the lock); the whole form 15 segments ending the same way; 19 set buttons; no console errors.
+
+## §210. Swarm 5: the top at about 135, the rest down through the 90 (2026-11-12)
+
+**His words:** *"that's maybe a little too fast. Let's do a swarm 5, but let's have the max tempo be about 135. You can go below the 90."*
+**Added:** F5 swarm v — grid 50 ms, periods 9 … 15 — **133 · 120 · 109 · 100 · 92 · 86 · 80** (flute … cello), median 100, 12 hits/s. Twenty sets.
