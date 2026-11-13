@@ -3377,3 +3377,11 @@ the hood the plan's segments now carry their own rate tables (rA → rB) so a pl
 draws an endless hold as 12 s. Proven once on the preview: the first beats at 0.925 · 0.699 · 0.246 · 0.643 · 1 · 0.267 · 0.116 of a beat
 (each = 1 − its lag), 50 % through the glide the periods 742 … 987 (linear in rate from 882 to F2's 640 … 1120), at the end exactly F2's,
 still playing after; the four-slot chain still ends by itself; no console errors.
+
+## §183. State 1 settled: no hold, 32 s to swarm 2; the median tempo of swarm 2 (2026-11-12)
+
+**His words:** *"Let's do it over 32 seconds. Keep track of all this: 68 BPM, 0.095 for 70 seconds. No need to hold them, they can go
+immediately over 32 seconds to swarm 2. Then from there, let's just start there. First tell me the median tempo of swarm 2."*
+**Kept:** the From-the-drift defaults now hold 0 · over 32; lock record 1 carries `then: {hold 0, to F2 swarm ii, over 32 s}`. **F2 swarm ii:**
+periods 8 … 14 steps of 80 ms = 94 · 83 · 75 · 68 · 63 · 58 · 54 bpm (flute … cello); the median is the glockenspiel's, 11 steps = 880 ms =
+**68.2 bpm** — the same 68 his drift sits at, so the piano's tempo barely moves in the glide (68 → 62.5) while the winds rise and the strings fall.

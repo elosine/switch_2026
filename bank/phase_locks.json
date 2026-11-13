@@ -9,7 +9,7 @@
    "bpm": 68,
    "stepPct": 0.095,
    "locked": true,
-   "note": "HIS SAVED STATE (§182): the Golomb drift at 68 bpm, unit 0.095 %, after 70 s — the From-the-drift block starts here",
+   "note": "HIS STATE 1 (§182 · §183): the Golomb drift at 68 bpm, unit 0.095 %, after 70 s; then, with NO hold, straight to F2 swarm ii over 32 s (his word 2026-11-12). The From-the-drift block carries these as its defaults.",
    "players": [
     {
      "name": "Flute",
@@ -60,7 +60,12 @@
      "aheadBeatsUnfolded": 1.884,
      "lagMs": -102
     }
-   ]
+   ],
+   "then": {
+    "hold": 0,
+    "to": "F2 swarm ii",
+    "overS": 32
+   }
   }
  ]
 }
