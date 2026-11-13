@@ -145,7 +145,7 @@
 <div class="row"><span class="tbar wide" id="seqbar"><i id="seqmark"></i></span></div>
 <div class="row" id="seqMarks" style="position:relative;height:18px;width:900px;margin-top:-6px"></div>
 <div class="row" id="seqLights"></div>
-<div class="row"><canvas id="seqScroll" width="900" height="72" style="border-radius:6px;background:#0f1113"></canvas></div>
+<div class="row"><canvas id="seqScroll" width="1400" height="72" style="border-radius:6px;background:#0f1113;max-width:100%"></canvas></div>
 
 <h1 style="margin-top:26px">Drift 2 — from the unison at 78, at the burst</h1>
 <div class="sub">the second ruler 0 · 1 · 7 · 11 · 20 · 23 · 25 (flute · clarinet · sax · glock · violin · cello; the piano stays) · a few seconds of unison, a short ramp, the fan's tempi reached at the burst, then the drift · LOCK holds, CAPTURE writes the lags and the score time</div>
@@ -249,7 +249,8 @@ function play2() {
   startStreams('drift', PLAYERS.map((p) => ({ period: P, offsetMs: 0 })));
   for (const s of S.streams) s.own = periodMs(s.p, bpm, unit, 'fan2');
   S.ramp = { from: S.t0 + pre * 1000, ms: ramp * 1000, unisonPeriod: P }; S.score0 = burst - pre - ramp; S.ruler = 'fan2'; S.d2 = { bpm, unit };
-  if ($('bedsOn').checked) bedsStart(S.t0, S.score0);
+  ui();   // the buttons again, now that this is Drift 2 (its Stop · LOCK · CAPTURE were drawn before S.d2 was set — his "the stop doesn't work", §197)
+  // no beds here, his word: "I just want to hear the rhythms of the ensemble"
 }
 function playSet() {
   if (S.playing) return;
@@ -508,28 +509,31 @@ function trText() {
   const { g, u } = trSeg(); const n = (i) => SETS[i].name; const base = g.label || (g.kind === 'hold' ? (g === S.tr.segs[0] ? 'holding ' : 'AT ') + n(g.set) : n(g.set) + ' → ' + n(g.to));
   return g.kind === 'glide' ? base + ' · ' + Math.round(u * 100) + ' %' : base;
 }
-// THE SCROLLING STRIP (§195, his word: "a scrolling bar … shaded areas, different colors, to show me where in the sequence I am"):
+// THE FORM (§197, his word: "see the whole form in one place and watch the cursor scroll" — §195's strip reversed; the old note follows) — THE SCROLLING STRIP (§195, his word: "a scrolling bar … shaded areas, different colors, to show me where in the sequence I am"):
 // the time slides right to left past a fixed playhead; every stretch is a band of its own color with its name and its score times
 const BAND = { 'the drift': '#2f7d4f', 'drift →': '#2e6f9e', 'AT F2': '#6b4fa0', '→ unison': '#b8742a', 'AT unison': '#a08a2e' };
 function bandColor(g) { for (const k in BAND) if ((g.label || '').startsWith(k) || (g.label || '').includes(k)) return BAND[k]; return g.kind === 'glide' ? '#2e9e8e' : '#3a3f46'; }
 function seqScrollDraw() {
-  const cv = $('seqScroll'); if (!cv || !S.tr || S.tr.score0 == null) return; const ctx = cv.getContext('2d'), W = cv.width, H = cv.height;
-  const PX = 36, X0 = 0.3 * W;   // pixels per second; the playhead's x
-  const el = S.playing ? (performance.now() - S.t0) / 1000 : 0, left = el - X0 / PX, right = el + (W - X0) / PX;
-  ctx.clearRect(0, 0, W, H);
+  const cv = $('seqScroll'); if (!cv || !S.tr || S.tr.score0 == null) return;
+  const W = Math.max(900, Math.min(1800, window.innerWidth - 48)); if (cv.width !== W) cv.width = W;   // as wide as the window allows
+  const ctx = cv.getContext('2d'), H = cv.height, TAIL = 20;   // the endless last hold is drawn as 20 s
+  const total = S.tr.segs.reduce((s, g) => s + Math.min(g.ms, TAIL * 1000), 0) / 1000;
+  const el = S.playing ? (performance.now() - S.t0) / 1000 : 0;
+  ctx.clearRect(0, 0, W, H); let x = 0, elx = null, acc = 0;
   S.tr.segs.forEach((g) => {
-    const a = g.from / 1000, b = Math.min(a + g.ms / 1000, right + 1); if (b < left || a > right) return;
-    const x0 = X0 + (a - el) * PX, x1 = X0 + (b - el) * PX;
-    ctx.fillStyle = bandColor(g); ctx.globalAlpha = g.kind === 'glide' ? 0.85 : 0.55; ctx.fillRect(x0, 14, x1 - x0, H - 14); ctx.globalAlpha = 1;
-    ctx.fillStyle = '#e6e9ee'; ctx.font = '12px system-ui'; const tx = Math.max(x0 + 6, 6); if (x1 - tx > 40) ctx.fillText((g.label || g.kind).replace(' — until Stop', ''), tx, 32);
-    ctx.fillStyle = '#c9d1d9'; ctx.font = '11px system-ui'; if (x1 - tx > 40) ctx.fillText('score ' + (S.tr.score0 + a).toFixed(2) + (g.ms < 1e9 ? ' → ' + (S.tr.score0 + a + g.ms / 1000).toFixed(2) : ''), tx, 50);
+    const secs = Math.min(g.ms, TAIL * 1000) / 1000, w = W * secs / total;
+    ctx.fillStyle = bandColor(g); ctx.globalAlpha = g.kind === 'glide' ? 0.85 : 0.55; ctx.fillRect(x, 14, w, H - 14); ctx.globalAlpha = 1;
+    ctx.fillStyle = '#e6e9ee'; ctx.font = '12px system-ui'; if (w > 60) ctx.fillText((g.label || g.kind).replace(' — until Stop', ''), x + 6, 32);
+    ctx.fillStyle = '#c9d1d9'; ctx.font = '11px system-ui'; if (w > 60) ctx.fillText('score ' + (S.tr.score0 + g.from / 1000).toFixed(2) + (g.ms < 1e9 ? ' → ' + (S.tr.score0 + (g.from + g.ms) / 1000).toFixed(2) : ' →') + ' · ' + (g.ms < 1e9 ? (g.ms / 1000).toFixed(2) + ' s' : 'until Stop'), x + 6, 50);
+    ctx.fillStyle = '#15171a'; ctx.fillRect(x, 14, 1, H - 14);   // the seam
+    if (elx == null && el < acc + g.ms / 1000) elx = x + w * Math.min(1, (el - acc) / secs);
+    acc += g.ms / 1000; x += w;
   });
-  // the ruler: a tick every second, the score time every five
-  ctx.fillStyle = '#5a616a'; ctx.font = '10px system-ui';
-  for (let s = Math.ceil(left); s <= right; s++) { const x = X0 + (s - el) * PX; const sc = S.tr.score0 + s; ctx.fillRect(x, 0, 1, Math.round(sc) % 5 === 0 ? 12 : 6); if (Math.round(sc) % 5 === 0) ctx.fillText(sc.toFixed(0), x + 3, 10); }
-  // the playhead
-  ctx.fillStyle = '#ffd166'; ctx.fillRect(X0 - 1, 0, 3, H);
-  ctx.fillStyle = '#ffd166'; ctx.font = '12px system-ui'; ctx.fillText((S.tr.score0 + el).toFixed(1), X0 + 6, H - 6);
+  if (elx == null) elx = W - 1;
+  ctx.fillStyle = '#5a616a'; ctx.font = '10px system-ui';   // the ruler: the score time every 5 s of the drawn span
+  for (let s = 0; s <= total; s += 5) { const xx = W * s / total; ctx.fillRect(xx, 0, 1, 10); ctx.fillText((S.tr.score0 + s).toFixed(0), xx + 3, 10); }
+  ctx.fillStyle = '#ffd166'; ctx.fillRect(elx - 1, 0, 3, H);   // the cursor
+  ctx.font = '12px system-ui'; ctx.fillText((S.tr.score0 + el).toFixed(1), Math.min(W - 44, elx + 6), H - 6);
 }
 function seqMarksDraw() {   // the marks under the wide bar, each at its zone's edge: score times
   const box = $('seqMarks'); box.innerHTML = ''; let x = 0; const W = S.tr.wide || 900;

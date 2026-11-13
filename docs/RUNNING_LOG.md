@@ -3548,3 +3548,16 @@ it in place. The drift block's table shows the tempi and the lags as before. Pro
 at score 353.87 the fan's own tempi 78.22 · 79.51 · 80.38 · 82.32 · 78 · 82.97 · 83.4 (ruler 2 at 0.279 %); LOCK → every period 769 ms;
 DRIFT → the fan back; Stop clean; no console errors. (The preview's fast-forward does not advance the drift's beats, so its lag readout
 stayed at zero there — the drift's own lags were proven at §170.)
+
+## §197. THE FORM: the whole sequence drawn once, a cursor crossing it; Drift 2's Stop and its beds (2026-11-12)
+
+**His words:** *"what I meant was the reverse: scroll the cursor, that's better, so I can see when it's going to hit the next one, or see
+the whole form … the width can be longer … watch the cursor scroll."* Then, mid-build: *"Drift 2 is playing the bed as well — I don't need
+the bed, I just want to hear the rhythms of the ensemble. And the stop doesn't seem to work."*
+
+**Built:** the strip of §195 reversed — the whole sequence drawn once across the window's width (900 … 1800 px), every stretch a band of
+its own color with its name, its score times and its length written in it, the endless last hold drawn as 20 s, a ruler every 5 s, and
+the yellow cursor crossing it slowly (63 s for the form). **Drift 2:** its Stop · LOCK · CAPTURE buttons were drawn before its state was
+set and stayed disabled — fixed (the buttons redrawn after); and Drift 2 no longer starts the beds, his word. Proven once on the preview:
+the form's five bands in order with the cursor inside the blue glide at score 308; Drift 2's Stop enabled and stopping, no bed element
+playing, no console errors.
