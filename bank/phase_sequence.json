@@ -6,14 +6,14 @@
    "what": "unison start, then THE DRIFT",
    "bpm": 68,
    "unitPct": 0.279,
-   "seconds": 70,
+   "seconds": 23.86,
    "note": "the Golomb ruler 0 1 4 10 18 23 25, nobody slower than 68; the length = the wall minus the first hit (23.86 s); the unit 0.279 = 0.095 × 70 / 23.86, so the fan reaches at the wall the same spread state 1 had at 70 s (his word 2026-11-12)"
   },
   {
    "step": 2,
    "what": "glide to F2 swarm ii",
-   "seconds": 32,
-   "note": "no hold before it; every player its own straight line in bpm"
+   "seconds": 22.61,
+   "note": "no hold before it; lands at score 324.27: 324.27 − 301.66 = 22.61 s; arrives on swarm 2 grid (§185)"
   },
   {
    "step": 3,
@@ -32,5 +32,11 @@
    "what": "hold unison 78 until Stop"
   }
  ],
- "oneLine": "score 277.8: unison 68 → drift (unit 0.279 %) 23.86 s → at the wall 301.66: 32 s to F2 swarm ii → hold 8 s → 18 s to unison 78 → hold until Stop"
+ "oneLine": "score 277.8: unison 68 → drift (unit 0.279 %) 23.86 s → at the wall 301.66: 22.61 s to F2 swarm ii, arriving at 324.27 → hold 8 s → 18 s to unison 78 → hold until Stop",
+ "marks": {
+  "firstHitScoreS": 277.8,
+  "glideStartsScoreS": 301.66,
+  "atSwarm2ScoreS": 324.27,
+  "note": "his words 2026-11-12 (§190 · §192): the first hit where it was; the glide to swarm 2 begins at Elec 1 wall (§189) and lands at 324.27. The drift lasts the first distance (23.86 s), the glide the second (22.61 s)."
+ }
 }
