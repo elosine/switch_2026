@@ -125,6 +125,9 @@
   <label>then to unison at <input id="seqBpm2" type="number" value="78" min="20" max="240" step="1"> bpm</label>
   <label>over <input id="seqG2" type="number" value="18" min="0.5" max="300" step="0.5"> s</label>
   <span id="seqTotal" style="color:#9fe3d3;font-variant-numeric:tabular-nums"></span>
+  <label title="the four granular bricks of piece-Section03-F-MultiTempo01 (G5 · G9 from 269, G8 from 296, B2 from 302), played in the page at their score positions"><input id="bedsOn" type="checkbox" checked> with the beds</label>
+  <label>first hit at score <input id="bedsAt" type="number" value="277.8" min="0" max="600" step="0.1"> s</label>
+  <label>beds <input id="bedsVol" type="range" min="0" max="1" step="0.01" value="0.8" style="width:90px;vertical-align:middle"></label>
   <button id="playSeq">▶ Play the sequence</button>
   <button id="stopSeq" disabled>■ Stop</button>
 </div>
@@ -253,6 +256,28 @@ function playS2() {   // swarm 2 → unison at the bpm, over the dial's seconds,
   runPlan([{ kind: 'glide', s: T, rA: rateOf(F2), rB: unisonRates(bpm), label: 'F2 swarm ii → unison ' + bpm },
            { kind: 'hold', rA: unisonRates(bpm), label: 'AT unison ' + bpm + ' — until Stop' }], setSpecs(F2), ['s2bar', 's2mark', 's2State']);
 }
+const BEDS = [   // from piece-Section03-F-MultiTempo01 (§180): name · file under the fund · score start · file offset s
+  { name: 'G5', file: 'granular/granular-G5-expodec-seed1-master.wav', at: 269.05, off: 36.970 },
+  { name: 'G9', file: 'granular/granular-G9-expodec+perc-seed1-master.wav', at: 269.15, off: 44.822 },
+  { name: 'G8', file: 'granular/granular-G8-rexpodec-seed1-master.wav', at: 296.25, off: 0 },
+  { name: 'B2', file: 'granular/granular-B2-perc-seed1-master.wav', at: 301.59, off: 32.589 },
+];
+const A = { els: [], timers: [] };
+function bedsPrepare() {
+  if (A.els.length) return;
+  A.els = BEDS.map((b) => { const el = new Audio('/fund/' + b.file); el.preload = 'auto'; el.volume = +$('bedsVol').value; return el; });
+}
+function bedsStart(t0) {   // t0: the sequence's start on the performance clock; score time at t0 = bedsAt
+  bedsPrepare(); const score0 = +$('bedsAt').value || 0; A.plan = [];
+  BEDS.forEach((b, i) => {
+    const el = A.els[i]; const delay = (b.at - score0) * 1000;   // ms after t0 that this bed begins (negative: it is already sounding)
+    const go = () => { const lead = Math.max(0, -(b.at - score0)); el.currentTime = b.off + lead + Math.max(0, (performance.now() - t0 - Math.max(0, delay)) / 1000); el.play().catch(() => {}); };
+    const wait = t0 + Math.max(0, delay) - performance.now();
+    A.plan.push({ name: b.name, startsInS: +(Math.max(0, delay) / 1000).toFixed(2), filePosAtStart: +(b.off + Math.max(0, score0 - b.at)).toFixed(2) });
+    if (wait <= 0) go(); else A.timers.push(setTimeout(go, wait));
+  });
+}
+function bedsStop() { A.timers.forEach(clearTimeout); A.timers = []; A.els.forEach((el) => { try { el.pause(); } catch (e) {} }); }
 function playSeq() {   // the whole sequence from the top: the drift live, then every glide and hold as kept
   const D = SEQ.drift, F2 = setByName(SEQ.g1.to), h = +$('seqHold').value, T2 = +$('seqG2').value || 1, bpm2 = +$('seqBpm2').value || 78;
   const fan = fanRates(D.bpm, D.unit);
@@ -262,6 +287,7 @@ function playSeq() {   // the whole sequence from the top: the drift live, then 
            { kind: 'glide', s: T2, rA: rateOf(F2), rB: unisonRates(bpm2), label: F2.name + ' → unison ' + bpm2 },
            { kind: 'hold', rA: unisonRates(bpm2), label: 'AT unison ' + bpm2 + ' — until Stop' }],
           PLAYERS.map((p, i) => ({ period: 1 / fan[i], offsetMs: 0 })), ['seqbar', 'seqmark', 'seqState']);
+  if ($('bedsOn').checked) bedsStart(S.t0);
 }
 // FROM THE DRIFT (§182): start AT the drift's state after N seconds (the lags it would have), locked at the bpm; hold; glide to a set over T; hold until Stop
 function startFromDrift(bpm, unit, afterS, holdS, toIdx, glideS) {
@@ -383,6 +409,7 @@ function stop() {
   if (!S.playing) return;
   S.playing = false; S.locked = false; clearInterval(S.timer); S.timer = null; cancelAnimationFrame(S.raf);
   for (const s of S.streams) if (s.out) { s.out.send([0xB0 | chOf(s.p), 123, 0]); s.out.send([0xB0 | chOf(s.p), 120, 0]); }
+  bedsStop();
   ui(); paint();
 }
 
@@ -430,6 +457,9 @@ function paintTr() {
 }
 $('play').onclick = play; $('stop').onclick = stop; $('stopTr').onclick = stop; $('stopD').onclick = stop; $('stopS2').onclick = stop; $('stopSeq').onclick = stop; $('playS2').onclick = playS2; $('playSeq').onclick = playSeq;
 ['seqHold', 'seqBpm2', 'seqG2'].forEach((id) => $(id).addEventListener('input', ui));
+$('bedsVol').addEventListener('input', () => A.els.forEach((el) => { el.volume = +$('bedsVol').value; }));
+$('bedsOn').addEventListener('change', () => { if ($('bedsOn').checked) bedsPrepare(); });
+if ($('bedsOn').checked) bedsPrepare();
 SETS.forEach((s, i) => { const o = document.createElement('option'); o.value = i; o.textContent = s.name; $('dTo').appendChild(o); }); $('dTo').value = SETS.findIndex((s) => s.name === 'F2 swarm ii');
 $('playD').onclick = () => startFromDrift(+$('dBpm').value || 60, +$('dUnit').value || 0, +$('dAfter').value || 0, +$('dHold').value || 0, +$('dTo').value, +$('dGlide').value || 1);
 const SLOT0 = ['E two speeds', 'F swarm', 'B clusters', 'G three speeds'].map((n) => SETS.findIndex((s) => s.name === n)), SPEED0 = [1, 2, 4];

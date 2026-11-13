@@ -3429,3 +3429,18 @@ The 8 s hold on swarm 2 is still the AI's placeholder.
 until the end of the last one?"* **Built:** the sequence block shows "total m:ss (N s) to the last hold", the sum of the drift, the glides and
 the hold, live as the fields change — 70 + 32 + 8 + 18 = 128 s = 2:08 today. **The section** (`piece-Section03-F-MultiTempo01`): the first
 granular bricks start at 269.05 (G5) and 269.15 (G9); the last to end is G8 at 477.03 — **208 s = 3:28** (G5 ends 472.08, B2 476.67, G9 464.33).
+
+## §188. The sequence heard WITH THE BEDS, in the workshop — the first hit at score 277.8 (2026-11-12)
+
+**His words:** *"can I hear that inside the composer score, the sequence so far, with the first hit hitting at 277.8, whatever's easier for now,
+I'll probably change it a fair bit"* — then: *"or if it's easier to bring the granular clips into the workshop, that's fine too."* **The
+workshop was the easier and the right one for changing it a fair bit** (a render into his save is one tool away when it settles: struck notes
+per lane from the same plan runner). **Built:** the server serves the fund at `/fund/<file>` (the root from `bank/materials.json`, with
+Range requests so the browser can seek — HIS SERVER MUST BE RESTARTED ONCE for the route); the sequence block gained "with the beds" (on),
+"first hit at score 277.8" and a beds level slider (0.8). On ▶ Play the sequence the four bricks of `piece-Section03-F-MultiTempo01` play in
+the page at their score positions relative to that first hit: G5 from file position 45.72 s and G9 from 53.47 s at once (they began at
+269), G8 18.45 s in from its start, B2 23.79 s in from 32.59 s — the same offsets his bricks carry. Stop pauses them. Their level is the
+browser's, beside the rack's; the slider is the balance for now. **Proven once on the preview:** the Range route 206 / audio/wav; four
+beds loaded (readyState 4, 240 s each); after Play the plan as above, G5 · G9 playing (positions 47.0 · 54.8 after 1.5 s — a 0.2 s play
+latency, fine for a workshop), G8 · B2 waiting on their timers; Stop paused all four; no console errors. A note: the §27 server edit
+collapsed two backslashes in the route's regexes (the machine's known fault) — fixed by the file tool before the proof.

@@ -19,6 +19,22 @@ function readLocks() {
     try { return JSON.parse(fs.readFileSync(LOCKS, 'utf8')); }
     catch (e) { return { _about: 'THE PHASE WORKSHOP\'s captured locks (SW-43): each the lag of every player against the anchor at the moment he pressed Capture. Written by tools/phase_workshop.js; his to prune.', locks: [] }; }
 }
+// THE FUND (§188): the granular beds under the sequence — the materials root from bank/materials.json, with Range requests so <audio> can seek
+let FUND = null;
+function fundRoot() { if (FUND == null) { try { FUND = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'materials.json'), 'utf8')).root; } catch (e) { FUND = ''; } } return FUND; }
+function serveFund(req, res, rel) {
+    const root = fundRoot(); if (!root) return send(res, 404, 'no fund', 'text/plain');
+    const file = path.normalize(path.join(root, rel)); if (!file.startsWith(path.normalize(root)) || !fs.existsSync(file)) return send(res, 404, 'not found', 'text/plain');
+    const size = fs.statSync(file).size, type = /\.wav$/i.test(file) ? 'audio/wav' : /\.flac$/i.test(file) ? 'audio/flac' : 'application/octet-stream';
+    const m = /bytes=(\d*)-(\d*)/.exec(req.headers.range || '');
+    if (m) {
+        const a = m[1] ? +m[1] : 0, b = m[2] ? Math.min(+m[2], size - 1) : size - 1;
+        res.writeHead(206, { 'Content-Type': type, 'Content-Range': 'bytes ' + a + '-' + b + '/' + size, 'Content-Length': b - a + 1, 'Accept-Ranges': 'bytes', 'Cache-Control': 'no-store' });
+        return fs.createReadStream(file, { start: a, end: b }).pipe(res);
+    }
+    res.writeHead(200, { 'Content-Type': type, 'Content-Length': size, 'Accept-Ranges': 'bytes', 'Cache-Control': 'no-store' });
+    fs.createReadStream(file).pipe(res);
+}
 function send(res, code, body, type) {
     res.writeHead(code, { 'Content-Type': type || 'application/json; charset=utf-8', 'Cache-Control': 'no-store' });
     res.end(body);
@@ -40,6 +56,7 @@ http.createServer((req, res) => {
         });
         return;
     }
+    if (url.pathname.startsWith('/fund/')) return serveFund(req, res, decodeURIComponent(url.pathname.slice(6)));
     let p = url.pathname === '/' ? '/index.html' : url.pathname;
     const file = path.normalize(path.join(DIR, p));
     if (!file.startsWith(DIR) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) return send(res, 404, 'not found', 'text/plain');
