@@ -197,6 +197,17 @@
 </div>
 <div id="d3State" class="dim"></div>
 
+<h1 style="margin-top:26px">Drift 3 → swarm 5</h1>
+<div class="sub">the lock at the end of Drift 3 as it stands (the lags it has then, all at 90), held its seconds · then every player glides to the set over T, landing on its grid · hold until Stop</div>
+<div class="row">
+  <label>to <select id="s5To"></select></label>
+  <label>over <input id="s5Over" type="number" value="12" min="0.5" max="300" step="0.5"> s</label>
+  <button id="playS5">▶ Play</button>
+  <button id="stopS5" disabled>■ Stop</button>
+  <span id="s5Info" class="dim"></span>
+</div>
+<div class="row"><span class="tbar" id="s5bar"><i id="s5mark"></i></span><span id="s5State" class="dim"></span></div>
+
 <h1 style="margin-top:26px">The whole form</h1>
 <div class="sub">every box above, read once, played as one — from the first hit to the new unison, the beds under it (if on) · the whole drawn at once, the cursor as slow as the form</div>
 <div class="row">
@@ -473,6 +484,21 @@ function playForm() {
   S.tr.score0 = a0; S.tr.canvas = 'formScroll'; S.tr.wide = 900; S.tr.tail = 20;
   if ($('bedsOn').checked) bedsStart(S.t0, a0);
 }
+// DRIFT 3 → SWARM 5 (§211): the state at Drift 3's lock is arithmetic — each player's beats since the unison at 400.3 = the three beats + the cut's
+// mean + its own rate × 33 s; locked, all run at 90 with those fractions. The lock held its seconds, then the glide (aligned to the set's grid), the set held.
+function playS5() {
+  if (S.playing) return;
+  const bpmU = +$('s3Bpm').value || 90, start = +$('s3Unison').value || 0, pre = +$('d3Pre').value || 0, ramp = Math.max(0.05, +$('d3Ramp').value || 0), unit = +$('d3Unit').value || 0, forS = +$('d3For').value || 0, lockS = +$('d3Lock').value || 0;
+  const B = SETS[+$('s5To').value], T = +$('s5Over').value || 1, rU = bpmU / 60, f3 = PLAYERS.map((p) => bpmU * (1 + p.fan3 * unit / 100) / 60);
+  const beats = PLAYERS.map((p, i) => pre * rU + ramp * (rU + f3[i]) / 2 + forS * f3[i]);
+  const P = 60000 / bpmU, first = PLAYERS.map((p, i) => { const fr = beats[i] - Math.floor(beats[i]); return { period: P, offsetMs: ((1 - fr) % 1) * P }; });
+  const u = unisonRates(bpmU);
+  runPlan([{ kind: 'hold', s: lockS, rA: u, label: 'LOCKED at ' + bpmU + ' (the end of drift 3)' },
+           { kind: 'glide', s: T, rA: u, rB: rateOf(B), toSet: B, label: 'drift 3 → ' + B.name },
+           { kind: 'hold', rA: rateOf(B), label: 'AT ' + B.name + ' — until Stop' }], first, ['s5bar', 's5mark', 's5State']);
+  S.tr.score0 = start + pre + ramp + forS;   // the lock's score time
+  $('s5Info').textContent = 'from score ' + S.tr.score0.toFixed(2) + ' · at ' + B.name + ' by ' + (S.tr.score0 + lockS + T).toFixed(2);
+}
 // FROM THE DRIFT (§182): start AT the drift's state after N seconds (the lags it would have), locked at the bpm; hold; glide to a set over T; hold until Stop
 function startFromDrift(bpm, unit, afterS, holdS, toIdx, glideS) {
   if (S.playing) return;
@@ -606,7 +632,7 @@ function stop() {
 // ---- the page
 function ui() {
   const dr = S.playing && S.mode === 'drift', st = S.playing && S.mode === 'set', sh = S.playing && S.mode === 'shift';
-  $('playTr').disabled = S.playing; $('stopTr').disabled = !sh; $('playD').disabled = S.playing; $('stopD').disabled = !sh; $('playForm').disabled = S.playing; $('stopForm').disabled = !sh; $('playS3').disabled = S.playing; $('stopS3').disabled = !sh; $('playS2').disabled = S.playing; $('stopS2').disabled = !sh; $('playSeq').disabled = S.playing; $('stopSeq').disabled = !sh;
+  $('playTr').disabled = S.playing; $('stopTr').disabled = !sh; $('playD').disabled = S.playing; $('stopD').disabled = !sh; $('playForm').disabled = S.playing; $('stopForm').disabled = !sh; $('playS5').disabled = S.playing; $('stopS5').disabled = !sh; $('playS3').disabled = S.playing; $('stopS3').disabled = !sh; $('playS2').disabled = S.playing; $('stopS2').disabled = !sh; $('playSeq').disabled = S.playing; $('stopSeq').disabled = !sh;
   const m = { a: +$('bedsAt').value, w: +$('seqWall').value, s2: +$('seqArrive').value, h: +$('seqHold').value, u: +$('seqUnison').value };
   $('seqText').textContent = 'score ' + m.a + ': unison at ' + $('seqBpm').value + ' → the drift, unit ' + $('seqUnit').value + ' %, ' + driftS() + ' s → the wall ' + m.w + ': ' + glide1S() + ' s to ' + SEQ.g1.to +
     ' → at ' + m.s2 + ', hold ' + m.h + ' s → ' + glide2S() + ' s to unison at ' + $('seqBpm2').value + ', on the beat at ' + m.u + ' (D5) → hold until Stop';
@@ -687,7 +713,8 @@ function paintTr() {
   S.tr.state.textContent = (S.tr.score0 != null ? 'score ' + (S.tr.score0 + el / 1000).toFixed(1) + ' · ' : '') + trText();
 }
 $('play').onclick = play; $('stop').onclick = stop; $('stopTr').onclick = stop; $('play2').onclick = play2; $('lock2').onclick = lock; $('drift2').onclick = drift; $('capture2').onclick = capture; $('stop2').onclick = stop;
-$('play3').onclick = play3; $('lock3').onclick = lock; $('drift3').onclick = drift; $('capture3').onclick = capture; $('stop3').onclick = stop; $('stopD').onclick = stop; $('playForm').onclick = playForm; $('stopForm').onclick = stop; $('stopS3').onclick = stop; $('playS3').onclick = playS3;
+$('play3').onclick = play3; $('lock3').onclick = lock; $('drift3').onclick = drift; $('capture3').onclick = capture; $('stop3').onclick = stop; $('stopD').onclick = stop; $('playForm').onclick = playForm; $('stopForm').onclick = stop; $('playS5').onclick = playS5; $('stopS5').onclick = stop;
+SETS.forEach((s, i) => { const o = document.createElement('option'); o.value = i; o.textContent = s.name; $('s5To').appendChild(o); }); $('s5To').value = SETS.findIndex((s) => s.name === 'F5 swarm v'); $('stopS3').onclick = stop; $('playS3').onclick = playS3;
 SETS.forEach((s, i) => { const o = document.createElement('option'); o.value = i; o.textContent = s.name; $('s3To').appendChild(o); }); $('s3To').value = SETS.findIndex((s) => s.name === 'F3 swarm iii');
 $('stopS2').onclick = stop; $('stopSeq').onclick = stop; $('playS2').onclick = playS2; $('playSeq').onclick = playSeq;
 ['seqHold', 'seqBpm2', 'seqUnison', 'seqBpm', 'seqUnit', 'bedsAt', 'seqWall', 'seqArrive'].forEach((id) => $(id).addEventListener('input', ui));

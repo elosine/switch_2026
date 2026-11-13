@@ -3701,3 +3701,12 @@ above; at 436.5 all 90 again (the lock); the whole form 15 segments ending the s
 
 **His words:** *"that's maybe a little too fast. Let's do a swarm 5, but let's have the max tempo be about 135. You can go below the 90."*
 **Added:** F5 swarm v — grid 50 ms, periods 9 … 15 — **133 · 120 · 109 · 100 · 92 · 86 · 80** (flute … cello), median 100, 12 hits/s. Twenty sets.
+
+## §211. The block "Drift 3 → swarm 5" (2026-11-12)
+
+**His words:** *"let's go with the swarm 5. Can I get the row for the drift 3 to the new swarm?"* **Built:** to (F5 swarm v preset) · over T
+(12 s preset) · ▶ Play · Stop · its bar; the line says "from score 435.40 · at F5 swarm v by 451.40". It starts at Drift 3's lock — the lags by
+arithmetic (the three beats, the cut's mean, 33 s of ruler 3 at 0.917 %), all at 90 — holds the lock its 4 s, glides every player to the set over
+T landing on its grid, holds the set. Proven once on the preview: the lock's offsets 0.985 · 0.894 · 0.713 · 1.076 · 0.35 · 0.349 · 0.895 of a
+beat, all at 90; 49 % through the glide 109.4 … 84.1; at the end F5's 133.3 · 120 · 109.1 · 100 · 92.3 · 85.7 · 80, every player on its grid
+within 0.3 ms; no console errors. The whole form still ends at the lock; swarm 5 joins it when T is his.

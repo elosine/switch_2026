@@ -81,10 +81,16 @@
   "unitNote": "0.917 = 0.55 × 50 / 30 (his numbers), run 33 s",
   "ruler": "0 1 11 16 19 23 25 dealt the other way: piano 0 · cello 1 · violin 11 · glock 16 · sax 19 · clarinet 23 · flute 25",
   "driftForS": 33,
-  "then": "after the 4 s lock: a destination above 90 — his pick from B4 · C4 · E4 · F4 (§209)",
+  "then": "after the 4 s lock (score 435.4 → 439.4): the glide to F5 swarm v over T (his dial, 12 preset) — the block Drift 3 → swarm 5 (§211)",
   "note": "his words 2026-11-12 (§208 · §209)",
   "unisonForNote": "three beats at 90; the fourth beat is already at drift",
   "rampNote": "a cut, his word: the fourth one already at drift",
   "lockForS": 4
+ },
+ "next2": {
+  "destination": "F5 swarm v (133 120 109 100 92 86 80, median 100)",
+  "fromScoreS": 439.4,
+  "glideS": null,
+  "note": "his word 2026-11-12: swarm 5; the glide length pending"
  }
 }
