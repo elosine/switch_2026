@@ -3561,3 +3561,10 @@ the yellow cursor crossing it slowly (63 s for the form). **Drift 2:** its Stop 
 set and stayed disabled — fixed (the buttons redrawn after); and Drift 2 no longer starts the beds, his word. Proven once on the preview:
 the form's five bands in order with the cursor inside the blue glide at score 308; Drift 2's Stop enabled and stopping, no bed element
 playing, no console errors.
+
+## §198. Drift 2 drifts 55 s, then locks (2026-11-12)
+
+**His words:** *"55. Just hold 55 seconds under the current settings for drift 2."* **Built:** a box "drift for 55 s, then LOCK" on Drift 2:
+from the burst (353.89) the fan runs 55 s, to score 408.89, then LOCK fires by itself — every player at 78, its lag kept — and holds until
+he stops or presses DRIFT; 0 = never. Recorded in `bank/phase_sequence.json` as `drift2`. (His browser had crashed; both servers were still
+up — 5600 and 5630 — the links given again.)

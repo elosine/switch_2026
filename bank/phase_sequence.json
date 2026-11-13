@@ -43,5 +43,16 @@
   "unisonPitch": "D5, or a version of it — the bed pitch at 341.08 sits a quarter tone under D5 at its center (§193)",
   "note": "his words 2026-11-12 (§190 … §194); every stretch is the distance between marks"
  },
- "beds": "piece-Section03-G-GrainBaseAlign: G5 269.05 (file 36.97) · G9 269.15 (44.822) · G8 296.25 (0) · B2 300.78 (32.589)"
+ "beds": "piece-Section03-G-GrainBaseAlign: G5 269.05 (file 36.97) · G9 269.15 (44.822) · G8 296.25 (0) · B2 300.78 (32.589)",
+ "drift2": {
+  "burstScoreS": 353.89,
+  "unisonBpm": 78,
+  "unisonForS": 4,
+  "rampS": 3,
+  "unitPct": 0.279,
+  "ruler": "0 1 7 11 20 23 25 (flute clarinet sax glock · piano 0 · violin cello)",
+  "driftForS": 55,
+  "then": "LOCK (the lags hold at 78) — from score 408.89; what follows is his",
+  "note": "his words 2026-11-12 (§196 · §198)"
+ }
 }
