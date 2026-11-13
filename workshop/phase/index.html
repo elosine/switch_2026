@@ -164,13 +164,16 @@
 </div>
 <div id="d2State" class="dim"></div>
 
-<h1 style="margin-top:26px">Drift 2 → swarm 3</h1>
-<div class="sub">the tail of Drift 2 as it stands at the wall (its fan still drifting, the lags it has by then) · at the wall every player glides to the set over T seconds, landing on its grid · hold until Stop</div>
+<h1 style="margin-top:26px">Drift 2 → swarm 3 → the new unison</h1>
+<div class="sub">the tail of Drift 2 as it stands at the wall (its fan still drifting, the lags it has by then) · at the wall every player glides to the set, landing on its grid by the mark · held to the next wall · then to the new unison, on the beat at its mark · hold until Stop</div>
 <div class="row">
   <label>the wall at score <input id="s3Wall" type="number" value="372.10" min="0" max="600" step="0.01"> s</label>
   <label title="how much of Drift 2's drift is heard before the wall">drift before it <input id="s3Before" type="number" value="4" min="0" max="30" step="0.5"> s</label>
   <label>to <select id="s3To"></select></label>
-  <label>over <input id="s3Over" type="number" value="20" min="0.5" max="300" step="0.5"> s</label>
+  <label>at swarm 3 by <input id="s3Arrive" type="number" value="383" min="0" max="600" step="0.01"> s</label>
+  <label title="Elec 1's wall (§205): swarm 3 holds until here">held to the wall at <input id="s3Wall2" type="number" value="388.72" min="0" max="600" step="0.01"> s</label>
+  <label>new unison at <input id="s3Unison" type="number" value="400.3" min="0" max="600" step="0.01"> s</label>
+  <label title="his to set — 75 is swarm 3's median">at <input id="s3Bpm" type="number" value="75" min="20" max="240" step="1"> bpm</label>
   <button id="playS3">▶ Play</button>
   <button id="stopS3" disabled>■ Stop</button>
 </div>
@@ -365,7 +368,9 @@ function playSeq() {   // the whole sequence from the top, every stretch from th
 function playS3() {
   if (S.playing) return;
   const bpm = +$('d2Bpm').value || 78, unit = +$('d2Unit').value || 0, pre = +$('d2Pre').value || 0, ramp = +$('d2Ramp').value || 0, burst = +$('d2Burst').value || 0;
-  const wall = +$('s3Wall').value || 0, before = Math.max(0, +$('s3Before').value || 0), T = +$('s3Over').value || 1, B = SETS[+$('s3To').value];
+  const wall = +$('s3Wall').value || 0, before = Math.max(0, +$('s3Before').value || 0), B = SETS[+$('s3To').value];
+  const arrive = +$('s3Arrive').value || 0, wall2 = +$('s3Wall2').value || 0, uni = +$('s3Unison').value || 0, bpm2 = +$('s3Bpm').value || 75;
+  const T = Math.max(0.5, arrive - wall), H = Math.max(0, wall2 - arrive), T2 = Math.max(0.5, uni - wall2);
   const fan = PLAYERS.map((p) => bpm * (1 + p.fan2 * unit / 100) / 60), rA = bpm / 60;   // beats per second
   const drifted = Math.max(0, wall - before - burst);                                      // seconds of the fan before this block begins
   const beats = PLAYERS.map((p, i) => pre * rA + ramp * (rA + fan[i]) / 2 + drifted * fan[i]);
@@ -373,7 +378,9 @@ function playS3() {
   const fanMs = fan.map((r) => r / 1000);
   runPlan([{ kind: 'hold', s: before, rA: fanMs, label: 'Drift 2, drifting' },
            { kind: 'glide', s: T, rA: fanMs, rB: rateOf(B), toSet: B, label: 'Drift 2 → ' + B.name },
-           { kind: 'hold', rA: rateOf(B), label: 'AT ' + B.name + ' — until Stop' }], first, ['s3bar', 's3mark', 's3State']);
+           { kind: 'hold', s: H, rA: rateOf(B), label: 'AT ' + B.name },
+           { kind: 'glide', s: T2, rA: rateOf(B), rB: unisonRates(bpm2), label: B.name + ' → unison ' + bpm2 },
+           { kind: 'hold', rA: unisonRates(bpm2), label: 'AT unison ' + bpm2 + ' — until Stop' }], first, ['s3bar', 's3mark', 's3State']);
   S.tr.score0 = wall - before;   // no beds here either (his word, §203): the beds belong to The sequence only
 }
 // FROM THE DRIFT (§182): start AT the drift's state after N seconds (the lags it would have), locked at the bpm; hold; glide to a set over T; hold until Stop

@@ -3631,3 +3631,13 @@ the same amount of ground up to 55 seconds, but in 18 seconds."* **The first dri
 the wall matching state 1's within 1 %. **Drift 2:** the unit set to **0.843 %** = 0.279 × 55 / 18.21; at the burst the fan runs 78 · 78.7 · 82.6 ·
 85.2 · 91.1 · 93.1 · 94.4 (piano · flute · clarinet · sax · glock · violin · cello), reached inside the 3 s ramp — the ramp box is there if that
 jump is too much. The "Drift 2 → swarm 3" block reads the same unit, so its start follows.
+
+## §205. Swarm 3 by 383, held to Elec 1's wall at 388.72, a new unison at 400.3 (2026-11-12)
+
+**His words:** *"reach swarm iii by 383 · sustain until ~388 wall · find moment of wall in e1 · 400.3 new unison · what are the swarm 3 tempos?"*
+**Measured:** Elec 1 (G5) steps +32 dB at **score 388.72** (peak −9 dBFS; nothing comparable at 386 … 391 besides a +10 at 390.80). Around
+400.3 Elec 1 has no step (+3 … +5 dB only) — 400.3 is his mark, not the bed's. **Built** (the block renamed "Drift 2 → swarm 3 → the new
+unison"): boxes at swarm 3 by 383 · held to the wall at 388.72 · new unison at 400.3 · at 75 bpm (swarm 3's median, the AI's default — his to
+set). The stretches derive: 10.9 s to swarm 3 · 5.72 s held · 11.58 s to the unison, on the beat. Swarm 3's tempi: 107 · 94 · 83 · 75 · 68 ·
+63 · 58 (flute … cello). Proven once on the preview: the five segments 4 · 10.9 · 5.72 · 11.58 · ∞; at swarm 3 its tempi exactly; 51 % through
+the last glide 86.3 … 67.0; at the end all 75, the seven last beats within 0.7 ms; no console errors.

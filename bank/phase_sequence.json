@@ -59,9 +59,16 @@
  },
  "next": {
   "destination": "F3 swarm iii (107 94 83 75 68 63 58, median 75)",
-  "from": "Drift 2 at the wall 372.10",
-  "glideS": null,
-  "note": "his word 2026-11-12 (§201): swarm 3; the glide length pending",
-  "block": "Drift 2 → swarm 3 (the page): the wall 372.10 · drift before it 4 s · to F3 swarm iii · over T (his dial, 20 preset)"
+  "from": "Drift 2 at Elec 2 wall 372.10",
+  "arriveScoreS": 383,
+  "glideS": 10.9,
+  "heldToScoreS": 388.72,
+  "heldNote": "Elec 1 wall at 388.72 (+32 dB)",
+  "thenUnisonScoreS": 400.3,
+  "thenUnisonBpm": 75,
+  "bpmNote": "75 = swarm 3 median — the AI default, his to set (§205)",
+  "glide2S": 11.58,
+  "block": "Drift 2 → swarm 3 → the new unison (the page)",
+  "note": "his words 2026-11-12 (§205): reach swarm iii by 383, sustain until the ~388 wall, 400.3 new unison"
  }
 }
