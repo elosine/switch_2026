@@ -1,10 +1,36 @@
 {
  "_about": "THE PHASE WORKSHOP's sequence — his piece's order so far, in his words (RUNNING_LOG §182 … §184); the page workshop/phase/index.html carries the same in its SEQ and plays it whole ('The sequence' block). Edited only at his word.",
  "steps": [
-  { "step": 1, "what": "unison start, then THE DRIFT", "bpm": 68, "unitPct": 0.095, "seconds": 70, "note": "the Golomb ruler 0 1 4 10 18 23 25 (piano · flute · clarinet · sax · glock · violin · cello), nobody slower than 68" },
-  { "step": 2, "what": "glide to F2 swarm ii", "seconds": 32, "note": "no hold before it; every player its own straight line in bpm" },
-  { "step": 3, "what": "hold F2 swarm ii", "seconds": 8, "note": "a field on the page; not his number yet" },
-  { "step": 4, "what": "glide to unison at 78 bpm", "seconds": 20, "note": "the duration adjustable on the page; same tempo, the lags as they fall" },
-  { "step": 5, "what": "hold unison 78 until Stop" }
- ]
+  {
+   "step": 1,
+   "what": "unison start, then THE DRIFT",
+   "bpm": 68,
+   "unitPct": 0.095,
+   "seconds": 70,
+   "note": "the Golomb ruler 0 1 4 10 18 23 25 (piano · flute · clarinet · sax · glock · violin · cello), nobody slower than 68"
+  },
+  {
+   "step": 2,
+   "what": "glide to F2 swarm ii",
+   "seconds": 32,
+   "note": "no hold before it; every player its own straight line in bpm"
+  },
+  {
+   "step": 3,
+   "what": "hold F2 swarm ii",
+   "seconds": 8,
+   "note": "a field on the page; not his number yet (8 s)"
+  },
+  {
+   "step": 4,
+   "what": "glide to unison at 78 bpm",
+   "seconds": 18,
+   "note": "his word 2026-11-12: 18 s; arrives on the beat (§185)"
+  },
+  {
+   "step": 5,
+   "what": "hold unison 78 until Stop"
+  }
+ ],
+ "oneLine": "unison 68 → drift (unit 0.095 %) 70 s → 32 s to F2 swarm ii → hold 8 s → 18 s to unison 78 → hold until Stop"
 }

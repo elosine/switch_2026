@@ -3416,3 +3416,9 @@ glide it predicts every player's landing, sets the target — unison: the piano'
 once on the preview:** swarm 2 → unison 78 over 20 s: the bulges −0.47 … +0.49 beat, the tempo's peak deviation ≤ 3 % (the clarinet −2.85,
 the cello +2.95), at the end all seven periods 769 ms and their last beats within **0.5 ms** of each other, the phases 0.087 … 0.086; the
 sequence's glide to F2 swarm ii lands every player on F2's grid within 0.3 ms. No console errors.
+
+## §186. The last glide 18 s; the sequence in one line (2026-11-12)
+
+**His words:** *"let's do it over 18 seconds, and then can you put everything together into one line?"* **Kept** (the page's defaults, `SEQ`,
+`bank/phase_sequence.json`): **unison 68 → the drift (unit 0.095 %) 70 s → 32 s to F2 swarm ii → hold 8 s → 18 s to unison 78 → hold until Stop.**
+The 8 s hold on swarm 2 is still the AI's placeholder.
