@@ -3461,3 +3461,5 @@ offset untouched (the sound moves with it), and the two walls fall together at 3
 LEFT-EDGE drag — the sound stays, the brick shows more of it — which is right for the edge and wrong for a typed start. Fixed in
 `composer.html` `applyPanelField`: a material brick's typed start shifts its end by the same amount (a move; the offset stays). SWEEP row 5.
 He reloads (F5) the composer score; the file is served as it is.
+**Proven once on the throwaway 5601** (his save loaded read-only, nothing saved): the brick `zn-3155` given start 300.78 in the panel went
+from 301.6 … 476.678 to 300.78 … 475.858 — the length 175.078 kept, the offset 32589 kept. Nothing else touched.
