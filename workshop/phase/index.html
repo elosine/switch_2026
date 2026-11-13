@@ -124,6 +124,7 @@
   <label>hold swarm 2 <input id="seqHold" type="number" value="8" min="0" max="300" step="1"> s</label>
   <label>then to unison at <input id="seqBpm2" type="number" value="78" min="20" max="240" step="1"> bpm</label>
   <label>over <input id="seqG2" type="number" value="18" min="0.5" max="300" step="0.5"> s</label>
+  <span id="seqTotal" style="color:#9fe3d3;font-variant-numeric:tabular-nums"></span>
   <button id="playSeq">▶ Play the sequence</button>
   <button id="stopSeq" disabled>■ Stop</button>
 </div>
@@ -390,6 +391,7 @@ function ui() {
   const dr = S.playing && S.mode === 'drift', st = S.playing && S.mode === 'set', sh = S.playing && S.mode === 'shift';
   $('playTr').disabled = S.playing; $('stopTr').disabled = !sh; $('playD').disabled = S.playing; $('stopD').disabled = !sh; $('playS2').disabled = S.playing; $('stopS2').disabled = !sh; $('playSeq').disabled = S.playing; $('stopSeq').disabled = !sh;
   $('seqText').textContent = 'unison at ' + SEQ.drift.bpm + ' → the drift, unit ' + SEQ.drift.unit + ' %, for ' + SEQ.drift.s + ' s → ' + SEQ.g1.to + ' over ' + SEQ.g1.s + ' s → hold ' + $('seqHold').value + ' s → unison at ' + $('seqBpm2').value + ' over ' + $('seqG2').value + ' s → hold until Stop';
+  const tot = SEQ.drift.s + SEQ.g1.s + (+$('seqHold').value || 0) + (+$('seqG2').value || 0); $('seqTotal').textContent = 'total ' + Math.floor(tot / 60) + ':' + String(Math.round(tot % 60)).padStart(2, '0') + ' (' + tot + ' s) to the last hold';
   $('play').disabled = S.playing; $('stop').disabled = !dr; $('playSet').disabled = S.playing; $('stopSet').disabled = !st;
   $('lock').disabled = !dr || S.locked; $('drift').disabled = !dr || !S.locked; $('capture').disabled = !dr;
   $('setInfo').textContent = setInfo(SETS[S.set]); $('setWhy').textContent = SETS[S.set].why;

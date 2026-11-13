@@ -3422,3 +3422,10 @@ sequence's glide to F2 swarm ii lands every player on F2's grid within 0.3 ms. N
 **His words:** *"let's do it over 18 seconds, and then can you put everything together into one line?"* **Kept** (the page's defaults, `SEQ`,
 `bank/phase_sequence.json`): **unison 68 → the drift (unit 0.095 %) 70 s → 32 s to F2 swarm ii → hold 8 s → 18 s to unison 78 → hold until Stop.**
 The 8 s hold on swarm 2 is still the AI's placeholder.
+
+## §187. A total on the sequence; the granular section's length (2026-11-12)
+
+**His words:** *"put a total duration box as we add. And what is the duration of that section from the start of the two granulars at 269
+until the end of the last one?"* **Built:** the sequence block shows "total m:ss (N s) to the last hold", the sum of the drift, the glides and
+the hold, live as the fields change — 70 + 32 + 8 + 18 = 128 s = 2:08 today. **The section** (`piece-Section03-F-MultiTempo01`): the first
+granular bricks start at 269.05 (G5) and 269.15 (G9); the last to end is G8 at 477.03 — **208 s = 3:28** (G5 ends 472.08, B2 476.67, G9 464.33).
