@@ -3672,3 +3672,27 @@ unison for 2 s · ramp 3 s · unit 0.389 % (drift 2's ground, 0.843 × 18.21, sp
 98.05 · 98.75 (piano · cello · violin · glock · sax · clarinet · flute). Proven once on the preview: unison 90 → after the ramp exactly those
 tempi; the lock by itself after 39.5 s (all 667 ms, "DRIFT 3 · LOCKED at 90", score 445.0); the buttons live; no console errors. Not yet in the
 whole form — at his word, once heard.
+
+## §209. Drift 3 set: 0.917 % for 33 s, the lock held 4 s; the unison at 90 lasts three beats and the fourth is drift; four destinations above 90 (2026-11-12)
+
+**His words:** *"the unit is going to be 0.917, drift for 33 seconds and then lock it at that point for 4 seconds. Can you make the previous
+section, the swarm 3 to the new unison, go to the new drift — they play 3 at unison and then the 4th one they're already at drift. And give me
+some new multi-tempo destinations, the same categories, all with tempos above the 90, several buttons so I can listen."* (The 0.917 came
+from his own numbers in the chat: 0.55 × 50 / 30.)
+
+**Built:** Drift 3's boxes — unison for 2 s (three beats at 90 = 2.000 s), ramp 0.1 s (a cut: the fourth beat is already at the fan), unit
+0.917, drift for 33, **lock for 4 s** (a new box). A shared tail `drift3Tail` — three beats of 90 · the cut into ruler 3 · 33 s of drift · 4 s locked
+· until Stop — is now the end of BOTH the chained block ("Drift 2 → swarm 3 → the unison → drift 3") and the whole form, read from Drift 3's
+boxes; the form runs 277.8 … 439.4 (157.6 s to the end of the lock). At the cut the fan is 90 · 90.8 · 99.1 · 103.2 · 105.7 · 109 · 110.6 (piano ·
+cello · violin · glock · sax · clarinet · flute). **The destinations above 90**, each on a finer grid so seven distinct periods fit:
+
+| set | grid | periods | bpm fl … vc | median |
+|---|---|---|---|---|
+| B4 clusters iv | 40 ms | 8 9 10 12 14 15 16 | 188 167 150 125 107 100 94 | 125 — the fours and the threes bunch, 14 strays |
+| C4 even iv | 30 ms | 11 13 14 15 17 19 21 | 182 154 143 133 118 105 95 | 133 — almost nothing shared |
+| E4 two speeds iv | 40 ms | 8 9 10 · 13 14 15 16 | 188 167 150 · 115 107 100 94 | 115 — a fast wind trio over a slower quartet |
+| F4 swarm iv | 40 ms | 9 10 11 12 13 14 15 | 167 150 136 125 115 107 100 | 125 — the swarm, fast |
+
+Nineteen sets on the page (about 15 hits/s each above 90 — the price of seven players all over 90). Proven once on the preview: the
+chained block's segments … 11.58 → unison 90 · 2 (3 beats) · 0.1 into drift 3 · 33 · 4 LOCKED · ∞; at 401.5 all 90; at 402.6 the fan's tempi
+above; at 436.5 all 90 again (the lock); the whole form 15 segments ending the same way; 19 set buttons; no console errors.

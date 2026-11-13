@@ -164,8 +164,8 @@
 </div>
 <div id="d2State" class="dim"></div>
 
-<h1 style="margin-top:26px">Drift 2 → swarm 3 → the new unison</h1>
-<div class="sub">the tail of Drift 2 as it stands at the wall (its fan still drifting, the lags it has by then) · at the wall every player glides to the set, landing on its grid by the mark · held to the next wall · then to the new unison, on the beat at its mark · hold until Stop</div>
+<h1 style="margin-top:26px">Drift 2 → swarm 3 → the unison → drift 3</h1>
+<div class="sub">the tail of Drift 2 as it stands at the wall (its fan still drifting, the lags it has by then) · at the wall every player glides to the set, landing on its grid by the mark · held to the next wall · then to the new unison, on the beat at its mark · three beats of it, and the fourth is already drift 3 (its boxes below) · the lock held · until Stop</div>
 <div class="row">
   <label>the wall at score <input id="s3Wall" type="number" value="372.10" min="0" max="600" step="0.01"> s</label>
   <label title="how much of Drift 2's drift is heard before the wall">drift before it <input id="s3Before" type="number" value="4" min="0" max="30" step="0.5"> s</label>
@@ -184,10 +184,11 @@
 <div class="row">
   <label>unison <input id="d3Bpm" type="number" value="90" min="20" max="240" step="1"> bpm</label>
   <label>at score <input id="d3Start" type="number" value="400.3" min="0" max="600" step="0.01"> s</label>
-  <label>unison for <input id="d3Pre" type="number" value="2" min="0" max="60" step="0.5"> s</label>
-  <label>ramp <input id="d3Ramp" type="number" value="3" min="0.1" max="30" step="0.1"> s</label>
-  <label title="0.389 = drift 2's ground (0.843 × 18.21) spread over 39.5 s; drift 1's ground would be 0.169">unit <input id="d3Unit" type="number" value="0.389" min="0.005" max="2" step="0.001"> %</label>
-  <label>drift for <input id="d3For" type="number" value="39.5" min="0" max="600" step="0.5"> s, then LOCK</label>
+  <label>unison for <input id="d3Pre" type="number" value="2" title="three beats at 90 = 2.000 s: the fourth beat is already at drift" min="0" max="60" step="0.5"> s</label>
+  <label>ramp <input id="d3Ramp" type="number" value="0.1" min="0.1" max="30" step="0.1"> s</label>
+  <label title="0.389 = drift 2's ground (0.843 × 18.21) spread over 39.5 s; drift 1's ground would be 0.169">unit <input id="d3Unit" type="number" value="0.917" min="0.005" max="2" step="0.001"> %</label>
+  <label>drift for <input id="d3For" type="number" value="33" min="0" max="600" step="0.5"> s, then LOCK</label>
+  <label title="how long the locked state is held before whatever comes next (the chained blocks); Drift 3 alone holds until Stop">lock for <input id="d3Lock" type="number" value="4" min="0" max="120" step="0.5"> s</label>
   <button id="play3">▶ Play drift 3</button>
   <button id="lock3" disabled>LOCK</button>
   <button id="drift3" disabled>DRIFT</button>
@@ -258,6 +259,14 @@ const SETS = [
     why: 'two speeds, closer-knit: a fast quartet (flute clarinet sax glock at 107 94 83 75) over a slow trio (piano violin cello at 58 54 50); median 75' },
   { name: 'F3 swarm iii', per: [7, 8, 9, 10, 11, 12, 13], off: [0, 0, 0, 0, 0, 0, 0],
     why: 'the swarm a little wider than swarm 2: 107 down to 58 (swarm 2 was 94 to 54); median 75' },
+  { name: 'B4 clusters iv', grid: 40, per: [8, 9, 10, 12, 14, 15, 16], off: [0, 1, 0, 1, 0, 1, 2],
+    why: 'clusters above 90: on a 40 ms grid, 187 down to 94 — the fours (8 12 16) bunch, the threes (9 12 15) bunch, 14 strays; median 125' },
+  { name: 'C4 even iv', grid: 30, per: [11, 13, 14, 15, 17, 19, 21], off: [0, 0, 0, 0, 0, 0, 0],
+    why: 'even above 90: on a 30 ms grid, 182 down to 95, almost nothing shared (14 and 21, 15 and 21 only); median 133' },
+  { name: 'E4 two speeds iv', grid: 40, per: [8, 9, 10, 13, 14, 15, 16], off: [0, 0, 0, 0, 1, 0, 1],
+    why: 'two speeds above 90: a fast wind trio (187 167 150) over a slower quartet (115 107 100 94); median 115' },
+  { name: 'F4 swarm iv', grid: 40, per: [9, 10, 11, 12, 13, 14, 15], off: [0, 0, 0, 0, 0, 0, 0],
+    why: 'the swarm above 90: 167 down to 100, one cluster smearing fast; median 125' },
   { name: 'G three speeds', per: [4, 5, 9, 10, 12, 24, 30], off: [0, 0, 0, 1, 0, 0, 1],
     why: 'three layers: a fast pair (flute clarinet 188 150), a middle trio (sax glock piano 83 75 63), a slow pair (violin cello 31 25); the whole every 29 s' },
 ];
@@ -350,6 +359,17 @@ function drawBar() {
 // the drift's s is overridden by the marks (glide start − first hit, §190); its unit 0.279 = 0.095 × 70 / 23.86 — the same spread by the wall as state 1 had at 70 s (his word)
 const SEQ = { drift: { bpm: 68, unit: 0.279, s: 70 }, g1: { to: 'F2 swarm ii', s: 32 }, hold2: { s: 8 }, g2: { to: 'unison', bpm: 78, s: 18 } };
 const unisonRates = (bpm) => PLAYERS.map(() => bpm / 60000);
+const fan3Rates = (bpm, unit) => PLAYERS.map((p) => bpm * (1 + p.fan3 * unit / 100) / 60000);
+// the tail every chain shares after the unison at 90 (§209): three beats of it, the fan at once, the drift, the lock held, then until Stop
+function drift3Tail(u2, bpmU2) {
+  const pre = +$('d3Pre').value || 0, ramp = Math.max(0.05, +$('d3Ramp').value || 0), unit = +$('d3Unit').value || 0, forS = +$('d3For').value || 0, lockS = +$('d3Lock').value || 0;
+  const f3 = fan3Rates(bpmU2, unit);
+  return [{ kind: 'hold', s: pre, rA: u2, label: 'AT unison ' + bpmU2 + ' · ' + Math.round(pre * bpmU2 / 60) + ' beats' },
+          { kind: 'glide', s: ramp, rA: u2, rB: f3, noAlign: true, label: 'into drift 3' },
+          { kind: 'hold', s: forS, rA: f3, label: 'drift 3 · unit ' + unit + ' %' },
+          { kind: 'hold', s: lockS, rA: u2, label: 'LOCKED at ' + bpmU2 },
+          { kind: 'hold', rA: u2, label: 'LOCKED at ' + bpmU2 + ' — until Stop' }];
+}
 const fanRates = (bpm, unit) => PLAYERS.map((p) => bpm * (1 + p.fan * unit / 100) / 60000);
 const setByName = (n) => SETS[SETS.findIndex((s) => s.name === n)];
 const setSpecs = (set) => PLAYERS.map((p, i) => ({ period: set.per[i] * gridOf(set), offsetMs: (set.off[i] || 0) * gridOf(set) }));
@@ -419,7 +439,7 @@ function playS3() {
            { kind: 'glide', s: T, rA: fanMs, rB: rateOf(B), toSet: B, label: 'Drift 2 → ' + B.name },
            { kind: 'hold', s: H, rA: rateOf(B), label: 'AT ' + B.name },
            { kind: 'glide', s: T2, rA: rateOf(B), rB: unisonRates(bpm2), label: B.name + ' → unison ' + bpm2 },
-           { kind: 'hold', rA: unisonRates(bpm2), label: 'AT unison ' + bpm2 + ' — until Stop' }], first, ['s3bar', 's3mark', 's3State']);
+           ...drift3Tail(unisonRates(bpm2), bpm2)], first, ['s3bar', 's3mark', 's3State']);
   S.tr.score0 = wall - before;   // no beds here either (his word, §203): the beds belong to The sequence only
 }
 function playForm() {
@@ -444,7 +464,7 @@ function playForm() {
     { kind: 'glide', s: arr3 - wall2, rA: fan2, rB: rateOf(B3), toSet: B3, label: 'drift 2 → ' + B3.name },
     { kind: 'hold', s: wall3 - arr3, rA: rateOf(B3), label: 'AT ' + B3.name },
     { kind: 'glide', s: uni2 - wall3, rA: rateOf(B3), rB: u2, label: B3.name + ' → unison ' + bpmU2 },
-    { kind: 'hold', rA: u2, label: 'AT unison ' + bpmU2 + ' — until Stop' },
+    ...drift3Tail(u2, bpmU2),
   ];
   const bad = steps.find((st) => st.s != null && !(st.s > 0)); if (bad) { $('formState').textContent = 'the marks are out of order at: ' + bad.label; return; }
   runPlan(steps, PLAYERS.map((p, i) => ({ period: 1 / fan1[i], offsetMs: 0 })), ['formbar', 'formmark', 'formState']);

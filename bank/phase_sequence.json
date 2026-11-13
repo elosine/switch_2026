@@ -71,17 +71,20 @@
   "block": "Drift 2 → swarm 3 → the new unison (the page)",
   "note": "his words 2026-11-12 (§205): reach swarm iii by 383, sustain until the ~388 wall, 400.3 new unison"
  },
- "wholeForm": "score 277.8: unison 68 → drift (ruler 1, 0.279 %) 23.86 s → 301.66 the wall: 22.61 s to F2 swarm ii → 324.27 hold 6 s → 10.81 s to unison 78, on the beat at 341.08 (D5) → hold 9.81 s → 350.89 the ramp 3 s into ruler 2 (0.843 %) → 353.89 the burst: drift 2 18.21 s → 372.10 the wall: 10.9 s to F3 swarm iii → 383 hold 5.72 s → 388.72 the wall: 11.58 s to unison 90, on the beat at 400.3 → hold until Stop. 122.5 s to the last unison.",
+ "wholeForm": "score 277.8: unison 68 → drift (ruler 1, 0.279 %) 23.86 s → 301.66 the wall: 22.61 s to F2 swarm ii → 324.27 hold 6 s → 10.81 s to unison 78, on the beat at 341.08 (D5) → hold 9.81 s → 350.89 the ramp 3 s into ruler 2 (0.843 %) → 353.89 the burst: drift 2 18.21 s → 372.10 the wall: 10.9 s to F3 swarm iii → 383 hold 5.72 s → 388.72 the wall: 11.58 s to unison 90, on the beat at 400.3 → three beats of it → 402.3 the fourth beat is drift 3 (ruler 3, 0.917 %) for 33 s → 435.4 LOCKED at 90, held 4 s → 439.4 … (next: a destination above 90). 157.6 s to the end of the lock.",
  "drift3": {
   "fromUnisonBpm": 90,
   "startScoreS": 400.3,
   "unisonForS": 2,
-  "rampS": 3,
-  "unitPct": 0.389,
-  "unitNote": "0.389 = drift 2 ground (0.843 × 18.21) over 39.5 s; drift 1 ground would be 0.169",
+  "rampS": 0.1,
+  "unitPct": 0.917,
+  "unitNote": "0.917 = 0.55 × 50 / 30 (his numbers), run 33 s",
   "ruler": "0 1 11 16 19 23 25 dealt the other way: piano 0 · cello 1 · violin 11 · glock 16 · sax 19 · clarinet 23 · flute 25",
-  "driftForS": 39.5,
-  "then": "LOCK at 90 (score 444.8) — his to hear; the AI default",
-  "note": "his words 2026-11-12 (§208): a new drift from the 90, about 39.5 s left"
+  "driftForS": 33,
+  "then": "after the 4 s lock: a destination above 90 — his pick from B4 · C4 · E4 · F4 (§209)",
+  "note": "his words 2026-11-12 (§208 · §209)",
+  "unisonForNote": "three beats at 90; the fourth beat is already at drift",
+  "rampNote": "a cut, his word: the fourth one already at drift",
+  "lockForS": 4
  }
 }
