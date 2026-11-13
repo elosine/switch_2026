@@ -39,6 +39,10 @@
   .bar b { position: absolute; left: 50%; top: 0; width: 1px; height: 10px; background: #4a5058; }
   .bar em { position: absolute; left: 0; top: 0; width: 100%; height: 10px; background: #9fe3d3; border-radius: 3px; opacity: 0; }
   #state { color: #9fe3d3; min-height: 22px; }
+  .tbar.wide { width: 900px; height: 22px; }
+  .tbar.wide i { height: 22px; width: 4px; background: #ffd166; }
+  #seqMarks span { position: absolute; top: 0; font-size: 11px; color: #9aa3ad; transform: translateX(-50%); white-space: nowrap; }
+  #seqLights span { display: inline-block; width: 110px; padding: 4px 0; text-align: center; border-radius: 5px; background: #23272d; color: #9aa3ad; font-size: 12px; margin-right: 6px; }
   .tbar { position: relative; display: inline-flex; width: 600px; height: 16px; border-radius: 4px; overflow: hidden; background: #23272d; vertical-align: middle; }
   .tbar .z { height: 100%; }
   .tbar .hold { background: #2a3a44; } .tbar .glide { background: #2e9e8e55; } .tbar .z + .z { border-left: 1px solid #15171a; }
@@ -121,19 +125,26 @@
 <h1 style="margin-top:26px">The sequence</h1>
 <div class="sub" id="seqText"></div>
 <div class="row">
-  <label>hold swarm 2 <input id="seqHold" type="number" value="8" min="0" max="300" step="1"> s</label>
-  <label>then to unison at <input id="seqBpm2" type="number" value="78" min="20" max="240" step="1"> bpm</label>
-  <label>over <input id="seqG2" type="number" value="18" min="0.5" max="300" step="0.5"> s</label>
+  <label>start at score <input id="bedsAt" type="number" value="277.8" min="0" max="600" step="0.01"> s</label>
+  <label>unison <input id="seqBpm" type="number" value="68" min="20" max="240" step="1"> bpm</label>
+  <label>drift unit <input id="seqUnit" type="number" value="0.279" min="0.005" max="2" step="0.001"> %</label>
+  <label title="Elec 1's wall (§189): the glide to swarm 2 begins here">the wall at <input id="seqWall" type="number" value="301.66" min="0" max="600" step="0.01"> s</label>
+  <label>at swarm 2 by <input id="seqArrive" type="number" value="324.27" min="0" max="600" step="0.01"> s</label>
+  <label>hold swarm 2 <input id="seqHold" type="number" value="6" min="0" max="300" step="0.5"> s</label>
+  <label title="the pitch enters here (§193) — D5, or a version of it">unison at <input id="seqUnison" type="number" value="341.08" min="0" max="600" step="0.01"> s</label>
+  <label>at <input id="seqBpm2" type="number" value="78" min="20" max="240" step="1"> bpm</label>
+</div>
+<div class="row">
   <span id="seqTotal" style="color:#9fe3d3;font-variant-numeric:tabular-nums"></span>
-  <label title="the four granular bricks of piece-Section03-F-MultiTempo01 (G5 · G9 from 269, G8 from 296, B2 from 302), played in the page at their score positions"><input id="bedsOn" type="checkbox" checked> with the beds</label>
-  <label>first hit at score <input id="bedsAt" type="number" value="277.8" min="0" max="600" step="0.01"> s</label>
-  <label title="Elec 1's wall (§189): the glide to swarm 2 begins here; the drift lasts from the first hit to this point">glide starts at score <input id="seqWall" type="number" value="301.66" min="0" max="600" step="0.01"> s</label>
-  <label title="the glide to swarm 2 lands here (his word 2026-11-12, §192); the glide lasts from the wall to this point">at swarm 2 by score <input id="seqArrive" type="number" value="324.27" min="0" max="600" step="0.01"> s</label>
+  <label title="the four granular bricks of piece-Section03-G-GrainBaseAlign (G5 · G9 from 269, G8 from 296.25, B2 from 300.78), played in the page at their score positions"><input id="bedsOn" type="checkbox" checked> with the beds</label>
   <label>beds <input id="bedsVol" type="range" min="0" max="1" step="0.01" value="0.8" style="width:90px;vertical-align:middle"></label>
   <button id="playSeq">▶ Play the sequence</button>
   <button id="stopSeq" disabled>■ Stop</button>
+  <span id="seqState" class="dim"></span>
 </div>
-<div class="row"><span class="tbar" id="seqbar"><i id="seqmark"></i></span><span id="seqState" class="dim"></span></div>
+<div class="row"><span class="tbar wide" id="seqbar"><i id="seqmark"></i></span></div>
+<div class="row" id="seqMarks" style="position:relative;height:18px;width:900px;margin-top:-6px"></div>
+<div class="row" id="seqLights"></div>
 
 <div id="locks"></div>
 
@@ -236,7 +247,7 @@ function startTransition(slots, holds, speeds) {   // slots: 4 set indexes; hold
 }
 const rateOf = (set) => set.per.map((p) => 1 / (p * GRID_MS));   // hits per ms, per player
 function drawBar() {
-  const bar = S.tr.bar, shown = S.tr.segs.reduce((s, g) => s + Math.min(g.ms, 12000), 0);   // an endless last hold shows as 12 s
+  const W = S.tr.wide || 600; const bar = S.tr.bar, shown = S.tr.segs.reduce((s, g) => s + Math.min(g.ms, 12000), 0);   // an endless last hold shows as 12 s
   bar.querySelectorAll('.z').forEach((z) => z.remove());
   S.tr.segs.forEach((g) => { const z = document.createElement('span'); z.className = 'z ' + g.kind; z.style.width = (100 * Math.min(g.ms, 12000) / shown) + '%'; bar.insertBefore(z, S.tr.mark); });
   S.tr.shown = shown;
@@ -259,11 +270,11 @@ function playS2() {   // swarm 2 → unison at the bpm, over the dial's seconds,
   runPlan([{ kind: 'glide', s: T, rA: rateOf(F2), rB: unisonRates(bpm), label: 'F2 swarm ii → unison ' + bpm },
            { kind: 'hold', rA: unisonRates(bpm), label: 'AT unison ' + bpm + ' — until Stop' }], setSpecs(F2), ['s2bar', 's2mark', 's2State']);
 }
-const BEDS = [   // from piece-Section03-F-MultiTempo01 (§180): name · file under the fund · score start · file offset s
+const BEDS = [   // from piece-Section03-G-GrainBaseAlign (§180 · §189): name · file under the fund · score start · file offset s
   { name: 'G5', file: 'granular/granular-G5-expodec-seed1-master.wav', at: 269.05, off: 36.970 },
   { name: 'G9', file: 'granular/granular-G9-expodec+perc-seed1-master.wav', at: 269.15, off: 44.822 },
   { name: 'G8', file: 'granular/granular-G8-rexpodec-seed1-master.wav', at: 296.25, off: 0 },
-  { name: 'B2', file: 'granular/granular-B2-perc-seed1-master.wav', at: 301.59, off: 32.589 },
+  { name: 'B2', file: 'granular/granular-B2-perc-seed1-master.wav', at: 300.78, off: 32.589 },   // moved by him 2026-11-12 (§189): its wall on Elec 1's
 ];
 const A = { els: [], timers: [] };
 function bedsPrepare() {
@@ -281,17 +292,19 @@ function bedsStart(t0) {   // t0: the sequence's start on the performance clock;
   });
 }
 function bedsStop() { A.timers.forEach(clearTimeout); A.timers = []; A.els.forEach((el) => { try { el.pause(); } catch (e) {} }); }
+function glide2S() { return Math.max(0.5, +((+$('seqUnison').value || 0) - (+$('seqArrive').value || 0) - (+$('seqHold').value || 0)).toFixed(2)); }
 function glide1S() { return Math.max(0.5, +((+$('seqArrive').value || 0) - (+$('seqWall').value || 0)).toFixed(2)); }
 function driftS() { return Math.max(0, +((+$('seqWall').value || 0) - (+$('bedsAt').value || 0)).toFixed(2)); }
-function playSeq() {   // the whole sequence from the top: the drift live, then every glide and hold as kept
-  const D = SEQ.drift, F2 = setByName(SEQ.g1.to), h = +$('seqHold').value, T2 = +$('seqG2').value || 1, bpm2 = +$('seqBpm2').value || 78;
-  const fan = fanRates(D.bpm, D.unit);
-  runPlan([{ kind: 'hold', s: driftS(), rA: fan, label: 'the drift · ' + D.bpm + ' bpm · unit ' + D.unit + ' %' },
+function playSeq() {   // the whole sequence from the top, every stretch from the boxes: the drift live, the glides, the holds
+  const bpm = +$('seqBpm').value || 68, unit = +$('seqUnit').value || 0, F2 = setByName(SEQ.g1.to), h = +$('seqHold').value || 0, bpm2 = +$('seqBpm2').value || 78;
+  const fan = fanRates(bpm, unit);
+  runPlan([{ kind: 'hold', s: driftS(), rA: fan, label: 'the drift · ' + bpm + ' bpm · unit ' + unit + ' %' },
            { kind: 'glide', s: glide1S(), rA: fan, rB: rateOf(F2), toSet: F2, label: 'drift → ' + F2.name },
            { kind: 'hold', s: h, rA: rateOf(F2), label: 'AT ' + F2.name },
-           { kind: 'glide', s: T2, rA: rateOf(F2), rB: unisonRates(bpm2), label: F2.name + ' → unison ' + bpm2 },
+           { kind: 'glide', s: glide2S(), rA: rateOf(F2), rB: unisonRates(bpm2), label: F2.name + ' → unison ' + bpm2 + ' (D5)' },
            { kind: 'hold', rA: unisonRates(bpm2), label: 'AT unison ' + bpm2 + ' — until Stop' }],
           PLAYERS.map((p, i) => ({ period: 1 / fan[i], offsetMs: 0 })), ['seqbar', 'seqmark', 'seqState']);
+  S.tr.score0 = +$('bedsAt').value || 0; S.tr.wide = 900; seqMarksDraw();
   if ($('bedsOn').checked) bedsStart(S.t0);
 }
 // FROM THE DRIFT (§182): start AT the drift's state after N seconds (the lags it would have), locked at the bpm; hold; glide to a set over T; hold until Stop
@@ -422,8 +435,10 @@ function stop() {
 function ui() {
   const dr = S.playing && S.mode === 'drift', st = S.playing && S.mode === 'set', sh = S.playing && S.mode === 'shift';
   $('playTr').disabled = S.playing; $('stopTr').disabled = !sh; $('playD').disabled = S.playing; $('stopD').disabled = !sh; $('playS2').disabled = S.playing; $('stopS2').disabled = !sh; $('playSeq').disabled = S.playing; $('stopSeq').disabled = !sh;
-  $('seqText').textContent = 'score ' + $('bedsAt').value + ': unison at ' + SEQ.drift.bpm + ' → the drift, unit ' + SEQ.drift.unit + ' %, for ' + driftS() + ' s → at the wall, score ' + $('seqWall').value + ': ' + SEQ.g1.to + ' over ' + glide1S() + ' s, arriving at score ' + $('seqArrive').value + ' → hold ' + $('seqHold').value + ' s → unison at ' + $('seqBpm2').value + ' over ' + $('seqG2').value + ' s → hold until Stop';
-  const tot = driftS() + glide1S() + (+$('seqHold').value || 0) + (+$('seqG2').value || 0); $('seqTotal').textContent = 'total ' + Math.floor(tot / 60) + ':' + String(Math.round(tot % 60)).padStart(2, '0') + ' (' + tot + ' s) to the last hold';
+  const m = { a: +$('bedsAt').value, w: +$('seqWall').value, s2: +$('seqArrive').value, h: +$('seqHold').value, u: +$('seqUnison').value };
+  $('seqText').textContent = 'score ' + m.a + ': unison at ' + $('seqBpm').value + ' → the drift, unit ' + $('seqUnit').value + ' %, ' + driftS() + ' s → the wall ' + m.w + ': ' + glide1S() + ' s to ' + SEQ.g1.to +
+    ' → at ' + m.s2 + ', hold ' + m.h + ' s → ' + glide2S() + ' s to unison at ' + $('seqBpm2').value + ', on the beat at ' + m.u + ' (D5) → hold until Stop';
+  const tot = m.u - m.a; $('seqTotal').textContent = 'total ' + Math.floor(tot / 60) + ':' + String(Math.round(tot % 60)).padStart(2, '0') + ' (' + tot.toFixed(2) + ' s) to the unison';
   $('play').disabled = S.playing; $('stop').disabled = !dr; $('playSet').disabled = S.playing; $('stopSet').disabled = !st;
   $('lock').disabled = !dr || S.locked; $('drift').disabled = !dr || !S.locked; $('capture').disabled = !dr;
   $('setInfo').textContent = setInfo(SETS[S.set]); $('setWhy').textContent = SETS[S.set].why;
@@ -448,20 +463,26 @@ function paint() {
       '<td class="num">' + (L ? (lag >= 0 ? '+' : '') + lag.toFixed(3) + ' beat' : '') + '</td>' +
       '<td><span class="bar"><em style="opacity:' + flash.toFixed(2) + '"></em>' + (S.mode === 'drift' ? '<b></b>' : '') + '<i style="left:' + x + 'px"></i></span></td></tr>';
   }).join('');
-  if (S.playing && S.mode === 'shift') paintTr();
+  if (S.playing && S.mode === 'shift') { paintTr(); const L = $('seqLights').children; if (L.length === S.streams.length && S.tr.score0 != null) S.streams.forEach((s, i) => { let last = s.last != null ? s.last : -1e9; const fl = Math.max(0, 1 - (now - last) / 260); L[i].style.background = 'rgba(159,227,211,' + (0.08 + 0.9 * fl).toFixed(2) + ')'; L[i].style.color = fl > 0.4 ? '#15171a' : '#9aa3ad'; }); }
   if (S.playing) { $('state').textContent = (S.mode === 'shift' ? trText() : S.mode === 'set' ? 'set ' + SETS[S.set].name : S.locked ? 'LOCKED at ' + c.bpm + ' — the lags hold' : 'drifting') + ' · ' + elapsedS().toFixed(0) + ' s'; S.raf = requestAnimationFrame(paint); }
 }
 function trText() {
   const { g, u } = trSeg(); const n = (i) => SETS[i].name; const base = g.label || (g.kind === 'hold' ? (g === S.tr.segs[0] ? 'holding ' : 'AT ') + n(g.set) : n(g.set) + ' → ' + n(g.to));
   return g.kind === 'glide' ? base + ' · ' + Math.round(u * 100) + ' %' : base;
 }
+function seqMarksDraw() {   // the marks under the wide bar, each at its zone's edge: score times
+  const box = $('seqMarks'); box.innerHTML = ''; let x = 0; const W = S.tr.wide || 900;
+  S.tr.segs.forEach((g, i) => { const sp = document.createElement('span'); sp.style.left = (W * x / S.tr.shown) + 'px'; sp.textContent = (S.tr.score0 + g.from / 1000).toFixed(2); box.appendChild(sp); x += Math.min(g.ms, 12000); });
+  const L = $('seqLights'); L.innerHTML = ''; PLAYERS.forEach((p) => { const sp = document.createElement('span'); sp.textContent = p.name; L.appendChild(sp); });
+}
 function paintTr() {
   const el = performance.now() - S.t0; let x = 0;   // the marker: each zone in its shown width
   for (const g of S.tr.segs) { const w = Math.min(g.ms, 12000); if (el < g.from + g.ms) { x += w * Math.min(1, (el - g.from) / g.ms); break; } x += w; }
-  S.tr.mark.style.left = (600 * x / S.tr.shown) + 'px'; S.tr.state.textContent = trText();
+  const W = S.tr.wide || 600; S.tr.mark.style.left = (W * x / S.tr.shown) + 'px';
+  S.tr.state.textContent = (S.tr.score0 != null ? 'score ' + (S.tr.score0 + el / 1000).toFixed(1) + ' · ' : '') + trText();
 }
 $('play').onclick = play; $('stop').onclick = stop; $('stopTr').onclick = stop; $('stopD').onclick = stop; $('stopS2').onclick = stop; $('stopSeq').onclick = stop; $('playS2').onclick = playS2; $('playSeq').onclick = playSeq;
-['seqHold', 'seqBpm2', 'seqG2', 'bedsAt', 'seqWall', 'seqArrive'].forEach((id) => $(id).addEventListener('input', ui));
+['seqHold', 'seqBpm2', 'seqUnison', 'seqBpm', 'seqUnit', 'bedsAt', 'seqWall', 'seqArrive'].forEach((id) => $(id).addEventListener('input', ui));
 $('bedsVol').addEventListener('input', () => A.els.forEach((el) => { el.volume = +$('bedsVol').value; }));
 $('bedsOn').addEventListener('change', () => { if ($('bedsOn').checked) bedsPrepare(); });
 if ($('bedsOn').checked) bedsPrepare();

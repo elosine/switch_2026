@@ -3499,3 +3499,16 @@ enters at **score 341.90** with the save as it is — and it is **Elec 4's bed (
 grain (gone by 339.6). **The pitch:** the resonators wobble ± ½ st by design; B2 alone over the first 3 s peaks at 555 Hz (C♯5 +3 c), the
 summed frames swing 576 … 608 Hz — a note sitting between C♯5 and D5, a quarter tone under D5 at its center, D5 at its top. **From the
 last mark (324.27):** 17.62 s as the save stands, 16.80 s with the brick moved. Nothing changed on the page; his word on which time to mark.
+
+## §194. The sequence rebuilt on the marks: hold 6 s, the unison on the beat at 341.08 (D5); every number a box; the wide bar with the lights (2026-11-12)
+
+**His words:** *"6 seconds, hold swarm 2. And yes, that is the unison point, let's hit there. Rebuild the sequence with the new bed, put
+in number boxes for all the relevant units, and bring that animation back — a colored bar and something that follows it."*
+
+**Built:** the sequence block remade — boxes: start at score 277.8 · unison 68 bpm · drift unit 0.279 % · the wall 301.66 · at swarm 2 by
+324.27 · hold swarm 2 6 s · unison at 341.08 · at 78 bpm; every stretch derived from the marks (23.86 · 22.61 · 6 · 10.81 s; the total
+1:03 = 63.28 s to the unison) and stated in the line; the beds as his save now has them (B2 at 300.78). The bar 900 px wide, holds dark
+and glides lit, a yellow follower, the score time of each mark under it (277.80 · 301.66 · 324.27 · 330.27 · 341.08) and the live score
+time in the state ("score 340.7 · F2 swarm ii → unison 78 (D5) · 96 %"); under the bar seven lights, one per player, each flashing on its hit.
+Proven once on the preview: the five segments as above, the marks at their places, the lights present and lit by the hits, the tempi
+converging on 78 near the end (the exact arrival proven at §185). `bank/phase_sequence.json` rewritten with the marks and the beds.

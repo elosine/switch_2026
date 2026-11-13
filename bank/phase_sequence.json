@@ -3,40 +3,45 @@
  "steps": [
   {
    "step": 1,
-   "what": "unison start, then THE DRIFT",
+   "what": "unison start at 68, then THE DRIFT",
    "bpm": 68,
    "unitPct": 0.279,
    "seconds": 23.86,
-   "note": "the Golomb ruler 0 1 4 10 18 23 25, nobody slower than 68; the length = the wall minus the first hit (23.86 s); the unit 0.279 = 0.095 × 70 / 23.86, so the fan reaches at the wall the same spread state 1 had at 70 s (his word 2026-11-12)"
+   "note": "the Golomb ruler 0 1 4 10 18 23 25; unit 0.279 = 0.095 × 70 / 23.86 (the spread of state 1 by the wall)"
   },
   {
    "step": 2,
    "what": "glide to F2 swarm ii",
    "seconds": 22.61,
-   "note": "no hold before it; lands at score 324.27: 324.27 − 301.66 = 22.61 s; arrives on swarm 2 grid (§185)"
+   "note": "from the wall 301.66 to 324.27; lands on swarm 2 grid"
   },
   {
    "step": 3,
    "what": "hold F2 swarm ii",
-   "seconds": 8,
-   "note": "a field on the page; not his number yet (8 s)"
+   "seconds": 6,
+   "note": "his word 2026-11-12"
   },
   {
    "step": 4,
    "what": "glide to unison at 78 bpm",
-   "seconds": 18,
-   "note": "his word 2026-11-12: 18 s; arrives on the beat (§185)"
+   "seconds": 10.81,
+   "note": "from 330.27 to 341.08, on the beat together (§185); the pitch D5 enters in the bed here"
   },
   {
    "step": 5,
    "what": "hold unison 78 until Stop"
   }
  ],
- "oneLine": "score 277.8: unison 68 → drift (unit 0.279 %) 23.86 s → at the wall 301.66: 22.61 s to F2 swarm ii, arriving at 324.27 → hold 8 s → 18 s to unison 78 → hold until Stop",
+ "oneLine": "score 277.8: unison 68 → drift (unit 0.279 %) 23.86 s → the wall 301.66: 22.61 s to F2 swarm ii → at 324.27, hold 6 s → 10.81 s to unison at 78, on the beat at 341.08 (D5) → hold until Stop",
  "marks": {
-  "firstHitScoreS": 277.8,
-  "glideStartsScoreS": 301.66,
+  "startScoreS": 277.8,
+  "wallScoreS": 301.66,
   "atSwarm2ScoreS": 324.27,
-  "note": "his words 2026-11-12 (§190 · §192): the first hit where it was; the glide to swarm 2 begins at Elec 1 wall (§189) and lands at 324.27. The drift lasts the first distance (23.86 s), the glide the second (22.61 s)."
- }
+  "holdSwarm2S": 6,
+  "unisonScoreS": 341.08,
+  "unisonBpm": 78,
+  "unisonPitch": "D5, or a version of it — the bed pitch at 341.08 sits a quarter tone under D5 at its center (§193)",
+  "note": "his words 2026-11-12 (§190 … §194); every stretch is the distance between marks"
+ },
+ "beds": "piece-Section03-G-GrainBaseAlign: G5 269.05 (file 36.97) · G9 269.15 (44.822) · G8 296.25 (0) · B2 300.78 (32.589)"
 }
