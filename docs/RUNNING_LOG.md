@@ -3729,3 +3729,22 @@ beds start at their place; the cursor and the state read the score time. A start
 time, so the arrival still aligns. Proven once on the preview: from 439 → "LOCKED at 90", every player at 90, 29 ms to get there, the next
 beats 122 … 606 ms ahead (nothing fired from the past), then 480 reached with all seven at 120 within 0.4 ms; from 470 (49 % into the last
 glide, 128.2 … 99.6) → 480 within 0.4 ms as well; no console errors.
+
+## §214. THE FORM WRITTEN INTO THE COMPOSER SCORE — `piece-Section03-H-addTuplets`; the last hit one unison strike at 480 (2026-11-12)
+
+**His words:** *"let's have the last hit be right at the unison 120, right at 480. Just one strike in unison. And then if it's easy enough to
+work in the composer score, put them in there. The next pass will be changing those to tuplets, and the next the harmonies. New name:
+piece-Section03-H-addTuplets."*
+
+**Built:** `bank/phase_form.json` — the form as data (the sixteen steps with their marks, the three rulers, the voices per player, the
+end); `tools/phase_form_render.js` — the page's plan arithmetic ported (2 ms phase integration, the bulges) that writes a struck note per
+hit per player into a COPY of a save: flute · clarinet · sax staccato on their lanes, the glockenspiel Shorts (Hard) on the mallets lane
+(written D4 → D6), the piano struck, violin and cello Staccato Velocity, D5 (74) everywhere but the glock (62), velocity 100, 0.12 s long,
+group `phase-form`, a marker per step (Φ …) and one at the last hit. **One change of rule, in the tool AND the page:** a glide to a UNISON
+now lands every player on the beat AT THE MARK (each phase a whole number at the glide's end, the piano too), not merely together at the
+piano's phase — so the hits at 341.08 and 400.3 are on the marks exactly; the last hit is set to 480.000 and nothing follows. The workshop's
+whole form ends the same way (one strike, then it stops). **His H save** existed already — his own copy of G, saved 22:51, empty of the form —
+and his word named it: rendered into it through a temp file (the tool itself refuses to overwrite). **The result:** 2050 notes (flute 320 ·
+clarinet 310 · sax 299 · glock 294 · piano 274 · violin 280 · cello 273) and 17 markers; the first hit 277.8 on all seven, 341.08 on all seven,
+480.000 on all seven. Proven once on the throwaway 5601: the save loads (3567 objects, 2067 in the group), the seven at 277.8 · 341.08 · 480,
+the glock note as specified; nothing saved there. He opens it in his composer (File ▾ → Open). The save is his and stays uncommitted.

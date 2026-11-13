@@ -483,11 +483,11 @@ function playForm() {
     ...drift3Tail(u2, bpmU2).slice(0, 4),   // three beats · the cut · drift 3 · the lock held (not the endless lock)
     { kind: 'glide', s: +$('s5Over').value || 1, rA: u2, rB: rateOf(SETS[+$('s5To').value]), toSet: SETS[+$('s5To').value], label: 'drift 3 → ' + SETS[+$('s5To').value].name },
     { kind: 'glide', s: (+$('s5Unison').value || 0) - ((+$('s3Unison').value || 0) + (+$('d3Pre').value || 0) + Math.max(0.05, +$('d3Ramp').value || 0) + (+$('d3For').value || 0) + (+$('d3Lock').value || 0) + (+$('s5Over').value || 0)), rA: rateOf(SETS[+$('s5To').value]), rB: unisonRates(+$('s5Bpm').value || 120), label: SETS[+$('s5To').value].name + ' → unison ' + (+$('s5Bpm').value || 120) },
-    { kind: 'hold', rA: unisonRates(+$('s5Bpm').value || 120), label: 'AT unison ' + (+$('s5Bpm').value || 120) + ' — until Stop' },
+    { kind: 'hold', s: 0.08, rA: unisonRates(+$('s5Bpm').value || 120), label: 'the last hit · unison ' + (+$('s5Bpm').value || 120) },   // one strike, then the end (§214)
   ];
   const bad = steps.find((st) => st.s != null && !(st.s > 0)); if (bad) { $('formState').textContent = 'the marks are out of order at: ' + bad.label; return; }
   runPlan(steps, PLAYERS.map((p, i) => ({ period: 1 / fan1[i], offsetMs: 0 })), ['formbar', 'formmark', 'formState']);
-  S.tr.score0 = a0; S.tr.canvas = 'formScroll'; S.tr.wide = 900; S.tr.tail = 20;
+  S.tr.score0 = a0; S.tr.canvas = 'formScroll'; S.tr.wide = 900; S.tr.tail = 20; S.tr.ends = true;   // the form ends by itself after the last hit
   const from = Math.max(a0, +$('formFrom').value || a0); jumpTo((from - a0) * 1000);
   if ($('bedsOn').checked) bedsStart(performance.now(), from);
 }
@@ -537,7 +537,7 @@ function planBulge(g, el) {
   const rNow = PLAYERS.map((p, i) => g.rA[i] + (g.rB[i] - g.rA[i]) * ((el - g.from) / g.ms));
   const pred = S.streams.map((s, i) => s.phase + left * (rNow[i] + g.rB[i]) / 2);          // where the straight ramp would leave each phase
   const a = PLAYERS.findIndex((p) => p.anchor);
-  const target = PLAYERS.map((p, i) => g.toSet ? (1 - ((g.toSet.off[i] || 0) * gridOf(g.toSet)) / (g.toSet.per[i] * gridOf(g.toSet))) : pred[a]);   // the set's flam offsets, else all on the piano's beat
+  const target = PLAYERS.map((p, i) => g.toSet ? (1 - ((g.toSet.off[i] || 0) * gridOf(g.toSet)) / (g.toSet.per[i] * gridOf(g.toSet))) : Math.round(pred[i]));   // the set's flam offsets, else THE BEAT AT THE MARK: every phase a whole number at the glide's end, the piano too (§214)
   g.bulge = PLAYERS.map((p, i) => { let d = (target[i] - pred[i]) % 1; if (d > 0.5) d -= 1; if (d <= -0.5) d += 1; return d * Math.PI / (2 * left); });
   g.bulgeFrom = el; g.bulgeMs = left;
 }

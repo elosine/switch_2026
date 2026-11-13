@@ -1,0 +1,39 @@
+{
+ "_about": "THE PHASE FORM of Section 3 as decided 2026-11-12 (RUNNING_LOG §182 … §214): the numbers the workshop page's boxes hold, kept here as data so tools/phase_form_render.js can write the form into a save. The players in order: flute · clarinet · alto sax · glockenspiel · piano · violin · cello. A ruler is the Golomb marks per player in that order; the sets are the page's (workshop/phase/index.html SETS, read by name). Edited only at his word.",
+ "players": ["flute", "clarinet", "alto_sax", "glockenspiel", "piano", "violin", "cello"],
+ "rulers": {
+  "fan": [1, 4, 10, 18, 0, 23, 25],
+  "fan2": [1, 7, 11, 20, 0, 23, 25],
+  "fan3": [25, 23, 19, 16, 0, 11, 1]
+ },
+ "steps": [
+  { "kind": "hold", "fan": "fan", "bpm": 68, "unitPct": 0.279, "from": 277.8, "to": 301.66, "label": "the drift · 68 · unit 0.279 %" },
+  { "kind": "glide", "toSet": "F2 swarm ii", "from": 301.66, "to": 324.27, "label": "drift → F2 swarm ii" },
+  { "kind": "hold", "set": "F2 swarm ii", "from": 324.27, "to": 330.27, "label": "AT F2 swarm ii" },
+  { "kind": "glide", "toUnison": 78, "from": 330.27, "to": 341.08, "label": "F2 swarm ii → unison 78 (D5)" },
+  { "kind": "hold", "unison": 78, "from": 341.08, "to": 350.89, "label": "AT unison 78" },
+  { "kind": "glide", "toFan": "fan2", "bpm": 78, "unitPct": 0.843, "noAlign": true, "from": 350.89, "to": 353.89, "label": "the ramp into drift 2" },
+  { "kind": "hold", "fan": "fan2", "bpm": 78, "unitPct": 0.843, "from": 353.89, "to": 372.1, "label": "drift 2 · unit 0.843 %" },
+  { "kind": "glide", "toSet": "F3 swarm iii", "from": 372.1, "to": 383, "label": "drift 2 → F3 swarm iii" },
+  { "kind": "hold", "set": "F3 swarm iii", "from": 383, "to": 388.72, "label": "AT F3 swarm iii" },
+  { "kind": "glide", "toUnison": 90, "from": 388.72, "to": 400.3, "label": "F3 swarm iii → unison 90" },
+  { "kind": "hold", "unison": 90, "from": 400.3, "to": 402.3, "label": "AT unison 90 · 3 beats" },
+  { "kind": "glide", "toFan": "fan3", "bpm": 90, "unitPct": 0.917, "noAlign": true, "from": 402.3, "to": 402.4, "label": "into drift 3" },
+  { "kind": "hold", "fan": "fan3", "bpm": 90, "unitPct": 0.917, "from": 402.4, "to": 435.4, "label": "drift 3 · unit 0.917 %" },
+  { "kind": "hold", "unison": 90, "from": 435.4, "to": 439.4, "label": "LOCKED at 90" },
+  { "kind": "glide", "toSet": "F5 swarm v", "from": 439.4, "to": 460.4, "label": "drift 3 → F5 swarm v" },
+  { "kind": "glide", "toUnison": 120, "from": 460.4, "to": 480, "label": "F5 swarm v → unison 120" }
+ ],
+ "end": { "lastHitAt": 480, "note": "one strike in unison at 480, the last hit (his word 2026-11-12, §214); nothing after" },
+ "voices": {
+  "flute": { "layer": 0, "technique": "staccato", "midi": 74 },
+  "clarinet": { "layer": 1, "technique": "staccato", "midi": 74 },
+  "alto_sax": { "layer": 2, "technique": "staccato", "midi": 74 },
+  "glockenspiel": { "layer": 4, "technique": "glock_shorts_hard", "midi": 62, "note": "written D4 sounds D6; the mallets lane" },
+  "piano": { "layer": 5, "technique": "main", "midi": 74 },
+  "violin": { "layer": 6, "technique": "stac_vel", "midi": 74 },
+  "cello": { "layer": 7, "technique": "stac_vel", "midi": 74 }
+ },
+ "velocity": 100,
+ "noteSeconds": 0.12
+}
