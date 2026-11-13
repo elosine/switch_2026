@@ -128,6 +128,7 @@
   <label title="the four granular bricks of piece-Section03-F-MultiTempo01 (G5 · G9 from 269, G8 from 296, B2 from 302), played in the page at their score positions"><input id="bedsOn" type="checkbox" checked> with the beds</label>
   <label>first hit at score <input id="bedsAt" type="number" value="277.8" min="0" max="600" step="0.01"> s</label>
   <label title="Elec 1's wall (§189): the glide to swarm 2 begins here; the drift lasts from the first hit to this point">glide starts at score <input id="seqWall" type="number" value="301.66" min="0" max="600" step="0.01"> s</label>
+  <label title="the glide to swarm 2 lands here (his word 2026-11-12, §192); the glide lasts from the wall to this point">at swarm 2 by score <input id="seqArrive" type="number" value="324.27" min="0" max="600" step="0.01"> s</label>
   <label>beds <input id="bedsVol" type="range" min="0" max="1" step="0.01" value="0.8" style="width:90px;vertical-align:middle"></label>
   <button id="playSeq">▶ Play the sequence</button>
   <button id="stopSeq" disabled>■ Stop</button>
@@ -280,12 +281,13 @@ function bedsStart(t0) {   // t0: the sequence's start on the performance clock;
   });
 }
 function bedsStop() { A.timers.forEach(clearTimeout); A.timers = []; A.els.forEach((el) => { try { el.pause(); } catch (e) {} }); }
+function glide1S() { return Math.max(0.5, +((+$('seqArrive').value || 0) - (+$('seqWall').value || 0)).toFixed(2)); }
 function driftS() { return Math.max(0, +((+$('seqWall').value || 0) - (+$('bedsAt').value || 0)).toFixed(2)); }
 function playSeq() {   // the whole sequence from the top: the drift live, then every glide and hold as kept
   const D = SEQ.drift, F2 = setByName(SEQ.g1.to), h = +$('seqHold').value, T2 = +$('seqG2').value || 1, bpm2 = +$('seqBpm2').value || 78;
   const fan = fanRates(D.bpm, D.unit);
   runPlan([{ kind: 'hold', s: driftS(), rA: fan, label: 'the drift · ' + D.bpm + ' bpm · unit ' + D.unit + ' %' },
-           { kind: 'glide', s: SEQ.g1.s, rA: fan, rB: rateOf(F2), toSet: F2, label: 'drift → ' + F2.name },
+           { kind: 'glide', s: glide1S(), rA: fan, rB: rateOf(F2), toSet: F2, label: 'drift → ' + F2.name },
            { kind: 'hold', s: h, rA: rateOf(F2), label: 'AT ' + F2.name },
            { kind: 'glide', s: T2, rA: rateOf(F2), rB: unisonRates(bpm2), label: F2.name + ' → unison ' + bpm2 },
            { kind: 'hold', rA: unisonRates(bpm2), label: 'AT unison ' + bpm2 + ' — until Stop' }],
@@ -420,8 +422,8 @@ function stop() {
 function ui() {
   const dr = S.playing && S.mode === 'drift', st = S.playing && S.mode === 'set', sh = S.playing && S.mode === 'shift';
   $('playTr').disabled = S.playing; $('stopTr').disabled = !sh; $('playD').disabled = S.playing; $('stopD').disabled = !sh; $('playS2').disabled = S.playing; $('stopS2').disabled = !sh; $('playSeq').disabled = S.playing; $('stopSeq').disabled = !sh;
-  $('seqText').textContent = 'score ' + $('bedsAt').value + ': unison at ' + SEQ.drift.bpm + ' → the drift, unit ' + SEQ.drift.unit + ' %, for ' + driftS() + ' s → at the wall, score ' + $('seqWall').value + ': ' + SEQ.g1.to + ' over ' + SEQ.g1.s + ' s → hold ' + $('seqHold').value + ' s → unison at ' + $('seqBpm2').value + ' over ' + $('seqG2').value + ' s → hold until Stop';
-  const tot = driftS() + SEQ.g1.s + (+$('seqHold').value || 0) + (+$('seqG2').value || 0); $('seqTotal').textContent = 'total ' + Math.floor(tot / 60) + ':' + String(Math.round(tot % 60)).padStart(2, '0') + ' (' + tot + ' s) to the last hold';
+  $('seqText').textContent = 'score ' + $('bedsAt').value + ': unison at ' + SEQ.drift.bpm + ' → the drift, unit ' + SEQ.drift.unit + ' %, for ' + driftS() + ' s → at the wall, score ' + $('seqWall').value + ': ' + SEQ.g1.to + ' over ' + glide1S() + ' s, arriving at score ' + $('seqArrive').value + ' → hold ' + $('seqHold').value + ' s → unison at ' + $('seqBpm2').value + ' over ' + $('seqG2').value + ' s → hold until Stop';
+  const tot = driftS() + glide1S() + (+$('seqHold').value || 0) + (+$('seqG2').value || 0); $('seqTotal').textContent = 'total ' + Math.floor(tot / 60) + ':' + String(Math.round(tot % 60)).padStart(2, '0') + ' (' + tot + ' s) to the last hold';
   $('play').disabled = S.playing; $('stop').disabled = !dr; $('playSet').disabled = S.playing; $('stopSet').disabled = !st;
   $('lock').disabled = !dr || S.locked; $('drift').disabled = !dr || !S.locked; $('capture').disabled = !dr;
   $('setInfo').textContent = setInfo(SETS[S.set]); $('setWhy').textContent = SETS[S.set].why;
@@ -459,7 +461,7 @@ function paintTr() {
   S.tr.mark.style.left = (600 * x / S.tr.shown) + 'px'; S.tr.state.textContent = trText();
 }
 $('play').onclick = play; $('stop').onclick = stop; $('stopTr').onclick = stop; $('stopD').onclick = stop; $('stopS2').onclick = stop; $('stopSeq').onclick = stop; $('playS2').onclick = playS2; $('playSeq').onclick = playSeq;
-['seqHold', 'seqBpm2', 'seqG2', 'bedsAt', 'seqWall'].forEach((id) => $(id).addEventListener('input', ui));
+['seqHold', 'seqBpm2', 'seqG2', 'bedsAt', 'seqWall', 'seqArrive'].forEach((id) => $(id).addEventListener('input', ui));
 $('bedsVol').addEventListener('input', () => A.els.forEach((el) => { el.volume = +$('bedsVol').value; }));
 $('bedsOn').addEventListener('change', () => { if ($('bedsOn').checked) bedsPrepare(); });
 if ($('bedsOn').checked) bedsPrepare();

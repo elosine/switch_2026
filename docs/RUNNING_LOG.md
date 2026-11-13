@@ -3482,3 +3482,9 @@ cello then +7 % faster than 68, at 72.7, for those 24 s). Set as the sequence's 
 record. Also: §190's edit left a comment mid-line in `SEQ` (half the object commented out) — caught by the parse check, fixed here.
 **Proven once on the preview:** the line reads the marks, the drift 23.86 s at 0.279 %, the total 1:22 (81.86 s); the plan 23.86 · 32 · 8 · 18 · ∞;
 the leads at the wall 0.076 · 0.304 · 0.759 · 1.365 · 0 · 1.745 · 1.896 beats — state 1's 0.075 · 0.301 · 0.754 · 1.357 · 0 · 1.733 · 1.884 within 1 %.
+
+## §192. Swarm 2 by 324.27 (2026-11-12)
+
+**His words:** *"324.27. Let's get to swarm 2 by this time."* **Built:** a third mark, "at swarm 2 by score" 324.27; the glide lasts from the
+wall to it, 324.27 − 301.66 = **22.61 s**; the line and the total follow (23.86 + 22.61 + 8 + 18 = 72.47 s; the unison at 78 at 350.27 as the
+hold stands). The record updated.
