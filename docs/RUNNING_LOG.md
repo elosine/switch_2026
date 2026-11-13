@@ -3444,3 +3444,20 @@ browser's, beside the rack's; the slider is the balance for now. **Proven once o
 beds loaded (readyState 4, 240 s each); after Play the plan as above, G5 · G9 playing (positions 47.0 · 54.8 after 1.5 s — a 0.2 s play
 latency, fine for a workshop), G8 · B2 waiting on their timers; Stop paused all four; no console errors. A note: the §27 server edit
 collapsed two backslashes in the route's regexes (the machine's known fault) — fixed by the file tool before the proof.
+
+## §189. Lining up the walls at 301.4 (`piece-Section03-G-GrainBaseAlign`); the brick that grew back (2026-11-12)
+
+**His words:** *"help me line things up. Around 301.4, Elec 1 has kind of a wall there, and I want Elec 4's wall to coincide, lined up in
+unison. Tell me where to move the bottom one. And there's an issue with the panel: if I sliced it, when I put in a new start time, it grows
+back the part I sliced off instead of moving the whole brick."*
+
+**The walls, by measurement** (RMS at 5 ms, the step = the 150 ms after a point minus the 150 ms before): **Elec 1** (`granular-G5-expodec`,
+start 269.05, offset 36.97 s) has its wall at file 69.580 s = **score 301.660** (+22 dB; nothing comparable near 301.4 — his eye read the
+waveform's drawn edge). **Elec 4** (`granular-B2-perc`, start 301.6, offset 32.589 s) has only a +5 dB bump at its start; its wall is at file
+33.467 s, **0.878 s into the brick** (+54 dB), landing today at 302.478. **So:** the bottom brick's start = 301.660 − 0.878 = **300.78 s**, its
+offset untouched (the sound moves with it), and the two walls fall together at 301.66.
+
+**The grow-back:** the panel's Start (s) field set `startTime` alone; `le_material.js`'s rule of the edges reads "start moved, end not" as a
+LEFT-EDGE drag — the sound stays, the brick shows more of it — which is right for the edge and wrong for a typed start. Fixed in
+`composer.html` `applyPanelField`: a material brick's typed start shifts its end by the same amount (a move; the offset stays). SWEEP row 5.
+He reloads (F5) the composer score; the file is served as it is.

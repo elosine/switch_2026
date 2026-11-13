@@ -8953,6 +8953,10 @@ const Composer = {
                     this.scaleGroupTo(obj,
                         field === 'startSeconds' ? pv : obj.startSeconds,
                         field === 'endSeconds' ? pv : obj.endSeconds);
+                } else if (field === 'startTime' && obj.type === 'zone' && obj.midiModel === 'elecMaterial' && !isNaN(pv)) {
+                    // a MATERIAL BRICK given a new start in the panel MOVES WHOLE (his word 2026-11-12, SWEEP row 5): the end shifts with it,
+                    // so the rule of the edges (le_material.js materialDecorate) sees a move, not a left-edge drag that grows the sliced part back
+                    const dt = pv - obj.startTime; obj.startTime = pv; obj.endTime = +(obj.endTime + dt).toFixed(3);
                 } else {
                     obj[field] = pv;
                 }
