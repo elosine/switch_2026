@@ -3595,3 +3595,11 @@ grid** (`grid`), the engine reading it everywhere (the periods, the offsets, the
 
 Fifteen sets on the page. Proven once on the preview: B3 clicked → the table's tempi 111.1 … 55.6 at once; Play set → the periods 540 …
 1080 ms (the 60 ms grid), the flam offsets on that grid; no console errors.
+
+## §201. Elec 2's wall at 372.10; Drift 2 lasts until it; swarm 3 the next destination (2026-11-12)
+
+**His words:** *"In Elec 2 there's a wall around 371 or after. Find that point, and we'll make drift 2 last until then."* Then: *"let's go with
+swarm 3 and remind me where we are in the sequence."* **Measured:** Elec 2 (G9, start 269.15, offset 44.822) steps +49 dB at **score 372.10**
+(peak −9 dBFS); smaller steps at 371.16 (+17), 374.75 (+14), 376.12 (+15). **Set:** Drift 2's "drift for" 18.21 s — from the burst 353.89 to the
+wall 372.10 — where it LOCKS (the page's way of holding the state) until the glide to **F3 swarm iii** is built in; that glide's length is
+his to say. The record carries `next`.
