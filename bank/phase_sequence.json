@@ -65,10 +65,11 @@
   "heldToScoreS": 388.72,
   "heldNote": "Elec 1 wall at 388.72 (+32 dB)",
   "thenUnisonScoreS": 400.3,
-  "thenUnisonBpm": 75,
-  "bpmNote": "75 = swarm 3 median — the AI default, his to set (§205)",
+  "thenUnisonBpm": 90,
+  "bpmNote": "90, his word 2026-11-12 (§206)",
   "glide2S": 11.58,
   "block": "Drift 2 → swarm 3 → the new unison (the page)",
   "note": "his words 2026-11-12 (§205): reach swarm iii by 383, sustain until the ~388 wall, 400.3 new unison"
- }
+ },
+ "wholeForm": "score 277.8: unison 68 → drift (ruler 1, 0.279 %) 23.86 s → 301.66 the wall: 22.61 s to F2 swarm ii → 324.27 hold 6 s → 10.81 s to unison 78, on the beat at 341.08 (D5) → hold 9.81 s → 350.89 the ramp 3 s into ruler 2 (0.843 %) → 353.89 the burst: drift 2 18.21 s → 372.10 the wall: 10.9 s to F3 swarm iii → 383 hold 5.72 s → 388.72 the wall: 11.58 s to unison 90, on the beat at 400.3 → hold until Stop. 122.5 s to the last unison."
 }

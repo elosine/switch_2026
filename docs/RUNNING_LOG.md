@@ -3641,3 +3641,16 @@ unison"): boxes at swarm 3 by 383 · held to the wall at 388.72 · new unison at
 set). The stretches derive: 10.9 s to swarm 3 · 5.72 s held · 11.58 s to the unison, on the beat. Swarm 3's tempi: 107 · 94 · 83 · 75 · 68 ·
 63 · 58 (flute … cello). Proven once on the preview: the five segments 4 · 10.9 · 5.72 · 11.58 · ∞; at swarm 3 its tempi exactly; 51 % through
 the last glide 86.3 … 67.0; at the end all 75, the seven last beats within 0.7 ms; no console errors.
+
+## §206. The new unison 90; THE WHOLE FORM played as one, with the beds, drawn at once (2026-11-12)
+
+**His words:** *"let's make 90 the new unison, and the full sequence with bed visual — could I see the whole form at once? and make the
+cursor as slow as necessary."* **Built:** the unison box at 90. A block "The whole form": every box above read once and played as ONE plan
+from the first hit to the new unison, the beds under it (if on), the whole drawn at once on its own wide canvas, the cursor crossing it at
+the form's own pace (≈ 122 s across): **277.8 unison 68 → drift 23.86 s → 301.66 wall: 22.61 s to F2 swarm ii → 324.27 hold 6 → 10.81 s
+to unison 78, on the beat at 341.08 → hold 9.81 → 350.89 the ramp 3 s into ruler 2 → 353.89 the burst: drift 2 18.21 s → 372.10 wall: 10.9 s to
+F3 swarm iii → 383 hold 5.72 → 388.72 wall: 11.58 s to unison 90, on the beat at 400.3 → hold.** 122.5 s to the last unison. A ramp into a
+fan now carries `noAlign` (tempi only, no bulge); a plan draws on its own canvas. If the marks are out of order the block says where and
+does not start. Proven once on the preview: the eleven segments as above; at 324.3 F2's tempi; at 341.2 unison 78, the seven within
+0.5 ms; at 353.95 ruler 2's tempi (78.7 … 94.4, the piano 78); at 383.1 F3's; at 400.4 all 90 within 0.5 ms; the form drawn on its canvas;
+no console errors.
