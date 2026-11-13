@@ -184,6 +184,7 @@ const AHEAD_MS = 250, TICK_MS = 60, NOTE_MS = 180;
 
 // ---- THE DESTINATIONS (§175): periods in grid steps per player in PLAYERS order (fl cl sax glock pno vn vc), offsets in steps
 const GRID_MS = 80;
+const gridOf = (set) => set.grid || GRID_MS;   // a set's own grid in ms, else the common 80 (§200)
 const SETS = [
   { name: 'A loop',      per: [4, 6, 8, 12, 16, 24, 48],   off: [0, 0, 1, 0, 1, 0, 1],
     why: 'every period divides the next: a tight metric loop that comes round every 3.8 s; the offsets of one step turn the shared beats into flams' },
@@ -205,13 +206,21 @@ const SETS = [
     why: 'near-equal periods: one cluster that smears out over three beats and never quite re-forms — the phase drift at speed' },
   { name: 'F2 swarm ii', per: [8, 9, 10, 11, 12, 13, 14],   off: [0, 0, 0, 0, 0, 0, 0],
     why: 'the swarm faster and tighter: 94 down to 54 bpm, nine hits a second, the cluster smears within two beats' },
+  { name: 'B3 clusters iii', grid: 60, per: [9, 10, 12, 14, 15, 16, 18], off: [0, 1, 0, 1, 0, 1, 2],
+    why: 'clusters, closer-knit: on a 60 ms grid, 111 down to 56 — the threes (9 12 15 18) bunch, the twos (10 12 14 16 18) bunch, 14 strays; median 71' },
+  { name: 'C3 even iii', grid: 40, per: [14, 16, 17, 19, 21, 23, 25], off: [0, 0, 0, 0, 0, 0, 0],
+    why: 'even, closer-knit: on a 40 ms grid, 107 down to 60, almost nothing shared (14 and 16, 14 and 21 only); median 79' },
+  { name: 'E3 two speeds iii', per: [7, 8, 9, 10, 13, 14, 15], off: [0, 0, 0, 0, 0, 1, 2],
+    why: 'two speeds, closer-knit: a fast quartet (flute clarinet sax glock at 107 94 83 75) over a slow trio (piano violin cello at 58 54 50); median 75' },
+  { name: 'F3 swarm iii', per: [7, 8, 9, 10, 11, 12, 13], off: [0, 0, 0, 0, 0, 0, 0],
+    why: 'the swarm a little wider than swarm 2: 107 down to 58 (swarm 2 was 94 to 54); median 75' },
   { name: 'G three speeds', per: [4, 5, 9, 10, 12, 24, 30], off: [0, 0, 0, 1, 0, 0, 1],
     why: 'three layers: a fast pair (flute clarinet 188 150), a middle trio (sax glock piano 83 75 63), a slow pair (violin cello 31 25); the whole every 29 s' },
 ];
 const gcd = (a, b) => b ? gcd(b, a % b) : a; const lcm = (a, b) => a / gcd(a, b) * b;
 function setInfo(set) {
-  const dens = set.per.reduce((s, p) => s + 1 / p, 0) * 1000 / GRID_MS, cyc = set.per.reduce(lcm, 1) * GRID_MS / 1000;
-  const bpm = set.per.map((p) => Math.round(60000 / (p * GRID_MS)));
+  const G = gridOf(set); const dens = set.per.reduce((s, p) => s + 1 / p, 0) * 1000 / G, cyc = set.per.reduce(lcm, 1) * G / 1000;
+  const bpm = set.per.map((p) => Math.round(60000 / (p * G)));
   return dens.toFixed(1) + ' hits/s · the whole repeats every ' + (cyc >= 90 ? (cyc / 60).toFixed(1) + ' min' : cyc.toFixed(1) + ' s') + ' · bpm ' + bpm.join(' ');
 }
 
@@ -257,7 +266,7 @@ function play2() {
 function playSet() {
   if (S.playing) return;
   const set = SETS[S.set];
-  startStreams('set', PLAYERS.map((p, i) => ({ period: set.per[i] * GRID_MS, offsetMs: (set.off[i] || 0) * GRID_MS })));
+  startStreams('set', setSpecs(set));
 }
 // THE CHAIN (§178): four slots, three glides; the holds ≈ 2 s and the glides at the chosen speed, each × a fixed jitter so none repeats
 const SPEEDS = [['slow', 40], ['middle', 20], ['quick', 8], ['4 s', 4], ['2 s', 2]];
@@ -273,10 +282,10 @@ function startTransition(slots, holds, speeds) {   // slots: 4 set indexes; hold
   });
   S.tr = { segs, total: at, ends: true, bar: $('tbar'), mark: $('tmark'), state: $('trState'), names: slots.map((i) => SETS[i].name) };
   const A = SETS[slots[0]];
-  startStreams('shift', PLAYERS.map((p, i) => ({ period: A.per[i] * GRID_MS, offsetMs: (A.off[i] || 0) * GRID_MS })));
+  startStreams('shift', setSpecs(A));
   drawBar();
 }
-const rateOf = (set) => set.per.map((p) => 1 / (p * GRID_MS));   // hits per ms, per player
+const rateOf = (set) => set.per.map((p) => 1 / (p * gridOf(set)));   // hits per ms, per player
 function drawBar() {
   const W = S.tr.wide || 600; const bar = S.tr.bar, shown = S.tr.segs.reduce((s, g) => s + Math.min(g.ms, 12000), 0);   // an endless last hold shows as 12 s
   bar.querySelectorAll('.z').forEach((z) => z.remove());
@@ -289,7 +298,7 @@ const SEQ = { drift: { bpm: 68, unit: 0.279, s: 70 }, g1: { to: 'F2 swarm ii', s
 const unisonRates = (bpm) => PLAYERS.map(() => bpm / 60000);
 const fanRates = (bpm, unit) => PLAYERS.map((p) => bpm * (1 + p.fan * unit / 100) / 60000);
 const setByName = (n) => SETS[SETS.findIndex((s) => s.name === n)];
-const setSpecs = (set) => PLAYERS.map((p, i) => ({ period: set.per[i] * GRID_MS, offsetMs: (set.off[i] || 0) * GRID_MS }));
+const setSpecs = (set) => PLAYERS.map((p, i) => ({ period: set.per[i] * gridOf(set), offsetMs: (set.off[i] || 0) * gridOf(set) }));
 function runPlan(steps, first, ids) {   // steps: [{kind, s, rA, rB?, label}] in order; first: the streams' start; ids: the bar, its marker, its text
   if (S.playing) return;
   let at = 0; const segs = steps.map((st) => { const ms = st.s == null ? 1e9 : Math.round(st.s * 1000); const g = Object.assign({}, st, { from: at, ms }); at += ms; return g; });
@@ -367,7 +376,7 @@ function planBulge(g, el) {
   const rNow = PLAYERS.map((p, i) => g.rA[i] + (g.rB[i] - g.rA[i]) * ((el - g.from) / g.ms));
   const pred = S.streams.map((s, i) => s.phase + left * (rNow[i] + g.rB[i]) / 2);          // where the straight ramp would leave each phase
   const a = PLAYERS.findIndex((p) => p.anchor);
-  const target = PLAYERS.map((p, i) => g.toSet ? (1 - ((g.toSet.off[i] || 0) * GRID_MS) / (g.toSet.per[i] * GRID_MS)) : pred[a]);   // the set's flam offsets, else all on the piano's beat
+  const target = PLAYERS.map((p, i) => g.toSet ? (1 - ((g.toSet.off[i] || 0) * gridOf(g.toSet)) / (g.toSet.per[i] * gridOf(g.toSet))) : pred[a]);   // the set's flam offsets, else all on the piano's beat
   g.bulge = PLAYERS.map((p, i) => { let d = (target[i] - pred[i]) % 1; if (d > 0.5) d -= 1; if (d <= -0.5) d += 1; return d * Math.PI / (2 * left); });
   g.bulgeFrom = el; g.bulgeMs = left;
 }
@@ -491,7 +500,7 @@ function paint() {
   const seg = S.playing && S.mode === 'shift' ? trSeg() : null;
   tb.innerHTML = PLAYERS.map((p, i) => {
     const s = S.playing ? S.streams[i] : null;
-    const bpm = s ? +(60000 / s.period).toFixed(3) : S.view === 'set' ? +(60000 / (SETS[S.set].per[i] * GRID_MS)).toFixed(3) : +(c.bpm * (1 + p.fan * c.step / 100)).toFixed(3);   // idle: the picked set's tempi, else the drift's (§199)
+    const bpm = s ? +(60000 / s.period).toFixed(3) : S.view === 'set' ? +(60000 / (SETS[S.set].per[i] * gridOf(SETS[S.set]))).toFixed(3) : +(c.bpm * (1 + p.fan * c.step / 100)).toFixed(3);   // idle: the picked set's tempi, else the drift's (§199)
     const lag = L ? L[i].lagBeats : 0;
     const x = S.mode === 'drift' ? Math.round(120 + lag * 240) : seg && seg.g.kind === 'glide' ? Math.round(seg.u * 237) : (seg ? 237 : -9);   // drift: the lag about the middle; a glide: the way across
     let last = s ? (s.last != null ? s.last : s.next - s.period) : 0; if (s && last > now) last -= s.period;   // the latest hit that has SOUNDED (next may sit 250 ms ahead)

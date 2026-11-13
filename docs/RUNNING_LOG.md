@@ -3575,3 +3575,23 @@ up — 5600 and 5630 — the links given again.)
 play set, but not if I click on the button. Start there."* **Built:** clicking a set (or its number key) while idle shows that set's tempo per
 player in the table at once; touching the drift's bpm or unit, or playing the drift, brings the drift's tempi back. Also pending from the same
 message, held for after he sees the tempi: Elec 2's wall after 371 (Drift 2 to last until it); closer-knit destinations in the categories.
+
+## §200. Four closer-knit destinations, one per category; a set may have its own grid (2026-11-12)
+
+**His words:** *"Swarm 2 had 93 down to 53 and converged on 78. Give me versions of the other ones — clusters, even, two speeds, and swarm —
+that are slightly closer; clusters 2 is 35 to 107. So they don't have to go quite as far from where they are now, and they don't have to
+converge quite as much. But the distance could be slightly greater than swarm 2 — I don't mind slightly more acceleration."*
+
+**The target:** medians near 78 (the unison they leave), the widest pair about 2 : 1 (swarm 2 is 1.75 : 1). At the common 80 ms grid the
+periods for that sit at 7 … 15 steps, too few whole numbers to build a "clusters" or an "even" character in; so a set may now carry **its own
+grid** (`grid`), the engine reading it everywhere (the periods, the offsets, the flam targets, the readouts). **Added:**
+
+| set | grid | periods | bpm fl cl sax glk pno vn vc | median | widest : narrowest |
+|---|---|---|---|---|---|
+| B3 clusters iii | 60 ms | 9 10 12 14 15 16 18 | 111 100 83 71 67 63 56 | 71 | 2.0 — the threes bunch, the twos bunch, 14 strays |
+| C3 even iii | 40 ms | 14 16 17 19 21 23 25 | 107 94 88 79 71 65 60 | 79 | 1.8 — almost nothing shared |
+| E3 two speeds iii | 80 ms | 7 8 9 10 · 13 14 15 | 107 94 83 75 · 58 54 50 | 75 | 2.1 — a fast quartet over a slow trio |
+| F3 swarm iii | 80 ms | 7 8 9 10 11 12 13 | 107 94 83 75 68 63 58 | 75 | 1.86 — swarm 2 a little wider |
+
+Fifteen sets on the page. Proven once on the preview: B3 clicked → the table's tempi 111.1 … 55.6 at once; Play set → the periods 540 …
+1080 ms (the 60 ms grid), the flam offsets on that grid; no console errors.
