@@ -234,6 +234,7 @@ any piece); this piece holds its USES — the set's files, the settings, the fou
   §139) · the morph's "smaller of two rolls" · the beat shapes' pace and hold rolls · the breath rule · the sawtooth's alternation. One page that says
   what each does and when he reached for it, and a shared roller the tools read — when he reaches it; nothing standardised before.
 
+- **1g THE PHASE WORKSHOP — a bare page of its own, grown one step at a time: the drift on a Golomb ruler · the destinations · the glides that land on the beat · the whole form, written into the score** (SW-43 · SW-44, 2026-11-12) — `done` to §214: `workshop/phase/index.html` · `tools/phase_workshop.js` (5630) · `bank/phase_form.json` · `tools/phase_form_render.js` · `bank/phase_sequence.json` · `bank/phase_locks.json`; RUNNING_LOG §169 … §214. ***Why:*** his word on 1f's panel: *"too complicated … I just wanted a workshop … very, very simple, not using the previous builds."* **Next, his order (SW-44):** the beds' ending at 480 · the tuplet pass (a strategy first) · the harmony pass.
 - **1f THE PHASE MACHINE — a take re-articulated by every player as a pulse stream, the streams driven out of phase and back by a plan** (SW-42,
   2026-11-11) — `done` (first build): `score/public/phase_engine.js` (pure; `tools/phase_check.js`) · `phase_panel.js` (the PHASE button) · the store
   `bank/phase_states.json`; `docs/PHASE_TOOL.md`; RUNNING_LOG §165. ***Why:*** his words — *"the ensemble starts at a fixed tempo … they phase shift … hold

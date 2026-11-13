@@ -741,3 +741,21 @@ try that as well. But we have to discuss that. Let's figure out a logical strate
 
 *The AI's reading (marked as such):* the PHASE panel of SW-42 (§165) is set aside, not deleted; the workshop is a bare page of its own, grown one
 step at a time, each step his. The Reich benchmark and the drift strategy: RUNNING_LOG §169.
+
+
+### SW-44 · 2026-11-12 — THE THREE PASSES TO COME: the electronics of the ending (everything swells and ends at 480) · the tuplet pass (speeds, layered in) · the harmony pass (around the electronics' main pitches)
+
+*His words (dictated, light corrections), at the checkpoint:* *"What I want to do next is build the electronics for the ending. I'm going to
+try to find some clips and make everything kind of swell and end at 480, so everything ends together. So I have to modify those four clips at
+the end. Then after that I want to do a pass on the rhythmic structure and figure out a strategy and change the single strikes to tuplets. The
+idea is that I'll create basically speeds. It'll be something like eighth notes and then triplets, and maybe whatever — I'll make a bunch of
+tuplets like 3 and 2, and then 16th notes and quintuplets. There'll be speeds, and then I'll layer it in. It might be something like a few
+single strikes and then a tuplet — like 3 single strikes and a tuplet — and then the single strikes will diminish and the tuplets will increase.
+And there might be different speeds. We'll have to figure out a strategy. Then the third, final pass will be the harmony pass. I was going to
+use just intonation, but I'll have to just experiment. We'll do some centered around those main pitches in the electronics."*
+
+*The AI's reading (marked as such):* the order is his — (1) the beds' ending, in the composer score (the four bricks reshaped to swell and
+end together at 480); (2) the tuplet pass over the 2050 struck notes of the phase form in `piece-Section03-H-addTuplets` — a strategy first
+(the planning method), likely a tool that turns a chosen share of a player's hits into tuplets of a speed, the share growing through a
+stretch; (3) the harmony pass, the D5s dealt around the beds' main pitches (the D5 at 274 … 284, the quarter-tone-under-D5 at 341.08, the
+roots of § 10) — experiment, JI or not. Nothing of these is built.

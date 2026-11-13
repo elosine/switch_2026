@@ -61,6 +61,40 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+### CHECKPOINT 2026-11-12 (late) — THE PHASE WORKSHOP AND THE PHASE FORM OF SECTION 3, IN HIS SAVE *(mid-session checkpoint)*
+
+- **The task and its state (RUNNING_LOG §167 … §214; his words SW-43 · SW-44):** the PHASE panel of SW-42 was set aside at his word
+  ("too complicated"); THE PHASE WORKSHOP was built instead, a bare page of its own — `workshop/phase/index.html` served by
+  `node tools/phase_workshop.js` on **5630** (he runs it by its full path; the fund served at `/fund/` for the beds) — one step at a time, each
+  his: the drift on a Golomb ruler (0 1 4 10 18 23 25, every pair its own rate), LOCK · DRIFT · CAPTURE; twenty multi-tempo destinations
+  (grids of 80 · 60 · 50 · 40 · 30 ms); the glides that land ON THE BEAT (the sine bulge, his "cheat" made exact, §185 · §214); the chain of
+  his marks read from the beds' walls and bursts (§189 · §193 · §196 · §201 · §205); Drift 2 and Drift 3 on two more rulers; THE WHOLE FORM
+  277.8 → 480 played as one with the beds, drawn at once, startable from any score time. **The form is data** (`bank/phase_form.json`) and
+  `tools/phase_form_render.js` **wrote it into his save `piece-Section03-H-addTuplets`** (§214): 2050 struck D5s on the seven lanes, the
+  unisons on their marks (277.8 · 341.08 · 400.3), ONE strike at 480, 17 Φ markers. Also this session: the D5 at 275 confirmed (§167), the tap
+  tempo on the composer score (TAP · key K, §181), SWEEP rows 4 · 5 fixed (the hidden PHASE button; a brick's typed start moves it whole).
+- **The latest deliverable:** his save `piece-Section03-H-addTuplets` with the form in it (uncommitted, his) · `bank/phase_form.json` ·
+  `bank/phase_sequence.json` (the form in prose and marks) · the workshop page.
+- **► THE NEXT CONCRETE STEP — his, in his order (SW-44), after he opens `piece-Section03-H-addTuplets` (File ▾ → Open) and hears it:**
+  **(1) the beds' ending** — in the composer score, the four granular bricks (G5 · G9 on Elec 1 · 2 from 269, G8 Elec 3 from 296.25, B2 Elec 4
+  from 300.78; they end 464 … 477 today) reshaped so everything swells and ends together at 480 — he finds clips; the AI's part is whatever he
+  asks (the brick tools: the right edge, the level hairpin, `petals_segment.py`-style re-makes are in reach). **(2) the tuplet pass** — a
+  CONVERSATION FIRST by the planning method: the speeds (8ths · triplets · 16ths · quintuplets …), the share of a player's hits that become
+  tuplets growing through a stretch ("3 single strikes and a tuplet, then the singles diminish"); then a tool over the `phase-form` group
+  (every note carries `properties.phaseForm.player · hit`). **(3) the harmony pass** — the D5s dealt around the beds' main pitches (§167 · §193,
+  the roots of proposal § 10), JI or not, by experiment. Nothing of 1 … 3 is built.
+- **Resume reads:** `docs/COMPOSITION_NOTES.md` SW-44 (his plan, verbatim) · `bank/phase_form.json` (the form) — nothing else beyond §2;
+  the workshop's own notes are RUNNING_LOG §169 … §214 when a question about it arises.
+- **Decisions pending him:** which bed clips, and how the swell is made (step 1) · the tuplet strategy (step 2) · the harmony (step 3) · still
+  from before: the root map § 10 (every root is a chip already) · the cello pairs and the hills' pitches · the 8 s hold on swarm 2 was his 6.
+- **Deliberately uncommitted (`git status --short`, 2026-11-12 late):** `scores/*.json` (61, among them `piece-Section03-H-addTuplets` with
+  the form, and G · F · E · D before it) — HIS saves, never committed without his word · `reaper/switch_rack.rpp` · `reaper/icy_lab.rpp` — his ·
+  `bank/panel_snapshots.json` · `bank/sequences.json` — his takes and rows, autosaved by the page · `.gitignore` · `docs/VERIFICATION_RECIPE.md`
+  — as recorded 2026-10-23 · `bank/set/2025-04-08c/*` · `probes/*` · `tools/port/batt-old/ · scratch/` — as before. The workshop repo's two
+  files (`corpus/petals_bed.scd` · `petals_segment.py`) still uncommitted there (auto mode refuses; his hand or another mode).
+- **Model to resume on:** Fable — step 1 is his hands with the AI answering; step 2 opens with a design conversation (judgment).
+- **Servers at the checkpoint:** his score server 5600 and his workshop server 5630 were up; the AI's previews all stopped.
+
 ### CHECKPOINT 2026-11-12 — SECTION 3: THE PETALS RING, THE HILLS, THE ROOTS, THE PHASE MACHINE *(mid-session checkpoint)*
 
 - **2026-11-12 (later) — THE PHASE WORKSHOP, STARTED OVER (SW-43, RUNNING_LOG §167 … §170):** the PHASE panel of SW-42 set aside (found hidden — SWEEP row 4, fixed; his verdict: too much). A page of its own — `workshop/phase/index.html`, `node tools/phase_workshop.js` → `http://localhost:5630/` — D5 staccato on seven players in unison at 60, the symmetric uneven fan at 0.26 % (Reich’s tapes, §169), LOCK · DRIFT · CAPTURE (`bank/phase_locks.json`). The fan a Golomb ruler at 0.05 % (§172 · §173). THE DESTINATIONS (§174 · §175): six fixed multi-tempo sets A … F on the same page, grid 80 ms, no dials. Proven on the preview without MIDI; **► HIS EAR in his Chrome (the drift, then the six sets as units; then the transitions between sets) (loopMIDI · Reaper with the rack · the server by its full path); what he learns is step two.** The D5 at 275 s confirmed (§167). The root map (§166) still awaits his word; every root of it is already a chip.
