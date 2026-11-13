@@ -3488,3 +3488,14 @@ the leads at the wall 0.076 · 0.304 · 0.759 · 1.365 · 0 · 1.745 · 1.896 be
 **His words:** *"324.27. Let's get to swarm 2 by this time."* **Built:** a third mark, "at swarm 2 by score" 324.27; the glide lasts from the
 wall to it, 324.27 − 301.66 = **22.61 s**; the line and the total follow (23.86 + 22.61 + 8 + 18 = 72.47 s; the unison at 78 at 350.27 as the
 hold stands). The record updated.
+
+## §193. "341.67 — the pitch kicks in around here": measured, not yet marked (2026-11-12)
+
+**His words:** *"341.67. The pitch kicks in around here. I think it's D5 again. Find the precise time, mark that as the unison point … just
+mark that we want to get to D5 at this point or some version of it. Tell me first, before you change anything, how many seconds that is
+from the last marker point."* **Measured** (the D5 band 560 … 610 Hz at 5 ms, the step 100 ms after minus before): the sustained pitch
+enters at **score 341.90** with the save as it is — and it is **Elec 4's bed (B2) that carries it** (its band 28 dB against G5's −1 and G9's
+−9), so when he moves that brick to 300.78 (§189) the entry moves with it, to **341.08**. An earlier spike in the band at 338.85 is a single
+grain (gone by 339.6). **The pitch:** the resonators wobble ± ½ st by design; B2 alone over the first 3 s peaks at 555 Hz (C♯5 +3 c), the
+summed frames swing 576 … 608 Hz — a note sitting between C♯5 and D5, a quarter tone under D5 at its center, D5 at its top. **From the
+last mark (324.27):** 17.62 s as the save stands, 16.80 s with the brick moved. Nothing changed on the page; his word on which time to mark.
