@@ -136,7 +136,7 @@
 </div>
 <div class="row">
   <span id="seqTotal" style="color:#9fe3d3;font-variant-numeric:tabular-nums"></span>
-  <label title="the four granular bricks of piece-Section03-G-GrainBaseAlign (G5 · G9 from 269, G8 from 296.25, B2 from 300.78), played in the page at their score positions"><input id="bedsOn" type="checkbox" checked> with the beds</label>
+  <label title="THE SEQUENCE ONLY — the four granular bricks of piece-Section03-G-GrainBaseAlign (G5 · G9 from 269, G8 from 296.25, B2 from 300.78), played in the page at their score positions"><input id="bedsOn" type="checkbox" checked> with the beds</label>
   <label>beds <input id="bedsVol" type="range" min="0" max="1" step="0.01" value="0.8" style="width:90px;vertical-align:middle"></label>
   <button id="playSeq">▶ Play the sequence</button>
   <button id="stopSeq" disabled>■ Stop</button>
@@ -374,8 +374,7 @@ function playS3() {
   runPlan([{ kind: 'hold', s: before, rA: fanMs, label: 'Drift 2, drifting' },
            { kind: 'glide', s: T, rA: fanMs, rB: rateOf(B), toSet: B, label: 'Drift 2 → ' + B.name },
            { kind: 'hold', rA: rateOf(B), label: 'AT ' + B.name + ' — until Stop' }], first, ['s3bar', 's3mark', 's3State']);
-  S.tr.score0 = wall - before;
-  if ($('bedsOn').checked) bedsStart(S.t0, S.tr.score0);
+  S.tr.score0 = wall - before;   // no beds here either (his word, §203): the beds belong to The sequence only
 }
 // FROM THE DRIFT (§182): start AT the drift's state after N seconds (the lags it would have), locked at the bpm; hold; glide to a set over T; hold until Stop
 function startFromDrift(bpm, unit, afterS, holdS, toIdx, glideS) {

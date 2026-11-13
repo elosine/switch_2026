@@ -3614,3 +3614,12 @@ player glides to the set over T, landing on the set's grid (§185); the set hold
 Proven once on the preview: the start at ruler 2's tempi 78.22 … 83.44 (score 368.10), "Drift 2, drifting" before the wall, 49 % through
 the glide 94.1 … 70.0, at the end exactly F3's 107.14 · 93.75 · 83.33 · 75 · 68.18 · 62.5 · 57.69 and every player on F3's grid within 0.4 ms;
 no console errors.
+
+## §203. The beds out of "Drift 2 → swarm 3"; the ground Drift 2 covers in 18.21 s — not yet adjusted (2026-11-12)
+
+**His words:** *"let me verify the 18.21 seconds of drift 2: they're covering the equivalent ground of 55 seconds of the previous setting? Do we
+make that adjustment? And drift 2 → swarm 3 is playing the bed too."* **The beds** taken out of that block (they belong to The sequence
+only). **The ground:** NOT adjusted — the unit stayed 0.279 %, so 18.21 s reaches a third of what 55 s reached. The same ground in 18.21 s
+needs 0.279 × 55 / 18.21 = **0.843 %** (the cello then 25 × 0.843 = +21 % at the burst, 94 bpm — reached inside the 3 s ramp, no longer slight);
+the FIRST drift's ground (0.279 × 23.86 = 6.66 %·s) in 18.21 s needs **0.366 %** (the cello 85). Put to him; recommended 0.366 unless the
+bigger spread is the point.
