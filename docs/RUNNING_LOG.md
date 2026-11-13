@@ -3480,3 +3480,5 @@ it was 0.095 for 70 seconds. I want to get to the same place, over however many 
 seconds (each player's lead = seconds × bpm/60 × its mark × unit), so the same place in 23.86 s needs 0.095 × 70 / 23.86 = **0.279 %** (the
 cello then +7 % faster than 68, at 72.7, for those 24 s). Set as the sequence's unit; the drift block and state 1 keep 0.095 / 70 as the
 record. Also: §190's edit left a comment mid-line in `SEQ` (half the object commented out) — caught by the parse check, fixed here.
+**Proven once on the preview:** the line reads the marks, the drift 23.86 s at 0.279 %, the total 1:22 (81.86 s); the plan 23.86 · 32 · 8 · 18 · ∞;
+the leads at the wall 0.076 · 0.304 · 0.759 · 1.365 · 0 · 1.745 · 1.896 beats — state 1's 0.075 · 0.301 · 0.754 · 1.357 · 0 · 1.733 · 1.884 within 1 %.
