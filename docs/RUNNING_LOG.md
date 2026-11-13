@@ -3719,3 +3719,13 @@ composer score. Let me hear how that sounds."* **Built:** the block "Drift 3 →
 form grows the same way and now runs **277.8 → 480, 202.2 s**. Proven once on the preview: the segments 4 · 21 · 19.6 · ∞; at 460.5 swarm 5's
 tempi (133.2 … 80.7, the next glide 1 % in); at 480.2 all 120 within 0.4 ms; the whole form's last segments the same, ending at 480.00; no
 console errors.
+
+## §213. The whole form from any score time (2026-11-12)
+
+**His words:** *"give me a way to advance in the whole score, so if I want to just hear the end, I can."* **Built:** a box "from score" beside
+▶ Play the whole form (277.8 by default). The plan is first run SILENTLY up to that time, the same way it runs live (2 ms steps, the bulges
+planned as the glides come), so the players begin already where the form would have them — the lags, the tempi, the alignments; the
+beds start at their place; the cursor and the state read the score time. A start inside a glide plans that glide's bulge from the remaining
+time, so the arrival still aligns. Proven once on the preview: from 439 → "LOCKED at 90", every player at 90, 29 ms to get there, the next
+beats 122 … 606 ms ahead (nothing fired from the past), then 480 reached with all seven at 120 within 0.4 ms; from 470 (49 % into the last
+glide, 128.2 … 99.6) → 480 within 0.4 ms as well; no console errors.

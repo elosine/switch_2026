@@ -213,6 +213,7 @@
 <h1 style="margin-top:26px">The whole form</h1>
 <div class="sub">every box above, read once, played as one — from the first hit to the new unison, the beds under it (if on) · the whole drawn at once, the cursor as slow as the form</div>
 <div class="row">
+  <label title="the whole form starts here — the players already where the form would have them, the beds at their place (§213)">from score <input id="formFrom" type="number" value="277.8" min="0" max="700" step="0.1"> s</label>
   <button id="playForm">▶ Play the whole form</button>
   <button id="stopForm" disabled>■ Stop</button>
   <label>beds <input id="bedsVol2" type="range" min="0" max="1" step="0.01" value="0.8" style="width:140px;vertical-align:middle"></label>
@@ -487,7 +488,8 @@ function playForm() {
   const bad = steps.find((st) => st.s != null && !(st.s > 0)); if (bad) { $('formState').textContent = 'the marks are out of order at: ' + bad.label; return; }
   runPlan(steps, PLAYERS.map((p, i) => ({ period: 1 / fan1[i], offsetMs: 0 })), ['formbar', 'formmark', 'formState']);
   S.tr.score0 = a0; S.tr.canvas = 'formScroll'; S.tr.wide = 900; S.tr.tail = 20;
-  if ($('bedsOn').checked) bedsStart(S.t0, a0);
+  const from = Math.max(a0, +$('formFrom').value || a0); jumpTo((from - a0) * 1000);
+  if ($('bedsOn').checked) bedsStart(performance.now(), from);
 }
 // DRIFT 3 → SWARM 5 (§211): the state at Drift 3's lock is arithmetic — each player's beats since the unison at 400.3 = the three beats + the cut's
 // mean + its own rate × 33 s; locked, all run at 90 with those fractions. The lock held its seconds, then the glide (aligned to the set's grid), the set held.
@@ -562,6 +564,18 @@ function tickShift(horizon, vel) {
     t = tn;
   }
   S.lastT = horizon;
+}
+function jumpTo(ms) {   // after runPlan: advance the plan silently to `ms` in, then continue live from now (§213)
+  if (!(ms > 0)) return;
+  const STEP = 2; const t0 = S.t0; let tt = t0; const end = t0 + ms;
+  while (tt < end) {
+    const tn = Math.min(tt + STEP, end), el = tt - t0; const { g } = segAt(el);
+    if (g.kind === 'glide' && !g.bulge) planBulge(g, el);
+    S.streams.forEach((s, i) => { const r = rateAt(g, el, i); const ph = s.phase + r * (tn - tt); s.period = 1 / r; while (ph >= s.beat) { s.beat++; s.n++; } s.phase = ph; s.last = null; });
+    tt = tn;
+  }
+  const now = performance.now(); S.t0 = now - ms; S.lastT = now;   // the clock reads `ms` in; the live integration carries on from now
+  for (const s of S.streams) s.next = now + (s.beat - s.phase) * s.period;
 }
 function startStreams(mode, specs) {
   const now = performance.now(); S.d2 = null; S.ruler = 'fan';
