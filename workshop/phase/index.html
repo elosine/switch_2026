@@ -145,6 +145,7 @@
 <div class="row"><span class="tbar wide" id="seqbar"><i id="seqmark"></i></span></div>
 <div class="row" id="seqMarks" style="position:relative;height:18px;width:900px;margin-top:-6px"></div>
 <div class="row" id="seqLights"></div>
+<div class="row"><canvas id="seqScroll" width="900" height="72" style="border-radius:6px;background:#0f1113"></canvas></div>
 
 <div id="locks"></div>
 
@@ -463,12 +464,35 @@ function paint() {
       '<td class="num">' + (L ? (lag >= 0 ? '+' : '') + lag.toFixed(3) + ' beat' : '') + '</td>' +
       '<td><span class="bar"><em style="opacity:' + flash.toFixed(2) + '"></em>' + (S.mode === 'drift' ? '<b></b>' : '') + '<i style="left:' + x + 'px"></i></span></td></tr>';
   }).join('');
-  if (S.playing && S.mode === 'shift') { paintTr(); const L = $('seqLights').children; if (L.length === S.streams.length && S.tr.score0 != null) S.streams.forEach((s, i) => { let last = s.last != null ? s.last : -1e9; const fl = Math.max(0, 1 - (now - last) / 260); L[i].style.background = 'rgba(159,227,211,' + (0.08 + 0.9 * fl).toFixed(2) + ')'; L[i].style.color = fl > 0.4 ? '#15171a' : '#9aa3ad'; }); }
+  if (S.playing && S.mode === 'shift') { paintTr(); seqScrollDraw(); const L = $('seqLights').children; if (L.length === S.streams.length && S.tr.score0 != null) S.streams.forEach((s, i) => { let last = s.last != null ? s.last : -1e9; const fl = Math.max(0, 1 - (now - last) / 260); L[i].style.background = 'rgba(159,227,211,' + (0.08 + 0.9 * fl).toFixed(2) + ')'; L[i].style.color = fl > 0.4 ? '#15171a' : '#9aa3ad'; }); }
   if (S.playing) { $('state').textContent = (S.mode === 'shift' ? trText() : S.mode === 'set' ? 'set ' + SETS[S.set].name : S.locked ? 'LOCKED at ' + c.bpm + ' — the lags hold' : 'drifting') + ' · ' + elapsedS().toFixed(0) + ' s'; S.raf = requestAnimationFrame(paint); }
 }
 function trText() {
   const { g, u } = trSeg(); const n = (i) => SETS[i].name; const base = g.label || (g.kind === 'hold' ? (g === S.tr.segs[0] ? 'holding ' : 'AT ') + n(g.set) : n(g.set) + ' → ' + n(g.to));
   return g.kind === 'glide' ? base + ' · ' + Math.round(u * 100) + ' %' : base;
+}
+// THE SCROLLING STRIP (§195, his word: "a scrolling bar … shaded areas, different colors, to show me where in the sequence I am"):
+// the time slides right to left past a fixed playhead; every stretch is a band of its own color with its name and its score times
+const BAND = { 'the drift': '#2f7d4f', 'drift →': '#2e6f9e', 'AT F2': '#6b4fa0', '→ unison': '#b8742a', 'AT unison': '#a08a2e' };
+function bandColor(g) { for (const k in BAND) if ((g.label || '').startsWith(k) || (g.label || '').includes(k)) return BAND[k]; return g.kind === 'glide' ? '#2e9e8e' : '#3a3f46'; }
+function seqScrollDraw() {
+  const cv = $('seqScroll'); if (!cv || !S.tr || S.tr.score0 == null) return; const ctx = cv.getContext('2d'), W = cv.width, H = cv.height;
+  const PX = 36, X0 = 0.3 * W;   // pixels per second; the playhead's x
+  const el = S.playing ? (performance.now() - S.t0) / 1000 : 0, left = el - X0 / PX, right = el + (W - X0) / PX;
+  ctx.clearRect(0, 0, W, H);
+  S.tr.segs.forEach((g) => {
+    const a = g.from / 1000, b = Math.min(a + g.ms / 1000, right + 1); if (b < left || a > right) return;
+    const x0 = X0 + (a - el) * PX, x1 = X0 + (b - el) * PX;
+    ctx.fillStyle = bandColor(g); ctx.globalAlpha = g.kind === 'glide' ? 0.85 : 0.55; ctx.fillRect(x0, 14, x1 - x0, H - 14); ctx.globalAlpha = 1;
+    ctx.fillStyle = '#e6e9ee'; ctx.font = '12px system-ui'; const tx = Math.max(x0 + 6, 6); if (x1 - tx > 40) ctx.fillText((g.label || g.kind).replace(' — until Stop', ''), tx, 32);
+    ctx.fillStyle = '#c9d1d9'; ctx.font = '11px system-ui'; if (x1 - tx > 40) ctx.fillText('score ' + (S.tr.score0 + a).toFixed(2) + (g.ms < 1e9 ? ' → ' + (S.tr.score0 + a + g.ms / 1000).toFixed(2) : ''), tx, 50);
+  });
+  // the ruler: a tick every second, the score time every five
+  ctx.fillStyle = '#5a616a'; ctx.font = '10px system-ui';
+  for (let s = Math.ceil(left); s <= right; s++) { const x = X0 + (s - el) * PX; const sc = S.tr.score0 + s; ctx.fillRect(x, 0, 1, Math.round(sc) % 5 === 0 ? 12 : 6); if (Math.round(sc) % 5 === 0) ctx.fillText(sc.toFixed(0), x + 3, 10); }
+  // the playhead
+  ctx.fillStyle = '#ffd166'; ctx.fillRect(X0 - 1, 0, 3, H);
+  ctx.fillStyle = '#ffd166'; ctx.font = '12px system-ui'; ctx.fillText((S.tr.score0 + el).toFixed(1), X0 + 6, H - 6);
 }
 function seqMarksDraw() {   // the marks under the wide bar, each at its zone's edge: score times
   const box = $('seqMarks'); box.innerHTML = ''; let x = 0; const W = S.tr.wide || 900;

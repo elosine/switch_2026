@@ -3512,3 +3512,14 @@ and glides lit, a yellow follower, the score time of each mark under it (277.80 
 time in the state ("score 340.7 · F2 swarm ii → unison 78 (D5) · 96 %"); under the bar seven lights, one per player, each flashing on its hit.
 Proven once on the preview: the five segments as above, the marks at their places, the lights present and lit by the hits, the tempi
 converging on 78 near the end (the exact arrival proven at §185). `bank/phase_sequence.json` rewritten with the marks and the beds.
+
+## §195. The scrolling strip: the sequence's stretches as colored bands sliding past a playhead (2026-11-12)
+
+**His words:** *"You can keep that animation, but that's not exactly what I meant. I just want a scrolling bar, and some shaded areas,
+different colors of shading, to show me where in the sequence I am — as it's drifting to the wall it might be going through a green
+shaded area, moving towards swarm 2 a different shade, and when it gets to the unison, etc."* **Built:** a canvas strip under the
+sequence (900 × 72): time slides right to left past a fixed yellow playhead at 30 %; 36 px per second, about 25 s in view; each stretch a
+band of its own color — the drift green · the glide to swarm 2 blue · swarm 2 held purple · the glide to the unison orange · the unison
+held gold — with its name and its score times written in it; a ruler ticked every second, the score time every five; the score time at
+the playhead. The wide bar, the marks and the lights stay. Proven once on the preview (a picture of the strip mid-sequence: the blue
+glide under the playhead, the purple hold and the orange glide ahead, the ruler 320 … 335).
