@@ -34,15 +34,13 @@ const rackFile = arg('rack', 'reaper/switch_rack.rpp');
 // [2026-09-26, session 17, RUNNING_LOG §405 · §406] re-pointed at THIS rack (reaper/LGMF_rack.rpp) — piece #5's table replaced. The
 // two `high` horn tracks take their port whole and filter it themselves (a note-filter JS); `Percussion` · `Template` are his MUTED
 // all-channel ARO tracks (§221's triangle) — fed like their live input, silent in the render; every `… ARO` track is one LGPerc channel.
-const RACK_PORT = {
-  'English Horn XS': 'LGEngHorn',
-  'Bassoon SI2': 'LGBassoon', 'Bassoon SI2 b': 'LGBassoonb',
-  'Horn SI2': 'LGHorn', 'Horn SI2 high': 'LGHorn', 'Horn SI2 b': 'LGHornb', 'Horn SI2 b high': 'LGHornb',
-  'Trumpet SI2': 'LGTrumpet', 'Trumpet SI2 b': 'LGTrumpetb',
-  'Percussion': 'LGPerc', 'Template': 'LGPerc',
-  'Cello XS': 'LGCello', 'Bass XS': 'LGBass', 'Vibraphone XS': 'LGVibes',
+const RACK_PORT = {   // THE SWITCH~ RACK (re-pointed 2026-11-14 at the first render here; the map is tools/rack_alive.js's PLAN)
+  'Flute SI2': 'SWFlute', 'Fluteb SI2': 'SWFluteb', 'Clarinet SI2': 'SWClar', 'Alto Sax SI2': 'SWSax', 'Alto Sax SI2 b': 'SWSaxb',
+  'Vibraphone XS': 'SWVibes', 'Crotales RM': 'SWCrotales', 'Glockenspiel RM': 'SWGlock', 'Xylophone RM': 'SWXylo', 'Marimba RM': 'SWMarimba',
+  'Piano Kontakt': 'SWPiano', 'PianoPlucked Kontakt': 'SWPiano', 'PianoHarm PP2': 'SWPiano', 'PianoMute PP2': 'SWPiano',
+  'Violin XS': 'SWViolin', 'Cello XS': 'SWCello',
 };
-const portOf = name => RACK_PORT[name] || (/ ARO$/.test(name) ? 'LGPerc' : null);
+const portOf = name => RACK_PORT[name] || (/ ARO$/.test(name) ? 'SWPerc' : null);   // every `… ARO` track is one SWPerc channel
 
 function readRack(file) {
   const lines = fs.readFileSync(path.join(ROOT, file), 'utf8').split(/\r?\n/);

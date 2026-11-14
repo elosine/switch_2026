@@ -759,3 +759,29 @@ end together at 480); (2) the tuplet pass over the 2050 struck notes of the phas
 (the planning method), likely a tool that turns a chosen share of a player's hits into tuplets of a speed, the share growing through a
 stretch; (3) the harmony pass, the D5s dealt around the beds' main pitches (the D5 at 274 … 284, the quarter-tone-under-D5 at 341.08, the
 roots of § 10) — experiment, JI or not. Nothing of these is built.
+
+### SW-45 · 2026-11-14 — THE TUPLET PASS OPENS: the basic tuplets in order of speed, subdividing the beat in two (the beds' ending deferred to his desktop)
+
+*His words (dictated, light corrections; from his phone, the first listening copy rendering):* *"Let's work on tuplets for the final section,
+and when I get back to the desktop I'll work on the end of the electronics, so we can defer that for now. Can you just list the basic tuplets
+in order of speed? We'll have eighth notes, triplets, and then whatever, 3 and 2, I'm not sure what comes next, 16th notes, etc. I don't know
+that we need to go into 3. Let's just go into 2."*
+
+*The AI's reading (marked as such):* "couplets" in the dictation = tuplets. The ladder is the SUBDIVISIONS OF ONE BEAT (the quarter at 60 — one
+struck note of the phase form per beat), each a speed: 2 · 3 · 4 · 5 · 6 · 7 · 8 per beat; "into 2" = the beat divided, not groups spanning two
+or three beats. SW-44's order stands with step 1 (the beds' ending) deferred to his desktop; step 2 (this) is the conversation now.
+
+*His words, next (2026-11-14):* *"What I mean by two is if you can go into whatever — numerator to denominator is two, so that would include
+three in the space of two, I guess five in the space of two maybe, etc."*
+
+*The AI's reading (marked as such):* the ladder admits every ratio n:1 and n:2 — n strikes in one beat, and n (odd) strikes in the space of
+TWO beats — so the half-steps appear between the plain subdivisions: 3:2 = 1.5 per beat · 5:2 = 2.5 · 7:2 = 3.5 · 9:2 = 4.5 · 11:2 = 5.5.
+The unit of "the space of two" taken as the beat (the phase form's strike); if he means two eighths, 3:2 is the plain triplet and the ladder
+collapses to SW-45's first list.
+
+*His words, next (2026-11-14):* *"And this gives me the range of tempi in the last section."*
+
+*The AI's reading (marked as such):* the tuplet ladder IS the section's tempo range — a strike every beat at the form's pulse is the slow
+end; the ladder's steps (1 · 1.5 · 2 · 2.5 · 3 · 3.5 · 4 · 4.5 · 5 · 5.5 · 6 · 7 · 8 strikes per beat) multiply the pulse; the fast end is the
+top step at the form's fastest pulse. The pulses the phase form already holds (bank/phase_form.json) set the beat; the tuplets set the
+speed within it.

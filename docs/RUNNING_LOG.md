@@ -3748,3 +3748,48 @@ and his word named it: rendered into it through a temp file (the tool itself ref
 clarinet 310 · sax 299 · glock 294 · piano 274 · violin 280 · cello 273) and 17 markers; the first hit 277.8 on all seven, 341.08 on all seven,
 480.000 on all seven. Proven once on the throwaway 5601: the save loads (3567 objects, 2067 in the group), the seven at 277.8 · 341.08 · 480,
 the glock note as specified; nothing saved there. He opens it in his composer (File ▾ → Open). The save is his and stays uncommitted.
+
+## §215. THE FIRST LISTENING COPY OF THE PIECE SO FAR — an offline render of `piece-Section03-H-addTuplets`, 0 → 486 s, the electronics laid from the fund (2026-11-14)
+
+**What prompted it (his words, from his phone):** *"Can you render an MP3 of the complete piece so far and then send it to me, or actually pop it
+into the chat if you can?"* Nothing was running on the machine (no Reaper, no engine, no loopMIDI, no score server) and he was away from it,
+so the lineage's TAKE (`docs/RENDER.md` § 0 — the piece played once in real time, his ▶ in his Chrome) was not available. The question asked
+first: can this piece be rendered OFFLINE and be faithful? **Yes, for this piece as it stands:** its electronics are MATERIAL BRICKS only —
+a stretch of a mastered file from the fund, streamed at the file's own rate, faded at the edges, trimmed by gainDb, at a flat mark (all
+twelve are mf = as mastered; `electronics/sc/material.scd` · `electronics/score/le_material.js`). No live input, no capture, no roll of the
+dice: the offline sum IS what the engine streams. (A hairpin or a drawn curve on a brick is not followed by the offline tool — none exists yet.)
+
+**The route, in order:**
+1. **The players, the lineage's three commands** (`docs/RENDER.md` "The audio render"), run here for the first time. `tools/export_midi.js`'s
+   `RACK_PORT` was still piece 5's (`LG…` names, the LGMF rack) — RE-POINTED to this rack: Flute SI2 → SWFlute · Fluteb SI2 → SWFluteb ·
+   Clarinet SI2 → SWClar · Alto Sax SI2 / b → SWSax / SWSaxb · every `… ARO` track → SWPerc (its channel from the rack) · Vibraphone XS →
+   SWVibes · Crotales / Glockenspiel / Xylophone / Marimba RM → SWCrotales / SWGlock / SWXylo / SWMarimba · the four piano tracks → SWPiano ·
+   Violin XS → SWViolin · Cello XS → SWCello (the map is `tools/rack_alive.js`'s PLAN). The capture ran on the throwaway server 5601 (his 5600
+   never bound): **14,357 messages · 28,988 frames in 1,173 s · 54 writes refused** (the page's `POST /api/elec` — the bricks' relay, refused
+   as every non-GET is). The export's checks: **notes 3,449 / 3,449 · 78 bent notes every bend in place · 0 hanging · read-back ok**; 30 tracks,
+   483.13 s. Reaper opened by the AI with the rack (`Start-Process`; the bridge's heartbeat came ~2 min after launch, once the samplers had
+   loaded — until then the window is an empty, dimmed project and `heartbeat.json` does not exist: NOT a fault, wait). `render_reaper.js`:
+   a copy of the rack in its own tab, 30 items by name, offline render **129 s · 486.120 s · −4.2 dBTP · −23.4 LUFS · LRA 8.9 · first sound
+   16.001 s against the first onset 16.000** (the sampler's attack, as always). The rack itself untouched; the render tab closed.
+2. **The electronics, NEW — `tools/elec_offline.js`:** every `elecMaterial` zone of the save → one ffmpeg graph: the fund file from `offsetMs`
+   for the brick's length, `aformat` stereo · `aresample` 48 kHz (the fund is 44.1; the engine's VDiskIn does the same, §111) · quarter-sine
+   fades in and out (the engine's `\sin` envelope) · `volume` = gainDb + the mark's step (mf = 0) · `adelay` to the brick's start; `amix
+   normalize=0`; padded and trimmed to `--end`. Twelve bricks (5 → 477 s) in 2 s: `notation/audio/raw/<save>-elec-float.wav` · 486 s ·
+   **+4.5 dBTP · −14.8 LUFS · first sound 5.043 s** (the opening bed fades in over 9 s from 5.0).
+3. **The mix, NEW — `tools/mix_offline.js`:** the take's mix rule (`take.js`) for two offline stems: the players' float (the rack's master
+   already in it) + the electronics at ELEC RETURN's fader + the master's, both read from the .rpp (both 0 dB) → `amix normalize=0` → the
+   shared gain step (`tools/lib/gain_step.js`): the float measured **+4.7 dBTP · −14.6 LUFS · LRA 11.8**, ONE plain gain **−5.7 dB** →
+   `notation/audio/piece-Section03-H-addTuplets-mix.wav` (24-bit, **−1.0 dBTP · −20.3 LUFS**) → the MP3 at 320 kb/s, **18.5 MB**, sent into
+   the chat. (`--up --maxUp 6` passed as the piece's render does since Draft 01; the gain went down, so it did not matter.)
+
+**What the copy is and is not.** It is the save as it stood 2026-11-12 22:54 — Sections 1 · 2 · 3 with the phase form's 2,050 D5s, the beds
+ending 464 … 477 (his step 1, the swell to 480, not yet made). The balance is the rack's at unity: the electronics measure ~8.6 LU louder
+than the players over the whole, which is the beds against sparse strikes, not a fader's doing — a listening copy, not a mix decision; the
+room's balance is his at the take. §159 stands: no volume question put to him.
+
+**Where things were left:** Reaper open on the rack (his, as STARTUP has it; nothing saved); the throwaway server stopped; the engine never
+started. The float files and the MP3 are under `notation/audio/` (the WAVs gitignored; the MP3 left untracked beside them). The two tools are
+the piece's (`tools/`): they read the save's shape; the brick's semantics they copy are the engine's and are cited above — if a second piece
+needs them, that is the day they move to `electronics/tools/`.
+
+**The sorting, one line:** `elec_offline.js` · `mix_offline.js` → the piece's `tools/`; `export_midi.js`'s port map re-pointed in place.
