@@ -811,3 +811,12 @@ And this is just going to be the instrumental part of the third section. We won'
 *The AI's reading (marked as such):* a CUT of the players' offline render from a round second (270) to the end (486), the electronics left out,
 with THE SCORE TIME SPOKEN every 10 s under the music, so a second can be named by ear and by his player's clock (+ 270). `tools/section_cut.js`
 makes it; a new cut after every change is one line. The containers he names (SW-46) are then "from s to s: band".
+
+*His words, next (2026-11-14), after three spoken cuts:* *"Can we work something else out? I don't know if you're able to serve something to the
+phone. Maybe just like a play, and then a button where I could hit and it'll put a mark, kind of a big button — or I can play it and then see
+a clock, kind of big, but no audio, no voice. That's too distracting, please."*
+
+*The AI's reading (marked as such):* a PAGE on his phone, not a file — a claude.ai artifact ("Section 3 Marks", https://claude.ai/artifact/9ku6ujpm42qqWnjyoLu5E8):
+the players' cut 270 → 486 inside it (no voice), a big score-time clock, Play, a big MARK button, a note per mark, Copy marks → text for the
+chat, the form's landmarks to jump to. The template is `workshop/phone/marks_template.html` (the audio is embedded at publish:
+`__AUDIO_SRC__` ← the cut as a data URI). The marks live in his phone's browser only, until he copies them into the chat.

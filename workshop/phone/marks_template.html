@@ -1,0 +1,123 @@
+<title>Section 3 Marks</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+  /* layout: one phone screen — the clock on top, two big controls, the marks below, the form's landmarks last */
+  :root {
+    --bg: #f3f1ec; --fg: #1d1b17; --muted: #6e6a60; --line: #d9d5cc;
+    --accent: #b5411f; --accent-fg: #fff6f1; --play: #1f5f8b; --play-fg: #f0f7fc; --card: #fbfaf7;
+    --display: "Space Grotesk", "Inter", system-ui, sans-serif; --text: "Inter", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg: #15161a; --fg: #ecebe6; --muted: #9a978f; --line: #2d2f36; --accent: #e0683f; --accent-fg: #1a0d08;
+    --play: #5aa3d6; --play-fg: #0b1620; --card: #1d1f25; color-scheme: dark; } }
+  :root[data-theme="dark"] {
+    --bg: #15161a; --fg: #ecebe6; --muted: #9a978f; --line: #2d2f36; --accent: #e0683f; --accent-fg: #1a0d08;
+    --play: #5aa3d6; --play-fg: #0b1620; --card: #1d1f25; color-scheme: dark; }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--text);
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 12px 24px; }
+  .wrap { max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+  h1 { font-family: var(--display); font-size: 1rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin: 0; }
+  .clock { font-family: var(--display); font-variant-numeric: tabular-nums; font-size: clamp(64px, 22vw, 112px); line-height: 1; font-weight: 700; letter-spacing: -.02em; text-align: center; }
+  .clock small { font-size: .4em; font-weight: 500; color: var(--muted); }
+  .sub { text-align: center; color: var(--muted); font-variant-numeric: tabular-nums; font-size: .95rem; margin-top: -6px; }
+  input[type=range] { width: 100%; accent-color: var(--play); }
+  .controls { display: grid; grid-template-columns: 1fr 1.4fr; gap: 12px; }
+  button { font: inherit; border: 0; border-radius: 14px; cursor: pointer; }
+  button:focus-visible { outline: 3px solid var(--fg); outline-offset: 2px; }
+  .big { height: 96px; font-family: var(--display); font-size: 1.6rem; font-weight: 700; letter-spacing: .02em; }
+  .play { background: var(--play); color: var(--play-fg); }
+  .mark { background: var(--accent); color: var(--accent-fg); }
+  .mark:active, .play:active { filter: brightness(1.12); }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .small { padding: 8px 12px; background: var(--card); color: var(--fg); border: 1px solid var(--line); font-size: .9rem; }
+  .list { display: flex; flex-direction: column; gap: 6px; }
+  .m { display: grid; grid-template-columns: 5.2em 1fr auto; gap: 8px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+  .m b { font-family: var(--display); font-variant-numeric: tabular-nums; font-size: 1.15rem; }
+  .m input { min-width: 0; font: inherit; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: var(--fg); padding: 4px 2px; }
+  .m button { background: transparent; color: var(--muted); font-size: 1.1rem; padding: 4px 8px; }
+  .m .go { color: var(--play); }
+  .land { display: flex; flex-direction: column; gap: 4px; }
+  .land button { display: grid; grid-template-columns: 4.4em 1fr; gap: 10px; text-align: left; background: transparent; color: var(--fg); padding: 6px 4px; border-radius: 8px; font-variant-numeric: tabular-nums; }
+  .land button:active { background: var(--card); }
+  .land b { color: var(--play); }
+  .hint { color: var(--muted); font-size: .85rem; }
+  .toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 8px 14px; border-radius: 10px; font-size: .9rem; }
+  @media (prefers-reduced-motion: no-preference) { .toast { transition: opacity .2s; } }
+</style>
+<div class="wrap">
+  <h1>Section 3 · players only · score 270 → 486</h1>
+  <div class="clock" id="clock">270.0<small> s</small></div>
+  <div class="sub" id="sub">4:30.0 · stopped</div>
+  <input type="range" id="scrub" min="0" max="216" step="0.1" value="0" aria-label="position">
+  <div class="controls">
+    <button class="big play" id="play">Play</button>
+    <button class="big mark" id="mark">MARK</button>
+  </div>
+  <div class="row">
+    <button class="small" id="back">−5 s</button>
+    <button class="small" id="fwd">+5 s</button>
+    <button class="small" id="copy">Copy marks</button>
+    <button class="small" id="clear">Clear all</button>
+  </div>
+  <div class="list" id="marks"></div>
+  <div class="hint" id="empty">Tap MARK while it plays. Each mark takes a note if you want one; Copy marks gives you text to paste into the chat.</div>
+  <h1>Landmarks of the form · tap to jump</h1>
+  <div class="land" id="land"></div>
+</div>
+<audio id="a" preload="auto" src="__AUDIO_SRC__"></audio>
+<script>
+(function () {
+  var OFFSET = 270, LEN = 216;
+  var a = document.getElementById('a'), clock = document.getElementById('clock'), sub = document.getElementById('sub'), scrub = document.getElementById('scrub');
+  var playBtn = document.getElementById('play'), markBtn = document.getElementById('mark'), list = document.getElementById('marks'), empty = document.getElementById('empty');
+  var LAND = [[277.8, 'the unison, then drift 1 at 68'], [301.66, 'glide into swarm ii'], [324.27, 'swarm ii held'], [330.27, 'glide to the unison at 78'],
+    [341.08, 'unison 78'], [353.89, 'drift 2 at 78'], [372.1, 'glide into swarm iii'], [383, 'swarm iii held'], [388.72, 'glide to the unison at 90'],
+    [400.3, 'unison 90, three beats'], [402.4, 'drift 3 at 90'], [435.4, 'locked at 90'], [439.4, 'glide into swarm v'], [460.4, 'glide to the unison at 120'], [480, 'one strike at 120']];
+  var marks = [];
+  try { marks = JSON.parse(localStorage.getItem('s3marks') || '[]'); } catch (e) { marks = []; }
+  function save() { try { localStorage.setItem('s3marks', JSON.stringify(marks)); } catch (e) {} }
+  function scoreT() { return OFFSET + a.currentTime; }
+  function mmss(t) { var m = Math.floor(t / 60), s = t - m * 60; return m + ':' + (s < 10 ? '0' : '') + s.toFixed(1); }
+  function tick() {
+    var t = scoreT();
+    clock.innerHTML = t.toFixed(1) + '<small> s</small>';
+    sub.textContent = mmss(t) + (a.paused ? ' · stopped' : ' · playing');
+    if (!scrub.matches(':active')) scrub.value = a.currentTime;
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+  playBtn.onclick = function () { if (a.paused) { a.play(); playBtn.textContent = 'Pause'; try { navigator.wakeLock && navigator.wakeLock.request('screen').catch(function () {}); } catch (e) {} } else { a.pause(); playBtn.textContent = 'Play'; } };
+  a.onended = function () { playBtn.textContent = 'Play'; };
+  scrub.oninput = function () { a.currentTime = +scrub.value; };
+  document.getElementById('back').onclick = function () { a.currentTime = Math.max(0, a.currentTime - 5); };
+  document.getElementById('fwd').onclick = function () { a.currentTime = Math.min(LEN, a.currentTime + 5); };
+  markBtn.onclick = function () { marks.push({ t: +scoreT().toFixed(1), note: '' }); marks.sort(function (x, y) { return x.t - y.t; }); save(); render(); toast('marked ' + scoreT().toFixed(1)); };
+  function render() {
+    list.innerHTML = '';
+    empty.hidden = marks.length > 0;
+    marks.forEach(function (m, i) {
+      var row = document.createElement('div'); row.className = 'm';
+      var b = document.createElement('b'); b.textContent = m.t.toFixed(1);
+      var inp = document.createElement('input'); inp.id = 'note' + i; inp.placeholder = 'note (slow · fast · cello only …)'; inp.value = m.note; inp.oninput = function () { m.note = inp.value; save(); };
+      var go = document.createElement('button'); go.className = 'go'; go.textContent = '▶'; go.title = 'play from here'; go.onclick = function () { a.currentTime = Math.max(0, m.t - OFFSET - 1); if (a.paused) playBtn.onclick(); };
+      var del = document.createElement('button'); del.textContent = '×'; del.title = 'remove'; del.onclick = function () { marks.splice(i, 1); save(); render(); };
+      var btns = document.createElement('span'); btns.appendChild(go); btns.appendChild(del);
+      row.appendChild(b); row.appendChild(inp); row.appendChild(btns); list.appendChild(row);
+    });
+  }
+  render();
+  document.getElementById('clear').onclick = function () { if (!marks.length) return; marks = []; save(); render(); toast('cleared'); };
+  document.getElementById('copy').onclick = function () {
+    if (!marks.length) { toast('no marks yet'); return; }
+    var txt = marks.map(function (m) { return m.t.toFixed(1) + (m.note ? ' — ' + m.note : ''); }).join('\n');
+    var done = function () { toast('copied ' + marks.length + ' mark' + (marks.length > 1 ? 's' : '')); };
+    var fallback = function () { var ta = document.createElement('textarea'); ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done(); } catch (e) { toast('select and copy by hand'); } document.body.removeChild(ta); };
+    try { navigator.clipboard.writeText(txt).then(done, fallback); } catch (e) { fallback(); }
+  };
+  var landEl = document.getElementById('land');
+  LAND.forEach(function (l) { var btn = document.createElement('button'); btn.innerHTML = '<b>' + l[0] + '</b><span>' + l[1] + '</span>'; btn.onclick = function () { a.currentTime = Math.max(0, l[0] - OFFSET - 1); if (a.paused) playBtn.onclick(); }; landEl.appendChild(btn); });
+  var toastEl = null, toastTimer = null;
+  function toast(s) { if (!toastEl) { toastEl = document.createElement('div'); toastEl.className = 'toast'; document.body.appendChild(toastEl); } toastEl.textContent = s; toastEl.style.opacity = '1'; clearTimeout(toastTimer); toastTimer = setTimeout(function () { toastEl.style.opacity = '0'; }, 1400); }
+})();
+</script>
