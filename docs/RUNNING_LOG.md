@@ -3793,3 +3793,33 @@ the piece's (`tools/`): they read the save's shape; the brick's semantics they c
 needs them, that is the day they move to `electronics/tools/`.
 
 **The sorting, one line:** `elec_offline.js` · `mix_offline.js` → the piece's `tools/`; `export_midi.js`'s port map re-pointed in place.
+
+## §216. THE TUPLET PASS OPENS — the ladder, the section's tempo range, the ceiling, the bands and the conversion chart (2026-11-14)
+
+**From his phone, after the listening copy (§215).** The conversation of SW-45 · SW-46, in order, with what each settled:
+1. *"List the basic tuplets in order of speed … let's just go into 2"* → the ladder of SUBDIVISIONS OF THE BEAT, then widened at his word
+   (*"numerator to denominator is two … three in the space of two, five in the space of two"*) to every n:1 and odd n:2: **1 · 1.5 · 2 · 2.5 ·
+   3 · 3.5 · 4 · 4.5 · 5 · 5.5 · 6 · 7 · 8 strikes per beat** — the odd n:2 fill the half-steps. "The space of two" taken as two BEATS (a beat =
+   one strike of the phase form); if he means two eighths the n:2 steps are the plain ones again.
+2. *"This gives me the range of tempi in the last section."* → the pulse × the ladder. The pulses the form holds (`bank/phase_form.json` and
+   the workshop's sets): **slowest 53.6 bpm** (swarm ii's slowest player, period 14 × 80 ms) · **fastest 133.3 bpm** (swarm v's fastest, 9 × 50
+   ms) · the unisons 78 · 90 · 120 · the drifts' tops 72.7 · 94.4 · 110.6. In order through the section: drift 68 → swarm ii 54 … 94 → unison
+   78 → drift 78 … 94 → swarm iii 58 … 107 → unison 90 → drift 90 … 111 → locked 90 → swarm v 80 … 133 → unison 120 at 480.
+3. Two click tracks sent into the chat so he could HEAR the top of the ladder: eighths at 135 (0.222 s each) and sixteenths at 133.3 (0.1125 s,
+   ~9 a second). His verdict: **"let's do the max tempo be 10 a second"** — THE CEILING, for every player, always.
+4. *"Create a slow, medium, and fast band … time containers where we change those single strikes into tuplets … 1 second slow, 2 seconds
+   fast, 3 seconds medium … everyone's playing at various tempi, and there's some acceleration"* → THE DESIGN: the bands are in STRIKES PER
+   SECOND (the heard speed), so one band gives a different tuplet at a different pulse — that is what lets a container hold across a drift or a
+   swarm, where every player's pulse differs. **Proposed bands: slow 1 … 3 · medium 3 … 6 · fast 6 … 10 strikes a second** (roughly even on a
+   log scale across the 1 … 10 range; his word pending). THE PICK: the ladder step whose rate (step × pulse ÷ 60) lands inside the band,
+   nearest the band's geometric middle; none inside → the nearest step; never above 10/s. THE BEAT a tuplet divides is the gap to the
+   player's next strike (so a glide accelerates the tuplets strike by strike — the acceleration he described, by construction).
+   **Built:** `tools/tuplet_bands.js` (the numbers: ceiling, bands, ladder, the section's 19 pulses) → `docs/TUPLET_BANDS.md` (the rule, the
+   chart: 19 pulses × 3 bands, each cell the pick and the alternatives that also land inside, and the first step over the ceiling; and how a
+   container is applied, for the AI that builds the pass). `--pick <bpm> <band>` gives one answer.
+   What the chart shows at a glance: SLOW is nearly always the strike itself or 3-in-2 / eighths; FAST tops out at eighths-and-a-half (3.5)
+   at 133 bpm and reaches thirty-seconds only under 60 bpm; at 120 bpm and above, 5.5 per beat is already over the ceiling.
+
+**Open, his:** the band edges · the containers (start · length · band) · the share of strikes that become tuplets through a container (SW-44's
+"3 singles and a tuplet, then the singles diminish") · whether "the space of two" is two beats. The beds' ending (SW-44 step 1) deferred to his
+desktop at his word.
