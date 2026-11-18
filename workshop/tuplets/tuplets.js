@@ -45,8 +45,8 @@
           step = pool[j];
         }
         last[id] = step;
-        if (step % 1 !== 0) { const n = step * 2; for (let k = 0; k < n; k++) ev.push({ t: t + two * k / n, src: i, step, band: c.band, k }); i++; }   // two beats: the next strike is used up
-        else for (let k = 0; k < step; k++) ev.push({ t: t + gap * k / step, src: i, step, band: c.band, k });
+        if (step % 1 !== 0) { const n = step * 2; for (let k = 0; k < n; k++) { const tk = t + two * k / n; if (k && tk >= c.end) break; ev.push({ t: tk, src: i, step, band: c.band, k }); } i++; }   // two beats: the next strike is used up
+        else for (let k = 0; k < step; k++) { const tk = t + gap * k / step; if (k && tk >= c.end) break; ev.push({ t: tk, src: i, step, band: c.band, k }); }   // THE CHUNK'S END CUTS THE TUPLET (his eye 2026-11-18): a beat that began inside runs past the end — its strikes after the end are dropped
       }
     }
     return out;
