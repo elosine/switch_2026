@@ -40,7 +40,7 @@
     <div class="row">
       <button id="play" class="big">▶ Play</button>
       <button id="stop" class="big">■ Stop</button>
-      <label>from <input id="from" type="number" value="277.8" min="270" max="480" step="0.1"> s</label>
+      <label title="type a score second and press ENTER: the playhead and the view jump there">go to <input id="from" type="number" value="277.8" min="270" max="480" step="0.1" style="width:110px;font-size:20px"> s</label>
       <label>vel <input id="vel" class="pct" type="number" value="100" min="1" max="127" step="1"></label>
     </div>
     <div class="row dim">SPACE plays and stops · LEFT / RIGHT move 1 s (SHIFT 10 s) · a change is heard while it plays</div>
@@ -243,6 +243,7 @@ function mix() {
 
 // ---- wiring: the form's strip
 $('play').onclick = () => play(); $('stop').onclick = () => stop();
+$('from').onchange = () => { const t = +$('from').value; S.viewA = t - S.span * 0.25; clampView(); goTo(t, true); $('from').blur(); };   // the punch-in: type a second, ENTER, it jumps there
 $('over').onclick = (e) => { const r = $('over').getBoundingClientRect(), [oa, ob] = overWin(), t = oa + (e.clientX - r.left) / r.width * (ob - oa); S.viewA = t - S.span * 0.25; clampView(); goTo(t, true); };
 const zIn = (e) => (Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX > 0 : e.deltaY < 0);   // ALT+wheel as in the composer score: right (or up) = in, left (or down) = out
 $('over').addEventListener('wheel', (e) => { if (e.altKey || e.ctrlKey) { e.preventDefault(); zoom('o', zIn(e) ? 0.8 : 1.25); } else if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { e.preventDefault(); S.viewA += e.deltaX / 100 * S.span * 0.12; clampView(); } }, { passive: false });   // the up-and-down wheel is the page's (his word 2026-11-18)
