@@ -48,10 +48,10 @@
   </div>
 </div>
 
-<h1>The whole form <button id="oOut" title="zoom out">−</button><button id="oIn" title="zoom in">+</button><span class="dim">click to go there · CTRL+wheel zooms</span></h1>
+<h1>The whole form <button id="oOut" title="zoom out">−</button><button id="oIn" title="zoom in">+</button><span class="dim">click to go there · ALT+wheel zooms (right in, left out)</span></h1>
 <canvas id="over" width="1800" height="74"></canvas>
 
-<h1>The players <button id="dOut" title="zoom out">−</button><button id="dIn" title="zoom in">+</button><span class="dim">wheel or the bar below scrolls side to side · CTRL+wheel zooms · click sets the playhead</span></h1>
+<h1>The players <button id="dOut" title="zoom out">−</button><button id="dIn" title="zoom in">+</button><span class="dim">wheel or the bar below scrolls side to side · ALT+wheel zooms (right in, left out) · click sets the playhead</span></h1>
 <div id="mix"></div>
 <canvas id="detail" width="1800" height="230"></canvas>
 <input id="scroll" type="range" min="0" max="100" step="0.1" value="0" aria-label="scroll the players view">
@@ -242,13 +242,14 @@ function mix() {
 // ---- wiring: the form's strip
 $('play').onclick = () => play(); $('stop').onclick = () => stop();
 $('over').onclick = (e) => { const r = $('over').getBoundingClientRect(), [oa, ob] = overWin(), t = oa + (e.clientX - r.left) / r.width * (ob - oa); S.viewA = t - S.span * 0.25; clampView(); goTo(t, true); };
-$('over').addEventListener('wheel', (e) => { e.preventDefault(); if (e.ctrlKey) zoom('o', e.deltaY > 0 ? 1.25 : 0.8); else { S.viewA += (e.deltaY + e.deltaX > 0 ? 1 : -1) * S.span * 0.5; clampView(); } }, { passive: false });
+const zIn = (e) => (Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX > 0 : e.deltaY < 0);   // ALT+wheel as in the composer score: right (or up) = in, left (or down) = out
+$('over').addEventListener('wheel', (e) => { e.preventDefault(); if (e.altKey || e.ctrlKey) zoom('o', zIn(e) ? 0.8 : 1.25); else { S.viewA += (e.deltaY + e.deltaX > 0 ? 1 : -1) * S.span * 0.5; clampView(); } }, { passive: false });
 $('oIn').onclick = () => zoom('o', 0.6); $('oOut').onclick = () => zoom('o', 1.67); $('dIn').onclick = () => zoom('d', 0.6); $('dOut').onclick = () => zoom('d', 1.67);
 // ---- the players view: scroll side to side, zoom, the chunks by hand
 const D = $('detail');
 const dpos = (e) => { const r = D.getBoundingClientRect(); return { t: dT(e.clientX - r.left, r.width), y: (e.clientY - r.top) / r.height * D.height, pxPerS: r.width / S.span }; };
 function chunkAt(t, pxPerS) { for (let i = S.db.chunks.length - 1; i >= 0; i--) { const k = S.db.chunks[i]; if (t >= k.start - 5 / pxPerS && t <= k.end + 5 / pxPerS) { const edge = 7 / pxPerS; return { k, mode: Math.abs(t - k.start) < edge ? 'start' : Math.abs(t - k.end) < edge ? 'end' : 'move' }; } } return null; }
-D.addEventListener('wheel', (e) => { e.preventDefault(); if (e.ctrlKey) zoom('d', e.deltaY > 0 ? 1.25 : 0.8, dpos(e).t); else { const dl = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY; S.viewA += dl / 100 * S.span * 0.12; clampView(); } }, { passive: false });
+D.addEventListener('wheel', (e) => { e.preventDefault(); if (e.altKey || e.ctrlKey) zoom('d', zIn(e) ? 0.8 : 1.25, dpos(e).t); else { const dl = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY; S.viewA += dl / 100 * S.span * 0.12; clampView(); } }, { passive: false });
 $('scroll').oninput = () => { S.viewA = +$('scroll').value; clampView(); };
 D.addEventListener('mousedown', (e) => {
   const p = dpos(e), hit = p.y <= LANE ? chunkAt(p.t, p.pxPerS) : null;
@@ -274,6 +275,7 @@ D.addEventListener('dblclick', (e) => { const p = dpos(e); if (!chunkAt(p.t, p.p
 document.addEventListener('keydown', (e) => {
   if (/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName) && document.activeElement.type !== 'range') return;
   if (e.code === 'Space') { e.preventDefault(); S.playing ? stop() : play(); }
+  else if (e.altKey && (e.code === 'ArrowRight' || e.code === 'ArrowLeft')) { e.preventDefault(); zoom('d', e.code === 'ArrowRight' ? 0.8 : 1.25, scoreNow()); }
   else if (e.code === 'ArrowRight') { e.preventDefault(); goTo(scoreNow() + (e.shiftKey ? 10 : 1)); }
   else if (e.code === 'ArrowLeft') { e.preventDefault(); goTo(scoreNow() - (e.shiftKey ? 10 : 1)); }
   else if ((e.code === 'Delete' || e.code === 'Backspace') && S.sel) { e.preventDefault(); removeChunk(S.sel); }
