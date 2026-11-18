@@ -3873,3 +3873,22 @@ in pages; the form's strip zooms the same way and shows a frame for what the pla
 per player (heard only, never saved). THE CHUNKS BY HAND on a colored bar at the top of the players view: drag the middle to move, an end to
 resize, double-click an empty spot to add, click then DELETE to remove (to 0.1 s; the tuplets redraw while dragging, the file is written on
 release). Proven once on the throwaway port: loads with no console error; zoom, solo and go-to run. The drag itself is his hand's to try.
+
+## §219. The tuplet draw: THE CONTRAST RULE; the n:3 ladder weighed and left out; the start marked at 292 (2026-11-18)
+
+**His ear on the two example chunks:** *"each instrument is just playing one type of tuplet."* The cause, from the draw's own numbers (§217):
+a 4 s chunk at 68 is ~4 beats a player; the band admits ~4 steps at that pulse, neighbors a half step apart (4 and 4.5 per beat — the piano
+drew 4.5 · 5); a two-beat step uses two of the four beats; and repeat 45 % keeps the last one half the time. So the change was there and
+inaudible.
+**His proposal:** the denominator 3 (n in 3 beats) for more types at fast tempos — *"or you tell me if there's a better method."* Weighed: at 120
+the fast band holds 3 · 3.5 · 4 · 4.5 per beat (6 · 7 · 8 · 9 a second); thirds add 6.7 · 7.3 · 8.7 · 9.3 — between them. The band (6 … 10, a ratio
+of 1.67) holds about four clearly different speeds whatever the ladder; a three-beat group also rarely fits a short chunk. LEFT OUT, said to him
+with the reason; the next lever if needed is a wider band.
+**Built instead, at his "yes let's try the contrast rule"** (`workshop/tuplets/tuplets.js`): when the step changes, it is drawn among the fitting
+steps at least a QUARTER faster or slower than the last (ratio ≥ 1.25; if the band has none, any other step), whole steps weighted 3 to the
+half steps' 1. A test chunk 284 … 296 medium, all seven: flute 3.5 5 3.5 3.5 5 5 4 5 5 3 · alto sax 5 5 3 4 3 4.5 3 5 3.5 4.5 3 · cello 3.5 2.5
+4.5 4.5 4.5 2.5 2.5 4 — triplets against quintuplets against sixteenths; fastest 5.95 a second (inside medium).
+**Also:** the mark **292 s — the tuplets start here** (his word) in `bank/tuplet_chunks.json` (`marks`), drawn pink on both views; ALT+wheel
+zooms as in the composer score (right in, left out); the up-and-down wheel no longer moves the views (his word: it got in the way) — only a
+sideways scroll and the bar do. The repeat's alternatives were put to him (a chance · a count · a range · a written pattern; recommended: the
+range "lasts 1 to 3 beats") — his word pending. He had removed the two example chunks; the file holds none.

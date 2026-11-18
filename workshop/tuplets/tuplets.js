@@ -38,7 +38,12 @@
         let step;
         if (!fits.length) { let best = 1, bd = 1e9; const mid = Math.sqrt(lo * hi); for (const s of WHOLE) { const r = s / gap; if (r > ceiling) continue; const d = Math.abs(Math.log(r / mid)); if (d < bd) { bd = d; best = s; } } step = best; }
         else if (last[id] != null && fits.indexOf(last[id]) >= 0 && rHold < (c.hold == null ? 0.45 : c.hold)) step = last[id];
-        else step = fits[Math.floor(rPick * fits.length)];
+        else {   // THE CONTRAST RULE (his word 2026-11-18): a new pick is clearly another speed than the last (a quarter faster or slower, when the band
+          // has one), and the plain tuplets (whole steps) are drawn three times as often as the two-beat ones
+          let pool = fits; if (last[id] != null) { const far = fits.filter((s) => Math.max(s / last[id], last[id] / s) >= 1.25); if (far.length) pool = far; else { const other = fits.filter((s) => s !== last[id]); if (other.length) pool = other; } }
+          const w = pool.map((s) => s % 1 === 0 ? 3 : 1), sum = w.reduce((x, y) => x + y, 0); let r = rPick * sum, j = 0; while (j < pool.length - 1 && r >= w[j]) { r -= w[j]; j++; }
+          step = pool[j];
+        }
         last[id] = step;
         if (step % 1 !== 0) { const n = step * 2; for (let k = 0; k < n; k++) ev.push({ t: t + two * k / n, src: i, step, band: c.band, k }); i++; }   // two beats: the next strike is used up
         else for (let k = 0; k < step; k++) ev.push({ t: t + gap * k / step, src: i, step, band: c.band, k });

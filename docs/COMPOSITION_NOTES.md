@@ -858,3 +858,15 @@ to have that sort of capability."*
 *The AI's reading (marked as such):* the chunks are DATA the AI can write as well as he can — a pattern is a small generator that fills a stretch
 with chunks (the teeter-totter: singles long and tuplet chunks short at the start, the proportions crossing over the stretch, to the inverse).
 He names a pattern and its stretch in the chat; the AI writes the chunks; he hears them, then adjusts single chunks by hand or by word.
+
+### SW-49 · 2026-11-18 — THE TUPLETS START AT 292 · the contrast rule · the ladder stays at n:1 and n:2
+
+*His words (dictated, light corrections), in the tuplet workshop:* *"Just mark or just document the time 292. That's when I think I'm going to
+start."* · on the tuplets inside a block: *"it sounds like the test blocks you put in, each instrument is just playing one type of tuplet"* ·
+*"let's use the 3 denominator then as well, so that we can get more types of tuplets in faster tempos. Or you tell me if there's a better
+method"* · *"yes let's try the contrast rule."*
+
+*The AI's reading (marked as such):* 292 s (inside drift 1 at 68, 14 s after the unison at 277.8) is where the first tuplet chunk goes — a mark
+in `bank/tuplet_chunks.json`, drawn on the page. The n:3 tuplets were NOT added: in a band only about four clearly different speeds fit
+(fast = 6 … 10 a second), so thirds would add in-between speeds the ear takes for the same ones; variety comes from CONTRAST instead — a new
+pick is at least a quarter faster or slower than the last, and the plain tuplets are drawn three times as often as the two-beat ones.
