@@ -18,7 +18,7 @@
   input.pct { width: 56px; }
   select { font: inherit; background: #0f1113; color: #e8e6e1; border: 1px solid #3a3f47; border-radius: 6px; padding: 5px 6px; }
   canvas { display: block; width: 100%; border-radius: 6px; background: #0f1113; }
-  #over { height: 74px; cursor: pointer; } #detail { height: 230px; }
+  #over { height: 74px; cursor: pointer; } #detail { height: 262px; }
   #scroll { width: 100%; margin: 6px 0 0; accent-color: #6b6f76; }
   .dim { color: #9a968c; } #midi { color: #e0a23f; }
   #mix { display: flex; gap: 14px; flex-wrap: wrap; margin: 0 0 8px; }
@@ -53,7 +53,7 @@
 
 <h1>The players <button id="dOut" title="zoom out">−</button><button id="dIn" title="zoom in">+</button><span class="dim">a sideways scroll or the bar below moves it · ALT+wheel zooms (right in, left out) · click sets the playhead</span></h1>
 <div id="mix"></div>
-<canvas id="detail" width="1800" height="230"></canvas>
+<canvas id="detail" width="1800" height="262"></canvas>
 <input id="scroll" type="range" min="0" max="100" step="0.1" value="0" aria-label="scroll the players view">
 <div class="row dim">Chunks, on the colored bar at the top of this view: drag the middle to move · drag an end to make it longer or shorter · double-click an empty spot to add one · click one, then DELETE, to remove it</div>
 <div id="selNone" class="dim" style="margin:10px 0">Click a chunk's colored bar to change it here.</div>
@@ -79,7 +79,7 @@ const ROUTE = {
   glockenspiel: { short: 'Gl', port: 'SWGlock', ch: 9, key: 62 }, piano: { short: 'Pn', port: 'SWPiano', ch: 1, key: 74 },
   violin: { short: 'Vn', port: 'SWViolin', ch: 1, key: 74, cc0: 18 }, cello: { short: 'Vc', port: 'SWCello', ch: 1, key: 74, cc0: 18 },
 };
-const COLOR = { slow: '#3f8fd0', medium: '#3fb37a', fast: '#e0683f' }, PLAIN = '#8a8f98', LANE = 22;
+const COLOR = { slow: '#3f8fd0', medium: '#3fb37a', fast: '#e0683f' }, PLAIN = '#8a8f98', LANE = 22, FORMH = 30;   // FORMH: the form's header at the top of the players view (his word 2026-11-18)
 const S = { hits: null, players: [], steps: [], end: 480, t0: 277.8, db: null, mtime: 0, ev: [], per: {}, outs: {}, playing: false, perf0: 0, score0: 0, idx: 0, timer: null, saving: null, dirty: false,
   span: 14, viewA: 275.8, oSpan: null, sel: null, mute: {}, solo: {}, drag: null };
 
@@ -153,14 +153,16 @@ function draw() {
   const now = scoreNow(); g.fillStyle = '#ffd166'; g.fillRect(x(now) - 1, 0, 2, H);
 
   const d = $('detail'), q = d.getContext('2d'), DW = d.width, DH = d.height; q.clearRect(0, 0, DW, DH);
-  const a = S.viewA, span = S.span, dx = (t) => (t - a) / span * DW, rowH = (DH - LANE - 14) / S.players.length, y0 = LANE + 2;
+  const a = S.viewA, span = S.span, dx = (t) => (t - a) / span * DW, rowH = (DH - FORMH - LANE - 14) / S.players.length, y0 = FORMH + LANE + 2;
+  // the form's header: every step of the phase form (the drifts, the glides, the swarms, the unisons) over the same seconds as the rows below
+  S.steps.forEach((st, i) => { if (st.to < a || st.from > a + span) return; const xa = Math.max(0, dx(st.from)), xb = Math.min(DW, dx(st.to)); q.fillStyle = st.kind === 'glide' ? '#243240' : '#2b2f36'; q.fillRect(xa, 0, xb - xa - 1, FORMH - 4); q.fillStyle = '#e8e6e1'; q.font = '600 13px system-ui'; const room = Math.floor((xb - xa - 10) / 7.2); if (room > 3) q.fillText(st.label.length > room ? st.label.slice(0, room - 1) + '…' : st.label, xa + 6, 18); q.fillStyle = '#9a968c'; q.fillRect(dx(st.from), 0, 1, FORMH - 4); });
   for (const k of S.db.chunks) {
     if (k.end < a || k.start > a + span) continue;
     const xa = dx(k.start), xb = dx(k.end), col = COLOR[k.band] || PLAIN;
     q.fillStyle = col; q.globalAlpha = 0.13; (k.players || S.players).forEach((p) => { const r = S.players.indexOf(p); q.fillRect(xa, y0 + r * rowH, xb - xa, rowH); }); q.globalAlpha = 1;
-    q.fillStyle = col; q.fillRect(xa, 2, Math.max(3, xb - xa), LANE - 4);   // the bar to grab
-    if (S.sel === k.id) { q.strokeStyle = '#ffffff'; q.lineWidth = 2; q.strokeRect(xa + 1, 3, Math.max(3, xb - xa) - 2, LANE - 6); }
-    if (xb - xa > 60) { q.fillStyle = '#0f1113'; q.font = '600 12px system-ui'; q.fillText(k.band + ' ' + k.start + '–' + k.end, Math.max(xa, 0) + 6, 15); }
+    q.fillStyle = col; q.fillRect(xa, FORMH + 2, Math.max(3, xb - xa), LANE - 4);   // the bar to grab
+    if (S.sel === k.id) { q.strokeStyle = '#ffffff'; q.lineWidth = 2; q.strokeRect(xa + 1, FORMH + 3, Math.max(3, xb - xa) - 2, LANE - 6); }
+    if (xb - xa > 60) { q.fillStyle = '#0f1113'; q.font = '600 12px system-ui'; q.fillText(k.band + ' ' + k.start + '–' + k.end, Math.max(xa, 0) + 6, FORMH + 15); }
   }
   S.players.forEach((p, r) => {
     const on = sounds(p); q.globalAlpha = on ? 1 : 0.25;
@@ -261,13 +263,13 @@ function chunkAt(t, pxPerS) { for (let i = S.db.chunks.length - 1; i >= 0; i--) 
 D.addEventListener('wheel', (e) => { if (e.altKey || e.ctrlKey) { e.preventDefault(); zoom('d', zIn(e) ? 0.8 : 1.25, dpos(e).t); } else if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { e.preventDefault(); S.viewA += e.deltaX / 100 * S.span * 0.12; clampView(); } }, { passive: false });
 $('scroll').oninput = () => { S.viewA = +$('scroll').value; clampView(); };
 D.addEventListener('mousedown', (e) => {
-  const p = dpos(e), hit = p.y <= LANE ? chunkAt(p.t, p.pxPerS) : null;
+  const p = dpos(e), hit = p.y > FORMH && p.y <= FORMH + LANE ? chunkAt(p.t, p.pxPerS) : null;
   if (hit) { S.sel = hit.k.id; panel(); S.drag = { k: hit.k, mode: hit.mode, t0: p.t, s0: hit.k.start, e0: hit.k.end, moved: false }; e.preventDefault(); }
   else S.drag = { click: true, x: e.clientX };
 });
 window.addEventListener('mousemove', (e) => {
   const p = dpos(e);
-  if (!S.drag) { const hit = p.y <= LANE && e.target === D ? chunkAt(p.t, p.pxPerS) : null; D.style.cursor = hit ? (hit.mode === 'move' ? 'grab' : 'ew-resize') : 'default'; return; }
+  if (!S.drag) { const hit = p.y > FORMH && p.y <= FORMH + LANE && e.target === D ? chunkAt(p.t, p.pxPerS) : null; D.style.cursor = hit ? (hit.mode === 'move' ? 'grab' : 'ew-resize') : 'default'; return; }
   if (S.drag.click) return;
   const g = S.drag, d = p.t - g.t0, k = g.k; g.moved = true;
   if (g.mode === 'move') { const len = g.e0 - g.s0; k.start = r1(Math.max(X0(), Math.min(X1() - len, g.s0 + d))); k.end = r1(k.start + len); }
