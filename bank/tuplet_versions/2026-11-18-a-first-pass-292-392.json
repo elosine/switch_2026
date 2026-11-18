@@ -1,0 +1,1000 @@
+{
+ "_about": "THE TUPLET CHUNKS of Section 3 (SW-48): each a stretch of score time, a band, the players it applies to. Written by the tuplet workshop page and by the AI; docs/TUPLET_BANDS.md is the rule. The two chunks here are EXAMPLES to hear the page (2026-11-18) — his to change or remove.",
+ "ceiling": 10,
+ "bands": {
+  "slow": [
+   1,
+   3
+  ],
+  "medium": [
+   3,
+   6
+  ],
+  "fast": [
+   6,
+   10
+  ]
+ },
+ "chunks": [
+  {
+   "id": "c1",
+   "start": 291.8,
+   "end": 295.3,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.2,
+   "seed": 5,
+   "rate": 4
+  },
+  {
+   "id": "c2",
+   "start": 298.4,
+   "end": 300.9,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.2,
+   "seed": 3,
+   "rate": 5
+  },
+  {
+   "id": "c3",
+   "start": 303,
+   "end": 305.5,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 2,
+   "rate": 4
+  },
+  {
+   "id": "c4",
+   "start": 307.6,
+   "end": 309.7,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1
+  },
+  {
+   "id": "c5",
+   "start": 311.9,
+   "end": 313.6,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c6",
+   "start": 313.6,
+   "end": 315.2,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 4
+  },
+  {
+   "id": "c7",
+   "start": 315.2,
+   "end": 317.6,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c8",
+   "start": 319.4,
+   "end": 321.3,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 4
+  },
+  {
+   "id": "c9",
+   "start": 322,
+   "end": 323.4,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c10",
+   "start": 323.6,
+   "end": 326.6,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c11",
+   "start": 327.3,
+   "end": 329,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1
+  },
+  {
+   "id": "c12",
+   "start": 329,
+   "end": 330.9,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 4
+  },
+  {
+   "id": "c13",
+   "start": 330.9,
+   "end": 333.4,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c16",
+   "start": 334.1,
+   "end": 335.1,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c14",
+   "start": 341.8,
+   "end": 342.6,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1
+  },
+  {
+   "id": "c15",
+   "start": 344.1,
+   "end": 346.4,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c17",
+   "start": 349.5,
+   "end": 352.5,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c25",
+   "start": 354.4,
+   "end": 356.2,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 4
+  },
+  {
+   "id": "c26",
+   "start": 358.5,
+   "end": 360,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c18",
+   "start": 360.7,
+   "end": 363.7,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 1
+  },
+  {
+   "id": "c19",
+   "start": 366.3,
+   "end": 368.3,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c20",
+   "start": 370.7,
+   "end": 374.9,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 2,
+   "rate": 5
+  },
+  {
+   "id": "c21",
+   "start": 374.9,
+   "end": 377.2,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c22",
+   "start": 377.2,
+   "end": 379,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c27",
+   "start": 381,
+   "end": 382,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1
+  },
+  {
+   "id": "c23",
+   "start": 387.8,
+   "end": 389.5,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 4
+  },
+  {
+   "id": "c24",
+   "start": 390.5,
+   "end": 392.2,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c28",
+   "start": 394.2,
+   "end": 396.8,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 2,
+   "rate": 5
+  },
+  {
+   "id": "c29",
+   "start": 397.4,
+   "end": 398.9,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1
+  },
+  {
+   "id": "c30",
+   "start": 401.5,
+   "end": 404.5,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c31",
+   "start": 405.3,
+   "end": 407.1,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c32",
+   "start": 407.9,
+   "end": 411.9,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c33",
+   "start": 412.7,
+   "end": 414.9,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c34",
+   "start": 415.3,
+   "end": 417.4,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c35",
+   "start": 417.4,
+   "end": 421.2,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c36",
+   "start": 421.5,
+   "end": 423.2,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c37",
+   "start": 423.7,
+   "end": 425.6,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c38",
+   "start": 425.9,
+   "end": 428.4,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c39",
+   "start": 428.6,
+   "end": 430.5,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c40",
+   "start": 430.5,
+   "end": 432.3,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c41",
+   "start": 432.8,
+   "end": 434.1,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c42",
+   "start": 434.1,
+   "end": 437.1,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c43",
+   "start": 437.5,
+   "end": 439.3,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c44",
+   "start": 442.2,
+   "end": 449,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 1
+  },
+  {
+   "id": "c45",
+   "start": 449,
+   "end": 455.2,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 1
+  },
+  {
+   "id": "c46",
+   "start": 455.2,
+   "end": 460.2,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 1
+  },
+  {
+   "id": "c47",
+   "start": 465.6,
+   "end": 470.7,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 0
+  },
+  {
+   "id": "c48",
+   "start": 470.7,
+   "end": 475.3,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 0
+  },
+  {
+   "id": "c49",
+   "start": 475.3,
+   "end": 479.9,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1
+  }
+ ],
+ "marks": [
+  {
+   "t": 292,
+   "label": "the tuplets start here (his word 2026-11-18)"
+  }
+ ]
+}

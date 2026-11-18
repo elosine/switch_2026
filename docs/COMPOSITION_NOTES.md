@@ -889,3 +889,23 @@ make it so I can preview it with the electronics? Either way, we can do it in th
 this to the composer score like an experimental score."*
 *The AI's reading (marked as such):* the composer score, because the real electronics (the engine's bricks) are already there — a new save
 `piece-Section03-X-tuplets`, made from `piece-Section03-H-addTuplets` by `tools/tuplet_render.js`, re-made on every run; his H save untouched.
+
+### SW-51 · 2026-11-18 — THE PASSES TO COME for Section 3, and the workshop's next parts (harmony bricks · articulation sets)
+
+*His words (dictated, light corrections), with 49 tuplet chunks placed (291.8 … 479.9), bookmarked at his word:* *"Can you preserve the current
+version here in the workshop as like a bookmark, something I can go back to? And can you just take a note? I need to finish up the electronics
+for the end. I want to do a chord pass, a harmony pass. Then I want to do a crescendo pass. And then I want to do an accent pass. And then let's
+discuss how to put in harmonies. So let me collect a bunch in the takes drawer — in the strikes drawer, and it's takes. And then the easy way in
+the workshop where I can select a range and apply that harmony. And then same thing, if I could have the bricks as they are here for the
+tuplets, something similar where I can change the size or I can move them around and change the take. And then also, can I change the
+articulations here, like as a set? What we're listening to now, it sounds like it's just the ordinario. And then I want a staccato set, which
+is, I think, already there, but like the staccato and spiccato for the strings. But if I can swap those in the workshop, that'd be good. And
+then — I'll have to make it — maybe a percussive one, but we'll see. Let's start with those."*
+
+*THE LIST, as he gave it (his order):* (1) finish the electronics for the end · (2) the chord / harmony pass · (3) the crescendo pass · (4) the
+accent pass.
+*The AI's reading (marked as such):* the harmony works like the tuplets — HARMONY BRICKS on the workshop's timeline, each a stretch of time and
+a TAKE from the strikes drawer (`bank/panel_snapshots.json` → `strikes`: a pitch and a technique per lane), moved and resized by hand, the take
+swapped on the selected brick. ARTICULATION SETS: a named set = one technique per player, swapped for the whole workshop or per brick. What he
+hears now is ALREADY the staccato of each instrument (the phase workshop's table), not ordinario — said to him.
+*The bookmark:* `bank/tuplet_versions/2026-11-18-a-first-pass-292-392.json` (the name is from the first look; it holds all 49 chunks to 479.9).
