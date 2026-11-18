@@ -3823,3 +3823,41 @@ needs them, that is the day they move to `electronics/tools/`.
 **Open, his:** the band edges · the containers (start · length · band) · the share of strikes that become tuplets through a container (SW-44's
 "3 singles and a tuplet, then the singles diminish") · whether "the space of two" is two beats. The beds' ending (SW-44 step 1) deferred to his
 desktop at his word.
+
+## §217. THE TUPLET WORKSHOP — a page of its own: chunks, the draw inside a band, heard at once (2026-11-18)
+
+**What prompted it (SW-48, his words at the desktop):** *"what's the best way to quickly preview these things. I just really want to hear the
+instrumental part … start tuplets at this second, and I'll be like, oh no, that's too long, or let's make that one medium, or let's alternate
+more quickly"*; then the clarification — a band holds SEVERAL tuplets (*"eighth notes and then triplets … there could be some repeats … just as
+long as all of them stay within that speed range"*), the alternation is BY CHUNKS a few beats long (singles · medium · singles · fast), a chunk
+applies to the whole ensemble or to the players he ticks; and the AI must be able to write a sequence (the teeter-totter: mostly singles with
+tuplet interruptions, crossing to the inverse). His go: *"Yes, go ahead and build it."*
+
+**Why a page of its own and not the composer score (the recommendation he took):** in the composer score every change rewrites 2,050 notes
+into his save and needs a reload; in a workshop the chunks are a short list, the tuplets are worked out as it plays, and nothing touches a save
+until a stretch is settled. Not grafted onto the phase workshop page either (774 lines of plan runners): the tuplet pass needs only the strikes'
+TIMES, which the save already holds (`properties.phaseForm.player · hit`, §214).
+
+**Built:**
+- `tools/tuplet_workshop.js` — its server, **5640** (he runs it by its full path): `/hits` (the 2,050 strikes per player read from
+  `piece-Section03-H-addTuplets`, never written, + the form's steps) · `/chunks` GET / POST → **`bank/tuplet_chunks.json`**, the ONE record
+  (ceiling 10 · the bands slow 1–3 · medium 3–6 · fast 6–10 · the chunks). The page autosaves into it; the AI writes it; the page reloads it
+  within 1.5 s when it changes on disk.
+- `workshop/tuplets/tuplets.js` — THE DRAW, one copy for the page and for node. A player's beat = the gap to its next strike. A chunk claims
+  the strikes of its players inside it (a later chunk wins an overlap). A claimed strike becomes a tuplet with the chunk's SHARE (sliding from
+  `shareFrom` to `shareTo` across the chunk — the slide he described); the step is drawn among every ladder step whose speed (step ÷ beat)
+  lies in the band and under the ceiling; with the chunk's HOLD chance (0.45) the step of the beat before is kept if it still fits (the
+  repeats). A half step (3 in 2 … 11 in 2) spans two beats and uses up the next strike. Nothing fits → the nearest whole step under the
+  ceiling. Seeded per chunk and player: the same chunk gives the same tuplets until "new draw" moves its seed.
+- `workshop/tuplets/index.html` — a big score clock · Play / Stop / SPACE · the strip of the form with the chunks on it (a click sets the
+  start) · a 14 s detail of the seven players' strikes colored by band · the chunk table (▶ from 2 s before · start · end · band · the seven
+  checkboxes and "all" · tuplets % start → end · repeat % · new draw · ×). A change is heard WHILE it plays (the events are rebuilt and the
+  scheduler re-seated past what is already sent). Players only; the routes are the phase workshop's (D5 on seven ports).
+- Two EXAMPLE chunks seeded so the page has something to hear: 284–288 medium · 292–296 fast, all seven.
+
+**Proven once:** the draw in node on the real strikes — 2,050 singles → 2,310 strikes; inside 284–288 the players draw 2.5 · 3 · 3.5 · 4 · 4.5 ·
+5 per beat, inside 292–296 5 · 5.5 · 6 · 7 · 8; **the fastest gap anywhere 9.70 strikes a second** (under the ceiling). The page on the throwaway
+port 5641 (launch `tuplet-5641`): no console error, 2 rows, 2,310 events. The SOUND is his Chrome's (the in-app browser has no Web MIDI).
+
+**Not built yet, at his word (after he has heard a plain chunk):** the pattern writer (the teeter-totter first) and the step that writes a
+settled stretch into his save.

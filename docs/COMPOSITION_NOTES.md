@@ -820,3 +820,41 @@ a clock, kind of big, but no audio, no voice. That's too distracting, please."*
 the players' cut 270 → 486 inside it (no voice), a big score-time clock, Play, a big MARK button, a note per mark, Copy marks → text for the
 chat, the form's landmarks to jump to. The template is `workshop/phone/marks_template.html` (the audio is embedded at publish:
 `__AUDIO_SRC__` ← the cut as a data URI). The marks live in his phone's browser only, until he copies them into the chat.
+
+### SW-48 · 2026-11-18 — HOW TO PUT THE TUPLETS IN: containers by ear, a fast preview of the instrumental part
+
+*His words (dictated, light corrections), back at the desktop:* *"Let's figure out how to proceed with putting in the tuplets. I gave you a few
+specs, right? The max tempo, and I mentioned a slow, medium, and fast. And then — this is the part we'll have to figure out — time containers.
+I guess it'll be something like quarter notes, and then a few seconds of slow, and then back to quarter notes, and then a few seconds of fast,
+that sort of thing. And then maybe it'll be on a slide where it becomes less quarter notes and more tuplets. And then I have to figure out the
+alternation between slow, medium, and fast. But I'll probably do this by ear as we go. So let's do two things. What's the best way to quickly
+preview these things? I just really want to hear the instrumental part. If it's a separate workshop, that's fine. Or if it's easier in the
+composer score, that's fine. It'll be something like, start tuplets at this second, and I'll be like, oh no, that's too long, or let's make
+that one medium, or let's alternate more quickly. And then we'll compose through the section that way. And so the other thing is whatever
+interface is best for making those changes as efficiently and quickly as possible, and I can hear them back."*
+
+*The AI's reading (marked as such):* "quarter notes" = the single strikes of the phase form. A container = a stretch of score time with a band
+(slow · medium · fast); outside a container the strikes stay single; a "slide" = the share of strikes that become tuplets growing over a run.
+He composes by ear, so the loop must be: change a container → hear it at once. Recommended: the phase workshop page (it already plays the
+whole form live from any second), with a strip of containers; the composer score gets the result once, when a stretch is settled.
+
+*His words, next (2026-11-18):* *"Just to clarify, I would expect in the tuplet bands a number of different tuplets within that speed band. So it
+might not always be eighth notes. It might be eighth notes and then triplets, etc. And then it's more alternation by chunks. So it might be a
+few beats — let's say 3 or 4 beats of quarter notes, and then 3 or 4 beats of medium, and then 2 beats of quarter notes, and then 5 beats of
+fast, etc. And then in the tuplet bands there could be some repeats. It doesn't have to change every beat, but it could be like two eighth
+notes and a triplet or quintuplet, etc. Just as long as all of them stay within that speed range. Your workshop sounds good. Can we do some sort
+of quick — for example, I might want a band applied to the whole ensemble or a chunk of the ensemble. Probably mostly whole ensemble, but maybe
+something where I can quickly check, select the ones the band will apply to."*
+
+*The AI's reading (marked as such):* inside a band the tuplet VARIES beat by beat — a draw among every ladder step that lands in the band at that
+player's pulse (the chart's "also" column), with repeats allowed (a step may hold for a beat or two). The alternation is by CHUNKS a few beats
+long: singles · medium · singles · fast. Each container carries a set of PLAYERS (default all seven; checkboxes).
+
+*His words, next (2026-11-18):* *"And then I'd like the capacity to get AI to help me build the sequence. One thing I might want to try is like a
+teeter-totter, where it starts mostly quarter notes with the occasional tuplet interruption, and over a bit of time, it's the inverse — mostly
+tuplets with the occasional quarter note interruption. But also potentially other patterns, which we can discuss as I'm listening. I'd like it
+to have that sort of capability."*
+
+*The AI's reading (marked as such):* the chunks are DATA the AI can write as well as he can — a pattern is a small generator that fills a stretch
+with chunks (the teeter-totter: singles long and tuplet chunks short at the start, the proportions crossing over the stretch, to the inverse).
+He names a pattern and its stretch in the chat; the AI writes the chunks; he hears them, then adjusts single chunks by hand or by word.

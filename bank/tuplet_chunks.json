@@ -1,0 +1,9 @@
+{
+ "_about": "THE TUPLET CHUNKS of Section 3 (SW-48): each a stretch of score time, a band, the players it applies to. Written by the tuplet workshop page and by the AI; docs/TUPLET_BANDS.md is the rule. The two chunks here are EXAMPLES to hear the page (2026-11-18) — his to change or remove.",
+ "ceiling": 10,
+ "bands": { "slow": [1, 3], "medium": [3, 6], "fast": [6, 10] },
+ "chunks": [
+  { "id": "c1", "start": 284, "end": 288, "band": "medium", "players": ["flute", "clarinet", "alto_sax", "glockenspiel", "piano", "violin", "cello"], "shareFrom": 1, "shareTo": 1, "hold": 0.45, "seed": 1 },
+  { "id": "c2", "start": 292, "end": 296, "band": "fast", "players": ["flute", "clarinet", "alto_sax", "glockenspiel", "piano", "violin", "cello"], "shareFrom": 1, "shareTo": 1, "hold": 0.45, "seed": 1 }
+ ]
+}

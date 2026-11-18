@@ -59,6 +59,17 @@
       ],
       "port": 5630,
       "_note": "THE PHASE WORKSHOP (SW-43): its own page workshop/phase/index.html, its own small server, no composer score. He runs it by full path: node C:UsersjwloyGitHubswitch_2026\toolsphase_workshop.js"
+    },
+    {
+      "name": "tuplet-5641",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "tools/tuplet_workshop.js",
+        "--port",
+        "5641"
+      ],
+      "port": 5641,
+      "_note": "THE TUPLET WORKSHOP on the throwaway port (SW-48) for the AI's own check; his is 5640, run by its full path"
     }
   ]
 }
