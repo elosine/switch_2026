@@ -78,6 +78,7 @@
   // THE ARTICULATION SETS (SW-51): a named set = one technique per player; the first is what the phase form plays
   const SETS = {
     'staccato': { flute: 'staccato', clarinet: 'staccato', alto_sax: 'staccato', glockenspiel: 'glock_shorts_hard', piano: 'main', violin: 'stac_vel', cello: 'stac_vel' },
+    'ordinario · vibrato': { flute: 'ord', clarinet: 'ord', alto_sax: 'ord', glockenspiel: 'glock_main_hard', piano: 'main', violin: 'vib_vel', cello: 'vib_vel' },   // his word 2026-11-18: the winds' ordinario, the strings' vibrato velocity
     'spiccato strings': { flute: 'staccato', clarinet: 'staccato', alto_sax: 'staccato', glockenspiel: 'glock_shorts_hard', piano: 'main', violin: 'spicc_vel', cello: 'spicc_vel' },
   };
   const fold = (pitch, lo, hi) => { let k = pitch; if (lo != null) while (k < lo) k += 12; if (hi != null) while (k > hi) k -= 12; return k; };

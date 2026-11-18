@@ -279,7 +279,7 @@ function panel() {
   $('selNone').hidden = !!(b || k); hd.hidden = !(b || k);
 }
 $('add').onclick = () => addChunk(+$('from').value); $('addH').onclick = () => addHarmony(+$('from').value);
-function norm() { const d = S.db; d.chunks.forEach((k, i) => { if (!k.id) k.id = 'c' + (i + 1); }); d.harmonies = d.harmonies || []; d.sets = d.sets || JSON.parse(JSON.stringify(Tuplets.SETS)); if (!d.sets[d.artic]) d.artic = 'staccato'; }
+function norm() { const d = S.db; d.chunks.forEach((k, i) => { if (!k.id) k.id = 'c' + (i + 1); }); d.harmonies = d.harmonies || []; d.sets = d.sets || {}; for (const n in Tuplets.SETS) if (!d.sets[n]) d.sets[n] = JSON.parse(JSON.stringify(Tuplets.SETS[n])); if (!d.sets[d.artic]) d.artic = 'staccato'; }
 function articUI() { const s = $('artic'); s.innerHTML = ''; Object.keys(S.db.sets).forEach((n) => { const o = document.createElement('option'); o.value = n; o.textContent = n; s.append(o); }); s.value = S.db.artic; }
 async function loadChunks() { const r = await (await fetch('/chunks')).json(); S.db = r.db; S.mtime = r.mtime; norm(); }
 setInterval(async () => {   // the file changed on disk (the AI wrote chunks): take it, unless this page has an unsaved change of its own
