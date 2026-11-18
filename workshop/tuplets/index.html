@@ -3,7 +3,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   body { margin: 0; padding: 18px 22px 60px; background: #16181b; color: #e8e6e1; font: 15px/1.45 system-ui, "Segoe UI", sans-serif; }
-  h1 { font-size: 15px; letter-spacing: .08em; text-transform: uppercase; color: #9a968c; margin: 22px 0 8px; font-weight: 600; }
+  h1 { font-size: 15px; letter-spacing: .08em; text-transform: uppercase; color: #9a968c; margin: 22px 0 8px; font-weight: 600; display: flex; gap: 12px; align-items: center; }
+  h1 button { padding: 1px 11px; font-size: 16px; letter-spacing: 0; }
+  h1 .dim { text-transform: none; letter-spacing: 0; font-weight: 400; font-size: 13px; }
   .top { display: flex; gap: 26px; align-items: center; flex-wrap: wrap; }
   #clock { font-size: 84px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1; min-width: 300px; }
   #clock small { font-size: 28px; color: #9a968c; font-weight: 500; }
@@ -16,14 +18,19 @@
   input.pct { width: 56px; }
   select { font: inherit; background: #0f1113; color: #e8e6e1; border: 1px solid #3a3f47; border-radius: 6px; padding: 5px 6px; }
   canvas { display: block; width: 100%; border-radius: 6px; background: #0f1113; }
-  #over { height: 74px; cursor: pointer; } #detail { height: 190px; margin-top: 8px; }
+  #over { height: 74px; cursor: pointer; } #detail { height: 230px; }
+  #scroll { width: 100%; margin: 6px 0 0; accent-color: #6b6f76; }
   .dim { color: #9a968c; } #midi { color: #e0a23f; }
+  #mix { display: flex; gap: 14px; flex-wrap: wrap; margin: 0 0 8px; }
+  #mix span { display: inline-flex; gap: 4px; align-items: center; }
+  #mix button { padding: 2px 9px; font-size: 13px; }
+  #mix button.m.on { background: #7a2f22; border-color: #7a2f22; } #mix button.s.on { background: #a08a2e; border-color: #a08a2e; color: #16181b; }
   table { border-collapse: collapse; width: 100%; }
   th { text-align: left; font-weight: 500; color: #9a968c; font-size: 13px; padding: 4px 8px 6px 0; }
   td { padding: 5px 8px 5px 0; vertical-align: middle; border-top: 1px solid #25282d; white-space: nowrap; }
   td.who label { margin-right: 7px; font-size: 13px; } td.who input { vertical-align: -2px; }
   .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 6px; }
-  tr.on td { background: #1e2530; }
+  tr.on td { background: #1e2530; } tr.sel td { box-shadow: inset 0 1px 0 #e8e6e1, inset 0 -1px 0 #e8e6e1; }
   .legend span { margin-right: 16px; }
 </style></head><body>
 
@@ -36,19 +43,24 @@
       <label>from <input id="from" type="number" value="277.8" min="270" max="480" step="0.1"> s</label>
       <label>vel <input id="vel" class="pct" type="number" value="100" min="1" max="127" step="1"></label>
     </div>
-    <div class="row dim">SPACE plays and stops · LEFT / RIGHT move 1 s (SHIFT 10 s) · click or wheel on either picture · a change is heard while it plays</div>
+    <div class="row dim">SPACE plays and stops · LEFT / RIGHT move 1 s (SHIFT 10 s) · a change is heard while it plays</div>
     <div id="midi"></div>
   </div>
 </div>
 
-<h1>The form · the chunks</h1>
+<h1>The whole form <button id="oOut" title="zoom out">−</button><button id="oIn" title="zoom in">+</button><span class="dim">click to go there · CTRL+wheel zooms</span></h1>
 <canvas id="over" width="1800" height="74"></canvas>
-<canvas id="detail" width="1800" height="190"></canvas>
+
+<h1>The players <button id="dOut" title="zoom out">−</button><button id="dIn" title="zoom in">+</button><span class="dim">wheel or the bar below scrolls side to side · CTRL+wheel zooms · click sets the playhead</span></h1>
+<div id="mix"></div>
+<canvas id="detail" width="1800" height="230"></canvas>
+<input id="scroll" type="range" min="0" max="100" step="0.1" value="0" aria-label="scroll the players view">
+<div class="row dim">Chunks, on the colored bar at the top of this view: drag the middle to move · drag an end to make it longer or shorter · double-click an empty spot to add one · click one, then DELETE, to remove it</div>
 <div class="row dim legend"><span><i class="sw" style="background:#8a8f98"></i>single strikes</span><span><i class="sw" style="background:#3f8fd0"></i>slow</span><span><i class="sw" style="background:#3fb37a"></i>medium</span><span><i class="sw" style="background:#e0683f"></i>fast</span><span id="stats"></span></div>
 
 <h1>Chunks</h1>
 <div class="row">
-  <button id="add">+ Add a chunk at the "from" second</button>
+  <button id="add">+ Add a chunk at the playhead</button>
   <span id="saved" class="dim"></span>
 </div>
 <table id="chunks"><thead><tr>
@@ -65,8 +77,9 @@ const ROUTE = {
   glockenspiel: { short: 'Gl', port: 'SWGlock', ch: 9, key: 62 }, piano: { short: 'Pn', port: 'SWPiano', ch: 1, key: 74 },
   violin: { short: 'Vn', port: 'SWViolin', ch: 1, key: 74, cc0: 18 }, cello: { short: 'Vc', port: 'SWCello', ch: 1, key: 74, cc0: 18 },
 };
-const COLOR = { slow: '#3f8fd0', medium: '#3fb37a', fast: '#e0683f' }, PLAIN = '#8a8f98';
-const S = { hits: null, players: [], steps: [], end: 480, t0: 277.8, db: null, mtime: 0, ev: [], per: {}, outs: {}, playing: false, perf0: 0, score0: 0, idx: 0, timer: null, saving: null, dirty: false };
+const COLOR = { slow: '#3f8fd0', medium: '#3fb37a', fast: '#e0683f' }, PLAIN = '#8a8f98', LANE = 22;
+const S = { hits: null, players: [], steps: [], end: 480, t0: 277.8, db: null, mtime: 0, ev: [], per: {}, outs: {}, playing: false, perf0: 0, score0: 0, idx: 0, timer: null, saving: null, dirty: false,
+  span: 14, viewA: 275.8, oSpan: null, sel: null, mute: {}, solo: {}, drag: null };
 
 // ---- MIDI
 async function midi() {
@@ -80,17 +93,17 @@ async function midi() {
 }
 const outOf = (p) => S.outs[ROUTE[p].port.toLowerCase()] || null;
 const chOf = (p) => (ROUTE[p].ch - 1) & 15;
+const sounds = (p) => !S.mute[p] && (!S.players.some((x) => S.solo[x]) || S.solo[p]);
 
 // ---- the events: the draw, flattened, each with its length (short enough never to run into the player's next strike)
 function rebuild() {
   S.per = Tuplets.build(S.hits, S.players, S.db);
   const ev = [];
-  for (const p of S.players) { const a = S.per[p]; for (let i = 0; i < a.length; i++) { const gap = i + 1 < a.length ? a[i + 1].t - a[i].t : 0.3; ev.push({ t: a[i].t, p, dur: Math.max(0.03, Math.min(0.12, gap * 0.6)), band: a[i].plain ? null : a[i].band }); } }
+  for (const p of S.players) { const a = S.per[p]; for (let i = 0; i < a.length; i++) { const gap = i + 1 < a.length ? a[i + 1].t - a[i].t : 0.3; ev.push({ t: a[i].t, p, dur: Math.max(0.03, Math.min(0.12, gap * 0.6)) }); } }
   ev.sort((a, b) => a.t - b.t); S.ev = ev;
   if (S.playing) { const now = scoreNow() + 0.26; let i = 0; while (i < ev.length && ev[i].t < now) i++; S.idx = i; }
-  let n = 0; for (const p of S.players) n += S.per[p].length; let single = 0; for (const p of S.players) single += S.hits[p].length;
+  let n = 0, single = 0; for (const p of S.players) { n += S.per[p].length; single += S.hits[p].length; }
   $('stats').textContent = single + ' single strikes → ' + n + ' strikes with the chunks';
-  draw();
 }
 
 // ---- play
@@ -107,7 +120,7 @@ function tick() {
   if (!S.playing) return;
   const horizon = scoreNow() + 0.25, vel = Math.max(1, Math.min(127, +$('vel').value || 100));
   while (S.idx < S.ev.length && S.ev[S.idx].t <= horizon) {
-    const e = S.ev[S.idx++], o = outOf(e.p); if (!o) continue;
+    const e = S.ev[S.idx++], o = outOf(e.p); if (!o || !sounds(e.p)) continue;
     const at = S.perf0 + (e.t - S.score0) * 1000;
     o.send([0x90 | chOf(e.p), ROUTE[e.p].key, vel], at); o.send([0x80 | chOf(e.p), ROUTE[e.p].key, 0], at + e.dur * 1000);
   }
@@ -119,29 +132,53 @@ function stop(quiet) {
   S.playing = false;
   for (const p of S.players) { const o = outOf(p); if (!o) continue; try { if (o.clear) o.clear(); } catch (e) {} o.send([0x80 | chOf(p), ROUTE[p].key, 0]); o.send([0xB0 | chOf(p), 123, 0]); }
 }
+function goTo(t, keepView) { t = Math.max(S.t0 - 2, Math.min(S.end, t)); $('from').value = t.toFixed(1); if (S.playing) play(); if (!keepView && (t < S.viewA || t > S.viewA + S.span)) { S.viewA = t - S.span * 0.25; clampView(); } }
 
-// ---- the pictures
+// ---- the two views
 const X0 = () => S.t0 - 2, X1 = () => S.end + 2;
+function clampView() { S.span = Math.max(2, Math.min(X1() - X0(), S.span)); S.viewA = Math.max(X0(), Math.min(X1() - S.span, S.viewA)); const sc = $('scroll'); sc.min = X0(); sc.max = Math.max(X0() + 0.1, X1() - S.span); sc.value = S.viewA; }
+function overWin() { const full = X1() - X0(); if (!S.oSpan || S.oSpan >= full) return [X0(), X1()]; const c = S.viewA + S.span / 2, a = Math.max(X0(), Math.min(X1() - S.oSpan, c - S.oSpan / 2)); return [a, a + S.oSpan]; }
+const dT = (px, w) => S.viewA + px / w * S.span;   // the players view: pixel → score second
 function draw() {
   const c = $('over'), g = c.getContext('2d'), W = c.width, H = c.height; g.clearRect(0, 0, W, H);
-  const x = (t) => (t - X0()) / (X1() - X0()) * W;
-  S.steps.forEach((st, i) => { g.fillStyle = i % 2 ? '#1b1f24' : '#20252b'; g.fillRect(x(st.from), 0, x(st.to) - x(st.from), 30); g.fillStyle = '#9a968c'; g.font = '12px system-ui'; const w = x(st.to) - x(st.from); if (w > 46) g.fillText(st.label.slice(0, Math.floor(w / 6.4)), x(st.from) + 4, 19); });
+  const [oa, ob] = overWin(), x = (t) => (t - oa) / (ob - oa) * W;
+  S.steps.forEach((st, i) => { g.fillStyle = i % 2 ? '#1b1f24' : '#20252b'; g.fillRect(x(st.from), 0, x(st.to) - x(st.from), 30); g.fillStyle = '#9a968c'; g.font = '12px system-ui'; const w = x(st.to) - x(st.from); if (w > 46) g.fillText(st.label.slice(0, Math.floor(w / 6.4)), Math.max(4, x(st.from) + 4), 19); });
   for (const k of S.db.chunks) { g.fillStyle = COLOR[k.band] || PLAIN; g.globalAlpha = (k.players && k.players.length < S.players.length) ? 0.55 : 0.9; g.fillRect(x(k.start), 34, Math.max(2, x(k.end) - x(k.start)), 26); g.globalAlpha = 1; }
-  g.fillStyle = '#6b6f76'; g.font = '11px system-ui'; for (let t = 280; t <= 480; t += 10) { g.fillRect(x(t), 62, 1, 5); g.fillText(String(t), x(t) + 3, 72); }
+  const tickStep = (ob - oa) > 120 ? 10 : (ob - oa) > 40 ? 5 : 1;
+  g.fillStyle = '#6b6f76'; g.font = '11px system-ui'; for (let t = Math.ceil(oa / tickStep) * tickStep; t <= ob; t += tickStep) { g.fillRect(x(t), 62, 1, 5); g.fillText(String(t), x(t) + 3, 72); }
+  g.strokeStyle = '#e8e6e1'; g.globalAlpha = 0.5; g.strokeRect(x(S.viewA), 1, x(S.viewA + S.span) - x(S.viewA), H - 2); g.globalAlpha = 1;   // what the players view shows
   const now = scoreNow(); g.fillStyle = '#ffd166'; g.fillRect(x(now) - 1, 0, 2, H);
-  // the detail: seven rows, 14 s wide, the playhead a quarter in
+
   const d = $('detail'), q = d.getContext('2d'), DW = d.width, DH = d.height; q.clearRect(0, 0, DW, DH);
-  const span = 14, a = now - span * 0.25, dx = (t) => (t - a) / span * DW, rowH = DH / S.players.length;
-  for (const k of S.db.chunks) { if (k.end < a || k.start > a + span) continue; q.fillStyle = COLOR[k.band] || PLAIN; q.globalAlpha = 0.13; (k.players || S.players).forEach((p) => { const r = S.players.indexOf(p); q.fillRect(dx(k.start), r * rowH, dx(k.end) - dx(k.start), rowH); }); q.globalAlpha = 1; }
+  const a = S.viewA, span = S.span, dx = (t) => (t - a) / span * DW, rowH = (DH - LANE - 14) / S.players.length, y0 = LANE + 2;
+  for (const k of S.db.chunks) {
+    if (k.end < a || k.start > a + span) continue;
+    const xa = dx(k.start), xb = dx(k.end), col = COLOR[k.band] || PLAIN;
+    q.fillStyle = col; q.globalAlpha = 0.13; (k.players || S.players).forEach((p) => { const r = S.players.indexOf(p); q.fillRect(xa, y0 + r * rowH, xb - xa, rowH); }); q.globalAlpha = 1;
+    q.fillStyle = col; q.fillRect(xa, 2, Math.max(3, xb - xa), LANE - 4);   // the bar to grab
+    if (S.sel === k.id) { q.strokeStyle = '#ffffff'; q.lineWidth = 2; q.strokeRect(xa + 1, 3, Math.max(3, xb - xa) - 2, LANE - 6); }
+    if (xb - xa > 60) { q.fillStyle = '#0f1113'; q.font = '600 12px system-ui'; q.fillText(k.band + ' ' + k.start + '–' + k.end, Math.max(xa, 0) + 6, 15); }
+  }
   S.players.forEach((p, r) => {
-    q.fillStyle = '#6b6f76'; q.font = '13px system-ui'; q.fillText(ROUTE[p].short, 6, r * rowH + rowH / 2 + 4);
-    const ev = S.per[p] || []; for (const e of ev) { if (e.t < a || e.t > a + span) continue; q.fillStyle = e.plain || !e.band ? PLAIN : COLOR[e.band]; q.fillRect(dx(e.t), r * rowH + 5, e.band && !e.plain ? 3 : 4, rowH - 10); }
+    const on = sounds(p); q.globalAlpha = on ? 1 : 0.25;
+    q.fillStyle = '#6b6f76'; q.font = '13px system-ui'; q.fillText(ROUTE[p].short, 6, y0 + r * rowH + rowH / 2 + 4);
+    const ev = S.per[p] || [], w = span > 40 ? 2 : 3; for (const e of ev) { if (e.t < a || e.t > a + span) continue; q.fillStyle = e.plain || !e.band ? PLAIN : COLOR[e.band]; q.fillRect(dx(e.t), y0 + r * rowH + 4, e.band && !e.plain ? w : w + 1, rowH - 8); }
+    q.globalAlpha = 1;
   });
-  q.fillStyle = '#6b6f76'; q.font = '11px system-ui'; for (let t = Math.ceil(a); t < a + span; t++) { q.fillRect(dx(t), DH - 4, 1, 4); if (t % 2 === 0) q.fillText(String(t), dx(t) + 3, DH - 3); }
+  const ts = span > 80 ? 10 : span > 30 ? 5 : span > 12 ? 2 : 1;
+  q.fillStyle = '#6b6f76'; q.font = '11px system-ui'; for (let t = Math.ceil(a / ts) * ts; t < a + span; t += ts) { q.fillRect(dx(t), DH - 12, 1, 5); q.fillText(String(t), dx(t) + 3, DH - 2); }
   q.fillStyle = '#ffd166'; q.fillRect(dx(now) - 1, 0, 2, DH);
 }
-function frame() { $('clock').innerHTML = scoreNow().toFixed(1) + '<small> s</small>'; if (S.db) { draw(); markRow(); } requestAnimationFrame(frame); }
-function markRow() { const now = scoreNow(); document.querySelectorAll('#chunks tbody tr').forEach((tr, i) => { const k = S.db.chunks[i]; tr.classList.toggle('on', !!k && now >= k.start && now < k.end); }); }
+function frame() {
+  const now = scoreNow(); $('clock').innerHTML = now.toFixed(1) + '<small> s</small>';
+  if (S.playing && !S.drag && (now < S.viewA || now > S.viewA + S.span * 0.9)) { S.viewA = now - S.span * 0.1; clampView(); }   // the view follows the playhead in pages
+  if (S.db) { draw(); markRow(); } requestAnimationFrame(frame);
+}
+function markRow() { const now = scoreNow(); document.querySelectorAll('#chunks tbody tr').forEach((tr, i) => { const k = S.db.chunks[i]; tr.classList.toggle('on', !!k && now >= k.start && now < k.end); tr.classList.toggle('sel', !!k && k.id === S.sel); }); }
+function zoom(which, f, at) {
+  if (which === 'd') { const t = at == null ? S.viewA + S.span / 2 : at, u = (t - S.viewA) / S.span; S.span = Math.max(2, Math.min(X1() - X0(), S.span * f)); S.viewA = t - u * S.span; clampView(); }
+  else { const full = X1() - X0(); S.oSpan = Math.max(20, Math.min(full, (S.oSpan || full) * f)); if (S.oSpan >= full) S.oSpan = null; }
+}
 
 // ---- the chunks: the table, the file
 function save() {
@@ -152,15 +189,22 @@ function save() {
   }, 250);
 }
 function changed() { S.db.chunks.sort((a, b) => a.start - b.start); rebuild(); save(); }
+const r1 = (x) => Math.round(x * 10) / 10;
+function addChunk(start) {
+  const id = 'c' + (1 + S.db.chunks.reduce((m, k) => Math.max(m, +String(k.id).replace(/\D/g, '') || 0), 0));
+  S.db.chunks.push({ id, start: r1(start), end: r1(start + 3), band: 'medium', players: S.players.slice(), shareFrom: 1, shareTo: 1, hold: 0.45, seed: 1 });
+  S.sel = id; changed(); table();
+}
+function removeChunk(id) { const i = S.db.chunks.findIndex((k) => k.id === id); if (i < 0) return; S.db.chunks.splice(i, 1); if (S.sel === id) S.sel = null; changed(); table(); }
 function table() {
   const tb = document.querySelector('#chunks tbody'); tb.innerHTML = '';
-  S.db.chunks.forEach((k, i) => {
-    const tr = document.createElement('tr');
+  S.db.chunks.forEach((k) => {
+    const tr = document.createElement('tr'); tr.onclick = (e) => { if (e.target.tagName === 'TD') { S.sel = k.id; } };
     const num = (val, min, max, step, cls, on) => { const e = document.createElement('input'); e.type = 'number'; e.value = val; e.min = min; e.max = max; e.step = step; if (cls) e.className = cls; e.onchange = () => { on(+e.value); changed(); table(); }; return e; };
     const td = (...kids) => { const c = document.createElement('td'); kids.forEach((x) => c.append(x)); tr.append(c); return c; };
-    const go = document.createElement('button'); go.textContent = '▶'; go.title = 'play from 2 s before this chunk'; go.onclick = () => { $('from').value = Math.max(S.t0 - 2, k.start - 2).toFixed(1); play(); };
+    const go = document.createElement('button'); go.textContent = '▶'; go.title = 'play from 2 s before this chunk'; go.onclick = () => { S.sel = k.id; $('from').value = Math.max(S.t0 - 2, k.start - 2).toFixed(1); S.viewA = k.start - 2 - S.span * 0.1; clampView(); play(); };
     td(go);
-    td(num(k.start, 270, 480, 0.1, '', (v) => { k.start = v; if (k.end <= v) k.end = +(v + 1).toFixed(1); }));
+    td(num(k.start, 270, 480, 0.1, '', (v) => { k.start = v; if (k.end <= v) k.end = r1(v + 1); }));
     td(num(k.end, 270, 482, 0.1, '', (v) => { k.end = Math.max(v, k.start + 0.2); }));
     const sel = document.createElement('select'); Object.keys(S.db.bands).forEach((b) => { const o = document.createElement('option'); o.value = b; o.textContent = b + ' (' + S.db.bands[b][0] + '–' + S.db.bands[b][1] + '/s)'; sel.append(o); }); sel.value = k.band; sel.style.borderLeft = '8px solid ' + (COLOR[k.band] || PLAIN); sel.onchange = () => { k.band = sel.value; changed(); table(); };
     td(sel);
@@ -171,38 +215,72 @@ function table() {
     td(num(Math.round((k.shareFrom == null ? 1 : k.shareFrom) * 100), 0, 100, 5, 'pct', (v) => { k.shareFrom = v / 100; }), arrow, num(Math.round((k.shareTo == null ? (k.shareFrom == null ? 1 : k.shareFrom) : k.shareTo) * 100), 0, 100, 5, 'pct', (v) => { k.shareTo = v / 100; }));
     td(num(Math.round((k.hold == null ? 0.45 : k.hold) * 100), 0, 100, 5, 'pct', (v) => { k.hold = v / 100; }));
     const nd = document.createElement('button'); nd.textContent = 'new draw'; nd.title = 'another choice of tuplets inside the same band'; nd.onclick = () => { k.seed = (k.seed || 1) + 1; changed(); };
-    const del = document.createElement('button'); del.textContent = '×'; del.title = 'remove this chunk (its strikes go back to singles)'; del.onclick = () => { S.db.chunks.splice(i, 1); changed(); table(); };
+    const del = document.createElement('button'); del.textContent = '×'; del.title = 'remove this chunk (its strikes go back to singles)'; del.onclick = () => removeChunk(k.id);
     td(nd, ' ', del);
     tb.append(tr);
   });
 }
-$('add').onclick = () => {
-  const start = +(+$('from').value).toFixed(1), id = 'c' + (1 + S.db.chunks.reduce((m, k) => Math.max(m, +String(k.id).replace(/\D/g, '') || 0), 0));
-  S.db.chunks.push({ id, start, end: +(start + 3).toFixed(1), band: 'medium', players: S.players.slice(), shareFrom: 1, shareTo: 1, hold: 0.45, seed: 1 });
-  changed(); table();
-};
+$('add').onclick = () => addChunk(+$('from').value);
 async function loadChunks() { const r = await (await fetch('/chunks')).json(); S.db = r.db; S.mtime = r.mtime; S.db.chunks.forEach((k, i) => { if (!k.id) k.id = 'c' + (i + 1); }); }
 setInterval(async () => {   // the file changed on disk (the AI wrote chunks): take it, unless this page has an unsaved change of its own
-  if (S.dirty || !S.db || document.activeElement && document.activeElement.tagName === 'INPUT' && document.activeElement.type === 'number' && document.activeElement.closest('#chunks')) return;
+  if (S.dirty || S.drag || !S.db || document.activeElement && document.activeElement.tagName === 'INPUT' && document.activeElement.type === 'number' && document.activeElement.closest('#chunks')) return;
   try { const r = await (await fetch('/chunks')).json(); if (r.mtime && r.mtime !== S.mtime) { S.db = r.db; S.mtime = r.mtime; rebuild(); table(); $('saved').textContent = 'reloaded from the file'; } } catch (e) {}
 }, 1500);
 
-// ---- wiring
+// ---- mute · solo
+function mix() {
+  const m = $('mix'); m.innerHTML = '';
+  S.players.forEach((p) => {
+    const s = document.createElement('span'), mb = document.createElement('button'), sb = document.createElement('button');
+    mb.textContent = 'M'; mb.className = 'm' + (S.mute[p] ? ' on' : ''); mb.title = 'mute ' + p; mb.onclick = () => { S.mute[p] = !S.mute[p]; mix(); };
+    sb.textContent = 'S'; sb.className = 's' + (S.solo[p] ? ' on' : ''); sb.title = 'solo ' + p; sb.onclick = () => { S.solo[p] = !S.solo[p]; mix(); };
+    s.append(ROUTE[p].short + ' ', mb, sb); m.append(s);
+  });
+  const clr = document.createElement('button'); clr.textContent = 'all on'; clr.onclick = () => { S.mute = {}; S.solo = {}; mix(); }; m.append(clr);
+}
+
+// ---- wiring: the form's strip
 $('play').onclick = () => play(); $('stop').onclick = () => stop();
-$('over').onclick = (e) => { const r = $('over').getBoundingClientRect(), t = X0() + (e.clientX - r.left) / r.width * (X1() - X0()); $('from').value = t.toFixed(1); if (S.playing) play(); };
-// moving about (his word 2026-11-18): LEFT / RIGHT 1 s (SHIFT 10 s) · the wheel over either picture · a click in the close view
-function nudge(d) { const t = Math.max(S.t0 - 2, Math.min(S.end, scoreNow() + d)); $('from').value = t.toFixed(1); if (S.playing) play(); }
-$('detail').onclick = (e) => { const r = $('detail').getBoundingClientRect(), a = scoreNow() - 14 * 0.25; $('from').value = Math.max(S.t0 - 2, Math.min(S.end, a + (e.clientX - r.left) / r.width * 14)).toFixed(1); if (S.playing) play(); };
-['over', 'detail'].forEach((id) => $(id).addEventListener('wheel', (e) => { e.preventDefault(); nudge((e.deltaY > 0 ? 1 : -1) * (id === 'over' ? 5 : 1)); }, { passive: false }));
+$('over').onclick = (e) => { const r = $('over').getBoundingClientRect(), [oa, ob] = overWin(), t = oa + (e.clientX - r.left) / r.width * (ob - oa); S.viewA = t - S.span * 0.25; clampView(); goTo(t, true); };
+$('over').addEventListener('wheel', (e) => { e.preventDefault(); if (e.ctrlKey) zoom('o', e.deltaY > 0 ? 1.25 : 0.8); else { S.viewA += (e.deltaY + e.deltaX > 0 ? 1 : -1) * S.span * 0.5; clampView(); } }, { passive: false });
+$('oIn').onclick = () => zoom('o', 0.6); $('oOut').onclick = () => zoom('o', 1.67); $('dIn').onclick = () => zoom('d', 0.6); $('dOut').onclick = () => zoom('d', 1.67);
+// ---- the players view: scroll side to side, zoom, the chunks by hand
+const D = $('detail');
+const dpos = (e) => { const r = D.getBoundingClientRect(); return { t: dT(e.clientX - r.left, r.width), y: (e.clientY - r.top) / r.height * D.height, pxPerS: r.width / S.span }; };
+function chunkAt(t, pxPerS) { for (let i = S.db.chunks.length - 1; i >= 0; i--) { const k = S.db.chunks[i]; if (t >= k.start - 5 / pxPerS && t <= k.end + 5 / pxPerS) { const edge = 7 / pxPerS; return { k, mode: Math.abs(t - k.start) < edge ? 'start' : Math.abs(t - k.end) < edge ? 'end' : 'move' }; } } return null; }
+D.addEventListener('wheel', (e) => { e.preventDefault(); if (e.ctrlKey) zoom('d', e.deltaY > 0 ? 1.25 : 0.8, dpos(e).t); else { const dl = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY; S.viewA += dl / 100 * S.span * 0.12; clampView(); } }, { passive: false });
+$('scroll').oninput = () => { S.viewA = +$('scroll').value; clampView(); };
+D.addEventListener('mousedown', (e) => {
+  const p = dpos(e), hit = p.y <= LANE ? chunkAt(p.t, p.pxPerS) : null;
+  if (hit) { S.sel = hit.k.id; S.drag = { k: hit.k, mode: hit.mode, t0: p.t, s0: hit.k.start, e0: hit.k.end, moved: false }; e.preventDefault(); }
+  else S.drag = { click: true, x: e.clientX };
+});
+window.addEventListener('mousemove', (e) => {
+  const p = dpos(e);
+  if (!S.drag) { const hit = p.y <= LANE && e.target === D ? chunkAt(p.t, p.pxPerS) : null; D.style.cursor = hit ? (hit.mode === 'move' ? 'grab' : 'ew-resize') : 'default'; return; }
+  if (S.drag.click) return;
+  const g = S.drag, d = p.t - g.t0, k = g.k; g.moved = true;
+  if (g.mode === 'move') { const len = g.e0 - g.s0; k.start = r1(Math.max(X0(), Math.min(X1() - len, g.s0 + d))); k.end = r1(k.start + len); }
+  else if (g.mode === 'start') k.start = r1(Math.min(g.e0 - 0.2, g.s0 + d));
+  else k.end = r1(Math.max(g.s0 + 0.2, g.e0 + d));
+  rebuild();
+});
+window.addEventListener('mouseup', (e) => {
+  const g = S.drag; S.drag = null; if (!g) return;
+  if (g.click) { if (Math.abs(e.clientX - g.x) < 4 && e.target === D) goTo(dpos(e).t, true); return; }
+  if (g.moved) { changed(); table(); }
+});
+D.addEventListener('dblclick', (e) => { const p = dpos(e); if (!chunkAt(p.t, p.pxPerS)) addChunk(p.t); });
 document.addEventListener('keydown', (e) => {
-  if (/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return;
+  if (/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName) && document.activeElement.type !== 'range') return;
   if (e.code === 'Space') { e.preventDefault(); S.playing ? stop() : play(); }
-  else if (e.code === 'ArrowRight') { e.preventDefault(); nudge(e.shiftKey ? 10 : 1); }
-  else if (e.code === 'ArrowLeft') { e.preventDefault(); nudge(e.shiftKey ? -10 : -1); }
+  else if (e.code === 'ArrowRight') { e.preventDefault(); goTo(scoreNow() + (e.shiftKey ? 10 : 1)); }
+  else if (e.code === 'ArrowLeft') { e.preventDefault(); goTo(scoreNow() - (e.shiftKey ? 10 : 1)); }
+  else if ((e.code === 'Delete' || e.code === 'Backspace') && S.sel) { e.preventDefault(); removeChunk(S.sel); }
 });
 (async function () {
-  const h = await (await fetch('/hits')).json(); S.hits = h.hits; S.players = h.players; S.steps = h.steps; S.end = h.end; S.t0 = h.steps[0].from;
-  await loadChunks(); rebuild(); table(); await midi(); requestAnimationFrame(frame);
+  const h = await (await fetch('/hits')).json(); S.hits = h.hits; S.players = h.players; S.steps = h.steps; S.end = h.end; S.t0 = h.steps[0].from; S.viewA = S.t0 - 2;
+  await loadChunks(); rebuild(); table(); mix(); clampView(); await midi(); requestAnimationFrame(frame);
 })();
 </script>
 </body></html>

@@ -3861,3 +3861,15 @@ port 5641 (launch `tuplet-5641`): no console error, 2 rows, 2,310 events. The SO
 
 **Not built yet, at his word (after he has heard a plain chunk):** the pattern writer (the teeter-totter first) and the step that writes a
 settled stretch into his save.
+
+## §218. The tuplet workshop: moving about, mute and solo, chunks by hand, zoom (2026-11-18)
+
+**His words, on first use:** *"how do I scroll/navigate simply pls"*, then *"In the main part, can we use side-to-side scroll, please, and to
+navigate? And can you allow me to solo or mute players? And then how do I delete or add or move the chunks, the tuplet chunks? And then can we
+get a zoom to both parts, the top chunk part and the main part?"* — the first page had only a click on the strip and a typed second.
+**Built (the page only, `workshop/tuplets/index.html`):** the players view is its own window (not glued to the playhead): the wheel or the bar
+under it scrolls side to side, CTRL+wheel or − / + zooms (2 s … the whole form), a click sets the playhead, and while playing the view follows
+in pages; the form's strip zooms the same way and shows a frame for what the players view holds. LEFT / RIGHT 1 s, SHIFT 10 s. MUTE · SOLO
+per player (heard only, never saved). THE CHUNKS BY HAND on a colored bar at the top of the players view: drag the middle to move, an end to
+resize, double-click an empty spot to add, click then DELETE to remove (to 0.1 s; the tuplets redraw while dragging, the file is written on
+release). Proven once on the throwaway port: loads with no console error; zoom, solo and go-to run. The drag itself is his hand's to try.
