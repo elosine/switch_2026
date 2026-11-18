@@ -57,7 +57,7 @@
 <input id="scroll" type="range" min="0" max="100" step="0.1" value="0" aria-label="scroll the players view">
 <div class="row dim">Chunks, on the colored bar at the top of this view: drag the middle to move · drag an end to make it longer or shorter · double-click an empty spot to add one · click one, then DELETE, to remove it</div>
 <div id="selNone" class="dim" style="margin:10px 0">Click a chunk's colored bar to change it here.</div>
-<table id="selT"><tbody id="selBody"></tbody></table>
+<table id="selT"><thead id="selHead" hidden></thead><tbody id="selBody"></tbody></table>
 
 <h1>All the chunks</h1>
 <div class="row">
@@ -66,7 +66,7 @@
   <span id="stats" class="dim"></span>
 </div>
 <table id="chunks"><thead><tr>
-  <th></th><th>start s</th><th>end s</th><th>band</th><th>players</th><th title="how many of the strikes become tuplets: at the chunk's start → at its end">tuplets % start → end</th><th title="the chance a tuplet is kept for the next beat">repeat %</th><th></th>
+  <th></th><th>start s</th><th>end s</th><th>band</th><th>players</th><th title="how many of the strikes become tuplets: at the chunk's start → at its end">tuplets % start → end</th><th title="how many beats a tuplet lasts before it changes; never the same length twice in a row">rate of change (slow … fast)</th><th></th>
 </tr></thead><tbody></tbody></table>
 
 <script src="tuplets.js"></script>
@@ -216,7 +216,10 @@ function chunkRow(k) {   // one chunk's controls: a row of the list below, and t
     S.players.forEach((p) => { const l = document.createElement('label'), cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !k.players || k.players.indexOf(p) >= 0; cb.onchange = () => { const set = new Set(k.players || S.players); if (cb.checked) set.add(p); else set.delete(p); k.players = S.players.filter((x) => set.has(x)); changed(); }; l.append(cb, ' ' + ROUTE[p].short); who.append(l); });
     const arrow = document.createElement('span'); arrow.textContent = ' → '; arrow.className = 'dim';
     td(num(Math.round((k.shareFrom == null ? 1 : k.shareFrom) * 100), 0, 100, 5, 'pct', (v) => { k.shareFrom = v / 100; }), arrow, num(Math.round((k.shareTo == null ? (k.shareFrom == null ? 1 : k.shareFrom) : k.shareTo) * 100), 0, 100, 5, 'pct', (v) => { k.shareTo = v / 100; }));
-    td(num(Math.round((k.hold == null ? 0.45 : k.hold) * 100), 0, 100, 5, 'pct', (v) => { k.hold = v / 100; }));
+    const rate = document.createElement('input'), rateTx = document.createElement('span'); rate.type = 'range'; rate.min = 1; rate.max = 5; rate.step = 1; rate.value = k.rate || 3; rate.style.width = '120px'; rate.style.verticalAlign = 'middle'; rate.title = 'left: a tuplet lasts longer · right: a new tuplet on every beat';
+    rateTx.className = 'dim'; rateTx.style.marginLeft = '8px'; rateTx.textContent = Tuplets.RATE_TEXT[k.rate || 3];
+    rate.oninput = () => { k.rate = +rate.value; rateTx.textContent = Tuplets.RATE_TEXT[k.rate]; rebuild(); save(); }; rate.onchange = () => table();
+    td(rate, rateTx);
     const nd = document.createElement('button'); nd.textContent = 'new draw'; nd.title = 'another choice of tuplets inside the same band'; nd.onclick = () => { k.seed = (k.seed || 1) + 1; changed(); };
     const del = document.createElement('button'); del.textContent = '×'; del.title = 'remove this chunk (its strikes go back to singles)'; del.onclick = () => removeChunk(k.id);
     td(nd, ' ', del);
@@ -224,7 +227,7 @@ function chunkRow(k) {   // one chunk's controls: a row of the list below, and t
   }
 }
 function table() { const tb = document.querySelector('#chunks tbody'); tb.innerHTML = ''; S.db.chunks.forEach((k) => tb.append(chunkRow(k))); panel(); }
-function panel() { const tb = $('selBody'); tb.innerHTML = ''; const k = S.db.chunks.find((x) => x.id === S.sel); if (k) tb.append(chunkRow(k)); $('selNone').hidden = !!k; }
+function panel() { const tb = $('selBody'); tb.innerHTML = ''; const k = S.db.chunks.find((x) => x.id === S.sel); if (k) tb.append(chunkRow(k)); $('selNone').hidden = !!k; const hd = $('selHead'); if (!hd.innerHTML) hd.innerHTML = document.querySelector('#chunks thead').innerHTML; hd.hidden = !k; }
 $('add').onclick = () => addChunk(+$('from').value);
 async function loadChunks() { const r = await (await fetch('/chunks')).json(); S.db = r.db; S.mtime = r.mtime; S.db.chunks.forEach((k, i) => { if (!k.id) k.id = 'c' + (i + 1); }); }
 setInterval(async () => {   // the file changed on disk (the AI wrote chunks): take it, unless this page has an unsaved change of its own

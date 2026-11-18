@@ -875,3 +875,9 @@ pick is at least a quarter faster or slower than the last, and the plain tuplets
 not include the quarter note? So the non-tuplet sections are just the quarter note. The tuplet sections are some subdivision always."*
 *The AI's reading (marked as such):* inside a chunk the single strike is never drawn — always a subdivision (3 in 2 at the least). Where the
 slow band admits none at a fast pulse (above about 120, even 3 in 2 is over 3 a second), the slowest subdivision is taken, a little over the band.
+
+*His words, next (2026-11-18), on how the tuplets change:* *"I think I would like the tuplets to change frequently, more frequently than now. I'm
+not sure the percentage is working, but I want it to be sort of non-periodic. So maybe 1 beat of eighth notes, 2 beats of triplets, a quintuplet,
+whatever. So pace of change is maybe one of the variables, and maybe that's the only one. And then just in general, make it asymmetric, so you
+wouldn't have a triplet and then a quadruplet and then a triplet again and then a quadruplet again. No one figure would come back too often.
+What do you recommend instead of the percentage repeat for this?"*

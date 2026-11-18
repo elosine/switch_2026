@@ -3892,3 +3892,25 @@ half steps' 1. A test chunk 284 … 296 medium, all seven: flute 3.5 5 3.5 3.5 5
 zooms as in the composer score (right in, left out); the up-and-down wheel no longer moves the views (his word: it got in the way) — only a
 sideways scroll and the bar do. The repeat's alternatives were put to him (a chance · a count · a range · a written pattern; recommended: the
 range "lasts 1 to 3 beats") — his word pending. He had removed the two example chunks; the file holds none.
+
+## §220. The tuplet draw: THE RATE OF CHANGE (one slider), always uneven, never a round; always a subdivision; the chunk's end cuts (2026-11-18)
+
+**His ear and his words, in order (SW-49 and after):** the tuplets ran past a chunk's end (his screenshot) — real: a beat that began inside was
+played whole; **now the end cuts the tuplet**. *"Slow seems to still include the quarter note … the tuplet sections are some subdivision
+always"* — **the single strike is out of the ladder inside a chunk** (2 … 8 per beat, 3 · 5 · 7 · 9 · 11 in two); where slow admits nothing at
+a fast pulse the slowest subdivision is taken (slow reaches ~4 a second near 120). Then the changing: *"I would like the tuplets to change
+frequently … sort of non-periodic … 1 beat of eighth notes, 2 beats of triplets, a quintuplet … pace of change is maybe one of the variables,
+and maybe that's the only one … make it asymmetric, so you wouldn't have a triplet and then a quadruplet and then a triplet again … no one
+figure would come back too often"*; and, refining the AI's first answer: *"one factor, like a slider, the rate of change … if slow, 3 beats of
+one tuplet and 4 beats of another and 2 beats of another, but never 2 beats of one thing and 2 beats of another. The fastest will just be a
+change per beat."* His go: *"Yes, go ahead and build it."*
+**Built (`workshop/tuplets/tuplets.js`, rewritten whole; the page's repeat % box → a slider):** `chunk.rate` 1 … 5 — 5 every beat · 4: 1–2
+beats · 3: 1–3 · 2: 2–4 · 1: 2–5; a new length is never the last length (where the range has two). The figure: the last two set aside and the
+new one a quarter faster or slower while that leaves two or more to choose from, else the last one only; and nothing that would complete a
+round of two or three (A B A B · A B C A B C).
+**A dead end on the way, kept:** the first version (last two set aside + contrast + whole steps weighted 3:1) fell into a FIXED ROUND in a
+band of three plain figures — the piano at 68 in medium played 5 4 3 5 4 3 5 4 3: each rule alone was right, together they left one choice at
+every step. The round check and "a real choice or relax" cured it: the piano now 3.5 4.5 3 4 3 4.5 3 4 5 3 4 3 5 4 3 4.5 3 4 5.
+**Checked on the real strikes:** medium at the fastest and at 2–4 beats, fast at 68 (5 … 8 per beat, fastest 9.70 a second), fast toward 120
+(3 … 6 per beat, 9.85), slow (1.5 · 2 · 2.5; under 3 a second at 68). Where a band holds only two figures (slow, some players) A B A B is
+unavoidable — said to him. `hold` (the old chance) is no longer read.
