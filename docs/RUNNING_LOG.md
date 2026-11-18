@@ -3925,3 +3925,27 @@ are the real ones, played by the engine; porting the beds into the workshop woul
 `tuplets.js`), every other object carried; each note a copy of its source strike (lane · pitch · technique · velocity), `properties.phaseForm`
 gaining `step · k · band`. The target **`piece-Section03-X-tuplets`** is the tool's own and is overwritten on every run (`metadata.tupletRender`);
 his H save is never written. First run: 24 chunks · 2,050 strikes → the count below.
+
+## §222. The tuplet workshop grows a HARMONY lane and ARTICULATION SETS (SW-51) (2026-11-18)
+
+**His words (SW-51, whole in the sketch pad):** the passes to come (the end's electronics · harmony · crescendo · accents), then for the harmony:
+takes collected in the strikes drawer, and in the workshop *"select a range and apply that harmony … the bricks as they are here for the tuplets
+… change the size or move them around and change the take"*; and *"can I change the articulations here, like as a set?"* (a staccato set, a
+spiccato one for the strings, maybe a percussive one he will make). His answer to the one question — fresh deal or the take's own assignment:
+***"Keep the take's own assignment."*** Also this hour: rate 0 on the slider (*"all one pattern … it doesn't change the tuplet, but then I can
+re-roll"* — one tuplet per player for the whole chunk); the 49 chunks bookmarked (`bank/tuplet_versions/2026-11-18-a-first-pass-292-392.json`).
+**Built:**
+- **the server** (`tools/tuplet_workshop.js`): `/takes` — every take of the strikes drawer (`bank/panel_snapshots.json` → `panels.strikes`), its
+  pitches per LANE (the voices not skipped; `also` lanes counted); `/routes` — every pitched technique of the seven players with its port ·
+  channel · Xsample cc0 · range, from `sandbox/instruments.js`. **HIS SERVER MUST BE RESTARTED ONCE** for these.
+- **the rule, one copy** (`workshop/tuplets/tuplets.js`): `keysAt` — a player's keys at a time = its lane's pitches in the take of the harmony
+  brick there (a later brick wins), folded by octaves into the technique's range; no brick, or no pitch on its lane → its own D. `SETS` — a set is
+  one technique per player: `staccato` (what the phase form plays) · `spiccato strings` (violin · cello `spicc_vel`, cc0 15).
+- **the page:** a purple HARMONY lane between the form's header and the chunks — drag, resize, double-click in the lane to add, DELETE; the
+  selected harmony's row: start · end · the take (the list, newest first, and ◀ ▶ to step through takes while it plays) · what each player
+  gets, in note names. An ARTICULATION switch beside Play (the set for the whole workshop). The file gains `harmonies`, `sets`, `artic`.
+- **the render** (`tools/tuplet_render.js`): the experimental save carries the pitches (a note per pitch where a lane has several) and the set's
+  technique.
+**Proven once, without sound:** with `SW-ctpt-16` on 300 … 306 the seven play 90 · 89 · 61 · 72 · 53 · 55 · 70 at 302 and the glockenspiel its 62
+at 295; the set `spiccato strings` routes the violin to cc0 15; the render of his 49 chunks: 4,606 notes, fastest 10.00 a second. The take's
+own techniques are NOT used (the set decides); velocities are still one number for all.

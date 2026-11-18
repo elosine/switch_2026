@@ -75,6 +75,21 @@
     }
     return out;
   }
-  const api = { build, NAMES, WHOLE, HALF, RATES, RATE_TEXT };
+  // THE ARTICULATION SETS (SW-51): a named set = one technique per player; the first is what the phase form plays
+  const SETS = {
+    'staccato': { flute: 'staccato', clarinet: 'staccato', alto_sax: 'staccato', glockenspiel: 'glock_shorts_hard', piano: 'main', violin: 'stac_vel', cello: 'stac_vel' },
+    'spiccato strings': { flute: 'staccato', clarinet: 'staccato', alto_sax: 'staccato', glockenspiel: 'glock_shorts_hard', piano: 'main', violin: 'spicc_vel', cello: 'spicc_vel' },
+  };
+  const fold = (pitch, lo, hi) => { let k = pitch; if (lo != null) while (k < lo) k += 12; if (hi != null) while (k > hi) k -= 12; return k; };
+  // the keys a player sounds at score time t: its pitches in the take of the harmony brick there (a later brick wins), folded into the
+  // technique's range; no brick, or no pitch for this player in the take → its own D
+  function keysAt(db, takes, routes, set, p, t) {
+    const R = routes[p], q = R.tech[(set || {})[p]] || R.tech[R.home] || {}; let h = null;
+    for (const b of (db.harmonies || [])) if (t >= b.start && t < b.end) h = b;
+    const tk = h && takes[h.take], ps = tk && tk.lanes[R.lane];
+    if (!ps || !ps.length) return [R.homeKey];
+    return [...new Set(ps.map((x) => fold(x, q.lo, q.hi)))];
+  }
+  const api = { build, NAMES, WHOLE, HALF, RATES, RATE_TEXT, SETS, fold, keysAt };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.Tuplets = api;
 })(typeof window !== 'undefined' ? window : globalThis);

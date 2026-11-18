@@ -18,7 +18,7 @@
   input.pct { width: 56px; }
   select { font: inherit; background: #0f1113; color: #e8e6e1; border: 1px solid #3a3f47; border-radius: 6px; padding: 5px 6px; }
   canvas { display: block; width: 100%; border-radius: 6px; background: #0f1113; }
-  #over { height: 74px; cursor: pointer; } #detail { height: 262px; }
+  #over { height: 74px; cursor: pointer; } #detail { height: 286px; }
   #scroll { width: 100%; margin: 6px 0 0; accent-color: #6b6f76; }
   .dim { color: #9a968c; } #midi { color: #e0a23f; }
   #mix { display: flex; gap: 14px; flex-wrap: wrap; margin: 0 0 8px; }
@@ -42,6 +42,7 @@
       <button id="stop" class="big">■ Stop</button>
       <label title="type a score second and press ENTER: the playhead and the view jump there">go to <input id="from" type="number" value="277.8" min="270" max="480" step="0.1" style="width:110px;font-size:20px"> s</label>
       <label>vel <input id="vel" class="pct" type="number" value="100" min="1" max="127" step="1"></label>
+      <label title="how every player plays: a set is one articulation per player">articulation <select id="artic"></select></label>
     </div>
     <div class="row dim">SPACE plays and stops · LEFT / RIGHT move 1 s (SHIFT 10 s) · a change is heard while it plays</div>
     <div id="midi"></div>
@@ -53,15 +54,16 @@
 
 <h1>The players <button id="dOut" title="zoom out">−</button><button id="dIn" title="zoom in">+</button><span class="dim">a sideways scroll or the bar below moves it · ALT+wheel zooms (right in, left out) · click sets the playhead</span></h1>
 <div id="mix"></div>
-<canvas id="detail" width="1800" height="262"></canvas>
+<canvas id="detail" width="1800" height="286"></canvas>
 <input id="scroll" type="range" min="0" max="100" step="0.1" value="0" aria-label="scroll the players view">
-<div class="row dim">Chunks, on the colored bar at the top of this view: drag the middle to move · drag an end to make it longer or shorter · double-click an empty spot to add one · click one, then DELETE, to remove it</div>
-<div id="selNone" class="dim" style="margin:10px 0">Click a chunk's colored bar to change it here.</div>
+<div class="row dim">The purple bar is the harmonies, the colored bar under it the tuplet chunks. On either: drag the middle to move · drag an end to make it longer or shorter · double-click an empty spot to add one · click one, then DELETE, to remove it</div>
+<div id="selNone" class="dim" style="margin:10px 0">Click a harmony or a chunk to change it here.</div>
 <table id="selT"><thead id="selHead" hidden></thead><tbody id="selBody"></tbody></table>
 
 <h1>All the chunks</h1>
 <div class="row">
   <button id="add">+ Add a chunk at the playhead</button>
+  <button id="addH">+ Add a harmony at the playhead</button>
   <span id="saved" class="dim"></span>
   <span id="stats" class="dim"></span>
 </div>
@@ -79,9 +81,9 @@ const ROUTE = {
   glockenspiel: { short: 'Gl', port: 'SWGlock', ch: 9, key: 62 }, piano: { short: 'Pn', port: 'SWPiano', ch: 1, key: 74 },
   violin: { short: 'Vn', port: 'SWViolin', ch: 1, key: 74, cc0: 18 }, cello: { short: 'Vc', port: 'SWCello', ch: 1, key: 74, cc0: 18 },
 };
-const COLOR = { slow: '#3f8fd0', medium: '#3fb37a', fast: '#e0683f' }, PLAIN = '#8a8f98', LANE = 22, FORMH = 30;   // FORMH: the form's header at the top of the players view (his word 2026-11-18)
+const COLOR = { slow: '#3f8fd0', medium: '#3fb37a', fast: '#e0683f' }, PLAIN = '#8a8f98', LANE = 22, HLANE = 22, HCOL = '#a57be0', FORMH = 30;   // FORMH: the form's header at the top of the players view (his word 2026-11-18)
 const S = { hits: null, players: [], steps: [], end: 480, t0: 277.8, db: null, mtime: 0, ev: [], per: {}, outs: {}, playing: false, perf0: 0, score0: 0, idx: 0, timer: null, saving: null, dirty: false,
-  span: 14, viewA: 275.8, oSpan: null, sel: null, mute: {}, solo: {}, drag: null };
+  span: 14, viewA: 275.8, oSpan: null, sel: null, hsel: null, takes: {}, takeNames: [], routes: null, keysUsed: {}, mute: {}, solo: {}, drag: null };
 
 // ---- MIDI
 async function midi() {
@@ -89,19 +91,22 @@ async function midi() {
   try {
     const acc = await navigator.requestMIDIAccess();
     acc.outputs.forEach((o) => { S.outs[o.name.toLowerCase()] = o; });
-    const missing = S.players.filter((p) => !S.outs[ROUTE[p].port.toLowerCase()]).map((p) => ROUTE[p].port);
+    const missing = S.players.filter((p) => !outOf(p)).map((p) => routeOf(p).port);
     $('midi').textContent = missing.length ? 'ports not found (is loopMIDI running?): ' + [...new Set(missing)].join(' · ') : '';
   } catch (e) { $('midi').textContent = 'MIDI refused: ' + (e.message || e) + ' — allow MIDI for this page (padlock → MIDI devices)'; }
 }
-const outOf = (p) => S.outs[ROUTE[p].port.toLowerCase()] || null;
-const chOf = (p) => (ROUTE[p].ch - 1) & 15;
+const setNow = () => (S.db.sets || Tuplets.SETS)[S.db.artic] || Tuplets.SETS.staccato;   // the articulation set in force: one technique per player
+const routeOf = (p) => S.routes[p].tech[setNow()[p]] || S.routes[p].tech[S.routes[p].home];
+const outOf = (p) => S.outs[routeOf(p).port.toLowerCase()] || null;
+const chOf = (p) => (routeOf(p).ch - 1) & 15;
+const NOTE = ['C', 'C♯', 'D', 'E♭', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'B♭', 'B'], noteName = (k) => NOTE[k % 12] + (Math.floor(k / 12) - 1);
 const sounds = (p) => !S.mute[p] && (!S.players.some((x) => S.solo[x]) || S.solo[p]);
 
 // ---- the events: the draw, flattened, each with its length (short enough never to run into the player's next strike)
 function rebuild() {
   S.per = Tuplets.build(S.hits, S.players, S.db);
-  const ev = [];
-  for (const p of S.players) { const a = S.per[p]; for (let i = 0; i < a.length; i++) { const gap = i + 1 < a.length ? a[i + 1].t - a[i].t : 0.3; ev.push({ t: a[i].t, p, dur: Math.max(0.03, Math.min(0.12, gap * 0.6)) }); } }
+  const ev = [], used = {}; S.players.forEach((p) => { used[p] = new Set(S.keysUsed[p] || []); }); S.keysUsed = used;
+  for (const p of S.players) { const a = S.per[p]; for (let i = 0; i < a.length; i++) { const gap = i + 1 < a.length ? a[i + 1].t - a[i].t : 0.3; const keys = Tuplets.keysAt(S.db, S.takes, S.routes, setNow(), p, a[i].t); keys.forEach((k) => used[p].add(k)); ev.push({ t: a[i].t, p, keys, dur: Math.max(0.03, Math.min(0.12, gap * 0.6)) }); } }
   ev.sort((a, b) => a.t - b.t); S.ev = ev;
   if (S.playing) { const now = scoreNow() + 0.26; let i = 0; while (i < ev.length && ev[i].t < now) i++; S.idx = i; }
   let n = 0, single = 0; for (const p of S.players) { n += S.per[p].length; single += S.hits[p].length; }
@@ -115,16 +120,17 @@ function play(from) {
   const f = from == null ? +$('from').value : from;
   S.score0 = f; S.perf0 = performance.now() + 120; S.playing = true;
   let i = 0; while (i < S.ev.length && S.ev[i].t < f - 0.001) i++; S.idx = i;
-  for (const p of S.players) { const o = outOf(p); if (o && ROUTE[p].cc0 != null) o.send([0xB0 | chOf(p), 0, ROUTE[p].cc0]); }
+  sendArtic();
   S.timer = setInterval(tick, 40); tick();
 }
+function sendArtic() { for (const p of S.players) { const o = outOf(p), r = routeOf(p); if (o && r.cc0 != null) o.send([0xB0 | chOf(p), 0, r.cc0]); } }   // the Xsample articulation of the set
 function tick() {
   if (!S.playing) return;
   const horizon = scoreNow() + 0.25, vel = Math.max(1, Math.min(127, +$('vel').value || 100));
   while (S.idx < S.ev.length && S.ev[S.idx].t <= horizon) {
     const e = S.ev[S.idx++], o = outOf(e.p); if (!o || !sounds(e.p)) continue;
     const at = S.perf0 + (e.t - S.score0) * 1000;
-    o.send([0x90 | chOf(e.p), ROUTE[e.p].key, vel], at); o.send([0x80 | chOf(e.p), ROUTE[e.p].key, 0], at + e.dur * 1000);
+    for (const k of e.keys) { o.send([0x90 | chOf(e.p), k, vel], at); o.send([0x80 | chOf(e.p), k, 0], at + e.dur * 1000); }
   }
   if (scoreNow() > S.end + 2) stop();
 }
@@ -132,7 +138,7 @@ function stop(quiet) {
   if (S.timer) clearInterval(S.timer); S.timer = null;
   if (S.playing && !quiet) $('from').value = Math.max(S.t0 - 2, Math.min(S.end, scoreNow())).toFixed(1);
   S.playing = false;
-  for (const p of S.players) { const o = outOf(p); if (!o) continue; try { if (o.clear) o.clear(); } catch (e) {} o.send([0x80 | chOf(p), ROUTE[p].key, 0]); o.send([0xB0 | chOf(p), 123, 0]); }
+  for (const p of S.players) { const o = outOf(p); if (!o) continue; try { if (o.clear) o.clear(); } catch (e) {} for (const k of (S.keysUsed[p] || [])) o.send([0x80 | chOf(p), k, 0]); o.send([0xB0 | chOf(p), 123, 0]); }
 }
 function goTo(t, keepView) { t = Math.max(S.t0 - 2, Math.min(S.end, t)); $('from').value = t.toFixed(1); if (S.playing) play(); if (!keepView && (t < S.viewA || t > S.viewA + S.span)) { S.viewA = t - S.span * 0.25; clampView(); } }
 
@@ -146,6 +152,7 @@ function draw() {
   const [oa, ob] = overWin(), x = (t) => (t - oa) / (ob - oa) * W;
   S.steps.forEach((st, i) => { g.fillStyle = i % 2 ? '#1b1f24' : '#20252b'; g.fillRect(x(st.from), 0, x(st.to) - x(st.from), 30); g.fillStyle = '#9a968c'; g.font = '12px system-ui'; const w = x(st.to) - x(st.from); if (w > 46) g.fillText(st.label.slice(0, Math.floor(w / 6.4)), Math.max(4, x(st.from) + 4), 19); });
   for (const k of S.db.chunks) { g.fillStyle = COLOR[k.band] || PLAIN; g.globalAlpha = (k.players && k.players.length < S.players.length) ? 0.55 : 0.9; g.fillRect(x(k.start), 34, Math.max(2, x(k.end) - x(k.start)), 26); g.globalAlpha = 1; }
+  for (const b of S.db.harmonies) { g.fillStyle = HCOL; g.fillRect(x(b.start), 30, Math.max(2, x(b.end) - x(b.start)), 4); }
   const tickStep = (ob - oa) > 120 ? 10 : (ob - oa) > 40 ? 5 : 1;
   g.fillStyle = '#6b6f76'; g.font = '11px system-ui'; for (let t = Math.ceil(oa / tickStep) * tickStep; t <= ob; t += tickStep) { g.fillRect(x(t), 62, 1, 5); g.fillText(String(t), x(t) + 3, 72); }
   g.strokeStyle = '#e8e6e1'; g.globalAlpha = 0.5; g.strokeRect(x(S.viewA), 1, x(S.viewA + S.span) - x(S.viewA), H - 2); g.globalAlpha = 1;   // what the players view shows
@@ -153,16 +160,22 @@ function draw() {
   const now = scoreNow(); g.fillStyle = '#ffd166'; g.fillRect(x(now) - 1, 0, 2, H);
 
   const d = $('detail'), q = d.getContext('2d'), DW = d.width, DH = d.height; q.clearRect(0, 0, DW, DH);
-  const a = S.viewA, span = S.span, dx = (t) => (t - a) / span * DW, rowH = (DH - FORMH - LANE - 14) / S.players.length, y0 = FORMH + LANE + 2;
+  const a = S.viewA, span = S.span, dx = (t) => (t - a) / span * DW, rowH = (DH - FORMH - HLANE - LANE - 14) / S.players.length, y0 = FORMH + HLANE + LANE + 2, CY = FORMH + HLANE;
   // the form's header: every step of the phase form (the drifts, the glides, the swarms, the unisons) over the same seconds as the rows below
   S.steps.forEach((st, i) => { if (st.to < a || st.from > a + span) return; const xa = Math.max(0, dx(st.from)), xb = Math.min(DW, dx(st.to)); q.fillStyle = st.kind === 'glide' ? '#243240' : '#2b2f36'; q.fillRect(xa, 0, xb - xa - 1, FORMH - 4); q.fillStyle = '#e8e6e1'; q.font = '600 13px system-ui'; const room = Math.floor((xb - xa - 10) / 7.2); if (room > 3) q.fillText(st.label.length > room ? st.label.slice(0, room - 1) + '…' : st.label, xa + 6, 18); q.fillStyle = '#9a968c'; q.fillRect(dx(st.from), 0, 1, FORMH - 4); });
+  for (const b of S.db.harmonies) {   // the harmony bricks: a take over a stretch of time
+    if (b.end < a || b.start > a + span) continue; const xa = dx(b.start), xb = dx(b.end);
+    q.fillStyle = HCOL; q.globalAlpha = S.takes[b.take] ? 1 : 0.4; q.fillRect(xa, FORMH + 2, Math.max(3, xb - xa), HLANE - 4); q.globalAlpha = 1;
+    if (S.hsel === b.id) { q.strokeStyle = '#ffffff'; q.lineWidth = 2; q.strokeRect(xa + 1, FORMH + 3, Math.max(3, xb - xa) - 2, HLANE - 6); }
+    if (xb - xa > 50) { q.fillStyle = '#0f1113'; q.font = '600 12px system-ui'; q.fillText((b.take || '?').slice(0, Math.floor((xb - xa - 10) / 6.8)), Math.max(xa, 0) + 6, FORMH + 15); }
+  }
   for (const k of S.db.chunks) {
     if (k.end < a || k.start > a + span) continue;
     const xa = dx(k.start), xb = dx(k.end), col = COLOR[k.band] || PLAIN;
     q.fillStyle = col; q.globalAlpha = 0.13; (k.players || S.players).forEach((p) => { const r = S.players.indexOf(p); q.fillRect(xa, y0 + r * rowH, xb - xa, rowH); }); q.globalAlpha = 1;
-    q.fillStyle = col; q.fillRect(xa, FORMH + 2, Math.max(3, xb - xa), LANE - 4);   // the bar to grab
-    if (S.sel === k.id) { q.strokeStyle = '#ffffff'; q.lineWidth = 2; q.strokeRect(xa + 1, FORMH + 3, Math.max(3, xb - xa) - 2, LANE - 6); }
-    if (xb - xa > 60) { q.fillStyle = '#0f1113'; q.font = '600 12px system-ui'; q.fillText(k.band + ' ' + k.start + '–' + k.end, Math.max(xa, 0) + 6, FORMH + 15); }
+    q.fillStyle = col; q.fillRect(xa, CY + 2, Math.max(3, xb - xa), LANE - 4);   // the bar to grab
+    if (S.sel === k.id) { q.strokeStyle = '#ffffff'; q.lineWidth = 2; q.strokeRect(xa + 1, CY + 3, Math.max(3, xb - xa) - 2, LANE - 6); }
+    if (xb - xa > 60) { q.fillStyle = '#0f1113'; q.font = '600 12px system-ui'; q.fillText(k.band + ' ' + k.start + '–' + k.end, Math.max(xa, 0) + 6, CY + 15); }
   }
   S.players.forEach((p, r) => {
     const on = sounds(p); q.globalAlpha = on ? 1 : 0.25;
@@ -194,20 +207,49 @@ function save() {
     catch (e) { $('saved').textContent = 'NOT saved: ' + e.message; }
   }, 250);
 }
-function changed() { S.db.chunks.sort((a, b) => a.start - b.start); rebuild(); save(); }
+function changed() { S.db.chunks.sort((a, b) => a.start - b.start); S.db.harmonies.sort((a, b) => a.start - b.start); rebuild(); save(); }
 const r1 = (x) => Math.round(x * 10) / 10;
 function addChunk(start) {
   const id = 'c' + (1 + S.db.chunks.reduce((m, k) => Math.max(m, +String(k.id).replace(/\D/g, '') || 0), 0));
   S.db.chunks.push({ id, start: r1(start), end: r1(start + 3), band: 'medium', players: S.players.slice(), shareFrom: 1, shareTo: 1, hold: 0.45, seed: 1 });
-  S.sel = id; changed(); table();
+  S.sel = id; S.hsel = null; changed(); table();
+}
+function addHarmony(start) {
+  const id = 'h' + (1 + S.db.harmonies.reduce((m, k) => Math.max(m, +String(k.id).replace(/\D/g, '') || 0), 0));
+  S.db.harmonies.push({ id, start: r1(start), end: r1(start + 4), take: S.lastTake || S.takeNames[0] || '' });
+  S.hsel = id; S.sel = null; changed(); table();
+}
+function removeHarmony(id) { const i = S.db.harmonies.findIndex((k) => k.id === id); if (i < 0) return; S.db.harmonies.splice(i, 1); if (S.hsel === id) S.hsel = null; changed(); table(); }
+// one harmony brick's controls: start · end · the take (the list, and the two arrows to step through the takes while it plays) · what each player gets
+function harmRow(b) {
+  const tr = document.createElement('tr');
+  const td = (...kids) => { const c = document.createElement('td'); kids.forEach((x) => c.append(x)); tr.append(c); return c; };
+  const num = (val, on) => { const e = document.createElement('input'); e.type = 'number'; e.value = val; e.min = 270; e.max = 482; e.step = 0.1; e.onchange = () => { on(+e.value); changed(); table(); }; return e; };
+  const go = document.createElement('button'); go.textContent = '▶'; go.title = 'play from 2 s before this harmony'; go.onclick = () => { $('from').value = Math.max(S.t0 - 2, b.start - 2).toFixed(1); S.viewA = b.start - 2 - S.span * 0.1; clampView(); play(); };
+  td(go); td(num(b.start, (v) => { b.start = v; if (b.end <= v) b.end = r1(v + 1); })); td(num(b.end, (v) => { b.end = Math.max(v, b.start + 0.2); }));
+  const sel = document.createElement('select'); sel.style.borderLeft = '8px solid ' + HCOL; sel.style.maxWidth = '260px';
+  S.takeNames.forEach((n) => { const o = document.createElement('option'); o.value = n; o.textContent = n; sel.append(o); });
+  if (b.take && !S.takes[b.take]) { const o = document.createElement('option'); o.value = b.take; o.textContent = b.take + ' (not in the drawer)'; sel.append(o); }
+  sel.value = b.take;
+  const setTake = (n) => { b.take = n; S.lastTake = n; changed(); table(); };
+  sel.onchange = () => setTake(sel.value);
+  const step = (d) => { const i = S.takeNames.indexOf(b.take), j = Math.max(0, Math.min(S.takeNames.length - 1, (i < 0 ? 0 : i) + d)); setTake(S.takeNames[j]); };
+  const prev = document.createElement('button'); prev.textContent = '◀'; prev.title = 'the take before'; prev.onclick = () => step(-1);
+  const next = document.createElement('button'); next.textContent = '▶'; next.title = 'the next take'; next.onclick = () => step(1);
+  td(prev, ' ', sel, ' ', next);
+  const tk = S.takes[b.take], who = document.createElement('span'); who.className = 'dim';
+  who.textContent = tk ? S.players.map((p) => { const ps = tk.lanes[S.routes[p].lane]; return ROUTE[p].short + ' ' + (ps ? Tuplets.keysAt({ harmonies: [{ start: 0, end: 1, take: b.take }] }, S.takes, S.routes, setNow(), p, 0.5).map(noteName).join('+') : '(D)'); }).join(' · ') : 'this take is not in the strikes drawer';
+  td(who);
+  const del = document.createElement('button'); del.textContent = '×'; del.title = 'remove this harmony (its notes go back to D)'; del.onclick = () => removeHarmony(b.id); td(del);
+  return tr;
 }
 function removeChunk(id) { const i = S.db.chunks.findIndex((k) => k.id === id); if (i < 0) return; S.db.chunks.splice(i, 1); if (S.sel === id) S.sel = null; changed(); table(); }
 function chunkRow(k) {   // one chunk's controls: a row of the list below, and the same row for the selected chunk under the players view
   {
-    const tr = document.createElement('tr'); tr.onclick = (e) => { if (e.target.tagName === 'TD') { S.sel = k.id; panel(); } };
+    const tr = document.createElement('tr'); tr.onclick = (e) => { if (e.target.tagName === 'TD') { S.sel = k.id; S.hsel = null; panel(); } };
     const num = (val, min, max, step, cls, on) => { const e = document.createElement('input'); e.type = 'number'; e.value = val; e.min = min; e.max = max; e.step = step; if (cls) e.className = cls; e.onchange = () => { on(+e.value); changed(); table(); }; return e; };
     const td = (...kids) => { const c = document.createElement('td'); kids.forEach((x) => c.append(x)); tr.append(c); return c; };
-    const go = document.createElement('button'); go.textContent = '▶'; go.title = 'play from 2 s before this chunk'; go.onclick = () => { S.sel = k.id; panel(); $('from').value = Math.max(S.t0 - 2, k.start - 2).toFixed(1); S.viewA = k.start - 2 - S.span * 0.1; clampView(); play(); };
+    const go = document.createElement('button'); go.textContent = '▶'; go.title = 'play from 2 s before this chunk'; go.onclick = () => { S.sel = k.id; S.hsel = null; panel(); $('from').value = Math.max(S.t0 - 2, k.start - 2).toFixed(1); S.viewA = k.start - 2 - S.span * 0.1; clampView(); play(); };
     td(go);
     td(num(k.start, 270, 480, 0.1, '', (v) => { k.start = v; if (k.end <= v) k.end = r1(v + 1); }));
     td(num(k.end, 270, 482, 0.1, '', (v) => { k.end = Math.max(v, k.start + 0.2); }));
@@ -229,12 +271,20 @@ function chunkRow(k) {   // one chunk's controls: a row of the list below, and t
   }
 }
 function table() { const tb = document.querySelector('#chunks tbody'); tb.innerHTML = ''; S.db.chunks.forEach((k) => tb.append(chunkRow(k))); panel(); }
-function panel() { const tb = $('selBody'); tb.innerHTML = ''; const k = S.db.chunks.find((x) => x.id === S.sel); if (k) tb.append(chunkRow(k)); $('selNone').hidden = !!k; const hd = $('selHead'); if (!hd.innerHTML) hd.innerHTML = document.querySelector('#chunks thead').innerHTML; hd.hidden = !k; }
-$('add').onclick = () => addChunk(+$('from').value);
-async function loadChunks() { const r = await (await fetch('/chunks')).json(); S.db = r.db; S.mtime = r.mtime; S.db.chunks.forEach((k, i) => { if (!k.id) k.id = 'c' + (i + 1); }); }
+function panel() {
+  const tb = $('selBody'), hd = $('selHead'); tb.innerHTML = '';
+  const b = S.db.harmonies.find((x) => x.id === S.hsel), k = b ? null : S.db.chunks.find((x) => x.id === S.sel);
+  if (b) { tb.append(harmRow(b)); hd.innerHTML = '<tr><th></th><th>start s</th><th>end s</th><th>the take (the chord)</th><th>what each player plays</th><th></th></tr>'; }
+  else if (k) { tb.append(chunkRow(k)); hd.innerHTML = document.querySelector('#chunks thead').innerHTML; }
+  $('selNone').hidden = !!(b || k); hd.hidden = !(b || k);
+}
+$('add').onclick = () => addChunk(+$('from').value); $('addH').onclick = () => addHarmony(+$('from').value);
+function norm() { const d = S.db; d.chunks.forEach((k, i) => { if (!k.id) k.id = 'c' + (i + 1); }); d.harmonies = d.harmonies || []; d.sets = d.sets || JSON.parse(JSON.stringify(Tuplets.SETS)); if (!d.sets[d.artic]) d.artic = 'staccato'; }
+function articUI() { const s = $('artic'); s.innerHTML = ''; Object.keys(S.db.sets).forEach((n) => { const o = document.createElement('option'); o.value = n; o.textContent = n; s.append(o); }); s.value = S.db.artic; }
+async function loadChunks() { const r = await (await fetch('/chunks')).json(); S.db = r.db; S.mtime = r.mtime; norm(); }
 setInterval(async () => {   // the file changed on disk (the AI wrote chunks): take it, unless this page has an unsaved change of its own
   if (S.dirty || S.drag || !S.db || document.activeElement && document.activeElement.tagName === 'INPUT' && document.activeElement.type === 'number' && document.activeElement.closest('#chunks')) return;
-  try { const r = await (await fetch('/chunks')).json(); if (r.mtime && r.mtime !== S.mtime) { S.db = r.db; S.mtime = r.mtime; rebuild(); table(); $('saved').textContent = 'reloaded from the file'; } } catch (e) {}
+  try { const r = await (await fetch('/chunks')).json(); if (r.mtime && r.mtime !== S.mtime) { S.db = r.db; S.mtime = r.mtime; norm(); articUI(); rebuild(); table(); $('saved').textContent = 'reloaded from the file'; } } catch (e) {}
 }, 1500);
 
 // ---- mute · solo
@@ -259,17 +309,19 @@ $('oIn').onclick = () => zoom('o', 0.6); $('oOut').onclick = () => zoom('o', 1.6
 // ---- the players view: scroll side to side, zoom, the chunks by hand
 const D = $('detail');
 const dpos = (e) => { const r = D.getBoundingClientRect(); return { t: dT(e.clientX - r.left, r.width), y: (e.clientY - r.top) / r.height * D.height, pxPerS: r.width / S.span }; };
-function chunkAt(t, pxPerS) { for (let i = S.db.chunks.length - 1; i >= 0; i--) { const k = S.db.chunks[i]; if (t >= k.start - 5 / pxPerS && t <= k.end + 5 / pxPerS) { const edge = 7 / pxPerS; return { k, mode: Math.abs(t - k.start) < edge ? 'start' : Math.abs(t - k.end) < edge ? 'end' : 'move' }; } } return null; }
+function chunkAt(t, pxPerS, list) { const L = list || S.db.chunks; for (let i = L.length - 1; i >= 0; i--) { const k = L[i]; if (t >= k.start - 5 / pxPerS && t <= k.end + 5 / pxPerS) { const edge = 7 / pxPerS; return { k, mode: Math.abs(t - k.start) < edge ? 'start' : Math.abs(t - k.end) < edge ? 'end' : 'move' }; } } return null; }
 D.addEventListener('wheel', (e) => { if (e.altKey || e.ctrlKey) { e.preventDefault(); zoom('d', zIn(e) ? 0.8 : 1.25, dpos(e).t); } else if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { e.preventDefault(); S.viewA += e.deltaX / 100 * S.span * 0.12; clampView(); } }, { passive: false });
 $('scroll').oninput = () => { S.viewA = +$('scroll').value; clampView(); };
+// which bar is under the mouse: the harmonies' lane (under the form's header), then the chunks' lane
+function barAt(p) { if (p.y > FORMH && p.y <= FORMH + HLANE) { const h = chunkAt(p.t, p.pxPerS, S.db.harmonies); if (h) h.h = true; return h; } if (p.y > FORMH + HLANE && p.y <= FORMH + HLANE + LANE) return chunkAt(p.t, p.pxPerS); return null; }
 D.addEventListener('mousedown', (e) => {
-  const p = dpos(e), hit = p.y > FORMH && p.y <= FORMH + LANE ? chunkAt(p.t, p.pxPerS) : null;
-  if (hit) { S.sel = hit.k.id; panel(); S.drag = { k: hit.k, mode: hit.mode, t0: p.t, s0: hit.k.start, e0: hit.k.end, moved: false }; e.preventDefault(); }
+  const p = dpos(e), hit = barAt(p);
+  if (hit) { if (hit.h) { S.hsel = hit.k.id; S.sel = null; } else { S.sel = hit.k.id; S.hsel = null; } panel(); S.drag = { k: hit.k, mode: hit.mode, t0: p.t, s0: hit.k.start, e0: hit.k.end, moved: false }; e.preventDefault(); }
   else S.drag = { click: true, x: e.clientX };
 });
 window.addEventListener('mousemove', (e) => {
   const p = dpos(e);
-  if (!S.drag) { const hit = p.y > FORMH && p.y <= FORMH + LANE && e.target === D ? chunkAt(p.t, p.pxPerS) : null; D.style.cursor = hit ? (hit.mode === 'move' ? 'grab' : 'ew-resize') : 'default'; return; }
+  if (!S.drag) { const hit = e.target === D ? barAt(p) : null; D.style.cursor = hit ? (hit.mode === 'move' ? 'grab' : 'ew-resize') : 'default'; return; }
   if (S.drag.click) return;
   const g = S.drag, d = p.t - g.t0, k = g.k; g.moved = true;
   if (g.mode === 'move') { const len = g.e0 - g.s0; k.start = r1(Math.max(X0(), Math.min(X1() - len, g.s0 + d))); k.end = r1(k.start + len); }
@@ -282,18 +334,21 @@ window.addEventListener('mouseup', (e) => {
   if (g.click) { if (Math.abs(e.clientX - g.x) < 4 && e.target === D) goTo(dpos(e).t, true); return; }
   if (g.moved) { changed(); table(); }
 });
-D.addEventListener('dblclick', (e) => { const p = dpos(e); if (!chunkAt(p.t, p.pxPerS)) addChunk(p.t); });
+D.addEventListener('dblclick', (e) => { const p = dpos(e); if (p.y > FORMH && p.y <= FORMH + HLANE) { if (!chunkAt(p.t, p.pxPerS, S.db.harmonies)) addHarmony(p.t); } else if (!chunkAt(p.t, p.pxPerS)) addChunk(p.t); });   // in the purple lane: a harmony; anywhere else: a tuplet chunk
 document.addEventListener('keydown', (e) => {
   if (/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName) && document.activeElement.type !== 'range') return;
   if (e.code === 'Space') { e.preventDefault(); S.playing ? stop() : play(); }
   else if (e.altKey && (e.code === 'ArrowRight' || e.code === 'ArrowLeft')) { e.preventDefault(); zoom('d', e.code === 'ArrowRight' ? 0.8 : 1.25, scoreNow()); }
   else if (e.code === 'ArrowRight') { e.preventDefault(); goTo(scoreNow() + (e.shiftKey ? 10 : 1)); }
   else if (e.code === 'ArrowLeft') { e.preventDefault(); goTo(scoreNow() - (e.shiftKey ? 10 : 1)); }
-  else if ((e.code === 'Delete' || e.code === 'Backspace') && S.sel) { e.preventDefault(); removeChunk(S.sel); }
+  else if ((e.code === 'Delete' || e.code === 'Backspace') && (S.sel || S.hsel)) { e.preventDefault(); if (S.hsel) removeHarmony(S.hsel); else removeChunk(S.sel); }
 });
 (async function () {
   const h = await (await fetch('/hits')).json(); S.hits = h.hits; S.players = h.players; S.steps = h.steps; S.end = h.end; S.t0 = h.steps[0].from; S.viewA = S.t0 - 2;
-  await loadChunks(); rebuild(); table(); mix(); clampView(); await midi(); requestAnimationFrame(frame);
+  S.routes = await (await fetch('/routes')).json();
+  const tk = await (await fetch('/takes')).json(); tk.sort((a, b) => (b.saved || '').localeCompare(a.saved || '')); tk.forEach((x) => { S.takes[x.name] = x; }); S.takeNames = tk.map((x) => x.name);   // the newest take first
+  await loadChunks(); articUI(); rebuild(); table(); mix(); clampView(); await midi();
+  $('artic').onchange = () => { stop(); S.db.artic = $('artic').value; rebuild(); save(); panel(); }; requestAnimationFrame(frame);
 })();
 </script>
 </body></html>

@@ -26,6 +26,13 @@ for (const o of src.objects) if (isHit(o)) by[o.properties.phaseForm.player].pus
 form.players.forEach((p) => { by[p].sort((a, b) => a.startSeconds - b.startSeconds); tmpl[p] = by[p]; });
 const hits = {}; form.players.forEach((p) => { hits[p] = by[p].map((o) => o.startSeconds); });
 const per = T.build(hits, form.players, db);
+// THE HARMONIES AND THE ARTICULATION SET (SW-51): the takes and the routes as the workshop's server gives them (one copy of each rule)
+const I = new Function(fs.readFileSync(path.join(ROOT, 'sandbox', 'instruments.js'), 'utf8') + ';return INSTRUMENTS')();
+const KEY = { flute: 'flute', clarinet: 'clarinet', alto_sax: 'alto_sax', glockenspiel: 'bowed_vibraphone', piano: 'piano', violin: 'violin', cello: 'cello' }, routes = {};
+for (const p of form.players) { const inst = I[KEY[p]], tech = {}; for (const q of inst.techniques) tech[q.key] = { lo: q.rangeLow != null ? q.rangeLow : inst.rangeLow, hi: q.rangeHigh != null ? q.rangeHigh : inst.rangeHigh }; routes[p] = { lane: form.voices[p].layer, home: form.voices[p].technique, homeKey: form.voices[p].midi, tech }; }
+const snaps = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'panel_snapshots.json'), 'utf8')).panels.strikes || {}, takes = {};
+for (const name of Object.keys(snaps)) { const lanes = {}; for (const v of ((snaps[name].state || {}).voices || [])) { if (v.skip || v.pitch == null) continue; for (const l of [v.lane].concat(v.also || [])) if (l != null && l >= 0) (lanes[l] = lanes[l] || []).push(v.pitch); } takes[name] = { lanes }; }
+const set = (db.sets || T.SETS)[db.artic] || T.SETS.staccato;
 
 const r3 = (x) => Math.round(x * 1000) / 1000;
 let nextId = src.nextId || 1; const notes = []; let fastest = 0;
@@ -36,7 +43,9 @@ form.players.forEach((p) => {
     if (i) fastest = Math.max(fastest, 1 / (e.t - ev[i - 1].t));
     o.id = 'wc-' + (nextId++); o.startSeconds = r3(e.t); o.endSeconds = r3(e.t + Math.max(0.03, Math.min(form.noteSeconds || 0.12, gap * 0.6)));
     o.properties.phaseForm = Object.assign({}, o.properties.phaseForm, { step: e.step, k: e.k || 0, band: e.plain ? null : (e.band || null) });
-    notes.push(o);
+    if (set[p] && routes[p].tech[set[p]]) o.technique = set[p];
+    const keys = T.keysAt(db, takes, routes, set, p, e.t);
+    keys.forEach((k, j) => { const n = j ? JSON.parse(JSON.stringify(o)) : o; if (j) n.id = 'wc-' + (nextId++); n.sonifyNote = k; notes.push(n); });
   });
 });
 const kept = src.objects.filter((o) => !isHit(o));
@@ -44,4 +53,4 @@ const save = Object.assign({}, src, { objects: kept.concat(notes), nextId });
 save.metadata = Object.assign({}, src.metadata, { modified: new Date().toISOString(), tupletRender: { from: FROM, chunks: db.chunks.length, at: new Date().toISOString(), note: 'EXPERIMENTAL — made by tools/tuplet_render.js from bank/tuplet_chunks.json; overwritten on every run' } });
 fs.writeFileSync(out, JSON.stringify(save));
 const single = form.players.reduce((n, p) => n + hits[p].length, 0);
-console.log('scores/' + TO + '.json  ← ' + FROM + ' (untouched) · ' + db.chunks.length + ' chunks · ' + single + ' single strikes → ' + notes.length + ' notes · fastest ' + fastest.toFixed(2) + ' a second · ' + kept.length + ' other objects carried');
+console.log('scores/' + TO + '.json  ← ' + FROM + ' (untouched) · ' + db.chunks.length + ' chunks · ' + (db.harmonies || []).length + ' harmonies · the set "' + (db.artic || 'staccato') + '" · ' + single + ' single strikes → ' + notes.length + ' notes · fastest ' + fastest.toFixed(2) + ' a second · ' + kept.length + ' other objects carried');
