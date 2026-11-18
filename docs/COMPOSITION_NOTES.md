@@ -870,3 +870,8 @@ method"* · *"yes let's try the contrast rule."*
 in `bank/tuplet_chunks.json`, drawn on the page. The n:3 tuplets were NOT added: in a band only about four clearly different speeds fit
 (fast = 6 … 10 a second), so thirds would add in-between speeds the ear takes for the same ones; variety comes from CONTRAST instead — a new
 pick is at least a quarter faster or slower than the last, and the plain tuplets are drawn three times as often as the two-beat ones.
+
+*His words, next (2026-11-18), on hearing a slow chunk:* *"Slow seems to still include the quarter note. Could any tuplet be actual tuplets and
+not include the quarter note? So the non-tuplet sections are just the quarter note. The tuplet sections are some subdivision always."*
+*The AI's reading (marked as such):* inside a chunk the single strike is never drawn — always a subdivision (3 in 2 at the least). Where the
+slow band admits none at a fast pulse (above about 120, even 3 in 2 is over 3 a second), the slowest subdivision is taken, a little over the band.

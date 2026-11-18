@@ -32,11 +32,11 @@
         if (rShare >= share) { ev.push({ t, src: i, step: 1, band: c.band, plain: true }); last[id] = null; continue; }
         // the steps that fit: whole steps over this beat; half steps over two beats when the next strike is this chunk's too
         const fits = []; const lo = band[0], hi = Math.min(band[1], ceiling);
-        for (const s of WHOLE) { const r = s / gap; if (r >= lo && r <= hi) fits.push(s); }
+        for (const s of WHOLE) { if (s === 1) continue; const r = s / gap; if (r >= lo && r <= hi) fits.push(s); }   // NEVER THE SINGLE STRIKE inside a chunk (his word 2026-11-18): a tuplet is always a subdivision
         const two = i + 2 < h.length && chunkOf(db, p, h[i + 1]) === c ? h[i + 2] - t : null;
         if (two) for (const s of HALF) { const r = (s * 2) / two; if (r >= lo && r <= hi) fits.push(s); }
         let step;
-        if (!fits.length) { let best = 1, bd = 1e9; const mid = Math.sqrt(lo * hi); for (const s of WHOLE) { const r = s / gap; if (r > ceiling) continue; const d = Math.abs(Math.log(r / mid)); if (d < bd) { bd = d; best = s; } } step = best; }
+        if (!fits.length) { let best = 1, bd = 1e9; const mid = Math.sqrt(lo * hi); best = 2; for (const s of WHOLE) { if (s === 1) continue; const r = s / gap; if (r > ceiling) continue; const d = Math.abs(Math.log(r / mid)); if (d < bd) { bd = d; best = s; } } if (two) for (const s of HALF) { const r = (s * 2) / two; if (r > ceiling) continue; const d = Math.abs(Math.log(r / mid)); if (d < bd) { bd = d; best = s; } } step = best; }
         else if (last[id] != null && fits.indexOf(last[id]) >= 0 && rHold < (c.hold == null ? 0.45 : c.hold)) step = last[id];
         else {   // THE CONTRAST RULE (his word 2026-11-18): a new pick is clearly another speed than the last (a quarter faster or slower, when the band
           // has one), and the plain tuplets (whole steps) are drawn three times as often as the two-beat ones
