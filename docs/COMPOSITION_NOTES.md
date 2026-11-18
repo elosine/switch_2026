@@ -881,3 +881,11 @@ not sure the percentage is working, but I want it to be sort of non-periodic. So
 whatever. So pace of change is maybe one of the variables, and maybe that's the only one. And then just in general, make it asymmetric, so you
 wouldn't have a triplet and then a quadruplet and then a triplet again and then a quadruplet again. No one figure would come back too often.
 What do you recommend instead of the percentage repeat for this?"*
+
+### SW-50 · 2026-11-18 — HEAR THE TUPLETS WITH THE ELECTRONICS: an experimental composer save
+
+*His words (dictated, light corrections), with 24 chunks placed (291.8 … 392.2):* *"Can you insert what I have there into the composer score,
+make it so I can preview it with the electronics? Either way, we can do it in the workshop if you can port the electronics there, or just add
+this to the composer score like an experimental score."*
+*The AI's reading (marked as such):* the composer score, because the real electronics (the engine's bricks) are already there — a new save
+`piece-Section03-X-tuplets`, made from `piece-Section03-H-addTuplets` by `tools/tuplet_render.js`, re-made on every run; his H save untouched.

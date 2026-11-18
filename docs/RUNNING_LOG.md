@@ -3914,3 +3914,14 @@ every step. The round check and "a real choice or relax" cured it: the piano now
 **Checked on the real strikes:** medium at the fastest and at 2–4 beats, fast at 68 (5 … 8 per beat, fastest 9.70 a second), fast toward 120
 (3 … 6 per beat, 9.85), slow (1.5 · 2 · 2.5; under 3 a second at 68). Where a band holds only two figures (slow, some players) A B A B is
 unavoidable — said to him. `hold` (the old chance) is no longer read.
+
+## §221. The tuplets into the composer score — an experimental save, to hear them with the electronics (2026-11-18)
+
+**His word (SW-50)**, after placing 24 chunks by ear in the workshop (291.8 … 392.2 — slow · fast · medium alternating, 1 … 4 s each, rates
+mostly 4 and 5): hear them WITH the electronics, in the workshop or in the composer score. **Chosen: the composer score** — the bricks there
+are the real ones, played by the engine; porting the beds into the workshop would be a second, lesser copy of them. Also in the page since
+§220: the form's header in the players view (his word: "to see the form of the piece too … all the drifts and swarms").
+**Built:** `tools/tuplet_render.js` — the phase form's strikes of `piece-Section03-H-addTuplets` replaced by the workshop's draw (the same
+`tuplets.js`), every other object carried; each note a copy of its source strike (lane · pitch · technique · velocity), `properties.phaseForm`
+gaining `step · k · band`. The target **`piece-Section03-X-tuplets`** is the tool's own and is overwritten on every run (`metadata.tupletRender`);
+his H save is never written. First run: 24 chunks · 2,050 strikes → the count below.
