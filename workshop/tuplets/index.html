@@ -56,12 +56,14 @@
 <canvas id="detail" width="1800" height="230"></canvas>
 <input id="scroll" type="range" min="0" max="100" step="0.1" value="0" aria-label="scroll the players view">
 <div class="row dim">Chunks, on the colored bar at the top of this view: drag the middle to move · drag an end to make it longer or shorter · double-click an empty spot to add one · click one, then DELETE, to remove it</div>
-<div class="row dim legend"><span><i class="sw" style="background:#8a8f98"></i>single strikes</span><span><i class="sw" style="background:#3f8fd0"></i>slow</span><span><i class="sw" style="background:#3fb37a"></i>medium</span><span><i class="sw" style="background:#e0683f"></i>fast</span><span id="stats"></span></div>
+<div id="selNone" class="dim" style="margin:10px 0">Click a chunk's colored bar to change it here.</div>
+<table id="selT"><tbody id="selBody"></tbody></table>
 
-<h1>Chunks</h1>
+<h1>All the chunks</h1>
 <div class="row">
   <button id="add">+ Add a chunk at the playhead</button>
   <span id="saved" class="dim"></span>
+  <span id="stats" class="dim"></span>
 </div>
 <table id="chunks"><thead><tr>
   <th></th><th>start s</th><th>end s</th><th>band</th><th>players</th><th title="how many of the strikes become tuplets: at the chunk's start → at its end">tuplets % start → end</th><th title="the chance a tuplet is kept for the next beat">repeat %</th><th></th>
@@ -198,13 +200,12 @@ function addChunk(start) {
   S.sel = id; changed(); table();
 }
 function removeChunk(id) { const i = S.db.chunks.findIndex((k) => k.id === id); if (i < 0) return; S.db.chunks.splice(i, 1); if (S.sel === id) S.sel = null; changed(); table(); }
-function table() {
-  const tb = document.querySelector('#chunks tbody'); tb.innerHTML = '';
-  S.db.chunks.forEach((k) => {
-    const tr = document.createElement('tr'); tr.onclick = (e) => { if (e.target.tagName === 'TD') { S.sel = k.id; } };
+function chunkRow(k) {   // one chunk's controls: a row of the list below, and the same row for the selected chunk under the players view
+  {
+    const tr = document.createElement('tr'); tr.onclick = (e) => { if (e.target.tagName === 'TD') { S.sel = k.id; panel(); } };
     const num = (val, min, max, step, cls, on) => { const e = document.createElement('input'); e.type = 'number'; e.value = val; e.min = min; e.max = max; e.step = step; if (cls) e.className = cls; e.onchange = () => { on(+e.value); changed(); table(); }; return e; };
     const td = (...kids) => { const c = document.createElement('td'); kids.forEach((x) => c.append(x)); tr.append(c); return c; };
-    const go = document.createElement('button'); go.textContent = '▶'; go.title = 'play from 2 s before this chunk'; go.onclick = () => { S.sel = k.id; $('from').value = Math.max(S.t0 - 2, k.start - 2).toFixed(1); S.viewA = k.start - 2 - S.span * 0.1; clampView(); play(); };
+    const go = document.createElement('button'); go.textContent = '▶'; go.title = 'play from 2 s before this chunk'; go.onclick = () => { S.sel = k.id; panel(); $('from').value = Math.max(S.t0 - 2, k.start - 2).toFixed(1); S.viewA = k.start - 2 - S.span * 0.1; clampView(); play(); };
     td(go);
     td(num(k.start, 270, 480, 0.1, '', (v) => { k.start = v; if (k.end <= v) k.end = r1(v + 1); }));
     td(num(k.end, 270, 482, 0.1, '', (v) => { k.end = Math.max(v, k.start + 0.2); }));
@@ -219,9 +220,11 @@ function table() {
     const nd = document.createElement('button'); nd.textContent = 'new draw'; nd.title = 'another choice of tuplets inside the same band'; nd.onclick = () => { k.seed = (k.seed || 1) + 1; changed(); };
     const del = document.createElement('button'); del.textContent = '×'; del.title = 'remove this chunk (its strikes go back to singles)'; del.onclick = () => removeChunk(k.id);
     td(nd, ' ', del);
-    tb.append(tr);
-  });
+    return tr;
+  }
 }
+function table() { const tb = document.querySelector('#chunks tbody'); tb.innerHTML = ''; S.db.chunks.forEach((k) => tb.append(chunkRow(k))); panel(); }
+function panel() { const tb = $('selBody'); tb.innerHTML = ''; const k = S.db.chunks.find((x) => x.id === S.sel); if (k) tb.append(chunkRow(k)); $('selNone').hidden = !!k; }
 $('add').onclick = () => addChunk(+$('from').value);
 async function loadChunks() { const r = await (await fetch('/chunks')).json(); S.db = r.db; S.mtime = r.mtime; S.db.chunks.forEach((k, i) => { if (!k.id) k.id = 'c' + (i + 1); }); }
 setInterval(async () => {   // the file changed on disk (the AI wrote chunks): take it, unless this page has an unsaved change of its own
@@ -256,7 +259,7 @@ D.addEventListener('wheel', (e) => { if (e.altKey || e.ctrlKey) { e.preventDefau
 $('scroll').oninput = () => { S.viewA = +$('scroll').value; clampView(); };
 D.addEventListener('mousedown', (e) => {
   const p = dpos(e), hit = p.y <= LANE ? chunkAt(p.t, p.pxPerS) : null;
-  if (hit) { S.sel = hit.k.id; S.drag = { k: hit.k, mode: hit.mode, t0: p.t, s0: hit.k.start, e0: hit.k.end, moved: false }; e.preventDefault(); }
+  if (hit) { S.sel = hit.k.id; panel(); S.drag = { k: hit.k, mode: hit.mode, t0: p.t, s0: hit.k.start, e0: hit.k.end, moved: false }; e.preventDefault(); }
   else S.drag = { click: true, x: e.clientX };
 });
 window.addEventListener('mousemove', (e) => {
