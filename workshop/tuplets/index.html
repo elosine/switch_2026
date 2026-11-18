@@ -36,7 +36,7 @@
       <label>from <input id="from" type="number" value="277.8" min="270" max="480" step="0.1"> s</label>
       <label>vel <input id="vel" class="pct" type="number" value="100" min="1" max="127" step="1"></label>
     </div>
-    <div class="row dim">SPACE plays and stops · click the strip to set where it starts · a change is heard while it plays</div>
+    <div class="row dim">SPACE plays and stops · LEFT / RIGHT move 1 s (SHIFT 10 s) · click or wheel on either picture · a change is heard while it plays</div>
     <div id="midi"></div>
   </div>
 </div>
@@ -190,7 +190,16 @@ setInterval(async () => {   // the file changed on disk (the AI wrote chunks): t
 // ---- wiring
 $('play').onclick = () => play(); $('stop').onclick = () => stop();
 $('over').onclick = (e) => { const r = $('over').getBoundingClientRect(), t = X0() + (e.clientX - r.left) / r.width * (X1() - X0()); $('from').value = t.toFixed(1); if (S.playing) play(); };
-document.addEventListener('keydown', (e) => { if (e.code !== 'Space' || /INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return; e.preventDefault(); S.playing ? stop() : play(); });
+// moving about (his word 2026-11-18): LEFT / RIGHT 1 s (SHIFT 10 s) · the wheel over either picture · a click in the close view
+function nudge(d) { const t = Math.max(S.t0 - 2, Math.min(S.end, scoreNow() + d)); $('from').value = t.toFixed(1); if (S.playing) play(); }
+$('detail').onclick = (e) => { const r = $('detail').getBoundingClientRect(), a = scoreNow() - 14 * 0.25; $('from').value = Math.max(S.t0 - 2, Math.min(S.end, a + (e.clientX - r.left) / r.width * 14)).toFixed(1); if (S.playing) play(); };
+['over', 'detail'].forEach((id) => $(id).addEventListener('wheel', (e) => { e.preventDefault(); nudge((e.deltaY > 0 ? 1 : -1) * (id === 'over' ? 5 : 1)); }, { passive: false }));
+document.addEventListener('keydown', (e) => {
+  if (/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return;
+  if (e.code === 'Space') { e.preventDefault(); S.playing ? stop() : play(); }
+  else if (e.code === 'ArrowRight') { e.preventDefault(); nudge(e.shiftKey ? 10 : 1); }
+  else if (e.code === 'ArrowLeft') { e.preventDefault(); nudge(e.shiftKey ? -10 : -1); }
+});
 (async function () {
   const h = await (await fetch('/hits')).json(); S.hits = h.hits; S.players = h.players; S.steps = h.steps; S.end = h.end; S.t0 = h.steps[0].from;
   await loadChunks(); rebuild(); table(); await midi(); requestAnimationFrame(frame);
