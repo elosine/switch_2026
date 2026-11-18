@@ -10,7 +10,7 @@
 //   · THE TUPLET IS ALWAYS A SUBDIVISION, never the single strike: drawn among the ladder's steps (2 … 8 per beat; 3 · 5 · 7 · 9 · 11 in two
 //     beats) whose speed (strikes per second) lies inside the band and under the ceiling. None fits → the nearest subdivision under the ceiling.
 //   · THE RATE OF CHANGE (chunk.rate, 1 slow … 5 fast): how many beats a tuplet lasts before another is drawn — 5: every beat · 4: 1–2 ·
-//     3: 1–3 · 2: 2–4 · 1: 2–5 beats. ALWAYS UNEVEN: two tuplets in a row never last the same number of beats (where the range has two).
+//     3: 1–3 · 2: 2–4 · 1: 2–5 beats · 0: ONE TUPLET for the whole chunk, per player (his word 2026-11-18; "new draw" re-rolls it). ALWAYS UNEVEN: two tuplets in a row never last the same number of beats (where the range has two).
 //   · NO FIGURE COMES BACK TOO SOON: the last two figures used are set aside (the last one, when the band is narrow); a new figure is, when
 //     the band has one, at least a quarter faster or slower than the one before; the plain tuplets are drawn 3 times as often as the two-beat ones.
 //   · THE CHUNK'S END CUTS THE TUPLET: the strikes of a beat that would fall after the end are dropped.
@@ -19,7 +19,7 @@
   'use strict';
   const WHOLE = [2, 3, 4, 5, 6, 7, 8], HALF = [1.5, 2.5, 3.5, 4.5, 5.5];
   const NAMES = { 1: 'single', 1.5: '3 in 2', 2: 'eighths', 2.5: '5 in 2', 3: 'triplet', 3.5: '7 in 2', 4: 'sixteenths', 4.5: '9 in 2', 5: 'quintuplet', 5.5: '11 in 2', 6: 'sextuplet', 7: 'septuplet', 8: 'thirty-seconds' };
-  const RATES = { 5: [1, 1], 4: [1, 2], 3: [1, 3], 2: [2, 4], 1: [2, 5] }, RATE_TEXT = { 5: 'every beat', 4: '1–2 beats each', 3: '1–3 beats each', 2: '2–4 beats each', 1: '2–5 beats each' };
+  const RATES = { 0: [1e9, 1e9], 5: [1, 1], 4: [1, 2], 3: [1, 3], 2: [2, 4], 1: [2, 5] }, RATE_TEXT = { 0: 'one tuplet, no change', 5: 'every beat', 4: '1–2 beats each', 3: '1–3 beats each', 2: '2–4 beats each', 1: '2–5 beats each' };
   function rng(seed) { let a = (seed >>> 0) || 1; return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
   function hash(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
   function chunkOf(db, player, t) { let c = null; for (const k of db.chunks) if (t >= k.start && t < k.end && (!k.players || k.players.indexOf(player) >= 0)) c = k; return c; }
