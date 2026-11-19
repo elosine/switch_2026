@@ -4138,3 +4138,17 @@ over (−1 … +17 c, 9 … 12 dB above the wash) · high B♭7 · D8 · B7; per
 F7 (+8 … +23 c)**. 321.0 → 324.3 (−16.8 dB, thinner): **B♭6 (+16 c) the strongest, F7 (+19 c) the only other peak**; the low D2 gone from the sum.
 **Reading:** the one fifth present through the whole stretch is **B♭ – F** (brick B2, a sixth of a tone sharp). His G · D has some ground in the
 first half (the D2 rumble, a G5 in two bricks) and none in the second. Put to him: B♭ · F for the whole stretch; or G · D → B♭ · F at 321.
+
+## §234. The stacked fifths of 335.2 → 383 against the beds — an assessment, before and after (SW-63) (2026-11-19)
+
+**His words:** *"for the stacked fifth sections starting around 335, I want to keep the stacked fifth, but for each of those sections, see if
+there's a better fifth … up through at swarm 3 at 382.9. Just give me the assessment first … a row for each one … the start time, and then A,
+E, B, that's the before, and then what you recommend the after should be."* Earlier the same hour: only the single strikes take the beds'
+notes, never a tuplet chunk; and the AI's answers on this are to be short.
+**The measure (`beds_pitches.py --fifths`, new):** under each `pcs` brick the beds' clear peaks folded to the twelve note names by power (a
+peak over 35 cents off, or under 100 Hz, counted less); every stack of the same size scored by the square roots of its notes' shares summed
+(so one loud note cannot carry a stack alone); "clear" when the best beats the present by 0.6 and the runner-up by 0.15.
+**The rows (now → fits best):** 335.2 A E B → keep (quiet beds; a faint E6 and A7, both in the stack) · 341.08 F♯ C♯ → keep (C♯ heard) ·
+342.6 C♯ G♯ → **D A** (clear: D · A · B♭) · 346.4 G♯ E♭ → **C♯ G♯** (clear: C♯ · B♭ · A · G♯) · 352.5 E♭ B♭ → **F♯ C♯** (clear: F♯ · C♯ · B♭) ·
+356.2 B♭ F → keep (B♭ · A) · 360.0 F C → no clear pitch (0.7 s of wash) · 363.7 C G → B F♯ (slight: B · D · G) · 368.3 G D → B♭ F (slight:
+B♭ · B) · 379 D A → B♭ F (slight: only F) · 382 A E → B F♯ (slight: only B). Not applied — his word first.
