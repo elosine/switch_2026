@@ -800,7 +800,7 @@
    "muted": "@colours.muted.value",
    "brick": "@colours.brick.value",
    "paper": "@colours.paper.value",
-   "laneLine": { "colour": "@objects.laneLine.colour", "thickSs": "@objects.laneLine.thickSs", "outer": "@objects.laneLine.outer", "from": "@objects.laneLine.from" },
+   "laneLine": { "colour": "@objects.laneLine.colour", "thickSs": "@objects.laneLine.thickSs", "outer": "@objects.laneLine.outer", "from": "@objects.laneLine.from", "onlyWithoutStaff": "@objects.laneLine.onlyWithoutStaff" },
    "micOpening": { "colour": "@objects.micOpening.colour", "variants": "@objects.micOpening.variants", "fillOpacity": "@objects.micOpening.fillOpacity", "strokeOpacity": "@objects.micOpening.strokeOpacity", "strokeSs": "@objects.micOpening.strokeSs", "cornerSs": "@objects.micOpening.cornerSs", "place": "@objects.micOpening.place", "align": "@objects.micOpening.align", "gapSs": "@objects.micOpening.gapSs", "heightFrac": "@objects.micOpening.heightFrac", "minSs": "@objects.micOpening.minSs", "sign": "@objects.micOpening.sign" },
    "badge": { "sizeSs": "@objects.badge.sizeSs", "gapSs": "@objects.badge.gapSs" },
    "language": { "format": "@language.format", "types": "@language.types" },

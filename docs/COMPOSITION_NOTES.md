@@ -1307,3 +1307,9 @@ actual notation paradigm, then we can propagate it throughout the section. This 
 electronics — a placeholder for now (this replaces "a drawing for the material brick" and "four lanes in the notation" of `NOTATION_READINESS.md`).
 THE METHOD: section by section; in each, settle the one or two paradigms on a first case, then propagate. FIRST CASE: the alto sax's first
 note — F4, 16.0 → 23.55 s, gliding up 18.6 cents against a sine on F4 (`wc-94` with the sine brick `zn-106`); working page `s1-sax-first-note`.
+
+*His words, next (2026-11-19), on the page's furniture:* *"no need for the dividing lines since these have staffs. I remember now that dividing
+lines were added because there's no staff. We don't have to capture it as a rule, but — well, maybe we should. When there's staff, we don't
+need a dividing line. The staff version of the score should look just like any concert score. And could you give the electronics its own
+bracket for now? We'll see when we get the waveform in there how it looks. ELEC is better. … Actually, let's start with the curve. How did we
+show the curve before? I think the tuba piece or Recombination might have them."*

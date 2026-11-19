@@ -4274,3 +4274,19 @@ would have taken the first electronics lane for META). A nine-part page extracts
 **Seen on the throwaway:** nine lanes; the last one half as high, no staff, its short name `E1` at the left, a dividing line above it; the
 dividers begin at the staves; no line at the right edge. The name `E1` is the composer lane's own (the registry must match the score's
 tracks) — a display name for the tape part is a row to add when he names it.
+
+## §243. THE RULE: a page with staves has no dividing lines; ELEC and its bracket; the gliss "as before" on the sax's first note (2026-11-19)
+
+**His word (the sketch pad, SW-71's last entry):** the dividing lines were piece 6's because its lanes had no staves — *"when there's staff,
+we don't need a dividing line. The staff version of the score should look just like any concert score."* **As a row:**
+`objects.laneLine.onlyWithoutStaff: true` — a page that shows any staff draws no divider; a page without staves keeps them (`render.js`, the
+one reader). The electronics' lane: the page's name **ELEC** (a new optional `name` on a registry part — `short` stays the composer lane's
+`E1`, which the registry check compares) and its own bracket (`groups`). `check_rules`'s furniture test taught the name form.
+**"How did we show the curve before?"** — shown ON HIS NOTE rather than described: a trial copy of the draft (`scores/x-notation-trial.json`,
+the AI's; `wc-94 … 96` given the group `sax-gliss-1`) and the lineage's own command, `notate_section --morph sax-gliss-1` → the working page
+`s1-sax-gliss-as-before` (14 … 36 s, the alto sax): the septets' MORPH BLOCK as it stands in this engine — the go line at the note's start;
+the ORANGE GLISS CURVE running on from it (scale `travel`: the part's own travel fills the top of the lane; here 44 cents over three
+breaths); under the staff, before the go line, the pitch figure (two heads and a gliss line, start → destination) and the dynamic figure
+(the block's default, niente → fff — the septets', not this piece's). The tool reports one unit at rung 8 (the dynamic figure spills the
+lane's bottom) and `check_rules` flags the page's header heads as beyond the ottava threshold — both are the old figure on a new lane, left
+as they are: the page is there to be LOOKED at, not kept. `check_rules` otherwise as before (the sequence check still wants a page).

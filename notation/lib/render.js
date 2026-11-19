@@ -178,7 +178,8 @@
     // furniture, under every mark. The lanes are read from the view's own bands: a staff of a grand staff and a member of a joined lane lie
     // inside their lane's band, so merging the overlapping bands gives the lanes whatever the ensemble. `outer`: also at the frame's first and
     // last lane edge. ABSENT from the registry = no line — every earlier page unchanged.
-    if (E.laneLine && E.laneLine.thickSs > 0 && Array.isArray(view.systems) && view.systems.length) {
+    const staffOnPage = () => ((model && model.systems) || []).some(sm => (sm.items || []).some(it => it.k === 'staff' && it.t1 > view.window[0] + 1e-9 && it.t0 < view.window[1] - 1e-9 && !(sm.staffInfo && sm.staffInfo.hidden)));
+    if (E.laneLine && E.laneLine.thickSs > 0 && Array.isArray(view.systems) && view.systems.length && !(E.laneLine.onlyWithoutStaff && staffOnPage())) {   // `onlyWithoutStaff` (the Switch~ piece): a page with staves is a concert score — no dividers
       const bands = view.systems.map(s => [s.yTopPx, s.yBotPx, s.ssPx]).sort((a, b) => a[0] - b[0] || b[1] - a[1]);
       const lanesY = [];
       for (const b of bands) { const L = lanesY[lanesY.length - 1]; if (L && b[0] < L[1] - 1e-6) L[1] = Math.max(L[1], b[1]); else lanesY.push(b.slice()); }
@@ -445,7 +446,7 @@
           ly = lane.yMidPx + (E.partLabel.baselineBelowEm != null ? E.partLabel.baselineBelowEm : 0.32) * E.partLabel.sizeSs * ssPx;
         }
         parts.push('<text x="' + (ML + E.partLabel.xPx) + '" y="' + ly.toFixed(1) + '" font-size="' + (E.partLabel.sizeSs * ssPx).toFixed(1) +
-          '"' + fontAttr + ' fill="' + o.muted + '">' + (pcfg ? esc(pcfg.short) : 'T' + (sysModel.part + 1)) + '</text>');
+          '"' + fontAttr + ' fill="' + o.muted + '">' + (pcfg ? esc(pcfg.name || pcfg.short) : 'T' + (sysModel.part + 1)) + '</text>');
       }
       // page-edge rule: a chunk continuing across the cut re-shows its tempo
       // label at the page start (splice.js planPages -> page.reshow)

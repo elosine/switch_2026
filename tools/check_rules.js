@@ -163,7 +163,7 @@ ok(!noRow.length, 'every drawable object (' + universe.size + ' kinds and glyphs
 // ---------------------------------------------------------------- (3) no colour or size literal for a music mark
 console.log('(3) THE LITERALS');
 const MIRROR = /RULES MIRROR/;
-const FURNITURE_MUTED = [/E\.partLabel/, /E\.reshow/, /mk\.label/, /pcfg \? esc\(pcfg\.short\)/];
+const FURNITURE_MUTED = [/E\.partLabel/, /E\.reshow/, /mk\.label/, /pcfg \? esc\(pcfg\.(name \|\| pcfg\.)?short\)/];   // the part's name: its display `name` where the registry gives one (the Switch~ piece's ELEC), else its short
 for (const f of ['notation/lib/layout.js', 'notation/lib/render.js']) {
   const lines = fs.readFileSync(path.join(ROOT, f), 'utf8').split(/\r?\n/);
   const col = [], mut = [], size = [];

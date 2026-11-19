@@ -31,6 +31,17 @@
    ],
    "profile": "trance",
    "exp": true
+  },
+  {
+   "id": "s1-sax-gliss-as-before",
+   "label": "The sax's first note - the gliss as the septets drew it",
+   "score": "x-notation-trial",
+   "window": [
+    14,
+    36
+   ],
+   "profile": "trance",
+   "exp": true
   }
  ]
 }

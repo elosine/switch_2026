@@ -135,7 +135,9 @@
     "hidden": true,
     "noClef": true
    },
-   "_note": "THE ELECTRONICS — A PLACEHOLDER (the Switch~ piece, 2026-11-19, SW-71: \"the equivalent of a tape part … in the main score, the conductor score … like a half lane height, and I'll just mix the electronics and show the waveform … just have a placeholder for that\"). ONE lane, half a player's (weight 0.5), no staff, no clef, at the bottom. It stands on the composer's lane 8 (Elec 1 — the registry must name a lane of the score); the other three electronics lanes (9 … 11) are not parts: the tape part is their MIX. Its drawing (the mix's waveform) is not built — the lane is empty."
+   "_note": "THE ELECTRONICS — A PLACEHOLDER (the Switch~ piece, 2026-11-19, SW-71: \"the equivalent of a tape part … in the main score, the conductor score … like a half lane height, and I'll just mix the electronics and show the waveform … just have a placeholder for that\"). ONE lane, half a player's (weight 0.5), no staff, no clef, at the bottom. It stands on the composer's lane 8 (Elec 1 — the registry must name a lane of the score); the other three electronics lanes (9 … 11) are not parts: the tape part is their MIX. Its drawing (the mix's waveform) is not built — the lane is empty.",
+   "name": "ELEC",
+   "_nameNote": "the page's name for this lane (his word 2026-11-19: \"ELEC is better\"); `short` stays the composer lane's own (E1) — the registry check compares it with the score's tracks"
   }
  ],
  "groups": [
@@ -168,6 +170,13 @@
     6,
     7
    ]
+  },
+  {
+   "kind": "bracket",
+   "parts": [
+    8
+   ],
+   "_note": "the electronics' own bracket (his word 2026-11-19: \"give the electronics its own bracket for now. We'll see when we get the waveform in there how it looks\")"
   }
  ],
  "_groupsNote": "Score order top to bottom: the three winds in a bracket · the ONE percussionist's two parts (the unpitched staff, the pitched staff) in a BRACE, joined into one lane of the frame, 6 ss apart (piece 6's 755ed29) · the piano's grand staff (piece 4) · the two strings in a bracket. NO STAFF FOR THE ELECTRONICS (piece 6's D8). THE WEIGHTS (the percussion 1.888, the piano 1.576) are the earlier pieces' arithmetic for their own lane counts — provisional until the page is looked at."
