@@ -1206,3 +1206,14 @@ start and peak points, more or less. I don't need to see every fluctuation."*
 *Done:* the bookmark `bank/tuplet_versions/2026-11-19 harmonies done.json`; the composer save `piece-Section03-I-harmoniesDone` (4,606 notes,
 162 harmony bricks, his H save untouched); `tools/beds_envelope.py` → fourteen swells of 6 dB or more between 269 and 482; a strip under the
 players view: the beds' level as a filled curve, each swell in orange from its start to its peak with the two times.
+
+### SW-65 · 2026-11-19 — THE CRESCENDO PASS, first thoughts: a baseline dynamic, swells to fff with the electronics, a decrescendo before the deep valleys
+
+*His words (dictated, light corrections):* *"if peak electronics are at fff, then what is the standard? What is the average, the baseline dynamic?
+What I'm getting at is it's got to rise from somewhere for the instrumental part and then come back down. I think I want to more or less handle
+most of the crescendos that way. Say it's mf. So it's mostly mf, and then it swells to fff and then comes down. And then for the big valleys,
+like the ones at 339 and 353, we can do a decrescendo just before. But most of the other ones, maybe the one at 438. So those two things: the
+median dynamic, and then which ones should have a decrescendo, and show me where a good place to start those are."*
+*The measure (the AI's, from `workshop/tuplets/beds_envelope.json`, 280 → 478 s):* the beds' peaks −8 … −9 dB; their median −14.8 dB (6 dB
+under the peaks), the quiet quarter under −18.9, the deep valleys −25 … −36. The falls before the deep valleys begin at 338.2 (→ 339.4, 15 dB
+in 1.2 s) · 351.3 (→ 353.0, 18 dB in 1.7 s) · 431.7 (→ 438.9, 16 dB in 7 s); also 363.6 (→ 366.4) · 367.6 (→ 368.6) · 372.6 (→ 386.6, a 14 s fade).
