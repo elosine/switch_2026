@@ -4152,3 +4152,11 @@ peak over 35 cents off, or under 100 Hz, counted less); every stack of the same 
 342.6 C♯ G♯ → **D A** (clear: D · A · B♭) · 346.4 G♯ E♭ → **C♯ G♯** (clear: C♯ · B♭ · A · G♯) · 352.5 E♭ B♭ → **F♯ C♯** (clear: F♯ · C♯ · B♭) ·
 356.2 B♭ F → keep (B♭ · A) · 360.0 F C → no clear pitch (0.7 s of wash) · 363.7 C G → B F♯ (slight: B · D · G) · 368.3 G D → B♭ F (slight:
 B♭ · B) · 379 D A → B♭ F (slight: only F) · 382 A E → B F♯ (slight: only B). Not applied — his word first.
+
+## §235. The stacked fifths of 383 → 415.2 against the beds — the assessment (2026-11-19)
+
+`beds_pitches.py --fifths 383-415.2` (now → fits best · what the beds hold): 383 B F♯ C♯ (gray) → no clear pitch · 390.5 C♯ G♯ E♭ (FAST
+tuplets) → C G D, clear (C · D · A · B) · 392.2 E♭ B♭ F (gray) → G D A, slight (D · A · B♭) · 397.4 F C G (fast tuplets) → G D A, slight ·
+398.9 G D A (gray) → keep (D · F♯ · C♯ · F · A) · 405.3 A E B (fast tuplets) → B F♯ C♯, slight (B · C) · 407.1 B F♯ C♯ (gray) → G D A, slight
+(D · F♯ · A) · 412.7 C♯ G♯ E♭ (fast tuplets) → B♭ F C, slight (B♭ · F · A) · 414.9 E♭ B♭ F (gray, a sliver) → keep. Around 390 … 408 the beds
+sit on D and A throughout. By his rule only the gray stretches may change: 392.2 and 407.1 → G D A. Put to him; not applied.
