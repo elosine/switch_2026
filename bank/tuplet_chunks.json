@@ -673,7 +673,7 @@
   },
   {
    "id": "c34",
-   "start": 415.3,
+   "start": 415.2,
    "end": 417.4,
    "band": "medium",
    "players": [
@@ -1201,11 +1201,11 @@
    "end": 321.3,
    "seed": 1,
    "pcs": [
-    7,
-    2
+    10,
+    5
    ],
-   "label": "G · D — a new octave on every strike",
-   "why": "a tuplet chunk: left as it was"
+   "label": "B♭ · F — a new octave on every strike",
+   "why": "tuned to the beds (§235), his word — a tuplet section, clear"
   },
   {
    "id": "h181",
@@ -1796,13 +1796,13 @@
    "start": 390.5,
    "end": 392.2,
    "pcs": [
-    1,
-    8,
-    3
+    0,
+    7,
+    2
    ],
-   "label": "C♯ · G♯ · E♭ — a new octave on every strike",
+   "label": "C · G · D — a new octave on every strike",
    "seed": 1,
-   "why": "three stacked fifths, the third kept as the next one's first"
+   "why": "tuned to the beds (§235), his word — a tuplet section, clear"
   },
   {
    "id": "h113",

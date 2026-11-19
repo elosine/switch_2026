@@ -1183,3 +1183,8 @@ C♯. You can just go ahead and do those and let me hear it."*
 *As placed (single strikes only):* 342.6 D · A · 346.4 C♯ · G♯ · 352.5 F♯ · C♯ (the three clear ones, the beds' own) · 363.7 B · F♯ · 368.3 F · C ·
 379 B♭ · F · 382 F♯ · C♯ (his, no fifth twice in a row); 335.2 A · E · B, 341.08 F♯ · C♯, 356.2 B♭ · F, 360 F · C kept. The walk by fifths of
 SW-58 is given up for the electronics' notes.
+
+*His words, next (2026-11-19):* *"What I want to adjust is the, for lack of a better term, pitched sections — the stacked fifths or the single
+octaves … if there's some you left out because they were tuplets, let's reassess those"* — so the rule is: EVERY PITCHED SECTION (a brick of note
+names), tuplets or single strikes, may take the electronics' notes; the chord sections (takes) are left alone. Of the eight open ones he took
+*"just the two clear ones"*: 319.4 (medium tuplets) G · D → B♭ · F; 390.5 (fast tuplets) C♯ · G♯ · E♭ → C · G · D. The six slight ones stay.
