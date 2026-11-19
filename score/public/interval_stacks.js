@@ -95,7 +95,7 @@ Object.assign(D, {
         const st = this.strike, n = this.voices.filter(v => v.lane >= 0 && !v.skip).length, left = this.voices.length - n;
         this.setStatus((what ? what + ' · ' : '') + st.label + ' · ' + (this.istk().order === 'row' ? 'dealt as a row' : 'stacked bottom to top') + ' · ' + n + ' players' + (left > 0 ? ' · ' + left + ' note' + (left === 1 ? '' : 's') + ' with no player (more notes than ticked players)' : '') + (this._isShared ? ' · ' + this._isShared + ' unison' + (this._isShared === 1 ? '' : 's') + ' (no other octave was free)' : ''));
     },
-    stackRedo(what, lanesToo) { if (!this.strike || !this.strike.istack) return; this.snapshot(); if (!lanesToo) this.voices.forEach(v => { if (v.lane < 0 && v.restLane != null) { v.lane = v.restLane; delete v.restLane; } }); if (lanesToo) this.stackDeal(); else this.stackPickOctaves(); this.save(); this.render(); this.refreshStackBanner(); this.stackStatus(what); },
+    stackRedo(what, lanesToo) { if (!this.strike || !this.strike.istack) return; this.snapshot(); this.istk().shape = null; if (!lanesToo) this.voices.forEach(v => { if (v.lane < 0 && v.restLane != null) { v.lane = v.restLane; delete v.restLane; } }); if (lanesToo) this.stackDeal(); else this.stackPickOctaves(); this.save(); this.render(); this.refreshStackBanner(); this.stackStatus(what); },
     stackChoose() { const s = this.istk(); this.save(); this.select(idFor(s.kind, s.n, s.tr)); },
     // a player put on another octave of its note by hand (a double-click in its column)
     stackSetOctave(i, m) { const v = this.voices[i]; if (!v || v.lane < 0) return; this.snapshot(); v.pitch = m; v.fold = 0; v.standIn = null; v.skip = false; this.fitVoice(v); this.save(); this.render(); const T = this.tracks(); const twin = this.voices.find(w => w !== v && w.lane >= 0 && w.pitch === m); this.setStatus((T[v.lane] || {}).short + ' on ' + nm(m) + (twin ? ' — in unison with ' + ((T[twin.lane] || {}).short || '?') : '')); },
@@ -114,6 +114,7 @@ Object.assign(D, {
             '<button class="skIsGo" title="take this stack: its notes go to the players" style="' + BTN + (cur ? ';background:rgba(201,160,90,.35)' : '') + '">' + (cur ? 'chosen' : 'choose') + '</button></div>';
         h += '<div class="skIsRow" style="padding:3px 8px;display:flex;gap:4px 6px;align-items:center;flex-wrap:wrap;border-bottom:1px solid #2a2a30;' + (on ? '' : 'opacity:.45') + '">' +
             
+            '<button class="skIsFree" title="a free shuffle, no shape: the notes go to the players in a new order and every player takes a new octave" style="' + BTN + ';color:#fff">shuffle</button>' +
             '<button class="skIsStacked" title="3 · the stack\'s own order up the players: cello, piano, alto sax, clarinet, violin, flute, glockenspiel" style="' + BTN + (on && s.order === 'stacked' ? ';background:rgba(201,160,90,.35)' : '') + '">stacked</button>' +
             '<button class="skIsRowBtn" title="3 · the same notes dealt to the players in another order (a row) — another order each press" style="' + BTN + (on && s.order === 'row' ? ';background:rgba(201,160,90,.35)' : '') + '">shuffle order</button>' +
             '<button class="skIsOct" title="4 · every player keeps its note and takes another octave of its range — never two players on the same key while another octave is free" style="' + BTN + '">shuffle octaves</button></div>';
@@ -129,6 +130,7 @@ Object.assign(D, {
         const take = () => { s.kind = b.querySelector('.skIsKind').value; s.n = Math.max(2, Math.min(12, Math.round(+b.querySelector('.skIsN').value) || 7)); s.tr = +b.querySelector('.skIsTr').value; this.stackChoose(); };
         b.querySelector('.skIsKind').addEventListener('change', take); b.querySelector('.skIsTr').addEventListener('change', take); b.querySelector('.skIsN').addEventListener('change', take);
         b.querySelector('.skIsGo').addEventListener('click', take);
+        row.querySelector('.skIsFree').addEventListener('click', () => { s.order = 'row'; s.oSeed = (s.oSeed || 1) + 1; s.octSeed = (s.octSeed || 1) + 1; this.stackRedo('a free shuffle', true); });
         row.querySelector('.skIsStacked').addEventListener('click', () => { s.order = 'stacked'; this.stackRedo('stacked', true); });
         row.querySelector('.skIsRowBtn').addEventListener('click', () => { s.order = 'row'; s.oSeed = (s.oSeed || 1) + 1; this.stackRedo('a new order', true); });
         { const sr = list.querySelector('.skIsShapes'); if (sr) { sr.querySelector('.skIsSave').addEventListener('click', () => this.stackSaveShape()); sr.querySelector('.skIsAgain').addEventListener('click', () => { if (s.shape) this.stackApplyShape(s.shape, true); else this.setStatus('choose a shape first, or save one', true); }); sr.querySelectorAll('.skIsShape').forEach(b2 => b2.addEventListener('click', () => this.stackApplyShape(b2.dataset.name, false))); } }
@@ -235,7 +237,7 @@ const _select = D.select;
 D.select = function (id) {
     _select.call(this, id);
     if (!this.strike || this.strike.id !== id || !this.strike.istack) { try { this.refreshStackBanner(); } catch (e) {} return; }
-    const p = this.strike.istack, s = this.istk(); s.kind = p.kind; s.n = p.n; s.tr = p.tr;
+    const p = this.strike.istack, s = this.istk(); s.kind = p.kind; s.n = p.n; s.tr = p.tr; s.shape = null;
     this.stackDeal(); this.save(); this.render(); this.refreshStackBanner(); this.stackStatus('');
 };
 const _renderBanners = D.renderBanners;
