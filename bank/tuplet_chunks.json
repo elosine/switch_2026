@@ -1189,6 +1189,17 @@
    "end": 317.6,
    "take": "MTchord112st",
    "why": "slow: another sixteenth longer"
+  },
+  {
+   "id": "h44",
+   "start": 317.6,
+   "end": 324.3,
+   "pcs": [
+    7,
+    2
+   ],
+   "label": "G · D — a new octave on every strike",
+   "seed": 1
   }
  ],
  "sets": {

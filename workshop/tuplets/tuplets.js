@@ -84,9 +84,19 @@
   const fold = (pitch, lo, hi) => { let k = pitch; if (lo != null) while (k < lo) k += 12; if (hi != null) while (k > hi) k -= 12; return k; };
   // the keys a player sounds at score time t: its pitches in the take of the harmony brick there (a later brick wins), folded into the
   // technique's range; no brick, or no pitch for this player in the take → its own D
-  function keysAt(db, takes, routes, set, p, t) {
+  // A brick with `pcs` (SW-55, 2026-11-19 — his "GD, the fifths … spread and shuffle … every articulation per instrument, so they'll play a
+  // different octave if they have it"): on EVERY STRIKE the player takes one of the keys of those notes in its range, drawn anew (seeded by
+  // the brick, the player and the strike's time), never the key it has just played when it has another. `prev` = the keys of its last strike.
+  function keysAt(db, takes, routes, set, p, t, prev) {
     const R = routes[p], q = R.tech[(set || {})[p]] || R.tech[R.home] || {}; let h = null;
     for (const b of (db.harmonies || [])) if (t >= b.start && t < b.end) h = b;
+    if (h && Array.isArray(h.pcs) && h.pcs.length) {
+      const c = []; for (let m = (q.lo != null ? q.lo : 21); m <= (q.hi != null ? q.hi : 108); m++) if (h.pcs.indexOf(m % 12) >= 0) c.push(m);
+      if (!c.length) return [R.homeKey];
+      let i = hash(h.id + '|' + p + '|' + Math.round(t * 1000) + '|' + (h.seed || 1)) % c.length;
+      if (prev && prev.length === 1 && prev[0] === c[i] && c.length > 1) i = (i + 1 + hash('x' + h.id + p + Math.round(t * 1000)) % (c.length - 1)) % c.length;
+      return [c[i]];
+    }
     const tk = h && takes[h.take], ps = tk && tk.lanes[R.lane];
     if (!ps || !ps.length) return [R.homeKey];
     return [...new Set(ps.map((x) => fold(x, q.lo, q.hi)))];

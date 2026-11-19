@@ -37,14 +37,14 @@ const set = (db.sets || T.SETS)[db.artic] || T.SETS.staccato;
 const r3 = (x) => Math.round(x * 1000) / 1000;
 let nextId = src.nextId || 1; const notes = []; let fastest = 0;
 form.players.forEach((p) => {
-  const ev = per[p];
+  const ev = per[p]; let prevK = null;
   ev.forEach((e, i) => {
     const o = JSON.parse(JSON.stringify(tmpl[p][e.src])), gap = i + 1 < ev.length ? ev[i + 1].t - e.t : 0.3;
     if (i) fastest = Math.max(fastest, 1 / (e.t - ev[i - 1].t));
     o.id = 'wc-' + (nextId++); o.startSeconds = r3(e.t); o.endSeconds = r3(e.t + Math.max(0.03, Math.min(form.noteSeconds || 0.12, gap * 0.6)));
     o.properties.phaseForm = Object.assign({}, o.properties.phaseForm, { step: e.step, k: e.k || 0, band: e.plain ? null : (e.band || null) });
     if (set[p] && routes[p].tech[set[p]]) o.technique = set[p];
-    const keys = T.keysAt(db, takes, routes, set, p, e.t);
+    const keys = T.keysAt(db, takes, routes, set, p, e.t, prevK); prevK = keys;
     keys.forEach((k, j) => { const n = j ? JSON.parse(JSON.stringify(o)) : o; if (j) n.id = 'wc-' + (nextId++); n.sonifyNote = k; notes.push(n); });
   });
 });

@@ -1061,3 +1061,12 @@ at 68 = 0.66 s, each moved up to a 32nd); A GROWING SERIES (0.70 s first, each n
 chords. And then whatever the pace was for the first fast section, let's do that for that fast. And then let's make the pace for that medium a
 little bit bigger — a 16th note — and then a slow, another 16th note bigger."* — THE PACE OF THE CHORDS FOLLOWS THE TUPLET BAND: fast = a
 change every beat at 68 (0.88 s) · medium = 1.25 beats (1.10 s) · slow = 1.5 beats (1.32 s); applied to the chunks at 311.9 · 313.6 · 315.2.
+
+### SW-55 · 2026-11-19 — G AND D, EVERY STRIKE ANOTHER OCTAVE: the stretch before the swarm (317.6 → 324.3)
+
+*His words (dictated, light corrections):* *"from 317.6, the end of the chords that are in there, until 324.3, that unison. Let's make those
+all G octaves. Or actually, let's make those CG. No, sorry. Let's make those GD, so the fifths. And if you could spread the octaves. So do like
+a shuffle. So spread and shuffle. Well, let's see how it sounds, but let's do it every articulation per instrument. So they'll play a different
+octave if they have it."*
+*The AI's reading (marked as such):* one harmony brick 317.6 → 324.3 that holds NOTE NAMES, not a take: G and D. On every strike each player
+plays a G or a D in another octave of its range, drawn anew, never the key it has just played. Any player may have either note.

@@ -4063,3 +4063,23 @@ when its tab is behind another; every note that fell between two slow ticks then
 note at once, so: silence, then a bunch. **Cured, whether or not it was the cause:** the 40 ms clock runs in a WORKER (not slowed with the
 tab); a note more than 60 ms past its time is DROPPED and counted, the count shown under Play. Proven once on the throwaway port: 50 ticks
 in 2 s from the worker, the playhead and the note index advancing, no tick after Stop. NOT explained: the blips after the page was closed.
+
+## §229. The harmonic rhythm of the tuplet section, by ear and by rule; a brick of NOTE NAMES (SW-54 · SW-55) (2026-11-19)
+
+**The chords of 291.8 → 324.3 placed in one sitting, his words in the sketch pad (SW-54 · SW-55). In order, with what each try taught:**
+1. *Two buckets of beats at 68, a coin flip, the takes dealt without repeats* → `tools/harmony_fill.js` (the deck kept in the file). First
+   draw, 1 beat or 1.5 … 3.5: nearly all one-beat chords. The AI had dealt from the 92 `st` takes only; he asked — corrected to the full set
+   (his 52 and the 92: 144).
+2. He kept the quick one-beat changes from 298.4 (the fast chunk) and slowed the beginning: 2 beats, or 2.5 · 3 · 3.5 — then *"jitter so
+   they don't seem like the same length"*, a sixteenth either way.
+3. Then BY EAR, on events of the players: 295.2 (a violin note) · 296 · 296.8 · 297.7 · 301.3 · 302.1 · 310.3 · 311.1 (two clusters).
+4. Then BY RULE again, three kinds: a steady quick pulse (303 → 305.5: every 0.75 beat, a 32nd of jitter); a GROWING series (305.5 →
+   311.9: 0.70 s, each next about a sixteenth longer, the step itself varied — 0.70 · 0.92 · 1.20 · 1.44 · the last run to the chunk's edge);
+   and THE PACE BY BAND (311.9 → 317.6): fast = a change every beat (0.88 s), medium a sixteenth longer (1.10), slow another (1.32).
+5. 317.6 → 324.3: *"GD, the fifths … spread and shuffle … every articulation per instrument, so they'll play a different octave if they have
+   it"* — a new kind of harmony brick: `pcs` instead of a take (`tuplets.js` `keysAt`): on every strike the player takes one key of those
+   notes in its technique's range, drawn by a hash of the brick, the player and the strike's time, never its last key. On the real strikes
+   the flute's first run reads G6 D6 G6 D6 G5 G6 D5 D4 …, the piano's D4 G7 D4 D3 G5 D5 D2 G1 … (the piano's range is the whole keyboard).
+**The page since §228:** an Undo (CTRL+Z, the file as it was before each change, 80 deep); no adding by double-click (an accident of his);
+a notes-brick's own row (what it does · new draw).
+**A slip of the AI's, caught at once:** the brick before 301.3 was dropped by a filter one hundredth too tight; put back.
