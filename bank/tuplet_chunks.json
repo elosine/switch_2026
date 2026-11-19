@@ -996,5 +996,201 @@
    "t": 292,
    "label": "the tuplets start here (his word 2026-11-18)"
   }
- ]
+ ],
+ "harmonies": [
+  {
+   "id": "h1",
+   "start": 291.8,
+   "end": 293.12,
+   "take": "MTchord75st",
+   "beats": 1.5
+  },
+  {
+   "id": "h2",
+   "start": 293.12,
+   "end": 294.01,
+   "take": "MTchord119st",
+   "beats": 1
+  },
+  {
+   "id": "h3",
+   "start": 294.01,
+   "end": 294.89,
+   "take": "MTchord91st",
+   "beats": 1
+  },
+  {
+   "id": "h4",
+   "start": 294.89,
+   "end": 296.21,
+   "take": "MTchord136st",
+   "beats": 1.5
+  },
+  {
+   "id": "h5",
+   "start": 296.21,
+   "end": 297.09,
+   "take": "MTchord69st",
+   "beats": 1
+  },
+  {
+   "id": "h6",
+   "start": 297.09,
+   "end": 297.98,
+   "take": "MTchord138st",
+   "beats": 1
+  },
+  {
+   "id": "h7",
+   "start": 297.98,
+   "end": 298.86,
+   "take": "MTchord85st",
+   "beats": 1
+  },
+  {
+   "id": "h8",
+   "start": 298.86,
+   "end": 299.74,
+   "take": "MTchord58st",
+   "beats": 1
+  },
+  {
+   "id": "h9",
+   "start": 299.74,
+   "end": 300.62,
+   "take": "MTchord96st",
+   "beats": 1
+  },
+  {
+   "id": "h10",
+   "start": 300.62,
+   "end": 301.51,
+   "take": "MTchord127st",
+   "beats": 1
+  },
+  {
+   "id": "h11",
+   "start": 301.51,
+   "end": 301.66,
+   "take": "MTchord82st",
+   "beats": 1
+  }
+ ],
+ "sets": {
+  "staccato": {
+   "flute": "staccato",
+   "clarinet": "staccato",
+   "alto_sax": "staccato",
+   "glockenspiel": "glock_shorts_hard",
+   "piano": "main",
+   "violin": "stac_vel",
+   "cello": "stac_vel"
+  },
+  "ordinario · vibrato": {
+   "flute": "ord",
+   "clarinet": "ord",
+   "alto_sax": "ord",
+   "glockenspiel": "glock_main_hard",
+   "piano": "main",
+   "violin": "vib_vel",
+   "cello": "vib_vel"
+  },
+  "spiccato strings": {
+   "flute": "staccato",
+   "clarinet": "staccato",
+   "alto_sax": "staccato",
+   "glockenspiel": "glock_shorts_hard",
+   "piano": "main",
+   "violin": "spicc_vel",
+   "cello": "spicc_vel"
+  }
+ },
+ "artic": "staccato",
+ "takeDeck": {
+  "pattern": "^MTchord\\d+st$",
+  "left": [
+   "MTchord56st",
+   "MTchord57st",
+   "MTchord59st",
+   "MTchord60st",
+   "MTchord61st",
+   "MTchord62st",
+   "MTchord63st",
+   "MTchord64st",
+   "MTchord65st",
+   "MTchord66st",
+   "MTchord67st",
+   "MTchord68st",
+   "MTchord70st",
+   "MTchord71st",
+   "MTchord72st",
+   "MTchord73st",
+   "MTchord74st",
+   "MTchord76st",
+   "MTchord77st",
+   "MTchord78st",
+   "MTchord79st",
+   "MTchord80st",
+   "MTchord81st",
+   "MTchord83st",
+   "MTchord84st",
+   "MTchord86st",
+   "MTchord87st",
+   "MTchord88st",
+   "MTchord89st",
+   "MTchord90st",
+   "MTchord92st",
+   "MTchord93st",
+   "MTchord94st",
+   "MTchord95st",
+   "MTchord97st",
+   "MTchord98st",
+   "MTchord99st",
+   "MTchord100st",
+   "MTchord101st",
+   "MTchord102st",
+   "MTchord103st",
+   "MTchord104st",
+   "MTchord105st",
+   "MTchord106st",
+   "MTchord107st",
+   "MTchord108st",
+   "MTchord109st",
+   "MTchord110st",
+   "MTchord111st",
+   "MTchord112st",
+   "MTchord113st",
+   "MTchord114st",
+   "MTchord115st",
+   "MTchord116st",
+   "MTchord117st",
+   "MTchord118st",
+   "MTchord120st",
+   "MTchord121st",
+   "MTchord122st",
+   "MTchord123st",
+   "MTchord124st",
+   "MTchord125st",
+   "MTchord126st",
+   "MTchord128st",
+   "MTchord129st",
+   "MTchord130st",
+   "MTchord131st",
+   "MTchord132st",
+   "MTchord133st",
+   "MTchord134st",
+   "MTchord135st",
+   "MTchord137st",
+   "MTchord139st",
+   "MTchord140st",
+   "MTchord141st",
+   "MTchord142st",
+   "MTchord143st",
+   "MTchord144st",
+   "MTchord145st",
+   "MTchord146st",
+   "MTchord147st"
+  ],
+  "of": 92
+ }
 }

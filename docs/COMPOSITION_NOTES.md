@@ -1021,3 +1021,15 @@ octave above the middle. And I save that as a shape, shuffle within it, and save
 back, I see 2 shapes. For the other harmonies there's maybe a way to generalize those rules. I don't want to spend too much time on that. I
 need to move on to actually choose the harmonies for this piece, but we can analyze a little what that generalization will look like and maybe
 implement a part. So let's discuss this, but get ready to move on with the build."*
+
+### SW-54 · 2026-11-19 — THE HARMONIC RHYTHM of the tuplet section: two buckets of beats at 68, a coin flip; the takes dealt without repeats
+
+*His words (dictated, light corrections):* *"Let's make 68 the baseline. And then starting with the slow section at 291.8, let's make two
+buckets. The first bucket is just one — a little shorter than a second, one beat at 68. And the other bucket will include maybe like two, 1.5,
+2.5, 3, maybe up to 3.5. And then let's have a coin flip each bucket. So on the average it'll alternate between one beat and something greater
+than one beat. But there might be several one beats in a row. And then let's make those time containers up to when that drift starts, just
+before 302. And let me start with a random selection of chords with each change from all those takes, but make it exclusive. So let's not have
+any takes repeat until they're all used."*
+*The AI's reading (marked as such):* HARMONY bricks (not tuplet chunks) from 291.8 to 301.66 (where the glide to swarm ii begins); each brick's
+length = a coin flip between 1 beat and one of 1.5 · 2 · 2.5 · 3 · 3.5 beats, a beat = 60/68 = 0.882 s; each brick one of the 92 `MTchord…st`
+takes (§227), drawn without return — the deck kept in the file so the next stretch goes on with the takes not yet heard.
