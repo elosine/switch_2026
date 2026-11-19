@@ -999,42 +999,58 @@
  ],
  "harmonies": [
   {
+   "id": "h45",
+   "start": 277.8,
+   "end": 291.8,
+   "pcs": [
+    2
+   ],
+   "label": "D — a new octave on every strike",
+   "seed": 1
+  },
+  {
    "id": "h12",
    "start": 291.8,
    "end": 293.53,
    "take": "MTchord126st",
-   "beats": 2
+   "beats": 2,
+   "shuffle": true
   },
   {
    "id": "h13",
    "start": 293.53,
    "end": 295.2,
    "take": "MTchord107st",
-   "beats": 2
+   "beats": 2,
+   "shuffle": true
   },
   {
    "id": "h21",
    "start": 295.2,
    "end": 296,
-   "take": "MTchord80st"
+   "take": "MTchord80st",
+   "shuffle": true
   },
   {
    "id": "h22",
    "start": 296,
    "end": 296.8,
-   "take": "MTchord42d"
+   "take": "MTchord42d",
+   "shuffle": true
   },
   {
    "id": "h23",
    "start": 296.8,
    "end": 297.7,
-   "take": "MTchord138st"
+   "take": "MTchord138st",
+   "shuffle": true
   },
   {
    "id": "h24",
    "start": 297.7,
    "end": 298.4,
-   "take": "MTchord74st"
+   "take": "MTchord74st",
+   "shuffle": true
   },
   {
    "id": "h16",

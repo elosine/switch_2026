@@ -1070,3 +1070,13 @@ a shuffle. So spread and shuffle. Well, let's see how it sounds, but let's do it
 octave if they have it."*
 *The AI's reading (marked as such):* one harmony brick 317.6 → 324.3 that holds NOTE NAMES, not a take: G and D. On every strike each player
 plays a G or a D in another octave of its range, drawn anew, never the key it has just played. Any player may have either note.
+
+### SW-57 · 2026-11-19 — THE OPENING ON D SCATTERED BY OCTAVES; SHUFFLE WITHIN THE CHORD
+
+*His words (dictated, light corrections):* *"the beginning section, just all those octaves, can you do that octave shuffle all the way up to the
+first chord change? And then I want to listen from that first chord change, 291.8, up to 298.3. Can I hear a shuffle within the chord? What
+I'm interested in is that each — just like before we did with those fifths — each player is playing a different note every time, even if some
+of the notes come back. So that'll mean a shuffle within the chord, maybe. Let's give those two things a try."*
+*The AI's reading (marked as such):* (1) the unison D of 277.8 → 291.8 becomes an OCTAVE SCATTER on D alone; (2) the six chords of 291.8 → 298.4
+keep their takes but each gets SHUFFLE WITHIN THE CHORD: on every strike a player takes another of the chord's notes (any player's key of the
+take, as written where it reaches it, else by octaves), never the one it has just played.

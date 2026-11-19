@@ -98,6 +98,18 @@
       return [c[i]];
     }
     const tk = h && takes[h.take], ps = tk && tk.lanes[R.lane];
+    // SHUFFLE WITHIN THE CHORD (SW-57, 2026-11-19 — his "each player is playing a different note every time, even if some of the notes come
+    // back"): the brick keeps its take, but on every strike the player takes one of the chord's keys — all the take's keys, each as written
+    // where this player reaches it, else moved by octaves into its range — drawn anew, never its last key.
+    if (h && h.shuffle && tk) {
+      const all = []; Object.keys(tk.lanes).forEach((l) => tk.lanes[l].forEach((x) => all.push(x)));
+      const c = [...new Set(all.map((x) => fold(x, q.lo, q.hi)))].sort((a, b) => a - b);
+      if (c.length) {
+        let i = hash(h.id + '|' + p + '|' + Math.round(t * 1000) + '|' + (h.seed || 1)) % c.length;
+        if (prev && prev.length === 1 && prev[0] === c[i] && c.length > 1) i = (i + 1 + hash('x' + h.id + p + Math.round(t * 1000)) % (c.length - 1)) % c.length;
+        return [c[i]];
+      }
+    }
     if (!ps || !ps.length) return [R.homeKey];
     return [...new Set(ps.map((x) => fold(x, q.lo, q.hi)))];
   }

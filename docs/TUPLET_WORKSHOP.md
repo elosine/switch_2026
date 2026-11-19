@@ -43,6 +43,13 @@ The rules of the tuplet draw are at the top of `workshop/tuplets/tuplets.js` (on
   brick's id, the player and the strike's time; never the key the player has just played. `seed` + 1 = another draw.
 - **Not in the page's controls** beyond the brick's own row (what it does · `new draw`). He asks in the chat; the AI writes the brick.
 
+### SHUFFLE WITHIN THE CHORD *(his phrase, 2026-11-19)*
+
+- **What he hears:** the chord stays (its take), but every strike of a player is another note of it — "each player is playing a different
+  note every time, even if some of the notes come back".
+- **How to make one:** `"shuffle": true` on a take brick (a tick box on the brick's row; `new draw` beside it). The candidates are ALL the
+  take's keys, each as written where the player reaches it, else moved by octaves into its range; never the key just played.
+
 ### THE CHORD RHYTHM (how long each chord lasts) — `tools/harmony_fill.js` and by hand
 
 - **The coin and two buckets.** A baseline tempo (68; a beat = 0.882 s). Each chord's length is a coin flip between a SHORT bucket and a
