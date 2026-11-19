@@ -2007,40 +2007,9 @@
   {
    "id": "h141",
    "start": 415.2,
-   "end": 417.4,
-   "label": "B♭ — everyone, held",
-   "why": "medium chunk and the single strikes after it",
-   "unison": 10
-  },
-  {
-   "id": "h142",
-   "start": 417.4,
-   "end": 421.5,
-   "label": "B♭ — a new octave on every strike",
-   "why": "slow chunk and the single strikes after it",
-   "pcs": [
-    10
-   ],
-   "seed": 1
-  },
-  {
-   "id": "h143",
-   "start": 421.5,
-   "end": 423.7,
-   "label": "B♭ — everyone, held",
-   "why": "fast chunk and the single strikes after it",
-   "unison": 10
-  },
-  {
-   "id": "h144",
-   "start": 423.7,
    "end": 425.9,
-   "label": "B♭ — a new octave on every strike",
-   "why": "slow chunk and the single strikes after it",
-   "pcs": [
-    10
-   ],
-   "seed": 1
+   "unison": 10,
+   "label": "B♭ — everyone, held"
   }
  ],
  "sets": {

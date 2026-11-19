@@ -1138,3 +1138,6 @@ the players; the glockenspiel's own key moved the same way).
 *His words, next (2026-11-19):* *"let's stick with B flat through that whole section instead of changing pitches. Let's alternate single note to
 like the shuffled octave. So the medium will be single note, the slow will be shuffled octave, the next fast will be single note."* — 415.2 →
 425.9 all on B♭: held · scattered by octaves · held · scattered.
+
+*His words, next (2026-11-19):* *"let's just keep those B flats steady all the way through. So no octave displacement."* — 415.2 → 425.9: one
+B♭ for everyone, held (the walk by fifths and the alternation with the scatter both tried and set aside).
