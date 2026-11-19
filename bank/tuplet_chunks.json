@@ -1058,6 +1058,13 @@
    "beats": 1
   },
   {
+   "id": "h35",
+   "start": 300.62,
+   "end": 301.3,
+   "take": "MTchord127st",
+   "beats": 1
+  },
+  {
    "id": "h25",
    "start": 301.3,
    "end": 302.1,
