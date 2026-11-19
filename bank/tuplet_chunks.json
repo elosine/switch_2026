@@ -1332,6 +1332,378 @@
    ],
    "label": "A · E · B — a new octave on every strike",
    "seed": 1
+  },
+  {
+   "id": "h60",
+   "start": 341.08,
+   "end": 341.8,
+   "pcs": [
+    6,
+    1
+   ],
+   "label": "F♯ · C♯ — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h61",
+   "start": 341.8,
+   "end": 342.6,
+   "take": "MTchord124st",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h62",
+   "start": 342.6,
+   "end": 344.1,
+   "pcs": [
+    1,
+    8
+   ],
+   "label": "C♯ · G♯ — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h63",
+   "start": 344.1,
+   "end": 344.87,
+   "take": "MTchord77st",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h64",
+   "start": 344.87,
+   "end": 345.64,
+   "take": "MTchord146st",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h65",
+   "start": 345.64,
+   "end": 346.4,
+   "take": "MTchord48d",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h66",
+   "start": 346.4,
+   "end": 349.5,
+   "pcs": [
+    8,
+    3
+   ],
+   "label": "G♯ · E♭ — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h67",
+   "start": 349.5,
+   "end": 350.25,
+   "take": "MTchord28c",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h68",
+   "start": 350.25,
+   "end": 351.02,
+   "take": "MTchord44c",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h69",
+   "start": 351.02,
+   "end": 351.79,
+   "take": "MTchord27c",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h70",
+   "start": 351.79,
+   "end": 352.5,
+   "take": "MTchord14c",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h71",
+   "start": 352.5,
+   "end": 354.4,
+   "pcs": [
+    3,
+    10
+   ],
+   "label": "E♭ · B♭ — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h72",
+   "start": 354.4,
+   "end": 354.87,
+   "take": "MTchord32c",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h73",
+   "start": 354.87,
+   "end": 355.64,
+   "take": "MTchord62st",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h74",
+   "start": 355.64,
+   "end": 356.2,
+   "take": "MTchord101st",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h75",
+   "start": 356.2,
+   "end": 358.5,
+   "pcs": [
+    10,
+    5
+   ],
+   "label": "B♭ · F — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h76",
+   "start": 358.5,
+   "end": 358.71,
+   "take": "MTchord141st",
+   "why": "slow tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h77",
+   "start": 358.71,
+   "end": 359.48,
+   "take": "MTchord08d",
+   "why": "slow tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h78",
+   "start": 359.48,
+   "end": 360,
+   "take": "MTchord61st",
+   "why": "slow tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h79",
+   "start": 360,
+   "end": 360.7,
+   "pcs": [
+    5,
+    0
+   ],
+   "label": "F · C — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h80",
+   "start": 360.7,
+   "end": 361.02,
+   "take": "MTchord45c",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h81",
+   "start": 361.02,
+   "end": 361.79,
+   "take": "MTchord68st",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h82",
+   "start": 361.79,
+   "end": 362.56,
+   "take": "MTchord66st",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h83",
+   "start": 362.56,
+   "end": 363.33,
+   "take": "MTchord75st",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h84",
+   "start": 363.33,
+   "end": 363.7,
+   "take": "MTchord17d",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h85",
+   "start": 363.7,
+   "end": 366.3,
+   "pcs": [
+    0,
+    7
+   ],
+   "label": "C · G — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h86",
+   "start": 366.3,
+   "end": 367.17,
+   "take": "MTchord145st",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h87",
+   "start": 367.17,
+   "end": 367.94,
+   "take": "MTchord51d",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h88",
+   "start": 367.94,
+   "end": 368.3,
+   "take": "MTchord37d",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h89",
+   "start": 368.3,
+   "end": 370.7,
+   "pcs": [
+    7,
+    2
+   ],
+   "label": "G · D — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h90",
+   "start": 370.7,
+   "end": 371.02,
+   "take": "MTchord121st",
+   "why": "slow tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h91",
+   "start": 371.02,
+   "end": 371.79,
+   "take": "MTchord99st",
+   "why": "slow tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h92",
+   "start": 371.79,
+   "end": 372.56,
+   "take": "MTchord65st",
+   "why": "slow tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h93",
+   "start": 372.56,
+   "end": 373.33,
+   "take": "MTchord36d",
+   "why": "slow tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h94",
+   "start": 373.33,
+   "end": 374.1,
+   "take": "MTchord56st",
+   "why": "slow tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h95",
+   "start": 374.1,
+   "end": 374.9,
+   "take": "MTchord39d",
+   "why": "slow tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h96",
+   "start": 374.9,
+   "end": 375.64,
+   "take": "MTchord104st",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h97",
+   "start": 375.64,
+   "end": 376.41,
+   "take": "MTchord106st",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h98",
+   "start": 376.41,
+   "end": 377.2,
+   "take": "MTchord73st",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h99",
+   "start": 377.2,
+   "end": 377.97,
+   "take": "MTchord18d",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h100",
+   "start": 377.97,
+   "end": 378.77,
+   "take": "MTchord41d",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h101",
+   "start": 378.77,
+   "end": 379,
+   "take": "MTchord46d",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h102",
+   "start": 379,
+   "end": 381,
+   "pcs": [
+    2,
+    9
+   ],
+   "label": "D · A — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h103",
+   "start": 381,
+   "end": 381.22,
+   "take": "MTchord64st",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h104",
+   "start": 381.22,
+   "end": 382,
+   "take": "MTchord134st",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h105",
+   "start": 382,
+   "end": 383,
+   "pcs": [
+    9,
+    4
+   ],
+   "label": "A · E — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
   }
  ],
  "sets": {
@@ -1372,57 +1744,32 @@
    "MTchord05d",
    "MTchord06d",
    "MTchord07d",
-   "MTchord08d",
    "MTchord10c",
    "MTchord11c",
    "MTchord12c",
    "MTchord13c",
-   "MTchord14c",
    "MTchord15d",
    "MTchord16d",
-   "MTchord17d",
-   "MTchord18d",
    "MTchord21c",
    "MTchord23c",
    "MTchord26c",
-   "MTchord27c",
-   "MTchord28c",
    "MTchord29c",
-   "MTchord32c",
    "MTchord34d",
    "MTchord35d",
-   "MTchord36d",
-   "MTchord37d",
    "MTchord38d",
-   "MTchord39d",
    "MTchord40d",
-   "MTchord41d",
-   "MTchord44c",
-   "MTchord45c",
-   "MTchord46d",
    "MTchord47d",
-   "MTchord48d",
    "MTchord49d",
    "MTchord50d",
    "MTchord53c",
-   "MTchord56st",
    "MTchord57st",
    "MTchord59st",
    "MTchord60st",
-   "MTchord61st",
-   "MTchord62st",
    "MTchord63st",
-   "MTchord64st",
-   "MTchord65st",
-   "MTchord66st",
    "MTchord67st",
-   "MTchord68st",
    "MTchord69st",
    "MTchord71st",
-   "MTchord73st",
-   "MTchord75st",
    "MTchord76st",
-   "MTchord77st",
    "MTchord78st",
    "MTchord83st",
    "MTchord86st",
@@ -1434,12 +1781,8 @@
    "MTchord95st",
    "MTchord97st",
    "MTchord98st",
-   "MTchord99st",
    "MTchord100st",
-   "MTchord101st",
-   "MTchord104st",
    "MTchord105st",
-   "MTchord106st",
    "MTchord108st",
    "MTchord109st",
    "MTchord111st",
@@ -1449,24 +1792,17 @@
    "MTchord116st",
    "MTchord119st",
    "MTchord120st",
-   "MTchord121st",
    "MTchord122st",
    "MTchord123st",
-   "MTchord124st",
    "MTchord125st",
    "MTchord130st",
    "MTchord131st",
-   "MTchord134st",
    "MTchord135st",
    "MTchord137st",
    "MTchord139st",
    "MTchord140st",
-   "MTchord141st",
    "MTchord142st",
-   "MTchord145st",
-   "MTchord146st",
-   "MTchord147st",
-   "MTchord51d"
+   "MTchord147st"
   ],
   "of": 144
  }

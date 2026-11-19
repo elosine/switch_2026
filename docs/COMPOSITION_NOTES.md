@@ -1092,3 +1092,21 @@ two chunks = one chord; every brick with SHUFFLE WITHIN THE CHORD ("the swap"). 
 
 *His words, next (2026-11-19):* *"Let's do A, E, and B, and do that octave shuffle for those two stacks of fifths there. All the way through to
 that unison at 78."* — an octave scatter on A · E · B (two stacked fifths), 335.2 → 341.08.
+
+### SW-58 · 2026-11-19 — 341.08 → 383: THE FIFTHS WALK ON THE SINGLE STRIKES; A CHORD A BEAT IN THE TUPLETS
+
+*His words (dictated, light corrections):* *"starting at the unison there, 78. I would like the next one. So it's F♯. Let's do fifths. So this
+will be F♯, C♯. And then there'll be two groups. The gray unison or single beat ones, and then what's in the tuplet ones. The gray unison ones
+will rotate those fifths. F♯, C♯, but keep the one. So the next one will be C♯, G♯, and then rotate at random, so they're not repeating their
+same notes or octave — rotate per player as much as possible. Let's do per section. The first unison will be F♯, C♯. The next two, those two
+unisons between the two tuplet ones, will be C♯, G♯. And then the four after that is the next iteration, etc. But within a group, you're going
+to rotate per strike. And then those drifts, you have to figure out which notes belong together and make those one strike. Now the tuplet ones
+are going to change every beat, and you'll have to figure out which ones go with which beat because they're moving. And then randomly select.
+And if you haven't been doing it all along, that's fine, but let's try to be exclusive with the chord selection — not to repeat any chords from
+that group of takes that I made. If you've already repeated them, that's okay. So within the tuplets, every beat changes. And as they're
+shifting, try to figure out which group of notes belong together and which chord. All the way to the AT F3 swarm 3. Don't include that unison."*
+*The AI's reading (marked as such):* 341.08 → 383, two kinds alternating with his chunks. THE SINGLE STRIKES (gray): each stretch between two
+tuplet chunks is an octave scatter on one FIFTH, and the fifth moves on by a fifth at every stretch, the upper note kept as the next lower
+one — F♯ C♯ · C♯ G♯ · G♯ E♭ · E♭ B♭ · B♭ F · F C · C G · G D · D A · A E (ten stretches). THE TUPLET CHUNKS: a new chord at every BEAT, the
+beat taken as the PIANO's own strike (the anchor: in the drift the others pull ahead of it, and its strike is the one fixed pulse), each
+boundary 0.06 s early; the takes drawn without repeats (36 chords, 64 of the 144 still unused). No shuffle within these chords (not asked).
