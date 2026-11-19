@@ -3993,3 +3993,33 @@ on and off so I can create a strike regardless of what the cursor is on in the s
 seven rows busy at the playhead, three players dealt). **Built** in `strike_drawer.js` (the core, two small places): `cfg.ignoreBusy` — when on,
 `busyLanes()` answers "nobody is busy", so every row is available to the tick, the shuffle and the stacks; a checkbox `ignore the score` beside
 `may fold`. Off by default: the drawer as it was. Checked: the file parses; not opened in a browser.
+
+## §225. Interval stacks, second pass: THE MAP OF KEYS (one click) and SHAPES (SW-53) (2026-11-19)
+
+**His ear and words after §223 (SW-53, whole in the sketch pad):** the cluster wants the ACTUAL PITCHES first — *"the actual cluster in the same
+octave … then C5 to F5 … different versions"*; the old voicing presets *"in the past wasn't enough"* and *"I don't necessarily think musically
+in those terms"*; two things were missing from the old system: *"it doesn't give me enough pitches to manually assign to get the harmony I
+want. And then the voicing is too limited."* His own model for narrowing the possibilities: *"I start initially manually and then establish a
+pattern"* — a chord placed by hand becomes a SHAPE, shuffled within, the shape kept for any stack. On assigning: *"the double click sometimes
+doesn't work, and there's just too many clicks … more visual feedback and fewer clicks."* On the AI's writing: *"I'm starting to get a little
+bit lost in analysis … more broken down and stated more simply."*
+**Two proposals of the AI's that he turned down or widened, kept here:** (a) reuse the drawer's voicing row (`cluster` · `oct` · `Hear piano`)
+for "pitches first" — no: those categories are not how he hears; (b) a shuffle with two dials, "together" and "where" — too narrow: *"those
+are just some examples … there might be a number of variations."* What stood: groups read from an example.
+**Built (`score/public/interval_stacks.js`; the core untouched):**
+- THE MAP OF KEYS — the columns beside the keyboard now show EVERY key of the chord each player can reach (a colour per note of the chord;
+  the key in play a big ringed dot; a hollow dot = another player holds it; a faint mark on every chord key of the keyboard itself). ONE
+  CLICK puts the player on a key and sounds it; a click on its own key RESTS the player (its column stays; a click brings it back). A voice
+  is from now on a player's slot: a click may give it any note of the chord, so two players may share a note by his hand.
+- SHAPES — `save shape` reads the chord as placed, bottom to top: a jump of a fourth or more starts a new group; a group = how many notes ·
+  its lowest key · its width; named by itself (`1 in oct 2 - 5 in oct 4 - 1 in oct 6`); kept with the takes (`bank/panel_snapshots.json`,
+  panel `stackShapes`). A shape is a button under INTERVAL STACKS for any stack; `shuffle in shape` draws again: the stack's notes dealt into
+  the groups, each on its key nearest the group's middle, then every key to a player who can reach it (the keys with the fewest able players
+  first, a search) — the groups stay, the notes and the players change.
+**Proven once on the throwaway 5601 (writes refused):** `ignore the score` on → all seven dealt (Vc · Pno · A.Sx · Cl · Vn · Fl · the Vibraphone
+row); the columns hold 15 … 50 keys a player for the cluster; his scenario placed by clicks (36 · 60 61 62 63 64 · 84) reads as the shape
+above; two draws in the shape: 41 | 60 61 62 63 64 | 90 and 41 | 60 61 62 63 66 | 88, each on players who reach them; the same shape on 7
+fifths from C: 35 | 57 60 62 66 67 | 88; a click on the cello's own key rests it. NOT proven: the shape's save to the server (the POST was
+refused by the test's own guard), the sound of a click, seven players under his hand.
+**Limits said to him:** a shape of 7 notes on a stack of 7; no delete for a shape yet; the Vibraphone row's column is headed `Perc` (its own
+short name).
