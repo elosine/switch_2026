@@ -1125,3 +1125,12 @@ that stacked fifth, rotate every note."*
 C♯ — three notes). Then the sections (tuplet chunk · gray · chunk · gray …) go TWO AND TWO: two sections of CHORDS (a new take every beat),
 two of FIFTHS (the stack moved on, its third note the next one's first: C♯ G♯ E♭ · E♭ B♭ F · F C G · G D A · A E B · B F♯ C♯ · …), to 415.2.
 "3 fifths" taken as three notes (he had first said four); the beat = the piano's strike, as in SW-58.
+
+### SW-60 · 2026-11-19 — 415.2 → 425.9: ONE NOTE FOR EVERYONE, HELD, A FIFTH UP AT EACH TUPLET SECTION
+
+*His words (dictated, light corrections):* *"through to 425.9. Let's start on B flat for that medium section and just keep everyone the same
+note like it is now, but B flat instead. And then every section change to the next fifth up, but we'll have them hold the notes, and you can
+include the few gray notes. So until the next tuplet section, so that's slow, and then the fast will change, and then the next slow will change."*
+*The AI's reading (marked as such):* the unison as it is on D, moved: every player on ONE note in ONE octave, no scatter — B♭ over the medium
+chunk, F over the slow and the single strikes after it, C over the fast and its gray, G over the next slow and its gray (B♭4 · F5 · C5 · G5 for
+the players; the glockenspiel's own key moved the same way).

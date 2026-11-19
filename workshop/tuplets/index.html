@@ -192,7 +192,7 @@ function draw() {
   S.steps.forEach((st, i) => { if (st.to < a || st.from > a + span) return; const xa = Math.max(0, dx(st.from)), xb = Math.min(DW, dx(st.to)); q.fillStyle = st.kind === 'glide' ? '#243240' : '#2b2f36'; q.fillRect(xa, 0, xb - xa - 1, FORMH - 4); q.fillStyle = '#e8e6e1'; q.font = '600 13px system-ui'; const room = Math.floor((xb - xa - 10) / 7.2); if (room > 3) q.fillText(st.label.length > room ? st.label.slice(0, room - 1) + '…' : st.label, xa + 6, 18); q.fillStyle = '#9a968c'; q.fillRect(dx(st.from), 0, 1, FORMH - 4); });
   for (const b of S.db.harmonies) {   // the harmony bricks: a take over a stretch of time
     if (b.end < a || b.start > a + span) continue; const xa = dx(b.start), xb = dx(b.end);
-    q.fillStyle = HCOL; q.globalAlpha = (b.pcs || S.takes[b.take]) ? 1 : 0.4; q.fillRect(xa, FORMH + 2, Math.max(3, xb - xa), HLANE - 4); q.globalAlpha = 1;
+    q.fillStyle = HCOL; q.globalAlpha = (b.pcs || b.unison != null || S.takes[b.take]) ? 1 : 0.4; q.fillRect(xa, FORMH + 2, Math.max(3, xb - xa), HLANE - 4); q.globalAlpha = 1;
     if (S.hsel === b.id) { q.strokeStyle = '#ffffff'; q.lineWidth = 2; q.strokeRect(xa + 1, FORMH + 3, Math.max(3, xb - xa) - 2, HLANE - 6); }
     if (xb - xa > 50) { q.fillStyle = '#0f1113'; q.font = '600 12px system-ui'; q.fillText(((b.shuffle ? '~ ' : '') + (b.label || b.take || '?')).slice(0, Math.floor((xb - xa - 10) / 6.8)), Math.max(xa, 0) + 6, FORMH + 15); }
   }
@@ -257,6 +257,11 @@ function harmRow(b) {
   const num = (val, on) => { const e = document.createElement('input'); e.type = 'number'; e.value = val; e.min = 270; e.max = 482; e.step = 0.1; e.onchange = () => { on(+e.value); changed(); table(); }; return e; };
   const go = document.createElement('button'); go.textContent = '▶'; go.title = 'play from 2 s before this harmony'; go.onclick = () => { $('from').value = Math.max(S.t0 - 2, b.start - 2).toFixed(1); S.viewA = b.start - 2 - S.span * 0.1; clampView(); play(); };
   td(go); td(num(b.start, (v) => { b.start = v; if (b.end <= v) b.end = r1(v + 1); })); td(num(b.end, (v) => { b.end = Math.max(v, b.start + 0.2); }));
+  if (b.unison != null) {   // everyone on one note: nothing to pick
+    const tx = document.createElement('span'); tx.textContent = (b.label || NOTE[b.unison]) + ' — everyone holds this one note'; tx.style.borderLeft = '8px solid ' + HCOL; tx.style.paddingLeft = '8px'; td(tx);
+    const del3 = document.createElement('button'); del3.textContent = '×'; del3.title = 'remove this harmony (its notes go back to D)'; del3.onclick = () => removeHarmony(b.id); td(del3);
+    return tr;
+  }
   if (b.pcs) {   // a brick of note names: no take to pick — what it does, and another draw of the octaves
     const tx = document.createElement('span'); tx.textContent = (b.label || b.pcs.map((x) => NOTE[x]).join(' · ')) + ' — every strike of a player takes another octave of one of these notes'; tx.style.borderLeft = '8px solid ' + HCOL; tx.style.paddingLeft = '8px'; td(tx);
     const nd = document.createElement('button'); nd.textContent = 'new draw'; nd.title = 'another choice of octaves, strike by strike'; nd.onclick = () => { b.seed = (b.seed || 1) + 1; changed(); }; td(nd);

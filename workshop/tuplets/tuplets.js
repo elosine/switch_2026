@@ -90,6 +90,10 @@
   function keysAt(db, takes, routes, set, p, t, prev) {
     const R = routes[p], q = R.tech[(set || {})[p]] || R.tech[R.home] || {}; let h = null;
     for (const b of (db.harmonies || [])) if (t >= b.start && t < b.end) h = b;
+    if (h && h.unison != null) {   // SW-60 (2026-11-19 — his "keep everyone the same note like it is now, but B flat instead"): the player's own D, moved the nearest way to that note
+      const d = ((((+h.unison) - (R.homeKey % 12)) % 12) + 18) % 12 - 6;
+      return [fold(R.homeKey + d, q.lo, q.hi)];
+    }
     if (h && Array.isArray(h.pcs) && h.pcs.length) {
       const c = []; for (let m = (q.lo != null ? q.lo : 21); m <= (q.hi != null ? q.hi : 108); m++) if (h.pcs.indexOf(m % 12) >= 0) c.push(m);
       if (!c.length) return [R.homeKey];

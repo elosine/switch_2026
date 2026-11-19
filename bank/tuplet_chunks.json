@@ -2003,6 +2003,38 @@
    "label": "E♭ · B♭ · F — a new octave on every strike",
    "seed": 1,
    "why": "three stacked fifths, the third kept as the next one's first"
+  },
+  {
+   "id": "h141",
+   "start": 415.2,
+   "end": 417.4,
+   "unison": 10,
+   "label": "B♭ — everyone, held",
+   "why": "medium chunk and the single strikes after it"
+  },
+  {
+   "id": "h142",
+   "start": 417.4,
+   "end": 421.5,
+   "unison": 5,
+   "label": "F — everyone, held",
+   "why": "slow chunk and the single strikes after it"
+  },
+  {
+   "id": "h143",
+   "start": 421.5,
+   "end": 423.7,
+   "unison": 0,
+   "label": "C — everyone, held",
+   "why": "fast chunk and the single strikes after it"
+  },
+  {
+   "id": "h144",
+   "start": 423.7,
+   "end": 425.9,
+   "unison": 7,
+   "label": "G — everyone, held",
+   "why": "slow chunk and the single strikes after it"
   }
  ],
  "sets": {

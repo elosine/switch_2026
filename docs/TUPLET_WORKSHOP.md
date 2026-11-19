@@ -43,6 +43,12 @@ The rules of the tuplet draw are at the top of `workshop/tuplets/tuplets.js` (on
   brick's id, the player and the strike's time; never the key the player has just played. `seed` + 1 = another draw.
 - **Not in the page's controls** beyond the brick's own row (what it does · `new draw`). He asks in the chat; the AI writes the brick.
 
+### ONE NOTE FOR EVERYONE *(2026-11-19)*
+
+- **What he hears:** the unison as it is on D where no brick stands, on another note — everyone the same note, held, no scatter.
+- **How to make one:** `"unison": <pitch class>` on a harmony brick, e.g. `{ "start": 415.2, "end": 417.4, "unison": 10 }` = B♭. Each player's own D
+  key is moved the nearest way to that note (the glockenspiel's key with it).
+
 ### SHUFFLE WITHIN THE CHORD *(his phrase, 2026-11-19)*
 
 - **What he hears:** the chord stays (its take), but every strike of a player is another note of it — "each player is playing a different
