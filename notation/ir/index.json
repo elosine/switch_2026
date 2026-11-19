@@ -15,8 +15,8 @@
    "label": "Section 1 - the sax's first note (a working page)",
    "score": "piece-FirstDraft-Final",
    "window": [
-    14,
-    26
+    12,
+    23.9
    ],
    "profile": "trance",
    "exp": true
@@ -28,28 +28,6 @@
    "window": [
     14,
     26
-   ],
-   "profile": "trance",
-   "exp": true
-  },
-  {
-   "id": "s1-sax-gliss-as-before",
-   "label": "The sax's first note - the gliss as the septets drew it",
-   "score": "x-notation-trial",
-   "window": [
-    14,
-    36
-   ],
-   "profile": "trance",
-   "exp": true
-  },
-  {
-   "id": "s1-sax-gliss-with-sine",
-   "label": "The sax's first note - the old gliss, with Approaching's sine tone sign",
-   "score": "x-notation-trial",
-   "window": [
-    12,
-    36
    ],
    "profile": "trance",
    "exp": true

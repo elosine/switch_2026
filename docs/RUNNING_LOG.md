@@ -4290,3 +4290,19 @@ breaths); under the staff, before the go line, the pitch figure (two heads and a
 (the block's default, niente → fff — the septets', not this piece's). The tool reports one unit at rung 8 (the dynamic figure spills the
 lane's bottom) and `check_rules` flags the page's header heads as beyond the ottava threshold — both are the old figure on a new lane, left
 as they are: the page is there to be LOOKED at, not kept. `check_rules` otherwise as before (the sequence check still wants a page).
+
+## §244. The beating gliss, begun again from nothing: the go line and the written pitch before it (2026-11-19)
+
+**His correction of the AI's course (the sketch pad, SW-72's last entry):** shown the septets' block and piece 6's sine sign on his note, then
+told the new figure was "an hour or two of careful work" on the drawing code, he stopped it: *"I'm a little surprised that if I want to build a
+new notation, it has to be like a system overhaul … let's just build the actual notation … get rid of everything. Let me just see the go line
+and the pitch the saxophone will play to the left of the go line."* **The AI's error was one of FRAMING, and the fix shows it:** the figure
+was treated as a variant of the big morph block; taken one element at a time it is small. The element he asked for took ONE line in
+`layout.js` — a device flag `headBefore` that calls the sequence block's own `justHead` (an open head at the written pitch on the staff, its
+right edge a standard gap before the go line, accidental · ledgers · ottava fold included) — and one hand on the page tool:
+`--hand wc-94:{"goLine":true,"headBefore":true,"brick":false}`. The working page `s1-sax-first-note` now shows the alto sax's staff, the go
+line at 16.0 s and the open head before it, nothing else (seen on the throwaway). The two comparison pages (the septets' block; with piece
+6's sine sign) are removed from the picker. DEVICE SHEET 1 stays as the list of elements still to add, one at a time, at his word:
+the gliss line rising from the head · the one pitch curve · niente → fff · the badge · the sine's own sign (his to think about).
+**For the method:** a new sign is built on the working page element by element with `--hand` and small device flags; it becomes a named
+device (a row set in `rules.json`) only once he has settled it — the device sheet's "lock", not its start.

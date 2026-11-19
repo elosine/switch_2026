@@ -4,8 +4,8 @@
  "source": {
   "score": "piece-FirstDraft-Final",
   "window": [
-   14,
-   26
+   12,
+   23.9
   ],
   "parts": [
    2
@@ -16,7 +16,7 @@
   "date": "2026-11-19",
   "tool": "tools/notate_section.js (profile trance)",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only.",
-  "build": "node tools/notate_section.js --score piece-FirstDraft-Final --w0 14 --w1 26 --parts 2 --id s1-sax-first-note --label \"Section 1 - the sax's first note (a working page)\" --exp"
+  "build": "node tools/notate_section.js --score piece-FirstDraft-Final --w0 12 --w1 23.9 --parts 2 --hand \"wc-94:{\\\"goLine\\\":true,\\\"headBefore\\\":true,\\\"brick\\\":false}\" --id s1-sax-first-note --label \"Section 1 - the sax's first note (a working page)\" --exp"
  },
  "events": [
   {
@@ -142,130 +142,6 @@
      0.7143
     ]
    }
-  },
-  {
-   "id": "ev-wc-95",
-   "source": {
-    "score": "piece-FirstDraft-Final",
-    "objectId": "wc-95"
-   },
-   "onset": 23.986,
-   "duration": 6.855,
-   "pitch": {
-    "midi": 65,
-    "spelled": {
-     "step": "F",
-     "alter": 0,
-     "octave": 4
-    }
-   },
-   "technique": "ord",
-   "provenance": "derived",
-   "level": {
-    "samples": [
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143,
-     0.7143
-    ]
-   }
   }
  ],
  "chunks": [
@@ -274,7 +150,7 @@
    "part": 2,
    "span": [
     16,
-    23.986
+    23.9
    ],
    "class": "morph-note",
    "strategy": "unresolved",
@@ -282,21 +158,23 @@
     "ev-wc-94"
    ],
    "provenance": "derived"
-  },
-  {
-   "id": "ch-2-wc-95",
-   "part": 2,
-   "span": [
-    23.986,
-    26
-   ],
-   "class": "morph-note",
-   "strategy": "unresolved",
-   "events": [
-    "ev-wc-95"
-   ],
-   "provenance": "derived"
   }
  ],
- "overlays": []
+ "overlays": [
+  {
+   "id": "ov-hand-ev-wc-94",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-94"
+   },
+   "value": {
+    "device": {
+     "goLine": true,
+     "headBefore": true,
+     "brick": false
+    }
+   },
+   "provenance": "authored"
+  }
+ ]
 }

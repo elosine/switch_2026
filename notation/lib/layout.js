@@ -1371,6 +1371,11 @@
             // gliss actually reaches the next quarter tone (composer: "the
             // pitch won't change... until they actually reached the
             // destination pitch"). `onsetAcc` names the accidental, if any.
+            // THE WRITTEN PITCH BEFORE THE GO LINE (the Switch~ piece, 2026-11-19 — his "just the go line and the pitch that the saxophone will play to
+            // the left of the go line"): `headBefore` — a full-size OPEN head at the note's written pitch ON THE STAFF, its right edge one
+            // standard gap before the line (anchor B, the reading regime: the head is read, then the line is the moment), with its accidental,
+            // its ledger lines and the ottava fold — the sequence block's own `justHead`, nothing copied.
+            if (dev.headBefore) justHead(e.onset, { midi: e.pitch && e.pitch.midi, cents: 0 }, -o.nhGapSs, { ev: e.id });
             if (dev.onsetHead) {
               const ohs = (o.figures && o.figures.cluster && o.figures.cluster.nhHeadScale) || 0.844;
               const ohw = glyphs.notehead.filled.wSs * ohs;

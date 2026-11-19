@@ -1327,3 +1327,11 @@ at the top or the bottom. Bring it in as is and let me just see it and I'll deci
 *Written down as DEVICE SHEET 1 in `docs/NOTATION_SCHEME.md` (not built).* *Brought in as it is:* piece 6's sine tone sign on the same note —
 the working page `s1-sax-gliss-with-sine` (`--sines`): the audible-beats badge before the note, the purple box along the staff for as long
 as the sine sounds, the player's orange line along the lane's bottom.
+
+*His words, next (2026-11-19):* *"let's back up a second. You can take out the electronics for now. I see what it looked like. I have to think
+about that. We'll add those after we do the sax notation. And I'm not sure I understand this whole drawing code, an hour or two, careful work.
+I don't want to get into the ins and outs of the system right now. So let's just build the notation … I'm also a little surprised that if I
+want to build a new notation, it has to be like a system overhaul. That's not necessarily a good thing, but I don't want to deal with the
+system right now. Let's just build the actual notation. So let's get rid of everything. And let me just see the go line and the pitch that the
+saxophone will play to the left of the go line."* — THE WAY OF WORKING ON A SIGN, from here: one element at a time on the working page, each
+one added and looked at; no talk of the engine.
