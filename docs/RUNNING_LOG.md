@@ -4128,3 +4128,13 @@ The chords now there (SW-54) were dealt without regard to this. Not listened to;
   the upper notes a sixth of a tone sharp. Bricks G5 and G9 both carry the C6; G8 and B2 no pitch.
 - **309.7 → 311.7 (−11.1 dB):** G♯ — G♯4 (+4 c, the strongest), and in brick G9 alone G♯2 · G♯3 · G♯4 · G♯5 (octaves of it); above, a bright
   cluster around B♭7 (+30 c) · B7 · D8 · G7, and C6 (+18 c) still in G5; B2 gives A7 · D7.
+
+## §233. The beds under the G · D scatter (317.6 → 324.3) — is there a better fifth? (2026-11-19)
+
+**His words:** *"the section starting on 317.5, the GD, new octave every strike, for that whole section all the way up to the F2 swarm 2. Let's
+see if there's a better fifth that corresponds more with the electronics there."* **Measured in two halves (`tools/beds_pitches.py`):**
+317.6 → 321.0 (−12.9 dB): a low D2 (−26 c; the strongest, but only 9 dB above the wash — a rumble more than a note) · **B♭6** three times
+over (−1 … +17 c, 9 … 12 dB above the wash) · high B♭7 · D8 · B7; per brick: G5 holds C4 · G5 (+15 c), G9 D2 · C3 · G♯4 · G5, **B2 holds B♭6 and
+F7 (+8 … +23 c)**. 321.0 → 324.3 (−16.8 dB, thinner): **B♭6 (+16 c) the strongest, F7 (+19 c) the only other peak**; the low D2 gone from the sum.
+**Reading:** the one fifth present through the whole stretch is **B♭ – F** (brick B2, a sixth of a tone sharp). His G · D has some ground in the
+first half (the D2 rumble, a G5 in two bricks) and none in the second. Put to him: B♭ · F for the whole stretch; or G · D → B♭ · F at 321.
