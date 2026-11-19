@@ -2045,9 +2045,30 @@
   {
    "id": "h141",
    "start": 415.2,
-   "end": 425.9,
+   "end": 419.6,
    "unison": 10,
    "label": "B♭ — everyone, held"
+  },
+  {
+   "id": "h187",
+   "start": 419.6,
+   "end": 424,
+   "pcs": [
+    6,
+    1
+   ],
+   "hold": true,
+   "seed": 1,
+   "label": "F♯ · C♯ — held",
+   "why": "the beds move to C♯ · E · F♯ here (§236)"
+  },
+  {
+   "id": "h188",
+   "start": 424,
+   "end": 425.9,
+   "unison": 0,
+   "label": "C — everyone, held",
+   "why": "the beds: C with E (§236)"
   },
   {
    "id": "h142",

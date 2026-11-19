@@ -1188,3 +1188,9 @@ SW-58 is given up for the electronics' notes.
 octaves … if there's some you left out because they were tuplets, let's reassess those"* — so the rule is: EVERY PITCHED SECTION (a brick of note
 names), tuplets or single strikes, may take the electronics' notes; the chord sections (takes) are left alone. Of the eight open ones he took
 *"just the two clear ones"*: 319.4 (medium tuplets) G · D → B♭ · F; 390.5 (fast tuplets) C♯ · G♯ · E♭ → C · G · D. The six slight ones stay.
+
+*His words, next (2026-11-19):* *"for that held B flat section, B flat sounds all right in the beginning, but can you evaluate if the pitches in
+the electronics, the most prominent ones, change at all throughout that section?"* — they do (RUNNING_LOG §236) — *"Yes, go ahead and change
+those pitches, but make sure that all the rest of the structure is the same … the same octave displacements and changes remain as much as
+possible."* — 415.2 → 419.6 B♭ held (as it was) · 419.6 → 424 F♯ · C♯ held · 424 → 425.9 C held; all steady, no octave change, each note on
+the key nearest the one the players hold now.
