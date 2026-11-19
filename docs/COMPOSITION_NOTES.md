@@ -1134,3 +1134,7 @@ include the few gray notes. So until the next tuplet section, so that's slow, an
 *The AI's reading (marked as such):* the unison as it is on D, moved: every player on ONE note in ONE octave, no scatter — B♭ over the medium
 chunk, F over the slow and the single strikes after it, C over the fast and its gray, G over the next slow and its gray (B♭4 · F5 · C5 · G5 for
 the players; the glockenspiel's own key moved the same way).
+
+*His words, next (2026-11-19):* *"let's stick with B flat through that whole section instead of changing pitches. Let's alternate single note to
+like the shuffled octave. So the medium will be single note, the slow will be shuffled octave, the next fast will be single note."* — 415.2 →
+425.9 all on B♭: held · scattered by octaves · held · scattered.
