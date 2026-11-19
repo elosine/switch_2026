@@ -4023,3 +4023,14 @@ fifths from C: 35 | 57 60 62 66 67 | 88; a click on the cello's own key rests it
 refused by the test's own guard), the sound of a click, seven players under his hand.
 **Limits said to him:** a shape of 7 notes on a stack of 7; no delete for a shape yet; the Vibraphone row's column is headed `Perc` (its own
 short name).
+
+## §226. Interval stacks: a free `shuffle`, and THE VERSIONS — back and forward through every chord of a stack (2026-11-19)
+
+**His words:** with a new chord chosen, *"I just wanted the first initial shuffle or just a random shuffle, right now it has one of my shapes
+selected, and the button says chosen. So what do I do instead?"* → a button `shuffle` (a new order and new octaves together, no shape); a
+shape button is lit only while the chord is IN that shape (a plain deal or a new stack turns it off; `chosen` only names the loaded stack).
+Then: *"some kind of collective seed … I'm shuffling in shape and I want to go back to the one 2 shuffles ago. Or same with the regular
+shuffle."* → not a seed but a LIST: every deal, shuffle, shape draw and click on the map is a version of the stack (the last 60); `◀` `▶` and a
+counter `2 / 4` in the row. A seed per kind of shuffle would not have brought back a chord that came from several kinds in a row; a list does.
+A new stack starts a new list. **Proven once on the throwaway:** a deal and three shuffles = 4 versions; two steps back give version 2
+exactly; one forward gives version 3; the counter and the status follow.

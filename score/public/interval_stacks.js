@@ -95,11 +95,28 @@ Object.assign(D, {
         const st = this.strike, n = this.voices.filter(v => v.lane >= 0 && !v.skip).length, left = this.voices.length - n;
         this.setStatus((what ? what + ' · ' : '') + st.label + ' · ' + (this.istk().order === 'row' ? 'dealt as a row' : 'stacked bottom to top') + ' · ' + n + ' players' + (left > 0 ? ' · ' + left + ' note' + (left === 1 ? '' : 's') + ' with no player (more notes than ticked players)' : '') + (this._isShared ? ' · ' + this._isShared + ' unison' + (this._isShared === 1 ? '' : 's') + ' (no other octave was free)' : ''));
     },
-    stackRedo(what, lanesToo) { if (!this.strike || !this.strike.istack) return; this.snapshot(); this.istk().shape = null; if (!lanesToo) this.voices.forEach(v => { if (v.lane < 0 && v.restLane != null) { v.lane = v.restLane; delete v.restLane; } }); if (lanesToo) this.stackDeal(); else this.stackPickOctaves(); this.save(); this.render(); this.refreshStackBanner(); this.stackStatus(what); },
+    stackRedo(what, lanesToo) { this._isAfter = what; if (!this.strike || !this.strike.istack) return; this.snapshot(); this.istk().shape = null; if (!lanesToo) this.voices.forEach(v => { if (v.lane < 0 && v.restLane != null) { v.lane = v.restLane; delete v.restLane; } }); if (lanesToo) this.stackDeal(); else this.stackPickOctaves(); this.stackKeep(what); this.save(); this.render(); this.refreshStackBanner(); this.stackStatus(what); },
     stackChoose() { const s = this.istk(); this.save(); this.select(idFor(s.kind, s.n, s.tr)); },
     // a player put on another octave of its note by hand (a double-click in its column)
     stackSetOctave(i, m) { const v = this.voices[i]; if (!v || v.lane < 0) return; this.snapshot(); v.pitch = m; v.fold = 0; v.standIn = null; v.skip = false; this.fitVoice(v); this.save(); this.render(); const T = this.tracks(); const twin = this.voices.find(w => w !== v && w.lane >= 0 && w.pitch === m); this.setStatus((T[v.lane] || {}).short + ' on ' + nm(m) + (twin ? ' — in unison with ' + ((T[twin.lane] || {}).short || '?') : '')); },
 
+    // THE VERSIONS (his word 2026-11-19: "I'm shuffling in shape and I want to go back to the one 2 shuffles ago. Or same with the regular
+    // shuffle"): every chord this stack has been through, in order — a deal, a shuffle, a draw in a shape, a click on the map each add
+    // one; the two arrows step back and forward. A new stack starts a new list (the last 60 are kept).
+    stackKeep(label) {
+        if (!this.strike || !this.strike.istack) return;
+        const H = this._isHist || (this._isHist = []), snap = { label: label || '', shape: this.istk().shape || null, voices: this.voices.map(v => ({ pitch: v.pitch, pc: v.pc, lane: v.lane, restLane: v.restLane, tech: v.tech, piano: !!v.piano, skip: !!v.skip, fold: v.fold || 0 })) };
+        const last = H[this._isPos]; if (last && JSON.stringify(last.voices) === JSON.stringify(snap.voices)) return;
+        H.length = (this._isPos == null ? -1 : this._isPos) + 1; H.push(snap); if (H.length > 60) H.shift(); this._isPos = H.length - 1;
+    },
+    stackStep(d) {
+        const H = this._isHist || []; if (!H.length || !this.strike || !this.strike.istack) return;
+        const to = Math.max(0, Math.min(H.length - 1, (this._isPos || 0) + d)); if (to === this._isPos) { this.setStatus(d < 0 ? 'this is the first version of this stack' : 'this is the latest version'); return; }
+        this._isPos = to; const snap = H[to];
+        snap.voices.forEach((x, i) => { const v = this.voices[i]; if (!v) return; v.pitch = x.pitch; v.pc = x.pc; v.lane = x.lane; if (x.restLane != null) v.restLane = x.restLane; else delete v.restLane; v.tech = x.tech; v.piano = x.piano; v.skip = x.skip; v.fold = x.fold; v.standIn = null; v.also = []; });
+        this.istk().shape = snap.shape; this.save(); this.render(); this.refreshStackBanner();
+        this.setStatus('version ' + (to + 1) + ' of ' + H.length + (snap.label ? ' · ' + snap.label : ''));
+    },
     refreshStackBanner() { const list = this.el && this.el.querySelector('#skSeq'); if (!list) return; list.querySelectorAll('.skBanner[data-bank="istack"], .skIsRow').forEach(e => e.remove()); this.renderStackBanner(); },
     renderStackBanner() {
         const list = this.el && this.el.querySelector('#skSeq'); if (!list || list.querySelector('.skBanner[data-bank="istack"]')) return;
@@ -114,6 +131,9 @@ Object.assign(D, {
             '<button class="skIsGo" title="take this stack: its notes go to the players" style="' + BTN + (cur ? ';background:rgba(201,160,90,.35)' : '') + '">' + (cur ? 'chosen' : 'choose') + '</button></div>';
         h += '<div class="skIsRow" style="padding:3px 8px;display:flex;gap:4px 6px;align-items:center;flex-wrap:wrap;border-bottom:1px solid #2a2a30;' + (on ? '' : 'opacity:.45') + '">' +
             
+            '<button class="skIsBack" title="the chord before this one (every shuffle, shape draw and click is kept)" style="' + BTN + '">&#9664;</button>' +
+            '<span class="skIsVer" title="which version of this stack you are on" style="color:#bbb;font-size:10px;min-width:30px;text-align:center">' + ((this._isHist || []).length ? ((this._isPos || 0) + 1) + ' / ' + this._isHist.length : '–') + '</span>' +
+            '<button class="skIsFwd" title="the chord after this one" style="' + BTN + '">&#9654;</button>' +
             '<button class="skIsFree" title="a free shuffle, no shape: the notes go to the players in a new order and every player takes a new octave" style="' + BTN + ';color:#fff">shuffle</button>' +
             '<button class="skIsStacked" title="3 · the stack\'s own order up the players: cello, piano, alto sax, clarinet, violin, flute, glockenspiel" style="' + BTN + (on && s.order === 'stacked' ? ';background:rgba(201,160,90,.35)' : '') + '">stacked</button>' +
             '<button class="skIsRowBtn" title="3 · the same notes dealt to the players in another order (a row) — another order each press" style="' + BTN + (on && s.order === 'row' ? ';background:rgba(201,160,90,.35)' : '') + '">shuffle order</button>' +
@@ -130,6 +150,7 @@ Object.assign(D, {
         const take = () => { s.kind = b.querySelector('.skIsKind').value; s.n = Math.max(2, Math.min(12, Math.round(+b.querySelector('.skIsN').value) || 7)); s.tr = +b.querySelector('.skIsTr').value; this.stackChoose(); };
         b.querySelector('.skIsKind').addEventListener('change', take); b.querySelector('.skIsTr').addEventListener('change', take); b.querySelector('.skIsN').addEventListener('change', take);
         b.querySelector('.skIsGo').addEventListener('click', take);
+        row.querySelector('.skIsBack').addEventListener('click', () => this.stackStep(-1)); row.querySelector('.skIsFwd').addEventListener('click', () => this.stackStep(1));
         row.querySelector('.skIsFree').addEventListener('click', () => { s.order = 'row'; s.oSeed = (s.oSeed || 1) + 1; s.octSeed = (s.octSeed || 1) + 1; this.stackRedo('a free shuffle', true); });
         row.querySelector('.skIsStacked').addEventListener('click', () => { s.order = 'stacked'; this.stackRedo('stacked', true); });
         row.querySelector('.skIsRowBtn').addEventListener('click', () => { s.order = 'row'; s.oSeed = (s.oSeed || 1) + 1; this.stackRedo('a new order', true); });
@@ -150,10 +171,10 @@ Object.assign(D, {
     stackSetKey(lane, m) {
         const v = this.stackVoiceOn(lane), T = this.tracks(), short = (T[lane] || {}).short || ''; if (!v) return;
         this.snapshot();
-        if (v.lane === lane && v.pitch === m) { v.restLane = lane; v.lane = -1; v.piano = false; this.save(); this.render(); this.setStatus(short + ' rests — click a dot in its column to bring it back'); return; }
+        if (v.lane === lane && v.pitch === m) { v.restLane = lane; v.lane = -1; v.piano = false; this.stackKeep(short + ' rests'); this.save(); this.render(); this.refreshStackBanner(); this.setStatus(short + ' rests — click a dot in its column to bring it back'); return; }
         v.lane = lane; delete v.restLane; v.tech = v.tech || this.defaultTech(lane); v.pitch = m; v.pc = m % 12; v.fold = 0; v.standIn = null; v.skip = false; this.fitVoice(v);
         if (T[lane] && T[lane].instKey === 'piano') v.piano = true;
-        this.save(); this.render();
+        this.stackKeep(short + ' on ' + nm(m)); this.save(); this.render(); this.refreshStackBanner();
         const twin = this.voices.find(w => w !== v && w.lane >= 0 && w.pitch === m);
         this.setStatus(short + ' on ' + nm(m) + (twin ? ' — in unison with ' + ((T[twin.lane] || {}).short || '?') : ''));
         try { const p = this.playNotes([{ lane, tech: v.tech, midi: m, vel: 100, onMs: 0, durMs: 600, cents: 0 }], short + ' ' + nm(m)); if (p && p.catch) p.catch(() => {}); } catch (e) {}
@@ -224,7 +245,7 @@ Object.assign(D, {
         const T = this.tracks(), taken = new Set(Object.values(done.give));
         lanes.forEach(l => { const v = this.stackVoiceOn(l); if (!taken.has(l)) { v.restLane = l; v.lane = -1; v.piano = false; } });
         done.keys.forEach((m, i) => { const l = done.give[i], v = this.stackVoiceOn(l); v.lane = l; delete v.restLane; v.tech = v.tech || this.defaultTech(l); v.pitch = m; v.pc = m % 12; v.fold = 0; v.standIn = null; v.skip = false; this.fitVoice(v); v.piano = !!(T[l] && T[l].instKey === 'piano'); });
-        this.save(); this.render(); this.refreshStackBanner();
+        this.stackKeep('in the shape ' + name); this.save(); this.render(); this.refreshStackBanner();
         this.setStatus('shape ' + name + ' · ' + done.keys.length + ' players' + (want !== N ? ' (the shape has ' + want + ' notes, ' + N + ' used)' : '') + ' — "shuffle in shape" gives another');
     },
 
@@ -238,7 +259,8 @@ D.select = function (id) {
     _select.call(this, id);
     if (!this.strike || this.strike.id !== id || !this.strike.istack) { try { this.refreshStackBanner(); } catch (e) {} return; }
     const p = this.strike.istack, s = this.istk(); s.kind = p.kind; s.n = p.n; s.tr = p.tr; s.shape = null;
-    this.stackDeal(); this.save(); this.render(); this.refreshStackBanner(); this.stackStatus('');
+    this._isHist = []; this._isPos = null;
+    this.stackDeal(); this.stackKeep('as dealt'); this.save(); this.render(); this.refreshStackBanner(); this.stackStatus('');
 };
 const _renderBanners = D.renderBanners;
 D.renderBanners = function () { const r = _renderBanners.apply(this, arguments); try { this.renderStackBanner(); } catch (e) { console.warn('[interval_stacks] banner:', e); } return r; };
