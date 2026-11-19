@@ -4053,3 +4053,13 @@ reaches as written, else DOUBLES a note somebody plays (in its own octave where 
 104 · 105 · 115 · 122 · 123 · 127 · 130 … 133 · 138 · 139 · 141 — the strikes with 2 … 7 notes, or with notes few players reach). Even numbers =
 the original spread, odd = spread out; strike #k is `MTchord(56 + 2k)st` and `(57 + 2k)st`. His earlier takes untouched (checked against the
 copy). Notes beyond the seven players' stay unplayed, as the drawer leaves them.
+
+## §228. The tuplet workshop's clock moved into a worker; late notes dropped, never bunched (2026-11-19)
+
+**His report** (in full in `docs/SWEEP_LIST.md`): the page went quiet mid-play, a blip when its server closed, blips still through the rack;
+everything closed, the machine restarted. **No evidence, so no diagnosis** — but the first suspect is what the AI had just made, and reading
+it showed a true weakness: `setInterval(tick, 40)` on the page, looking 0.25 s ahead. Chrome slows a page's timers to 1 Hz (later far less)
+when its tab is behind another; every note that fell between two slow ticks then went out with a time already past — Web MIDI sends such a
+note at once, so: silence, then a bunch. **Cured, whether or not it was the cause:** the 40 ms clock runs in a WORKER (not slowed with the
+tab); a note more than 60 ms past its time is DROPPED and counted, the count shown under Play. Proven once on the throwaway port: 50 ticks
+in 2 s from the worker, the playhead and the note index advancing, no tick after Stop. NOT explained: the blips after the page was closed.

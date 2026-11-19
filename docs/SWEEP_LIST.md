@@ -16,3 +16,11 @@ at this start, never carried.)*
 | 3 | 2026-11-09 | the sine brick, play from inside its span | pressed play mid-span | the sine popped in | the 1 s fade | N — **FIXED** (§123): the page sent a 15 ms rise for a start inside the brick (the AI's own rule); now the brick's fadeInMs. Closed when he hears the fade |
 | 4 | 2026-11-12 | the composer score's bar, looking for the phase machine (SW-42) | opened Panels ▾ | no Phase entry, no PHASE button anywhere | the PHASE button beside MT (PHASE_TOOL.md) | N — **FIXED the same minute**: the Panels ▾ menu is a fixed list in `composer.html` and the new button, anchored after MT in the hidden bar, was never listed; `['phBtn', 'Phase']` added. Closed when he opens it after F5 |
 | 5 | 2026-11-12 | a material brick's panel, Start (s) | sliced a brick, then typed a new start | the brick grew the sliced part back; the sound stayed put | the whole brick moves, its sound with it | N — **FIXED the same hour** (`composer.html` applyPanelField: a brick's typed start shifts its end too, so the edge rule reads a move). Closed when he types a start and the brick moves whole |
+
+- **2026-11-19 — THE TUPLET WORKSHOP WENT QUIET WHILE PLAYING, THEN BLIPS** (his report: "the page was playing for a while, and then all of a
+  sudden it stopped making noise … when I shut the server there was a little blip … still little blips coming through the Reaper rack"; he
+  closed every server and Reaper and restarted the machine). NOT REPRODUCED; no evidence gathered at the time. A real weakness found in the
+  page and cured (RUNNING_LOG §228): its notes were driven by the page's own 40 ms timer, which Chrome slows to one a second or less when
+  the tab is not in front — notes then leave late and in bunches. Whether that WAS the cause is not known (was the tab in front? unasked /
+  unanswered). The blips after the page and servers were closed are NOT explained by it. If it happens again: his screen first (the page's
+  line under Play, Reaper's MIDI activity), before anything is closed.

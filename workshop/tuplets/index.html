@@ -121,8 +121,11 @@ function play(from) {
   S.score0 = f; S.perf0 = performance.now() + 120; S.playing = true;
   let i = 0; while (i < S.ev.length && S.ev[i].t < f - 0.001) i++; S.idx = i;
   sendArtic();
-  S.timer = setInterval(tick, 40); tick();
+  S.timer = true; CLOCK.postMessage('start'); tick();
 }
+// THE CLOCK (2026-11-19, after his report — the page went quiet, then blips): a worker's timer is not slowed when the tab is behind another
+const CLOCK = new Worker(URL.createObjectURL(new Blob(['let h=null;onmessage=e=>{if(e.data==="start"){clearInterval(h);h=setInterval(()=>postMessage(0),40)}else{clearInterval(h);h=null}}'], { type: 'text/javascript' })));
+CLOCK.onmessage = () => tick();
 function sendArtic() { for (const p of S.players) { const o = outOf(p), r = routeOf(p); if (o && r.cc0 != null) o.send([0xB0 | chOf(p), 0, r.cc0]); } }   // the Xsample articulation of the set
 function tick() {
   if (!S.playing) return;
@@ -130,12 +133,14 @@ function tick() {
   while (S.idx < S.ev.length && S.ev[S.idx].t <= horizon) {
     const e = S.ev[S.idx++], o = outOf(e.p); if (!o || !sounds(e.p)) continue;
     const at = S.perf0 + (e.t - S.score0) * 1000;
+    if (at < performance.now() - 60) { S.late = (S.late || 0) + 1; continue; }   // its time has passed (the page was held up): dropped, never sent late in a bunch
     for (const k of e.keys) { o.send([0x90 | chOf(e.p), k, vel], at); o.send([0x80 | chOf(e.p), k, 0], at + e.dur * 1000); }
   }
+  if (S.late && S.late !== S.lateShown) { S.lateShown = S.late; $('midi').textContent = S.late + ' notes were skipped because the page was held up (they are not sent late)'; }
   if (scoreNow() > S.end + 2) stop();
 }
 function stop(quiet) {
-  if (S.timer) clearInterval(S.timer); S.timer = null;
+  if (S.timer) CLOCK.postMessage('stop'); S.timer = null;
   if (S.playing && !quiet) $('from').value = Math.max(S.t0 - 2, Math.min(S.end, scoreNow())).toFixed(1);
   S.playing = false;
   for (const p of S.players) { const o = outOf(p); if (!o) continue; try { if (o.clear) o.clear(); } catch (e) {} for (const k of (S.keysUsed[p] || [])) o.send([0x80 | chOf(p), k, 0]); o.send([0xB0 | chOf(p), 123, 0]); }
