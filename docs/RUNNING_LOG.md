@@ -3984,3 +3984,12 @@ the columns drawn (the keyboard widened 150 → 237); no console error of the st
 his hand on the dots.
 **Known, said to him:** the deal counts only ticked rows (a busy row is not ticked); a voicing preset or transpose of the core re-voices from
 the stack as written.
+
+## §224. The strikes drawer: the switch `ignore the score` (2026-11-19)
+
+**His words:** *"can you provide some sort of toggle for the rule where if my current cursor is somewhere in the score that other players are
+playing, it doesn't let those players be available in the strikes drawer? That might sometime eventually be useful, but can I just toggle that
+on and off so I can create a strike regardless of what the cursor is on in the score?"* — met at once by the interval stacks (§223: four of
+seven rows busy at the playhead, three players dealt). **Built** in `strike_drawer.js` (the core, two small places): `cfg.ignoreBusy` — when on,
+`busyLanes()` answers "nobody is busy", so every row is available to the tick, the shuffle and the stacks; a checkbox `ignore the score` beside
+`may fold`. Off by default: the drawer as it was. Checked: the file parses; not opened in a browser.

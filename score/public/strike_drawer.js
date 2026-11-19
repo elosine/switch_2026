@@ -619,6 +619,7 @@ const D = {
     laneOff: {},
     busyLanes() {
         const C = C_(), S = root.Sounding, Sp = root.Spacing, T = TRK();
+        if (this.cfg.ignoreBusy) return { busy: [], until: {} };   // SW-52 (2026-11-19, his word): the switch `ignore the score` — a strike is made regardless of what sounds at the playhead
         if (!C || !S || !Sp || !C.objects) return { busy: [], until: {} };
         const ML = (typeof META_LAYER !== 'undefined') ? META_LAYER : T.length;
         const t = +C.getTimeAtPlayhead();
@@ -1022,6 +1023,7 @@ const D = {
         let s = '<div style="display:flex;gap:6px;align-items:center;padding:4px 6px;border-bottom:1px solid #333;flex-wrap:wrap">' +
             '<button id="skShuffle" style="' + btn + ';color:#e8cf9a">shuffle</button>' + this.seedChips('oSeedShuffle') +
             '<label title="off: played registers only; on: the shuffle may fold a pitch class by octave into any player"><input id="skFold" type="checkbox"' + (this.cfg.mayFold ? ' checked' : '') + '> may fold</label>' +
+            '<label title="off: a player who is playing at the playhead is not available (its row is unticked) · on: every player is available, whatever the score holds at the playhead"><input id="skIgnoreBusy" type="checkbox"' + (this.cfg.ignoreBusy ? ' checked' : '') + '> ignore the score</label>' +
             '<label>top → <select id="skTop" style="' + inp + '">' + opts(this.cfg.topLock) + '</select></label>' +
             '<label>bottom → <select id="skBot" style="' + inp + '">' + opts(this.cfg.bottomLock) + '</select></label>' +
             '<button id="skAsPlayed" style="' + btn + '" title="back to the piano, as played">as played</button>' +
@@ -1068,6 +1070,7 @@ const D = {
         box.innerHTML = s;
         box.querySelector('#skShuffle').addEventListener('click', () => { this.snapshot(); this.useSeed('oSeedShuffle', this.nextSeed('oSeedShuffle')); this.save(); this.render(); });
         box.querySelector('#skFold').addEventListener('change', e => { this.cfg.mayFold = e.target.checked; this.save(); });
+        { const ib = box.querySelector('#skIgnoreBusy'); if (ib) ib.addEventListener('change', e => { this.cfg.ignoreBusy = e.target.checked; this.save(); this.render(); this.setStatus(this.cfg.ignoreBusy ? 'ignore the score: every player is available, whatever sounds at the playhead' : 'the score counts again: a player playing at the playhead is not available'); }); }
         box.querySelector('#skTop').addEventListener('change', e => { this.cfg.topLock = +e.target.value; this.save(); });
         box.querySelector('#skBot').addEventListener('change', e => { this.cfg.bottomLock = +e.target.value; this.save(); });
         box.querySelector('#skAsPlayed').addEventListener('click', () => { this.snapshot(); this.asPlayedOrchestration(); this.render(); });
