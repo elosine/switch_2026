@@ -1097,22 +1097,21 @@
    "why": "0.75 beat, a 32nd of jitter"
   },
   {
-   "id": "h30",
+   "id": "h185",
    "start": 305.5,
-   "end": 306.2,
-   "take": "MTchord81st",
-   "why": "growing by about a sixteenth"
-  },
-  {
-   "id": "h31",
-   "start": 306.2,
-   "end": 307.12,
-   "take": "MTchord132st",
-   "why": "growing by about a sixteenth"
+   "end": 307.4,
+   "pcs": [
+    0,
+    7,
+    10
+   ],
+   "seed": 1,
+   "label": "C · G · B♭ — a new octave on every strike",
+   "why": "the beds here (§232)"
   },
   {
    "id": "h32",
-   "start": 307.12,
+   "start": 307.4,
    "end": 308.32,
    "take": "MTchord54d",
    "why": "growing by about a sixteenth"
@@ -1120,27 +1119,24 @@
   {
    "id": "h33",
    "start": 308.32,
-   "end": 309.76,
+   "end": 309.7,
    "take": "MTchord133st",
    "why": "growing by about a sixteenth"
   },
   {
-   "id": "h34",
-   "start": 309.76,
-   "end": 310.3,
-   "take": "MTchord128st",
-   "why": "growing by about a sixteenth"
-  },
-  {
-   "id": "h36",
-   "start": 310.3,
-   "end": 311.1,
-   "take": "MTchord103st",
-   "why": "by ear: the cluster at 310.3"
+   "id": "h186",
+   "start": 309.7,
+   "end": 311.7,
+   "pcs": [
+    8
+   ],
+   "seed": 1,
+   "label": "G♯ — a new octave on every strike",
+   "why": "the beds here (§232)"
   },
   {
    "id": "h37",
-   "start": 311.1,
+   "start": 311.7,
    "end": 311.9,
    "take": "MTchord30c",
    "why": "by ear: the cluster at 311.1"
@@ -2396,7 +2392,11 @@
    "MTchord74st",
    "MTchord19d",
    "MTchord55d",
-   "MTchord80st"
+   "MTchord80st",
+   "MTchord81st",
+   "MTchord132st",
+   "MTchord128st",
+   "MTchord103st"
   ],
   "of": 144
  }
