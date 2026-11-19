@@ -137,13 +137,23 @@
   // DYNAMICS BY THE STRIKE (SW-68, 2026-11-19 — his "per strike dynamic diversity … a player might play one strike at p and then the next
   // at ff and then the next at mf"): a chunk with `dyn.marks` gives every strike of its players one of those marks, drawn by the chunk, the
   // player and the strike's time, never the mark of that player's strike before it (when there is another). Elsewhere: the section's line.
+  // ACCENTS (SW-69, 2026-11-19 — his "think of the ensemble as a single player along the timeline … an accent every once in a while … in
+  // the middle a cluster, more dense, but spaced enough that you can tell those are accented notes"): db.accents = [{ t, p }] — that
+  // player's strike at that time (within 0.06 s) is played fff, whatever the line says. Chosen along the ensemble's ONE merged line of strikes.
+  const ACC = new WeakMap();
+  function isAccent(db, p, t) {
+    const A = db.accents; if (!A || !A.length) return false;
+    let ix = ACC.get(A); if (!ix) { ix = {}; for (const a of A) (ix[a.p] = ix[a.p] || []).push(a.t); ACC.set(A, ix); }
+    const L = ix[p]; if (!L) return false; for (const x of L) if (Math.abs(x - t) < 0.06) return true; return false;
+  }
   function levelFor(db, p, t, prev) {
+    if (isAccent(db, p, t)) return 7;
     const c = chunkOf(db, p, t), D = c && c.dyn && Array.isArray(c.dyn.marks) && c.dyn.marks.length ? c.dyn : null;
     if (!D) return levelAt(db, t);
     const m = D.marks; let i = hash('dyn|' + c.id + '|' + p + '|' + Math.round(t * 1000) + '|' + (D.seed || 1)) % m.length;
     if (prev != null && m[i] === prev && m.length > 1) i = (i + 1 + hash('dx' + c.id + p + Math.round(t * 1000)) % (m.length - 1)) % m.length;
     return m[i];
   }
-  const api = { MARK, levelAt, levelFor, velOf, build, NAMES, WHOLE, HALF, RATES, RATE_TEXT, SETS, fold, keysAt };
+  const api = { MARK, levelAt, levelFor, isAccent, velOf, build, NAMES, WHOLE, HALF, RATES, RATE_TEXT, SETS, fold, keysAt };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.Tuplets = api;
 })(typeof window !== 'undefined' ? window : globalThis);

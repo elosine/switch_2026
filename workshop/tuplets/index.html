@@ -209,7 +209,7 @@ function draw() {
   S.players.forEach((p, r) => {
     const on = sounds(p); q.globalAlpha = on ? 1 : 0.25;
     q.fillStyle = '#6b6f76'; q.font = '13px system-ui'; q.fillText(ROUTE[p].short, 6, y0 + r * rowH + rowH / 2 + 4);
-    const ev = S.per[p] || [], w = span > 40 ? 2 : 3; for (const e of ev) { if (e.t < a || e.t > a + span) continue; q.fillStyle = e.plain || !e.band ? PLAIN : COLOR[e.band]; q.fillRect(dx(e.t), y0 + r * rowH + 4, e.band && !e.plain ? w : w + 1, rowH - 8); }
+    const ev = S.per[p] || [], w = span > 40 ? 2 : 3; for (const e of ev) { if (e.t < a || e.t > a + span) continue; if (Tuplets.isAccent(S.db, p, e.t)) { q.fillStyle = '#ffffff'; q.fillRect(dx(e.t) - 1, y0 + r * rowH, w + 3, rowH); continue; } q.fillStyle = e.plain || !e.band ? PLAIN : COLOR[e.band]; q.fillRect(dx(e.t), y0 + r * rowH + 4, e.band && !e.plain ? w : w + 1, rowH - 8); }
     q.globalAlpha = 1;
   });
   const ts = span > 80 ? 10 : span > 30 ? 5 : span > 12 ? 2 : 1;

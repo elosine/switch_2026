@@ -1266,3 +1266,15 @@ just doing p, f, and fff. And then just for contrast, the one between them will 
 *As tried:* the first chunk (slow, 291.8 → 295.3) and the third (medium, 303 → 305.5) carry `dyn.marks = p · f · fff`: every strike of every
 player takes one of the three, never the one that player has just had; the fast chunk between (298.4 → 300.9) stays on the section's line.
 A trial to hear, not a decision.
+
+### SW-69 · 2026-11-19 — A TRIAL: ACCENTS ALONG THE ENSEMBLE AS ONE LINE — occasional, a cluster in the medium chunk, occasional again
+
+*His words (dictated, light corrections), the per-strike dynamics of SW-68 turned down ("let's not do that. Let's take that away"):* *"Can you
+do that same section and include the grays in it? And can you do something just with accent? So just fff. And if we think of the ensemble as a
+single player, essentially, along the timeline. The baseline will be an accent every once in a while. I don't know what that is just yet, but
+we'll find that out. And then in the middle, maybe for that medium, the green one, we'll have a cluster, more dense accents, but space them out
+enough so it doesn't just sound like accent, accent, accent, accent, but you can actually tell that those are accented notes, but in more of a
+density, like a cluster, and then it falls down to the occasional accent for the rest."*
+*As tried (291.8 → 310, tuplets and gray alike):* an accent = ONE strike of ONE player at fff, chosen on the ensemble's merged line of strikes —
+one every 2.4 … 4.4 s outside the medium chunk, one every 0.42 … 0.78 s inside it (303 → 305.5), never two within 0.35 s. Nine accents: 293.64 ·
+296.69 · 300.78 · then the cluster 303.10 · 303.52 · 304.03 · 304.62 · 305.33 · then 305.93. `bank/tuplet_chunks.json` → `accents` · `accentPlan`.
