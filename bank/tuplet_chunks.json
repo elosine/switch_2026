@@ -1058,18 +1058,74 @@
    "beats": 1
   },
   {
-   "id": "h19",
-   "start": 300.62,
-   "end": 301.51,
-   "take": "MTchord127st",
-   "beats": 1
+   "id": "h25",
+   "start": 301.3,
+   "end": 302.1,
+   "take": "MTchord19d",
+   "why": "by ear"
   },
   {
-   "id": "h20",
-   "start": 301.51,
-   "end": 301.66,
-   "take": "MTchord82st",
-   "beats": 1
+   "id": "h26",
+   "start": 302.1,
+   "end": 303,
+   "take": "MTchord55d",
+   "why": "by ear"
+  },
+  {
+   "id": "h27",
+   "start": 303,
+   "end": 303.75,
+   "take": "MTchord102st",
+   "why": "0.75 beat, a 32nd of jitter"
+  },
+  {
+   "id": "h28",
+   "start": 303.75,
+   "end": 304.5,
+   "take": "MTchord129st",
+   "why": "0.75 beat, a 32nd of jitter"
+  },
+  {
+   "id": "h29",
+   "start": 304.5,
+   "end": 305.5,
+   "take": "MTchord79st",
+   "why": "0.75 beat, a 32nd of jitter"
+  },
+  {
+   "id": "h30",
+   "start": 305.5,
+   "end": 306.2,
+   "take": "MTchord81st",
+   "why": "growing by about a sixteenth"
+  },
+  {
+   "id": "h31",
+   "start": 306.2,
+   "end": 307.12,
+   "take": "MTchord132st",
+   "why": "growing by about a sixteenth"
+  },
+  {
+   "id": "h32",
+   "start": 307.12,
+   "end": 308.32,
+   "take": "MTchord54d",
+   "why": "growing by about a sixteenth"
+  },
+  {
+   "id": "h33",
+   "start": 308.32,
+   "end": 309.76,
+   "take": "MTchord133st",
+   "why": "growing by about a sixteenth"
+  },
+  {
+   "id": "h34",
+   "start": 309.76,
+   "end": 311.9,
+   "take": "MTchord128st",
+   "why": "growing by about a sixteenth"
   }
  ],
  "sets": {
@@ -1122,7 +1178,6 @@
    "MTchord16d",
    "MTchord17d",
    "MTchord18d",
-   "MTchord19d",
    "MTchord21c",
    "MTchord23c",
    "MTchord25c",
@@ -1153,8 +1208,6 @@
    "MTchord51d",
    "MTchord52c",
    "MTchord53c",
-   "MTchord54d",
-   "MTchord55d",
    "MTchord56st",
    "MTchord57st",
    "MTchord59st",
@@ -1175,8 +1228,6 @@
    "MTchord76st",
    "MTchord77st",
    "MTchord78st",
-   "MTchord79st",
-   "MTchord81st",
    "MTchord83st",
    "MTchord84st",
    "MTchord86st",
@@ -1194,7 +1245,6 @@
    "MTchord99st",
    "MTchord100st",
    "MTchord101st",
-   "MTchord102st",
    "MTchord103st",
    "MTchord104st",
    "MTchord105st",
@@ -1217,12 +1267,8 @@
    "MTchord123st",
    "MTchord124st",
    "MTchord125st",
-   "MTchord128st",
-   "MTchord129st",
    "MTchord130st",
    "MTchord131st",
-   "MTchord132st",
-   "MTchord133st",
    "MTchord134st",
    "MTchord135st",
    "MTchord136st",

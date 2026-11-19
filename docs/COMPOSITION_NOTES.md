@@ -1047,3 +1047,12 @@ start with a 16th note jitter."* — each change of chord moved by up to a sixte
 have a different chord. So 295.2, 296 … and then around 296.8 or just after, and then 297.7. Let's have all those be a new chord."* — the chord
 changes placed BY HIS EAR on events of the players (the violin's note at 295.2), no longer by the coin: 295.2 · 296 · 296.8 · 297.7, four takes
 not yet used. Also: an undo on the page; no adding by double-click (an accident added a chunk).
+
+*His words, next (2026-11-19):* *"301.3 and 302.1. Let's have those two be new chords. And then at 303, where the medium section starts, let's
+see what 0.75 beat changes with — it has to be quite small, the jitter — maybe then 32nd note jitter. And then starting on 305.5, let's have
+like a growing container. That container will end around 306.2. And then however long that is, let's add like a 16th note plus that 32nd
+jitter, plus or minus … at a maybe less jitter, at approximately a 16th note, but with just some difference. So it doesn't sound like it's
+growing by exactly a 16th note. And let's do that through just to the beginning of that next fast at 311.9."*
+*The AI's reading (marked as such):* three ways of placing the changes, side by side — BY EAR (301.3 · 302.1); A STEADY QUICK PULSE (0.75 beat
+at 68 = 0.66 s, each moved up to a 32nd); A GROWING SERIES (0.70 s first, each next about a sixteenth longer, the step itself varied by a
+64th either way — "less jitter" taken as half the 32nd).
