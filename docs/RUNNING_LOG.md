@@ -4102,3 +4102,19 @@ brick's trim only, the start within the browser's audio latency. **Checked:** th
 The sound and the sync are his ear's. **His server restarted once more for this.**
 **A trap he met:** the experimental save, re-made by `tuplet_render.js`, showed nothing new in the composer score — every open goes through
 the WORKING COPY (`…-X-tuplets-work.json`, from his first open), which was the old chord. The cure is the composer's own: File ▾ → Reload.
+
+## §231. The beds' pitches under two gray stretches of Section 3 — measured (`tools/beds_pitches.py`) (2026-11-19)
+
+**His words:** *"The four gray sections starting on 295.3 around, and then the four together there after that. Can you analyze the electronics
+and see if there's any pitches going on during those four sections?"* — read as the two runs of single strikes: 295.3 → 298.4 (between the slow
+and the fast chunk) and 300.9 → 303.0 (between the fast and the medium).
+**The tool (new, reads only):** each material brick that sounds in the stretch read from the fund at its own place, summed with its trim; the
+long-term spectrum (16,384-point Hann windows, averaged); a PEAK counts when it stands 9 dB or more above the median of the spectrum around
+it — a pitch told from a wash; each peak as its nearest note, cents off, dB above the wash, dB under the strongest. Also per brick.
+**295.3 → 298.4 (the beds at −18.9 dB):** a clear **E♭ with its fifth B♭** — E♭5 (−2 c, the strongest) · B♭5 (+3 c, 11 dB under) · E♭6 (−1 c,
+14 dB under) · a faint C♯7 (−20 c). It is the brick G5 (lane 8); G9 has the same two notes smeared a quarter-tone either way; G8, just in at
+296.25, has no pitch yet.
+**300.9 → 303.0 (louder, −10.1 dB — B2 has entered at 300.78):** less of a chord: **B♭6** the strongest (−2 c, 13 dB above the wash), then
+high partials G♯7 (−44 c) · A7 (+5 c); inside it G5 gives C6 (+16 c) · F♯5 · B♭6 · G6, G9 still E♭4 / E♭5 (a quarter-tone wide), B2 a noisy A7.
+**So:** under the first run the electronics say E♭ – B♭; under the second B♭ is the one note that stands out, in a brighter, noisier field.
+The chords now there (SW-54) were dealt without regard to this. Not listened to; the numbers are the spectrum's.
