@@ -1033,3 +1033,9 @@ any takes repeat until they're all used."*
 *The AI's reading (marked as such):* HARMONY bricks (not tuplet chunks) from 291.8 to 301.66 (where the glide to swarm ii begins); each brick's
 length = a coin flip between 1 beat and one of 1.5 · 2 · 2.5 · 3 · 3.5 beats, a beat = 60/68 = 0.882 s; each brick one of the 92 `MTchord…st`
 takes (§227), drawn without return — the deck kept in the file so the next stretch goes on with the takes not yet heard.
+
+*His words, next (2026-11-19), on hearing the first fill:* *"From about 298, where it says MT chord 85 ST, let's keep that through to the
+beginning of that drift. However, you're using the full set, correct? Not just the STs, but the ones I made as well. And let's redo the
+beginning part up to there. For the slow and the one beat, let's do 2 beats at 68 is the minimum before change. And then bump it every half
+beat for the second bucket. So 2.5, 3, 3.5. Let's keep the cap at 3.5. And you can start that MT chord 85 ST right at where the fast starts,
+so 298.4."* — the AI had used only the 92 `st` takes; corrected to the full set (his 52 and the 92: 144). The buckets now: 2 beats · or 2.5 · 3 · 3.5.

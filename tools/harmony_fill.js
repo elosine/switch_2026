@@ -30,6 +30,7 @@ db.harmonies = (db.harmonies || []).filter((h) => h.end <= FROM || h.start >= TO
 let id = 1 + db.harmonies.reduce((m, h) => Math.max(m, +String(h.id).replace(/\D/g, '') || 0), 0), t = FROM; const made = [];
 while (t < TO - 0.05) {
   const bucket = R() < 0.5 ? SHORT : LONG, beats = bucket[Math.floor(R() * bucket.length)], end = Math.min(TO, t + beats * beat);
+  if (end >= TO && TO - t < 0.5 * beats * beat && made.length) { made[made.length - 1].end = r2(TO); break; }   // a sliver at the end is given to the brick before it
   const h = { id: 'h' + (id++), start: r2(t), end: r2(end), take: draw(), beats }; db.harmonies.push(h); made.push(h); t = end;
 }
 db.harmonies.sort((a, b) => a.start - b.start);
