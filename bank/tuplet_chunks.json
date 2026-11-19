@@ -2438,7 +2438,11 @@
     7
    ],
    [
-    305.4,
+    302.6,
+    7
+   ],
+   [
+    302.65,
     5
    ],
    [
@@ -2454,7 +2458,11 @@
     7
    ],
    [
-    345.6,
+    342.8,
+    7
+   ],
+   [
+    342.85,
     5
    ],
    [
@@ -2470,7 +2478,11 @@
     7
    ],
    [
-    360.5,
+    357.7,
+    7
+   ],
+   [
+    357.75,
     5
    ],
    [
@@ -2486,7 +2498,11 @@
     7
    ],
    [
-    375.6,
+    372.8,
+    7
+   ],
+   [
+    372.85,
     5
    ],
    [
@@ -2502,7 +2518,11 @@
     7
    ],
    [
-    402.8,
+    400,
+    7
+   ],
+   [
+    400.05,
     5
    ],
    [
@@ -2531,10 +2551,9 @@
     "why": "from the first tuplets to the electronics' peak at 302"
    },
    {
-    "t": 302.4,
-    "text": "fff > f",
-    "to": 305.4,
-    "why": "back to the baseline"
+    "t": 302.65,
+    "text": "sub. f",
+    "why": "at once, the beat after the peak (his word: no decrescendo)"
    },
    {
     "t": 339.4,
@@ -2543,10 +2562,9 @@
     "why": "the electronics swell"
    },
    {
-    "t": 342.6,
-    "text": "fff > f",
-    "to": 345.6,
-    "why": "back to the baseline"
+    "t": 342.85,
+    "text": "sub. f",
+    "why": "at once, the beat after the peak (his word: no decrescendo)"
    },
    {
     "t": 353,
@@ -2555,10 +2573,9 @@
     "why": "the electronics swell"
    },
    {
-    "t": 357.5,
-    "text": "fff > f",
-    "to": 360.5,
-    "why": "back to the baseline"
+    "t": 357.75,
+    "text": "sub. f",
+    "why": "at once, the beat after the peak (his word: no decrescendo)"
    },
    {
     "t": 368.6,
@@ -2567,10 +2584,9 @@
     "why": "the electronics swell"
    },
    {
-    "t": 372.6,
-    "text": "fff > f",
-    "to": 375.6,
-    "why": "back to the baseline"
+    "t": 372.85,
+    "text": "sub. f",
+    "why": "at once, the beat after the peak (his word: no decrescendo)"
    },
    {
     "t": 386.6,
@@ -2579,10 +2595,9 @@
     "why": "the electronics swell"
    },
    {
-    "t": 399.8,
-    "text": "fff > f",
-    "to": 402.8,
-    "why": "back to the baseline"
+    "t": 400.05,
+    "text": "sub. f",
+    "why": "at once, the beat after the peak (his word: no decrescendo)"
    },
    {
     "t": 437.1,

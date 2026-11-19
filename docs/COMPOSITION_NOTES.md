@@ -1251,3 +1251,7 @@ and let's make the peak happen to fff at 442.2, that slow section. And let's jus
 
 *His words, next (2026-11-19):* *"at that 302, let's come back down to f in the standard decrescendo. And let's get rid of that 325 peak. And the
 next crescendo will be at that 342."* — fff > f 302.4 → 305.4; f from there to 339.4; the hold at fff to 325 given up.
+
+*His words, next (2026-11-19):* *"Let's get rid of the decrescendos and let's make it subito, like essentially the next beat to the new
+dynamic."* — after each peak the players are at f AT ONCE (`sub. f`, a quarter of a second after the peak, so the strike on the peak is still
+fff). No decrescendo anywhere in the section.
