@@ -1237,3 +1237,14 @@ mf 100 · fff 127, and `properties.phaseForm.level`) and each mark is a marker `
 *His words, next (2026-11-19), on hearing the dynamics:* *"I changed my mind about the decrescendo. Let's not decrescendo — the acoustic part pops
 when the electronics drop out, and that's fine. So let's keep those crescendos, but let's not drop below the mf."* — the three `mf > p` taken
 out; the swells after them are `mf < fff` like the others. The players are never under mf.
+
+### SW-67 · 2026-11-19 — THE DYNAMICS SIMPLIFIED, BY HIS EAR: f the baseline, five crescendos, two long holds at fff
+
+*His words (dictated, light corrections):* *"let's simplify a bit. Let's get rid of all the crescendos before that one at 302. Let's make it f for
+the median instead of mf. And let's start the crescendo at the 292 or just before it, when that slow section starts, the tuplets. So f up to
+that point, crescendo over those 10 seconds to 302 to fff. And let's hold that fff to the 325 peak, and then decrescendo from there as normal
+back to f. Keep the 342 crescendo and the 357. But the next crescendo should be 372. Get rid of the two between. Keep the 372 and the 399, but
+just drop to f between those two. And you can get rid of the 413. And then the last crescendo should start at the end of the green, 437.1,
+and let's make the peak happen to fff at 442.2, that slow section. And let's just keep it fff all the way to the end."*
+*As placed:* f from 277.8 · f < fff 291.8 → 302.4 · fff held to 325.1 · fff > f to 328.1 · f < fff 339.4 → 342.6 · 353 → 357.5 · 368.6 → 372.6 ·
+386.6 → 399.8 (each back to f within 3 s) · f < fff 437.1 → 442.2 · fff held to 480.

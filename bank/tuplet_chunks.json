@@ -2422,52 +2422,20 @@
   "of": 144
  },
  "dynamics": {
-  "_about": "THE PLAYERS' DYNAMICS of Section 3 (SW-66): written marks for the notation (marks) and the line they make (points: [score s, mark number], p 3 · mf 4 · fff 7). mf is the baseline; each swell of the electronics (workshop/tuplets/beds_envelope.json) is a crescendo to fff, back to mf within 3 s; never under mf (the three decrescendos to p tried and taken out at his word, 2026-11-19: the players standing out when the electronics drop is right). Made by the AI at his word; his to change.",
-  "baseline": "mf",
+  "_about": "THE PLAYERS' DYNAMICS of Section 3 (SW-66 … SW-67): written marks for the notation (marks) and the line they make (points: [score s, mark number], f 5 · fff 7). f is the baseline; the crescendos and the two long holds at fff are HIS (2026-11-19), set by ear against the electronics' swells (workshop/tuplets/beds_envelope.json).",
+  "baseline": "f",
   "points": [
    [
     277.8,
-    4
+    5
    ],
    [
-    281.7,
-    4
-   ],
-   [
-    284.9,
-    7
-   ],
-   [
-    287.9,
-    4
-   ],
-   [
-    289,
-    4
-   ],
-   [
-    291.1,
-    7
-   ],
-   [
-    294.1,
-    4
-   ],
-   [
-    300.1,
-    4
+    291.8,
+    5
    ],
    [
     302.4,
     7
-   ],
-   [
-    305.4,
-    4
-   ],
-   [
-    322.1,
-    4
    ],
    [
     325.1,
@@ -2475,11 +2443,15 @@
    ],
    [
     328.1,
-    4
+    5
    ],
    [
     339.4,
-    4
+    5
+   ],
+   [
+    342.6,
+    7
    ],
    [
     342.6,
@@ -2487,47 +2459,31 @@
    ],
    [
     345.6,
-    4
+    5
    ],
    [
     353,
-    4
+    5
    ],
    [
     357.5,
     7
    ],
    [
-    359,
-    4
-   ],
-   [
-    359.1,
-    4
-   ],
-   [
-    363.6,
+    357.5,
     7
    ],
    [
-    366.3,
-    4
-   ],
-   [
-    366.4,
-    4
-   ],
-   [
-    367.5,
-    7
-   ],
-   [
-    368.5,
-    4
+    360.5,
+    5
    ],
    [
     368.6,
-    4
+    5
+   ],
+   [
+    372.6,
+    7
    ],
    [
     372.6,
@@ -2535,11 +2491,15 @@
    ],
    [
     375.6,
-    4
+    5
    ],
    [
     386.6,
-    4
+    5
+   ],
+   [
+    399.8,
+    7
    ],
    [
     399.8,
@@ -2547,206 +2507,104 @@
    ],
    [
     402.8,
-    4
+    5
    ],
    [
-    411.7,
-    4
+    437.1,
+    5
    ],
    [
-    413.1,
+    442.2,
     7
    ],
    [
-    416.1,
-    4
-   ],
-   [
-    438.9,
-    4
-   ],
-   [
-    451.9,
+    480,
     7
-   ],
-   [
-    454.9,
-    4
-   ],
-   [
-    462,
-    4
-   ],
-   [
-    466.5,
-    7
-   ],
-   [
-    469.5,
-    4
    ]
   ],
   "marks": [
    {
     "t": 277.8,
-    "text": "mf",
+    "text": "f",
     "why": "the baseline"
    },
    {
-    "t": 281.7,
-    "text": "mf < fff",
-    "to": 284.9,
-    "why": "the electronics swell"
-   },
-   {
-    "t": 284.9,
-    "text": "fff > mf",
-    "to": 287.9,
-    "why": "back to the baseline"
-   },
-   {
-    "t": 289,
-    "text": "mf < fff",
-    "to": 291.1,
-    "why": "the electronics swell"
-   },
-   {
-    "t": 291.1,
-    "text": "fff > mf",
-    "to": 294.1,
-    "why": "back to the baseline"
-   },
-   {
-    "t": 300.1,
-    "text": "mf < fff",
+    "t": 291.8,
+    "text": "f < fff",
     "to": 302.4,
-    "why": "the electronics swell"
+    "why": "from the first tuplets to the electronics' peak at 302"
    },
    {
     "t": 302.4,
-    "text": "fff > mf",
-    "to": 305.4,
-    "why": "back to the baseline"
-   },
-   {
-    "t": 322.1,
-    "text": "mf < fff",
+    "text": "fff",
     "to": 325.1,
-    "why": "the electronics swell"
+    "why": "held to the peak at 325"
    },
    {
     "t": 325.1,
-    "text": "fff > mf",
+    "text": "fff > f",
     "to": 328.1,
     "why": "back to the baseline"
    },
    {
     "t": 339.4,
-    "text": "mf < fff",
+    "text": "f < fff",
     "to": 342.6,
     "why": "the electronics swell"
    },
    {
     "t": 342.6,
-    "text": "fff > mf",
+    "text": "fff > f",
     "to": 345.6,
     "why": "back to the baseline"
    },
    {
     "t": 353,
-    "text": "mf < fff",
+    "text": "f < fff",
     "to": 357.5,
     "why": "the electronics swell"
    },
    {
     "t": 357.5,
-    "text": "fff > mf",
-    "to": 359,
-    "why": "back to the baseline"
-   },
-   {
-    "t": 359.1,
-    "text": "mf < fff",
-    "to": 363.6,
-    "why": "the electronics swell"
-   },
-   {
-    "t": 363.6,
-    "text": "fff > mf",
-    "to": 366.3,
-    "why": "back to the baseline"
-   },
-   {
-    "t": 366.4,
-    "text": "mf < fff",
-    "to": 367.5,
-    "why": "the electronics swell"
-   },
-   {
-    "t": 367.5,
-    "text": "fff > mf",
-    "to": 368.5,
+    "text": "fff > f",
+    "to": 360.5,
     "why": "back to the baseline"
    },
    {
     "t": 368.6,
-    "text": "mf < fff",
+    "text": "f < fff",
     "to": 372.6,
     "why": "the electronics swell"
    },
    {
     "t": 372.6,
-    "text": "fff > mf",
+    "text": "fff > f",
     "to": 375.6,
     "why": "back to the baseline"
    },
    {
     "t": 386.6,
-    "text": "mf < fff",
+    "text": "f < fff",
     "to": 399.8,
     "why": "the electronics swell"
    },
    {
     "t": 399.8,
-    "text": "fff > mf",
+    "text": "fff > f",
     "to": 402.8,
     "why": "back to the baseline"
    },
    {
-    "t": 411.7,
-    "text": "mf < fff",
-    "to": 413.1,
-    "why": "the electronics swell"
+    "t": 437.1,
+    "text": "f < fff",
+    "to": 442.2,
+    "why": "the last crescendo, from the end of the medium tuplets"
    },
    {
-    "t": 413.1,
-    "text": "fff > mf",
-    "to": 416.1,
-    "why": "back to the baseline"
-   },
-   {
-    "t": 438.9,
-    "text": "mf < fff",
-    "to": 451.9,
-    "why": "the electronics swell"
-   },
-   {
-    "t": 451.9,
-    "text": "fff > mf",
-    "to": 454.9,
-    "why": "back to the baseline"
-   },
-   {
-    "t": 462,
-    "text": "mf < fff",
-    "to": 466.5,
-    "why": "the electronics swell"
-   },
-   {
-    "t": 466.5,
-    "text": "fff > mf",
-    "to": 469.5,
-    "why": "back to the baseline"
+    "t": 442.2,
+    "text": "fff",
+    "to": 480,
+    "why": "held to the end"
    }
   ]
  }
