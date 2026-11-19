@@ -1029,8 +1029,37 @@
   {
    "id": "h16",
    "start": 298.4,
+   "end": 298.86,
+   "take": "MTchord85st",
+   "beats": 1
+  },
+  {
+   "id": "h17",
+   "start": 298.86,
+   "end": 299.74,
+   "take": "MTchord58st",
+   "beats": 1
+  },
+  {
+   "id": "h18",
+   "start": 299.74,
+   "end": 300.62,
+   "take": "MTchord96st",
+   "beats": 1
+  },
+  {
+   "id": "h19",
+   "start": 300.62,
+   "end": 301.51,
+   "take": "MTchord127st",
+   "beats": 1
+  },
+  {
+   "id": "h20",
+   "start": 301.51,
    "end": 301.66,
-   "take": "MTchord85st"
+   "take": "MTchord82st",
+   "beats": 1
   }
  ],
  "sets": {
@@ -1119,7 +1148,6 @@
    "MTchord55d",
    "MTchord56st",
    "MTchord57st",
-   "MTchord58st",
    "MTchord59st",
    "MTchord60st",
    "MTchord61st",
@@ -1142,7 +1170,6 @@
    "MTchord79st",
    "MTchord80st",
    "MTchord81st",
-   "MTchord82st",
    "MTchord83st",
    "MTchord84st",
    "MTchord86st",
@@ -1155,7 +1182,6 @@
    "MTchord93st",
    "MTchord94st",
    "MTchord95st",
-   "MTchord96st",
    "MTchord97st",
    "MTchord98st",
    "MTchord99st",
@@ -1184,7 +1210,6 @@
    "MTchord123st",
    "MTchord124st",
    "MTchord125st",
-   "MTchord127st",
    "MTchord128st",
    "MTchord129st",
    "MTchord130st",
