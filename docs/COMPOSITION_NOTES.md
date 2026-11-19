@@ -1174,3 +1174,12 @@ reading. Just a simple, which pitch is better. But I just want to confirm that w
 to change any of the slow, fast, medium tuplet sections, just the single strikes in between."* — THE RULE FOR TUNING TO THE BEDS: only the
 single strikes (gray) take the electronics' notes; a tuplet chunk keeps what it has. 317.6 → 324.3: B♭ · F on the gray, G · D left in the chunks.
 And for the AI's answers on such a question: ONE LINE — which pitch — no tables.
+
+### SW-63 · 2026-11-19 — THE FIFTHS OF 335 → 383 RETUNED TO THE ELECTRONICS
+
+*His words (dictated, light corrections), on the assessment (RUNNING_LOG §234):* *"we can change the clear ones. For the slight ones … I'm
+thinking if we didn't repeat … 363, let's do B F♯, and then 368, let's do F and C, and then 379, let's do B♭ F, and then 382, let's do F♯,
+C♯. You can just go ahead and do those and let me hear it."*
+*As placed (single strikes only):* 342.6 D · A · 346.4 C♯ · G♯ · 352.5 F♯ · C♯ (the three clear ones, the beds' own) · 363.7 B · F♯ · 368.3 F · C ·
+379 B♭ · F · 382 F♯ · C♯ (his, no fifth twice in a row); 335.2 A · E · B, 341.08 F♯ · C♯, 356.2 B♭ · F, 360 F · C kept. The walk by fifths of
+SW-58 is given up for the electronics' notes.
