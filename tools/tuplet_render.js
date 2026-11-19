@@ -44,11 +44,14 @@ form.players.forEach((p) => {
     o.id = 'wc-' + (nextId++); o.startSeconds = r3(e.t); o.endSeconds = r3(e.t + Math.max(0.03, Math.min(form.noteSeconds || 0.12, gap * 0.6)));
     o.properties.phaseForm = Object.assign({}, o.properties.phaseForm, { step: e.step, k: e.k || 0, band: e.plain ? null : (e.band || null) });
     if (set[p] && routes[p].tech[set[p]]) o.technique = set[p];
+    if (db.dynamics && db.dynamics.points) { const lv = T.levelAt(db, e.t); o.recVel = T.velOf(lv, 'save'); o.properties.phaseForm.level = Math.round(lv * 100) / 100; }   // SW-66: the dynamic of its moment (mf 100 … fff 127; p 83)
     const keys = T.keysAt(db, takes, routes, set, p, e.t, prevK); prevK = keys;
     keys.forEach((k, j) => { const n = j ? JSON.parse(JSON.stringify(o)) : o; if (j) n.id = 'wc-' + (nextId++); n.sonifyNote = k; notes.push(n); });
   });
 });
 const kept = src.objects.filter((o) => !isHit(o));
+// the written dynamics as markers (for his eye in the composer score and for the notation's cut later): one per mark of db.dynamics.marks
+for (const m of ((db.dynamics && db.dynamics.marks) || [])) notes.push({ id: 'mk-' + (nextId++), type: 'marker', layer: 0, time: m.t, label: 'dyn ' + m.text, color: '#ffffff', groupId: 'phase-dynamics', performanceNotes: 'the players\' dynamic (bank/tuplet_chunks.json → dynamics): ' + m.text + ' at ' + m.t + (m.why ? ' — ' + m.why : ''), properties: { dynamic: m } });
 const save = Object.assign({}, src, { objects: kept.concat(notes), nextId });
 save.metadata = Object.assign({}, src.metadata, { modified: new Date().toISOString(), tupletRender: { from: FROM, chunks: db.chunks.length, at: new Date().toISOString(), note: 'EXPERIMENTAL — made by tools/tuplet_render.js from bank/tuplet_chunks.json; overwritten on every run' } });
 fs.writeFileSync(out, JSON.stringify(save));

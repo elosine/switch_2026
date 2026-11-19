@@ -56,7 +56,7 @@
 <h1>The players <button id="dOut" title="zoom out">−</button><button id="dIn" title="zoom in">+</button><span class="dim">a sideways scroll or the bar below moves it · ALT+wheel zooms (right in, left out) · click sets the playhead</span></h1>
 <div id="mix"></div>
 <canvas id="detail" width="1800" height="286"></canvas>
-<canvas id="elec" width="1800" height="96" title="the electronics: how loud they are, and their swells (orange, from the start of a swell to its peak) — click to set the playhead" style="height:96px;margin-top:6px;cursor:pointer"></canvas>
+<canvas id="elec" width="1800" height="96" title="the electronics: how loud they are (blue), and their swells (orange, from the start of a swell to its peak); the white line is the PLAYERS' dynamic, mf low and fff at the top — click to set the playhead" style="height:96px;margin-top:6px;cursor:pointer"></canvas>
 <input id="scroll" type="range" min="0" max="100" step="0.1" value="0" aria-label="scroll the players view">
 <div class="row dim">The purple bar is the harmonies, the colored bar under it the tuplet chunks. On either: drag the middle to move · drag an end to make it longer or shorter · click one, then DELETE, to remove it</div>
 <div id="selNone" class="dim" style="margin:10px 0">Click a harmony or a chunk to change it here.</div>
@@ -157,7 +157,8 @@ function tick() {
     const e = S.ev[S.idx++], o = outOf(e.p); if (!o || !sounds(e.p)) continue;
     const at = S.perf0 + (e.t - S.score0) * 1000;
     if (at < performance.now() - 60) { S.late = (S.late || 0) + 1; continue; }   // its time has passed (the page was held up): dropped, never sent late in a bunch
-    for (const k of e.keys) { o.send([0x90 | chOf(e.p), k, vel], at); o.send([0x80 | chOf(e.p), k, 0], at + e.dur * 1000); }
+    const v = Math.max(1, Math.min(127, Math.round(Tuplets.velOf(Tuplets.levelAt(S.db, e.t), 'workshop') * vel / 100)));   // the dynamic of the moment; the vel box scales all of it (100 = as written)
+    for (const k of e.keys) { o.send([0x90 | chOf(e.p), k, v], at); o.send([0x80 | chOf(e.p), k, 0], at + e.dur * 1000); }
   }
   if (S.late && S.late !== S.lateShown) { S.lateShown = S.late; $('midi').textContent = S.late + ' notes were skipped because the page was held up (they are not sent late)'; }
   if (scoreNow() > S.end + 2) stop();
@@ -239,6 +240,13 @@ function drawElec() {
     g.fillStyle = '#ffa24a'; g.beginPath(); g.arc(x(k.start), y(curve[j0]), 3.5, 0, 7); g.fill(); g.beginPath(); g.arc(x(k.peak), y(curve[j1]), 5, 0, 7); g.fill();
     g.font = '600 12px system-ui'; g.fillText(k.start.toFixed(1), x(k.start) - 14, H - 2); g.fillText(k.peak.toFixed(1), x(k.peak) - 14, Math.max(11, y(curve[j1]) - 8));
   }
+  // the players' own dynamic (SW-66): a white line, mf low on the strip and fff at its top; the written marks at the turns
+  { const P = S.db && S.db.dynamics && S.db.dynamics.points; if (P && P.length) {
+      const yl = (m) => H - 14 - Math.max(0, Math.min(1, (m - 2.5) / 4.5)) * (H - 22), NAMES = ['', 'ppp', 'pp', 'p', 'mf', 'f', 'ff', 'fff'];
+      g.beginPath(); g.moveTo(x(a), yl(Tuplets.levelAt(S.db, a))); for (const q of P) if (q[0] > a && q[0] < a + span) g.lineTo(x(q[0]), yl(q[1])); g.lineTo(x(a + span), yl(Tuplets.levelAt(S.db, a + span)));
+      g.strokeStyle = '#ffffff'; g.lineWidth = 1.6; g.stroke();
+      if (span < 90) { g.fillStyle = '#ffffff'; g.font = 'italic 600 12px Georgia, serif'; let last = -99; for (const q of P) { if (q[0] < a || q[0] > a + span || x(q[0]) - last < 22) continue; g.fillText(NAMES[Math.round(q[1])] || '', x(q[0]) + 3, yl(q[1]) - 4); last = x(q[0]); } }
+  } }
   g.fillStyle = '#ffd166'; g.fillRect(x(scoreNow()) - 1, 0, 2, H);
 }
 function frame() {

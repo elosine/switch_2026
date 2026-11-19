@@ -122,6 +122,18 @@
     if (!ps || !ps.length) return [R.homeKey];
     return [...new Set(ps.map((x) => fold(x, q.lo, q.hi)))];
   }
-  const api = { build, NAMES, WHOLE, HALF, RATES, RATE_TEXT, SETS, fold, keysAt };
+  // THE DYNAMICS (SW-66, 2026-11-19): db.dynamics.points = [[t, mark] …] in time order, a straight line between two points; before the first
+  // and after the last, the baseline (mf). The WRITTEN marks are the record (db.dynamics.marks, for the notation); two velocity scales turn a
+  // mark into a number — the workshop's own (sent raw to the rack: wide, so a swell is heard) and the composer save's (his p 83 · mf 100 · fff 127).
+  const MARK = { niente: 0, ppp: 1, pp: 2, p: 3, mf: 4, f: 5, ff: 6, fff: 7 };
+  function levelAt(db, t) {
+    const P = db.dynamics && db.dynamics.points; if (!P || !P.length) return 4;
+    if (t <= P[0][0]) return P[0][1]; if (t >= P[P.length - 1][0]) return P[P.length - 1][1];
+    let lo = 0, hi = P.length - 1; while (hi - lo > 1) { const m = (lo + hi) >> 1; if (P[m][0] <= t) lo = m; else hi = m; }
+    const a = P[lo], b = P[hi]; return a[1] + (b[1] - a[1]) * (b[0] === a[0] ? 0 : (t - a[0]) / (b[0] - a[0]));
+  }
+  const SCALE = { workshop: [[0, 1], [3, 44], [4, 70], [7, 127]], save: [[0, 1], [3, 83], [4, 100], [7, 127]] };
+  function velOf(level, scale) { const S = SCALE[scale] || SCALE.workshop; for (let i = 1; i < S.length; i++) if (level <= S[i][0]) { const a = S[i - 1], b = S[i]; return Math.round(a[1] + (b[1] - a[1]) * (level - a[0]) / (b[0] - a[0])); } return 127; }
+  const api = { MARK, levelAt, velOf, build, NAMES, WHOLE, HALF, RATES, RATE_TEXT, SETS, fold, keysAt };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.Tuplets = api;
 })(typeof window !== 'undefined' ? window : globalThis);

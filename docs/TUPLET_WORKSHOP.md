@@ -23,6 +23,7 @@
 | `chunks` | the TUPLET chunks: `start · end · band · players · shareFrom · shareTo · rate · seed` |
 | `harmonies` | the HARMONY bricks: `start · end` and either `take` (a take of the strikes drawer) or `pcs` (note names — see below) |
 | `sets` · `artic` | the articulation sets (one technique per player) and the one in force |
+| `dynamics` | the players' dynamics: `marks` (the written ones, for the notation — `mf < fff` with its two times) and `points` (the line they make); `tuplets.js` `levelAt` · `velOf` |
 | `marks` | score times he named (292: the tuplets start) |
 | `takeDeck` | the takes not yet used by `harmony_fill.js` (no take twice until all are used) |
 

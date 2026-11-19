@@ -4181,3 +4181,21 @@ or more above it, with a 3 dB hysteresis. **Fourteen, start → peak (rise):** 2
 **The page:** a strip `El` under the players view (`workshop/tuplets/beds_envelope.json`, read as a static file — no server restart): the fine
 curve filled, each swell drawn over it in orange along the broad curve, a dot at its start and its peak, both times written; a click sets the
 playhead. Seen once on the throwaway port (the swells at 339.4 → 342.6, 353 → 357.5, 386.6 → 399.8 … in place); no console error.
+
+## §238. The players' dynamics of Section 3 — by velocity, from the electronics' swells; no tests (SW-65 · SW-66) (2026-11-19)
+
+**His frame, which decides the method:** a reasonable approximation for the demo, the written marks kept for the notation, and NO measuring
+campaign (*"it takes hours, sometimes days … if worse comes to worse, I'll just leave it as is"*). So: velocity only (every voice of these
+sets is a `loud: vel` voice — the dynamics law's struck kind; no curve channel, no CC7 lane touched), one rule, proven once by its numbers.
+**The baseline (his question):** the beds' peaks stand at −8 … −9 dB, their median at −14.8 (one 6 dB step under), the quiet quarter under
+−18.9. The players' baseline is his `mf` — under the electronics most of the time, so a swell has room.
+**The plan, as data (`bank/tuplet_chunks.json` → `dynamics`):** `mf` from 277.8; each of the thirteen swells of §237 after the entry is `mf <
+fff` from its start to its peak, then `fff > mf` within 3 s (or up to the next swell); before the three deep valleys a decrescendo `mf > p`
+from where the beds begin to fall — 338.2 → 339.4 · 351.3 → 353.0 · 431.7 → 438.9 — and the swell then `p < fff`. 43 points, 30 marks.
+**The rule (`tuplets.js`):** `levelAt` (a line through the points, in marks: p 3 · mf 4 · fff 7) and `velOf` with two scales — the
+WORKSHOP's, sent raw to the rack (p 44 · mf 70 · fff 127: wide on purpose, so a swell is heard on short notes) and the SAVE's (his p 83 · mf
+100 · fff 127, the phase form's own 100 = mf). The page sends each strike at its moment's velocity (the `vel` box now scales the whole, 100 =
+as written) and draws the players' dynamic as a white line on the electronics' strip, the marks at its turns. `tuplet_render.js` writes
+`recVel` per note and a marker per mark. In `piece-Section03-X-tuplets`: velocities 83 … 127, 2,471 notes at 100, 30 markers.
+**Not done, by his word:** no listening pass, no level check against the beds, no balance of players and electronics (the piece's, later).
+The workshop's two velocity numbers for mf and p (70 · 44) are a guess of the AI's — one place to change if a swell is too flat or too steep.

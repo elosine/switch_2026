@@ -1217,3 +1217,19 @@ median dynamic, and then which ones should have a decrescendo, and show me where
 *The measure (the AI's, from `workshop/tuplets/beds_envelope.json`, 280 → 478 s):* the beds' peaks −8 … −9 dB; their median −14.8 dB (6 dB
 under the peaks), the quiet quarter under −18.9, the deep valleys −25 … −36. The falls before the deep valleys begin at 338.2 (→ 339.4, 15 dB
 in 1.2 s) · 351.3 (→ 353.0, 18 dB in 1.7 s) · 431.7 (→ 438.9, 16 dB in 7 s); also 363.6 (→ 366.4) · 367.6 (→ 368.6) · 372.6 (→ 386.6, a 14 s fade).
+
+### SW-66 · 2026-11-19 — THE PLAYERS' DYNAMICS: mf, swelling to fff with the electronics; three decrescendos; "a reasonable approximation, no tests"
+
+*His words (dictated, light corrections):* *"Let's have in the IR conceptually so it can pass to the notation that mf to fff. So I'll know when I
+notate them, that's what those crescendos will be. And I'll accept the three decrescendos. And we'll have to figure out how to balance the
+acoustic parts with the electronics for the whole piece — later. And then can you find a way to make the current demo sound about right with
+those decrescendos and crescendos, and just do your best so it's a reasonable approximation. The demo volume has been problematic, and I'm
+hesitant to really tackle it and try to get CC7 working, or do too many tests. Once we get started with that, it's a big mess, and then AI runs
+a whole bunch of tests. It takes hours, sometimes days. I really don't want to do that. So the most efficient route to a reasonable
+approximation, whether it's through velocity or using some CC7. But I don't want to go through and every spot say, that's too loud, that's too
+soft. If worse comes to worse, I'll just leave it as is … I need to move this on. I don't want to spend the rest of the night doing recordings
+and then analysis tests."*
+*What was done (the AI's, by velocity alone — no CC7, no recording, no measuring):* the written dynamics kept as DATA (`bank/tuplet_chunks.json`
+→ `dynamics.marks`: thirty marks — `mf` · `mf < fff` · `fff > mf` · `mf > p` · `p < fff`, each with its two times) and as the line they make
+(`dynamics.points`); every strike takes the velocity of its moment. In the composer save each note carries it (`recVel`, his own scale: p 83 ·
+mf 100 · fff 127, and `properties.phaseForm.level`) and each mark is a marker `dyn …` — the hook for the notation's cut later.
