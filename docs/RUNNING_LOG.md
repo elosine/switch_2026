@@ -4219,3 +4219,20 @@ players extract — but every other reader of those numbers is to be READ, not g
 **Read as:** no broken port; the remainder is what the protocol left for the first real music (6.4 the app-written page with real kinds ·
 6.5 the print page · 6.6 the main file · container 8) plus the one structural change made since the set-up — the four electronics lanes.
 His two notation questions: the tuplets on a proportional score; the dynamics. The two test pages the review made were removed.
+
+## §240. The notation phase opens: the staff throughout; the first working page (SW-71) (2026-11-19)
+
+**His method for the notation (SW-71):** section by section; settle the paradigm on one case, then propagate. The electronics are a TAPE PART
+— one half-height lane in the conductor's score with the mix's waveform, a placeholder for now. First case: the alto sax's first note.
+**The working page `s1-sax-first-note`** (`notate_section --score piece-FirstDraft-Final --w0 14 --w1 26 --parts 2`): the note `wc-94` (F4,
+16.0 → 23.55 s, +18.6 c) and its sine brick, both still unresolved (parachute bricks) — nothing notated, at his word.
+**His first look:** *"there are no staff lines?"* — the rule row `staff … ensemble` still carried piece 6's ranges (a staff only in ITS beating
+section, 423.3 … 668 s; 0.25 s of lines at a page's start, then none: that piece is graphic). CHANGED THE ROW, not the code: `ranges: [{ fromS:
+0, to: "end" }]` — the staff throughout; `ENGRAVING_RULES.md` regenerated; `check_rules` 31 / 32 as before. Seen on the throwaway: the test
+page's staves run the whole width. *The same family as piece 6's own §45 (a staff that lost its lines after the clef): a rule row carried
+whole holds the last piece's times.*
+**The lineage of the gliss figure, reviewed for him:** the quartet — a gliss line note to note · the tubas — a header whose short gliss line
+slopes to show the direction, then the curve · the septets (pieces 4 · 5) — the morph header (two open heads in time order, a gliss line, the
+cents over the destination) before the go line, then the orange gliss curve and its meter (`byEnv.morph`) · piece 6 — the sine tone's unit
+(`byEnv.sine`: the pitch header, the box the sine's length with the go line inside, the player's line, the audible-beats badge). This note
+needs a gliss figure AND the sine at once — no earlier piece joined them.
