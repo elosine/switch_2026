@@ -4160,3 +4160,10 @@ tuplets) → C G D, clear (C · D · A · B) · 392.2 E♭ B♭ F (gray) → G D
 398.9 G D A (gray) → keep (D · F♯ · C♯ · F · A) · 405.3 A E B (fast tuplets) → B F♯ C♯, slight (B · C) · 407.1 B F♯ C♯ (gray) → G D A, slight
 (D · F♯ · A) · 412.7 C♯ G♯ E♭ (fast tuplets) → B♭ F C, slight (B♭ · F · A) · 414.9 E♭ B♭ F (gray, a sliver) → keep. Around 390 … 408 the beds
 sit on D and A throughout. By his rule only the gray stretches may change: 392.2 and 407.1 → G D A. Put to him; not applied.
+
+## §236. The beds under the held B♭ (415.2 → 425.9), in five slices (2026-11-19)
+
+His question: do the electronics' most prominent pitches change through that section? **Yes.** 415.2 → 417.4: B♭6 (−7 … +43 c, a band of
+it) · 417.4 → 419.6: B♭6 still (+17 … +34 c), weaker · 419.6 → 421.8: the B♭ is gone — C♯7 (−30 c) · E7 (+22 c) · F♯7 (+13 c) · 421.8 → 424.0:
+thinner and higher, C♯8 (+25 c) · B7 · 424.0 → 425.9: a band around C6 (−26 … +20 c, with a C♯6 a quarter-tone flat) · E6 (−27 c). So: B♭ to
+~419.6; then a C♯ – E – F♯ region (F♯ · C♯ a fifth, E between); the last two seconds C with E. Put to him; nothing changed.
