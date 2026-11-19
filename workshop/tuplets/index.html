@@ -63,6 +63,9 @@
 
 <h1>All the chunks</h1>
 <div class="row">
+  <button id="keep" title="keep the workshop exactly as it is now as a version you can come back to">★ Keep this version</button>
+  <input id="keepName" placeholder="a name (optional)" style="font:inherit;width:150px;background:#0f1113;color:#e8e6e1;border:1px solid #3a3f47;border-radius:6px;padding:5px 6px">
+  <select id="versions" title="go back to a kept version — the present state can be had back with Undo"><option value="">go back to a version…</option></select>
   <button id="undo" disabled title="take back the last change (CTRL+Z)">↶ Undo</button>
   <button id="add">+ Add a chunk at the playhead</button>
   <button id="addH">+ Add a harmony at the playhead</button>
@@ -312,6 +315,11 @@ function panel() {
   $('selNone').hidden = !!(b || k); hd.hidden = !(b || k);
 }
 $('undo').onclick = () => undo();
+// THE KEPT VERSIONS: ★ keeps the whole workshop as it stands under the date and time (and a name); the list brings one back (Undo returns)
+async function listVersions() { try { const v = await (await fetch('/versions')).json(), s = $('versions'); s.innerHTML = '<option value="">go back to a version…</option>'; v.forEach((x) => { const o = document.createElement('option'); o.value = x.name; o.textContent = x.name; s.append(o); }); } catch (e) {} }
+$('keep').onclick = async () => { try { const r = await (await fetch('/versions', { method: 'POST', body: JSON.stringify({ db: S.db, label: $('keepName').value }) })).json(); if (!r.ok) throw new Error(r.error); $('saved').textContent = 'kept as "' + r.name + '"'; $('keepName').value = ''; listVersions(); } catch (e) { $('saved').textContent = 'NOT kept: ' + e.message; } };
+$('versions').onchange = async () => { const n = $('versions').value; if (!n) return; try { const db = await (await fetch('/version?name=' + encodeURIComponent(n))).json(); if (!Array.isArray(db.chunks)) throw new Error('not a version'); stop(); S.db = db; norm(); remember(); articUI(); rebuild(); save(); table(); $('saved').textContent = 'back to "' + n + '" — Undo returns to where you were'; } catch (e) { $('saved').textContent = 'could not open it: ' + e.message; } $('versions').value = ''; };
+['mousedown', 'keydown'].forEach((t) => $('keepName').addEventListener(t, (e) => e.stopPropagation()));
 $('add').onclick = () => addChunk(+$('from').value); $('addH').onclick = () => addHarmony(+$('from').value);
 function norm() { const d = S.db; d.chunks.forEach((k, i) => { if (!k.id) k.id = 'c' + (i + 1); }); d.harmonies = d.harmonies || []; d.sets = d.sets || {}; for (const n in Tuplets.SETS) if (!d.sets[n]) d.sets[n] = JSON.parse(JSON.stringify(Tuplets.SETS[n])); if (!d.sets[d.artic]) d.artic = 'staccato'; }
 function articUI() { const s = $('artic'); s.innerHTML = ''; Object.keys(S.db.sets).forEach((n) => { const o = document.createElement('option'); o.value = n; o.textContent = n; s.append(o); }); s.value = S.db.artic; }
@@ -380,7 +388,7 @@ document.addEventListener('keydown', (e) => {
 });
 (async function () {
   const h = await (await fetch('/hits')).json(); S.hits = h.hits; S.players = h.players; S.steps = h.steps; S.end = h.end; S.t0 = h.steps[0].from; S.viewA = S.t0 - 2;
-  S.routes = await (await fetch('/routes')).json();
+  S.routes = await (await fetch('/routes')).json(); listVersions();
   try { B.list = await (await fetch('/beds')).json(); } catch (e) { B.list = []; }
   $('bedsVol').oninput = () => { B.list.forEach((b, i) => { if (B.els[i]) B.els[i].volume = bedVol(b); }); };
   $('bedsOn').onchange = () => { if (S.playing) play(scoreNow()); };

@@ -9,6 +9,7 @@
 //         GET /hits     the strikes of the phase form per player, from the save (--score, default piece-Section03-H-addTuplets) + the form's steps
 //         GET /takes    his takes from the strikes drawer (the pitches per lane)      GET /routes   every technique's port · channel · cc0 · range
 //         GET /beds     the electronics bricks of the save in Section 3      GET /fund/…   the fund's sound files (Range)
+//         GET /versions the kept versions      POST /versions  keep one now (bank/tuplet_versions/)      GET /version?name=  one of them
 //         GET /chunks   bank/tuplet_chunks.json (+ its mtime)        POST /chunks   replace it (the page's autosave)
 // The chunks file is the ONE record: the page writes it, the AI writes it, the page reloads it when it changes on disk.
 'use strict';
@@ -73,6 +74,17 @@ function serveFund(req, res, rel) {
     res.writeHead(200, { 'Content-Type': type, 'Content-Length': size, 'Accept-Ranges': 'bytes', 'Cache-Control': 'no-store' });
     fs.createReadStream(file).pipe(res);
 }
+// THE KEPT VERSIONS (his word 2026-11-19: "a bookmark button or a save button where I could just save that particular version"):
+// bank/tuplet_versions/<date time>[ name].json — a copy of the whole file at that moment; never overwritten, never deleted from here
+const VERS = path.join(ROOT, 'bank', 'tuplet_versions');
+function versions() { try { return fs.readdirSync(VERS).filter((n) => n.endsWith('.json')).map((n) => ({ name: n.slice(0, -5), at: fs.statSync(path.join(VERS, n)).mtimeMs })).sort((a, b) => b.at - a.at); } catch (e) { return []; } }
+function keepVersion(db, label) {
+    fs.mkdirSync(VERS, { recursive: true });
+    const d = new Date(), p = (x) => String(x).padStart(2, '0'), stamp = d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + p(d.getMinutes()) + p(d.getSeconds());
+    const clean = String(label || '').replace(/[^A-Za-z0-9 ._-]/g, '').trim().slice(0, 40), name = stamp + (clean ? ' ' + clean : '');
+    fs.writeFileSync(path.join(VERS, name + '.json'), JSON.stringify(db, null, 1) + '\n');
+    return name;
+}
 function readChunks() {
     let db;
     try { db = JSON.parse(fs.readFileSync(CHUNKS, 'utf8')); }
@@ -84,6 +96,13 @@ http.createServer((req, res) => {
     const url = new URL(req.url, 'http://x');
     try {
         if (url.pathname === '/hits') return send(res, 200, JSON.stringify(hits()));
+        if (url.pathname === '/versions' && req.method === 'GET') return send(res, 200, JSON.stringify(versions()));
+        if (url.pathname === '/version' && req.method === 'GET') { const n = url.searchParams.get('name') || '', file = path.join(VERS, n + '.json'); if (!/^[A-Za-z0-9 ._-]+$/.test(n) || !fs.existsSync(file)) return send(res, 404, JSON.stringify({ ok: false, error: 'no such version' })); return send(res, 200, fs.readFileSync(file, 'utf8')); }
+        if (url.pathname === '/versions' && req.method === 'POST') {
+            let body = ''; req.on('data', (c) => { body += c; if (body.length > 2e6) req.destroy(); });
+            req.on('end', () => { try { const b = JSON.parse(body); if (!b.db || !Array.isArray(b.db.chunks)) throw new Error('no chunks'); send(res, 200, JSON.stringify({ ok: true, name: keepVersion(b.db, b.label) })); } catch (e) { send(res, 400, JSON.stringify({ ok: false, error: String(e.message || e) })); } });
+            return;
+        }
         if (url.pathname === '/beds') return send(res, 200, JSON.stringify(beds()));
         if (url.pathname.startsWith('/fund/')) return serveFund(req, res, decodeURIComponent(url.pathname.slice(6)));
         if (url.pathname === '/takes') return send(res, 200, JSON.stringify(takes()));
