@@ -49,6 +49,12 @@ The rules of the tuplet draw are at the top of `workshop/tuplets/tuplets.js` (on
 - **How to make one:** `"unison": <pitch class>` on a harmony brick, e.g. `{ "start": 415.2, "end": 417.4, "unison": 10 }` = B♭. Each player's own D
   key is moved the nearest way to that note (the glockenspiel's key with it).
 
+### A STACK HELD *(2026-11-19)*
+
+- **What he hears:** a few note names (a fifth, three or four stacked fifths) as a steady chord — each player on one note, no octave change.
+- **How to make one:** `"pcs": [...]` with `"hold": true`. The notes go up the ensemble in the stack's order (cello · piano · alto sax ·
+  clarinet · violin · flute · glockenspiel, round again); each on the key nearest the player's own D. `seed` + 1 deals the notes one player on.
+
 ### SHUFFLE WITHIN THE CHORD *(his phrase, 2026-11-19)*
 
 - **What he hears:** the chord stays (its take), but every strike of a player is another note of it — "each player is playing a different

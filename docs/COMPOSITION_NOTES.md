@@ -1141,3 +1141,13 @@ like the shuffled octave. So the medium will be single note, the slow will be sh
 
 *His words, next (2026-11-19):* *"let's just keep those B flats steady all the way through. So no octave displacement."* — 415.2 → 425.9: one
 B♭ for everyone, held (the walk by fifths and the alternation with the scatter both tried and set aside).
+
+### SW-61 · 2026-11-19 — 425.9 → 439.4: STACKS OF FIFTHS HELD, GROWING — two notes, three, four
+
+*His words (dictated, light corrections):* *"for the two sections starting at 425.8, the medium and then the fast one, let's go to a F and C
+fifth, and just hold, don't shift the octaves. Then for the next two, the slow and the fast, including the gray, let's go to a stack of 3
+fifths. Again, steady note, and we'll increment it. So that was F and C. So this would be starting at G: G, D, and A. And then a stack of 4
+starting at the next section just to the drift 3. And then increment that one. So starting at the E."*
+*The AI's reading (marked as such):* three held chords, each player on ONE note it keeps: F · C (425.9 → 430.5) · G · D · A (430.5 → 434.1) ·
+E · B · F♯ · C♯ (434.1 → 439.4, where the glide from drift 3 into swarm v begins). The stack goes up the ensemble in his bottom-to-top order
+(cello first), round again when the players outnumber the notes; each note on the key nearest the player's own D.

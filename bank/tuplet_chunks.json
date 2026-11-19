@@ -2010,6 +2010,48 @@
    "end": 425.9,
    "unison": 10,
    "label": "B♭ — everyone, held"
+  },
+  {
+   "id": "h142",
+   "start": 425.9,
+   "end": 430.5,
+   "pcs": [
+    5,
+    0
+   ],
+   "hold": true,
+   "seed": 1,
+   "label": "F · C — held",
+   "why": "the medium and the fast: a fifth, held"
+  },
+  {
+   "id": "h143",
+   "start": 430.5,
+   "end": 434.1,
+   "pcs": [
+    7,
+    2,
+    9
+   ],
+   "hold": true,
+   "seed": 1,
+   "label": "G · D · A — held",
+   "why": "the slow and the fast with their gray: three stacked fifths, held"
+  },
+  {
+   "id": "h144",
+   "start": 434.1,
+   "end": 439.4,
+   "pcs": [
+    4,
+    11,
+    6,
+    1
+   ],
+   "hold": true,
+   "seed": 1,
+   "label": "E · B · F♯ · C♯ — held",
+   "why": "to the glide into swarm v: four stacked fifths, held"
   }
  ],
  "sets": {

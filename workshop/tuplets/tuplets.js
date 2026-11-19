@@ -94,6 +94,11 @@
       const d = ((((+h.unison) - (R.homeKey % 12)) % 12) + 18) % 12 - 6;
       return [fold(R.homeKey + d, q.lo, q.hi)];
     }
+    if (h && Array.isArray(h.pcs) && h.pcs.length && h.hold) {   // SW-61 (2026-11-19 — his "a F and C fifth, and just hold, don't shift the octaves")
+      const UP = ['cello', 'piano', 'alto_sax', 'clarinet', 'violin', 'flute', 'glockenspiel'], i = UP.indexOf(p) < 0 ? hash(p) % 97 : UP.indexOf(p);
+      const pc = h.pcs[(i + ((h.seed || 1) - 1)) % h.pcs.length], d = (((pc - (R.homeKey % 12)) % 12) + 18) % 12 - 6;
+      return [fold(R.homeKey + d, q.lo, q.hi)];
+    }
     if (h && Array.isArray(h.pcs) && h.pcs.length) {
       const c = []; for (let m = (q.lo != null ? q.lo : 21); m <= (q.hi != null ? q.hi : 108); m++) if (h.pcs.indexOf(m % 12) >= 0) c.push(m);
       if (!c.length) return [R.homeKey];
