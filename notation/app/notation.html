@@ -841,7 +841,8 @@
       // [decibel §412, DEC-182 — his "the ending has too many bar lines … an extra vertical line after that … remove that second vertical line"]
       // where the piece ends with a FINAL BAR LINE (an item `finalbar`, the cutter's --finalBar), the page the material ends on draws no edge bar
       const hasFinalBar = ((state.model && state.model.systems) || []).some(sm => (sm.items || []).some(it => it.k === 'finalbar'));
-      if (eb && view.systems.length && !(hasFinalBar && srcEnd > view.window[0] && srcEnd <= view.window[1])) {
+      if (eb && view.systems.length && !(hasFinalBar && srcEnd > view.window[0] && srcEnd <= view.window[1])
+          && !(eb.everyPage === false && !(srcEnd > view.window[0] && srcEnd <= view.window[1]))) {   // systemEndBar.everyPage false: only on the page the material ends on
         const ys = view.systems[0].yTopPx, ye = view.systems[view.systems.length - 1].yBotPx;
         // at the material's end when that falls inside the page, else the edge
         const xEnd = (srcEnd > view.window[0] && srcEnd < view.window[1]) ? view.xOfSeconds(srcEnd) : view.musicX1Px;   // [2c.1] the system's right edge, inside the margin

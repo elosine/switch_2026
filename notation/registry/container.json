@@ -800,7 +800,7 @@
    "muted": "@colours.muted.value",
    "brick": "@colours.brick.value",
    "paper": "@colours.paper.value",
-   "laneLine": { "colour": "@objects.laneLine.colour", "thickSs": "@objects.laneLine.thickSs", "outer": "@objects.laneLine.outer" },
+   "laneLine": { "colour": "@objects.laneLine.colour", "thickSs": "@objects.laneLine.thickSs", "outer": "@objects.laneLine.outer", "from": "@objects.laneLine.from" },
    "micOpening": { "colour": "@objects.micOpening.colour", "variants": "@objects.micOpening.variants", "fillOpacity": "@objects.micOpening.fillOpacity", "strokeOpacity": "@objects.micOpening.strokeOpacity", "strokeSs": "@objects.micOpening.strokeSs", "cornerSs": "@objects.micOpening.cornerSs", "place": "@objects.micOpening.place", "align": "@objects.micOpening.align", "gapSs": "@objects.micOpening.gapSs", "heightFrac": "@objects.micOpening.heightFrac", "minSs": "@objects.micOpening.minSs", "sign": "@objects.micOpening.sign" },
    "badge": { "sizeSs": "@objects.badge.sizeSs", "gapSs": "@objects.badge.gapSs" },
    "language": { "format": "@language.format", "types": "@language.types" },
@@ -841,6 +841,8 @@
     "sizeSs": "@objects.reshow.size"
    },
    "systemEndBar": {
+    "everyPage": false,
+    "_everyPageNote": "THE SWITCH~ PIECE (2026-11-19, his word: 'I don't think I need to see a line on every page'): false = the line stands only at the END of the material, not at every page's right edge; true (or absent) = at every page's edge, as the earlier pieces' screens and films.",
     "wPx": 1.5,
     "opacity": 0.55,
     "final": { "colour": "@objects.finalBarLine.colour", "thinSs": "@objects.finalBarLine.thinSs", "gapSs": "@objects.finalBarLine.gapSs", "thickSs": "@objects.finalBarLine.thickSs" }

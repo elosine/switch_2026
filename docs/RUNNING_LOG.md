@@ -4236,3 +4236,24 @@ slopes to show the direction, then the curve · the septets (pieces 4 · 5) — 
 cents over the destination) before the go line, then the orange gliss curve and its meter (`byEnv.morph`) · piece 6 — the sine tone's unit
 (`byEnv.sine`: the pitch header, the box the sine's length with the go line inside, the player's line, the audible-beats badge). This note
 needs a gliss figure AND the sine at once — no earlier piece joined them.
+
+## §241. The page's furniture, two rows: the dividing lines from the staves; the end line only at the end — and his word on the review (2026-11-19)
+
+**His eye on the first working page:** the dividing lines between the parts *"pierce the brackets … they don't look quite right"*; a line at
+the right end of every page — *"I know we decided something about the ending line for each page."* And, while the fix ran: *"these were the
+types of issues I was hoping to avoid … this is what I meant by doing a careful review of the other scores. I just want to make sure we have
+all the parts in place and you're not just making up new now … I'm sure there was a precedent for that … if little problems like this keep
+cropping up, let's develop a better review."*
+**What the lineage holds (read, both rows compared across pieces 5 · 6 · 7):** THE DIVIDING LINE (`objects.laneLine`) exists since piece 6 only
+(DEC-88, "the string quartet's look"), drawn from the page's LEFT MARGIN — in piece 6 the lanes had no staves there, so nothing was crossed;
+carried here unchanged, it runs through this piece's brackets, brace and names. THE END LINE (`systemEndBar`): on the SCREEN and the FILM every
+page has had an edge bar at its right since piece 4; what was "decided" is the PRINT's (piece 5 §772 · piece 6 §411 · §476): no edge bar on a
+print page, a final bar line only where the piece ends. So neither was made up here and neither was broken by the port — both are the last
+piece's page on a different kind of score. **The AI's miss:** the readiness review (§239) ran the tools and never LOOKED at a page's furniture.
+**Changed as rows (with the one reader each):** `laneLine.from: "staff"` — the line begins at the music's left edge (`view.musicX0Px`);
+`systemEndBar.everyPage: false` — the line stands only on the page the material ends on (the print's rule made the screen's too; `static_page.js`
+and the app's own copy in `notation.html`). `check_rules` 31 / 32 as before. Seen on the throwaway's test page: the lines start at the staves,
+clear of the brackets; no line at the right edge.
+**If more of these come:** the proposal put to him — before he sees a section's first page, the AI goes through the page's furniture item by
+item (names · brackets · brace · clefs · staves · dividers · edges · the cursor · the lanes' heights) against the last piece that had staves
+throughout (piece 5), and reports the differences as a list.

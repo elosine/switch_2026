@@ -66,7 +66,7 @@
 
     // the system TERMINAL barline, exactly as notation.html appends it
     const eb = ((C.engraving && C.engraving.render) || {}).systemEndBar;
-    const edgeBar = o.edgeBar !== false;
+    const edgeBar = o.edgeBar !== false && !(eb && eb.everyPage === false);   // systemEndBar.everyPage false (the Switch~ piece, 2026-11-19): no line at a page's edge, only at the material's end
     let endBar = '';
     const endInWindow = o.srcEnd > view.window[0] && o.srcEnd <= view.window[1];
     // [2b-P step 5, §772 — his eye on the print: "let's do a final bar line … the double line … the proper thick and thin line

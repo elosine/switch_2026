@@ -182,7 +182,7 @@
       const bands = view.systems.map(s => [s.yTopPx, s.yBotPx, s.ssPx]).sort((a, b) => a[0] - b[0] || b[1] - a[1]);
       const lanesY = [];
       for (const b of bands) { const L = lanesY[lanesY.length - 1]; if (L && b[0] < L[1] - 1e-6) L[1] = Math.max(L[1], b[1]); else lanesY.push(b.slice()); }
-      const th = E.laneLine.thickSs * lanesY[0][2], xa = view.marginLeftPx || 0, ys = [];
+      const th = E.laneLine.thickSs * lanesY[0][2], xa = (E.laneLine.from === 'staff' && view.musicX0Px != null) ? view.musicX0Px : (view.marginLeftPx || 0), ys = [];   // `from: staff` (the Switch~ piece, 2026-11-19): from the staves' left edge, clear of the brackets
       let xb = view.widthPx - (view.marginRightPx || 0);
       // [decibel PLAN 2.16 step 1, RUNNING_LOG §476] ON PAPER THE LANES END AT THE FINAL BAR LINE: on a print page (opts.printEdges) that
       // holds the notation's own final bar (an item `finalbar`), the lane lines stop at the bar's right edge — a sheet does not run on past
