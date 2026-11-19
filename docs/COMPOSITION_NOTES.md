@@ -1287,3 +1287,23 @@ you do an assessment and find out where we are in terms of moving into the notat
 fairly careful … I just want to avoid any issues … see if we can't get ready to move into the notation phase."*
 *Done:* the accents out (the trial of SW-69, and SW-68's before it, both set aside: the accenting is the ORCHESTRATION's); the workshop
 bookmarked `2026-11-19 first draft final`; the composer save `piece-FirstDraft-Final`; the review `docs/NOTATION_READINESS.md`.
+
+### SW-71 · 2026-11-19 — THE NOTATION PHASE OPENS: the electronics a tape part; section by section; first the sine and long-tone section
+
+*His words (dictated, light corrections):* *"for the electronic lanes, it'll just be like the equivalent of a tape part. So we'll just have it in
+the main score, the conductor score, and let's make it like a half lane height, and I'll just mix the electronics and show the waveform. But we
+don't have to do that now, just have a placeholder for that. And then all the rest, I'm going to do this section by section. I just wanted to
+make sure all the architecture and tools are in place. I am going to go through part by part, section by section, because some of the previous
+paradigms may change a bit. So we'll start with the sine wave, long tone sections. If you can get the notation up … and don't put anything in
+yet as far as notation is concerned. We'll just start with that first sax pitch. You could put that pitch in and then look at decibel and see
+how we did the sine tone there, the acoustic beats. But it might be slightly different for this piece. And we're going to use — I'm not sure
+what the latest version was, might be the string quartet, I might have done an updated version, maybe the tuba piece — this header for the
+glissando. A header and then a curve. If you can do a review and see what the latest or the best is, or maybe even show me what different
+ones we used, for that first sax note. I might use the old version, but I might do a different version. The saxophone's going to gliss over a
+certain amount of time. We need to show what that gliss range is. And there's a curve to show the gliss movement. And then we'll have to
+somehow indicate the electronics. The strategy is for each section, there's usually a few things I need to figure out. And once I decide on the
+actual notation paradigm, then we can propagate it throughout the section. This section is really only one thing."*
+*Decided (his):* THE ELECTRONICS IN THE SCORE = one tape-part lane in the main (conductor's) score, HALF a lane high, the waveform of the mixed
+electronics — a placeholder for now (this replaces "a drawing for the material brick" and "four lanes in the notation" of `NOTATION_READINESS.md`).
+THE METHOD: section by section; in each, settle the one or two paradigms on a first case, then propagate. FIRST CASE: the alto sax's first
+note — F4, 16.0 → 23.55 s, gliding up 18.6 cents against a sine on F4 (`wc-94` with the sine brick `zn-106`); working page `s1-sax-first-note`.

@@ -9,6 +9,17 @@
     48
    ],
    "profile": "trance"
+  },
+  {
+   "id": "s1-sax-first-note",
+   "label": "Section 1 - the sax's first note (a working page)",
+   "score": "piece-FirstDraft-Final",
+   "window": [
+    14,
+    26
+   ],
+   "profile": "trance",
+   "exp": true
   }
  ]
 }
