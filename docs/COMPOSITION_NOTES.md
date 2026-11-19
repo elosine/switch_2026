@@ -996,3 +996,15 @@ reach, shown per player, any of them assignable by hand — the octave columns o
 the chord". (2) THE VOICING AS HE HEARS IT: a main cluster in one register and a few notes elsewhere — a shape with two dials (how many players
 sit together · where), drawn by a shuffle that knows the players' ranges, so a player who cannot reach the cluster becomes one of the notes
 elsewhere instead of dropping out; then a note or two moved by hand; versions kept side by side to compare.
+
+*His words, next (2026-11-19), on SHAPES:* *"It needs to be a little bit more expansive than what I think you're describing. Those are just some
+examples. It's not necessarily a bunch of notes in a cluster and then some outlier somewhere. There might be a number of variations. I'm
+uncertain about how to narrow the variations or categorize them so that I'm not just doing random shuffle and listening to too many
+possibilities. One model might be I start initially manually and then establish a pattern. For example, maybe I want a cluster in the middle,
+say octave 4, of 3 notes, and then the remaining 4 notes widely distributed. That might be one shape. Or cluster 5 notes high and then 2 notes
+low, or 3 evenly distributed clusters in different octaves. Maybe there's a shape phase where I hear different shapes and then I shuffle within
+that shape. The goal is that I can hear musically certain categories of shapes, or establish shapes within what's available, and then hear that
+shape in various permutations without having to survey the whole of possibility. If I had a 12-piece ensemble and a cluster, there might be
+just too many possibilities. Ultimately it's just going to be a small set of harmonies that I actually use for this piece or this section. I
+want to hear a bunch of varieties and then zero in on what I actually want to use."* — and, on the AI's replies: *"adjust your language to be a
+little simpler. I'm starting to get a little bit lost in analysis … more broken down and stated more simply, please."*
