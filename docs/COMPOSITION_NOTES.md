@@ -1151,3 +1151,6 @@ starting at the next section just to the drift 3. And then increment that one. S
 *The AI's reading (marked as such):* three held chords, each player on ONE note it keeps: F · C (425.9 → 430.5) · G · D · A (430.5 → 434.1) ·
 E · B · F♯ · C♯ (434.1 → 439.4, where the glide from drift 3 into swarm v begins). The stack goes up the ensemble in his bottom-to-top order
 (cello first), round again when the players outnumber the notes; each note on the key nearest the player's own D.
+
+*His words, next (2026-11-19):* *"from drift 3 to the end, let's try changing a chord every beat as much as you can make that happen. Actually,
+just to the swarm 5, F5."* — 439.4 → 460.4 (the glide from drift 3 into swarm v): a new take at every beat of the piano.

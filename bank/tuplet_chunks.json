@@ -2052,6 +2052,230 @@
    "seed": 1,
    "label": "E · B · F♯ · C♯ — held",
    "why": "to the glide into swarm v: four stacked fifths, held"
+  },
+  {
+   "id": "h145",
+   "start": 439.4,
+   "end": 440.24,
+   "take": "MTchord78st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h146",
+   "start": 440.24,
+   "end": 440.9,
+   "take": "MTchord135st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h147",
+   "start": 440.9,
+   "end": 441.56,
+   "take": "MTchord07d",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h148",
+   "start": 441.56,
+   "end": 442.22,
+   "take": "MTchord123st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h149",
+   "start": 442.22,
+   "end": 442.88,
+   "take": "MTchord131st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h150",
+   "start": 442.88,
+   "end": 443.53,
+   "take": "MTchord83st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h151",
+   "start": 443.53,
+   "end": 444.19,
+   "take": "MTchord139st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h152",
+   "start": 444.19,
+   "end": 444.84,
+   "take": "MTchord23c",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h153",
+   "start": 444.84,
+   "end": 445.49,
+   "take": "MTchord86st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h154",
+   "start": 445.49,
+   "end": 446.14,
+   "take": "MTchord100st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h155",
+   "start": 446.14,
+   "end": 446.79,
+   "take": "MTchord04d",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h156",
+   "start": 446.79,
+   "end": 447.44,
+   "take": "MTchord38d",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h157",
+   "start": 447.44,
+   "end": 448.08,
+   "take": "MTchord88st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h158",
+   "start": 448.08,
+   "end": 448.73,
+   "take": "MTchord67st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h159",
+   "start": 448.73,
+   "end": 449.37,
+   "take": "MTchord53c",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h160",
+   "start": 449.37,
+   "end": 450.02,
+   "take": "MTchord114st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h161",
+   "start": 450.02,
+   "end": 450.66,
+   "take": "MTchord50d",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h162",
+   "start": 450.66,
+   "end": 451.31,
+   "take": "MTchord111st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h163",
+   "start": 451.31,
+   "end": 451.95,
+   "take": "MTchord11c",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h164",
+   "start": 451.95,
+   "end": 452.59,
+   "take": "MTchord105st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h165",
+   "start": 452.59,
+   "end": 453.24,
+   "take": "MTchord122st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h166",
+   "start": 453.24,
+   "end": 453.88,
+   "take": "MTchord06d",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h167",
+   "start": 453.88,
+   "end": 454.52,
+   "take": "MTchord57st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h168",
+   "start": 454.52,
+   "end": 455.17,
+   "take": "MTchord94st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h169",
+   "start": 455.17,
+   "end": 455.81,
+   "take": "MTchord89st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h170",
+   "start": 455.81,
+   "end": 456.46,
+   "take": "MTchord63st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h171",
+   "start": 456.46,
+   "end": 457.1,
+   "take": "MTch003d",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h172",
+   "start": 457.1,
+   "end": 457.75,
+   "take": "MTchord116st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h173",
+   "start": 457.75,
+   "end": 458.39,
+   "take": "MTchord49d",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h174",
+   "start": 458.39,
+   "end": 459.04,
+   "take": "MTchord137st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h175",
+   "start": 459.04,
+   "end": 459.69,
+   "take": "MTchord16d",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
+  },
+  {
+   "id": "h176",
+   "start": 459.69,
+   "end": 460.4,
+   "take": "MTchord13c",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v"
   }
  ],
  "sets": {
@@ -2087,43 +2311,11 @@
  "takeDeck": {
   "pattern": "^MTch(ord)?\\d+(st|c|d)?$",
   "left": [
-   "MTch003d",
-   "MTchord04d",
-   "MTchord06d",
-   "MTchord07d",
    "MTchord10c",
-   "MTchord11c",
-   "MTchord13c",
-   "MTchord16d",
-   "MTchord23c",
-   "MTchord38d",
-   "MTchord49d",
-   "MTchord50d",
-   "MTchord53c",
-   "MTchord57st",
-   "MTchord63st",
-   "MTchord67st",
    "MTchord71st",
-   "MTchord78st",
-   "MTchord83st",
-   "MTchord86st",
-   "MTchord88st",
-   "MTchord89st",
    "MTchord92st",
-   "MTchord94st",
    "MTchord98st",
-   "MTchord100st",
-   "MTchord105st",
    "MTchord109st",
-   "MTchord111st",
-   "MTchord114st",
-   "MTchord116st",
-   "MTchord122st",
-   "MTchord123st",
-   "MTchord131st",
-   "MTchord135st",
-   "MTchord137st",
-   "MTchord139st",
    "MTchord147st"
   ],
   "of": 144
