@@ -69,10 +69,11 @@ Object.assign(D, {
     // stage 3: the notes to the players — voice k of the stack (or of the row) to the k-th player from the bottom
     stackDeal() {
         const s = this.istk(), lanes = this.stackLanes(), T = this.tracks(), vs = this.voices;
+        const was = {}; vs.forEach(v => { if (v.lane >= 0 && v.tech) was[v.lane] = v.tech; });   // a row keeps the articulation he chose on it (the glockenspiel on the Vibraphone row) through a new deal
         vs.forEach(v => { v.lane = -1; v.also = []; v.fold = 0; v.standIn = null; v.skip = false; v.piano = false; });
         let order = vs.map((_, i) => i);
         if (s.order === 'row') { const r = rng(s.oSeed * 7919 + 11); for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); const t = order[i]; order[i] = order[j]; order[j] = t; } }
-        lanes.forEach((lane, k) => { const v = vs[order[k]]; if (!v) return; v.lane = lane; v.tech = this.defaultTech(lane); if (T[lane] && T[lane].instKey === 'piano') v.piano = true; });
+        lanes.forEach((lane, k) => { const v = vs[order[k]]; if (!v) return; v.lane = lane; v.tech = was[lane] || this.defaultTech(lane); if (T[lane] && T[lane].instKey === 'piano') v.piano = true; });
         this.stackPickOctaves();
     },
     // stage 4: an octave for every player, its note kept — never two players on one key while another octave is free (the players with the
