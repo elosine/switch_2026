@@ -1089,3 +1089,6 @@ slower than the medium. And could you do the swap, so within any one chord each 
 of the medium there at around 335.2."* — THE PACE BY BAND, second form: fast = 1 beat at 68 (0.88 s, as at 298.4) · medium = 0.75 beat with a
 32nd of jitter (0.66 s, as at 303) · slow = a little slower than medium (0.875 beat, 0.77 s — the AI's number) · the single strikes between
 two chunks = one chord; every brick with SHUFFLE WITHIN THE CHORD ("the swap"). 324.3 → 335.2, thirteen chords.
+
+*His words, next (2026-11-19):* *"Let's do A, E, and B, and do that octave shuffle for those two stacks of fifths there. All the way through to
+that unison at 78."* — an octave scatter on A · E · B (two stacked fifths), 335.2 → 341.08.

@@ -1320,6 +1320,18 @@
    "take": "MTchord33c",
    "shuffle": true,
    "why": "medium: the pace of its kind"
+  },
+  {
+   "id": "h59",
+   "start": 335.2,
+   "end": 341.08,
+   "pcs": [
+    9,
+    4,
+    11
+   ],
+   "label": "A · E · B — a new octave on every strike",
+   "seed": 1
   }
  ],
  "sets": {
