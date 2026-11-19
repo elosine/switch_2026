@@ -1056,3 +1056,8 @@ growing by exactly a 16th note. And let's do that through just to the beginning 
 *The AI's reading (marked as such):* three ways of placing the changes, side by side — BY EAR (301.3 · 302.1); A STEADY QUICK PULSE (0.75 beat
 at 68 = 0.66 s, each moved up to a 32nd); A GROWING SERIES (0.70 s first, each next about a sixteenth longer, the step itself varied by a
 64th either way — "less jitter" taken as half the 32nd).
+
+*His words, next (2026-11-19):* *"there's a cluster at 310.3, and then another one starting around 311.1. Let's make each of those different
+chords. And then whatever the pace was for the first fast section, let's do that for that fast. And then let's make the pace for that medium a
+little bit bigger — a 16th note — and then a slow, another 16th note bigger."* — THE PACE OF THE CHORDS FOLLOWS THE TUPLET BAND: fast = a
+change every beat at 68 (0.88 s) · medium = 1.25 beats (1.10 s) · slow = 1.5 beats (1.32 s); applied to the chunks at 311.9 · 313.6 · 315.2.

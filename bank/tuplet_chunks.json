@@ -1130,9 +1130,65 @@
   {
    "id": "h34",
    "start": 309.76,
-   "end": 311.9,
+   "end": 310.3,
    "take": "MTchord128st",
    "why": "growing by about a sixteenth"
+  },
+  {
+   "id": "h36",
+   "start": 310.3,
+   "end": 311.1,
+   "take": "MTchord103st",
+   "why": "by ear: the cluster at 310.3"
+  },
+  {
+   "id": "h37",
+   "start": 311.1,
+   "end": 311.9,
+   "take": "MTchord30c",
+   "why": "by ear: the cluster at 311.1"
+  },
+  {
+   "id": "h38",
+   "start": 311.9,
+   "end": 312.78,
+   "take": "MTchord87st",
+   "why": "fast: a change every beat at 68"
+  },
+  {
+   "id": "h39",
+   "start": 312.78,
+   "end": 313.6,
+   "take": "MTchord117st",
+   "why": "fast: a change every beat at 68"
+  },
+  {
+   "id": "h40",
+   "start": 313.6,
+   "end": 314.7,
+   "take": "MTchord84st",
+   "why": "medium: a sixteenth longer"
+  },
+  {
+   "id": "h41",
+   "start": 314.7,
+   "end": 315.2,
+   "take": "MTch001",
+   "why": "medium: a sixteenth longer"
+  },
+  {
+   "id": "h42",
+   "start": 315.2,
+   "end": 316.52,
+   "take": "MTchord31c",
+   "why": "slow: another sixteenth longer"
+  },
+  {
+   "id": "h43",
+   "start": 316.52,
+   "end": 317.6,
+   "take": "MTchord112st",
+   "why": "slow: another sixteenth longer"
   }
  ],
  "sets": {
@@ -1168,7 +1224,6 @@
  "takeDeck": {
   "pattern": "^MTch(ord)?\\d+(st|c|d)?$",
   "left": [
-   "MTch001",
    "MTch003d",
    "MTchord04d",
    "MTchord05d",
@@ -1192,8 +1247,6 @@
    "MTchord27c",
    "MTchord28c",
    "MTchord29c",
-   "MTchord30c",
-   "MTchord31c",
    "MTchord32c",
    "MTchord33c",
    "MTchord34d",
@@ -1236,9 +1289,7 @@
    "MTchord77st",
    "MTchord78st",
    "MTchord83st",
-   "MTchord84st",
    "MTchord86st",
-   "MTchord87st",
    "MTchord88st",
    "MTchord89st",
    "MTchord90st",
@@ -1252,7 +1303,6 @@
    "MTchord99st",
    "MTchord100st",
    "MTchord101st",
-   "MTchord103st",
    "MTchord104st",
    "MTchord105st",
    "MTchord106st",
@@ -1260,12 +1310,10 @@
    "MTchord109st",
    "MTchord110st",
    "MTchord111st",
-   "MTchord112st",
    "MTchord113st",
    "MTchord114st",
    "MTchord115st",
    "MTchord116st",
-   "MTchord117st",
    "MTchord118st",
    "MTchord119st",
    "MTchord120st",
