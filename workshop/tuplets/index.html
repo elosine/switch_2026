@@ -56,12 +56,13 @@
 <div id="mix"></div>
 <canvas id="detail" width="1800" height="286"></canvas>
 <input id="scroll" type="range" min="0" max="100" step="0.1" value="0" aria-label="scroll the players view">
-<div class="row dim">The purple bar is the harmonies, the colored bar under it the tuplet chunks. On either: drag the middle to move · drag an end to make it longer or shorter · double-click an empty spot to add one · click one, then DELETE, to remove it</div>
+<div class="row dim">The purple bar is the harmonies, the colored bar under it the tuplet chunks. On either: drag the middle to move · drag an end to make it longer or shorter · click one, then DELETE, to remove it</div>
 <div id="selNone" class="dim" style="margin:10px 0">Click a harmony or a chunk to change it here.</div>
 <table id="selT"><thead id="selHead" hidden></thead><tbody id="selBody"></tbody></table>
 
 <h1>All the chunks</h1>
 <div class="row">
+  <button id="undo" disabled title="take back the last change (CTRL+Z)">↶ Undo</button>
   <button id="add">+ Add a chunk at the playhead</button>
   <button id="addH">+ Add a harmony at the playhead</button>
   <span id="saved" class="dim"></span>
@@ -83,7 +84,7 @@ const ROUTE = {
 };
 const COLOR = { slow: '#3f8fd0', medium: '#3fb37a', fast: '#e0683f' }, PLAIN = '#8a8f98', LANE = 22, HLANE = 22, HCOL = '#a57be0', FORMH = 30;   // FORMH: the form's header at the top of the players view (his word 2026-11-18)
 const S = { hits: null, players: [], steps: [], end: 480, t0: 277.8, db: null, mtime: 0, ev: [], per: {}, outs: {}, playing: false, perf0: 0, score0: 0, idx: 0, timer: null, saving: null, dirty: false,
-  span: 14, viewA: 275.8, oSpan: null, sel: null, hsel: null, takes: {}, takeNames: [], routes: null, keysUsed: {}, mute: {}, solo: {}, drag: null };
+  span: 14, viewA: 275.8, oSpan: null, undo: [], last: null, sel: null, hsel: null, takes: {}, takeNames: [], routes: null, keysUsed: {}, mute: {}, solo: {}, drag: null };
 
 // ---- MIDI
 async function midi() {
@@ -212,7 +213,10 @@ function save() {
     catch (e) { $('saved').textContent = 'NOT saved: ' + e.message; }
   }, 250);
 }
-function changed() { S.db.chunks.sort((a, b) => a.start - b.start); S.db.harmonies.sort((a, b) => a.start - b.start); rebuild(); save(); }
+// UNDO (his word 2026-11-19): the file as it was before each change, the last 80 — CTRL+Z or the button
+function remember() { const now = JSON.stringify(S.db); if (S.last && S.last !== now) { S.undo.push(S.last); if (S.undo.length > 80) S.undo.shift(); } S.last = now; const b = $('undo'); if (b) b.disabled = !S.undo.length; }
+function undo() { if (!S.undo.length) return; S.db = JSON.parse(S.undo.pop()); S.last = JSON.stringify(S.db); norm(); articUI(); rebuild(); save(); table(); $('undo').disabled = !S.undo.length; $('saved').textContent = 'undone'; }
+function changed() { S.db.chunks.sort((a, b) => a.start - b.start); S.db.harmonies.sort((a, b) => a.start - b.start); remember(); rebuild(); save(); }
 const r1 = (x) => Math.round(x * 10) / 10;
 function addChunk(start) {
   const id = 'c' + (1 + S.db.chunks.reduce((m, k) => Math.max(m, +String(k.id).replace(/\D/g, '') || 0), 0));
@@ -267,7 +271,7 @@ function chunkRow(k) {   // one chunk's controls: a row of the list below, and t
     td(num(Math.round((k.shareFrom == null ? 1 : k.shareFrom) * 100), 0, 100, 5, 'pct', (v) => { k.shareFrom = v / 100; }), arrow, num(Math.round((k.shareTo == null ? (k.shareFrom == null ? 1 : k.shareFrom) : k.shareTo) * 100), 0, 100, 5, 'pct', (v) => { k.shareTo = v / 100; }));
     const rate = document.createElement('input'), rateTx = document.createElement('span'); rate.type = 'range'; rate.min = 0; rate.max = 5; rate.step = 1; rate.value = k.rate == null ? 3 : k.rate; rate.style.width = '120px'; rate.style.verticalAlign = 'middle'; rate.title = 'far left: one tuplet for the whole chunk · then longer to shorter · far right: a new tuplet on every beat';
     rateTx.className = 'dim'; rateTx.style.marginLeft = '8px'; rateTx.textContent = Tuplets.RATE_TEXT[k.rate == null ? 3 : k.rate];
-    rate.oninput = () => { k.rate = +rate.value; rateTx.textContent = Tuplets.RATE_TEXT[k.rate]; rebuild(); save(); }; rate.onchange = () => table();
+    rate.oninput = () => { k.rate = +rate.value; rateTx.textContent = Tuplets.RATE_TEXT[k.rate]; rebuild(); save(); }; rate.onchange = () => { remember(); table(); };
     td(rate, rateTx);
     const nd = document.createElement('button'); nd.textContent = 'new draw'; nd.title = 'another choice of tuplets inside the same band'; nd.onclick = () => { k.seed = (k.seed || 1) + 1; changed(); };
     const del = document.createElement('button'); del.textContent = '×'; del.title = 'remove this chunk (its strikes go back to singles)'; del.onclick = () => removeChunk(k.id);
@@ -283,13 +287,14 @@ function panel() {
   else if (k) { tb.append(chunkRow(k)); hd.innerHTML = document.querySelector('#chunks thead').innerHTML; }
   $('selNone').hidden = !!(b || k); hd.hidden = !(b || k);
 }
+$('undo').onclick = () => undo();
 $('add').onclick = () => addChunk(+$('from').value); $('addH').onclick = () => addHarmony(+$('from').value);
 function norm() { const d = S.db; d.chunks.forEach((k, i) => { if (!k.id) k.id = 'c' + (i + 1); }); d.harmonies = d.harmonies || []; d.sets = d.sets || {}; for (const n in Tuplets.SETS) if (!d.sets[n]) d.sets[n] = JSON.parse(JSON.stringify(Tuplets.SETS[n])); if (!d.sets[d.artic]) d.artic = 'staccato'; }
 function articUI() { const s = $('artic'); s.innerHTML = ''; Object.keys(S.db.sets).forEach((n) => { const o = document.createElement('option'); o.value = n; o.textContent = n; s.append(o); }); s.value = S.db.artic; }
-async function loadChunks() { const r = await (await fetch('/chunks')).json(); S.db = r.db; S.mtime = r.mtime; norm(); }
+async function loadChunks() { const r = await (await fetch('/chunks')).json(); S.db = r.db; S.mtime = r.mtime; norm(); S.last = JSON.stringify(S.db); }
 setInterval(async () => {   // the file changed on disk (the AI wrote chunks): take it, unless this page has an unsaved change of its own
   if (S.dirty || S.drag || !S.db || document.activeElement && document.activeElement.tagName === 'INPUT' && document.activeElement.type === 'number' && document.activeElement.closest('#chunks')) return;
-  try { const r = await (await fetch('/chunks')).json(); if (r.mtime && r.mtime !== S.mtime) { S.db = r.db; S.mtime = r.mtime; norm(); articUI(); rebuild(); table(); $('saved').textContent = 'reloaded from the file'; } } catch (e) {}
+  try { const r = await (await fetch('/chunks')).json(); if (r.mtime && r.mtime !== S.mtime) { S.db = r.db; S.mtime = r.mtime; norm(); remember(); articUI(); rebuild(); table(); $('saved').textContent = 'reloaded from the file'; } } catch (e) {}
 }, 1500);
 
 // ---- mute · solo
@@ -339,9 +344,10 @@ window.addEventListener('mouseup', (e) => {
   if (g.click) { if (Math.abs(e.clientX - g.x) < 4 && e.target === D) goTo(dpos(e).t, true); return; }
   if (g.moved) { changed(); table(); }
 });
-D.addEventListener('dblclick', (e) => { const p = dpos(e); if (p.y > FORMH && p.y <= FORMH + HLANE) { if (!chunkAt(p.t, p.pxPerS, S.db.harmonies)) addHarmony(p.t); } else if (!chunkAt(p.t, p.pxPerS)) addChunk(p.t); });   // in the purple lane: a harmony; anywhere else: a tuplet chunk
+// (a double-click no longer adds a chunk or a harmony — his word 2026-11-19; the two + buttons do)
 document.addEventListener('keydown', (e) => {
   if (/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName) && document.activeElement.type !== 'range') return;
+  if ((e.ctrlKey || e.metaKey) && e.code === 'KeyZ') { e.preventDefault(); undo(); return; }
   if (e.code === 'Space') { e.preventDefault(); S.playing ? stop() : play(); }
   else if (e.altKey && (e.code === 'ArrowRight' || e.code === 'ArrowLeft')) { e.preventDefault(); zoom('d', e.code === 'ArrowRight' ? 0.8 : 1.25, scoreNow()); }
   else if (e.code === 'ArrowRight') { e.preventDefault(); goTo(scoreNow() + (e.shiftKey ? 10 : 1)); }
@@ -353,7 +359,7 @@ document.addEventListener('keydown', (e) => {
   S.routes = await (await fetch('/routes')).json();
   const tk = await (await fetch('/takes')).json(); tk.sort((a, b) => (b.saved || '').localeCompare(a.saved || '')); tk.forEach((x) => { S.takes[x.name] = x; }); S.takeNames = tk.map((x) => x.name);   // the newest take first
   await loadChunks(); articUI(); rebuild(); table(); mix(); clampView(); await midi();
-  $('artic').onchange = () => { stop(); S.db.artic = $('artic').value; rebuild(); save(); panel(); }; requestAnimationFrame(frame);
+  $('artic').onchange = () => { stop(); S.db.artic = $('artic').value; remember(); rebuild(); save(); panel(); }; requestAnimationFrame(frame);
 })();
 </script>
 </body></html>

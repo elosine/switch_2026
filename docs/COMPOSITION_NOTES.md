@@ -1042,3 +1042,8 @@ so 298.4."* — the AI had used only the 92 `st` takes; corrected to the full se
 
 *His words, next (2026-11-19):* *"that beginning part is good, except let's add then jitter so they don't seem like the same length. Let's
 start with a 16th note jitter."* — each change of chord moved by up to a sixteenth at 68 (0.22 s) either way; `harmony_fill.js --jitter 0.25`.
+
+*His words, next (2026-11-19):* *"the section starting around 295.3, there's a violin note. Actually, it's a little bit before that … Let's
+have a different chord. So 295.2, 296 … and then around 296.8 or just after, and then 297.7. Let's have all those be a new chord."* — the chord
+changes placed BY HIS EAR on events of the players (the violin's note at 295.2), no longer by the coin: 295.2 · 296 · 296.8 · 297.7, four takes
+not yet used. Also: an undo on the page; no adding by double-click (an accident added a chunk).
