@@ -1248,3 +1248,6 @@ just drop to f between those two. And you can get rid of the 413. And then the l
 and let's make the peak happen to fff at 442.2, that slow section. And let's just keep it fff all the way to the end."*
 *As placed:* f from 277.8 · f < fff 291.8 → 302.4 · fff held to 325.1 · fff > f to 328.1 · f < fff 339.4 → 342.6 · 353 → 357.5 · 368.6 → 372.6 ·
 386.6 → 399.8 (each back to f within 3 s) · f < fff 437.1 → 442.2 · fff held to 480.
+
+*His words, next (2026-11-19):* *"at that 302, let's come back down to f in the standard decrescendo. And let's get rid of that 325 peak. And the
+next crescendo will be at that 342."* — fff > f 302.4 → 305.4; f from there to 339.4; the hold at fff to 325 given up.
