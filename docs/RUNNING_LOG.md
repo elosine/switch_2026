@@ -4118,3 +4118,13 @@ it — a pitch told from a wash; each peak as its nearest note, cents off, dB ab
 high partials G♯7 (−44 c) · A7 (+5 c); inside it G5 gives C6 (+16 c) · F♯5 · B♭6 · G6, G9 still E♭4 / E♭5 (a quarter-tone wide), B2 a noisy A7.
 **So:** under the first run the electronics say E♭ – B♭; under the second B♭ is the one note that stands out, in a brighter, noisier field.
 The chords now there (SW-54) were dealt without regard to this. Not listened to; the numbers are the spectrum's.
+
+## §232. The beds' pitches, two more stretches; the gray strikes tuned to them (SW-62) (2026-11-19)
+
+**Placed at his word:** an octave scatter on E♭ · B♭ over 295.3 → 298.4 and on B♭ over 300.9 → 303 (the chords dealt there by §229 given up).
+**Measured next (`tools/beds_pitches.py`):**
+- **305.5 → 307.4 (−10.2 dB):** C, G and B♭ over a low C — C3 (−34 c, the strongest) · C6 (+16 … +26 c) · B♭6 (−4 c, 22 dB above the wash:
+  the clearest single line) · G5 (+13 c) · G6 (+21 … +25 c). Read as partials 1 · 3 · 7 over C (a dominant-seventh colour without its third),
+  the upper notes a sixth of a tone sharp. Bricks G5 and G9 both carry the C6; G8 and B2 no pitch.
+- **309.7 → 311.7 (−11.1 dB):** G♯ — G♯4 (+4 c, the strongest), and in brick G9 alone G♯2 · G♯3 · G♯4 · G♯5 (octaves of it); above, a bright
+  cluster around B♭7 (+30 c) · B7 · D8 · G7, and C6 (+18 c) still in G5; B2 gives A7 · D7.

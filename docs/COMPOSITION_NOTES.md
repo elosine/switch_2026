@@ -1158,3 +1158,13 @@ just to the swarm 5, F5."* — 439.4 → 460.4 (the glide from drift 3 into swar
 *His words, next (2026-11-19):* *"redo that section so that there's no repeated notes in any given part. So if you're holding the same chord,
 just issue another pitch or change the chord more frequently."* — 439.4 → 460.4: SHUFFLE WITHIN THE CHORD on all 32 (a player's every strike
 another note of the chord, never the one before — across a change of chord too).
+
+### SW-62 · 2026-11-19 — THE PLAYERS TAKE THE ELECTRONICS' NOTES on the gray stretches
+
+*His words (dictated, light corrections):* *"The four gray sections starting on 295.3 around, and then the four together there after that. Can
+you analyze the electronics and see if there's any pitches going on during those sections?"* — then, on the answer (E♭ with its fifth B♭ under
+295.3 → 298.4; B♭ standing out under 300.9 → 303): *"for 295 to 298, let's make that the fifth, and let's rotate those, so each instrument is
+playing a different note each strike. And then the next one, let's make those B flat octaves, again, rotating. And then how about the two
+sections from 305.5 to about 307.4, and then 309.7 to about 311.7."*
+*The AI's reading (marked as such):* the single strikes between the tuplet chunks are tuned to what the beds sound at that moment (measured:
+`tools/beds_pitches.py`, RUNNING_LOG §231 · §232), as an octave scatter: E♭ · B♭ on 295.3 → 298.4, B♭ on 300.9 → 303.

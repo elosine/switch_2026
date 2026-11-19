@@ -1019,38 +1019,22 @@
   {
    "id": "h13",
    "start": 293.53,
-   "end": 295.2,
+   "end": 295.3,
    "take": "MTchord107st",
    "beats": 2,
    "shuffle": true
   },
   {
-   "id": "h21",
-   "start": 295.2,
-   "end": 296,
-   "take": "MTchord80st",
-   "shuffle": true
-  },
-  {
-   "id": "h22",
-   "start": 296,
-   "end": 296.8,
-   "take": "MTchord42d",
-   "shuffle": true
-  },
-  {
-   "id": "h23",
-   "start": 296.8,
-   "end": 297.7,
-   "take": "MTchord138st",
-   "shuffle": true
-  },
-  {
-   "id": "h24",
-   "start": 297.7,
+   "id": "h177",
+   "start": 295.3,
    "end": 298.4,
-   "take": "MTchord74st",
-   "shuffle": true
+   "pcs": [
+    3,
+    10
+   ],
+   "seed": 1,
+   "label": "E♭ · B♭ — a new octave on every strike",
+   "why": "the beds sound E♭ and B♭ here (§231)"
   },
   {
    "id": "h16",
@@ -1076,23 +1060,20 @@
   {
    "id": "h35",
    "start": 300.62,
-   "end": 301.3,
+   "end": 300.9,
    "take": "MTchord127st",
    "beats": 1
   },
   {
-   "id": "h25",
-   "start": 301.3,
-   "end": 302.1,
-   "take": "MTchord19d",
-   "why": "by ear"
-  },
-  {
-   "id": "h26",
-   "start": 302.1,
+   "id": "h178",
+   "start": 300.9,
    "end": 303,
-   "take": "MTchord55d",
-   "why": "by ear"
+   "pcs": [
+    10
+   ],
+   "seed": 1,
+   "label": "B♭ — a new octave on every strike",
+   "why": "the beds' strongest note here is B♭ (§231)"
   },
   {
    "id": "h27",
@@ -2348,7 +2329,13 @@
    "MTchord92st",
    "MTchord98st",
    "MTchord109st",
-   "MTchord147st"
+   "MTchord147st",
+   "MTchord42d",
+   "MTchord138st",
+   "MTchord74st",
+   "MTchord19d",
+   "MTchord55d",
+   "MTchord80st"
   ],
   "of": 144
  }
