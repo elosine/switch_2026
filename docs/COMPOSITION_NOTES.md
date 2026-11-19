@@ -956,3 +956,20 @@ note shown, one picked by a shuffle or by hand).
 the shuffle? Let's say there's only three available notes. There's a number of different strategies. Make sure the same note in any given
 octave maybe isn't present if possible, and maybe have a way of showing that in the available octaves. Or any other sort of distribution that
 might be attractive."*
+
+### SW-53 · 2026-11-19 — THE STACKS, THE OTHER WAY ROUND: the actual pitches first, then the players (the cluster above all)
+
+*His words (dictated, light corrections), after trying the interval stacks:* *"I think the one thing that's missing is, for example, in the
+cluster, I want to be able to hear actual different configurations. So the actual cluster in the same octave, and then whatever octaves all
+the instruments can reach. Let's say it's C4 to F or whatever. And then maybe C5 to F5, and then different versions. So maybe if C6 to F6 drops
+a few instruments, then I can put those down. An easy way to hear the actual different permutations of that cluster — it's sort of too many
+possibilities. But let's discuss what's an easy way I can hear different versions of the actual cluster itself. And then how do we integrate
+that to the ensemble? That's maybe closer to what I want. We can keep this. This is interesting. But maybe I got the order wrong. Maybe I want
+to produce different distributions of those clusters and then orchestrate it. Or maybe I want both options. At least for the cluster one, I
+first want to hear the actual pitches of the cluster in various distributions and then hear it orchestrated. Maybe for the fifths or something
+else, it's more the other way where I care about the octave."*
+
+*The AI's reading (marked as such):* two ways into a stack. PLAYERS FIRST (built, §223): a note to each player, then the octaves. PITCHES FIRST
+(wanted now): the chord as actual keys — the true cluster in one octave, then that octave moved, then wider shapes — heard on the piano, THEN
+dealt to the players who can reach each key (a register that leaves a player out simply leaves it out). The drawer already has the pieces of
+the second way (the voicing row: cluster · low · high · spread · oct · Hear piano; the shuffle without folding) — the stack's own deal runs over them today.
