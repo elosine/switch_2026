@@ -2422,7 +2422,7 @@
   "of": 144
  },
  "dynamics": {
-  "_about": "THE PLAYERS' DYNAMICS of Section 3 (SW-66): written marks for the notation (marks) and the line they make (points: [score s, mark number], p 3 · mf 4 · fff 7). mf is the baseline; each swell of the electronics (workshop/tuplets/beds_envelope.json) is a crescendo to fff, back to mf within 3 s; before three deep valleys a decrescendo to p. Made by the AI at his word; his to change.",
+  "_about": "THE PLAYERS' DYNAMICS of Section 3 (SW-66): written marks for the notation (marks) and the line they make (points: [score s, mark number], p 3 · mf 4 · fff 7). mf is the baseline; each swell of the electronics (workshop/tuplets/beds_envelope.json) is a crescendo to fff, back to mf within 3 s; never under mf (the three decrescendos to p tried and taken out at his word, 2026-11-19: the players standing out when the electronics drop is right). Made by the AI at his word; his to change.",
   "baseline": "mf",
   "points": [
    [
@@ -2478,12 +2478,8 @@
     4
    ],
    [
-    338.2,
-    4
-   ],
-   [
     339.4,
-    3
+    4
    ],
    [
     342.6,
@@ -2494,12 +2490,8 @@
     4
    ],
    [
-    351.3,
-    4
-   ],
-   [
     353,
-    3
+    4
    ],
    [
     357.5,
@@ -2570,12 +2562,8 @@
     4
    ],
    [
-    431.7,
-    4
-   ],
-   [
     438.9,
-    3
+    4
    ],
    [
     451.9,
@@ -2653,14 +2641,8 @@
     "why": "back to the baseline"
    },
    {
-    "t": 338.2,
-    "text": "mf > p",
-    "to": 339.4,
-    "why": "the electronics drop away"
-   },
-   {
     "t": 339.4,
-    "text": "p < fff",
+    "text": "mf < fff",
     "to": 342.6,
     "why": "the electronics swell"
    },
@@ -2671,14 +2653,8 @@
     "why": "back to the baseline"
    },
    {
-    "t": 351.3,
-    "text": "mf > p",
-    "to": 353,
-    "why": "the electronics drop away"
-   },
-   {
     "t": 353,
-    "text": "p < fff",
+    "text": "mf < fff",
     "to": 357.5,
     "why": "the electronics swell"
    },
@@ -2749,14 +2725,8 @@
     "why": "back to the baseline"
    },
    {
-    "t": 431.7,
-    "text": "mf > p",
-    "to": 438.9,
-    "why": "the electronics drop away"
-   },
-   {
     "t": 438.9,
-    "text": "p < fff",
+    "text": "mf < fff",
     "to": 451.9,
     "why": "the electronics swell"
    },

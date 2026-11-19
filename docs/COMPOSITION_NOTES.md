@@ -1233,3 +1233,7 @@ and then analysis tests."*
 → `dynamics.marks`: thirty marks — `mf` · `mf < fff` · `fff > mf` · `mf > p` · `p < fff`, each with its two times) and as the line they make
 (`dynamics.points`); every strike takes the velocity of its moment. In the composer save each note carries it (`recVel`, his own scale: p 83 ·
 mf 100 · fff 127, and `properties.phaseForm.level`) and each mark is a marker `dyn …` — the hook for the notation's cut later.
+
+*His words, next (2026-11-19), on hearing the dynamics:* *"I changed my mind about the decrescendo. Let's not decrescendo — the acoustic part pops
+when the electronics drop out, and that's fine. So let's keep those crescendos, but let's not drop below the mf."* — the three `mf > p` taken
+out; the swells after them are `mf < fff` like the others. The players are never under mf.
