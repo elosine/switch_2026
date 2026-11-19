@@ -1194,3 +1194,15 @@ the electronics, the most prominent ones, change at all throughout that section?
 those pitches, but make sure that all the rest of the structure is the same … the same octave displacements and changes remain as much as
 possible."* — 415.2 → 419.6 B♭ held (as it was) · 419.6 → 424 F♯ · C♯ held · 424 → 425.9 C held; all steady, no octave change, each note on
 the key nearest the one the players hold now.
+
+### SW-64 · 2026-11-19 — THE HARMONIES DONE (kept); the electronics' swells measured and drawn, for the crescendo pass
+
+*His words (dictated, light corrections):* *"let's bookmark that version as the harmony's done. And can you save it as a save score in the
+composer score … like section 3 … harmony's done. And then can you analyze the electronics and find me the timings of crescendos? And can you
+modify the workshop so I can visually see those crescendos? And if it's possible, a visualization of the electronics too on another track …
+another strip, and show the electronic waveform or facsimile, and then where you think crescendos are. Simple wedges — or actually, maybe
+curves are better so I can see the height. It doesn't have to be too fine a resolution. I'm just looking for the more pronounced crescendos and
+start and peak points, more or less. I don't need to see every fluctuation."*
+*Done:* the bookmark `bank/tuplet_versions/2026-11-19 harmonies done.json`; the composer save `piece-Section03-I-harmoniesDone` (4,606 notes,
+162 harmony bricks, his H save untouched); `tools/beds_envelope.py` → fourteen swells of 6 dB or more between 269 and 482; a strip under the
+players view: the beds' level as a filled curve, each swell in orange from its start to its peak with the two times.

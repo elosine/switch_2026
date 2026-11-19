@@ -4167,3 +4167,17 @@ His question: do the electronics' most prominent pitches change through that sec
 it) · 417.4 → 419.6: B♭6 still (+17 … +34 c), weaker · 419.6 → 421.8: the B♭ is gone — C♯7 (−30 c) · E7 (+22 c) · F♯7 (+13 c) · 421.8 → 424.0:
 thinner and higher, C♯8 (+25 c) · B7 · 424.0 → 425.9: a band around C6 (−26 … +20 c, with a C♯6 a quarter-tone flat) · E6 (−27 c). So: B♭ to
 ~419.6; then a C♯ – E – F♯ region (F♯ · C♯ a fifth, E between); the last two seconds C with E. Put to him; nothing changed.
+
+## §237. The harmonies of Section 3 kept; THE ELECTRONICS' SWELLS measured and drawn (SW-64) (2026-11-19)
+
+**The harmony pass stands** (291.8 → 460.4; 460.4 → 480 still on D): bookmarked, and written into a composer save of its own,
+`piece-Section03-I-harmoniesDone` (`tuplet_render.js --to`; 49 chunks · 162 harmony bricks · 4,606 notes; the fastest 10.00 a second).
+**The swells (`tools/beds_envelope.py`, new):** the save's bricks summed (as `beds_pitches.py`), the mean power in 0.1 s steps; a FINE curve
+(0.3 s smoothing) for the picture and a BROAD one (2 s) for the swells; a swell = a low point of the broad curve followed by a high point 6 dB
+or more above it, with a 3 dB hysteresis. **Fourteen, start → peak (rise):** 269.0 → 279.6 (+34.5 dB, the beds' entry) · 281.7 → 284.9 (+7.0) ·
+289.0 → 291.1 (+8.2) · 300.1 → 302.4 (+12.9, brick B2 enters at 300.78) · 322.1 → 325.1 (+6.2) · 339.4 → 342.6 (+19.3) · 353.0 → 357.5 (+18.3) ·
+359.1 → 363.6 (+11.6) · 366.4 → 367.5 (+11.5) · 368.6 → 372.6 (+21.1) · 386.6 → 399.8 (+14.8, 13 s) · 411.7 → 413.1 (+8.3) · 438.9 → 451.9
+(+19.1, 13 s) · 462.0 → 466.5 (+7.7). Several peaks sit on the form's own marks (341.08 the unison at 78; 372.1 the wall; 400.3 the unison at 90).
+**The page:** a strip `El` under the players view (`workshop/tuplets/beds_envelope.json`, read as a static file — no server restart): the fine
+curve filled, each swell drawn over it in orange along the broad curve, a dot at its start and its peak, both times written; a click sets the
+playhead. Seen once on the throwaway port (the swells at 339.4 → 342.6, 353 → 357.5, 386.6 → 399.8 … in place); no console error.

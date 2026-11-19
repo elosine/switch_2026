@@ -56,6 +56,7 @@
 <h1>The players <button id="dOut" title="zoom out">−</button><button id="dIn" title="zoom in">+</button><span class="dim">a sideways scroll or the bar below moves it · ALT+wheel zooms (right in, left out) · click sets the playhead</span></h1>
 <div id="mix"></div>
 <canvas id="detail" width="1800" height="286"></canvas>
+<canvas id="elec" width="1800" height="96" title="the electronics: how loud they are, and their swells (orange, from the start of a swell to its peak) — click to set the playhead" style="height:96px;margin-top:6px;cursor:pointer"></canvas>
 <input id="scroll" type="range" min="0" max="100" step="0.1" value="0" aria-label="scroll the players view">
 <div class="row dim">The purple bar is the harmonies, the colored bar under it the tuplet chunks. On either: drag the middle to move · drag an end to make it longer or shorter · click one, then DELETE, to remove it</div>
 <div id="selNone" class="dim" style="margin:10px 0">Click a harmony or a chunk to change it here.</div>
@@ -215,10 +216,35 @@ function draw() {
   for (const m of (S.db.marks || [])) { if (m.t < a || m.t > a + span) continue; q.fillStyle = '#ff5fa2'; q.fillRect(dx(m.t) - 1, 0, 2, DH); q.font = '600 12px system-ui'; q.fillText(m.t + ' · ' + m.label, dx(m.t) + 6, DH - 16); }
   q.fillStyle = '#ffd166'; q.fillRect(dx(now) - 1, 0, 2, DH);
 }
+// THE ELECTRONICS' STRIP (SW-64): the beds' level as a filled curve (tools/beds_envelope.py → beds_envelope.json), and each SWELL drawn over
+// it in orange from its start to its peak, the two times written — over the same seconds as the players view above it
+const ENV = { t0: 0, dt: 0.1, db: [], crescendos: [] };
+function drawElec() {
+  const c = $('elec'), g = c.getContext('2d'), W = c.width, H = c.height; g.clearRect(0, 0, W, H);
+  const a = S.viewA, span = S.span, x = (t) => (t - a) / span * W, LO = -50, HI = -5, y = (db) => H - 14 - Math.max(0, Math.min(1, (db - LO) / (HI - LO))) * (H - 22);
+  g.fillStyle = '#6b6f76'; g.font = '13px system-ui'; g.fillText('El', 6, 14);
+  if (!ENV.db.length) { g.fillText('the electronics\' level is not measured yet (tools/beds_envelope.py)', 40, 14); return; }
+  const i0 = Math.max(0, Math.floor((a - ENV.t0) / ENV.dt)), i1 = Math.min(ENV.db.length - 1, Math.ceil((a + span - ENV.t0) / ENV.dt));
+  if (i1 > i0) {
+    g.beginPath(); g.moveTo(x(ENV.t0 + i0 * ENV.dt), H - 14);
+    for (let i = i0; i <= i1; i++) g.lineTo(x(ENV.t0 + i * ENV.dt), y(ENV.db[i]));
+    g.lineTo(x(ENV.t0 + i1 * ENV.dt), H - 14); g.closePath(); g.fillStyle = '#3a5a78'; g.fill();
+  }
+  const curve = ENV.broad || ENV.db;
+  for (const k of ENV.crescendos) {
+    if (k.peak < a || k.start > a + span) continue;
+    const j0 = Math.max(0, Math.round((k.start - ENV.t0) / ENV.dt)), j1 = Math.min(curve.length - 1, Math.round((k.peak - ENV.t0) / ENV.dt));
+    g.beginPath(); for (let j = j0; j <= j1; j++) { const px = x(ENV.t0 + j * ENV.dt), py = y(curve[j]); if (j === j0) g.moveTo(px, py); else g.lineTo(px, py); }
+    g.strokeStyle = '#ffa24a'; g.lineWidth = 3; g.stroke();
+    g.fillStyle = '#ffa24a'; g.beginPath(); g.arc(x(k.start), y(curve[j0]), 3.5, 0, 7); g.fill(); g.beginPath(); g.arc(x(k.peak), y(curve[j1]), 5, 0, 7); g.fill();
+    g.font = '600 12px system-ui'; g.fillText(k.start.toFixed(1), x(k.start) - 14, H - 2); g.fillText(k.peak.toFixed(1), x(k.peak) - 14, Math.max(11, y(curve[j1]) - 8));
+  }
+  g.fillStyle = '#ffd166'; g.fillRect(x(scoreNow()) - 1, 0, 2, H);
+}
 function frame() {
   const now = scoreNow(); $('clock').innerHTML = now.toFixed(1) + '<small> s</small>';
   if (S.playing && !S.drag && (now < S.viewA || now > S.viewA + S.span * 0.9)) { S.viewA = now - S.span * 0.1; clampView(); }   // the view follows the playhead in pages
-  if (S.db) { draw(); markRow(); } requestAnimationFrame(frame);
+  if (S.db) { draw(); drawElec(); markRow(); } requestAnimationFrame(frame);
 }
 function markRow() { const now = scoreNow(); document.querySelectorAll('#chunks tbody tr').forEach((tr, i) => { const k = S.db.chunks[i]; tr.classList.toggle('on', !!k && now >= k.start && now < k.end); tr.classList.toggle('sel', !!k && k.id === S.sel); }); }
 function zoom(which, f, at) {
@@ -394,7 +420,9 @@ document.addEventListener('keydown', (e) => {
 });
 (async function () {
   const h = await (await fetch('/hits')).json(); S.hits = h.hits; S.players = h.players; S.steps = h.steps; S.end = h.end; S.t0 = h.steps[0].from; S.viewA = S.t0 - 2;
-  S.routes = await (await fetch('/routes')).json(); listVersions();
+  S.routes = await (await fetch('/routes')).json();
+  try { Object.assign(ENV, await (await fetch('beds_envelope.json', { cache: 'no-store' })).json()); } catch (e) {}
+  $('elec').onclick = (e) => { const r = $('elec').getBoundingClientRect(); goTo(dT(e.clientX - r.left, r.width), true); }; listVersions();
   try { B.list = await (await fetch('/beds')).json(); } catch (e) { B.list = []; }
   $('bedsVol').oninput = () => { B.list.forEach((b, i) => { if (B.els[i]) B.els[i].volume = bedVol(b); }); };
   $('bedsOn').onchange = () => { if (S.playing) play(scoreNow()); };

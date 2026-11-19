@@ -1,0 +1,2355 @@
+{
+ "_about": "THE TUPLET CHUNKS of Section 3 (SW-48): each a stretch of score time, a band, the players it applies to. Written by the tuplet workshop page and by the AI; docs/TUPLET_BANDS.md is the rule. The two chunks here are EXAMPLES to hear the page (2026-11-18) — his to change or remove.",
+ "ceiling": 10,
+ "bands": {
+  "slow": [
+   1,
+   3
+  ],
+  "medium": [
+   3,
+   6
+  ],
+  "fast": [
+   6,
+   10
+  ]
+ },
+ "chunks": [
+  {
+   "id": "c1",
+   "start": 291.8,
+   "end": 295.3,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.2,
+   "seed": 5,
+   "rate": 4
+  },
+  {
+   "id": "c2",
+   "start": 298.4,
+   "end": 300.9,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.2,
+   "seed": 3,
+   "rate": 5
+  },
+  {
+   "id": "c3",
+   "start": 303,
+   "end": 305.5,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 2,
+   "rate": 4
+  },
+  {
+   "id": "c4",
+   "start": 307.6,
+   "end": 309.7,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1
+  },
+  {
+   "id": "c5",
+   "start": 311.9,
+   "end": 313.6,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c6",
+   "start": 313.6,
+   "end": 315.2,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 4
+  },
+  {
+   "id": "c7",
+   "start": 315.2,
+   "end": 317.6,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c8",
+   "start": 319.4,
+   "end": 321.3,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 4
+  },
+  {
+   "id": "c9",
+   "start": 322,
+   "end": 323.4,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c10",
+   "start": 323.6,
+   "end": 326.6,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c11",
+   "start": 327.3,
+   "end": 329,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1
+  },
+  {
+   "id": "c12",
+   "start": 329,
+   "end": 330.9,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 4
+  },
+  {
+   "id": "c13",
+   "start": 330.9,
+   "end": 333.4,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c16",
+   "start": 334.1,
+   "end": 335.1,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c14",
+   "start": 341.8,
+   "end": 342.6,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1
+  },
+  {
+   "id": "c15",
+   "start": 344.1,
+   "end": 346.4,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c17",
+   "start": 349.5,
+   "end": 352.5,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c25",
+   "start": 354.4,
+   "end": 356.2,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 4
+  },
+  {
+   "id": "c26",
+   "start": 358.5,
+   "end": 360,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c18",
+   "start": 360.7,
+   "end": 363.7,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 1
+  },
+  {
+   "id": "c19",
+   "start": 366.3,
+   "end": 368.3,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c20",
+   "start": 370.7,
+   "end": 374.9,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 2,
+   "rate": 5
+  },
+  {
+   "id": "c21",
+   "start": 374.9,
+   "end": 377.2,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c22",
+   "start": 377.2,
+   "end": 379,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c27",
+   "start": 381,
+   "end": 382,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1
+  },
+  {
+   "id": "c23",
+   "start": 387.8,
+   "end": 389.5,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 4
+  },
+  {
+   "id": "c24",
+   "start": 390.5,
+   "end": 392.2,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c28",
+   "start": 394.2,
+   "end": 396.8,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 2,
+   "rate": 5
+  },
+  {
+   "id": "c29",
+   "start": 397.4,
+   "end": 398.9,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1
+  },
+  {
+   "id": "c30",
+   "start": 401.5,
+   "end": 404.5,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c31",
+   "start": 405.3,
+   "end": 407.1,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c32",
+   "start": 407.9,
+   "end": 411.9,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c33",
+   "start": 412.7,
+   "end": 414.9,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c34",
+   "start": 415.3,
+   "end": 417.4,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c35",
+   "start": 417.4,
+   "end": 421.2,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c36",
+   "start": 421.5,
+   "end": 423.2,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c37",
+   "start": 423.7,
+   "end": 425.6,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c38",
+   "start": 425.9,
+   "end": 428.4,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c39",
+   "start": 428.6,
+   "end": 430.5,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c40",
+   "start": 430.5,
+   "end": 432.3,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c41",
+   "start": 432.8,
+   "end": 434.1,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c42",
+   "start": 434.1,
+   "end": 437.1,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c43",
+   "start": 437.5,
+   "end": 439.3,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 5
+  },
+  {
+   "id": "c44",
+   "start": 442.2,
+   "end": 449,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 1
+  },
+  {
+   "id": "c45",
+   "start": 449,
+   "end": 455.2,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 1
+  },
+  {
+   "id": "c46",
+   "start": 455.2,
+   "end": 460.2,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 1
+  },
+  {
+   "id": "c47",
+   "start": 465.6,
+   "end": 470.7,
+   "band": "slow",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 0
+  },
+  {
+   "id": "c48",
+   "start": 470.7,
+   "end": 475.3,
+   "band": "medium",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1,
+   "rate": 0
+  },
+  {
+   "id": "c49",
+   "start": 475.3,
+   "end": 479.9,
+   "band": "fast",
+   "players": [
+    "flute",
+    "clarinet",
+    "alto_sax",
+    "glockenspiel",
+    "piano",
+    "violin",
+    "cello"
+   ],
+   "shareFrom": 1,
+   "shareTo": 1,
+   "hold": 0.45,
+   "seed": 1
+  }
+ ],
+ "marks": [
+  {
+   "t": 292,
+   "label": "the tuplets start here (his word 2026-11-18)"
+  }
+ ],
+ "harmonies": [
+  {
+   "id": "h45",
+   "start": 277.8,
+   "end": 291.8,
+   "pcs": [
+    2
+   ],
+   "label": "D — a new octave on every strike",
+   "seed": 1
+  },
+  {
+   "id": "h12",
+   "start": 291.8,
+   "end": 293.53,
+   "take": "MTchord126st",
+   "beats": 2,
+   "shuffle": true
+  },
+  {
+   "id": "h13",
+   "start": 293.53,
+   "end": 295.2,
+   "take": "MTchord107st",
+   "beats": 2,
+   "shuffle": true
+  },
+  {
+   "id": "h21",
+   "start": 295.2,
+   "end": 296,
+   "take": "MTchord80st",
+   "shuffle": true
+  },
+  {
+   "id": "h22",
+   "start": 296,
+   "end": 296.8,
+   "take": "MTchord42d",
+   "shuffle": true
+  },
+  {
+   "id": "h23",
+   "start": 296.8,
+   "end": 297.7,
+   "take": "MTchord138st",
+   "shuffle": true
+  },
+  {
+   "id": "h24",
+   "start": 297.7,
+   "end": 298.4,
+   "take": "MTchord74st",
+   "shuffle": true
+  },
+  {
+   "id": "h16",
+   "start": 298.4,
+   "end": 298.86,
+   "take": "MTchord85st",
+   "beats": 1
+  },
+  {
+   "id": "h17",
+   "start": 298.86,
+   "end": 299.74,
+   "take": "MTchord58st",
+   "beats": 1
+  },
+  {
+   "id": "h18",
+   "start": 299.74,
+   "end": 300.62,
+   "take": "MTchord96st",
+   "beats": 1
+  },
+  {
+   "id": "h35",
+   "start": 300.62,
+   "end": 301.3,
+   "take": "MTchord127st",
+   "beats": 1
+  },
+  {
+   "id": "h25",
+   "start": 301.3,
+   "end": 302.1,
+   "take": "MTchord19d",
+   "why": "by ear"
+  },
+  {
+   "id": "h26",
+   "start": 302.1,
+   "end": 303,
+   "take": "MTchord55d",
+   "why": "by ear"
+  },
+  {
+   "id": "h27",
+   "start": 303,
+   "end": 303.75,
+   "take": "MTchord102st",
+   "why": "0.75 beat, a 32nd of jitter"
+  },
+  {
+   "id": "h28",
+   "start": 303.75,
+   "end": 304.5,
+   "take": "MTchord129st",
+   "why": "0.75 beat, a 32nd of jitter"
+  },
+  {
+   "id": "h29",
+   "start": 304.5,
+   "end": 305.5,
+   "take": "MTchord79st",
+   "why": "0.75 beat, a 32nd of jitter"
+  },
+  {
+   "id": "h30",
+   "start": 305.5,
+   "end": 306.2,
+   "take": "MTchord81st",
+   "why": "growing by about a sixteenth"
+  },
+  {
+   "id": "h31",
+   "start": 306.2,
+   "end": 307.12,
+   "take": "MTchord132st",
+   "why": "growing by about a sixteenth"
+  },
+  {
+   "id": "h32",
+   "start": 307.12,
+   "end": 308.32,
+   "take": "MTchord54d",
+   "why": "growing by about a sixteenth"
+  },
+  {
+   "id": "h33",
+   "start": 308.32,
+   "end": 309.76,
+   "take": "MTchord133st",
+   "why": "growing by about a sixteenth"
+  },
+  {
+   "id": "h34",
+   "start": 309.76,
+   "end": 310.3,
+   "take": "MTchord128st",
+   "why": "growing by about a sixteenth"
+  },
+  {
+   "id": "h36",
+   "start": 310.3,
+   "end": 311.1,
+   "take": "MTchord103st",
+   "why": "by ear: the cluster at 310.3"
+  },
+  {
+   "id": "h37",
+   "start": 311.1,
+   "end": 311.9,
+   "take": "MTchord30c",
+   "why": "by ear: the cluster at 311.1"
+  },
+  {
+   "id": "h38",
+   "start": 311.9,
+   "end": 312.78,
+   "take": "MTchord87st",
+   "why": "fast: a change every beat at 68"
+  },
+  {
+   "id": "h39",
+   "start": 312.78,
+   "end": 313.6,
+   "take": "MTchord117st",
+   "why": "fast: a change every beat at 68"
+  },
+  {
+   "id": "h40",
+   "start": 313.6,
+   "end": 314.7,
+   "take": "MTchord84st",
+   "why": "medium: a sixteenth longer"
+  },
+  {
+   "id": "h41",
+   "start": 314.7,
+   "end": 315.2,
+   "take": "MTch001",
+   "why": "medium: a sixteenth longer"
+  },
+  {
+   "id": "h42",
+   "start": 315.2,
+   "end": 316.52,
+   "take": "MTchord31c",
+   "why": "slow: another sixteenth longer"
+  },
+  {
+   "id": "h43",
+   "start": 316.52,
+   "end": 317.6,
+   "take": "MTchord112st",
+   "why": "slow: another sixteenth longer"
+  },
+  {
+   "id": "h44",
+   "start": 317.6,
+   "end": 324.3,
+   "pcs": [
+    7,
+    2
+   ],
+   "label": "G · D — a new octave on every strike",
+   "seed": 1
+  },
+  {
+   "id": "h46",
+   "start": 324.3,
+   "end": 325.45,
+   "take": "MTchord52c",
+   "shuffle": true,
+   "why": "slow: two chords, the change about halfway"
+  },
+  {
+   "id": "h47",
+   "start": 325.45,
+   "end": 326.6,
+   "take": "MTchord90st",
+   "shuffle": true,
+   "why": "slow: two chords, the change about halfway"
+  },
+  {
+   "id": "h48",
+   "start": 326.6,
+   "end": 327.3,
+   "take": "MTchord25c",
+   "shuffle": true,
+   "why": "the single strikes between two chunks"
+  },
+  {
+   "id": "h49",
+   "start": 327.3,
+   "end": 328.05,
+   "take": "MTchord70st",
+   "shuffle": true,
+   "why": "medium: the pace of its kind"
+  },
+  {
+   "id": "h50",
+   "start": 328.05,
+   "end": 329,
+   "take": "MTchord143st",
+   "shuffle": true,
+   "why": "medium: the pace of its kind"
+  },
+  {
+   "id": "h51",
+   "start": 329,
+   "end": 329.88,
+   "take": "MTchord09d",
+   "shuffle": true,
+   "why": "fast: the pace of its kind"
+  },
+  {
+   "id": "h52",
+   "start": 329.88,
+   "end": 330.9,
+   "take": "MTchord43c",
+   "shuffle": true,
+   "why": "fast: the pace of its kind"
+  },
+  {
+   "id": "h53",
+   "start": 330.9,
+   "end": 331.67,
+   "take": "MTchord136st",
+   "shuffle": true,
+   "why": "slow: the pace of its kind"
+  },
+  {
+   "id": "h54",
+   "start": 331.67,
+   "end": 332.44,
+   "take": "MTchord93st",
+   "shuffle": true,
+   "why": "slow: the pace of its kind"
+  },
+  {
+   "id": "h55",
+   "start": 332.44,
+   "end": 333.4,
+   "take": "MTchord144st",
+   "shuffle": true,
+   "why": "slow: the pace of its kind"
+  },
+  {
+   "id": "h56",
+   "start": 333.4,
+   "end": 334.1,
+   "take": "MTchord110st",
+   "shuffle": true,
+   "why": "the single strikes between two chunks"
+  },
+  {
+   "id": "h57",
+   "start": 334.1,
+   "end": 334.8,
+   "take": "MTchord118st",
+   "shuffle": true,
+   "why": "medium: the pace of its kind"
+  },
+  {
+   "id": "h58",
+   "start": 334.8,
+   "end": 335.2,
+   "take": "MTchord33c",
+   "shuffle": true,
+   "why": "medium: the pace of its kind"
+  },
+  {
+   "id": "h59",
+   "start": 335.2,
+   "end": 341.08,
+   "pcs": [
+    9,
+    4,
+    11
+   ],
+   "label": "A · E · B — a new octave on every strike",
+   "seed": 1
+  },
+  {
+   "id": "h60",
+   "start": 341.08,
+   "end": 341.8,
+   "pcs": [
+    6,
+    1
+   ],
+   "label": "F♯ · C♯ — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h61",
+   "start": 341.8,
+   "end": 342.6,
+   "take": "MTchord124st",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h62",
+   "start": 342.6,
+   "end": 344.1,
+   "pcs": [
+    1,
+    8
+   ],
+   "label": "C♯ · G♯ — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h63",
+   "start": 344.1,
+   "end": 344.87,
+   "take": "MTchord77st",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h64",
+   "start": 344.87,
+   "end": 345.64,
+   "take": "MTchord146st",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h65",
+   "start": 345.64,
+   "end": 346.4,
+   "take": "MTchord48d",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h66",
+   "start": 346.4,
+   "end": 349.5,
+   "pcs": [
+    8,
+    3
+   ],
+   "label": "G♯ · E♭ — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h67",
+   "start": 349.5,
+   "end": 350.25,
+   "take": "MTchord28c",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h68",
+   "start": 350.25,
+   "end": 351.02,
+   "take": "MTchord44c",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h69",
+   "start": 351.02,
+   "end": 351.79,
+   "take": "MTchord27c",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h70",
+   "start": 351.79,
+   "end": 352.5,
+   "take": "MTchord14c",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h71",
+   "start": 352.5,
+   "end": 354.4,
+   "pcs": [
+    3,
+    10
+   ],
+   "label": "E♭ · B♭ — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h72",
+   "start": 354.4,
+   "end": 354.87,
+   "take": "MTchord32c",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h73",
+   "start": 354.87,
+   "end": 355.64,
+   "take": "MTchord62st",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h74",
+   "start": 355.64,
+   "end": 356.2,
+   "take": "MTchord101st",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h75",
+   "start": 356.2,
+   "end": 358.5,
+   "pcs": [
+    10,
+    5
+   ],
+   "label": "B♭ · F — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h76",
+   "start": 358.5,
+   "end": 358.71,
+   "take": "MTchord141st",
+   "why": "slow tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h77",
+   "start": 358.71,
+   "end": 359.48,
+   "take": "MTchord08d",
+   "why": "slow tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h78",
+   "start": 359.48,
+   "end": 360,
+   "take": "MTchord61st",
+   "why": "slow tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h79",
+   "start": 360,
+   "end": 360.7,
+   "pcs": [
+    5,
+    0
+   ],
+   "label": "F · C — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h80",
+   "start": 360.7,
+   "end": 361.02,
+   "take": "MTchord45c",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h81",
+   "start": 361.02,
+   "end": 361.79,
+   "take": "MTchord68st",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h82",
+   "start": 361.79,
+   "end": 362.56,
+   "take": "MTchord66st",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h83",
+   "start": 362.56,
+   "end": 363.33,
+   "take": "MTchord75st",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h84",
+   "start": 363.33,
+   "end": 363.7,
+   "take": "MTchord17d",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h85",
+   "start": 363.7,
+   "end": 366.3,
+   "pcs": [
+    0,
+    7
+   ],
+   "label": "C · G — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h86",
+   "start": 366.3,
+   "end": 367.17,
+   "take": "MTchord145st",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h87",
+   "start": 367.17,
+   "end": 367.94,
+   "take": "MTchord51d",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h88",
+   "start": 367.94,
+   "end": 368.3,
+   "take": "MTchord37d",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h89",
+   "start": 368.3,
+   "end": 370.7,
+   "pcs": [
+    7,
+    2
+   ],
+   "label": "G · D — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h90",
+   "start": 370.7,
+   "end": 371.02,
+   "take": "MTchord121st",
+   "why": "slow tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h91",
+   "start": 371.02,
+   "end": 371.79,
+   "take": "MTchord99st",
+   "why": "slow tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h92",
+   "start": 371.79,
+   "end": 372.56,
+   "take": "MTchord65st",
+   "why": "slow tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h93",
+   "start": 372.56,
+   "end": 373.33,
+   "take": "MTchord36d",
+   "why": "slow tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h94",
+   "start": 373.33,
+   "end": 374.1,
+   "take": "MTchord56st",
+   "why": "slow tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h95",
+   "start": 374.1,
+   "end": 374.9,
+   "take": "MTchord39d",
+   "why": "slow tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h96",
+   "start": 374.9,
+   "end": 375.64,
+   "take": "MTchord104st",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h97",
+   "start": 375.64,
+   "end": 376.41,
+   "take": "MTchord106st",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h98",
+   "start": 376.41,
+   "end": 377.2,
+   "take": "MTchord73st",
+   "why": "medium tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h99",
+   "start": 377.2,
+   "end": 377.97,
+   "take": "MTchord18d",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h100",
+   "start": 377.97,
+   "end": 378.77,
+   "take": "MTchord41d",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h101",
+   "start": 378.77,
+   "end": 379,
+   "take": "MTchord46d",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h102",
+   "start": 379,
+   "end": 381,
+   "pcs": [
+    2,
+    9
+   ],
+   "label": "D · A — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h103",
+   "start": 381,
+   "end": 381.22,
+   "take": "MTchord64st",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h104",
+   "start": 381.22,
+   "end": 382,
+   "take": "MTchord134st",
+   "why": "fast tuplets: a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h105",
+   "start": 382,
+   "end": 383,
+   "pcs": [
+    9,
+    4
+   ],
+   "label": "A · E — a new octave on every strike",
+   "seed": 1,
+   "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h106",
+   "start": 383,
+   "end": 387.8,
+   "pcs": [
+    11,
+    6,
+    1
+   ],
+   "label": "B · F♯ · C♯ — a new octave on every strike",
+   "seed": 1,
+   "why": "three stacked fifths, the third kept as the next one's first"
+  },
+  {
+   "id": "h107",
+   "start": 387.8,
+   "end": 388.22,
+   "take": "MTchord29c",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h108",
+   "start": 388.22,
+   "end": 389.1,
+   "take": "MTchord130st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h109",
+   "start": 389.1,
+   "end": 389.5,
+   "take": "MTchord95st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h110",
+   "start": 389.5,
+   "end": 389.95,
+   "take": "MTchord05d",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h111",
+   "start": 389.95,
+   "end": 390.5,
+   "take": "MTchord69st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h112",
+   "start": 390.5,
+   "end": 392.2,
+   "pcs": [
+    1,
+    8,
+    3
+   ],
+   "label": "C♯ · G♯ · E♭ — a new octave on every strike",
+   "seed": 1,
+   "why": "three stacked fifths, the third kept as the next one's first"
+  },
+  {
+   "id": "h113",
+   "start": 392.2,
+   "end": 394.2,
+   "pcs": [
+    3,
+    10,
+    5
+   ],
+   "label": "E♭ · B♭ · F — a new octave on every strike",
+   "seed": 1,
+   "why": "three stacked fifths, the third kept as the next one's first"
+  },
+  {
+   "id": "h114",
+   "start": 394.2,
+   "end": 394.65,
+   "take": "MTchord119st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h115",
+   "start": 394.65,
+   "end": 395.39,
+   "take": "MTchord140st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h116",
+   "start": 395.39,
+   "end": 396.11,
+   "take": "MTchord34d",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h117",
+   "start": 396.11,
+   "end": 396.8,
+   "take": "MTchord40d",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h118",
+   "start": 396.8,
+   "end": 397.4,
+   "take": "MTchord120st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h119",
+   "start": 397.4,
+   "end": 398.9,
+   "pcs": [
+    5,
+    0,
+    7
+   ],
+   "label": "F · C · G — a new octave on every strike",
+   "seed": 1,
+   "why": "three stacked fifths, the third kept as the next one's first"
+  },
+  {
+   "id": "h120",
+   "start": 398.9,
+   "end": 401.5,
+   "pcs": [
+    7,
+    2,
+    9
+   ],
+   "label": "G · D · A — a new octave on every strike",
+   "seed": 1,
+   "why": "three stacked fifths, the third kept as the next one's first"
+  },
+  {
+   "id": "h121",
+   "start": 401.5,
+   "end": 402.24,
+   "take": "MTchord21c",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h122",
+   "start": 402.24,
+   "end": 402.91,
+   "take": "MTchord15d",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h123",
+   "start": 402.91,
+   "end": 403.57,
+   "take": "MTchord26c",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h124",
+   "start": 403.57,
+   "end": 404.24,
+   "take": "MTchord115st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h125",
+   "start": 404.24,
+   "end": 404.5,
+   "take": "MTchord12c",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h126",
+   "start": 404.5,
+   "end": 404.91,
+   "take": "MTchord47d",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h127",
+   "start": 404.91,
+   "end": 405.3,
+   "take": "MTchord59st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h128",
+   "start": 405.3,
+   "end": 407.1,
+   "pcs": [
+    9,
+    4,
+    11
+   ],
+   "label": "A · E · B — a new octave on every strike",
+   "seed": 1,
+   "why": "three stacked fifths, the third kept as the next one's first"
+  },
+  {
+   "id": "h129",
+   "start": 407.1,
+   "end": 407.9,
+   "pcs": [
+    11,
+    6,
+    1
+   ],
+   "label": "B · F♯ · C♯ — a new octave on every strike",
+   "seed": 1,
+   "why": "three stacked fifths, the third kept as the next one's first"
+  },
+  {
+   "id": "h130",
+   "start": 407.9,
+   "end": 408.24,
+   "take": "MTchord35d",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h131",
+   "start": 408.24,
+   "end": 408.91,
+   "take": "MTchord76st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h132",
+   "start": 408.91,
+   "end": 409.57,
+   "take": "MTchord108st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h133",
+   "start": 409.57,
+   "end": 410.24,
+   "take": "MTchord142st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h134",
+   "start": 410.24,
+   "end": 410.91,
+   "take": "MTchord125st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h135",
+   "start": 410.91,
+   "end": 411.57,
+   "take": "MTchord60st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h136",
+   "start": 411.57,
+   "end": 411.9,
+   "take": "MTchord97st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h137",
+   "start": 411.9,
+   "end": 412.24,
+   "take": "MTchord91st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h138",
+   "start": 412.24,
+   "end": 412.7,
+   "take": "MTchord113st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h139",
+   "start": 412.7,
+   "end": 414.9,
+   "pcs": [
+    1,
+    8,
+    3
+   ],
+   "label": "C♯ · G♯ · E♭ — a new octave on every strike",
+   "seed": 1,
+   "why": "three stacked fifths, the third kept as the next one's first"
+  },
+  {
+   "id": "h140",
+   "start": 414.9,
+   "end": 415.2,
+   "pcs": [
+    3,
+    10,
+    5
+   ],
+   "label": "E♭ · B♭ · F — a new octave on every strike",
+   "seed": 1,
+   "why": "three stacked fifths, the third kept as the next one's first"
+  },
+  {
+   "id": "h141",
+   "start": 415.2,
+   "end": 425.9,
+   "unison": 10,
+   "label": "B♭ — everyone, held"
+  },
+  {
+   "id": "h142",
+   "start": 425.9,
+   "end": 430.5,
+   "pcs": [
+    5,
+    0
+   ],
+   "hold": true,
+   "seed": 1,
+   "label": "F · C — held",
+   "why": "the medium and the fast: a fifth, held"
+  },
+  {
+   "id": "h143",
+   "start": 430.5,
+   "end": 434.1,
+   "pcs": [
+    7,
+    2,
+    9
+   ],
+   "hold": true,
+   "seed": 1,
+   "label": "G · D · A — held",
+   "why": "the slow and the fast with their gray: three stacked fifths, held"
+  },
+  {
+   "id": "h144",
+   "start": 434.1,
+   "end": 439.4,
+   "pcs": [
+    4,
+    11,
+    6,
+    1
+   ],
+   "hold": true,
+   "seed": 1,
+   "label": "E · B · F♯ · C♯ — held",
+   "why": "to the glide into swarm v: four stacked fifths, held"
+  },
+  {
+   "id": "h145",
+   "start": 439.4,
+   "end": 440.24,
+   "take": "MTchord78st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h146",
+   "start": 440.24,
+   "end": 440.9,
+   "take": "MTchord135st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h147",
+   "start": 440.9,
+   "end": 441.56,
+   "take": "MTchord07d",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h148",
+   "start": 441.56,
+   "end": 442.22,
+   "take": "MTchord123st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h149",
+   "start": 442.22,
+   "end": 442.88,
+   "take": "MTchord131st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h150",
+   "start": 442.88,
+   "end": 443.53,
+   "take": "MTchord83st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h151",
+   "start": 443.53,
+   "end": 444.19,
+   "take": "MTchord139st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h152",
+   "start": 444.19,
+   "end": 444.84,
+   "take": "MTchord23c",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h153",
+   "start": 444.84,
+   "end": 445.49,
+   "take": "MTchord86st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h154",
+   "start": 445.49,
+   "end": 446.14,
+   "take": "MTchord100st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h155",
+   "start": 446.14,
+   "end": 446.79,
+   "take": "MTchord04d",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h156",
+   "start": 446.79,
+   "end": 447.44,
+   "take": "MTchord38d",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h157",
+   "start": 447.44,
+   "end": 448.08,
+   "take": "MTchord88st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h158",
+   "start": 448.08,
+   "end": 448.73,
+   "take": "MTchord67st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h159",
+   "start": 448.73,
+   "end": 449.37,
+   "take": "MTchord53c",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h160",
+   "start": 449.37,
+   "end": 450.02,
+   "take": "MTchord114st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h161",
+   "start": 450.02,
+   "end": 450.66,
+   "take": "MTchord50d",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h162",
+   "start": 450.66,
+   "end": 451.31,
+   "take": "MTchord111st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h163",
+   "start": 451.31,
+   "end": 451.95,
+   "take": "MTchord11c",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h164",
+   "start": 451.95,
+   "end": 452.59,
+   "take": "MTchord105st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h165",
+   "start": 452.59,
+   "end": 453.24,
+   "take": "MTchord122st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h166",
+   "start": 453.24,
+   "end": 453.88,
+   "take": "MTchord06d",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h167",
+   "start": 453.88,
+   "end": 454.52,
+   "take": "MTchord57st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h168",
+   "start": 454.52,
+   "end": 455.17,
+   "take": "MTchord94st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h169",
+   "start": 455.17,
+   "end": 455.81,
+   "take": "MTchord89st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h170",
+   "start": 455.81,
+   "end": 456.46,
+   "take": "MTchord63st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h171",
+   "start": 456.46,
+   "end": 457.1,
+   "take": "MTch003d",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h172",
+   "start": 457.1,
+   "end": 457.75,
+   "take": "MTchord116st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h173",
+   "start": 457.75,
+   "end": 458.39,
+   "take": "MTchord49d",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h174",
+   "start": 458.39,
+   "end": 459.04,
+   "take": "MTchord137st",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h175",
+   "start": 459.04,
+   "end": 459.69,
+   "take": "MTchord16d",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  },
+  {
+   "id": "h176",
+   "start": 459.69,
+   "end": 460.4,
+   "take": "MTchord13c",
+   "why": "a chord a beat (the piano's beat), the glide into swarm v",
+   "shuffle": true
+  }
+ ],
+ "sets": {
+  "staccato": {
+   "flute": "staccato",
+   "clarinet": "staccato",
+   "alto_sax": "staccato",
+   "glockenspiel": "glock_shorts_hard",
+   "piano": "main",
+   "violin": "stac_vel",
+   "cello": "stac_vel"
+  },
+  "ordinario · vibrato": {
+   "flute": "ord",
+   "clarinet": "ord",
+   "alto_sax": "ord",
+   "glockenspiel": "glock_main_hard",
+   "piano": "main",
+   "violin": "vib_vel",
+   "cello": "vib_vel"
+  },
+  "spiccato strings": {
+   "flute": "staccato",
+   "clarinet": "staccato",
+   "alto_sax": "staccato",
+   "glockenspiel": "glock_shorts_hard",
+   "piano": "main",
+   "violin": "spicc_vel",
+   "cello": "spicc_vel"
+  }
+ },
+ "artic": "staccato",
+ "takeDeck": {
+  "pattern": "^MTch(ord)?\\d+(st|c|d)?$",
+  "left": [
+   "MTchord10c",
+   "MTchord71st",
+   "MTchord92st",
+   "MTchord98st",
+   "MTchord109st",
+   "MTchord147st"
+  ],
+  "of": 144
+ }
+}
