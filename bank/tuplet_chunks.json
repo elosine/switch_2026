@@ -1216,6 +1216,110 @@
    ],
    "label": "G · D — a new octave on every strike",
    "seed": 1
+  },
+  {
+   "id": "h46",
+   "start": 324.3,
+   "end": 325.45,
+   "take": "MTchord52c",
+   "shuffle": true,
+   "why": "slow: two chords, the change about halfway"
+  },
+  {
+   "id": "h47",
+   "start": 325.45,
+   "end": 326.6,
+   "take": "MTchord90st",
+   "shuffle": true,
+   "why": "slow: two chords, the change about halfway"
+  },
+  {
+   "id": "h48",
+   "start": 326.6,
+   "end": 327.3,
+   "take": "MTchord25c",
+   "shuffle": true,
+   "why": "the single strikes between two chunks"
+  },
+  {
+   "id": "h49",
+   "start": 327.3,
+   "end": 328.05,
+   "take": "MTchord70st",
+   "shuffle": true,
+   "why": "medium: the pace of its kind"
+  },
+  {
+   "id": "h50",
+   "start": 328.05,
+   "end": 329,
+   "take": "MTchord143st",
+   "shuffle": true,
+   "why": "medium: the pace of its kind"
+  },
+  {
+   "id": "h51",
+   "start": 329,
+   "end": 329.88,
+   "take": "MTchord09d",
+   "shuffle": true,
+   "why": "fast: the pace of its kind"
+  },
+  {
+   "id": "h52",
+   "start": 329.88,
+   "end": 330.9,
+   "take": "MTchord43c",
+   "shuffle": true,
+   "why": "fast: the pace of its kind"
+  },
+  {
+   "id": "h53",
+   "start": 330.9,
+   "end": 331.67,
+   "take": "MTchord136st",
+   "shuffle": true,
+   "why": "slow: the pace of its kind"
+  },
+  {
+   "id": "h54",
+   "start": 331.67,
+   "end": 332.44,
+   "take": "MTchord93st",
+   "shuffle": true,
+   "why": "slow: the pace of its kind"
+  },
+  {
+   "id": "h55",
+   "start": 332.44,
+   "end": 333.4,
+   "take": "MTchord144st",
+   "shuffle": true,
+   "why": "slow: the pace of its kind"
+  },
+  {
+   "id": "h56",
+   "start": 333.4,
+   "end": 334.1,
+   "take": "MTchord110st",
+   "shuffle": true,
+   "why": "the single strikes between two chunks"
+  },
+  {
+   "id": "h57",
+   "start": 334.1,
+   "end": 334.8,
+   "take": "MTchord118st",
+   "shuffle": true,
+   "why": "medium: the pace of its kind"
+  },
+  {
+   "id": "h58",
+   "start": 334.8,
+   "end": 335.2,
+   "take": "MTchord33c",
+   "shuffle": true,
+   "why": "medium: the pace of its kind"
   }
  ],
  "sets": {
@@ -1257,7 +1361,6 @@
    "MTchord06d",
    "MTchord07d",
    "MTchord08d",
-   "MTchord09d",
    "MTchord10c",
    "MTchord11c",
    "MTchord12c",
@@ -1269,13 +1372,11 @@
    "MTchord18d",
    "MTchord21c",
    "MTchord23c",
-   "MTchord25c",
    "MTchord26c",
    "MTchord27c",
    "MTchord28c",
    "MTchord29c",
    "MTchord32c",
-   "MTchord33c",
    "MTchord34d",
    "MTchord35d",
    "MTchord36d",
@@ -1284,7 +1385,6 @@
    "MTchord39d",
    "MTchord40d",
    "MTchord41d",
-   "MTchord43c",
    "MTchord44c",
    "MTchord45c",
    "MTchord46d",
@@ -1292,8 +1392,6 @@
    "MTchord48d",
    "MTchord49d",
    "MTchord50d",
-   "MTchord51d",
-   "MTchord52c",
    "MTchord53c",
    "MTchord56st",
    "MTchord57st",
@@ -1308,7 +1406,6 @@
    "MTchord67st",
    "MTchord68st",
    "MTchord69st",
-   "MTchord70st",
    "MTchord71st",
    "MTchord73st",
    "MTchord75st",
@@ -1319,10 +1416,8 @@
    "MTchord86st",
    "MTchord88st",
    "MTchord89st",
-   "MTchord90st",
    "MTchord91st",
    "MTchord92st",
-   "MTchord93st",
    "MTchord94st",
    "MTchord95st",
    "MTchord97st",
@@ -1335,13 +1430,11 @@
    "MTchord106st",
    "MTchord108st",
    "MTchord109st",
-   "MTchord110st",
    "MTchord111st",
    "MTchord113st",
    "MTchord114st",
    "MTchord115st",
    "MTchord116st",
-   "MTchord118st",
    "MTchord119st",
    "MTchord120st",
    "MTchord121st",
@@ -1353,17 +1446,15 @@
    "MTchord131st",
    "MTchord134st",
    "MTchord135st",
-   "MTchord136st",
    "MTchord137st",
    "MTchord139st",
    "MTchord140st",
    "MTchord141st",
    "MTchord142st",
-   "MTchord143st",
-   "MTchord144st",
    "MTchord145st",
    "MTchord146st",
-   "MTchord147st"
+   "MTchord147st",
+   "MTchord51d"
   ],
   "of": 144
  }

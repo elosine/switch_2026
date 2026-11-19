@@ -1080,3 +1080,12 @@ of the notes come back. So that'll mean a shuffle within the chord, maybe. Let's
 *The AI's reading (marked as such):* (1) the unison D of 277.8 → 291.8 becomes an OCTAVE SCATTER on D alone; (2) the six chords of 291.8 → 298.4
 keep their takes but each gets SHUFFLE WITHIN THE CHORD: on every strike a player takes another of the chord's notes (any player's key of the
 take, as written where it reaches it, else by octaves), never the one it has just played.
+
+*His words, next (2026-11-19):* *"starting at 324.4, let's make the rest of that slow section 2 chords, but do that swap so that there's a chord
+change about halfway through that part of the slow, but each note in an instrument is different. Let's make the non-tupled few notes there
+another chord. And then the relatively quick changes, but relative to the section. The first fast section, those changes are pretty good, and
+the medium there too. So the fast section at 298.3 and the medium section at 303, just that chord change pace. And then slow, maybe slightly
+slower than the medium. And could you do the swap, so within any one chord each note in a player is different. All the way through to the end
+of the medium there at around 335.2."* — THE PACE BY BAND, second form: fast = 1 beat at 68 (0.88 s, as at 298.4) · medium = 0.75 beat with a
+32nd of jitter (0.66 s, as at 303) · slow = a little slower than medium (0.875 beat, 0.77 s — the AI's number) · the single strikes between
+two chunks = one chord; every brick with SHUFFLE WITHIN THE CHORD ("the swap"). 324.3 → 335.2, thirteen chords.
