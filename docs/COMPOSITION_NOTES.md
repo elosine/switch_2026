@@ -1168,3 +1168,9 @@ playing a different note each strike. And then the next one, let's make those B 
 sections from 305.5 to about 307.4, and then 309.7 to about 311.7."*
 *The AI's reading (marked as such):* the single strikes between the tuplet chunks are tuned to what the beds sound at that moment (measured:
 `tools/beds_pitches.py`, RUNNING_LOG §231 · §232), as an octave scatter: E♭ · B♭ on 295.3 → 298.4, B♭ on 300.9 → 303.
+
+*His words, next (2026-11-19):* *"let's do your recommendation. Now, I just want to confirm — again, the feedbacks are a little bit too much
+reading. Just a simple, which pitch is better. But I just want to confirm that we're talking about the non-tuplet sections only. I don't want
+to change any of the slow, fast, medium tuplet sections, just the single strikes in between."* — THE RULE FOR TUNING TO THE BEDS: only the
+single strikes (gray) take the electronics' notes; a tuplet chunk keeps what it has. 317.6 → 324.3: B♭ · F on the gray, G · D left in the chunks.
+And for the AI's answers on such a question: ONE LINE — which pitch — no tables.

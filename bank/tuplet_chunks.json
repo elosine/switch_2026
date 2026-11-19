@@ -1188,15 +1188,76 @@
    "why": "slow: another sixteenth longer"
   },
   {
-   "id": "h44",
+   "id": "h179",
    "start": 317.6,
-   "end": 324.3,
+   "end": 319.4,
+   "seed": 1,
+   "pcs": [
+    10,
+    5
+   ],
+   "label": "B♭ · F — a new octave on every strike",
+   "why": "single strikes: the beds' fifth here (§233)"
+  },
+  {
+   "id": "h180",
+   "start": 319.4,
+   "end": 321.3,
+   "seed": 1,
    "pcs": [
     7,
     2
    ],
    "label": "G · D — a new octave on every strike",
-   "seed": 1
+   "why": "a tuplet chunk: left as it was"
+  },
+  {
+   "id": "h181",
+   "start": 321.3,
+   "end": 322,
+   "seed": 1,
+   "pcs": [
+    10,
+    5
+   ],
+   "label": "B♭ · F — a new octave on every strike",
+   "why": "single strikes: the beds' fifth here (§233)"
+  },
+  {
+   "id": "h182",
+   "start": 322,
+   "end": 323.4,
+   "seed": 1,
+   "pcs": [
+    7,
+    2
+   ],
+   "label": "G · D — a new octave on every strike",
+   "why": "a tuplet chunk: left as it was"
+  },
+  {
+   "id": "h183",
+   "start": 323.4,
+   "end": 323.6,
+   "seed": 1,
+   "pcs": [
+    10,
+    5
+   ],
+   "label": "B♭ · F — a new octave on every strike",
+   "why": "single strikes: the beds' fifth here (§233)"
+  },
+  {
+   "id": "h184",
+   "start": 323.6,
+   "end": 324.3,
+   "seed": 1,
+   "pcs": [
+    7,
+    2
+   ],
+   "label": "G · D — a new octave on every strike",
+   "why": "a tuplet chunk: left as it was"
   },
   {
    "id": "h46",
