@@ -944,3 +944,10 @@ shows every octave of that note the player has, to assign by hand.
 different notes (a diminished seventh; three are doubled), 3 transpositions · major thirds — only 3 different notes (an augmented triad), 4
 transpositions · minor sevenths — 6 different notes (a whole-tone scale; one doubled), 2 transpositions · major sevenths — the SAME seven notes
 as the cluster (11 semitones up = 1 down), 12. So the limited ones are the thirds and the minor sevenths.
+
+*His answer (2026-11-19) to "bottom to top = cello, piano, alto sax, clarinet, violin, flute, glockenspiel?":* *"y"*.
+*What the drawer already has (read 2026-11-19, the AI's note):* a harmony arrives as a strike whose notes become VOICES (`pitch` · `lane` · `fold`
+= the octave shift into the player's range); `shuffleOrch` deals voices to ticked players at random; a double-click on a keyboard dot then a
+click on a row assigns by hand; the HARMONIC SERIES is a category added as a mixin (`spectrum.js` · `spectrum_ui.js`) — the pattern to follow.
+What is NEW for the stacks: the deal in a fixed bottom-to-top order (or as a row), and the octave as its own stage (every octave of a player's
+note shown, one picked by a shuffle or by hand).
