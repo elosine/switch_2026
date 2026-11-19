@@ -909,3 +909,38 @@ a TAKE from the strikes drawer (`bank/panel_snapshots.json` → `strikes`: a pit
 swapped on the selected brick. ARTICULATION SETS: a named set = one technique per player, swapped for the whole workshop or per brick. What he
 hears now is ALREADY the staccato of each instrument (the phase workshop's table), not ordinario — said to him.
 *The bookmark:* `bank/tuplet_versions/2026-11-18-a-first-pass-292-392.json` (the name is from the first look; it holds all 49 chunks to 479.9).
+
+### SW-52 · 2026-11-19 — INTERVAL STACKS for the strikes drawer: a stack per ensemble size · its transpositions · the order up the ensemble (a row) · the octaves
+
+*His words (dictated, light corrections) — "Let's discuss this next bit first before implementing":* *"What I would like is to add some to the
+strikes drawer. Let's call them stacks, even though there may already be a stacks. But let's have this be their actual second category. We can
+call it like stacks 2 if necessary. I want to do stacks of intervals essentially, but I want them per ensemble or at least in number
+configuration. So in this case 7, but it could be 5 or it could be 9. Since this is 7, I'd like a cluster of 7 chromatic pitches. That's the
+stack base. And then I'd like to be able to choose the transposition. The stack of 7 starting on C and then C♯ until it repeats. I don't think
+that works out to 12, right? Anyways, it might, but until it repeats. So all the transpositions. A little bit like the Messiaen limited
+transposition. So there'll be a limited set of transpositions perhaps. And then I'd like to take any one of those transpositions, say the
+cluster that starts on C, and basically make it like a tone row. A button to shuffle the order vertically on the ensemble. So the first might
+be the C in the cello and then on up. Another might have some other scramble with a different distribution of those pitches amongst the
+ensemble. To generalize it, it's like a tone row. You're taking those 7 pitches, you're doing an order 0 to 6, and you're giving each
+instrument that particular pitch. Let's do it in order from bottom to top, but you give it to them in their proper octave. I know there's a
+bunch of shuffle and shuffle wide, etc. But then, the 3rd or 4th, whatever stage we're on, reshuffle, keeping the same pitch but potentially a
+different octave if there are any octaves available. And I would like to be able to assign. Right now I do a shuffle and only certain pitches
+are available based on whatever harmony I chose, and I can double click and assign that to the instrument. In that last stage, I would like all
+the available octaves to assign. So still a shuffle. Say cello is C. It'll present all the available C's in its range. Every time I shuffle,
+it'll choose a different C. But I can also manually assign a different C to the cello. And then I'd like to repeat this stack process with
+fifths. A stack of 7 fifths. The transpositions, there'd probably still be 11, maybe. Whatever works out. And I'm not sure about the tone row
+for this one. Let's have an option to keep the stacked nature — C, G, D, etc., up the ensemble, and they take that pitch in their range. But I
+can also do a shuffle where G might not be in the next one up, but in the flute or whatever. And the octave part the same: I can manually assign
+any octave of their pitch, or do a shuffle. And then let's do minor thirds. Let's do major thirds, fourths. Let's do major and minor sevenths to
+start."*
+
+*The AI's reading (marked as such):* four stages. (1) THE STACK — an interval and a size (the ensemble's: 7 here): the cluster (semitones) ·
+fifths · fourths · minor thirds · major thirds · minor sevenths · major sevenths. (2) THE TRANSPOSITION — every DISTINCT one, until the set of
+notes repeats. (3) THE ORDER up the ensemble — stacked (the stack's own order, bottom player to top) or shuffled (a row: the same notes dealt
+in another order). (4) THE OCTAVE — each player takes its note in an octave inside its range; a shuffle picks another octave; a double-click
+shows every octave of that note the player has, to assign by hand.
+*The arithmetic, worked before anything is built (pitch classes; a stack of 7):* the cluster — 7 different notes, 12 transpositions · fifths —
+7 different notes (a diatonic collection), 12 · fourths — the same seven notes as a stack of fifths read downward, 12 · minor thirds — only 4
+different notes (a diminished seventh; three are doubled), 3 transpositions · major thirds — only 3 different notes (an augmented triad), 4
+transpositions · minor sevenths — 6 different notes (a whole-tone scale; one doubled), 2 transpositions · major sevenths — the SAME seven notes
+as the cluster (11 semitones up = 1 down), 12. So the limited ones are the thirds and the minor sevenths.
