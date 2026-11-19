@@ -5,7 +5,7 @@
 // beats in a row"; each brick a take drawn at random from a set, EXCLUSIVE: no take again until all are used (the deck is kept in the
 // file, so a later fill goes on where this one stopped).
 //
-//   node tools/harmony_fill.js --from 291.8 --to 301.66 [--bpm 68] [--short 1] [--long 1.5,2,2.5,3,3.5] [--takes "^MTchord\d+st$"] [--seed 1] [--keep-deck]
+//   node tools/harmony_fill.js --from 291.8 --to 301.66 [--bpm 68] [--short 1] [--long 1.5,2,2.5,3,3.5] [--takes "^MTchord\d+st$"] [--seed 1] [--jitter 0.25] [--keep-deck]
 //
 // Writes bank/tuplet_chunks.json: the harmony bricks already inside from … to are replaced, the others kept; the workshop page takes the
 // file within two seconds. Without --keep-deck a new seed deals a fresh deck (every take available again).
@@ -13,7 +13,7 @@
 const fs = require('fs'), path = require('path');
 const ROOT = path.join(__dirname, '..');
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 && process.argv[i + 1] != null && !String(process.argv[i + 1]).startsWith('--') ? process.argv[i + 1] : d; };
-const FROM = +arg('from'), TO = +arg('to'), BPM = +arg('bpm', 68), SEED = +arg('seed', 1);
+const FROM = +arg('from'), TO = +arg('to'), BPM = +arg('bpm', 68), SEED = +arg('seed', 1), JIT = +arg('jitter', 0);   // --jitter: each length moved by up to this many beats either way (0.25 = a sixteenth; his word 2026-11-19: "so they don't seem like the same length")
 if (!(TO > FROM)) { console.error('--from and --to'); process.exit(2); }
 const SHORT = String(arg('short', '1')).split(',').map(Number), LONG = String(arg('long', '1.5,2,2.5,3,3.5')).split(',').map(Number);
 const RE = new RegExp(arg('takes', '^MTchord\\d+st$'));
@@ -29,7 +29,7 @@ const draw = () => { if (!deck.length) deck = all.slice(); return deck.splice(Ma
 db.harmonies = (db.harmonies || []).filter((h) => h.end <= FROM || h.start >= TO);
 let id = 1 + db.harmonies.reduce((m, h) => Math.max(m, +String(h.id).replace(/\D/g, '') || 0), 0), t = FROM; const made = [];
 while (t < TO - 0.05) {
-  const bucket = R() < 0.5 ? SHORT : LONG, beats = bucket[Math.floor(R() * bucket.length)], end = Math.min(TO, t + beats * beat);
+  const bucket = R() < 0.5 ? SHORT : LONG, beats = bucket[Math.floor(R() * bucket.length)], end = Math.min(TO, t + (beats + (JIT ? (R() * 2 - 1) * JIT : 0)) * beat);
   if (end >= TO && TO - t < 0.5 * beats * beat && made.length) { made[made.length - 1].end = r2(TO); break; }   // a sliver at the end is given to the brick before it
   const h = { id: 'h' + (id++), start: r2(t), end: r2(end), take: draw(), beats }; db.harmonies.push(h); made.push(h); t = end;
 }

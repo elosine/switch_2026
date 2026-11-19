@@ -1039,3 +1039,6 @@ beginning of that drift. However, you're using the full set, correct? Not just t
 beginning part up to there. For the slow and the one beat, let's do 2 beats at 68 is the minimum before change. And then bump it every half
 beat for the second bucket. So 2.5, 3, 3.5. Let's keep the cap at 3.5. And you can start that MT chord 85 ST right at where the fast starts,
 so 298.4."* — the AI had used only the 92 `st` takes; corrected to the full set (his 52 and the 92: 144). The buckets now: 2 beats · or 2.5 · 3 · 3.5.
+
+*His words, next (2026-11-19):* *"that beginning part is good, except let's add then jitter so they don't seem like the same length. Let's
+start with a 16th note jitter."* — each change of chord moved by up to a sixteenth at 68 (0.22 s) either way; `harmony_fill.js --jitter 0.25`.

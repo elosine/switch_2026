@@ -1001,27 +1001,27 @@
   {
    "id": "h12",
    "start": 291.8,
-   "end": 293.56,
+   "end": 293.53,
    "take": "MTchord126st",
    "beats": 2
   },
   {
    "id": "h13",
-   "start": 293.56,
-   "end": 295.33,
+   "start": 293.53,
+   "end": 295.13,
    "take": "MTchord107st",
    "beats": 2
   },
   {
    "id": "h14",
-   "start": 295.33,
-   "end": 297.09,
+   "start": 295.13,
+   "end": 297.18,
    "take": "MTch002d",
    "beats": 2
   },
   {
    "id": "h15",
-   "start": 297.09,
+   "start": 297.18,
    "end": 298.4,
    "take": "MTchord72st",
    "beats": 2
