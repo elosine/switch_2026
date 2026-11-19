@@ -1313,3 +1313,17 @@ lines were added because there's no staff. We don't have to capture it as a rule
 need a dividing line. The staff version of the score should look just like any concert score. And could you give the electronics its own
 bracket for now? We'll see when we get the waveform in there how it looks. ELEC is better. … Actually, let's start with the curve. How did we
 show the curve before? I think the tuba piece or Recombination might have them."*
+
+### SW-72 · 2026-11-19 — THE FIRST NOTATION CASE: the beating gliss (the alto sax's first note)
+
+*His words (dictated, light corrections), on seeing the septets' block on his note:* *"from the previous pieces, we were using green for volume
+and the orange for the pitch. Whichever the case, let's use only one curve, the full lane height, and the appropriate color for pitch. And let
+me see the badge, the audible beats badge. And then we'll keep the niente to fff. And we'll notate the actual pitch there — it looks weird that
+it's just a header there, no staff lines. Let's have the actual notated pitch there and a gliss line going up. You can draw it to an imaginary
+whatever, maybe like a third up, but no second pitch, but enough horizontal room so you can see the gliss line. Let's start there. And just so
+I can see it, put the badge along with the other stuff to the left of the go line."* — and: *"I forgot what we did for the decibel piece, the
+Approaching piece, to designate that the sine wave is playing. But let's bring that in and just find a room for it. It may just be a thin line
+at the top or the bottom. Bring it in as is and let me just see it and I'll decide."*
+*Written down as DEVICE SHEET 1 in `docs/NOTATION_SCHEME.md` (not built).* *Brought in as it is:* piece 6's sine tone sign on the same note —
+the working page `s1-sax-gliss-with-sine` (`--sines`): the audible-beats badge before the note, the purple box along the staff for as long
+as the sine sounds, the player's orange line along the lane's bottom.

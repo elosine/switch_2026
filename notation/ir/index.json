@@ -42,6 +42,17 @@
    ],
    "profile": "trance",
    "exp": true
+  },
+  {
+   "id": "s1-sax-gliss-with-sine",
+   "label": "The sax's first note - the old gliss, with Approaching's sine tone sign",
+   "score": "x-notation-trial",
+   "window": [
+    12,
+    36
+   ],
+   "profile": "trance",
+   "exp": true
   }
  ]
 }
