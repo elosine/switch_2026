@@ -1154,3 +1154,7 @@ E · B · F♯ · C♯ (434.1 → 439.4, where the glide from drift 3 into swarm
 
 *His words, next (2026-11-19):* *"from drift 3 to the end, let's try changing a chord every beat as much as you can make that happen. Actually,
 just to the swarm 5, F5."* — 439.4 → 460.4 (the glide from drift 3 into swarm v): a new take at every beat of the piano.
+
+*His words, next (2026-11-19):* *"redo that section so that there's no repeated notes in any given part. So if you're holding the same chord,
+just issue another pitch or change the chord more frequently."* — 439.4 → 460.4: SHUFFLE WITHIN THE CHORD on all 32 (a player's every strike
+another note of the chord, never the one before — across a change of chord too).
