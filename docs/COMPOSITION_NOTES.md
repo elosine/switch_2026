@@ -973,3 +973,26 @@ else, it's more the other way where I care about the octave."*
 (wanted now): the chord as actual keys — the true cluster in one octave, then that octave moved, then wider shapes — heard on the piano, THEN
 dealt to the players who can reach each key (a register that leaves a player out simply leaves it out). The drawer already has the pieces of
 the second way (the voicing row: cluster · low · high · spread · oct · Hear piano; the shuffle without folding) — the stack's own deal runs over them today.
+
+*His words, next (2026-11-19), on what was missing from the old voicing:* *"The voicing — that in the past wasn't enough … also being able to
+include the dropped out instruments in some fashion or leave them dropped out … I think that issue is just the notes aren't available. So a
+little bit like the octave, let's find a way — we'll do pitches first, but then find a way to make other ones available so that if I want to
+manually add back in some instruments, I can. Maybe something like, let's say it's the 7-note cluster. I see all the available pitches of that
+cluster, those 7 pitches across the whole range of all the instruments. From the highest note they can reach to the lowest note they can reach.
+And then somehow, either by color or something, I can see the available pitches of that cluster per instrument. And then the voicing. This is
+where I need some help. In this case, or even in the 12 pitch case, there's just too many permutations and I don't want to have to shuffle
+through all of them or manually apply them necessarily. Or I want to find a way to help with that work. But then I want to be able to hear
+different permutations. I often like where maybe there's a cluster in one octave and then a few notes in another octave. Like maybe the cello
+and the piano are holding a minor second below and the rest of the instruments are in a cluster in octave 6. But there's a number of different
+permutations that are like that. Maybe a low cluster with a couple high notes spread out, those sorts of things. So let's brainstorm and see an
+easy solution, or maybe it's a combination where I shuffle until I hear something that I mostly like, and then I manually adjust a note or two.
+Those are the two things that are missing from the old system: I can't manually assign — it doesn't give me enough pitches to manually assign
+to get the harmony I want. And the voicing is too limited. And I don't necessarily like those categories. I don't necessarily think musically
+in those terms. So a better way to have more flexible voicing — it might just be a shuffle, or it might be categories of shuffle, I'm not sure
+— to have the huge set of possibilities limited down, or a way to audition various possibilities and then narrow down what I like."*
+
+*The AI's reading (marked as such):* two gaps. (1) THE NOTES AVAILABLE: for a chord, every key of every one of its notes that each player can
+reach, shown per player, any of them assignable by hand — the octave columns of §223 widened from "this player's own note" to "every note of
+the chord". (2) THE VOICING AS HE HEARS IT: a main cluster in one register and a few notes elsewhere — a shape with two dials (how many players
+sit together · where), drawn by a shuffle that knows the players' ranges, so a player who cannot reach the cluster becomes one of the notes
+elsewhere instead of dropping out; then a note or two moved by hand; versions kept side by side to compare.
