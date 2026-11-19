@@ -1110,3 +1110,18 @@ tuplet chunks is an octave scatter on one FIFTH, and the fifth moves on by a fif
 one — F♯ C♯ · C♯ G♯ · G♯ E♭ · E♭ B♭ · B♭ F · F C · C G · G D · D A · A E (ten stretches). THE TUPLET CHUNKS: a new chord at every BEAT, the
 beat taken as the PIANO's own strike (the anchor: in the drift the others pull ahead of it, and its strike is the one fixed pulse), each
 boundary 0.06 s early; the takes drawn without repeats (36 chords, 64 of the 144 still unused). No shuffle within these chords (not asked).
+
+### SW-59 · 2026-11-19 — 383 → 415.2: THREE STACKED FIFTHS FROM B ON THE SWARM, THEN "2 AND 2"
+
+*His words (dictated, light corrections; he revises as he speaks — the last word of each point is the one taken):* *"at the swarm 3, let's make
+that unison a stack of fifths, starting on B … whatever's next after that E … And then let's rotate those through the end of that gray before
+the medium. And then a sort of same then alternate. So it changes what's going on in the tuplet section versus what's going on in the regular
+gray section. So you'll do change every beat for that medium and then change every beat for the gray in between, and then fifths for the fast,
+etc. And then fifths for that gray and then change … So I guess you'll do 2 and 2. And then let's stack 3 fifths this time and continue that
+rotation, keeping the third fifth for the next one … Let's make the swarm 3 fifths, starting at B … let's make the medium change every one
+with the chords, and then we'll start the 2-2 there, and go through until the end of that one gray at 415.2. And within the ones that hold on
+that stacked fifth, rotate every note."*
+*The AI's reading (marked as such):* the swarm's first gray stretch (383 → 387.8) = an octave scatter on THREE stacked fifths from B (B · F♯ ·
+C♯ — three notes). Then the sections (tuplet chunk · gray · chunk · gray …) go TWO AND TWO: two sections of CHORDS (a new take every beat),
+two of FIFTHS (the stack moved on, its third note the next one's first: C♯ G♯ E♭ · E♭ B♭ F · F C G · G D A · A E B · B F♯ C♯ · …), to 415.2.
+"3 fifths" taken as three notes (he had first said four); the beat = the piano's strike, as in SW-58.

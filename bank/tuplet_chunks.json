@@ -1704,6 +1704,305 @@
    "label": "A · E — a new octave on every strike",
    "seed": 1,
    "why": "single strikes: the fifths, one fifth on at each stretch"
+  },
+  {
+   "id": "h106",
+   "start": 383,
+   "end": 387.8,
+   "pcs": [
+    11,
+    6,
+    1
+   ],
+   "label": "B · F♯ · C♯ — a new octave on every strike",
+   "seed": 1,
+   "why": "three stacked fifths, the third kept as the next one's first"
+  },
+  {
+   "id": "h107",
+   "start": 387.8,
+   "end": 388.22,
+   "take": "MTchord29c",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h108",
+   "start": 388.22,
+   "end": 389.1,
+   "take": "MTchord130st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h109",
+   "start": 389.1,
+   "end": 389.5,
+   "take": "MTchord95st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h110",
+   "start": 389.5,
+   "end": 389.95,
+   "take": "MTchord05d",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h111",
+   "start": 389.95,
+   "end": 390.5,
+   "take": "MTchord69st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h112",
+   "start": 390.5,
+   "end": 392.2,
+   "pcs": [
+    1,
+    8,
+    3
+   ],
+   "label": "C♯ · G♯ · E♭ — a new octave on every strike",
+   "seed": 1,
+   "why": "three stacked fifths, the third kept as the next one's first"
+  },
+  {
+   "id": "h113",
+   "start": 392.2,
+   "end": 394.2,
+   "pcs": [
+    3,
+    10,
+    5
+   ],
+   "label": "E♭ · B♭ · F — a new octave on every strike",
+   "seed": 1,
+   "why": "three stacked fifths, the third kept as the next one's first"
+  },
+  {
+   "id": "h114",
+   "start": 394.2,
+   "end": 394.65,
+   "take": "MTchord119st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h115",
+   "start": 394.65,
+   "end": 395.39,
+   "take": "MTchord140st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h116",
+   "start": 395.39,
+   "end": 396.11,
+   "take": "MTchord34d",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h117",
+   "start": 396.11,
+   "end": 396.8,
+   "take": "MTchord40d",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h118",
+   "start": 396.8,
+   "end": 397.4,
+   "take": "MTchord120st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h119",
+   "start": 397.4,
+   "end": 398.9,
+   "pcs": [
+    5,
+    0,
+    7
+   ],
+   "label": "F · C · G — a new octave on every strike",
+   "seed": 1,
+   "why": "three stacked fifths, the third kept as the next one's first"
+  },
+  {
+   "id": "h120",
+   "start": 398.9,
+   "end": 401.5,
+   "pcs": [
+    7,
+    2,
+    9
+   ],
+   "label": "G · D · A — a new octave on every strike",
+   "seed": 1,
+   "why": "three stacked fifths, the third kept as the next one's first"
+  },
+  {
+   "id": "h121",
+   "start": 401.5,
+   "end": 402.24,
+   "take": "MTchord21c",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h122",
+   "start": 402.24,
+   "end": 402.91,
+   "take": "MTchord15d",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h123",
+   "start": 402.91,
+   "end": 403.57,
+   "take": "MTchord26c",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h124",
+   "start": 403.57,
+   "end": 404.24,
+   "take": "MTchord115st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h125",
+   "start": 404.24,
+   "end": 404.5,
+   "take": "MTchord12c",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h126",
+   "start": 404.5,
+   "end": 404.91,
+   "take": "MTchord47d",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h127",
+   "start": 404.91,
+   "end": 405.3,
+   "take": "MTchord59st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h128",
+   "start": 405.3,
+   "end": 407.1,
+   "pcs": [
+    9,
+    4,
+    11
+   ],
+   "label": "A · E · B — a new octave on every strike",
+   "seed": 1,
+   "why": "three stacked fifths, the third kept as the next one's first"
+  },
+  {
+   "id": "h129",
+   "start": 407.1,
+   "end": 407.9,
+   "pcs": [
+    11,
+    6,
+    1
+   ],
+   "label": "B · F♯ · C♯ — a new octave on every strike",
+   "seed": 1,
+   "why": "three stacked fifths, the third kept as the next one's first"
+  },
+  {
+   "id": "h130",
+   "start": 407.9,
+   "end": 408.24,
+   "take": "MTchord35d",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h131",
+   "start": 408.24,
+   "end": 408.91,
+   "take": "MTchord76st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h132",
+   "start": 408.91,
+   "end": 409.57,
+   "take": "MTchord108st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h133",
+   "start": 409.57,
+   "end": 410.24,
+   "take": "MTchord142st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h134",
+   "start": 410.24,
+   "end": 410.91,
+   "take": "MTchord125st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h135",
+   "start": 410.91,
+   "end": 411.57,
+   "take": "MTchord60st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h136",
+   "start": 411.57,
+   "end": 411.9,
+   "take": "MTchord97st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h137",
+   "start": 411.9,
+   "end": 412.24,
+   "take": "MTchord91st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h138",
+   "start": 412.24,
+   "end": 412.7,
+   "take": "MTchord113st",
+   "why": "a chord a beat (the piano's beat)"
+  },
+  {
+   "id": "h139",
+   "start": 412.7,
+   "end": 414.9,
+   "pcs": [
+    1,
+    8,
+    3
+   ],
+   "label": "C♯ · G♯ · E♭ — a new octave on every strike",
+   "seed": 1,
+   "why": "three stacked fifths, the third kept as the next one's first"
+  },
+  {
+   "id": "h140",
+   "start": 414.9,
+   "end": 415.2,
+   "pcs": [
+    3,
+    10,
+    5
+   ],
+   "label": "E♭ · B♭ · F — a new octave on every strike",
+   "seed": 1,
+   "why": "three stacked fifths, the third kept as the next one's first"
   }
  ],
  "sets": {
@@ -1741,67 +2040,41 @@
   "left": [
    "MTch003d",
    "MTchord04d",
-   "MTchord05d",
    "MTchord06d",
    "MTchord07d",
    "MTchord10c",
    "MTchord11c",
-   "MTchord12c",
    "MTchord13c",
-   "MTchord15d",
    "MTchord16d",
-   "MTchord21c",
    "MTchord23c",
-   "MTchord26c",
-   "MTchord29c",
-   "MTchord34d",
-   "MTchord35d",
    "MTchord38d",
-   "MTchord40d",
-   "MTchord47d",
    "MTchord49d",
    "MTchord50d",
    "MTchord53c",
    "MTchord57st",
-   "MTchord59st",
-   "MTchord60st",
    "MTchord63st",
    "MTchord67st",
-   "MTchord69st",
    "MTchord71st",
-   "MTchord76st",
    "MTchord78st",
    "MTchord83st",
    "MTchord86st",
    "MTchord88st",
    "MTchord89st",
-   "MTchord91st",
    "MTchord92st",
    "MTchord94st",
-   "MTchord95st",
-   "MTchord97st",
    "MTchord98st",
    "MTchord100st",
    "MTchord105st",
-   "MTchord108st",
    "MTchord109st",
    "MTchord111st",
-   "MTchord113st",
    "MTchord114st",
-   "MTchord115st",
    "MTchord116st",
-   "MTchord119st",
-   "MTchord120st",
    "MTchord122st",
    "MTchord123st",
-   "MTchord125st",
-   "MTchord130st",
    "MTchord131st",
    "MTchord135st",
    "MTchord137st",
    "MTchord139st",
-   "MTchord140st",
-   "MTchord142st",
    "MTchord147st"
   ],
   "of": 144
