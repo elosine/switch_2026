@@ -4199,3 +4199,23 @@ as written) and draws the players' dynamic as a white line on the electronics' s
 `recVel` per note and a marker per mark. In `piece-Section03-X-tuplets`: velocities 83 … 127, 2,471 notes at 100, 30 markers.
 **Not done, by his word:** no listening pass, no level check against the beds, no balance of players and electronics (the piece's, later).
 The workshop's two velocity numbers for mf and p (70 · 44) are a guess of the AI's — one place to change if a swell is too flat or too steep.
+
+## §239. THE FIRST DRAFT KEPT; the notation's readiness reviewed by running it (SW-68 … SW-70) (2026-11-19)
+
+**Two trials set aside by his ear:** dynamics by the strike (p · f · fff per strike in two tuplet chunks, SW-68) — *"let's not do that"*; accents
+along the ensemble as one line, occasional with a cluster in the medium chunk (SW-69) — *"I don't think that works. I think the orchestration
+is going to do the accenting."* Both are out of the data; their code stays inert in `tuplets.js` (`chunk.dyn`, `db.accents`).
+**The first draft:** the workshop as it stands → `piece-FirstDraft-Final` (4,619 notes of the phase form with tuplets, harmonies and
+dynamics; Sections 1 · 2 and the bricks carried from `piece-Section03-H-addTuplets`); the workshop's bookmark `2026-11-19 first draft final`.
+Still owed in the music: the chords of 460.4 → 480; the beds' ending.
+**The review (`docs/NOTATION_READINESS.md`) — done by running the notation's tools on the draft, at his "fairly careful":** `check_rules`
+31 / 32 (the red wants a just-intonation sequence page) · the registry holds eight parts, the composer twelve lanes since §110 · an
+extraction with every lane is REFUSED by the page format (`source.parts` up to 9; the electronics lanes are 8 … 11) · the eight players'
+lanes alone extract and validate (285 → 305 s: 325 events, 39 chunks, many short notes reported at rung 8 — they spill their lanes) · the
+whole draft stops at `slap_exploding` (CL-5: no rule claims it) — six techniques of the draft are unregistered · the material brick has no
+drawing in the notation at all (the sine zone has) · the short articulations have no measured sample length (a warning a note). The
+registry's `metaLayer 8 · curveLayers 9 10 11` are stale (12 · 13 14 15); `notate_section` reads the lane count from the save, so the
+players extract — but every other reader of those numbers is to be READ, not grepped (H6-13).
+**Read as:** no broken port; the remainder is what the protocol left for the first real music (6.4 the app-written page with real kinds ·
+6.5 the print page · 6.6 the main file · container 8) plus the one structural change made since the set-up — the four electronics lanes.
+His two notation questions: the tuplets on a proportional score; the dynamics. The two test pages the review made were removed.

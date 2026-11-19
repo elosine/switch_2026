@@ -1278,3 +1278,12 @@ density, like a cluster, and then it falls down to the occasional accent for the
 *As tried (291.8 → 310, tuplets and gray alike):* an accent = ONE strike of ONE player at fff, chosen on the ensemble's merged line of strikes —
 one every 2.4 … 4.4 s outside the medium chunk, one every 0.42 … 0.78 s inside it (303 → 305.5), never two within 0.35 s. Nine accents: 293.64 ·
 296.69 · 300.78 · then the cluster 303.10 · 303.52 · 304.03 · 304.62 · 305.33 · then 305.93. `bank/tuplet_chunks.json` → `accents` · `accentPlan`.
+
+### SW-70 · 2026-11-19 — NO ACCENTS; THE FIRST DRAFT KEPT; the notation phase next
+
+*His words (dictated, light corrections):* *"no, I don't think that works. I think the orchestration is going to do the accenting, so we'll
+just leave it. You can take those out … let's put it into the composer score, and let's make that piece save first draft final. And then can
+you do an assessment and find out where we are in terms of moving into the notation phase, if anything still needs to be ported. And do it
+fairly careful … I just want to avoid any issues … see if we can't get ready to move into the notation phase."*
+*Done:* the accents out (the trial of SW-69, and SW-68's before it, both set aside: the accenting is the ORCHESTRATION's); the workshop
+bookmarked `2026-11-19 first draft final`; the composer save `piece-FirstDraft-Final`; the review `docs/NOTATION_READINESS.md`.
