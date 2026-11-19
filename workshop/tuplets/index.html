@@ -112,7 +112,7 @@ const sounds = (p) => !S.mute[p] && (!S.players.some((x) => S.solo[x]) || S.solo
 function rebuild() {
   S.per = Tuplets.build(S.hits, S.players, S.db);
   const ev = [], used = {}; S.players.forEach((p) => { used[p] = new Set(S.keysUsed[p] || []); }); S.keysUsed = used;
-  for (const p of S.players) { const a = S.per[p]; let prevK = null; for (let i = 0; i < a.length; i++) { const gap = i + 1 < a.length ? a[i + 1].t - a[i].t : 0.3; const keys = Tuplets.keysAt(S.db, S.takes, S.routes, setNow(), p, a[i].t, prevK); prevK = keys; keys.forEach((k) => used[p].add(k)); ev.push({ t: a[i].t, p, keys, dur: Math.max(0.03, Math.min(0.12, gap * 0.6)) }); } }
+  for (const p of S.players) { const a = S.per[p]; let prevK = null, prevL = null; for (let i = 0; i < a.length; i++) { const gap = i + 1 < a.length ? a[i + 1].t - a[i].t : 0.3; const keys = Tuplets.keysAt(S.db, S.takes, S.routes, setNow(), p, a[i].t, prevK); prevK = keys; keys.forEach((k) => used[p].add(k)); const lv = Tuplets.levelFor(S.db, p, a[i].t, prevL); prevL = lv; ev.push({ t: a[i].t, p, keys, lv, dur: Math.max(0.03, Math.min(0.12, gap * 0.6)) }); } }
   ev.sort((a, b) => a.t - b.t); S.ev = ev;
   if (S.playing) { const now = scoreNow() + 0.26; let i = 0; while (i < ev.length && ev[i].t < now) i++; S.idx = i; }
   let n = 0, single = 0; for (const p of S.players) { n += S.per[p].length; single += S.hits[p].length; }
@@ -157,7 +157,7 @@ function tick() {
     const e = S.ev[S.idx++], o = outOf(e.p); if (!o || !sounds(e.p)) continue;
     const at = S.perf0 + (e.t - S.score0) * 1000;
     if (at < performance.now() - 60) { S.late = (S.late || 0) + 1; continue; }   // its time has passed (the page was held up): dropped, never sent late in a bunch
-    const v = Math.max(1, Math.min(127, Math.round(Tuplets.velOf(Tuplets.levelAt(S.db, e.t), 'workshop') * vel / 100)));   // the dynamic of the moment; the vel box scales all of it (100 = as written)
+    const v = Math.max(1, Math.min(127, Math.round(Tuplets.velOf(e.lv != null ? e.lv : Tuplets.levelAt(S.db, e.t), 'workshop') * vel / 100)));   // the dynamic of the moment; the vel box scales all of it (100 = as written)
     for (const k of e.keys) { o.send([0x90 | chOf(e.p), k, v], at); o.send([0x80 | chOf(e.p), k, 0], at + e.dur * 1000); }
   }
   if (S.late && S.late !== S.lateShown) { S.lateShown = S.late; $('midi').textContent = S.late + ' notes were skipped because the page was held up (they are not sent late)'; }

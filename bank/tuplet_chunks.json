@@ -34,7 +34,15 @@
    "shareTo": 1,
    "hold": 0.2,
    "seed": 5,
-   "rate": 4
+   "rate": 4,
+   "dyn": {
+    "marks": [
+     3,
+     5,
+     7
+    ],
+    "seed": 1
+   }
   },
   {
    "id": "c2",
@@ -74,7 +82,15 @@
    "shareTo": 1,
    "hold": 0.45,
    "seed": 2,
-   "rate": 4
+   "rate": 4,
+   "dyn": {
+    "marks": [
+     3,
+     5,
+     7
+    ],
+    "seed": 1
+   }
   },
   {
    "id": "c4",

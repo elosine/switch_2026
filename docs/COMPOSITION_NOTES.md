@@ -1255,3 +1255,14 @@ next crescendo will be at that 342."* — fff > f 302.4 → 305.4; f from there 
 *His words, next (2026-11-19):* *"Let's get rid of the decrescendos and let's make it subito, like essentially the next beat to the new
 dynamic."* — after each peak the players are at f AT ONCE (`sub. f`, a quarter of a second after the peak, so the strike on the peak is still
 fff). No decrescendo anywhere in the section.
+
+### SW-68 · 2026-11-19 — A TRIAL: DYNAMICS BY THE STRIKE inside a tuplet chunk (p · f · fff)
+
+*His words (dictated, light corrections), the dynamics bookmarked ("dynamics done"):* *"from 292 to 310, those tuplet sections, can you alternate,
+like the first one and the third one? Can you distribute some dynamics? So we'll have the mf, but also p and fff. Kind of a medium density and
+distribution. I'm not sure how to quite do it yet, but I want to get a sense if I want to do this at all. So if I can just hear some per strike
+dynamic diversity. A player might play one strike at p and then the next strike at ff and then the next strike at mf, etc. Or I guess we're
+just doing p, f, and fff. And then just for contrast, the one between them will just be as is."*
+*As tried:* the first chunk (slow, 291.8 → 295.3) and the third (medium, 303 → 305.5) carry `dyn.marks = p · f · fff`: every strike of every
+player takes one of the three, never the one that player has just had; the fast chunk between (298.4 → 300.9) stays on the section's line.
+A trial to hear, not a decision.

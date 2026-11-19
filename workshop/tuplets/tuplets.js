@@ -134,6 +134,16 @@
   }
   const SCALE = { workshop: [[0, 1], [3, 44], [4, 70], [7, 127]], save: [[0, 1], [3, 83], [4, 100], [7, 127]] };
   function velOf(level, scale) { const S = SCALE[scale] || SCALE.workshop; for (let i = 1; i < S.length; i++) if (level <= S[i][0]) { const a = S[i - 1], b = S[i]; return Math.round(a[1] + (b[1] - a[1]) * (level - a[0]) / (b[0] - a[0])); } return 127; }
-  const api = { MARK, levelAt, velOf, build, NAMES, WHOLE, HALF, RATES, RATE_TEXT, SETS, fold, keysAt };
+  // DYNAMICS BY THE STRIKE (SW-68, 2026-11-19 — his "per strike dynamic diversity … a player might play one strike at p and then the next
+  // at ff and then the next at mf"): a chunk with `dyn.marks` gives every strike of its players one of those marks, drawn by the chunk, the
+  // player and the strike's time, never the mark of that player's strike before it (when there is another). Elsewhere: the section's line.
+  function levelFor(db, p, t, prev) {
+    const c = chunkOf(db, p, t), D = c && c.dyn && Array.isArray(c.dyn.marks) && c.dyn.marks.length ? c.dyn : null;
+    if (!D) return levelAt(db, t);
+    const m = D.marks; let i = hash('dyn|' + c.id + '|' + p + '|' + Math.round(t * 1000) + '|' + (D.seed || 1)) % m.length;
+    if (prev != null && m[i] === prev && m.length > 1) i = (i + 1 + hash('dx' + c.id + p + Math.round(t * 1000)) % (m.length - 1)) % m.length;
+    return m[i];
+  }
+  const api = { MARK, levelAt, levelFor, velOf, build, NAMES, WHOLE, HALF, RATES, RATE_TEXT, SETS, fold, keysAt };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.Tuplets = api;
 })(typeof window !== 'undefined' ? window : globalThis);
