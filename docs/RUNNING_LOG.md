@@ -4257,3 +4257,20 @@ clear of the brackets; no line at the right edge.
 **If more of these come:** the proposal put to him — before he sees a section's first page, the AI goes through the page's furniture item by
 item (names · brackets · brace · clefs · staves · dividers · edges · the cursor · the lanes' heights) against the last piece that had staves
 throughout (piece 5), and reports the differences as a list.
+
+## §242. The furniture check against piece 5; the electronics' placeholder lane (2026-11-19)
+
+**The check he asked for (§241), done as a comparison of every furniture value** — the two registries' leaves whose names say label · bracket
+· brace · margin · gutter · lane · clef · staff · cursor · frame · pad · gap · edge, this repo against piece 5 (`septet_LGMF_2026`, the last
+piece with staves throughout): `container.json` 17 differ, `rules.json` 36. **Every one is piece 6's addition or this session's two rows** —
+the dividing line (piece 5 had NONE; piece 6 introduced it), the staff rule's row `ensemble` (now "throughout"), the sine box · the electronics'
+window and bracket · piece 6's badges, state signs and language names (data unused until a page asks for them). Two values piece 5 had are
+gone since piece 6: the trill pitch's `groupPadSs` · `accPadSs` (piece 6 re-made the trill; to be read when a trill is first notated here).
+**The names, the brackets and braces, the margins and the gutter, the clefs, the lanes' weights, the cursor: identical to piece 5.**
+**The electronics' placeholder (SW-71):** `ensemble.json` part 8 — `elec1`, weight 0.5 (half a player's lane), `staff.hidden`, no clef; the
+other three electronics lanes are not parts (the tape part is their mix; its waveform is not drawn yet). The registry's stale layer numbers
+corrected on the way (`metaLayer 8 → 12`, `curveLayers 9 10 11 → 13 14 15`: the notation app reads `metaLayer` for its META overlay — with 8 it
+would have taken the first electronics lane for META). A nine-part page extracts and validates (`s1-opening-furniture`, 14 … 26 s).
+**Seen on the throwaway:** nine lanes; the last one half as high, no staff, its short name `E1` at the left, a dividing line above it; the
+dividers begin at the staves; no line at the right edge. The name `E1` is the composer lane's own (the registry must match the score's
+tracks) — a display name for the tape part is a row to add when he names it.

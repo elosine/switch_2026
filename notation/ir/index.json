@@ -20,6 +20,17 @@
    ],
    "profile": "trance",
    "exp": true
+  },
+  {
+   "id": "s1-opening-furniture",
+   "label": "Section 1 - 14 to 26 s, all parts (a furniture check)",
+   "score": "piece-FirstDraft-Final",
+   "window": [
+    14,
+    26
+   ],
+   "profile": "trance",
+   "exp": true
   }
  ]
 }

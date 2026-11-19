@@ -1,13 +1,13 @@
 {
  "_doc": "THE ENSEMBLE — the Switch~ piece's parts as notation data (container 6, 6.0, 2026-10-23 — RUNNING_LOG §24; the shape and every mechanism are pieces 4 · 5 · 6's). Indexed by the composer score's LAYER, which is the IR's \"part\". Read by layout.js (clef, written pitch, staves), coords.js (the frame), the extractor (the check below).",
  "_check": "tools/notate_section.js refuses to extract when a part's `id` or `short` differs from the score's tracks[part] — the registry cannot drift from the composer score silently. The ids and shorts below are composer.html's TRACKS exactly; tools/palette_check.js guards the other direction.",
- "metaLayer": 8,
+ "metaLayer": 12,
  "curveLayers": [
-  9,
-  10,
-  11
+  13,
+  14,
+  15
  ],
- "_layersNote": "composer.html: META_LAYER = 8 (= tracks.length), CURVE_LAYERS = [9, 10, 11] (the curve windows A / B / C, over Piano · Violin · Cello). Neither is a part.",
+ "_layersNote": "composer.html: META_LAYER = 12 (= tracks.length since the four electronics lanes, 2026-11-09), CURVE_LAYERS = [13, 14, 15]. Neither is a part. (Corrected 2026-11-19 — the numbers here were the eight-lane score's, 8 and 9 10 11.)",
  "_transposeConvention": "WRITTEN = SOUNDING + transpose semitones (layout.js line 75, and applied at line 965 — read in the code, not taken from a comment, during the port). The IR is always SOUNDING pitch (#5's D9); the shift happens at layout only, and the note is spelled from the written pitch. Piece #5's bass clarinet (+14, written a major ninth above sounding) is the precedent that fixes the sign.",
  "_pitchForm": "A TRANSPOSED score — his \"a\" (2026-10-23, RUNNING_LOG §24): the clarinet in B♭ (+2), the alto sax in E♭ (+9). \"In C\" = `transpose` removed from parts 1 and 2.",
  "parts": [
@@ -124,6 +124,18 @@
    "short": "Vc",
    "clef": "bass",
    "_clefNote": "Bass clef, as pieces #5 and #6. A tenor clef for a high stretch: 6.10, not built."
+  },
+  {
+   "part": 8,
+   "id": "elec1",
+   "short": "E1",
+   "clef": "treble",
+   "weight": 0.5,
+   "staff": {
+    "hidden": true,
+    "noClef": true
+   },
+   "_note": "THE ELECTRONICS — A PLACEHOLDER (the Switch~ piece, 2026-11-19, SW-71: \"the equivalent of a tape part … in the main score, the conductor score … like a half lane height, and I'll just mix the electronics and show the waveform … just have a placeholder for that\"). ONE lane, half a player's (weight 0.5), no staff, no clef, at the bottom. It stands on the composer's lane 8 (Elec 1 — the registry must name a lane of the score); the other three electronics lanes (9 … 11) are not parts: the tape part is their MIX. Its drawing (the mix's waveform) is not built — the lane is empty."
   }
  ],
  "groups": [
