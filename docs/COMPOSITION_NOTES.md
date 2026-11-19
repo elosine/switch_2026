@@ -1008,3 +1008,16 @@ shape in various permutations without having to survey the whole of possibility.
 just too many possibilities. Ultimately it's just going to be a small set of harmonies that I actually use for this piece or this section. I
 want to hear a bunch of varieties and then zero in on what I actually want to use."* — and, on the AI's replies: *"adjust your language to be a
 little simpler. I'm starting to get a little bit lost in analysis … more broken down and stated more simply, please."*
+
+*His words, next (2026-11-19), the scenario for SHAPES:* *"I think you're right about the build, the shape, but let's refine this. I'm not sure
+about the low, middle, high. It might be by octave. But in general something like low, middle, high, or maybe a 4-tier. Let me walk through the
+scenario. Maybe in the 4th octave I assemble a 5-note cluster, and then 1 low and 1 high. Maybe the high ones only flute, violin and
+glockenspiel can reach, and the low ones only cello and piano. Then that gets saved as a shape — or I can choose to save that as a shape. And
+then I can shuffle within that shape. I don't think we need the intermediate short list; I can just save that as a take. But the next time I
+come back, I have that shape as an option for any of the stacks. Or really any harmony, as much as they can relate. So there'll need to be some
+sort of generalization — a certain amount of notes in 1 octave, a note in the highest octave and a note in the lowest octave, that sort of
+thing. And then I decide I want a different shape, maybe 3 clusters: 2 notes in the middle, two notes below, and 3 notes in a cluster just 1
+octave above the middle. And I save that as a shape, shuffle within it, and save whatever takes I want. And on and on. The next time I come
+back, I see 2 shapes. For the other harmonies there's maybe a way to generalize those rules. I don't want to spend too much time on that. I
+need to move on to actually choose the harmonies for this piece, but we can analyze a little what that generalization will look like and maybe
+implement a part. So let's discuss this, but get ready to move on with the build."*
