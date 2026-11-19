@@ -4034,3 +4034,22 @@ shuffle."* → not a seed but a LIST: every deal, shuffle, shape draw and click 
 counter `2 / 4` in the row. A seed per kind of shuffle would not have brought back a chord that came from several kinds in a row; a list does.
 A new stack starts a new list. **Proven once on the throwaway:** a deal and three shuffles = 4 versions; two steps back give version 2
 exactly; one forward gives version 3; the counter and the status follow.
+
+## §227. NINETY-TWO TAKES MADE FOR HIM — the 46 strikes of ScatteredStrikes01, each in its original spread and spread out, all seven players covered (`MTchord56st` … `MTchord147st`) (2026-11-19)
+
+**His words:** *"I'm on take MT chord 55D. D is for dissonant and C is for consonant. So you would start on 56, but let's make the suffix ST.
+Can you go through all of the initial strikes — 46 of them — and make a new take from each of these strikes, one in its original spread, and
+then one in its spread out version? But shuffle each one until all instruments are covered. And if there's an instrument that's forcibly left
+out because you just can't get it in or there's not enough notes, then just double one of the notes … each version won't have the same seed.
+Just keep advancing the seeds … the next one will be MT chord 56 ST, then 57 ST, etc."*
+**How (the real drawer, driven on the throwaway 5601; only the takes' POST let through; a copy of the takes file kept first):** his take
+`MTchord55d` loaded first, so every new take carries HIS settings (the `ordinario` set, no folding, `ignore the score`). For each strike #0 …
+#45 and each of `original` · `spread`: the drawer's own `select` → the voicing → the drawer's own `shuffle` on the seven players' rows only
+(flute · clarinet · alto sax · the Vibraphone row · piano · violin · cello), the seed advanced at every try (from 116 on; the spread's own seed
+advanced too) until all seven have a note, at most 60 tries, the best kept; a player still without a note takes a note nobody plays that it
+reaches as written, else DOUBLES a note somebody plays (in its own octave where it reaches, else an octave away) — the drawer's own doubling
+(`also`). Saved through the takes' own route, the comment saying the strike, the voicing, the seed and any doubling.
+**The numbers:** 92 takes · all 92 cover the seven players · 72 by the shuffle alone · 20 with a doubling (59 · 60 · 61 · 90 · 91 · 100 · 101 ·
+104 · 105 · 115 · 122 · 123 · 127 · 130 … 133 · 138 · 139 · 141 — the strikes with 2 … 7 notes, or with notes few players reach). Even numbers =
+the original spread, odd = spread out; strike #k is `MTchord(56 + 2k)st` and `(57 + 2k)st`. His earlier takes untouched (checked against the
+copy). Notes beyond the seven players' stay unplayed, as the drawer leaves them.
