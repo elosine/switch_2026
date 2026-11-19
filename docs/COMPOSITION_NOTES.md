@@ -951,3 +951,8 @@ as the cluster (11 semitones up = 1 down), 12. So the limited ones are the third
 click on a row assigns by hand; the HARMONIC SERIES is a category added as a mixin (`spectrum.js` · `spectrum_ui.js`) — the pattern to follow.
 What is NEW for the stacks: the deal in a fixed bottom-to-top order (or as a row), and the octave as its own stage (every octave of a player's
 note shown, one picked by a shuffle or by hand).
+
+*His words, next (2026-11-19), on the limited stacks:* *"Can we talk through the limited ones, like the thirds? What do you recommend in terms of
+the shuffle? Let's say there's only three available notes. There's a number of different strategies. Make sure the same note in any given
+octave maybe isn't present if possible, and maybe have a way of showing that in the available octaves. Or any other sort of distribution that
+might be attractive."*

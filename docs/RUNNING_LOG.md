@@ -3949,3 +3949,38 @@ re-roll"* — one tuplet per player for the whole chunk); the 49 chunks bookmark
 **Proven once, without sound:** with `SW-ctpt-16` on 300 … 306 the seven play 90 · 89 · 61 · 72 · 53 · 55 · 70 at 302 and the glockenspiel its 62
 at 295; the set `spiccato strings` routes the violin to cc0 15; the render of his 49 chunks: 4,606 notes, fastest 10.00 a second. The take's
 own techniques are NOT used (the set decides); velocities are still one number for all.
+
+## §223. INTERVAL STACKS in the strikes drawer — the stack · its transposition · the order up the ensemble · the octaves (SW-52) (2026-11-19)
+
+**What prompted it (SW-52, whole in the sketch pad; "let's discuss this next bit first before implementing"):** harmonies for the harmony pass
+made as STACKS OF ONE INTERVAL sized to the ensemble (7 here; 5 or 9 elsewhere) — the cluster, then fifths, minor and major thirds, fourths,
+minor and major sevenths; all the transpositions "until it repeats … a little bit like the Messiaen limited transposition"; the notes dealt up
+the ensemble "like a tone row", in order bottom to top or shuffled; then the octave as its own stage — "present all the available C's in its
+range", a shuffle that keeps the note, an assign by hand.
+**The arithmetic put to him before any code** (pitch classes, a stack of 7): cluster 7 notes · fifths 7 (a diatonic collection) · fourths the
+same seven as fifths read downward · minor thirds 4 (a diminished seventh, three doubled) · major thirds 3 (an augmented triad) · minor
+sevenths 6 (whole-tone, one doubled) · major sevenths the SAME seven as the cluster. As SETS the thirds and the minor sevenths are limited (3 ·
+4 · 2 transpositions); but which note carries the extra copy differs with the starting note — his word: *"the extra copy of another note can
+be considered a different transposition … at least I'll have that option"* → every stack lists its TWELVE.
+**The limited stacks, discussed:** his own proposal taken as the rule — *"make sure the same note in any given octave maybe isn't present if
+possible, and maybe have a way of showing that in the available octaves"*: never two players on one key while another octave is free; a
+unison only by hand. Two further distributions (wide · close) named and left for after. Bottom to top, his "y": cello · piano · alto sax ·
+clarinet · violin · flute · glockenspiel.
+**Lineage read first** (`strike_drawer.js` · `spectrum.js` · `spectrum_ui.js`): a harmony is a strike whose notes become voices (`pitch` · `lane`
+· `fold`); the harmonic series is a category added as a mixin that wraps `strikeById` · `select` · `renderBanners` · `renderKeyboard`. The
+stacks follow that pattern exactly — **`score/public/interval_stacks.js`, one new file, nothing of the core edited** (one `<script>` line in
+`composer.html`, after `spectrum_ui.js`).
+**Built:** the banner INTERVAL STACKS (interval · size · transposition · choose) and under it `stacked` · `shuffle order` · `shuffle octaves`;
+ids `is:<kind>:<size>:<transposition>`; the deal (`stackDeal`) puts voice k of the stack — or of a seeded row — on the k-th TICKED player
+from the bottom; the octaves (`stackPickOctaves`): each player's note in an octave of its technique's range, the players with the fewest
+octaves choosing first, a key never taken twice while one is free; a COLUMN PER PLAYER to the right of the keys with a dot on every octave it
+could take (filled = playing · small = free · hollow with a name = another player is there); a double-click puts the player there. Takes,
+Hear and Insert are the drawer's own (the strike has the harmonic series' shape).
+**Proven once, on the throwaway 5601 (every write refused, the autosave stubbed):** the drawer opens with its other categories intact
+(strikes · harmonic series · starters · stacks · modes · blasts · chord shapes); `is:cluster:7:0` dealt stacked gives voices 0 · 1 · 2 to alto
+sax · clarinet · flute (only three rows were ticked — the other four BUSY at the working copy's playhead, the drawer's own rule); 7 major
+thirds from C: three players, three different keys; `shuffle order` → the row 0 · 5 · 4; `shuffle octaves` → the same notes on other keys;
+the columns drawn (the keyboard widened 150 → 237); no console error of the stacks'. NOT proven: seven ticked players together, the sound,
+his hand on the dots.
+**Known, said to him:** the deal counts only ticked rows (a busy row is not ticked); a voicing preset or transpose of the core re-voices from
+the stack as written.
