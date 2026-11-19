@@ -8,6 +8,7 @@
 // Routes: GET /         the page (workshop/tuplets/index.html)
 //         GET /hits     the strikes of the phase form per player, from the save (--score, default piece-Section03-H-addTuplets) + the form's steps
 //         GET /takes    his takes from the strikes drawer (the pitches per lane)      GET /routes   every technique's port · channel · cc0 · range
+//         GET /beds     the electronics bricks of the save in Section 3      GET /fund/…   the fund's sound files (Range)
 //         GET /chunks   bank/tuplet_chunks.json (+ its mtime)        POST /chunks   replace it (the page's autosave)
 // The chunks file is the ONE record: the page writes it, the AI writes it, the page reloads it when it changes on disk.
 'use strict';
@@ -52,6 +53,26 @@ function routes() {
     }
     return out;
 }
+// THE BEDS (SW-56, 2026-11-19): the electronics bricks of the save that sound in Section 3 — which file of the fund, where in it, when, how loud
+function beds() {
+    const save = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', SCORE + '.json'), 'utf8'));
+    const idx = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'materials.json'), 'utf8')), row = {}; idx.materials.forEach((m) => { row[m.name] = m; });
+    return save.objects.filter((o) => o.type === 'zone' && o.midiModel === 'elecMaterial' && o.elec && row[o.elec.name] && o.endTime > 260)
+        .map((o) => ({ name: o.elec.name, file: row[o.elec.name].file, start: o.startTime, end: o.endTime, offset: (+o.elec.offsetMs || 0) / 1000, gainDb: +o.elec.gainDb || 0, fadeIn: (+o.elec.fadeInMs || 30) / 1000, fadeOut: (+o.elec.fadeOutMs || 30) / 1000 }));
+}
+function serveFund(req, res, rel) {
+    const root = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'materials.json'), 'utf8')).root;
+    const file = path.normalize(path.join(root, rel)); if (!file.startsWith(path.normalize(root)) || !fs.existsSync(file)) return send(res, 404, 'not found', 'text/plain');
+    const size = fs.statSync(file).size, type = file.toLowerCase().endsWith('.wav') ? 'audio/wav' : 'application/octet-stream';
+    const m = /bytes=(\d*)-(\d*)/.exec(req.headers.range || '');
+    if (m) {
+        const a = m[1] ? +m[1] : 0, b = m[2] ? Math.min(+m[2], size - 1) : size - 1;
+        res.writeHead(206, { 'Content-Type': type, 'Content-Range': 'bytes ' + a + '-' + b + '/' + size, 'Content-Length': b - a + 1, 'Accept-Ranges': 'bytes', 'Cache-Control': 'no-store' });
+        return fs.createReadStream(file, { start: a, end: b }).pipe(res);
+    }
+    res.writeHead(200, { 'Content-Type': type, 'Content-Length': size, 'Accept-Ranges': 'bytes', 'Cache-Control': 'no-store' });
+    fs.createReadStream(file).pipe(res);
+}
 function readChunks() {
     let db;
     try { db = JSON.parse(fs.readFileSync(CHUNKS, 'utf8')); }
@@ -63,6 +84,8 @@ http.createServer((req, res) => {
     const url = new URL(req.url, 'http://x');
     try {
         if (url.pathname === '/hits') return send(res, 200, JSON.stringify(hits()));
+        if (url.pathname === '/beds') return send(res, 200, JSON.stringify(beds()));
+        if (url.pathname.startsWith('/fund/')) return serveFund(req, res, decodeURIComponent(url.pathname.slice(6)));
         if (url.pathname === '/takes') return send(res, 200, JSON.stringify(takes()));
         if (url.pathname === '/routes') return send(res, 200, JSON.stringify(routes()));
         if (url.pathname === '/chunks' && req.method === 'GET') return send(res, 200, JSON.stringify(readChunks()));

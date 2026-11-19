@@ -4083,3 +4083,22 @@ in 2 s from the worker, the playhead and the note index advancing, no tick after
 **The page since §228:** an Undo (CTRL+Z, the file as it was before each change, 80 deep); no adding by double-click (an accident of his);
 a notes-brick's own row (what it does · new draw).
 **A slip of the AI's, caught at once:** the brick before 301.3 was dropped by a filter one hundredth too tight; put back.
+
+## §230. The electronics heard IN the tuplet workshop; the technique named (octave scatter); the working copy's trap (SW-56) (2026-11-19)
+
+**His words:** *"I like that technique. I don't know if we can give it a name or codify it somewhere … remember it and I can call on it"* →
+`docs/TUPLET_WORKSHOP.md` (the workshop, its one file, the techniques by name; a pointer in CLAUDE.md); the name OCTAVE SCATTER is the AI's
+proposal, his to change. Then: *"can I hear this in its own experimental file in the composer score with the electronics? Or is it very
+complicated to put the electronics into the workshop … as long as it's synced in time? Well, you advise. I know last time you had said it's
+better to put in the composer score, but evaluate and advise."*
+**The advice, and why it changed since §221:** then he wanted one check of a result — the composer score, the real engine. Now he places
+chords BY EAR against the beds, change after change; the composer route costs a render and a reload each time. So BOTH: the composer score
+stays the true version; the workshop plays the beds itself for the working loop. His go: *"yes, go ahead … if it's not too difficult."*
+**Built (the phase workshop's way, §188, made to read the save):** the server's `/beds` — the save's `elecMaterial` bricks that sound in
+Section 3 (file · place in the file · start · end · trim) and `/fund/…` (Range); the page starts an `<audio>` per brick at the players'
+start time, at the file position the score time calls for, a later brick on a timer, each paused at its end; a checkbox `electronics` and a
+level slider. Six bricks listed (four sound after 269). Close to the composer score, NOT the engine: no fades, levels by the slider and the
+brick's trim only, the start within the browser's audio latency. **Checked:** the list and a ranged request of a 63 MB file answer (206).
+The sound and the sync are his ear's. **His server restarted once more for this.**
+**A trap he met:** the experimental save, re-made by `tuplet_render.js`, showed nothing new in the composer score — every open goes through
+the WORKING COPY (`…-X-tuplets-work.json`, from his first open), which was the old chord. The cure is the composer's own: File ▾ → Reload.

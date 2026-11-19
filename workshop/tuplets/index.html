@@ -42,6 +42,7 @@
       <button id="stop" class="big">■ Stop</button>
       <label title="type a score second and press ENTER: the playhead and the view jump there">go to <input id="from" type="number" value="277.8" min="270" max="480" step="0.1" style="width:110px;font-size:20px"> s</label>
       <label>vel <input id="vel" class="pct" type="number" value="100" min="1" max="127" step="1"></label>
+      <label title="the electronics of Section 3 (the beds of the save), played by this page in time with the players — close to the composer score, not the engine itself"><input id="bedsOn" type="checkbox" checked> electronics <input id="bedsVol" type="range" min="0" max="1" step="0.01" value="0.7" style="width:90px;vertical-align:middle"></label>
       <label title="how every player plays: a set is one articulation per player">articulation <select id="artic"></select></label>
     </div>
     <div class="row dim">SPACE plays and stops · LEFT / RIGHT move 1 s (SHIFT 10 s) · a change is heard while it plays</div>
@@ -121,12 +122,29 @@ function play(from) {
   const f = from == null ? +$('from').value : from;
   S.score0 = f; S.perf0 = performance.now() + 120; S.playing = true;
   let i = 0; while (i < S.ev.length && S.ev[i].t < f - 0.001) i++; S.idx = i;
-  sendArtic();
+  sendArtic(); bedsStart(S.perf0, f);
   S.timer = true; CLOCK.postMessage('start'); tick();
 }
 // THE CLOCK (2026-11-19, after his report — the page went quiet, then blips): a worker's timer is not slowed when the tab is behind another
 const CLOCK = new Worker(URL.createObjectURL(new Blob(['let h=null;onmessage=e=>{if(e.data==="start"){clearInterval(h);h=setInterval(()=>postMessage(0),40)}else{clearInterval(h);h=null}}'], { type: 'text/javascript' })));
 CLOCK.onmessage = () => tick();
+// THE BEDS (SW-56): the save's electronics bricks, each an <audio> on its file of the fund — started at the players' start time, at the place
+// in the file the score time calls for; a brick that begins later waits; each stops at its end. Level = the slider × the brick's own trim.
+const B = { list: [], els: [], timers: [] };
+const bedVol = (b) => Math.max(0, Math.min(1, (+$('bedsVol').value || 0) * Math.pow(10, (b.gainDb || 0) / 20)));
+function bedsStart(perf0, score0) {
+  bedsStop(); if (!$('bedsOn').checked) return;
+  B.list.forEach((b, i) => {
+    if (b.end <= score0 + 0.05) return;
+    const el = B.els[i] || (B.els[i] = Object.assign(new Audio('/fund/' + b.file.split('/').map(encodeURIComponent).join('/')), { preload: 'auto' }));
+    el.volume = bedVol(b);
+    const go = () => { const scoreNowT = score0 + (performance.now() - perf0) / 1000; el.currentTime = b.offset + Math.max(0, scoreNowT - b.start); el.play().catch(() => {}); };
+    const wait = perf0 + Math.max(0, b.start - score0) * 1000 - performance.now();
+    if (wait <= 0) go(); else B.timers.push(setTimeout(go, wait));
+    B.timers.push(setTimeout(() => { try { el.pause(); } catch (e) {} }, perf0 + (b.end - score0) * 1000 - performance.now()));
+  });
+}
+function bedsStop() { B.timers.forEach(clearTimeout); B.timers = []; B.els.forEach((el) => { try { if (el) el.pause(); } catch (e) {} }); }
 function sendArtic() { for (const p of S.players) { const o = outOf(p), r = routeOf(p); if (o && r.cc0 != null) o.send([0xB0 | chOf(p), 0, r.cc0]); } }   // the Xsample articulation of the set
 function tick() {
   if (!S.playing) return;
@@ -141,7 +159,7 @@ function tick() {
   if (scoreNow() > S.end + 2) stop();
 }
 function stop(quiet) {
-  if (S.timer) CLOCK.postMessage('stop'); S.timer = null;
+  if (S.timer) CLOCK.postMessage('stop'); S.timer = null; bedsStop();
   if (S.playing && !quiet) $('from').value = Math.max(S.t0 - 2, Math.min(S.end, scoreNow())).toFixed(1);
   S.playing = false;
   for (const p of S.players) { const o = outOf(p); if (!o) continue; try { if (o.clear) o.clear(); } catch (e) {} for (const k of (S.keysUsed[p] || [])) o.send([0x80 | chOf(p), k, 0]); o.send([0xB0 | chOf(p), 123, 0]); }
@@ -363,6 +381,9 @@ document.addEventListener('keydown', (e) => {
 (async function () {
   const h = await (await fetch('/hits')).json(); S.hits = h.hits; S.players = h.players; S.steps = h.steps; S.end = h.end; S.t0 = h.steps[0].from; S.viewA = S.t0 - 2;
   S.routes = await (await fetch('/routes')).json();
+  try { B.list = await (await fetch('/beds')).json(); } catch (e) { B.list = []; }
+  $('bedsVol').oninput = () => { B.list.forEach((b, i) => { if (B.els[i]) B.els[i].volume = bedVol(b); }); };
+  $('bedsOn').onchange = () => { if (S.playing) play(scoreNow()); };
   const tk = await (await fetch('/takes')).json(); tk.sort((a, b) => (b.saved || '').localeCompare(a.saved || '')); tk.forEach((x) => { S.takes[x.name] = x; }); S.takeNames = tk.map((x) => x.name);   // the newest take first
   await loadChunks(); articUI(); rebuild(); table(); mix(); clampView(); await midi();
   $('artic').onchange = () => { stop(); S.db.artic = $('artic').value; remember(); rebuild(); save(); panel(); }; requestAnimationFrame(frame);
