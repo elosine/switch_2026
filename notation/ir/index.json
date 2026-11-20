@@ -31,6 +31,17 @@
    ],
    "profile": "trance",
    "exp": true
+  },
+  {
+   "id": "s1-sines",
+   "label": "Section 1 - the sine tones, all parts (a working page)",
+   "score": "piece-FirstDraft-Final",
+   "window": [
+    12,
+    146
+   ],
+   "profile": "trance",
+   "exp": true
   }
  ]
 }

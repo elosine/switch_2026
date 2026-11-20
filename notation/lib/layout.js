@@ -379,7 +379,7 @@
       if (ov.kind === 'micOpening' && tgt.part !== undefined && tgt.span) { micOpens.push(Object.assign({ part: tgt.part, span: tgt.span }, ov.value && ov.value.variant ? { variant: ov.value.variant } : {}, ov.value && ov.value.noSign ? { noSign: true } : {})); continue; }
       if (ov.kind === 'finalBar' && tgt.part !== undefined && tgt.t !== undefined) { finalBars.push({ part: tgt.part, t: tgt.t }); continue; }   // [§410] its variant (a strike's own colour)
       if (ov.kind === 'badge' && tgt.part !== undefined && tgt.t !== undefined && ov.value && ov.value.type) { badges.push(Object.assign({ part: tgt.part, t: tgt.t, type: ov.value.type, place: ov.value.place || 'before' }, ov.value.row ? { row: ov.value.row } : {}, ov.value.slot ? { slot: ov.value.slot } : {}, ov.value.v ? { v: ov.value.v } : {}, ov.value.dxSs ? { dxSs: ov.value.dxSs } : {}, ov.value.avoid ? { avoid: ov.value.avoid } : {}, ov.value.tEnd != null ? { tEnd: ov.value.tEnd } : {}, ov.value.edge ? { edge: ov.value.edge } : {}, ov.value.scale ? { scale: ov.value.scale } : {}, ov.value.gap ? { gap: ov.value.gap } : {})); continue; }
-      if (ov.kind === 'sineLine' && tgt.part !== undefined && tgt.span) { sineLines.push({ part: tgt.part, span: tgt.span }); continue; }   // [the Switch~ piece §249] the sine tone's line on its player's lane
+      if (ov.kind === 'sineLine' && tgt.part !== undefined && tgt.span) { sineLines.push(Object.assign({ part: tgt.part, span: tgt.span }, ov.value && Array.isArray(ov.value.samples) ? { samples: ov.value.samples } : {})); continue; }   // [the Switch~ piece §249] the sine tone's line on its player's lane
       // [decibel PLAN 2.6, RUNNING_LOG §355 — DEC-126] THE STATE WEDGE (the `stateWedge` overlay): a method's stretches on a lane, in time order
       if (ov.kind === 'stateWedge' && tgt.part !== undefined && tgt.span && ov.value && Array.isArray(ov.value.segs)) { stateWedges.push(Object.assign({ part: tgt.part, span: tgt.span, segs: ov.value.segs }, ov.value.row ? { row: ov.value.row } : {}, ov.value.who ? { who: ov.value.who } : {}, ov.value.line ? { line: ov.value.line } : {}, ov.value.leadSs > 0 ? { leadSs: ov.value.leadSs } : {})); continue; }   // [§360] row 'elec': a computer player's, in the electronics' row
       // [decibel PLAN 2.7, RUNNING_LOG §335 — DEC-111] THE ELECTRONICS' RETURN (the `elecReturn` overlay): the region the engine answers in, and how many sounds
@@ -1397,6 +1397,11 @@
               // `pitchCurve` (the same day: "now add the orange pitch curve, full lane height"): the lineage's gliss curve (`glisscurve`, the pitch's
               // orange, rules objects.glissCurve) over the note's own length, its samples 0 … 1 of the note's travel, on the whole lane
               if (Array.isArray(dev.pitchCurve) && dev.pitchCurve.length >= 2) items.push({ k: 'glisscurve', t0: e.onset, t1: e.onset + e.duration, samples: dev.pitchCurve, band: 'lane', ev: e.id });
+              // [the Switch~ piece §250] dynPlain: ONE dynamic mark where the figure's end mark stands (the crotales under a gliding sine: the pitch and its dynamic, no figure)
+              if (dev.dynPlain) {
+                const AdP = Object.assign({ gapSs: 0.45 }, o.dynArrow || {}), mgP = (glyphs.dynamic || {})[dev.dynPlain] || { wSs: 1.6279 };
+                items.push({ k: 'glyph', g: 'dyn-' + dev.dynPlain, t: e.onset, dxSs: -AdP.gapSs - mgP.wSs / 2, ySs: Math.min(o.dynY, (HBk && HBk.lowInk != null ? HBk.lowInk : 0) - AdP.gapSs - (mgP.hSs || 1) / 2), align: 'center', ev: e.id });
+              }
               if (dev.dynFigure) {
                 const Ad = Object.assign({ lenSs: 2.0, headSs: 0.45, gapSs: 0.45, thickSs: 0.13 }, o.dynArrow || {});   // RULES MIRROR
                 const HDc = Object.assign({ circleDiaSs: 0.4695 }, o.sectionHead || {});                              // RULES MIRROR
@@ -3504,7 +3509,7 @@
         for (const m of micOpens) if (m.part === spec.part) items.push(Object.assign({ k: 'mic', t0: m.span[0], t1: m.span[1] }, m.variant ? { variant: m.variant } : {}, m.noSign ? { noSign: true } : {}));
         for (const fb of finalBars) if (fb.part === spec.part) items.push({ k: 'finalbar', t: fb.t });   // [§411]
         for (const b of badges) if (b.part === spec.part) items.push(Object.assign({ k: 'badge', t: b.t, type: b.type, place: b.place }, b.row ? { row: b.row } : {}, b.slot ? { slot: b.slot } : {}, b.v ? { v: b.v } : {}, b.dxSs ? { dxSs: b.dxSs } : {}, b.avoid ? { avoid: b.avoid } : {}, b.tEnd != null ? { tEnd: b.tEnd } : {}, b.edge ? { edge: b.edge } : {}, b.scale ? { scale: b.scale } : {}, b.gap === 'nhGap' ? { gapSs: o.nhGapSs } : {}));
-        for (const sl of sineLines) if (sl.part === spec.part) items.push({ k: 'sineline', t0: sl.span[0], t1: sl.span[1] });   // [§399] v 'middle': centred in the lane   // [§335] `row` only on the electronics' badge · [§355] or a method's, with its `slot` — a language badge's item is as it was
+        for (const sl of sineLines) if (sl.part === spec.part) items.push(Object.assign({ k: 'sineline', t0: sl.span[0], t1: sl.span[1] }, sl.samples ? { samples: sl.samples } : {}));   // samples = the sine itself glides (§250)   // [§399] v 'middle': centred in the lane   // [§335] `row` only on the electronics' badge · [§355] or a method's, with its `slot` — a language badge's item is as it was
         // [decibel §335] THE ELECTRONICS' RETURNS of this part — placed by the renderer in the lane's electronics' row (rules.json objects.elecReturn)
         for (const r of elecRets) if (r.part === spec.part) items.push({ k: 'elecret', t0: r.span[0], t1: r.span[1], count: r.count, all: r.all });
       }

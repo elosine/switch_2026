@@ -1066,6 +1066,17 @@
           if (!SL || !E.badge || !E.micOpening || !crosses(it.t0, it.t1)) continue;
           const bsL = E.badge.sizeSs * ssPx * (SL.badgeScale || 1), hL = SL.hSs * ssPx, yL = micRow(E.micOpening).yOf(bsL) + bsL / 2 - hL / 2;
           const xL0 = view.xOfSeconds(Math.max(it.t0, w0)) + (it.t0 >= w0 ? shiftOf(it.t0) : 0), xL1 = view.xOfSeconds(Math.min(it.t1, wInk));
+          // [§250 — his "let's make the purple line the same thickness as the badge, except we'll just turn that purple line into a curve"] the sine
+          // that GLIDES (the crotales' sine): the same purple, a curve in the badge's own band — the line's height where the sine has not moved,
+          // the badge's whole height at its furthest; its floor the badge's bottom edge
+          if (Array.isArray(it.samples) && it.samples.length >= 2) {
+            const yB = micRow(E.micOpening).yOf(bsL) + bsL, tA = Math.max(it.t0, w0), tB = Math.min(it.t1, wInk), nS = it.samples.length, pts = [];
+            const sAt = (t) => { const f = Math.min(1, Math.max(0, (t - it.t0) / Math.max(1e-9, it.t1 - it.t0))) * (nS - 1), i0 = Math.floor(f), i1 = Math.min(nS - 1, i0 + 1); return it.samples[i0] + (it.samples[i1] - it.samples[i0]) * (f - i0); };
+            const NP = Math.max(2, Math.ceil((view.xOfSeconds(tB) - view.xOfSeconds(tA)) / 4));
+            for (let i = 0; i <= NP; i++) { const t = tA + (tB - tA) * i / NP; pts.push((view.xOfSeconds(t) + (i === 0 ? (it.t0 >= w0 ? shiftOf(it.t0) : 0) : 0)).toFixed(2) + ',' + (yB - (hL + sAt(t) * (bsL - hL))).toFixed(2)); }
+            parts.push('<polygon class="sine-line sine-curve" points="' + xL0.toFixed(2) + ',' + yB.toFixed(2) + ' ' + pts.join(' ') + ' ' + xL1.toFixed(2) + ',' + yB.toFixed(2) + '" fill="' + SL.colour + '" fill-opacity="' + SL.opacity + '"/>');
+            continue;
+          }
           parts.push('<rect class="sine-line" x="' + xL0.toFixed(2) + '" y="' + yL.toFixed(2) + '" width="' + Math.max(1, xL1 - xL0).toFixed(2) + '" height="' + hL.toFixed(2) + '" fill="' + SL.colour + '" fill-opacity="' + SL.opacity + '"/>');
         } else if (it.k === 'sinebox') {
           // [decibel PLAN 2.12 — RUNNING_LOG §404; DEC-173; rules.json objects.sineBox → engraving.render.sineBox] THE SINE'S BOX: how a sine tone

@@ -1950,8 +1950,10 @@ function foldVibBows(flagName, gid, part, name, groupOnly) {
   //                             · ONE pitch curve from the first note's start to the last note's end, on the whole lane, its floor the
   //                               gesture's lowest pitch and its top its highest; through a breath the curve holds, then goes on.
   {
-    const ids = (arg('glissGestures', '') || '').split(',').map(s => s.trim()).filter(Boolean);
+    let ids = (arg('glissGestures', '') || '').split(',').map(s => s.trim()).filter(Boolean);
     const objs = score.objects || [], seen = new Set();
+    // [§250] `all` = every gesture that begins in the page's window, every part
+    if (ids.length === 1 && ids[0] === 'all') ids = objs.filter(x => x.type === 'waveCurve' && x.properties && x.properties.sine && x.startSeconds >= w0 - 1e-9 && x.startSeconds < w1).sort((a, b) => a.startSeconds - b.startSeconds).map(x => x.id);
     const bendAt = (mb, x) => { for (let i = 1; i < mb.length; i++) if (x <= mb[i][0]) { const p = mb[i - 1], q = mb[i]; return p[1] + (q[1] - p[1]) * (q[0] === p[0] ? 0 : (x - p[0]) / (q[0] - p[0])); } return mb[mb.length - 1][1]; };
     const setDev = (id, device) => { const ex = doc.overlays.find(o => o.kind === 'engraving' && o.target && o.target.event === 'ev-' + id); if (ex) Object.assign(ex.value.device, device); else doc.overlays.push({ id: 'ov-gesture-dev-' + id, kind: 'engraving', target: { event: 'ev-' + id }, value: { device }, provenance: 'authored' }); };
     for (const id of ids) {
@@ -1963,6 +1965,21 @@ function foldVibBows(flagName, gid, part, name, groupOnly) {
       // NO DIVOT AT A BREATH (his word 2026-11-19, "The curves are meant to be smooth … No divots"): the glide goes on through the breath —
       // across the gap the curve runs straight from where one breath stopped to where the next begins, never a held step.
       const centsAt = (t) => { let last = lo, tLast = T0; for (const x of G) { const mb = x.morphBend || [[0, 0]]; if (t < x.startSeconds) { const f = (t - tLast) / Math.max(1e-9, x.startSeconds - tLast); return last + (mb[0][1] - last) * f; } if (t <= x.endSeconds) return bendAt(mb, t - x.startSeconds); last = mb[mb.length - 1][1]; tLast = x.endSeconds; } return last; };
+      // [§250 — his "for the percussion, the sine tone glisses rather than the percussion instrument"] WHO GLIDES: 'sine' = the player holds (the
+      // crotales) and the sine's own glide (its brick's elec.gliss, cents over the brick's length) is the purple CURVE. No orange curve, no gliss
+      // line, no figure: the pitch, its dynamic (the brick's own mark), the instrument's name, the badge.
+      if (sn.who === 'sine') {
+        const Z = objs.find(x => x.id === sn.brick), gp = Z && Z.elec && Z.elec.gliss && Array.isArray(Z.elec.gliss.points) ? Z.elec.gliss.points : [[0, 0], [1, 0]];
+        const zc = (t) => bendAt(gp, Math.min(1, Math.max(0, (t - Z.startTime) / Math.max(1e-9, Z.endTime - Z.startTime)))), top = Math.max(...gp.map(p => p[1])) || 1;
+        const NS = Math.max(64, Math.round((T1 - T0) * 12)), ss = [];
+        for (let i = 0; i < NS; i++) ss.push(+(zc(T0 + (T1 - T0) * i / (NS - 1)) / top).toFixed(4));
+        doc.overlays.push({ id: 'ov-gesture-badge-' + G[0].id, kind: 'badge', target: { part: o.layer, t: +T0.toFixed(4) }, value: { type: 'beats', place: 'before', scale: 0.6, gap: 'nhGap' }, provenance: 'authored' });
+        doc.overlays.push({ id: 'ov-gesture-sine-' + G[0].id, kind: 'sineLine', target: { part: o.layer, span: [+T0.toFixed(4), +T1.toFixed(4)] }, value: { samples: ss, travelC: top }, provenance: 'authored' });
+        const mk = (Z && Z.properties && Z.properties.beat && Z.properties.beat.note) || 'mp', nm = /^crot/.test(G[0].technique || '') ? 'crotales' : null;
+        G.forEach((x, i) => setDev(x.id, i === 0 ? Object.assign({ goLine: true, headBefore: true, dynPlain: mk, nhUnit: false, dynMark: false, brick: false }, nm ? { techText: nm } : {}) : { goLine: true, nhUnit: false, dynMark: false, brick: false }));
+        console.log('  --glissGestures ' + G[0].id + ' (the SINE glides, ' + top + ' cents): ' + T0.toFixed(2) + ' … ' + T1.toFixed(2) + ' s · the pitch, ' + mk + (nm ? ', "' + nm + '"' : '') + ' · ' + (G.length - 1) + ' re-attack(s)');
+        continue;
+      }
       const N = Math.max(64, Math.round((T1 - T0) * 12)), samples = [];
       for (let i = 0; i < N; i++) samples.push(+((centsAt(T0 + (T1 - T0) * i / (N - 1)) - lo) / ((hi - lo) || 1)).toFixed(4));
       doc.overlays.push({ id: 'ov-gesture-' + G[0].id, kind: 'gliss', target: { part: o.layer, span: [+T0.toFixed(4), +T1.toFixed(4)] }, value: { samples, band: 'lane', scale: 'travel', travelC: +(hi - lo).toFixed(1), gesture: G.map(x => x.id) }, provenance: 'authored' });
