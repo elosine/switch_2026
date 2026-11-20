@@ -20,27 +20,52 @@ module.exports = function furniture(o) {
   const pick = ids => (ids || []).map(id => byId.get(id)).filter(Boolean).map(e => ({ t: e.onset, v: e.vel != null ? e.vel : 64, sp: e.pitch.spelled, midi: e.pitch.midi }));
   const notes = pick([].concat(P.in || [], P.impact || [], P.out || [])).sort((a, b) => a.t - b.t);
 
-  // the strip's ground: white over whatever part stands below the piano
-  out.push('<rect x="0" y="' + yBot + '" width="' + w + '" height="' + (F.heightPx + pad) + '" fill="#fff"/>');
+  // [§282] HOW THE INNER MOVEMENT IS DRAWN — flow.style (his "yes lets try the ribbon and then can I see a stroboscopic version"):
+  //   'ribbon'  the arc itself is a RIBBON, its width the hand's busyness (the flow map's way: one path, its width a second quantity)
+  //   'strobe'  the arc a thin line with a TICK across it at each played event (the stroboscopic picture's way: where they crowd, it is busy)
+  //   'strip'   §279's filled curve in a strip of its own under the staff (set aside: two drawings read as two instructions, §281)
+  const style = F.style || 'ribbon', strip = style === 'strip';
+  if (strip) out.push('<rect x="0" y="' + yBot + '" width="' + w + '" height="' + (F.heightPx + pad) + '" fill="#fff"/>');
 
-  // 1 · the GC arc
+  // the busyness: each played note a bell sigmaS wide and as tall as its loudness, summed; stretched between its own low and high over the
+  // arc and raised to flow.power (the exaggeration) — 0 … 1
+  const I = s => notes.reduce((acc, n) => acc + n.v * Math.exp(-0.5 * Math.pow((s - n.t) / F.sigmaS, 2)), 0);
+  const N = 200, S = []; let mx = 0, mn = Infinity;
+  for (let i = 0; i <= N; i++) { const s = A.t0 + (A.t1 - A.t0) * i / N, v = notes.length ? I(s) : 0; S.push([s, v]); if (v > mx) mx = v; if (v < mn) mn = v; }
+  const pw = F.power != null ? F.power : 1.6, ex = v => Math.pow(mx > mn ? Math.max(0, (v - mn) / (mx - mn)) : 0, pw);
+
+  // 1 · the GC arc (notation/lib/gc.js's own curve), as a line or as a ribbon
   const GP = Gc.params(Object.assign({}, preset, { duration: A.t1 - A.t0, descentRatio: 100 * (A.bounce - A.t0) / (A.t1 - A.t0) }));
   const imp = yBot - 8, apex = band[0] + 8, gy = s => imp - Gc.heightFrac(GP, s - A.bounce) * (imp - apex);
-  { const pts = []; for (let i = 0; i <= 200; i++) { const s = A.t0 + (A.t1 - A.t0) * i / 200; pts.push(r1(xOf(s)) + ',' + r1(gy(s))); }
-    out.push('<polyline points="' + pts.join(' ') + '" fill="none" stroke="' + look.color + '" stroke-width="' + look.arcStrokePx + '"/>');
-    out.push('<circle cx="' + r1(xOf(A.bounce)) + '" cy="' + r1(imp) + '" r="' + look.impactRadiusPx + '" fill="none" stroke="' + look.color + '" stroke-width="' + look.arcStrokePx + '"/>'); }
+  const P2 = S.map(p => ({ s: p[0], x: xOf(p[0]), y: gy(p[0]), e: ex(p[1]) }));
+  const normalAt = i => { const p = P2[Math.max(0, i - 1)], q = P2[Math.min(P2.length - 1, i + 1)], dx = q.x - p.x, dy = q.y - p.y, L = Math.hypot(dx, dy) || 1; return { nx: -dy / L, ny: dx / L }; };
+  if (style === 'ribbon') {
+    // the fall and the rebound are two ribbons that meet at the impact (the corner there is the arc's own)
+    const wMin = F.ribbonMinPx != null ? F.ribbonMinPx : look.arcStrokePx, wMax = F.ribbonMaxPx != null ? F.ribbonMaxPx : 13;
+    const ib = P2.reduce((best, p, i) => Math.abs(p.s - A.bounce) < Math.abs(P2[best].s - A.bounce) ? i : best, 0);
+    for (const [i0, i1] of [[0, ib], [ib, P2.length - 1]]) {
+      if (i1 <= i0) continue;
+      const L = [], Rr = [];
+      for (let i = i0; i <= i1; i++) {
+        const p = P2[i], a2 = P2[Math.max(i0, i - 1)], b2 = P2[Math.min(i1, i + 1)], dx = b2.x - a2.x, dy = b2.y - a2.y, len = Math.hypot(dx, dy) || 1, h = (wMin + (wMax - wMin) * p.e) / 2;
+        L.push(r1(p.x - dy / len * h) + ',' + r1(p.y + dx / len * h)); Rr.push(r1(p.x + dy / len * h) + ',' + r1(p.y - dx / len * h));
+      }
+      out.push('<polygon points="' + L.concat(Rr.reverse()).join(' ') + '" fill="' + look.color + '" stroke="none"/>');
+    }
+  } else out.push('<polyline points="' + P2.map(p => r1(p.x) + ',' + r1(p.y)).join(' ') + '" fill="none" stroke="' + look.color + '" stroke-width="' + look.arcStrokePx + '"/>');
+  out.push('<circle cx="' + r1(xOf(A.bounce)) + '" cy="' + r1(imp) + '" r="' + look.impactRadiusPx + '" fill="' + (style === 'ribbon' ? '#fff' : 'none') + '" stroke="' + look.color + '" stroke-width="' + look.arcStrokePx + '"/>');
 
-  // 2 · the flow
-  if (notes.length) {
-    const I = s => notes.reduce((a, n) => a + n.v * Math.exp(-0.5 * Math.pow((s - n.t) / F.sigmaS, 2)), 0);
-    const N = 160, S = []; let mx = 0;
-    for (let i = 0; i <= N; i++) { const s = A.t0 + (A.t1 - A.t0) * i / N, v = I(s); S.push([s, v]); if (v > mx) mx = v; }
-    const base = yBot + pad / 2 + F.heightPx - 3, top = yBot + pad / 2 + 3, fy = v => base - (mx > 0 ? v / mx : 0) * (base - top);
-    // [§279 — his "take out the dots … a filled in curve, an exaggerated version of my playing and the player can intrepret the curve freely,
-    // density of action acceleration or loudness"] THE EBB AND FLOW: the busyness curve stretched between its own lowest and highest point and
-    // raised to flow.power (the exaggeration), never under flow.floor of the strip, FILLED down to the strip's base. No dots, no time marks.
-    const mn = Math.min(...S.map(p => p[1])), pw = F.power != null ? F.power : 1.6, fl = F.floor != null ? F.floor : 0.06;
-    const ex = v => fl + (1 - fl) * Math.pow(mx > mn ? (v - mn) / (mx - mn) : 0, pw), ey = v => base - ex(v) * (base - top);
+  // 2 · the inner movement's other two forms
+  if (style === 'strobe') {
+    // one tick per played event (notes within 50 ms are one event; two or more together a heavier tick), ACROSS the arc at its own moment
+    const ev = []; for (const n of notes) { const x = ev[ev.length - 1]; if (x && n.t - x.t1 < 0.05) { x.n++; x.t1 = n.t; x.ts.push(n.t); } else ev.push({ t1: n.t, n: 1, ts: [n.t] }); }
+    const half = (F.tickPx != null ? F.tickPx : 11) / 2;
+    for (const e of ev) {
+      const s = e.ts.reduce((p, q) => p + q, 0) / e.ts.length, i = Math.max(0, Math.min(N, Math.round((s - A.t0) / (A.t1 - A.t0) * N))), nn = normalAt(i), x = xOf(s), y = gy(s);
+      out.push('<line x1="' + r1(x - nn.nx * half) + '" y1="' + r1(y - nn.ny * half) + '" x2="' + r1(x + nn.nx * half) + '" y2="' + r1(y + nn.ny * half) + '" stroke="' + look.color + '" stroke-width="' + (e.n > 1 ? 2.2 : 1.2) + '" stroke-linecap="round"/>');
+    }
+  } else if (strip && notes.length) {
+    const base = yBot + pad / 2 + F.heightPx - 3, top = yBot + pad / 2 + 3, fl = F.floor != null ? F.floor : 0.06, ey = v => base - (fl + (1 - fl) * ex(v)) * (base - top);
     out.push('<polygon points="' + r1(xOf(A.t0)) + ',' + r1(base) + ' ' + S.map(p => r1(xOf(p[0])) + ',' + r1(ey(p[1]))).join(' ') + ' ' + r1(xOf(A.t1)) + ',' + r1(base) + '" fill="' + (F.fill || '#2b2b2b') + '" stroke="none"/>');
   }
 
@@ -96,5 +121,5 @@ module.exports = function furniture(o) {
     out.push('<g fill="' + INK + '">' + g.join('') + '</g>');
     sh.pitches = sh.set.map(n => n.sp.step + (n.sp.alter === 1 ? '#' : n.sp.alter === -1 ? 'b' : '') + n.sp.octave);
   }
-  return { svg: out.join(''), extraH: F.heightPx + pad, shapes: shapes.map(s => ({ at: s.at, pitches: s.pitches })), flags };
+  return { svg: out.join(''), extraH: strip ? F.heightPx + pad : 0, shapes: shapes.map(s => ({ at: s.at, pitches: s.pitches })), flags };
 };

@@ -4746,3 +4746,14 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 - Animation (primary and secondary action; squash and stretch): the BALL carries it — it pulses or grows twice on the way down; the static page shows nothing extra.
 - Music's own: one slur over two feathered beams — an accelerando in two groups under one phrase.
 **The recommendation made:** the ribbon — the arc's own thickness is the activity — because it stays one object and needs no reading of a second graph; the strip under the staff then goes. **Not built; his word first.**
+
+## §282 · 2026-11-20 · the inner movement ON the arc — the ribbon, and the stroboscopic version beside it
+
+**His words:** "yes lets try the ribbon and then can I see a stroboscopic version".
+
+**Built (`tools/gravity_furniture.js`, `flow.style`; two pages in the workshop, "prototype: ribbon" and "prototype: strobe"):**
+- THE RIBBON — the GC arc itself drawn as a filled band, magenta: its width runs from the GC line's own 1.5 px to 13 px at the hand's busiest, by the same busyness as §279 (each played note a bell 0.12 s wide, as tall as its loudness, summed, stretched between its low and high over the arc, power 1.6). The fall and the rebound are two bands meeting at the impact; the impact's ring stays, filled white. In the prototype it reads: fat at the entry (the first burst), thinning to a line through the middle of the fall, swelling into the impact (the second burst), and still broad up the rebound to the last note (the six notes after the impact are close together and loud).
+- THE STROBE — the arc the thin GC line, with a TICK across it at each played event, 11 px long, at right angles to the arc; two or more notes together a heavier tick. Six ticks crowd at the entry, one stands alone halfway down, one sits on the impact, four on the rebound.
+- The strip under the staff is gone from both (kept as `style: "strip"`, the page name `gravity-proto-strip`, not in the picker).
+**Checked once:** both pages rendered to images from the server's own answers.
+**Seen, for his eye:** on the ribbon the broad rebound makes the end of the arc as heavy as its start; on the strobe the ticks at the entry sit on the flat top of the arc, where the arc itself shows no motion yet — the GC's fall (power 3.4) keeps the ball high for the first half of its time.

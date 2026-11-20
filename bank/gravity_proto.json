@@ -69,9 +69,12 @@
  "flow": {
   "heightPx": 46,
   "sigmaS": 0.12,
-  "_note": "§279: the ebb and flow — the busyness curve (each played note a bell sigmaS wide, as tall as its loudness, summed) stretched between its own low and high, raised to `power` (the exaggeration), filled to the strip's base; never under `floor` of the strip. The player reads it freely: density, acceleration or loudness.",
+  "_note": "§282: the inner movement ON the arc. style ribbon = the arc a ribbon, its width the busyness (from the GC line's own width up to ribbonMaxPx at the busiest); style strobe = a tick across the arc per played event, tickPx long (the page \"prototype: strobe\"); style strip = §279's filled curve under the staff, set aside. The busyness: each played note a bell sigmaS seconds wide and as tall as its loudness, summed, stretched between its low and high over the arc, raised to `power`.",
   "power": 1.6,
-  "floor": 0.06
+  "floor": 0.06,
+  "style": "ribbon",
+  "ribbonMaxPx": 13,
+  "tickPx": 11
  },
  "shapeRule": {
   "changeMin": 3,
