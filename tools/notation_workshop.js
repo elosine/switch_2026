@@ -65,7 +65,9 @@ function engine(page) {
   const FRAME = Coords.ensembleFrame(PARTS, { heightPx: H, lanes: rz.lanes || { padTopPx: 8, padBotPx: 8, gapPx: 4 }, staffHeightPx: (C.staff && C.staff.staffHeightPx) || 31.6,
     grandStaff: ((C.engraving || {}).layout || {}).grandStaff, weightOf: ENS ? (p => (ensPart(p) && ensPart(p).weight) || 1) : undefined,
     stavesOf: p => (ensPart(p) && ensPart(p).staves && ensPart(p).staves.length) || 1, ensemble: ENS });
+  const LO = (C.engraving && C.engraving.layout) || {};
   const e = { stamp, Coords, StaticPage, glyphs, C, ENS, ir, model, H, FRAME, EDGES: Coords.edgesOf(C), band: (proto && proto.band) || BAND,
+    Gc: lib('gc.js'), ChordColumn: lib('chord_column.js'), gaps: { toHead: LO.accGapColumn != null ? LO.accGapColumn : 0.1, between: (LO.chordColumn && LO.chordColumn.minLateralGap) || 0.1 },
     proto: proto && Object.assign({}, proto, { preset: (C.animated && C.animated.gc && C.animated.gc.preset) || lib('gc.js').DEFAULT_PRESET, look: lib('gc.js').LOOK }) };
   ENG.set(page, e);
   return e;
@@ -76,7 +78,6 @@ function viewOf(page, t0, span, w) {
   const srcEnd = e.ir.source.window[1];
   let svg = e.StaticPage.staticPageSvg({ model: e.model, view, glyphs: e.glyphs, C: e.C, srcEnd, reshow: 0, ownsEnd: t0 + span >= srcEnd - 1e-9, ensemble: e.ENS, edgeBar: false });
   // the piano's band only: the SVG keeps its own coordinates, the viewBox cuts the picture
-  svg = svg.replace(/^<svg([^>]*?) width="[\d.]+" height="[\d.]+" viewBox="[^"]*"/, '<svg$1 viewBox="0 ' + e.band[0] + ' ' + w + ' ' + e.band[1] + '" preserveAspectRatio="xMinYMin meet"');
   // [§272] the two staves' top and bottom lines (the frame's own y), read from the piano's system — for the gravity marks drawn over the page
   const staves = [];
   { const re = new RegExp('<g class="sys sys-p' + PART + '"[^>]*>([\\s\\S]*?)</g>', 'g'); let m; const ys = [];
@@ -89,9 +90,19 @@ function viewOf(page, t0, span, w) {
   if (e.proto) {
     const op = e.proto.headOpacity;
     if (op > 0 && op < 1) svg = svg.replace(/<g transform="translate\(([\d.]+) /g, (m, x) => +x > x0 - 4 ? '<g opacity="' + op + '" transform="translate(' + x + ' ' : m);
-    protoOut = Object.assign({}, e.proto, { headOpacity: 1 });
+    protoOut = Object.assign({}, e.proto, { headOpacity: 1, arcBand: e.band });
   }
-  return { svg, staves, x0, pps: (view.xOfSeconds(t0 + span) - x0) / span, band: e.band, proto: protoOut, w, window: [t0, t0 + span], srcWindow: e.ir.source.window };
+  // [§276] THE PROTOTYPE'S FURNITURE — the arc, the flow strip under the staff, the shapes (tools/gravity_furniture.js) — in the picture itself
+  let band = e.band;
+  if (e.proto && staves.length) {
+    delete require.cache[require.resolve('./gravity_furniture.js')];
+    const pps = (view.xOfSeconds(t0 + span) - x0) / span;
+    const f = require('./gravity_furniture.js')({ proto: e.proto, ir: e.ir, glyphs: e.glyphs, ChordColumn: e.ChordColumn, Gc: e.Gc, xOf: s => x0 + (s - t0) * pps, staff: staves[staves.length - 1], w, preset: e.proto.preset, look: e.proto.look, gaps: e.gaps });
+    svg = svg.replace(/<\/svg>\s*$/, f.svg + '</svg>');
+    band = [e.band[0], e.band[1] + f.extraH]; protoOut.shapes = f.shapes; protoOut.flags = f.flags;
+  }
+  svg = svg.replace(/^<svg([^>]*?) width="[\d.]+" height="[\d.]+" viewBox="[^"]*"/, '<svg$1 viewBox="0 ' + band[0] + ' ' + w + ' ' + band[1] + '" preserveAspectRatio="xMinYMin meet"');
+  return { svg, staves, x0, pps: (view.xOfSeconds(t0 + span) - x0) / span, band, proto: protoOut, w, window: [t0, t0 + span], srcWindow: e.ir.source.window };
 }
 
 // ---------------------------------------------------------------- the sound: one cut, made once
@@ -133,10 +144,9 @@ async function makeClip(q) {
   if (v.proto) {
     const Gc = require(path.join(ROOT, 'notation', 'lib', 'gc.js')), A = v.proto.arc, L = v.proto.look;
     const GP = Gc.params(Object.assign({}, v.proto.preset, { duration: A.t1 - A.t0, descentRatio: 100 * (A.bounce - A.t0) / (A.t1 - A.t0) }));
-    const imp = v.band[0] + v.band[1] - 8, apex = v.band[0] + 8, xs = s => v.x0 + (s - t0) * v.pps;
+    const AB = v.proto.arcBand, imp = AB[0] + AB[1] - 8, apex = AB[0] + 8, xs = s => v.x0 + (s - t0) * v.pps;
     const yOf = s => { const f = Gc.heightFrac(GP, s - A.bounce); return f == null ? null : imp - f * (imp - apex); };
     const pts = []; for (let i = 0; i <= 200; i++) { const s = A.t0 + (A.t1 - A.t0) * i / 200; pts.push(xs(s).toFixed(2) + ',' + yOf(s).toFixed(2)); }
-    svg = svg.replace(/<\/svg>\s*$/, '<polyline points="' + pts.join(' ') + '" fill="none" stroke="' + L.color + '" stroke-width="' + L.arcStrokePx + '"/><circle cx="' + xs(A.bounce).toFixed(2) + '" cy="' + imp.toFixed(2) + '" r="' + L.impactRadiusPx + '" fill="none" stroke="' + L.color + '" stroke-width="' + L.arcStrokePx + '"/></svg>');
     ballY = s => (s < A.t0 || s > A.t1) ? null : (yOf(s) - v.band[0]);
   }
   const img = new Resvg(svg, { fitTo: { mode: 'width', value: outW }, background: 'white', font: { loadSystemFonts: false, fontFiles: FONT_FILES, defaultFontFamily: 'Crimson Pro Light' } }).render();

@@ -2,13 +2,77 @@
  "_doc": "THE GRAVITY PROTOTYPE (SW-83, his third word; RUNNING_LOG §273): ONE gravity moment in ONE hand, with a few lead-in and lead-out notes of the same hand, nothing of the other hand. The workshop's page 'prototype' is drawn from this file. page = the IR the notes are read from · hand L|R · window = what the page shows · arc: t0 = the first note of the cluster, bounce = the impact, t1 = the last note · in / out = which notes stand on which side of the impact (the AI's first reading — HIS TO DECIDE; 'could be all on one side') · the arc's shape is the lineage's GC (notation/lib/gc.js: fall 1 - u^p, rebound to `damping` %) with the registry's preset, the fall lasting t0 -> bounce and the rebound bounce -> t1.",
  "page": "s2-piano-solo-heads",
  "hand": "L",
- "window": [156.1, 161.2],
- "band": [628, 124],
+ "window": [
+  156.1,
+  161.2
+ ],
+ "band": [
+  628,
+  124
+ ],
  "headOpacity": 0.6,
- "arc": { "t0": 157.821, "bounce": 159.159, "t1": 159.641 },
- "in": ["wc-1784", "wc-1783", "wc-1785", "wc-1787", "wc-1786", "wc-1788", "wc-1789", "wc-1792", "wc-1791", "wc-1794", "wc-1793", "wc-1797"],
- "impact": ["wc-1800", "wc-1802", "wc-1801"],
- "out": ["wc-1804", "wc-1805", "wc-1806", "wc-1809", "wc-1808", "wc-1810"],
- "leadIn": ["wc-1777", "wc-1778", "wc-1779", "wc-1781"],
- "leadOut": ["wc-1818", "wc-1820", "wc-1819", "wc-1821", "wc-1822", "wc-1829", "wc-1826", "wc-1831", "wc-1835", "wc-1836", "wc-1838", "wc-1834", "wc-1840", "wc-1844", "wc-1845"]
+ "arc": {
+  "t0": 157.821,
+  "bounce": 159.159,
+  "t1": 159.641
+ },
+ "in": [
+  "wc-1784",
+  "wc-1783",
+  "wc-1785",
+  "wc-1787",
+  "wc-1786",
+  "wc-1788",
+  "wc-1789",
+  "wc-1792",
+  "wc-1791",
+  "wc-1794",
+  "wc-1793",
+  "wc-1797"
+ ],
+ "impact": [
+  "wc-1800",
+  "wc-1802",
+  "wc-1801"
+ ],
+ "out": [
+  "wc-1804",
+  "wc-1805",
+  "wc-1806",
+  "wc-1809",
+  "wc-1808",
+  "wc-1810"
+ ],
+ "leadIn": [
+  "wc-1777",
+  "wc-1778",
+  "wc-1779",
+  "wc-1781"
+ ],
+ "leadOut": [
+  "wc-1818",
+  "wc-1820",
+  "wc-1819",
+  "wc-1821",
+  "wc-1822",
+  "wc-1829",
+  "wc-1826",
+  "wc-1831",
+  "wc-1835",
+  "wc-1836",
+  "wc-1838",
+  "wc-1834",
+  "wc-1840",
+  "wc-1844",
+  "wc-1845"
+ ],
+ "flow": {
+  "heightPx": 46,
+  "sigmaS": 0.12,
+  "_note": "§276: the flow strip under the staff — each played note a bump sigmaS seconds wide and as tall as its loudness, summed; a dot per played event"
+ },
+ "shapeRule": {
+  "changeMin": 3,
+  "_note": "§276 (the AI's first rule, his to move): one shape per side of the impact (the pitches before it · the impact and the pitches after it); the second is drawn only when the two sets differ by changeMin pitches or more (added + dropped) — otherwise its new pitches join the first"
+ }
 }

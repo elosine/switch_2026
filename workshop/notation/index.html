@@ -112,14 +112,13 @@
     if (s <= a.bounce) { const d = a.bounce - a.t0; return 1 - Math.pow(cl(d > 0 ? (s - a.t0) / d : 1), dp); }
     const d = a.t1 - a.bounce; return rb * (1 - Math.pow(1 - cl(d > 0 ? (s - a.bounce) / d : 1), ap));
   }
-  const gcY = (p, s) => { const imp = V.band[0] + V.band[1] - 8, apex = V.band[0] + 8; return imp - gcFrac(p, s) * (imp - apex); };
+  const gcY = (p, s) => { const B = p.arcBand || V.band, imp = B[0] + B[1] - 8, apex = B[0] + 8; return imp - gcFrac(p, s) * (imp - apex); };
   function drawProto() {
     const el = $('marks'), p = V.proto, a = p.arc, k = S.size, out = [], pts = [], n = 160;
     el.setAttribute('width', V.w * k); el.setAttribute('height', V.band[1] * k);
     for (let i = 0; i <= n; i++) { const s = a.t0 + (a.t1 - a.t0) * i / n; pts.push(xOf(s).toFixed(1) + ',' + yPx(gcY(p, s)).toFixed(1)); }
     const bi = pts.length; for (let i = 0; i <= 12; i++) { const s = a.bounce - 0.004 + 0.008 * i / 12; }   // (the corner at the impact is in the samples' own step)
-    out.push('<polyline points="' + pts.join(' ') + '" fill="none" stroke="' + p.look.color + '" stroke-width="' + Math.max(1.5, p.look.arcStrokePx * k).toFixed(1) + '"/>');
-    out.push('<circle cx="' + xOf(a.bounce).toFixed(1) + '" cy="' + yPx(gcY(p, a.bounce)).toFixed(1) + '" r="' + (p.look.impactRadiusPx * k).toFixed(1) + '" fill="none" stroke="' + p.look.color + '" stroke-width="' + Math.max(1.5, p.look.arcStrokePx * k).toFixed(1) + '"/>');
+    // (the arc, its ring, the flow and the shapes are in the picture itself — the server draws them, so the film has them; here only the ball)
     out.push('<g id="balls"></g>');
     el.innerHTML = out.join(''); balls();
   }
