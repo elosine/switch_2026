@@ -52,7 +52,7 @@ module.exports = function furniture(o) {
   const sideIn = setOf(pick([].concat(P.in || [], P.impact || []))), sideOut = setOf(pick(P.out));
   const R = Object.assign({ changeMin: 3 }, P.shapeRule || {});
   const diff = sideOut.filter(n => !sideIn.some(m => m.midi === n.midi)).length + sideIn.filter(n => !sideOut.some(m => m.midi === n.midi)).length;
-  const shapes = !sideIn.length ? [{ at: A.t0, set: sideOut }] : (sideOut.length && diff >= R.changeMin) ? [{ at: A.t0, set: sideIn }, { at: A.bounce + (R.afterImpact != null ? R.afterImpact : 0.3) * (A.t1 - A.bounce), set: sideOut, from: true }] : [{ at: A.t0, set: setOf(sideIn.concat(sideOut)) }];
+  const shapes = !sideIn.length ? [{ at: A.t0, set: sideOut }] : (sideOut.length && diff >= R.changeMin) ? [{ at: A.t0, set: sideIn, from: true }, { at: A.bounce + (R.afterImpact != null ? R.afterImpact : 0.3) * (A.t1 - A.bounce), set: sideOut, from: true }] : [{ at: A.t0, set: setOf(sideIn.concat(sideOut)) }];
   for (const sh of shapes) {
     // [§277 — his "lets write clusters as a bar with noteheads on top and bottom the actual top note and bottom note of the cluster, including
     // accidentals"] THE CLUSTER BAR: a shape of clusterMinNotes or more pitches with no gap wider than clusterMaxGap semitones is written as
@@ -81,7 +81,10 @@ module.exports = function furniture(o) {
     // the ink's extent, in staff spaces
     const xs0 = Math.min(...m.map(x => x.dx), ...packed.map(p => p.leftEdge), ...led.map(l => l.x0)), xs1 = Math.max(...m.map(x => x.dx + W), ...led.map(l => l.x1));
     const ys1 = Math.max(...m.map(x => x.y + HH / 2), ...accs.map(a => a.ySs + a.topExt)), ys0 = Math.min(...m.map(x => x.y - HH / 2), ...accs.map(a => a.ySs - a.botExt));
-    const bp = 0.3, X0 = sh.from ? xOf(sh.at) + (bp - xs0) * ss : xOf(sh.at) - (0.6 + bp + xs1) * ss, px = x => X0 + x * ss, py = y => mid - y * ss;   // the box ends 0.6 ss before its moment
+    // [§280 — his "keep the chord boxes in the gc horizontal so the shape box is drawn after the start of the gc arc and ends before the end of gc arc"]
+    // a box BEGINS at its moment and is held inside the arc's span: never left of the arc's first note, never right of its last (inset from each)
+    const bp = 0.3, ins = (R.insetSs != null ? R.insetSs : 0.3) * ss, lo = xOf(A.t0) + ins + (bp - xs0) * ss, hi = xOf(A.t1) - ins - (xs1 + bp) * ss;
+    const X0 = sh.from ? Math.max(lo, Math.min(hi, xOf(sh.at) + ins + (bp - xs0) * ss)) : xOf(sh.at) - (0.6 + bp + xs1) * ss, px = x => X0 + x * ss, py = y => mid - y * ss;   // the box ends 0.6 ss before its moment
     const g = [];
     g.push('<rect x="' + r1(px(xs0 - bp)) + '" y="' + r1(py(ys1 + bp)) + '" width="' + r1((xs1 - xs0 + 2 * bp) * ss) + '" height="' + r1((ys1 - ys0 + 2 * bp) * ss) + '" fill="#fff" fill-opacity="0.88" stroke="none"/>');
     for (const l of led) g.push('<rect x="' + r1(px(l.x0)) + '" y="' + r1(py(l.y) - lt * ss / 2) + '" width="' + r1((l.x1 - l.x0) * ss) + '" height="' + (lt * ss).toFixed(2) + '"/>');

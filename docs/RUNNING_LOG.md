@@ -4725,3 +4725,10 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 - THE EBB AND FLOW — the dots gone; the busyness curve stretched between its own low and high, raised to the power 1.6 (the exaggeration), never under 6 % of the strip, FILLED. It still stands in the strip under the staff, across the arc's span. It carries no instruction of its own: he names three readings (density of action, acceleration, loudness) and leaves the choice to the player.
 - THE SHAPES — the impact's notes now belong to the FIRST shape; the second is the notes AFTER the impact and its box BEGINS 30 % of the way up the rising arc (`afterImpact`), not at the impact. Shape 1 = B3 … G4 as a cluster bar (it now holds eight pitches, the impact's C#4 with them). Shape 2 = C4 · D4 · E4: three pitches, under the cluster's four, so all three are written, the middle one offset to the right — the standing column (a head a step from the one below moves over).
 **Checked once:** the page rendered to an image from the server's own answer.
+
+## §280 · 2026-11-20 · the prototype: no played note at all; the shape boxes held inside the arc
+
+**His words:** "take out the lead in and lead out notes too and keep the chord boxes in the gc horizontal so the shape box in drawn after the start of the gc arc and ends before the end of gc arc".
+
+**Changed:** `leadHeads` false — the page draws no played note; what stands on the staff is the notation alone (the arc, the two shapes, the ebb and flow). THE BOXES' PLACE, now one rule for every shape: a box BEGINS at its moment (shape 1 at the arc's first note; shape 2 at 30 % of the rise) and is held INSIDE the arc's span — 0.3 ss in from the arc's first note, and never past 0.3 ss before its last (`shapeRule.insetSs`). Before this, shape 1 stood to the LEFT of the arc's start.
+**Checked once:** the page rendered to an image — the cluster bar's box just inside the arc's start, the three-note chord's box inside its end, an empty staff either side.

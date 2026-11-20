@@ -55,6 +55,7 @@ function engine(page) {
     proto._played = ir.events.filter(ev => keep.has(ev.id));   // the hand's notes of the window, whole — the flow and the shapes are read from these
     // [§279 — his "take out the ref noteheads"] refHeads false: the arc's own played notes are not drawn (the lead-in and lead-out notes stay)
     if (proto.refHeads === false) for (const id of [].concat(proto.in || [], proto.impact || [], proto.out || [])) keep.delete('ev-' + id);
+    if (proto.leadHeads === false) keep.clear();   // [§280 — his "take out the lead in and lead out notes too"] no played note is drawn at all
     ir.events = ir.events.filter(ev => keep.has(ev.id));
     ir.overlays = (ir.overlays || []).filter(o => !(o.target && o.target.event) || keep.has(o.target.event));
     ir.chunks = (ir.chunks || []).map(c => Object.assign({}, c, { events: (c.events || []).filter(id => keep.has(id)) })).filter(c => c.events.length);

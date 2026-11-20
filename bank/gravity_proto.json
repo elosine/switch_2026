@@ -80,7 +80,9 @@
   "clusterMaxGap": 2,
   "clusterBarW": 0.5,
   "_clusterNote": "§277 (his word: clusters as a bar with noteheads on top and bottom, the actual top and bottom note, with accidentals): a shape of clusterMinNotes or more pitches with no gap over clusterMaxGap semitones is a CLUSTER BAR — its lowest and highest note and a bar between their centers, clusterBarW of a head wide (piece 2's cluster bar, NOTATION_SYSTEM_PLAN §17e.1, was one head wide and had no heads; the narrower width is the AI's, his to move)",
-  "afterImpact": 0.3
+  "afterImpact": 0.3,
+  "insetSs": 0.3
  },
- "refHeads": false
+ "refHeads": false,
+ "leadHeads": false
 }
