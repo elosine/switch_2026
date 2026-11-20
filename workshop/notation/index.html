@@ -40,10 +40,11 @@
   <div class="g"><button id="clip" class="main">Make video</button><label for="loops">×</label><input id="loops" class="s" type="number" min="1" max="20" step="1"></div>
 </div>
 <div class="bar two">
-  <div class="g"><select id="page"><option value="s2-piano-solo">spaced</option><option value="s2-piano-solo-played">as played</option></select></div>
+  <div class="g"><select id="page"><option value="s2-piano-solo">spaced</option><option value="s2-piano-solo-played">as played</option><option value="s2-piano-solo-heads">heads only</option></select></div>
   <div class="g"><label for="t0">Page from</label><input id="t0" type="number" step="0.1"><button id="back" title="LEFT">◀</button><button id="fwd" title="RIGHT">▶</button></div>
   <div class="g"><label for="a">Phrase</label><input id="a" type="number" step="0.01"><span class="dim">to</span><input id="b" type="number" step="0.01"></div>
   <div class="g"><label for="gap">Gap</label><input id="gap" class="s" type="number" step="0.5" min="0"></div>
+  <div class="g"><label for="marksOn" title="Walls (amber) and the two hands' arcs: the first sorting, yours to correct">Gravity</label><input id="marksOn" type="checkbox"></div>
   <div class="g dim">cursor <b class="n" id="tNow">–</b> mouse <b class="n" id="tHover">–</b></div>
   <div class="g dim" id="help">drag on the score = select a phrase · click = cursor</div>
   <div id="msg"></div>
@@ -51,6 +52,7 @@
 
 <div id="stage">
   <div id="svgBox"></div>
+  <svg id="marks" style="position:absolute;left:0;top:0;pointer-events:none"></svg>
   <div id="shade"></div>
   <div id="la"></div>
   <div id="lb"></div>
@@ -62,7 +64,7 @@
 (() => {
   const $ = id => document.getElementById(id);
   const KEY = 'notationWorkshop.v2';
-  const S = Object.assign({ page: 's2-piano-solo', t0: 147.4, span: 8, size: 1.5, rate: 1, a: 147.9, b: 152, loopOn: false, gap: 2, loops: 1 }, (() => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } })());
+  const S = Object.assign({ page: 's2-piano-solo', t0: 147.4, span: 8, size: 1.5, rate: 1, a: 147.9, b: 152, loopOn: false, gap: 2, loops: 1, marksOn: true }, (() => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } })());
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
   let V = null, INFO = { a0: 146, a1: 258, window: [146, 253] }, t = S.a, playing = false, waitUntil = 0, fetchN = 0, timer = 0;
   const audio = new Audio('/audio'); audio.preload = 'auto'; audio.preservesPitch = true;
@@ -79,13 +81,59 @@
       V = v; $('svgBox').innerHTML = v.svg;
       const svg = $('svgBox').querySelector('svg');
       svg.style.width = (v.w * S.size) + 'px'; svg.style.height = (v.band[1] * S.size) + 'px';
-      place();
+      place(); drawMarks();
     }).catch(e => msg('The workshop server does not answer.'));
+    fetch('/marks').then(r => r.json()).then(m => { M = m; drawMarks(); }).catch(() => {});
   }
   const later = () => { clearTimeout(timer); timer = setTimeout(load, 120); };
   const xOf = s => V ? (V.x0 + (s - V.window[0]) * V.pps) * S.size : -10;
   const tOf = x => V ? V.window[0] + (x / S.size - V.x0) / V.pps : 0;
+  // ---- the gravity marks (bank/gravity_sort.json): WALLS = amber upright boxes on the hand's staff · an ARC per flow of one hand, the
+  // right hand's above the upper staff, the left hand's below the lower, its low point the bounce · a ball rides the arc while it plays
+  let M = { walls: [], arcs: [] };
+  const COL = { R: '#0b8f86', L: '#7a3fc2', wall: '#e08a00' };
+  const yPx = y => (y - V.band[0]) * S.size;
+  function arcGeom(a) {   // the lane an arc lives in: from its far edge (the ball's height) to the staff's outer line (the bounce)
+    const up = a.hand === 'R', st = V.staves[up ? 0 : V.staves.length - 1]; if (!st) return null;
+    const ss = (st[1] - st[0]) / 4, touch = up ? st[0] - 1.2 * ss : st[1] + 1.2 * ss, far = up ? V.band[0] + 3 : V.band[0] + V.band[1] - 3;
+    return { touch, far };
+  }
+  function arcY(a, s) {   // a ball's height at time s: it falls from rest into the bounce, and leaves it fast, slowing to rest
+    const g = arcGeom(a); if (!g) return null;
+    let h;
+    if (s <= a.bounce) { const d = a.bounce - a.t0; h = d > 0 ? 1 - Math.pow((s - a.t0) / d, 2) : 0; }
+    else { const d = a.t1 - a.bounce, v = d > 0 ? (s - a.bounce) / d : 1; h = 1 - Math.pow(1 - v, 2); }
+    return g.touch + (g.far - g.touch) * Math.max(0, Math.min(1, h));
+  }
+  function drawMarks() {
+    const el = $('marks'); if (!V || !V.staves || !V.staves.length || !S.marksOn) { el.innerHTML = ''; return; }
+    const W = V.w * S.size, H = V.band[1] * S.size, a0 = V.window[0], a1 = V.window[1], out = [];
+    el.setAttribute('width', W); el.setAttribute('height', H);
+    for (const w of M.walls || []) {
+      if (w.t1 < a0 || w.t > a1) continue;
+      const hs = w.hands.includes('R') && w.hands.includes('L') ? [V.staves[0][0], V.staves[V.staves.length - 1][1]] : w.hands === 'R' ? V.staves[0] : V.staves[V.staves.length - 1];
+      const ss = (V.staves[0][1] - V.staves[0][0]) / 4, x = xOf(w.t) - 3, wd = Math.max(8, xOf(w.t1) - xOf(w.t) + 1.3 * ss * S.size + 6);
+      out.push('<rect x="' + x.toFixed(1) + '" y="' + yPx(hs[0] - ss).toFixed(1) + '" width="' + wd.toFixed(1) + '" height="' + ((hs[1] - hs[0] + 2 * ss) * S.size).toFixed(1) + '" rx="2" fill="' + COL.wall + '" fill-opacity="0.16" stroke="' + COL.wall + '" stroke-width="1.5"/>');
+    }
+    for (const a of M.arcs || []) {
+      if (a.t1 < a0 || a.t0 > a1) continue;
+      const pts = [], n = 40; for (let i = 0; i <= n; i++) { const s = a.t0 + (a.t1 - a.t0) * i / n, y = arcY(a, s); if (y == null) break; pts.push(xOf(s).toFixed(1) + ',' + yPx(y).toFixed(1)); }
+      const yb = arcY(a, a.bounce);
+      out.push('<polyline points="' + pts.join(' ') + '" fill="none" stroke="' + COL[a.hand] + '" stroke-width="2" stroke-opacity="0.85"/>');
+      if (yb != null) out.push('<circle cx="' + xOf(a.bounce).toFixed(1) + '" cy="' + yPx(yb).toFixed(1) + '" r="3.5" fill="#fff" stroke="' + COL[a.hand] + '" stroke-width="2"/>');
+    }
+    out.push('<g id="balls"></g>');
+    el.innerHTML = out.join('');
+    balls();
+  }
+  function balls() {
+    const g = document.getElementById('balls'); if (!g || !V) return;
+    const out = [];
+    for (const a of M.arcs || []) { if (t < a.t0 || t > a.t1) continue; const y = arcY(a, t); if (y != null) out.push('<circle cx="' + xOf(t).toFixed(1) + '" cy="' + yPx(y).toFixed(1) + '" r="6" fill="' + COL[a.hand] + '"/>'); }
+    g.innerHTML = out.join('');
+  }
   function place() {
+    balls();
     const put = (el, s) => { const x = xOf(s), on = V && s >= V.window[0] - 1e-6 && s <= V.window[1] + 1e-6; el.style.display = on ? 'block' : 'none'; el.style.left = x + 'px'; };
     put($('cursor'), t); put($('la'), S.a); put($('lb'), S.b);
     const sh = $('shade');
@@ -97,7 +145,7 @@
   function show() {
     $('page').value = S.page; $('t0').value = +S.t0.toFixed(2); $('span').value = S.span; $('spanO').textContent = (+S.span).toFixed(1) + ' s';
     $('size').value = S.size; $('sizeO').textContent = (+S.size).toFixed(2) + '×'; $('rate').value = S.rate; $('rateO').textContent = Math.round(S.rate * 100) + ' %';
-    $('a').value = +S.a.toFixed(2); $('b').value = +S.b.toFixed(2); $('loopOn').checked = !!S.loopOn; $('gap').value = S.gap; $('loops').value = S.loops;
+    $('a').value = +S.a.toFixed(2); $('b').value = +S.b.toFixed(2); $('loopOn').checked = !!S.loopOn; $('marksOn').checked = !!S.marksOn; $('gap').value = S.gap; $('loops').value = S.loops;
   }
   const num = (id, d) => { const v = parseFloat($(id).value); return Number.isFinite(v) ? v : d; };
   $('page').onchange = () => { S.page = $('page').value; save(); load(); };
@@ -110,6 +158,7 @@
   $('gap').onchange = () => { S.gap = Math.max(0, num('gap', 2)); save(); };
   $('loops').onchange = () => { S.loops = Math.max(1, Math.round(num('loops', 1))); save(); };
   $('loopOn').onchange = () => { S.loopOn = $('loopOn').checked; save(); };
+  $('marksOn').onchange = () => { S.marksOn = $('marksOn').checked; save(); drawMarks(); };
   const pan = d => { S.t0 = Math.max(INFO.a0, +(S.t0 + d * S.span / 4).toFixed(2)); show(); save(); load(); };
   $('back').onclick = () => pan(-1); $('fwd').onclick = () => pan(1);
   $('fit').onclick = () => { if (!(S.b > S.a)) return; const len = S.b - S.a; S.t0 = +(S.a - Math.max(0.15, len * 0.04)).toFixed(2); S.span = Math.min(24, Math.max(1, +(len * 1.1 + 0.3).toFixed(1))); show(); save(); load(); };

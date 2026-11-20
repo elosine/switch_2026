@@ -2046,7 +2046,7 @@ function foldVibBows(flagName, gid, part, name, groupOnly) {
         if (cR - cL < 3) { const m = (cL + cR) / 2; cL = m - 1.5; cR = m + 1.5; }
         C.forEach((x, q) => {
           const staff = q < best.k ? 1 : 0; if (staff) nL++; else nR++;
-          const device = Object.assign({ nhHead: 'filled', nhStem: false, dynMark: false, letRing: false, ringBar: false, nhHeadScale: HUR.headSize || 0.5, nhAccScale: HUR.accSize || 0.5 }, unitOf.get(x.id) || { chordRules: false });   // [§255] PRECISE: a note outside a unit is no chord member — its head's left edge on its own onset; a unit's heads share its first onset (one stem)
+          const device = Object.assign({ nhHead: 'filled', nhStem: false, dynMark: false, letRing: false, ringBar: false, nhHeadScale: +arg('handHeadSize', HUR.headSize || 0.5), nhAccScale: +arg('handAccSize', HUR.accSize || 0.5) }   /* [§272] --handHeadSize · --handAccSize: a page's own sizes for the notes not in a unit (the gravity page: heads only) */, unitOf.get(x.id) || { chordRules: false });   // [§255] PRECISE: a note outside a unit is no chord member — its head's left edge on its own onset; a unit's heads share its first onset (one stem)
           const ex = doc.overlays.find(v => v.kind === 'engraving' && v.target && v.target.event === 'ev-' + x.id);
           if (ex) { ex.value.staff = staff; ex.value.device = Object.assign({}, ex.value.device, device); }
           else doc.overlays.push({ id: 'ov-hand-' + x.id, kind: 'engraving', target: { event: 'ev-' + x.id }, value: { staff, device }, provenance: 'authored' });

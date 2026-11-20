@@ -64,6 +64,17 @@
    ],
    "profile": "trance",
    "exp": true
+  },
+  {
+   "id": "s2-piano-solo-heads",
+   "label": "Section 2 - the piano solo, heads only (the gravity sorting)",
+   "score": "piece-FirstDraft-Final-B-noFadeAt96",
+   "window": [
+    146,
+    253
+   ],
+   "profile": "trance",
+   "exp": true
   }
  ]
 }
