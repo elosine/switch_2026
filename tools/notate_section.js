@@ -2016,6 +2016,11 @@ function foldVibBows(flagName, gid, part, name, groupOnly) {
     const hp = arg('pianoHands', null);
     if (hp != null) {
       const part = +hp, SPAN = +arg('handSpan', 12), CH = +arg('handChordS', 0.08);
+      // [§255] the head's size is a row (rules.json objects.handUnit); THE UNITS, taken one by one at his word, are a hand file beside the page:
+      // notation/hand/<id>.units.json — [{ ids: [wc-…], stem: 'up'|'down', flag: 16, arp: true, beam: 'name' }, …]; a unit = one stem
+      const HUR = (JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'rules.json'), 'utf8')).objects || {}).handUnit || {};
+      const UF = path.join(ROOT, 'notation', 'hand', id + '.units.json'), unitOf = new Map();
+      if (fs.existsSync(UF)) for (const u of JSON.parse(fs.readFileSync(UF, 'utf8')).units || []) for (const nid of u.ids || []) unitOf.set(nid, Object.assign({ puId: u.ids[0] }, u.stem ? { puStem: u.stem } : {}, u.flag ? { puFlag: String(u.flag) } : {}, u.arp ? { puArp: true } : {}, u.beam ? { puBeam: u.beam } : {}));
       const N = (score.objects || []).filter(x => x.type === 'waveCurve' && x.layer === part && x.sonifyNote != null && x.startSeconds >= w0 - 1e-9 && x.startSeconds < w1).sort((a, b) => a.startSeconds - b.startSeconds || a.sonifyNote - b.sonifyNote);
       let cL = +arg('handLeftAt', 66), cR = +arg('handRightAt', 80), nL = 0, nR = 0, wide = 0;
       const mean = a => a.reduce((s, x) => s + x, 0) / a.length;
@@ -2038,7 +2043,7 @@ function foldVibBows(flagName, gid, part, name, groupOnly) {
         if (cR - cL < 3) { const m = (cL + cR) / 2; cL = m - 1.5; cR = m + 1.5; }
         C.forEach((x, q) => {
           const staff = q < best.k ? 1 : 0; if (staff) nL++; else nR++;
-          const device = { nhHead: 'filled', nhStem: false, dynMark: false, letRing: false, ringBar: false };
+          const device = Object.assign({ nhHead: 'filled', nhStem: false, dynMark: false, letRing: false, ringBar: false, nhHeadScale: HUR.headSize || 0.5, nhAccScale: HUR.accSize || 0.5 }, unitOf.get(x.id) || { chordRules: false });   // [§255] PRECISE: a note outside a unit is no chord member — its head's left edge on its own onset; a unit's heads share its first onset (one stem)
           const ex = doc.overlays.find(v => v.kind === 'engraving' && v.target && v.target.event === 'ev-' + x.id);
           if (ex) { ex.value.staff = staff; ex.value.device = Object.assign({}, ex.value.device, device); }
           else doc.overlays.push({ id: 'ov-hand-' + x.id, kind: 'engraving', target: { event: 'ev-' + x.id }, value: { staff, device }, provenance: 'authored' });

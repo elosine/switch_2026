@@ -1,0 +1,9 @@
+{
+ "_doc": "THE PIANO SOLO'S UNITS, taken one by one at his word (RUNNING_LOG §255 on). A unit = the notes on ONE stem. stem up|down · flag 16 · arp true = the arpeggio line · beam <name> = beamed (16th) to the other units of that name.",
+ "units": [
+  { "_n": "1 · 148.20 s", "ids": ["wc-1678", "wc-1679", "wc-1681", "wc-1680"], "stem": "down", "flag": 16, "arp": true },
+  { "_n": "2a · 148.61 s (B, upper staff)", "ids": ["wc-1682"], "stem": "up", "beam": "u2" },
+  { "_n": "2b · 148.71 s (the chord, lower staff)", "ids": ["wc-1684", "wc-1683"], "stem": "up", "beam": "u2" },
+  { "_n": "3 · 149.09 s", "ids": ["wc-1687", "wc-1685", "wc-1686", "wc-1688"], "stem": "up", "flag": 16, "arp": true }
+ ]
+}

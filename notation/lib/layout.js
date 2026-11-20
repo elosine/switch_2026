@@ -736,6 +736,7 @@
       const pc = partCfgOf(ENS, part), n = nStavesOf(pc);
       for (let i = 0; i < n; i++) specs.push({ part, staff: i, multi: n > 1, key: n > 1 ? part + ':' + i : part, clef: clefOf(pc, i), staffInfo: staffInfoOf(pc) });
     }
+    const nhAll = new Map();   // [the Switch~ piece §255] event id → its drawn head, with its system — for THE HAND UNIT, built once every staff is laid out
     const systems = specs.map(spec => {
       const part = spec.part;
       const first = spec.staff === 0;
@@ -1809,6 +1810,7 @@
                 // [§494 — the running order's step 1, his "demonstrate the color head"] a bow's head carries its SEAT; render.js fills it in
                 // the seat's hue when rules.json vibMarks.headColour is 'seat' (ink otherwise)
                 nhAt.set(e.id, { t: tU, dx: headDx, y: yDraw, w: nhO.wSs, h: nhO.hSs });   // [§550] for a slur
+                nhAll.set(e.id, { t: tU, dx: headDx, y: yDraw, w: nhO.wSs * headK, k: headK, part: spec.part, staff: spec.staff || 0, key: spec.key });
                 items.push(Object.assign({ k: 'glyph', g: headGlyph, t: tU, dxSs: headDx, ySs: yDraw, align: 'center' }, headK !== 1 ? { scale: headK } : {}, vibBowOf.has(e.id) ? { seat: vibBowOf.get(e.id).voice === 'upper' ? 0 : 1 } : {}));
                 for (const L of ledgers) items.push({ k: 'ledger', t: tU, dxSs: headDx, ySs: L, wSs: nhO.wSs });
                 if (TPG) {   // [2f.4] the neighbour group, drawn with the unit
@@ -2287,8 +2289,8 @@
                 }
                 if (accRel) {
                   // [§550] a grace's accidental at the grace scale, shrunk toward its anchor — the shift keeps its gap to the head
-                  items.push(Object.assign({ k: 'glyph', g: 'accidental-' + accRel.kind, t: tU, dxSs: headDx + accRel.dx + (dev.grace ? (1 - GR.headScale) * (accRel.wRight || 0) : 0), ySs: yDraw, align: accRel.align },
-                    dev.grace ? { scale: GR.headScale } : {}));
+                  items.push(Object.assign({ k: 'glyph', g: 'accidental-' + accRel.kind, t: tU, dxSs: headDx + accRel.dx + (dev.grace ? (1 - GR.headScale) * (accRel.wRight || 0) : dev.nhAccScale > 0 ? (1 - dev.nhAccScale) * (accRel.wRight || 0) : 0), ySs: yDraw, align: accRel.align },
+                    dev.grace ? { scale: GR.headScale } : dev.nhAccScale > 0 ? { scale: dev.nhAccScale } : {}));   // [the Switch~ piece §255] nhAccScale: the accidental at its small head's size, shrunk toward the head
                   leftEdgeDx = Math.min(leftEdgeDx, headDx + accRel.dx - accRel.anchorX);
                   inkTopY = Math.max(inkTopY, yDraw + accRel.accTopExt);
                   inkBotY = Math.min(inkBotY, yDraw - accRel.accBotExt);
@@ -4113,6 +4115,50 @@
       return ENS ? Object.assign({ part, key: spec.key, staff: spec.staff, clef: spec.clef, items },
         spec.staffInfo ? { staffLines: spec.staffInfo.offsets, lineLabels: spec.staffInfo.labels || undefined, noClef: spec.staffInfo.noClef } : {}) : { part, items };
     });
+
+    // [the Switch~ piece RUNNING_LOG §255 — the piano solo, his words 2026-11-20: "we'll just take this unit by unit. The first should be
+    // downstem … the arpeggio line … the second one stems up the three notes … beam those together, 16th note beam … a decent up stem and
+    // then a really long stem from the bottom two notes … the third … single stem up, 16 flag, and the arpeggio line … from the top note …
+    // down to just below the G"] THE HAND UNIT: notes that share device.puId are ONE figure, whatever staff each head is on — ONE stem
+    // (puStem up · down) through all its heads, a flag (puFlag '16') or a beam to the other units of its group (puBeam; a 16th = two beams,
+    // every stem up to one level line), an arpeggio line (puArp) the height of its heads. The heads are the nh-unit's own (the chord rules
+    // place them); this pass adds the rest, in the part's TOP staff — a lower-staff head's height brought there by the distance between
+    // the staves' middle lines, as the cross-staff group does (2i.4). Rows: rules.json objects.handUnit.
+    {
+      const HU = Object.assign({ stemLenSs: 3.5, arpGapSs: 0.225, arpAmpSs: 0.3, arpStrideSs: 1, arpOverSs: 0.75, arpThickSs: 0.16, beamGapSs: 0.25 }, o.handUnit || {});   // RULES MIRROR
+      const c2cU = 4 + ((o.grandStaff && o.grandStaff.interStaffGapSs) || 6), NHf = glyphs.notehead.filled;
+      const attOf = dir => { const a = dir === 'up' ? NHf.anchors.stemAttachUp : NHf.anchors.stemAttachDown; return { dx: a.x - NHf.anchors.center.x, dy: a.y - NHf.anchors.center.y }; };
+      const byU = new Map();
+      for (const e of ir.events || []) { const d = deviceOf(e), h = nhAll.get(e.id); if (!d.puId || !h) continue; const k = h.part + '|' + d.puId; if (!byU.has(k)) byU.set(k, { d, hs: [], part: h.part }); byU.get(k).hs.push(Object.assign({}, h, { yT: h.y - h.staff * c2cU })); }
+      const built = [];
+      for (const U of byU.values()) {
+        const sysT = systems.find(s => s.part === U.part && (s.staff || 0) === 0); if (!sysT) continue;
+        const dir = U.d.puStem === 'down' ? 'down' : 'up', att = attOf(dir), k = U.hs[0].k || 1, t = Math.min(...U.hs.map(h => h.t));
+        const hi = U.hs.reduce((a, b) => (b.yT > a.yT ? b : a)), lo = U.hs.reduce((a, b) => (b.yT < a.yT ? b : a));
+        const col = dir === 'up' ? Math.min(...U.hs.map(h => h.dx)) : Math.max(...U.hs.map(h => h.dx)), stemDx = col + att.dx * k;
+        const yHead = dir === 'up' ? lo.yT - att.dy * k : hi.yT - att.dy * k, yTip = dir === 'up' ? hi.yT + HU.stemLenSs : lo.yT - HU.stemLenSs;
+        built.push({ U, sysT, dir, t, stemDx, yHead, yTip, hi, lo });
+      }
+      // a beam group's stems all reach ONE level line: the highest tip of its units
+      const byB = new Map();
+      for (const b of built) if (b.U.d.puBeam) { const kb = b.U.part + '|' + b.U.d.puBeam; if (!byB.has(kb)) byB.set(kb, []); byB.get(kb).push(b); }
+      for (const g of byB.values()) { const y = Math.max(...g.map(b => b.yTip)); for (const b of g) { b.yTip = y; b.beamed = true; } }
+      for (const b of built) {
+        const it = b.sysT.items;
+        if (b.U.d.puStem) it.push({ k: 'stem', t: b.t, dxSs: b.stemDx, yA: b.yHead, yB: b.yTip, attach: b.dir, unit: b.U.d.puId });
+        if (b.U.d.puStem && b.U.d.puFlag && !b.beamed) it.push({ k: 'glyph', g: 'flag-' + b.dir + b.U.d.puFlag, t: b.t, dxSs: b.stemDx, ySs: b.yTip, align: 'stemTip', unit: b.U.d.puId });
+        if (b.U.d.puArp) {
+          const right = Math.max(...b.U.hs.map(h => h.dx + h.w / 2)) + HU.arpGapSs + HU.arpAmpSs, y0 = b.hi.yT + HU.arpOverSs, y1 = b.lo.yT - HU.arpOverSs;
+          it.push({ k: 'squiggle', t: b.t, dx0Ss: right, y0Ss: y0, dx1Ss: right, y1Ss: y1, ampSs: HU.arpAmpSs, waves: Math.max(1, Math.round((y0 - y1) / HU.arpStrideSs)), thickSs: HU.arpThickSs, unit: b.U.d.puId });
+        }
+      }
+      for (const g of byB.values()) {
+        if (g.length < 2) continue;
+        const tips = g.slice().sort((a, b2) => a.t - b2.t).map(b => ({ t: b.t, dxSs: b.stemDx, ySs: b.yTip })), bt = (glyphs.standards.beam && glyphs.standards.beam.thickness) || 0.5;
+        const n = g[0].U.d.puBeamN || 2;   // a 16th: two beams
+        for (let i = 0; i < n; i++) g[0].sysT.items.push({ k: 'beam', dir: 'up', tips: tips.map(p => ({ t: p.t, dxSs: p.dxSs, ySs: p.ySs - i * (bt + HU.beamGapSs) })), group: 'pu-' + g[0].U.d.puBeam });
+      }
+    }
 
     // [§495] THE PAIR BEAMS, once both staves are laid out: one 8th beam per
     // pair, level at the pair's beam line, in the part's TOP staff
