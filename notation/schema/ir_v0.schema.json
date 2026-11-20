@@ -562,6 +562,7 @@
       "elecReturn",
       "elecWindow",
       "stateWedge",
+      "sineLine",
       "finalBar"
      ]
     },

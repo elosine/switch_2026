@@ -1098,6 +1098,34 @@
    "provenance": "authored"
   },
   {
+   "id": "ov-gesture-badge-wc-94",
+   "kind": "badge",
+   "target": {
+    "part": 2,
+    "t": 16
+   },
+   "value": {
+    "type": "beats",
+    "place": "before",
+    "scale": 0.6,
+    "gap": "nhGap"
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-gesture-sine-wc-94",
+   "kind": "sineLine",
+   "target": {
+    "part": 2,
+    "span": [
+     16,
+     34.5
+    ]
+   },
+   "value": {},
+   "provenance": "authored"
+  },
+  {
    "id": "ov-gesture-dev-wc-94",
    "kind": "engraving",
    "target": {
@@ -1375,6 +1403,34 @@
      "wc-99"
     ]
    },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-gesture-badge-wc-97",
+   "kind": "badge",
+   "target": {
+    "part": 2,
+    "t": 35.5
+   },
+   "value": {
+    "type": "beats",
+    "place": "before",
+    "scale": 0.6,
+    "gap": "nhGap"
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-gesture-sine-wc-97",
+   "kind": "sineLine",
+   "target": {
+    "part": 2,
+    "span": [
+     35.5,
+     52.6
+    ]
+   },
+   "value": {},
    "provenance": "authored"
   },
   {

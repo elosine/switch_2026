@@ -805,6 +805,7 @@
    "badge": { "sizeSs": "@objects.badge.sizeSs", "gapSs": "@objects.badge.gapSs" },
    "language": { "format": "@language.format", "types": "@language.types" },
    "finalBar": { "colour": "@objects.finalBar.colour", "thinSs": "@objects.finalBar.thinSs", "gapSs": "@objects.finalBar.gapSs", "thickSs": "@objects.finalBar.thickSs" },
+   "sineLine": { "colour": "@objects.sineLine.colour", "opacity": "@objects.sineLine.opacity", "hSs": "@objects.sineLine.hSs", "badgeScale": "@objects.sineLine.badgeScale" },
    "sineBox": { "colour": "@objects.sineBox.colour", "fillOpacity": "@objects.sineBox.fillOpacity", "strokeOpacity": "@objects.sineBox.strokeOpacity", "strokeSs": "@objects.sineBox.strokeSs", "cornerSs": "@objects.sineBox.cornerSs", "padSs": "@objects.sineBox.padSs" },
    "elecReturn": { "colour": "@objects.elecReturn.colour", "fillOpacity": "@objects.elecReturn.fillOpacity", "strokeOpacity": "@objects.elecReturn.strokeOpacity", "strokeSs": "@objects.elecReturn.strokeSs", "cornerSs": "@objects.elecReturn.cornerSs", "place": "@objects.elecReturn.place", "align": "@objects.elecReturn.align", "gapSs": "@objects.elecReturn.gapSs", "perSoundFrac": "@objects.elecReturn.perSoundFrac", "capSounds": "@objects.elecReturn.capSounds", "minSs": "@objects.elecReturn.minSs" },
    "elecBadge": { "sizeSs": "@objects.elecBadge.sizeSs", "gapSs": "@objects.elecBadge.gapSs" },

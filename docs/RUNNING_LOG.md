@@ -4362,3 +4362,11 @@ The working page `s1-sax-first-note` now runs 12 … 31.3 s.
 **The remedy for the missing background (his question):** before a section's first page, the AI reads `docs/NOTATION_STANDARDS.md` for that KIND of material and states in one line which standing rule it will follow, then builds. Written into `docs/NOTATION_SCHEME.md` §0.
 
 **Next, his:** the sine tone on each part's lane (his words: "It's not part of the electronics below … each part will have its own sine tone. And for the percussion, the sine tone glisses rather than the percussion instrument"). Piece 6's purple box (`NOTATION_STANDARDS.md` §7, `--sines`) is the machinery in hand.
+
+## §249 · 2026-11-19 · the beating gliss: the small badge, and the sine tone as a purple line on its player's lane
+
+**His words:** "let's do a badge at the top of the lane to the left of the go line with the same space there you use, just a standard space, horizontal gap. And let's make it quite small … about 60% of what the one in approaching was. And then we'll just designate the sine tone with … that purple color, same transparency, everything as approaching, no outline, and the same height as the duration lines we use … let's just have that run at the top of the lane, like from the middle of the badge about, so it's a little below the top. And let's have it be the same coordinates as the curve … Its X1 and X2 should be the same as the curve." The sine's earlier start in the composer score (its fade in) is his to work out with the electronics.
+
+**Built, from what stands:** the badge is piece 6's audible-beats badge (`language.types.beats`), in the lane's top row, at 0.6 of `objects.badge.sizeSs`, its right edge the header's own space (`nhGapSs`) before the gesture's first go line. The sine tone is a new long kind `sineline`: a plain bar in the sine box's purple at its fill opacity (0.18), no outline, the duration line's height (`objects.ringBar.hSs` 0.667), its center the badge's center, its ends the gesture curve's ends. One row `objects.sineLine` in `rules.json`; `container.json` · `page_rules.json` (cut like paper) · the IR schema's overlay kind `sineLine`. `--glissGestures` writes both per gesture.
+
+**Seen once on the throwaway:** the badge left of the first go line at the lane's top; the purple line from the go line onward through the badge's middle.

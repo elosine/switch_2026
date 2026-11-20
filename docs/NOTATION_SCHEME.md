@@ -17,7 +17,7 @@
 
 ## 1 · Section 1 — the sine tones and the long notes that beat against them
 
-### DEVICE SHEET 1 — THE BEATING GLISS *(his words 2026-11-19; BUILT as one gesture, §245 … §248 — `--glissGestures`; the badge and the sine tone still open)*
+### DEVICE SHEET 1 — THE BEATING GLISS *(his words 2026-11-19; BUILT as one gesture, §245 … §248 — `--glissGestures`; the badge at 60 % and the sine tone as a purple line at the lane's top, §249)*
 
 **The case:** the alto sax's first note — F4 (written D5), 16.0 → 34.5 s in three breaths, gliding up 44 cents against a sine tone on F4.
 

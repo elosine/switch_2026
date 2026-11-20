@@ -1058,6 +1058,15 @@
           const xF = view.xOfSeconds(it.t), thinF = FB.thinSs * ssPx, gapF = FB.gapSs * ssPx, thickF = FB.thickSs * ssPx;
           parts.push('<rect class="final-bar" x="' + xF.toFixed(2) + '" y="' + yF1.toFixed(2) + '" width="' + thinF.toFixed(2) + '" height="' + (yF2 - yF1).toFixed(2) + '" fill="' + FB.colour + '"/>' +
             '<rect class="final-bar" x="' + (xF + thinF + gapF).toFixed(2) + '" y="' + yF1.toFixed(2) + '" width="' + thickF.toFixed(2) + '" height="' + (yF2 - yF1).toFixed(2) + '" fill="' + FB.colour + '"/>');
+        } else if (it.k === 'sineline') {
+          // [the Switch~ piece RUNNING_LOG §249; rules.json objects.sineLine → engraving.render.sineLine] THE SINE TONE'S LINE on its player's lane:
+          // a plain bar, the sine box's purple at its fill's opacity, no outline, the duration line's height; at the lane's top, its centre the
+          // centre of the small badge that stands before the go line; its two ends the pitch curve's own. Cut like paper at a page turn.
+          const SL = E.sineLine;
+          if (!SL || !E.badge || !E.micOpening || !crosses(it.t0, it.t1)) continue;
+          const bsL = E.badge.sizeSs * ssPx * (SL.badgeScale || 1), hL = SL.hSs * ssPx, yL = micRow(E.micOpening).yOf(bsL) + bsL / 2 - hL / 2;
+          const xL0 = view.xOfSeconds(Math.max(it.t0, w0)) + (it.t0 >= w0 ? shiftOf(it.t0) : 0), xL1 = view.xOfSeconds(Math.min(it.t1, wInk));
+          parts.push('<rect class="sine-line" x="' + xL0.toFixed(2) + '" y="' + yL.toFixed(2) + '" width="' + Math.max(1, xL1 - xL0).toFixed(2) + '" height="' + hL.toFixed(2) + '" fill="' + SL.colour + '" fill-opacity="' + SL.opacity + '"/>');
         } else if (it.k === 'sinebox') {
           // [decibel PLAN 2.12 — RUNNING_LOG §404; DEC-173; rules.json objects.sineBox → engraving.render.sineBox] THE SINE'S BOX: how a sine tone
           // of the electronics is written — the open head of its pitch on its time, and round the head a box in the electronics' purple (the
@@ -1144,7 +1153,7 @@
           // falls, on every page it crosses, inside the page's clip — and never pushed right onto its own mic opening
           const cutB = !!(SCR && it.edge === 'cut');
           if (!BG || !ty || !LG || (!cutB && !owns(it.t)) || (elec ? !ER : !MO) || (stt && !sttCol)) continue;
-          const bs = BG.sizeSs * ssPx * (meth && E.methodBadge ? E.methodBadge.scale : 1), row = elec ? elecRow(ER) : micRow(MO), u = LG.format.viewUnits;
+          const bs = BG.sizeSs * ssPx * (meth && E.methodBadge ? E.methodBadge.scale : 1) * (it.scale || 1), row = elec ? elecRow(ER) : micRow(MO), u = LG.format.viewUnits;
           // [decibel §394] dxSs: a badge 'at' its time that stands a small gap RIGHT of it (a trill's badge beside its go line — the layout's techBadge)
           // [decibel §395, DEC-163 — his "the gap between the go line and the left edge of the trill badge should be the same as the gap between
           // the top of the trill badge and … the lane divider"] dx 'topGap': the badge stands as far RIGHT of its time's line as its top stands
@@ -1152,7 +1161,7 @@
           const dxPx = it.dx === 'topGap' ? MO.gapSs * ssPx + laneHalfGapPx : (it.dxSs ? it.dxSs * ssPx : 0);
           // [§397, DEC-165] place 'after': the badge's LEFT edge the badge's gap after x(t) — a badge hand-placed to the right of its mic opening
           // (t = the opening's END), where 'before' would have put it on something else
-          const offPx = it.place === 'at' ? 0 : it.place === 'after' ? BG.gapSs * ssPx : -(BG.gapSs * ssPx + bs);
+          const offPx = it.place === 'at' ? 0 : it.place === 'after' ? BG.gapSs * ssPx : -((it.gapSs != null ? it.gapSs : BG.gapSs) * ssPx + bs);   // [§249] gapSs: the item's own gap before its line
           let bx = view.xOfSeconds(it.t) + dxPx + offPx - (it.slot ? it.slot * (BG.gapSs + BG.sizeSs) * ssPx : 0);
           // [§411, DEC-181 — his "move the badge to the right side of the mic opening … anywhere where the badge is overlaying the mic opening in
           // the left … keep the mic openings unoccluded. That's the window to play in"] avoid 'mic': a badge before its opening that would lie
@@ -1393,7 +1402,7 @@
   // keeping a second list that could quietly disagree with the loop above.
   const POINT_KINDS = ['glyph', 'rest', 'stem', 'dot', 'ledger', 'beam', 'text', 'attackline', 'tick',
     'barline', 'tempotext', 'glissline', 'niente', 'dynarrow', 'hairpin', 'ottava', 'lvslur', 'goline', 'gc', 'slash', 'squiggle', 'badge', 'finalbar'];   // [§550] the grace's stroke · [§557] the uneven group's
-  const LONG_KINDS = ['envcurve', 'cresccurve', 'glisscurve', 'ringbar', 'brick', 'hairpin-timed', 'slur', 'mic', 'elecret', 'elecwin', 'wedge', 'sinebox'];   // [§335] the electronics' return brick spans its region · [§336] the window spans the lane's stretch   // [2g.4] the timed hairpin spans time · [§555] the slur spans its notes
+  const LONG_KINDS = ['envcurve', 'cresccurve', 'glisscurve', 'ringbar', 'brick', 'hairpin-timed', 'slur', 'mic', 'elecret', 'elecwin', 'wedge', 'sinebox', 'sineline'];   // [§335] the electronics' return brick spans its region · [§336] the window spans the lane's stretch   // [2g.4] the timed hairpin spans time · [§555] the slur spans its notes
   const FURNITURE_KINDS = ['staff', 'clef'];
   // 'tuplet' is neither: it has no window gate at all, because a tuplet bracket
   // belongs to a beam group and the splicer is stamp-atomic — no cut severs a

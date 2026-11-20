@@ -1966,6 +1966,9 @@ function foldVibBows(flagName, gid, part, name, groupOnly) {
       const N = Math.max(64, Math.round((T1 - T0) * 12)), samples = [];
       for (let i = 0; i < N; i++) samples.push(+((centsAt(T0 + (T1 - T0) * i / (N - 1)) - lo) / ((hi - lo) || 1)).toFixed(4));
       doc.overlays.push({ id: 'ov-gesture-' + G[0].id, kind: 'gliss', target: { part: o.layer, span: [+T0.toFixed(4), +T1.toFixed(4)] }, value: { samples, band: 'lane', scale: 'travel', travelC: +(hi - lo).toFixed(1), gesture: G.map(x => x.id) }, provenance: 'authored' });
+      // [§249] the audible-beats badge (60 %, the lane's top, the header's space before the go line) and the sine tone's line (the curve's two ends)
+      doc.overlays.push({ id: 'ov-gesture-badge-' + G[0].id, kind: 'badge', target: { part: o.layer, t: +T0.toFixed(4) }, value: { type: 'beats', place: 'before', scale: 0.6, gap: 'nhGap' }, provenance: 'authored' });
+      doc.overlays.push({ id: 'ov-gesture-sine-' + G[0].id, kind: 'sineLine', target: { part: o.layer, span: [+T0.toFixed(4), +T1.toFixed(4)] }, value: {}, provenance: 'authored' });
       G.forEach((x, i) => setDev(x.id, i === 0 ? { goLine: true, headBefore: true, glissUp: 1, dynFigure: 'fff', nhUnit: false, dynMark: false, brick: false } : { goLine: true, nhUnit: false, dynMark: false, brick: false }));
       console.log('  --glissGestures ' + G[0].id + ': ' + T0.toFixed(2) + ' … ' + T1.toFixed(2) + ' s · one header, ' + (G.length - 1) + ' re-breath' + (G.length === 2 ? '' : 's') + ' (' + G.slice(1).map(x => x.startSeconds.toFixed(2)).join(' · ') + ') · one curve over ' + (hi - lo).toFixed(1) + ' cents');
     }
