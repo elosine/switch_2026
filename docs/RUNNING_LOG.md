@@ -4698,3 +4698,16 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 - The GC arc and its ring moved from the page's overlay into the same server drawing; the page's overlay draws only the ball.
 
 **Checked once on the throwaway:** the page shows the two boxed chords, the arc, the strip with its curve and 14 dots, no error; the flag "a fourth column at 159.159 s" returned.
+
+## §277 · 2026-11-20 · the shapes as CLUSTER BARS — piece 2's bar, with the top and bottom heads
+
+**His words:** "lets write clusters as a bar with noteheads on top and bottom the actual top note and bottom note of the cluster, including accidentals, I believe we made this shape at some point or maybe I did in my legacy lilypond work".
+
+**Lineage first — found:** piece 2 has it. `composition_for_two_pianos_and_two_percussion/docs/NOTATION_SYSTEM_PLAN.md` §17e.1, the plucked-piano cluster (the palm slap, locked its session 78): `makeClusterBarGlyph` in its `engine/glyphs/library.js` — a FILLED RECTANGLE one head wide (1.04 ss) over the cluster's whole written span, NO noteheads, no stem; its left edge on the go line. His legacy LilyPond work was not searched (not on this machine's repos by that name).
+
+**What is new against piece 2's rule, and so the AI's, flagged to him:** with the two heads shown, a bar one head wide would swallow them; the bar is drawn HALF a head wide (`shapeRule.clusterBarW` 0.5) and runs from the bottom head's center to the top head's center. And WHEN a shape is a cluster: four pitches or more with no gap wider than a whole tone (`clusterMinNotes` 4 · `clusterMaxGap` 2); anything else stays a chord of all its notes.
+**The accidentals:** each of the two heads carries its own (a sharp or a flat); the natural-beside-a-neighbor rule does not apply, the neighbors are not written.
+
+**The prototype now:** shape 1 = B3 and G4 with the bar (it stands for B3 · C4 · D4 · D#4 · E4 · F4 · G4); shape 2 = C4 and E4 with the bar (C4 · C#4 · D4 · D#4 · E4). Neither end note has an accidental here. The fourth-column question of §276 is gone with it (flags: none).
+**Checked once:** the page rendered to an image from the throwaway's own answer — both bars in their boxes, heads at both ends, the ledger line under the lower ones.
+**What the bar does NOT say:** which notes inside are played. Shape 1 has no C#4 and no F#4; the bar reads as "everything from B3 to G4".
