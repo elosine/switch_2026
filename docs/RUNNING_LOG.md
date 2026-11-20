@@ -4669,3 +4669,7 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 **Checked once on the throwaway:** the page drew the left hand's notes of 156.1 → 161.2 on one staff, 53 heads lightened, the one arc with its ring, the ball at the arc's start; all inside the window, no scrolling.
 
 **Open, his (the method's steps 3 and 5):** which notes stand on which side — the first reading puts the impact on the heaviest event; and how the arc's shape is decided — today it is the GC's fixed curve stretched in time.
+
+## §274 · 2026-11-20 · the prototype in the film — the arc, the ball and the lighter heads
+
+**His words:** "can i still see a video, of that passage 7 times at 50%". The workshop's film drew the page without its overlay, so the prototype's arc was not in it. Now: on the prototype page the lighter heads are in the picture itself (every glyph stamp right of the music's start takes the opacity, server side — the page and the film agree), the arc and its ring are drawn into the film's picture by `gc.js`'s own `heightFrac`, and the ball is drawn on each frame beside the cursor. Made and sent: 156.1 → 161.2 s (the whole prototype window, lead-in and lead-out included), 7 times at 50 %, 2 s gap, 85 s. One frame looked at: the ball on the arc at the cursor, the ring under the staff, the heads gray.

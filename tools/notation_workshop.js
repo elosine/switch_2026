@@ -84,7 +84,14 @@ function viewOf(page, t0, span, w) {
     ys.sort((a, b) => a - b);
     for (let i = 0; i + 4 < ys.length; i += 5) staves.push([ys[i], ys[i + 4]]); }
   const x0 = view.xOfSeconds(t0);
-  return { svg, staves, x0, pps: (view.xOfSeconds(t0 + span) - x0) / span, band: e.band, proto: e.proto || undefined, w, window: [t0, t0 + span], srcWindow: e.ir.source.window };
+  // [§274] the prototype's lighter heads, in the picture itself (so the film has them too): every glyph stamp right of the music's start
+  let protoOut;
+  if (e.proto) {
+    const op = e.proto.headOpacity;
+    if (op > 0 && op < 1) svg = svg.replace(/<g transform="translate\(([\d.]+) /g, (m, x) => +x > x0 - 4 ? '<g opacity="' + op + '" transform="translate(' + x + ' ' : m);
+    protoOut = Object.assign({}, e.proto, { headOpacity: 1 });
+  }
+  return { svg, staves, x0, pps: (view.xOfSeconds(t0 + span) - x0) / span, band: e.band, proto: protoOut, w, window: [t0, t0 + span], srcWindow: e.ir.source.window };
 }
 
 // ---------------------------------------------------------------- the sound: one cut, made once
@@ -119,7 +126,19 @@ async function makeClip(q) {
   const loops = Math.max(1, Math.round(+q.loops || 1)), gap = Math.max(0, +q.gap || 0), fps = 30;
   const v = viewOf(page, t0, span, w);
   const outW = Math.floor(Math.min(1600, Math.max(640, w * (+q.k || 1))) / 2) * 2;
-  const svg = v.svg.replace('<svg', '<svg width="' + w + '" height="' + v.band[1] + '"');
+  let svg = v.svg.replace('<svg', '<svg width="' + w + '" height="' + v.band[1] + '"');
+  // [§274] THE PROTOTYPE'S ARC IN THE FILM: the GC's own curve (notation/lib/gc.js) from the arc's first note through the impact to its last,
+  // the ring at the impact — drawn into the picture; the ball is drawn on each frame
+  let ballY = null;
+  if (v.proto) {
+    const Gc = require(path.join(ROOT, 'notation', 'lib', 'gc.js')), A = v.proto.arc, L = v.proto.look;
+    const GP = Gc.params(Object.assign({}, v.proto.preset, { duration: A.t1 - A.t0, descentRatio: 100 * (A.bounce - A.t0) / (A.t1 - A.t0) }));
+    const imp = v.band[0] + v.band[1] - 8, apex = v.band[0] + 8, xs = s => v.x0 + (s - t0) * v.pps;
+    const yOf = s => { const f = Gc.heightFrac(GP, s - A.bounce); return f == null ? null : imp - f * (imp - apex); };
+    const pts = []; for (let i = 0; i <= 200; i++) { const s = A.t0 + (A.t1 - A.t0) * i / 200; pts.push(xs(s).toFixed(2) + ',' + yOf(s).toFixed(2)); }
+    svg = svg.replace(/<\/svg>\s*$/, '<polyline points="' + pts.join(' ') + '" fill="none" stroke="' + L.color + '" stroke-width="' + L.arcStrokePx + '"/><circle cx="' + xs(A.bounce).toFixed(2) + '" cy="' + imp.toFixed(2) + '" r="' + L.impactRadiusPx + '" fill="none" stroke="' + L.color + '" stroke-width="' + L.arcStrokePx + '"/></svg>');
+    ballY = s => (s < A.t0 || s > A.t1) ? null : (yOf(s) - v.band[0]);
+  }
   const img = new Resvg(svg, { fitTo: { mode: 'width', value: outW }, background: 'white', font: { loadSystemFonts: false, fontFiles: FONT_FILES, defaultFontFamily: 'Crimson Pro Light' } }).render();
   const W = img.width, H2 = Math.floor(img.height / 2) * 2, base = Buffer.from(img.pixels), sc = W / w;
   const dur = (b - a) / rate, n = Math.max(1, Math.round(dur * fps));
@@ -141,6 +160,9 @@ async function makeClip(q) {
       while (i < n) {
         const t = a + (i / fps) * rate, x = Math.round((v.x0 + (t - t0) * v.pps) * sc), fr = Buffer.from(base.subarray(0, W * H2 * 4));
         for (let dx = -1; dx <= 1; dx++) { const xx = x + dx; if (xx < 0 || xx >= W) continue; for (let y = 0; y < H2; y++) { const o = (y * W + xx) * 4; fr[o] = 255; fr[o + 1] = 21; fr[o + 2] = 160; fr[o + 3] = 255; } }
+        if (ballY) { const by = ballY(t); if (by != null) { const cx = (v.x0 + (t - t0) * v.pps) * sc, cy = by * sc, r = v.proto.look.ballRadiusPx * sc, r2 = r * r;
+          for (let yy = Math.max(0, Math.floor(cy - r)); yy <= Math.min(H2 - 1, Math.ceil(cy + r)); yy++) for (let xx = Math.max(0, Math.floor(cx - r)); xx <= Math.min(W - 1, Math.ceil(cx + r)); xx++)
+            if ((xx - cx) * (xx - cx) + (yy - cy) * (yy - cy) <= r2) { const o = (yy * W + xx) * 4; fr[o] = 255; fr[o + 1] = 21; fr[o + 2] = 160; fr[o + 3] = 255; } } }
         i++;
         if (!p.stdin.write(fr)) { p.stdin.once('drain', next); return; }
       }
