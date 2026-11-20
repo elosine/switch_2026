@@ -4575,3 +4575,13 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 **Measured on the page (the throwaway 5601, one look):** the three stems at x 1610.6 · 1628.6 · 1646.7 — 18.0 and 18.1 px, 2.28 ss each; the first on the dyad's played place; the beams' top face at y 548.6, one height for the three.
 
 **Both pages rebuilt:** `s2-piano-solo` (spread) and `s2-piano-solo-played` (the figure at its played times, as §264).
+
+## §266 · 2026-11-20 · films for his phone — the whole piano solo, then clips by time (`tools/piano_clip.js`)
+
+**His words:** "can you make me a video, small is fine, of the piano solo and the time-accurate notation with the scroll … I don't know if you can zoom in on the piano staff, I'll be looking at it on my phone" · then "I want cropped versions of the zoomed score from a certain time to a certain time ~147.9 ~ 152 cropped like the image to the piano part".
+
+**The first film:** `tools/export_video.js --ir s2-piano-solo-played --view video --t0 146 --t1 253` with the players' render `notation/audio/piece-Section03-H-addTuplets.wav` (its piano solo checked note for note against the first draft's: 1058 of 1058 the same), then an ffmpeg crop of 480 × 270 that follows the cursor, doubled to 960 × 540. Sent in the chat. Soft, because it is an enlargement.
+
+**The clips, the way from here on:** `node tools/piano_clip.js --t0 S --t1 S [--played]` — the export's ZOOM view (6 s of music across the frame, drawn at that size, so sharp), cropped to the piano's two staves (the band 1085 … 1505 of the 2160 frame), 1280 wide, with sound, half a second of lead and one of tail. Into `notation/video/clips/` (gitignored). He names two times; the AI runs it and sends the file. Screen recording (Game Bar is installed; nothing else) is not needed for this.
+
+**Made:** 147.9 → 152 s, the spaced page and the time-accurate copy.
