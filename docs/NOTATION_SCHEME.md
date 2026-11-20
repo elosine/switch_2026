@@ -126,7 +126,9 @@ Built by `node tools/notate_section.js … --glissGestures all`. The crotales' d
 - Room on one side only, or on neither: NO RULE YET — put it to him when a figure meets it.
 - Figure 6 is the first case: room both sides; the high C (on ledger lines) between the two chords. Its hand `at` goes when the rule is built.
 
-## 3 · ACTION NOTATION (his name, SW-84, 2026-11-20) — a PROTOTYPE, not yet a sign of the score
+## 3 · SHAPE ACTION NOTATION (his name, SW-84, 2026-11-20) — a PROTOTYPE, not yet a sign of the score
+
+**The name is three words — Shape Action Notation** (his correction, §285; the AI first took it as "action notation").
 
 **What it is for:** the flows of the piano solo — one hand's wave of notes played into a point of gravity and out of it. The fixed structures (his jabs and strikes) stay in STANDARD notation, the figures of § 2; the two kinds alternate. A third kind, a STUTTER notation (a quick repetitive shake), is HELD (SW-84).
 

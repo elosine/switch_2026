@@ -4772,3 +4772,7 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 ## §284 · 2026-11-20 · the name: ACTION NOTATION; the stutter notation held
 
 **His words:** SW-84 (the sketch pad): "Let's call this shape action notation. We have the standard notation for these fixed structures, and that can be interspersed with this type of notation … one other, which is kind of like a stutter notation, or kind of quick repetitive shake. But just hold that. Let's finish this one up". Written down as it stands in `docs/NOTATION_SCHEME.md` § 3 — each part with whose decision it is, and what is still open. Nothing built.
+
+## §285 · 2026-11-20 · the name corrected: SHAPE ACTION NOTATION
+
+**His word:** "Shape Action Notation". §284 took "Let's call this shape action notation" as naming it "action notation"; the name is all three words. `docs/NOTATION_SCHEME.md` § 3's heading and the sketch pad carry the correction; §284 stands as written (append-only).
