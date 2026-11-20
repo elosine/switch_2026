@@ -4780,3 +4780,7 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 ## §286 · 2026-11-20 · a fourth kind named: the pointillistic, CONSTELLATION NOTATION, over a zone
 
 **His words:** SW-85 (the sketch pad): "a fourth, which is more of a pointillistic. Maybe this is where we use the constellation notation … a sort of pointillistic density rather than providing precise rhythmic locations. Over a zone." The four kinds, as the AI reads them: standard notation (the fixed structures) · Shape Action Notation (a hand's flow into a gravity) · a stutter notation (held) · constellation notation (density over a zone, named for later). The star chart of §276 — dots joined by thin lines, taken out of the arc at §279 — is the nearest thing already drawn. Nothing built.
+
+## §287 · 2026-11-20 · constellation notation, a second thought — the points are notes on the staff, joined by lines or spokes
+
+**His words:** SW-85's second word (the sketch pad): each unit of the constellation "instead of a dot being the actual note on a staff or a few notes on the staff connected like with a constellation type of thing or spokes". The AI's reading there: exact pitches on the staff, thin joining lines for belonging, no rhythm in the horizontal; two forms, a web and a hub with spokes. Noted; nothing built.
