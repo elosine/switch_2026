@@ -28,7 +28,7 @@ const SRC_AUDIO = path.join(ROOT, arg('audio', 'notation/audio/piece-Section03-H
 const A0 = +arg('a0', 146), A1 = +arg('a1', 258);               // the cut's span in score time
 const CUT = path.join(ROOT, 'notation', 'audio', 'cuts', 'workshop-piano-' + A0 + '-' + A1 + '.wav');
 const CLIPS = path.join(ROOT, 'notation', 'video', 'clips');
-const BAND = arg('band', '546,226').split(',').map(Number);     // the piano's band in the 1080 frame: top, height (stems and beams inside)
+const BAND = arg('band', '546,204').split(',').map(Number);     // the piano's band in the 1080 frame: top, height (stems and beams inside)
 const send = (res, code, body, type) => { res.writeHead(code, { 'Content-Type': type || 'application/json; charset=utf-8', 'Cache-Control': 'no-store' }); res.end(body); };
 const rd = p => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
 

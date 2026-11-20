@@ -7,93 +7,62 @@
 <style>
   :root { --ink: #1b1b1b; --muted: #6b6b6b; --line: #d9d9d9; --panel: #f5f4f1; --accent: #c2127a; --loop: #1f6fb5; }
   * { box-sizing: border-box; }
-  body { margin: 0; background: #fff; color: var(--ink); font: 15px/1.4 system-ui, "Segoe UI", sans-serif; }
-  header { padding: 10px 16px; border-bottom: 1px solid var(--line); display: flex; gap: 16px; align-items: baseline; flex-wrap: wrap; }
-  header h1 { font-size: 17px; margin: 0; font-weight: 600; }
-  header .now { color: var(--muted); font-variant-numeric: tabular-nums; }
-  #stage { position: relative; margin: 14px 16px 6px; border: 1px solid var(--line); overflow: hidden; cursor: crosshair; background: #fff; min-height: 120px; }
+  body { margin: 0; background: #fff; color: var(--ink); font: 12.5px/1.25 system-ui, "Segoe UI", sans-serif; }
+  .bar { display: flex; align-items: center; gap: 6px 14px; flex-wrap: wrap; padding: 5px 10px; background: var(--panel); border-bottom: 1px solid var(--line); }
+  .bar.two { background: #fff; padding: 4px 10px; }
+  .g { display: flex; align-items: center; gap: 5px; white-space: nowrap; }
+  .g label, .dim { color: var(--muted); }
+  input[type=range] { width: 110px; margin: 0; }
+  input[type=number] { width: 68px; padding: 2px 4px; font: inherit; font-variant-numeric: tabular-nums; }
+  input.s { width: 46px; }
+  select, button { font: inherit; padding: 2px 8px; }
+  button { border: 1px solid #b9b9b9; border-radius: 4px; background: #fff; cursor: pointer; }
+  button.main { background: var(--ink); color: #fff; border-color: var(--ink); }
+  output, b.n { font-variant-numeric: tabular-nums; display: inline-block; min-width: 40px; }
+  #msg { color: var(--muted); margin-left: auto; }
+  #msg a { color: var(--loop); }
+  #stage { position: relative; margin: 6px 10px 0; border: 1px solid var(--line); overflow: hidden; cursor: crosshair; background: #fff; min-height: 80px; user-select: none; }
   #stage svg { display: block; }
   #cursor, #la, #lb, #hover { position: absolute; top: 0; bottom: 0; width: 0; pointer-events: none; }
   #cursor { border-left: 3px solid var(--accent); }
   #la, #lb { border-left: 2px dashed var(--loop); }
   #shade { position: absolute; top: 0; bottom: 0; background: rgba(31, 111, 181, .07); pointer-events: none; }
   #hover { border-left: 1px solid #999; display: none; }
-  .tag { position: absolute; top: 2px; font-size: 11px; color: var(--loop); padding-left: 3px; white-space: nowrap; }
-  .panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; padding: 8px 16px 20px; }
-  fieldset { border: 1px solid var(--line); border-radius: 6px; background: var(--panel); margin: 0; padding: 10px 12px 12px; }
-  legend { font-weight: 600; padding: 0 6px; }
-  .row { display: flex; align-items: center; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
-  .row label { min-width: 104px; color: var(--muted); }
-  input[type=range] { flex: 1; min-width: 120px; }
-  input[type=number] { width: 86px; padding: 4px 6px; font: inherit; font-variant-numeric: tabular-nums; }
-  select, button { font: inherit; padding: 5px 10px; }
-  button { border: 1px solid #b9b9b9; border-radius: 5px; background: #fff; cursor: pointer; }
-  button.main { background: var(--ink); color: #fff; border-color: var(--ink); }
-  output { font-variant-numeric: tabular-nums; min-width: 56px; }
-  .hint { color: var(--muted); font-size: 13px; margin-top: 8px; }
-  #msg { padding: 0 16px 6px; color: var(--muted); min-height: 22px; }
-  #msg a { color: var(--loop); }
 </style>
 </head>
 <body>
-<header>
-  <h1>Notation workshop — the piano solo</h1>
-  <span class="now">cursor <b id="tNow">–</b> s</span>
-  <span class="now">mouse <b id="tHover">–</b> s</span>
-</header>
+<div class="bar">
+  <div class="g"><button id="play" class="main" title="SPACE">▶ Play</button><button id="stop" title="Back to the start">■</button></div>
+  <div class="g"><label for="rate">Speed</label><input id="rate" type="range" min="0.2" max="1.5" step="0.05"><output id="rateO"></output></div>
+  <div class="g"><label for="span" title="How many seconds stand across the page. Fewer seconds = more room between the notes.">Stretch</label><input id="span" type="range" min="1" max="24" step="0.1"><output id="spanO"></output></div>
+  <div class="g"><label for="size">Size</label><input id="size" type="range" min="0.8" max="4" step="0.05"><output id="sizeO"></output></div>
+  <div class="g"><label for="loopOn">Loop</label><input id="loopOn" type="checkbox"><button id="fit" title="Show just the selected phrase">Fit phrase</button></div>
+  <div class="g"><button id="clip" class="main">Make video</button><label for="loops">×</label><input id="loops" class="s" type="number" min="1" max="20" step="1"></div>
+</div>
+<div class="bar two">
+  <div class="g"><select id="page"><option value="s2-piano-solo">spaced</option><option value="s2-piano-solo-played">as played</option></select></div>
+  <div class="g"><label for="t0">Page from</label><input id="t0" type="number" step="0.1"><button id="back" title="LEFT">◀</button><button id="fwd" title="RIGHT">▶</button></div>
+  <div class="g"><label for="a">Phrase</label><input id="a" type="number" step="0.01"><span class="dim">to</span><input id="b" type="number" step="0.01"></div>
+  <div class="g"><label for="gap">Gap</label><input id="gap" class="s" type="number" step="0.5" min="0"></div>
+  <div class="g dim">cursor <b class="n" id="tNow">–</b> mouse <b class="n" id="tHover">–</b></div>
+  <div class="g dim" id="help">drag on the score = select a phrase · click = cursor</div>
+  <div id="msg"></div>
+</div>
 
 <div id="stage">
   <div id="svgBox"></div>
   <div id="shade"></div>
-  <div id="la"><span class="tag">start</span></div>
-  <div id="lb"><span class="tag">end</span></div>
+  <div id="la"></div>
+  <div id="lb"></div>
   <div id="hover"></div>
   <div id="cursor"></div>
-</div>
-<div id="msg"></div>
-
-<div class="panels">
-  <fieldset>
-    <legend>What the page shows</legend>
-    <div class="row"><label for="page">Spacing</label>
-      <select id="page"><option value="s2-piano-solo">spaced (the figures as taken)</option><option value="s2-piano-solo-played">time-accurate (as played)</option></select></div>
-    <div class="row"><label for="t0">Starts at (s)</label><input id="t0" type="number" step="0.1">
-      <button id="back" title="LEFT">◀</button><button id="fwd" title="RIGHT">▶</button></div>
-    <div class="row"><label for="span">Stretch</label><input id="span" type="range" min="1" max="24" step="0.1"><output id="spanO"></output></div>
-    <div class="row"><label for="size">Size</label><input id="size" type="range" min="1" max="4" step="0.05"><output id="sizeO"></output></div>
-    <div class="hint">Stretch = how many seconds stand across the page. Fewer seconds, more room between the notes. The heads keep their size.</div>
-  </fieldset>
-
-  <fieldset>
-    <legend>Playback</legend>
-    <div class="row"><button id="play" class="main">▶ Play (SPACE)</button><button id="stop">■ Back to start</button></div>
-    <div class="row"><label for="rate">Speed</label><input id="rate" type="range" min="0.2" max="1.5" step="0.05"><output id="rateO"></output></div>
-    <div class="hint">Click the score to put the cursor there. The pitch stays the same at any speed.</div>
-  </fieldset>
-
-  <fieldset>
-    <legend>Loop</legend>
-    <div class="row"><label for="a">Loop start (s)</label><input id="a" type="number" step="0.01"><button id="aHere">= cursor</button></div>
-    <div class="row"><label for="b">Loop end (s)</label><input id="b" type="number" step="0.01"><button id="bHere">= cursor</button></div>
-    <div class="row"><label for="loopOn">Loop on</label><input id="loopOn" type="checkbox">
-      <label for="gap" style="min-width:auto">gap (s)</label><input id="gap" type="number" step="0.5" min="0" style="width:64px"></div>
-    <div class="row"><button id="fit">Fit the page to the loop</button></div>
-    <div class="hint">SHIFT+click the score = loop start. ALT+click = loop end.</div>
-  </fieldset>
-
-  <fieldset>
-    <legend>Video of what you see</legend>
-    <div class="row"><label for="loops">Times</label><input id="loops" type="number" min="1" max="20" step="1" style="width:64px">
-      <button id="clip" class="main">Make the video</button></div>
-    <div class="hint">From loop start to loop end, at this stretch, size and speed, with the loop's gap. Then say "send the clip" in the chat.</div>
-  </fieldset>
 </div>
 
 <script>
 (() => {
   const $ = id => document.getElementById(id);
-  const KEY = 'notationWorkshop.v1';
-  const S = Object.assign({ page: 's2-piano-solo', t0: 147.4, span: 6, size: 2, rate: 1, a: 147.9, b: 152, loopOn: false, gap: 2, loops: 1 }, (() => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } })());
+  const KEY = 'notationWorkshop.v2';
+  const S = Object.assign({ page: 's2-piano-solo', t0: 147.4, span: 8, size: 1.5, rate: 1, a: 147.9, b: 152, loopOn: false, gap: 2, loops: 1 }, (() => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } })());
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
   let V = null, INFO = { a0: 146, a1: 258, window: [146, 253] }, t = S.a, playing = false, waitUntil = 0, fetchN = 0, timer = 0;
   const audio = new Audio('/audio'); audio.preload = 'auto'; audio.preservesPitch = true;
@@ -101,7 +70,7 @@
   const fmt = x => (+x).toFixed(2);
 
   // ---- the picture
-  const stageW = () => $('stage').clientWidth || Math.max(300, window.innerWidth - 34);
+  const stageW = () => $('stage').clientWidth || Math.max(300, window.innerWidth - 22);
   function load() {
     const n = ++fetchN, w = Math.max(300, Math.round(stageW() / S.size));
     fetch('/view?page=' + encodeURIComponent(S.page) + '&t0=' + S.t0 + '&span=' + S.span + '&w=' + w).then(r => r.json()).then(v => {
@@ -141,18 +110,33 @@
   $('gap').onchange = () => { S.gap = Math.max(0, num('gap', 2)); save(); };
   $('loops').onchange = () => { S.loops = Math.max(1, Math.round(num('loops', 1))); save(); };
   $('loopOn').onchange = () => { S.loopOn = $('loopOn').checked; save(); };
-  $('aHere').onclick = () => { S.a = +t.toFixed(2); show(); save(); place(); };
-  $('bHere').onclick = () => { S.b = +t.toFixed(2); show(); save(); place(); };
   const pan = d => { S.t0 = Math.max(INFO.a0, +(S.t0 + d * S.span / 4).toFixed(2)); show(); save(); load(); };
   $('back').onclick = () => pan(-1); $('fwd').onclick = () => pan(1);
   $('fit').onclick = () => { if (!(S.b > S.a)) return; const len = S.b - S.a; S.t0 = +(S.a - Math.max(0.15, len * 0.04)).toFixed(2); S.span = Math.min(24, Math.max(1, +(len * 1.1 + 0.3).toFixed(1))); show(); save(); load(); };
 
-  // ---- the stage: click = cursor, SHIFT+click = loop start, ALT+click = loop end
-  $('stage').addEventListener('mousemove', e => { const r = $('stage').getBoundingClientRect(), x = e.clientX - r.left; $('hover').style.display = 'block'; $('hover').style.left = x + 'px'; $('tHover').textContent = fmt(tOf(x)); });
+  // ---- the stage: DRAG = select a phrase · click = cursor · SHIFT+click = phrase start · ALT+click = phrase end
+  let drag = null;
+  const xIn = e => e.clientX - $('stage').getBoundingClientRect().left;
+  $('stage').addEventListener('mousedown', e => { if (e.button === 0 && !e.shiftKey && !e.altKey) drag = { x: xIn(e), on: false }; });
+  window.addEventListener('mousemove', e => {
+    const x = xIn(e);
+    if (drag) {
+      if (!drag.on && Math.abs(x - drag.x) > 5) drag.on = true;
+      if (drag.on) { const p = +tOf(Math.min(drag.x, x)).toFixed(2), q = +tOf(Math.max(drag.x, x)).toFixed(2); S.a = p; S.b = q; show(); place(); }
+    }
+  });
+  window.addEventListener('mouseup', e => {
+    if (!drag) return;
+    const d = drag; drag = null;
+    if (d.on) { save(); seek(S.a); } else { seek(+tOf(d.x).toFixed(2)); }
+    show(); place();
+  });
+  $('stage').addEventListener('mousemove', e => { const x = xIn(e); $('hover').style.display = 'block'; $('hover').style.left = x + 'px'; $('tHover').textContent = fmt(tOf(x)); });
   $('stage').addEventListener('mouseleave', () => { $('hover').style.display = 'none'; $('tHover').textContent = '–'; });
   $('stage').addEventListener('click', e => {
-    const r = $('stage').getBoundingClientRect(), s = +tOf(e.clientX - r.left).toFixed(2);
-    if (e.shiftKey) S.a = s; else if (e.altKey) S.b = s; else seek(s);
+    if (!e.shiftKey && !e.altKey) return;
+    const s = +tOf(xIn(e)).toFixed(2);
+    if (e.shiftKey) S.a = s; else S.b = s;
     show(); save(); place();
   });
 
@@ -165,7 +149,7 @@
     btn(); requestAnimationFrame(tick);
   }
   function halt() { playing = false; waitUntil = 0; audio.pause(); btn(); }
-  const btn = () => { $('play').textContent = playing ? '❚❚ Pause (SPACE)' : '▶ Play (SPACE)'; };
+  const btn = () => { $('play').textContent = playing ? '❚❚ Pause' : '▶ Play'; };
   function tick() {
     if (!playing) return;
     if (waitUntil) {                                     // the gap between two passes of the loop
@@ -179,7 +163,7 @@
     place(); requestAnimationFrame(tick);
   }
   $('play').onclick = () => playing ? halt() : start();
-  $('stop').onclick = () => { halt(); seek(S.loopOn && S.b > S.a ? S.a : S.t0); };
+  $('stop').onclick = () => { halt(); seek(S.b > S.a ? S.a : S.t0); };
   document.addEventListener('keydown', e => {
     if (/INPUT|SELECT|TEXTAREA/.test(e.target.tagName) && e.target.type !== 'range' && e.target.type !== 'checkbox') return;
     if (e.code === 'Space') { e.preventDefault(); playing ? halt() : start(); }
@@ -190,17 +174,17 @@
   // ---- the video
   $('clip').onclick = () => {
     if (!V) return;
-    if (!(S.b > S.a)) { msg('Set a loop start and a loop end first.'); return; }
-    if (S.a < V.window[0] - 1e-6 || S.b > V.window[1] + 1e-6) { msg('The loop must be whole on the page. Press "Fit the page to the loop" first.'); return; }
+    if (!(S.b > S.a)) { msg('Select a phrase first.'); return; }
+    if (S.a < V.window[0] - 1e-6 || S.b > V.window[1] + 1e-6) { msg('The phrase must be whole on the page: press Fit phrase.'); return; }
     msg('Making the video…'); $('clip').disabled = true;
     fetch('/clip', { method: 'POST', body: JSON.stringify({ page: S.page, t0: V.window[0], span: V.window[1] - V.window[0], w: V.w, k: S.size, a: S.a, b: S.b, rate: S.rate, loops: S.loops, gap: S.loops > 1 ? S.gap : 0 }) })
-      .then(r => r.json()).then(r => { $('clip').disabled = false; msg(r.error ? 'The video failed: ' + r.error : 'Video made (' + r.seconds + ' s): <a href="' + r.url + '" target="_blank">open it here</a>. Say "send the clip" in the chat to get it on your phone.'); })
+      .then(r => r.json()).then(r => { $('clip').disabled = false; msg(r.error ? 'The video failed: ' + r.error : 'Video made, ' + r.seconds + ' s: <a href="' + r.url + '" target="_blank">open</a> · or say "send the clip"'); })
       .catch(() => { $('clip').disabled = false; msg('The video failed: the server does not answer.'); });
   };
 
   window.addEventListener('resize', later);
   if (window.ResizeObserver) { let w0 = 0; new ResizeObserver(() => { const w = $('stage').clientWidth; if (w && Math.abs(w - w0) > 2) { w0 = w; later(); } }).observe($('stage')); }
-  fetch('/info').then(r => r.json()).then(i => { INFO = i; if (!i.audio) msg('No sound file was found; the page shows the score without sound.'); }).catch(() => {}).then(() => { show(); seek(Math.max(S.t0, Math.min(S.a, S.t0 + S.span))); load(); });
+  fetch('/info').then(r => r.json()).then(i => { INFO = i; if (!i.audio) msg('No sound file was found.'); }).catch(() => {}).then(() => { show(); seek(Math.max(S.t0, Math.min(S.a, S.t0 + S.span))); load(); });
 })();
 </script>
 </body>

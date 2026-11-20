@@ -4616,3 +4616,11 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 - THE VIDEO: the picture rasterized once, the cursor drawn on each frame, piped to ffmpeg with the cut's sound at the same speed (`atempo`), the loop's gap held on the last frame, N times. The file goes to `notation/video/clips/` and `latest.json` there names it — "send the clip" in the chat is that file.
 
 **Proven once, on the throwaway (5651):** the page drew both staves at a 3 s stretch with the heads unchanged; `/audio` answered a range request (206); a video was made from the page's own request — 147.9 → 152 at half speed, twice, 20.4 s, picture and sound — and one frame of it looked at. NOT proven: the sound under his hands in his Chrome (play, the loop's gap, the speed by ear).
+
+## §270 · 2026-11-20 · the notation workshop made compact; a phrase selected by dragging
+
+**His words:** "its a little hard to use … I want to select a phrase to work on but the zoom isnt right … there is a marquee there but I cant figure out what it does" · then, on his screenshot: "I have to scroll to use it so 1st lets some how reduce the vert space, maybe top bar to bottom less white space at bottom of staff lane maybe controls in horiz rows, less text smaller font simpler labels, most pertinent controls in toprow/bar, if we can compress a bit the vert space of the notation thats ok too, slightly smaller noteheads ok".
+
+**Changed:** the four boxed panels are two thin rows above the score. Top row, the ones he reaches for: Play · Speed · Stretch · Size · Loop · Fit phrase · Make video. Second row: spaced / as played · Page from · Phrase (from, to) · Gap · the cursor's and the mouse's time. The hints are gone but one line. Font 12.5 px. The score's band cut 22 px shorter under the lower staff (546 … 750 of the frame). The default size 1.5× (was 2×), the slider down to 0.8×.
+**Added (the AI's, offered in the last turn, unanswered — his to refuse):** DRAG across the score selects the phrase (the "loop" is called the phrase now; SHIFT+click and ALT+click still set its two ends); a plain click still moves the cursor.
+**Checked on the throwaway, 1024 × 768:** the whole page stands in the window without scrolling (document height = window height); a drag set the phrase to 149.53 → 151.90 and the shaded area followed.
