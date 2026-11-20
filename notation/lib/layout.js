@@ -826,9 +826,23 @@
       // objects.handUnit.graceGroupSpacing · graceGroupClearSs): the stems of a beamed grace group stand at EQUAL distances — the least at
       // which every stem clears the later members' ink beside it and no two members' ink meets, by the clearance; the group centered on the
       // span it was played in (so it is pushed out on both sides). Room on one side only: NO RULE YET — put to him when a figure meets it.
+      // [§263 — HIS RULE 2026-11-20, "lets call these scattered grace (sg), evenly space the partials across the span … the span will be the
+      // left most note to the right most note of either"] THE SCATTERED GRACE (rules.json objects.handUnit.scatteredGrace): the units that
+      // share puSg are one figure in two hands; the SPAN runs from its first played unit to its last, either hand; each hand's units (one
+      // beam) are set at EVEN times across that span, the first on its start and the last on its end. The played times stay in the IR.
+      if (HU.scatteredGrace !== false) {
+        const bySg = new Map();
+        for (const U of handUnits) if (U.d.puSg) { const kg = U.part + '|' + U.d.puSg; if (!bySg.has(kg)) bySg.set(kg, []); bySg.get(kg).push(U); }
+        for (const g of bySg.values()) {
+          const t0 = Math.min(...g.map(U => U.t)), t1 = Math.max(...g.map(U => U.t)), hands = new Map();
+          for (const U of g) { const kb = U.d.puBeam || U.d.puId; if (!hands.has(kb)) hands.set(kb, []); hands.get(kb).push(U); }
+          for (const h of hands.values()) { h.sort((a, b) => a.t - b.t);
+            h.forEach((U, i) => { U.t = h.length > 1 ? t0 + i * (t1 - t0) / (h.length - 1) : U.t; for (const x of U.m) unitCG.get(x.e.id).t = U.t; }); }
+        }
+      }
       if (HU.graceGroupSpacing === 'equal') {
         const clr = HU.graceGroupClearSs > 0 ? HU.graceGroupClearSs : 0.45, sth = (stdsU.stem && stdsU.stem.thickness) || 0.13, NHg = glyphs.notehead.filled, byG = new Map();
-        for (const U of handUnits) if (U.d.grace && U.d.puBeam && U.d.puStem) { const kg = U.part + '|' + U.d.puBeam; if (!byG.has(kg)) byG.set(kg, []); byG.get(kg).push(U); }
+        for (const U of handUnits) if (U.d.grace && U.d.puBeam && U.d.puStem && !U.d.puSg) { const kg = U.part + '|' + U.d.puBeam; if (!byG.has(kg)) byG.set(kg, []); byG.get(kg).push(U); }
         for (const g of byG.values()) {
           if (g.length < 2) continue;
           g.sort((a, b) => a.t - b.t);
@@ -4250,8 +4264,11 @@
       for (const g of byB.values()) {
         const st = Math.min(...g.map(b => b.hi.st)), fgB = glyphs.flag.up16 || glyphs.flag.up8;
         const kB = g.every(b => b.U.d.grace) ? GRu.headScale : 1;   // [§592] a grace group's beam at the heads' scale
-        const y = Math.max(EDGE + clrU + fgB.hSs * kB - st * c2cU, ...g.map(b => b.yS + baseLU * kB));   // the flagged stem's height; no member under the base length
-        for (const b of g) { b.yTip = y; b.beamed = true; b.dir = 'up'; }
+        // [§263 — his "top stems up bottom stems down always"] a group whose units all say stem down is beamed BELOW: the same law mirrored on its lowest staff
+        const dn = g.every(b => b.U.d.puStem === 'down'), stD = Math.max(...g.map(b => b.lo.st));
+        const y = dn ? Math.min(-EDGE - clrU - fgB.hSs * kB - stD * c2cU, ...g.map(b => b.yS - baseLU * kB))
+          : Math.max(EDGE + clrU + fgB.hSs * kB - st * c2cU, ...g.map(b => b.yS + baseLU * kB));   // the flagged stem's height; no member under the base length
+        for (const b of g) { b.yTip = y; b.beamed = true; if (!dn && b.dir !== 'up') { b.dir = 'up'; b.stemDx = b.U.base + attOf('up', b.U.m[0].k).dx; } b.bdir = dn ? 'down' : 'up'; }
       }
       for (const b of built) {
         if (b.none) continue;
@@ -4280,7 +4297,8 @@
         if (g.length < 2) continue;
         const tips = g.slice().sort((a, b2) => (a.U.t - b2.U.t) || (a.stemDx - b2.stemDx)).map(b => ({ t: b.U.t, dxSs: b.stemDx, ySs: b.yTip }));   // [§262] a spaced grace group shares one time: by x
         const kB = g.every(b => b.U.d.grace) ? GRu.headScale : 1, n = g[0].U.d.puBeamN || 2, step = (BM.stackStep != null ? BM.stackStep : 0.81) * kB;   // a 16th: two beams, the standard stack step apart
-        for (let i = 0; i < n; i++) g[0].sysT.items.push(Object.assign({ k: 'beam', dir: 'up', tips: tips.map(p => ({ t: p.t, dxSs: p.dxSs, ySs: p.ySs - i * step })), group: 'pu-' + g[0].U.d.puBeam }, kB !== 1 ? { scale: kB } : {}));
+        const bd = g[0].bdir === 'down' ? -1 : 1;
+        for (let i = 0; i < n; i++) g[0].sysT.items.push(Object.assign({ k: 'beam', dir: bd < 0 ? 'down' : 'up', tips: tips.map(p => ({ t: p.t, dxSs: p.dxSs, ySs: p.ySs - bd * i * step })), group: 'pu-' + g[0].U.d.puBeam }, kB !== 1 ? { scale: kB } : {}));
         // [§601 … §604] THE STROKE ON A BEAMED GRACE GROUP, the standing placement: on the FIRST stem only (§591); centered on the corner where
         // that stem meets the beam stack — the stem's x, the stack's center — slid slashBeamInsetSs toward the heads; the near half reaches
         // slashReachSs, the far half that plus twice the inset, so it juts the same beyond both faces of the stack; rising to the right (stems up)
@@ -4288,7 +4306,14 @@
         // P = the first stem's left edge on the top face of the top beam; 45 degrees; the stroke crosses the stem cutSs under P and the beam's
         // face cutSs right of P, and runs jutSs past each crossing — the same whatever the beams' number or the stem's length
         if (kB !== 1 && GRu.slashCutSs > 0) {
-          const f = g.slice().sort((a, b2) => a.stemDx - b2.stemDx)[0], px = f.stemDx - stemTh / 2, py = f.yTip, cut = GRu.slashCutSs, jut = GRu.slashJutSs || 0;
+          const f = g.slice().sort((a, b2) => (a.U.t - b2.U.t) || (a.stemDx - b2.stemDx))[0], px = f.stemDx - stemTh / 2, py = f.yTip, cut = GRu.slashCutSs, jut = GRu.slashJutSs || 0;
+          // [§263 — his "get the wavy slash from [Recombination] … implement the grace slash placement rule for that one as well"] a SCATTERED
+          // grace takes the uneven group's WAVY stroke (objects.groupStub, §557 … §562: its wave, its hand, its thickness) on the corner rule's
+          // place; the waves counted so the wavelength stays Recombination's. Stems down: the same figure mirrored — it falls to the right.
+          if (f.U.d.puSg) { const GSu = Object.assign({ squiggleReachSs: 1.5, squiggleAmpSs: 0.12, squiggleWaves: 1.75, squiggleHand: true, thickSs: 0.13 }, o.groupStub || {});   // RULES MIRROR (rules.json objects.groupStub)
+            g[0].sysT.items.push({ k: 'squiggle', t: f.U.t, dx0Ss: +(px - jut).toFixed(4), y0Ss: +(py - bd * (cut + jut)).toFixed(4), dx1Ss: +(px + cut + jut).toFixed(4), y1Ss: +(py + bd * jut).toFixed(4),
+              ampSs: GSu.squiggleAmpSs, waves: +(GSu.squiggleWaves * (cut + 2 * jut) / (2 * GSu.squiggleReachSs)).toFixed(3), hand: !!GSu.squiggleHand, thickSs: GSu.thickSs, atBeam: true, unit: f.U.d.puId });
+          } else
           g[0].sysT.items.push({ k: 'slash', t: f.U.t, dx0Ss: +(px - jut).toFixed(4), y0Ss: +(py - cut - jut).toFixed(4), dx1Ss: +(px + cut + jut).toFixed(4), y1Ss: +(py + jut).toFixed(4), thickSs: GRu.slashThickSs, atBeam: true, unit: f.U.d.puId });
         } else if (kB !== 1) {
           const f = g.slice().sort((a, b2) => a.U.t - b2.U.t)[0], bt = (BM.thickness != null ? BM.thickness : 0.4) * kB, ys = [];

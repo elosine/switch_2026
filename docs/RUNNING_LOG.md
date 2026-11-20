@@ -4529,3 +4529,21 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 **Not built:** the room check. The rule centers the group whatever stands beside it; "room on one side only" has no rule yet and nothing detects it — his eye on the page until a figure meets it.
 
 **The checks:** `gen_engraving_rules.js` regenerated the rules page; `check_rules.js` 31 of 32, the one red ("no sequence page to compare", check 8) red before this change as well.
+
+## §263 · 2026-11-20 · THE SCATTERED GRACE (sg) — his name and his rule; figure 7 of the piano solo built
+
+**His words (on his screenshot of figure 6 and the notes after it):** "the next figure, 1st confirm that you will have a record of their rhythmic positions, then the top 2nd partial is a chord, the bottom 3rd partial is a chord, the span will be the left most note to the right most note of either; lets call these scattered grace (sg), evenly space the partials across the span, top stems up bottom stems down always, we have that new 2ss rule yes? get the wavy slash from reconstitution, could you implement the grace slash placement rule for that one as well, use the grace sizes for the sgs"
+
+**The AI's reading:** "reconstitution" = piece 5, *Recombination* (a dictation slip): its uneven-group sign's wavy stroke (`objects.groupStub`, its §557 … §562). "The new 2ss rule" = `objects.handUnit.flagClearSs` 2 (§258) — yes, and it holds for a beam.
+
+**The record of the rhythm (his first question): yes, three places.** His save holds each note's start; the IR keeps each event's `onset` unchanged (only the DRAWN place moves); and each sg unit in `notation/hand/s2-piano-solo.units.json` now carries `played` — its played times.
+
+**The figure (151.635 → 151.884 s):** the upper hand E5 (151.635), then the cluster G#5 · A5 · A#5 (151.754 … .763); the lower hand G#4 (151.751), A4 (151.792), then the chord D5 · C5 · B4 (151.879 … .884). Five units, `sg: "sg7"`, the beams `u7t` · `u7b`.
+
+**The rule as built (`objects.handUnit.scatteredGrace`, the row carries his words):** one figure in two hands, each hand its own beam; the upper hand's stems up, the lower hand's down; the span from the first played unit to the last of either hand; each hand's units at EVEN times across the span — the first on its start, the last on its end (so the upper hand's two stand at the two ends, the lower hand's three at start · middle · end); grace sizes; the beam by the standing law at 2 ss clear, mirrored below the lower staff for stems down (new in the hand unit's post-pass: a beam on down stems); on each beam's first stem the wavy stroke, placed by the corner rule (cut 1.0, jut 0.4), mirrored for stems down — it falls to the right, as Recombination's did under the heads. The waves are counted so the wavelength stays Recombination's (1.75 waves on its 4.24 ss → 1.05 on 2.55 ss).
+
+**Measured on the page (the throwaway 5601, one look, 1 px = 1 page px, the staff space 7.9 px):** the lower hand's columns at x 1531.6 · 1549.5 · 1567.5 — 17.9 and 18.0 px, 2.27 ss each; the upper hand's at 1531.6 and 1567.5, the same two ends. The upper beam's top face at y 556.7, its stroke from (1534.0, 568.5) to (1547.7, 553.8); the lower beam's bottom face at 738.1, its stroke from (1527.6, 727.7) to (1542.3, 741.4) — each 0.4 ss past the stem's edge and past the beam's outer face.
+
+**What "evenly" was taken to mean, and the alternative not built:** the COLUMNS' left edges are even (the standing rule: a head's left edge on its moment, D49). The STEMS therefore are not quite even in the lower hand (18 px, then 23.8 px), because the last chord's stem stands inside its two-column cluster. Even stems would be the other reading — put to him in one line.
+
+**Not looked at as a picture:** the preview pane would not give a readable zoom at this size; the numbers above are the check. His eye on his own page is the look.

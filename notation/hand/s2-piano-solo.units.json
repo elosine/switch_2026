@@ -1,5 +1,5 @@
 {
- "_doc": "THE PIANO SOLO'S UNITS, taken one by one at his word (RUNNING_LOG §255 on). A unit = the notes on ONE stem. stem up|down · flag 16 · arp true = the arpeggio line · beam <name> = beamed (16th) to the other units of that name. · at <seconds> = the unit is drawn at that time instead of its own.",
+ "_doc": "THE PIANO SOLO'S UNITS, taken one by one at his word (RUNNING_LOG §255 on). A unit = the notes on ONE stem. stem up|down · flag 16 · arp true = the arpeggio line · beam <name> = beamed (16th) to the other units of that name. · at <seconds> = the unit is drawn at that time instead of its own. · sg <name> = a SCATTERED GRACE (§263): the units of that name are one figure in two hands, drawn at even distances across its span; played = the unit's played time(s), the record of its rhythm.",
  "units": [
   {
    "_n": "1 · 148.20 s",
@@ -94,6 +94,79 @@
    "stem": "up",
    "beam": "u6",
    "grace": true
+  },
+  {
+   "_n": "7 top a · E5 (scattered grace sg7, upper hand)",
+   "ids": [
+    "wc-1703"
+   ],
+   "stem": "up",
+   "beam": "u7t",
+   "grace": true,
+   "sg": "sg7",
+   "played": [
+    151.635
+   ]
+  },
+  {
+   "_n": "7 top b · the cluster G#5 · A5 · A#5",
+   "ids": [
+    "wc-1705",
+    "wc-1706",
+    "wc-1707"
+   ],
+   "stem": "up",
+   "beam": "u7t",
+   "grace": true,
+   "sg": "sg7",
+   "played": [
+    151.754,
+    151.758,
+    151.763
+   ]
+  },
+  {
+   "_n": "7 bottom a · G#4 (lower hand)",
+   "ids": [
+    "wc-1704"
+   ],
+   "stem": "down",
+   "beam": "u7b",
+   "grace": true,
+   "sg": "sg7",
+   "played": [
+    151.751
+   ]
+  },
+  {
+   "_n": "7 bottom b · A4",
+   "ids": [
+    "wc-1708"
+   ],
+   "stem": "down",
+   "beam": "u7b",
+   "grace": true,
+   "sg": "sg7",
+   "played": [
+    151.792
+   ]
+  },
+  {
+   "_n": "7 bottom c · the chord D5 · C5 · B4",
+   "ids": [
+    "wc-1709",
+    "wc-1710",
+    "wc-1711"
+   ],
+   "stem": "down",
+   "beam": "u7b",
+   "grace": true,
+   "sg": "sg7",
+   "played": [
+    151.879,
+    151.882,
+    151.884
+   ]
   }
  ]
 }
