@@ -843,7 +843,7 @@
       }
       if (HU.graceGroupSpacing === 'equal' && !POL.timeSpacing) {
         const clr = HU.graceGroupClearSs > 0 ? HU.graceGroupClearSs : 0.45, sth = (stdsU.stem && stdsU.stem.thickness) || 0.13, NHg = glyphs.notehead.filled, byG = new Map();
-        for (const U of handUnits) if (U.d.grace && U.d.puBeam && U.d.puStem && !U.d.puSg) { const kg = U.part + '|' + U.d.puBeam; if (!byG.has(kg)) byG.set(kg, []); byG.get(kg).push(U); }
+        for (const U of handUnits) if (U.d.puBeam && U.d.puStem && !U.d.puSg && (U.d.grace || U.d.puSpread)) { const kg   /* [§265] a full-size beamed group takes the spacing when its units say spread */ = U.part + '|' + U.d.puBeam; if (!byG.has(kg)) byG.set(kg, []); byG.get(kg).push(U); }
         for (const g of byG.values()) {
           if (g.length < 2) continue;
           g.sort((a, b) => a.t - b.t);
@@ -857,8 +857,10 @@
             }
             if (need > -Infinity) D = Math.max(D, (need + S[j].x - S[i].x) / (j - i));
           }
-          const tG = (g[0].t + g[g.length - 1].t) / 2;
-          g.forEach((U, i) => { const sh = (i - (g.length - 1) / 2) * D - S[i].x; U.t = tG; U.base += sh; U.left += sh; U.right += sh; U.graceGapSs = D;
+          // [§265 — HIS RULE 2026-11-20, "spread for fit, but this time to right"] THE RIGHTWARD CASE (a unit's spread: "right"): the first member
+          // stays on its own played place and the others stand to its right at the equal distance; without it the group is centered (§262)
+          const rt = g.some(U => U.d.puSpread === 'right'), tG = rt ? g[0].t : (g[0].t + g[g.length - 1].t) / 2;
+          g.forEach((U, i) => { const sh = rt ? i * D - S[i].x + S[0].x : (i - (g.length - 1) / 2) * D - S[i].x; U.t = tG; U.base += sh; U.left += sh; U.right += sh; U.graceGapSs = D;
             for (const x of U.m) { x.headDx += sh; const c = unitCG.get(x.e.id); c.t = tG; c.headDx = x.headDx; }
             for (const r of U.ink) { r.x0 += sh; r.x1 += sh; } });
         }

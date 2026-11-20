@@ -4561,3 +4561,17 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 **Checked once on the throwaway (5601):** "fit?" texts 0 on both pages; on the played copy figure 6's stroke stands at x 1499.4 (the main page 1488.7) and the lower sg stroke at 1545.3 (main 1528.3) — the played places.
 
 **The main page's command from here on** carries `--noFitMark`.
+
+## §265 · 2026-11-20 · figure 8 of the piano solo — a full-size beamed group spread to the RIGHT; the rightward case made a rule
+
+**His words:** "next figure dyad bottom 2 notes top, all 3 beamed together 16th, spread for fit, but this time to right, we have an algo but not sure if there is a rightward only case, these will be standard noteheads and even spacing"
+
+**The answer to his doubt:** there was no rightward case. §262's spacing centered the group always, and "room on one side only" was written as NO RULE YET. His word here is that rule's first half.
+
+**The figure (152.123 → 152.226 s):** the dyad A#4 · D5 on the lower staff (152.123 · .131), then F#5 (152.146) and G5 (152.226) on the upper. Three units, the beam `u8`, stems up, two beams (a 16th), full-size heads, `spread: "right"`, each with its `played` times.
+
+**Built:** the equal spacing of §262 (the least equal stem distance that clears every member's ink by the house space, 0.45 ss) now serves a full-size beamed group when its units say `spread`; `spread: "right"` keeps the FIRST member on its played place and sets the others to its right. The side is said per figure in the hand file — nothing chooses it. The row: `objects.handUnit.spreadSides` with his words. A leftward-only case has not been met and has no rule.
+
+**Measured on the page (the throwaway 5601, one look):** the three stems at x 1610.6 · 1628.6 · 1646.7 — 18.0 and 18.1 px, 2.28 ss each; the first on the dyad's played place; the beams' top face at y 548.6, one height for the three.
+
+**Both pages rebuilt:** `s2-piano-solo` (spread) and `s2-piano-solo-played` (the figure at its played times, as §264).

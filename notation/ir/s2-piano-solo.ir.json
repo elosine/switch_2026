@@ -16,7 +16,7 @@
   "date": "2026-11-20",
   "tool": "tools/notate_section.js (profile trance)",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only.",
-  "build": "node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 146 --w1 253 --parts 5 --alone 146-253 --pianoHands 5 --id s2-piano-solo --label \"Section 2 - the piano solo, note heads in two hands (a working page)\" --exp --noFitMark"
+  "build": "node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 146 --w1 253 --parts 5 --alone 146-253 --pianoHands 5 --exp --noFitMark --id s2-piano-solo --label \"Section 2 - the piano solo, note heads in two hands (a working page)\""
  },
  "events": [
   {
@@ -29761,9 +29761,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1712",
+     "puStem": "up",
+     "puBeam": "u8",
+     "puSpread": "right"
     }
    },
    "provenance": "authored"
@@ -29782,9 +29785,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1712",
+     "puStem": "up",
+     "puBeam": "u8",
+     "puSpread": "right"
     }
    },
    "provenance": "authored"
@@ -29803,9 +29809,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1714",
+     "puStem": "up",
+     "puBeam": "u8",
+     "puSpread": "right"
     }
    },
    "provenance": "authored"
@@ -29824,9 +29833,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1715",
+     "puStem": "up",
+     "puBeam": "u8",
+     "puSpread": "right"
     }
    },
    "provenance": "authored"

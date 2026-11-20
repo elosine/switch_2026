@@ -1,5 +1,5 @@
 {
- "_doc": "THE PIANO SOLO'S UNITS, taken one by one at his word (RUNNING_LOG §255 on). A unit = the notes on ONE stem. stem up|down · flag 16 · arp true = the arpeggio line · beam <name> = beamed (16th) to the other units of that name. · at <seconds> = the unit is drawn at that time instead of its own. · sg <name> = a SCATTERED GRACE (§263): the units of that name are one figure in two hands, drawn at even distances across its span; played = the unit's played time(s), the record of its rhythm.",
+ "_doc": "THE PIANO SOLO'S UNITS, taken one by one at his word (RUNNING_LOG §255 on). A unit = the notes on ONE stem. stem up|down · flag 16 · arp true = the arpeggio line · beam <name> = beamed (16th) to the other units of that name. · at <seconds> = the unit is drawn at that time instead of its own. · sg <name> = a SCATTERED GRACE (§263): the units of that name are one figure in two hands, drawn at even distances across its span; played = the unit's played time(s), the record of its rhythm. · spread right|both = a beamed group at equal distances for fit (§262 · §265): right = the first unit stays on its played place.",
  "units": [
   {
    "_n": "1 · 148.20 s",
@@ -166,6 +166,44 @@
     151.879,
     151.882,
     151.884
+   ]
+  },
+  {
+   "_n": "8a · the dyad A#4 · D5 (lower staff) — three units beamed, 16th, full size, spread to the right",
+   "ids": [
+    "wc-1712",
+    "wc-1713"
+   ],
+   "stem": "up",
+   "beam": "u8",
+   "spread": "right",
+   "played": [
+    152.123,
+    152.131
+   ]
+  },
+  {
+   "_n": "8b · F#5 (upper staff)",
+   "ids": [
+    "wc-1714"
+   ],
+   "stem": "up",
+   "beam": "u8",
+   "spread": "right",
+   "played": [
+    152.146
+   ]
+  },
+  {
+   "_n": "8c · G5 (upper staff)",
+   "ids": [
+    "wc-1715"
+   ],
+   "stem": "up",
+   "beam": "u8",
+   "spread": "right",
+   "played": [
+    152.226
    ]
   }
  ]
