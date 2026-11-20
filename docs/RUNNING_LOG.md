@@ -4732,3 +4732,17 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 
 **Changed:** `leadHeads` false — the page draws no played note; what stands on the staff is the notation alone (the arc, the two shapes, the ebb and flow). THE BOXES' PLACE, now one rule for every shape: a box BEGINS at its moment (shape 1 at the arc's first note; shape 2 at 30 % of the rise) and is held INSIDE the arc's span — 0.3 ss in from the arc's first note, and never past 0.3 ss before its last (`shapeRule.insetSs`). Before this, shape 1 stood to the LEFT of the arc's start.
 **Checked once:** the page rendered to an image — the cluster bar's box just inside the arc's start, the three-note chord's box inside its end, an empty staff either side.
+
+## §281 · 2026-11-20 · the brainstorm — one movement with an inner movement, how other fields draw it
+
+**What prompted it:** SW-83's eighth word: the filled curve under the staff and the GC arc "seam to confuse the message"; the overall acceleration into the impact "comes in 2 bursts"; "lets brainstorm, looking at design for graphs or animations, how do other domains tackel this".
+
+**The AI's ideas, from what it knows (nothing was looked up), put to him:**
+- THE DIAGNOSIS: two separate drawings read as two instructions. Every field below solves it the same way — the inner movement is drawn ON the main one, as a property of the same mark.
+- Flow maps (Minard's map of Napoleon's march): the path is the journey, its WIDTH a second quantity → the arc as a ribbon, fat where the hand is busy.
+- Stroboscopic motion pictures (Marey; motion-capture trails): marks along the path at each event; their crowding shows the speed → ticks across the arc, one per attack, two clumps for two bursts.
+- Signals (a carrier and its modulation): a ripple riding the main curve, its height the activity → the arc itself wavy, like his wavy slash, larger where busier.
+- Statistics (trend and deviation): the trend line with a shaded band around it.
+- Animation (primary and secondary action; squash and stretch): the BALL carries it — it pulses or grows twice on the way down; the static page shows nothing extra.
+- Music's own: one slur over two feathered beams — an accelerando in two groups under one phrase.
+**The recommendation made:** the ribbon — the arc's own thickness is the activity — because it stays one object and needs no reading of a second graph; the strip under the staff then goes. **Not built; his word first.**
