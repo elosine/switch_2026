@@ -4512,3 +4512,20 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 **Decided:** the fourth open case of §258 is settled as a rule: equal horizontal distances; enough that each stem clears the neighbor's head and its ledger lines; pushed out on both sides where there is room on both sides. One side only: no rule yet. He names a second version to come (not equal distances) without describing it.
 
 **Not built in this session** (the context is at its end; the stroke's place and this spacing touch the same figure and are the next session's first task). Written into `docs/NOTATION_SCHEME.md` with the AI's read-back, the journal's checkpoint, and SW-82.
+
+## §262 · 2026-11-20 · the grace stroke's corner rule and the grace group's equal spacing — built, measured on the page
+
+**What prompted it:** after the clear, the playback put the stroke's two-number recommendation to him (one anchor at the stem–beam corner, 45 degrees, cut 1.0, jut 0.4) with the spacing rule of §261 to build beside it. **His word:** "go ahead".
+
+**Built (the rows first, then the code):**
+- `objects.graceSlash.cutSs` 1 · `jutSs` 0.4 (the corner rule; `at` · `reachSs` · `beamInsetSs` stay for the septets' older figures and are not read by a hand unit). The anchor P = the first stem's LEFT edge on the TOP face of the top beam (the renderer draws a beam downward from its tips, so the tip's height is the top face). The stroke runs from (P.x − jut, P.y − cut − jut) to (P.x + cut + jut, P.y + jut). A flagged single grace in a hand unit takes the same rule from the stem's tip.
+- `objects.handUnit.graceGroupSpacing` "equal" · `graceGroupClearSs` 0.45 (the house space). In `layout.js`, the hand unit's pre-pass: each unit keeps its ink as boxes (heads · ledger lines · accidentals); for a beamed grace group the stems are set at one distance D, the least at which (a) each stem clears every later member's ink that stands beside it (above the stem's lowest head) and (b) no two members' ink at the same height meets — each by the clearance; non-neighbors count at their multiple of D. The group takes ONE time, the middle of the span it was played in, and its members stand symmetric about it — so it is pushed out on both sides.
+- The hand `at` of the high C (figure 6b) retired from `notation/hand/s2-piano-solo.units.json`.
+
+**Measured on the page (`s2-piano-solo`, the throwaway 5601, one look; staff space 4.22 px on that screen):** the three stems at x 795.7 · 801.5 · 807.3 — 5.8 px and 5.8 px, 1.37 ss each. The first stem's right edge to the high C's ledger lines: 1.9 px = 0.45 ss (the binding case, as he foresaw: "the stems clear the ledger lines"). The stroke: 1.7 px (0.40 ss) left of the stem's left edge, 1.7 px above the beam's top face, crossing the stem 1.0 ss under the corner. Its length 1.8 ss on each axis (the old one was 2.2).
+
+**Seen, not decided:** with stems 1.37 ss apart and cut + jut 1.4 ss, the stroke's upper end stands directly over the SECOND stem's top, 0.4 ss above the beam. Nothing touches. Put to him in one line.
+
+**Not built:** the room check. The rule centers the group whatever stands beside it; "room on one side only" has no rule yet and nothing detects it — his eye on the page until a figure meets it.
+
+**The checks:** `gen_engraving_rules.js` regenerated the rules page; `check_rules.js` 31 of 32, the one red ("no sequence page to compare", check 8) red before this change as well.

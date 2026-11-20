@@ -85,10 +85,11 @@ Built by `node tools/notate_section.js … --glissGestures all`. The crotales' d
 | the arpeggio | LilyPond's unit stacked 1 ss apart; RIGHT of the chord; 0.225 ss from the chord's rightmost ink (the flag's, where they meet) | piece 2 `CHORD_SPACING_RULES.md` §5c.D; `glyphs.json arpeggio.unit` |
 | the head's place | the left edge of the column on the moment | D49 (`nhAnchor leftEdge`) |
 | a tight cluster's spelling | a sharp whose letter another note of the chord has becomes the flat of the next letter, when that letter is free | piece 2 `CHORD_SPACING_RULES.md` §5b (applied to a unit, §258) |
-| a grace figure | heads and accidentals 0.707; stem and flag at that scale; the beam at the heads' scale; the stroke on the first stem only, centered on the corner of stem and beam stack, slid 0.5 ss toward the heads, jutting equally past both faces | `objects.graceHead · graceSlash` (Recombination §550 · §591 · §592 · §601 … §604 · §666) |
+| a grace figure | heads and accidentals 0.707; stem and flag at that scale; the beam at the heads' scale; the stroke on the first stem only, by THE CORNER RULE: anchored where the first stem's left edge meets the top beam's top face, 45 degrees, cutting 1.0 ss of the corner, 0.4 ss past each crossing (§262) | `objects.graceHead · graceSlash.cutSs · jutSs` (Recombination §550 · §591 · §592 · §601 … §604 · §666) |
 | the stems of the piano solo | the flag's tail and a beam stand 2 ss clear of the staff | `objects.handUnit.flagClearSs` (§258) |
 | three notes a half step apart | the note that would share a column with a note a step or less away takes a THIRD column, beyond the default column, away from the stem | HIS RULE 2026-11-20 — `objects.handUnit.thirdColumn` (§260) |
 | an accidental beside a STEMMED chord | 0.25 from its head, as a single note's (the stemless column keeps 0.1) | HIS RULE 2026-11-20 — `objects.handUnit.accGapStemmedSs` (§260) |
+| a beamed grace group's spacing | the stems at EQUAL distances, the least that clears each stem from its neighbors' heads, ledger lines and accidentals by 0.45 ss; the group centered on the span it was played in. Room on one side only: no rule yet | HIS RULE 2026-11-20 — `objects.handUnit.graceGroupSpacing · graceGroupClearSs` (§261 · §262) |
 | this page's own | heads and accidentals at 0.5 (his, "eventually I'll make the note heads bigger") | `objects.handUnit` |
 
 **No rule yet — to discuss when met:** a stem, flag and beam at the small head's size (they are full size now) · the lane's room for a long figure (the layout's own flag, the red "fit?").
@@ -97,8 +98,8 @@ Built by `node tools/notate_section.js … --glissGestures all`. The crotales' d
 
 | the case | what the standing rule gives | the AI's recommendation (NOT built) |
 |---|---|---|
-| the distance between beamed grace notes — **HIS RULE 2026-11-20, to BUILD (with the stroke, the next session's first task)** | none: each stands at its own time | see THE GRACE GROUP'S SPACING below |
-| THE GRACE STROKE'S PLACE — **the next session's first task** | Recombination's (§601 … §604): centered on the stem–beam corner, slid 0.5 ss toward the heads, the far half longer by twice that. He finds it unreliable and "potentially a little too long" | the two-number rule below |
+| the distance between beamed grace notes — **HIS RULE, BUILT 2026-11-20 (§262)**: `objects.handUnit.graceGroupSpacing · graceGroupClearSs` | none: each stands at its own time | built as read back below; figure 6 measured 1.37 ss stem to stem, 0.45 ss from the first stem to the high C's ledger lines |
+| THE GRACE STROKE'S PLACE — **HIS RULE, BUILT 2026-11-20 (§262)**: `objects.graceSlash.cutSs` 1 · `jutSs` 0.4, the corner rule below; the row beside is what it replaced | Recombination's (§601 … §604): centered on the stem–beam corner, slid 0.5 ss toward the heads, the far half longer by twice that. He finds it unreliable and "potentially a little too long" | the two-number rule below |
 | stems, flags and beams beside small heads | full size | his, when the head size is settled |
 | a long figure's room in the lane | the layout's red "fit?" (4 units on `s2-piano-solo`) | his, on the page |
 

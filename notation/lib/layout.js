@@ -816,7 +816,37 @@
         const top = m.reduce((a, b) => (b.yT > a.yT ? b : a));
         for (const x of m) unitCG.set(x.e.id, { t: tU0, headDx: x.headDx, accDxRel: accDx.has(x.e.id) ? accDx.get(x.e.id) : null, accKey: accKeyOf(x), top: x === top });
         handUnits.push({ d: d0, dir, t: tU0, part: partOfEv.get(evsU[0].id), m, base, W,   /* base = the DEFAULT column's head center: the stem's column */
-          left: Math.min(...m.map(x => x.headDx - x.w / 2), ...packed.map(p => p.leftEdge)), right: Math.max(...m.map(x => x.headDx + x.w / 2 + x.lext)) });
+          left: Math.min(...m.map(x => x.headDx - x.w / 2), ...packed.map(p => p.leftEdge)), right: Math.max(...m.map(x => x.headDx + x.w / 2 + x.lext)),
+          // [§262] the unit's INK as boxes (heads · ledger lines · accidentals; y up, the part's top staff) — for the grace group's spacing
+          ink: [].concat(...m.map(x => [{ x0: x.headDx - x.w / 2, x1: x.headDx + x.w / 2, y0: x.yT - x.h / 2, y1: x.yT + x.h / 2 }].concat(x.L.map(Ly => ({ x0: x.headDx - x.w / 2 - x.lext, x1: x.headDx + x.w / 2 + x.lext, y0: Ly - x.st * c2cU - 0.05, y1: Ly - x.st * c2cU + 0.05 })))),
+            packed.map((p, i) => ({ x0: p.leftEdge, x1: p.rightEdge, y0: accs[i].ySs - accs[i].botExt, y1: accs[i].ySs + accs[i].topExt }))) });
+      }
+      // [§262 — HIS RULE 2026-11-20, "these ones should have equal horizontal distance … we'll push out both sides … enough space so that the
+      // stems clear the ledger lines and the note head in the middle will be in between"] THE GRACE GROUP'S SPACING (rules.json
+      // objects.handUnit.graceGroupSpacing · graceGroupClearSs): the stems of a beamed grace group stand at EQUAL distances — the least at
+      // which every stem clears the later members' ink beside it and no two members' ink meets, by the clearance; the group centered on the
+      // span it was played in (so it is pushed out on both sides). Room on one side only: NO RULE YET — put to him when a figure meets it.
+      if (HU.graceGroupSpacing === 'equal') {
+        const clr = HU.graceGroupClearSs > 0 ? HU.graceGroupClearSs : 0.45, sth = (stdsU.stem && stdsU.stem.thickness) || 0.13, NHg = glyphs.notehead.filled, byG = new Map();
+        for (const U of handUnits) if (U.d.grace && U.d.puBeam && U.d.puStem) { const kg = U.part + '|' + U.d.puBeam; if (!byG.has(kg)) byG.set(kg, []); byG.get(kg).push(U); }
+        for (const g of byG.values()) {
+          if (g.length < 2) continue;
+          g.sort((a, b) => a.t - b.t);
+          const S = g.map(U => ({ x: U.base + (NHg.anchors.stemAttachUp.x - NHg.anchors.center.x) * U.m[0].k, y0: Math.min(...U.m.map(x => x.yT)) }));   // a beamed group's stems go up
+          let D = 0;
+          for (let i = 0; i < g.length; i++) for (let j = i + 1; j < g.length; j++) {
+            let need = -Infinity;
+            for (const rb of g[j].ink) {
+              if (rb.y1 > S[i].y0) need = Math.max(need, S[i].x + sth / 2 + clr - rb.x0);
+              for (const ra of g[i].ink) if (ra.y0 < rb.y1 && rb.y0 < ra.y1) need = Math.max(need, ra.x1 + clr - rb.x0);
+            }
+            if (need > -Infinity) D = Math.max(D, (need + S[j].x - S[i].x) / (j - i));
+          }
+          const tG = (g[0].t + g[g.length - 1].t) / 2;
+          g.forEach((U, i) => { const sh = (i - (g.length - 1) / 2) * D - S[i].x; U.t = tG; U.base += sh; U.left += sh; U.right += sh; U.graceGapSs = D;
+            for (const x of U.m) { x.headDx += sh; const c = unitCG.get(x.e.id); c.t = tG; c.headDx = x.headDx; }
+            for (const r of U.ink) { r.x0 += sh; r.x1 += sh; } });
+        }
       }
     }
     const systems = specs.map(spec => {
@@ -4229,7 +4259,9 @@
         it.push({ k: 'stem', t: U.t, dxSs: b.stemDx, yA: b.yHead, yB: b.yTip, attach: b.dir, unit: U.d.puId });
         if (b.fl && !b.beamed) it.push(Object.assign({ k: 'glyph', g: 'flag-' + b.dir + U.d.puFlag, t: U.t, dxSs: b.stemDx, ySs: b.yTip, align: 'stemTip', unit: U.d.puId }, b.kG !== 1 ? { scale: b.kG } : {}));
         // [§550 · §666] a FLAGGED grace's stroke: through the stem at the standard grace stem's own distance under its tip, rising to the right on an up stem
-        if (U.d.grace && b.fl && !b.beamed) { const flS = b.dir === 'down' ? -1 : 1, yc = b.yTip - flS * (1 - GRu.slashAt) * baseLU * b.kG, r = GRu.slashReachSs;
+        if (U.d.grace && b.fl && !b.beamed && GRu.slashCutSs > 0) { const flS = b.dir === 'down' ? -1 : 1, px = b.stemDx - stemTh / 2, cut = GRu.slashCutSs, jut = GRu.slashJutSs || 0;   // [§262] the corner rule: P = the stem's tip at its left edge
+          it.push({ k: 'slash', t: U.t, dx0Ss: px - jut, y0Ss: b.yTip - flS * (cut + jut), dx1Ss: px + cut + jut, y1Ss: b.yTip + flS * jut, thickSs: GRu.slashThickSs, unit: U.d.puId }); }
+        else if (U.d.grace && b.fl && !b.beamed) { const flS = b.dir === 'down' ? -1 : 1, yc = b.yTip - flS * (1 - GRu.slashAt) * baseLU * b.kG, r = GRu.slashReachSs;
           it.push({ k: 'slash', t: U.t, dx0Ss: b.stemDx - r, y0Ss: yc - flS * r, dx1Ss: b.stemDx + r, y1Ss: yc + flS * r, thickSs: GRu.slashThickSs, unit: U.d.puId }); }
       }
       for (const b of built) {
@@ -4246,13 +4278,19 @@
       }
       for (const g of byB.values()) {
         if (g.length < 2) continue;
-        const tips = g.slice().sort((a, b2) => a.U.t - b2.U.t).map(b => ({ t: b.U.t, dxSs: b.stemDx, ySs: b.yTip }));
+        const tips = g.slice().sort((a, b2) => (a.U.t - b2.U.t) || (a.stemDx - b2.stemDx)).map(b => ({ t: b.U.t, dxSs: b.stemDx, ySs: b.yTip }));   // [§262] a spaced grace group shares one time: by x
         const kB = g.every(b => b.U.d.grace) ? GRu.headScale : 1, n = g[0].U.d.puBeamN || 2, step = (BM.stackStep != null ? BM.stackStep : 0.81) * kB;   // a 16th: two beams, the standard stack step apart
         for (let i = 0; i < n; i++) g[0].sysT.items.push(Object.assign({ k: 'beam', dir: 'up', tips: tips.map(p => ({ t: p.t, dxSs: p.dxSs, ySs: p.ySs - i * step })), group: 'pu-' + g[0].U.d.puBeam }, kB !== 1 ? { scale: kB } : {}));
         // [§601 … §604] THE STROKE ON A BEAMED GRACE GROUP, the standing placement: on the FIRST stem only (§591); centered on the corner where
         // that stem meets the beam stack — the stem's x, the stack's center — slid slashBeamInsetSs toward the heads; the near half reaches
         // slashReachSs, the far half that plus twice the inset, so it juts the same beyond both faces of the stack; rising to the right (stems up)
-        if (kB !== 1) {
+        // [§262 — HIS RULE 2026-11-20] THE CORNER RULE for a hand unit's grace figure (rules.json objects.graceSlash.cutSs · jutSs): ONE anchor
+        // P = the first stem's left edge on the top face of the top beam; 45 degrees; the stroke crosses the stem cutSs under P and the beam's
+        // face cutSs right of P, and runs jutSs past each crossing — the same whatever the beams' number or the stem's length
+        if (kB !== 1 && GRu.slashCutSs > 0) {
+          const f = g.slice().sort((a, b2) => a.stemDx - b2.stemDx)[0], px = f.stemDx - stemTh / 2, py = f.yTip, cut = GRu.slashCutSs, jut = GRu.slashJutSs || 0;
+          g[0].sysT.items.push({ k: 'slash', t: f.U.t, dx0Ss: +(px - jut).toFixed(4), y0Ss: +(py - cut - jut).toFixed(4), dx1Ss: +(px + cut + jut).toFixed(4), y1Ss: +(py + jut).toFixed(4), thickSs: GRu.slashThickSs, atBeam: true, unit: f.U.d.puId });
+        } else if (kB !== 1) {
           const f = g.slice().sort((a, b2) => a.U.t - b2.U.t)[0], bt = (BM.thickness != null ? BM.thickness : 0.4) * kB, ys = [];
           for (let i = 0; i < n; i++) ys.push(f.yTip - i * step); ys.push(f.yTip);
           const inner = Math.min(...ys) - bt / 2, outer = Math.max(...ys) + bt / 2, GRi = GRu.slashBeamInsetSs, cy = (inner + outer) / 2 - GRi, r = GRu.slashReachSs, rFar = r + 2 * GRi;
