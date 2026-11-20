@@ -4547,3 +4547,17 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 **What "evenly" was taken to mean, and the alternative not built:** the COLUMNS' left edges are even (the standing rule: a head's left edge on its moment, D49). The STEMS therefore are not quite even in the lower hand (18 px, then 23.8 px), because the last chord's stem stands inside its two-column cluster. Even stems would be the other reading — put to him in one line.
 
 **Not looked at as a picture:** the preview pane would not give a readable zoom at this size; the numbers above are the check. His eye on his own page is the look.
+
+## §264 · 2026-11-20 · the sg's smaller waves · the red "fit?" left out · a played-spacing copy of the piano solo
+
+**His words (after figure 7):** "can we make the waves smaller so a slash can have a few of them and there is a text fit? that appears in the score can we supress that; and then can we keep an experiments file that has the original time accurate spacing?"
+
+**Built, three things:**
+- **The waves.** The scattered grace's stroke has its own wave now: `objects.handUnit.sgStrokeWaves` 3 · `sgStrokeAmpSs` 0.08 · `sgStrokeHand` false. Before: about one wave (1.05) at 0.12, with Recombination's second "hand-drawn" wave on top. The AI's call, his to move: the second wave is left off for the sg, because at three waves on a stroke 2.55 ss long it blurs the first. `objects.groupStub` keeps Recombination's numbers.
+- **The red "fit?".** It is the layout's own mark on a unit that does not fit its lane (the ladder's last rung, piece 5's red idiom). A page can now leave it out: `--noFitMark` → `ir.layoutPolicy.fitMark` false. Only the TEXT is left out; the units it marked still do not fit their lane (4 on this page at §259) — the OPEN table's "a long figure's room in the lane" stands.
+- **The played-spacing copy.** A second page, `s2-piano-solo-played` ("Section 2 - the piano solo, PLAYED spacing (the time-accurate copy)", under experiments in the picker): the same notes and the same hand file (`--unitsFrom s2-piano-solo`), with `--timeSpacing` → `ir.layoutPolicy.timeSpacing`: the grace group's equal spacing (§262) and the scattered grace's even spacing (§263) are both off, so every unit stands at its played time. Stems, beams, strokes and sizes are the same as the main page. It is rebuilt by the main page's command with `--id s2-piano-solo-played --unitsFrom s2-piano-solo --timeSpacing` added; it is NOT rebuilt by itself when a figure is taken.
+- The schema (`notation/schema/ir_v0.schema.json`) takes the two new policy keys. The first build was refused by the validator for the unknown key, and the IR removed, until the schema had them.
+
+**Checked once on the throwaway (5601):** "fit?" texts 0 on both pages; on the played copy figure 6's stroke stands at x 1499.4 (the main page 1488.7) and the lower sg stroke at 1545.3 (main 1528.3) — the played places.
+
+**The main page's command from here on** carries `--noFitMark`.

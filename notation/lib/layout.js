@@ -830,7 +830,8 @@
       // left most note to the right most note of either"] THE SCATTERED GRACE (rules.json objects.handUnit.scatteredGrace): the units that
       // share puSg are one figure in two hands; the SPAN runs from its first played unit to its last, either hand; each hand's units (one
       // beam) are set at EVEN times across that span, the first on its start and the last on its end. The played times stay in the IR.
-      if (HU.scatteredGrace !== false) {
+      // [§264] a page may keep the PLAYED spacing (ir.layoutPolicy.timeSpacing — the experiments copy, his "the original time accurate spacing")
+      if (HU.scatteredGrace !== false && !POL.timeSpacing) {
         const bySg = new Map();
         for (const U of handUnits) if (U.d.puSg) { const kg = U.part + '|' + U.d.puSg; if (!bySg.has(kg)) bySg.set(kg, []); bySg.get(kg).push(U); }
         for (const g of bySg.values()) {
@@ -840,7 +841,7 @@
             h.forEach((U, i) => { U.t = h.length > 1 ? t0 + i * (t1 - t0) / (h.length - 1) : U.t; for (const x of U.m) unitCG.get(x.e.id).t = U.t; }); }
         }
       }
-      if (HU.graceGroupSpacing === 'equal') {
+      if (HU.graceGroupSpacing === 'equal' && !POL.timeSpacing) {
         const clr = HU.graceGroupClearSs > 0 ? HU.graceGroupClearSs : 0.45, sth = (stdsU.stem && stdsU.stem.thickness) || 0.13, NHg = glyphs.notehead.filled, byG = new Map();
         for (const U of handUnits) if (U.d.grace && U.d.puBeam && U.d.puStem && !U.d.puSg) { const kg = U.part + '|' + U.d.puBeam; if (!byG.has(kg)) byG.set(kg, []); byG.get(kg).push(U); }
         for (const g of byG.values()) {
@@ -4312,7 +4313,7 @@
           // place; the waves counted so the wavelength stays Recombination's. Stems down: the same figure mirrored — it falls to the right.
           if (f.U.d.puSg) { const GSu = Object.assign({ squiggleReachSs: 1.5, squiggleAmpSs: 0.12, squiggleWaves: 1.75, squiggleHand: true, thickSs: 0.13 }, o.groupStub || {});   // RULES MIRROR (rules.json objects.groupStub)
             g[0].sysT.items.push({ k: 'squiggle', t: f.U.t, dx0Ss: +(px - jut).toFixed(4), y0Ss: +(py - bd * (cut + jut)).toFixed(4), dx1Ss: +(px + cut + jut).toFixed(4), y1Ss: +(py + bd * jut).toFixed(4),
-              ampSs: GSu.squiggleAmpSs, waves: +(GSu.squiggleWaves * (cut + 2 * jut) / (2 * GSu.squiggleReachSs)).toFixed(3), hand: !!GSu.squiggleHand, thickSs: GSu.thickSs, atBeam: true, unit: f.U.d.puId });
+              ampSs: HU.sgStrokeAmpSs > 0 ? HU.sgStrokeAmpSs : GSu.squiggleAmpSs, waves: HU.sgStrokeWaves > 0 ? HU.sgStrokeWaves : +(GSu.squiggleWaves * (cut + 2 * jut) / (2 * GSu.squiggleReachSs)).toFixed(3), hand: HU.sgStrokeHand != null ? !!HU.sgStrokeHand : !!GSu.squiggleHand,   /* [§264] the sg's own wave: smaller, a few of them (rules.json objects.handUnit.sgStroke…) */ thickSs: GSu.thickSs, atBeam: true, unit: f.U.d.puId });
           } else
           g[0].sysT.items.push({ k: 'slash', t: f.U.t, dx0Ss: +(px - jut).toFixed(4), y0Ss: +(py - cut - jut).toFixed(4), dx1Ss: +(px + cut + jut).toFixed(4), y1Ss: +(py + jut).toFixed(4), thickSs: GRu.slashThickSs, atBeam: true, unit: f.U.d.puId });
         } else if (kB !== 1) {
@@ -4373,7 +4374,7 @@
           if (res.rung === 8 && ov) {
             FitM.applyOverride(u.items, ov);
             for (const it of u.items) if (FitM.isMark(it)) it.fit = { rung: 8, by: res.by, override: ov.ref || true };
-          } else if (res.rung === 8) {
+          } else if (res.rung === 8 && POL.fitMark !== false) {   // [§264] a working page may leave the red mark out (ir.layoutPolicy.fitMark false — his "can we supress that")
             // #5's red idiom: the unit is marked until his override exists — on the side away from the spill, on the tag row
             s.items.push({ k: 'text', t: u.t, dxSs: 0, ySs: (res.side === 'bot' ? 1 : -1) * (o.tagY != null ? o.tagY : 3.5), text: 'fit?', size: TS.instruction, color: COL.alert, seq: 'alert', fit: { rung: 8 } });
           }

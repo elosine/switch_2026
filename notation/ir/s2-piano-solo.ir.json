@@ -16,7 +16,7 @@
   "date": "2026-11-20",
   "tool": "tools/notate_section.js (profile trance)",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only.",
-  "build": "node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 146 --w1 253 --parts 5 --alone 146-253 --pianoHands 5 --id s2-piano-solo --label \"Section 2 - the piano solo, note heads in two hands (a working page)\" --exp"
+  "build": "node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 146 --w1 253 --parts 5 --alone 146-253 --pianoHands 5 --id s2-piano-solo --label \"Section 2 - the piano solo, note heads in two hands (a working page)\" --exp --noFitMark"
  },
  "events": [
   {
@@ -51263,5 +51263,8 @@
    },
    "provenance": "authored"
   }
- ]
+ ],
+ "layoutPolicy": {
+  "fitMark": false
+ }
 }

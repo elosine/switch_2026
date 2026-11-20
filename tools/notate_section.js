@@ -324,6 +324,9 @@ if (techniques) {
 // (ir.layoutPolicy.bracketSide, read by layout.js) so approved files are
 // untouched; a dictated --bracketSide still wins per cluster.
 if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
+// [§264] --noFitMark: the page leaves the red "fit?" mark out · --timeSpacing: grace figures keep their PLAYED spacing (the experiments copy)
+if (flag('noFitMark')) doc.layoutPolicy = Object.assign(doc.layoutPolicy || {}, { fitMark: false });
+if (flag('timeSpacing')) doc.layoutPolicy = Object.assign(doc.layoutPolicy || {}, { timeSpacing: true });
 // --bricks (day 23, the composer's working loop — "bricks and the midi sound
 // all the way through"): every chunk stays UNRESOLVED, so the page shows the
 // parachute bricks everywhere and each note carries its technique's device;
@@ -2019,7 +2022,7 @@ function foldVibBows(flagName, gid, part, name, groupOnly) {
       // [§255] the head's size is a row (rules.json objects.handUnit); THE UNITS, taken one by one at his word, are a hand file beside the page:
       // notation/hand/<id>.units.json — [{ ids: [wc-…], stem: 'up'|'down', flag: 16, arp: true, beam: 'name' }, …]; a unit = one stem
       const HUR = (JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'rules.json'), 'utf8')).objects || {}).handUnit || {};
-      const UF = path.join(ROOT, 'notation', 'hand', id + '.units.json'), unitOf = new Map();
+      const UF = path.join(ROOT, 'notation', 'hand', arg('unitsFrom', id) + '.units.json')   /* [§264] --unitsFrom <page id>: another page's hand file (the experiments copy reads the main page's) */, unitOf = new Map();
       if (fs.existsSync(UF)) for (const u of JSON.parse(fs.readFileSync(UF, 'utf8')).units || []) for (const nid of u.ids || []) unitOf.set(nid, Object.assign({ puId: u.ids[0], nhHeadScale: u.size || HUR.unitHeadSize || 1, nhAccScale: u.size || HUR.unitHeadSize || 1 },   /* [§257] a unit's heads at the unit's size (full, his word); the notes not yet taken stay small */ u.stem ? { puStem: u.stem } : {}, u.flag ? { puFlag: String(u.flag) } : {}, u.arp ? { puArp: true } : {}, u.beam ? { puBeam: u.beam } : {}, u.grace ? { grace: true } : {}, u.sg ? { puSg: u.sg } : {},   /* [§263] sg: a scattered grace's name, shared by both hands */ Number.isFinite(u.at) ? { puT: u.at } : {}));   // [§259] at: the unit drawn at this time, not its own   // [§258] grace: a grace-note unit (objects.graceHead · graceSlash)
       const N = (score.objects || []).filter(x => x.type === 'waveCurve' && x.layer === part && x.sonifyNote != null && x.startSeconds >= w0 - 1e-9 && x.startSeconds < w1).sort((a, b) => a.startSeconds - b.startSeconds || a.sonifyNote - b.sonifyNote);
       let cL = +arg('handLeftAt', 66), cR = +arg('handRightAt', 80), nL = 0, nR = 0, wide = 0;

@@ -73,6 +73,8 @@ Built by `node tools/notate_section.js … --glissGestures all`. The crotales' d
 
 **The page:** `s2-piano-solo`. Black heads at half size, the right hand on the upper staff and the left on the lower, both in treble. Outside a figure, a head's left edge is on its own MIDI time. The figures are taken ONE BY ONE at his word and kept in `notation/hand/s2-piano-solo.units.json`.
 
+**The played-spacing copy (§264):** `s2-piano-solo-played` — the same page and the same hand file, with every figure at its PLAYED time (no grace spacing). Built by the main page's command plus `--id s2-piano-solo-played --unitsFrom s2-piano-solo --timeSpacing`. Both pages carry `--noFitMark` (the red "fit?" left out; the units it marked still want room).
+
 ### THE RULES A FIGURE IS BUILT FROM (gathered 2026-11-20, §256 — read these BEFORE drawing; a figure adds no rule of its own)
 
 | the thing | the standing rule | where it lives |

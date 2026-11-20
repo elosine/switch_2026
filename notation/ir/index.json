@@ -53,6 +53,17 @@
    ],
    "profile": "trance",
    "exp": true
+  },
+  {
+   "id": "s2-piano-solo-played",
+   "label": "Section 2 - the piano solo, PLAYED spacing (the time-accurate copy)",
+   "score": "piece-FirstDraft-Final-B-noFadeAt96",
+   "window": [
+    146,
+    253
+   ],
+   "profile": "trance",
+   "exp": true
   }
  ]
 }
