@@ -13012,10 +13012,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynSwell": {
+      "to": "ff",
+      "s": 1.25
+     }
     }
    },
    "provenance": "authored"
@@ -13318,10 +13321,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynSwell": {
+      "to": "ff",
+      "s": 1.25
+     }
     }
    },
    "provenance": "authored"
@@ -13603,10 +13609,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynSwell": {
+      "to": "ff",
+      "s": 1.25
+     }
     }
    },
    "provenance": "authored"
@@ -13975,10 +13984,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynSwell": {
+      "to": "ff",
+      "s": 1.25
+     }
     }
    },
    "provenance": "authored"
@@ -14299,7 +14311,6 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
      "brick": false
@@ -14601,10 +14612,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynSwell": {
+      "to": "ff",
+      "s": 1.25
+     }
     }
    },
    "provenance": "authored"
@@ -15350,7 +15364,6 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
      "brick": false
@@ -15692,7 +15705,6 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
      "brick": false
@@ -15985,7 +15997,6 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
      "brick": false
@@ -16316,7 +16327,6 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
      "brick": false
@@ -16602,7 +16612,6 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
      "brick": false
@@ -17055,8 +17064,7 @@
      "dynPlain": "mp",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false,
-     "techText": "crotales"
+     "brick": false
     }
    },
    "provenance": "authored"
@@ -17550,7 +17558,6 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
      "brick": false
@@ -18009,7 +18016,6 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
      "brick": false
@@ -18449,7 +18455,6 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
      "brick": false
@@ -18853,7 +18858,6 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
      "brick": false
@@ -19233,7 +19237,6 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
      "brick": false
@@ -19454,10 +19457,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -19627,10 +19633,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -19800,10 +19809,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -19973,10 +19985,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -20146,10 +20161,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -20303,8 +20321,7 @@
      "dynPlain": "mp",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false,
-     "techText": "crotales"
+     "brick": false
     }
    },
    "provenance": "authored"
@@ -20442,10 +20459,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -20583,10 +20603,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -20724,10 +20747,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -20865,10 +20891,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -21006,10 +21035,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -21131,8 +21163,7 @@
      "dynPlain": "mp",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false,
-     "techText": "crotales"
+     "brick": false
     }
    },
    "provenance": "authored"
@@ -21262,10 +21293,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -21395,10 +21429,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -21528,10 +21565,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -21661,10 +21701,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -21794,10 +21837,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -21911,8 +21957,7 @@
      "dynPlain": "mp",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false,
-     "techText": "crotales"
+     "brick": false
     }
    },
    "provenance": "authored"
@@ -22062,10 +22107,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -22215,10 +22263,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -22368,10 +22419,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -22521,10 +22575,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -22674,10 +22731,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -22811,8 +22871,7 @@
      "dynPlain": "mp",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false,
-     "techText": "crotales"
+     "brick": false
     }
    },
    "provenance": "authored"
@@ -22967,10 +23026,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -23125,10 +23187,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -23283,10 +23348,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -23441,10 +23509,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -23599,10 +23670,13 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
-     "dynFigure": "fff",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     }
     }
    },
    "provenance": "authored"
@@ -23741,8 +23815,7 @@
      "dynPlain": "mp",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false,
-     "techText": "crotales"
+     "brick": false
     }
    },
    "provenance": "authored"

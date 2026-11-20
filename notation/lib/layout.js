@@ -1402,13 +1402,26 @@
                 const AdP = Object.assign({ gapSs: 0.45 }, o.dynArrow || {}), mgP = (glyphs.dynamic || {})[dev.dynPlain] || { wSs: 1.6279 };
                 items.push({ k: 'glyph', g: 'dyn-' + dev.dynPlain, t: e.onset, dxSs: -AdP.gapSs - mgP.wSs / 2, ySs: Math.min(o.dynY, (HBk && HBk.lowInk != null ? HBk.lowInk : 0) - AdP.gapSs - (mgP.hSs || 1) / 2), align: 'center', ev: e.id });
               }
+              // [the Switch~ piece §251 — his "just to the right of the go line, just at the first instance … have the niente sign, have a hairpin that
+              // lasts about 1 or 1.5 seconds, and then the 2Fs, and then that's it for that first chunk"] dynSwell { to, s }: RIGHT of the go line —
+              // the niente circle, a timed hairpin of s seconds (the standing `hairpin-timed`), the mark it reaches; on the dynamic row
+              if (dev.dynSwell) {
+                const AdS = Object.assign({ gapSs: 0.45, thickSs: 0.13 }, o.dynArrow || {}), HDs = Object.assign({ circleDiaSs: 0.4695 }, o.sectionHead || {});   // RULES MIRROR
+                const toM = dev.dynSwell.to || 'ff', mgS = (glyphs.dynamic || {})[toM] || { wSs: 1.6279 }, tS = e.onset + (+dev.dynSwell.s || 1.25);
+                const yS = Math.min(o.dynY, (HBk && HBk.lowInk != null ? HBk.lowInk : 0) - AdS.gapSs - (mgS.hSs || 1) / 2);
+                items.push({ k: 'niente', t: e.onset, dxSs: AdS.gapSs + HDs.circleDiaSs / 2, ySs: yS, diaSs: HDs.circleDiaSs, thickSs: AdS.thickSs, ev: e.id });
+                items.push({ k: 'hairpin-timed', t0: e.onset, t1: tS, dx0Ss: AdS.gapSs * 2 + HDs.circleDiaSs, dx1Ss: 0, ySs: yS, dir: 'cresc', thickSs: AdS.thickSs, ev: e.id });
+                items.push({ k: 'glyph', g: 'dyn-' + toM, t: tS, dxSs: AdS.gapSs + mgS.wSs / 2, ySs: yS, align: 'center', ev: e.id });
+              }
               if (dev.dynFigure) {
                 const Ad = Object.assign({ lenSs: 2.0, headSs: 0.45, gapSs: 0.45, thickSs: 0.13 }, o.dynArrow || {});   // RULES MIRROR
                 const HDc = Object.assign({ circleDiaSs: 0.4695 }, o.sectionHead || {});                              // RULES MIRROR
-                const endM = typeof dev.dynFigure === 'string' ? dev.dynFigure : 'fff', mgD = (glyphs.dynamic || {})[endM] || { wSs: 1.6279 };
-                const markC = -Ad.gapSs - mgD.wSs / 2, arrR = markC - mgD.wSs / 2 - Ad.gapSs, arrL = arrR - Ad.lenSs, cirC = arrL - Ad.gapSs - HDc.circleDiaSs / 2;
+                const endM = typeof dev.dynFigure === 'string' ? dev.dynFigure : (dev.dynFigure && dev.dynFigure.to) || 'fff', fromM = dev.dynFigure && dev.dynFigure.from, mgF = fromM ? ((glyphs.dynamic || {})[fromM] || { wSs: 1.2 }) : null, mgD = (glyphs.dynamic || {})[endM] || { wSs: 1.6279 };
+                const markC = -Ad.gapSs - mgD.wSs / 2, arrR = markC - mgD.wSs / 2 - Ad.gapSs, arrL = arrR - Ad.lenSs, cirC = arrL - Ad.gapSs - (mgF ? mgF.wSs : HDc.circleDiaSs) / 2;
                 const yDf = Math.min(o.dynY, (HBk && HBk.lowInk != null ? HBk.lowInk : 0) - Ad.gapSs - (mgD.hSs || 1) / 2);
-                items.push({ k: 'niente', t: e.onset, dxSs: cirC, ySs: yDf, diaSs: HDc.circleDiaSs, thickSs: Ad.thickSs, ev: e.id });
+                // [the Switch~ piece §251] { from, to }: a dynamic mark where the niente circle stands (p → fff, the crescendos from 101.3 s)
+                if (fromM) items.push({ k: 'glyph', g: 'dyn-' + fromM, t: e.onset, dxSs: cirC, ySs: yDf, align: 'center', ev: e.id });
+                else items.push({ k: 'niente', t: e.onset, dxSs: cirC, ySs: yDf, diaSs: HDc.circleDiaSs, thickSs: Ad.thickSs, ev: e.id });
                 items.push({ k: 'dynarrow', t: e.onset, dx0Ss: arrL, dx1Ss: arrR, ySs: yDf, headSs: Ad.headSs, thickSs: Ad.thickSs, ev: e.id });
                 items.push({ k: 'glyph', g: 'dyn-' + endM, t: e.onset, dxSs: markC, ySs: yDf, align: 'center', ev: e.id });
               }

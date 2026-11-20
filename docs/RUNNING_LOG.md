@@ -4380,3 +4380,13 @@ The working page `s1-sax-first-note` now runs 12 … 31.3 s.
 **The precedent read (piece 2, `NOTATION_SYSTEM_PLAN.md` · `NOTATION_MODEL_SYSTEM.md`):** the instrument's name at its FIRST appearance only, not repeated while the instrument stays; in a small-caps label font (Cormorant SC Light, 1.1 ss). This engine has no such font; the word is in the engine's own technique-word style, at every crotales gesture. Put to him.
 
 **Seen once on the throwaway (two pages):** the players' gestures as the sax's. On the mallets lane, which is low, the badge lies on the staff's top lines and the fit moved the mp above it (the tool's own report: rung 3 at each crotales entry). Put to him; no rule made.
+
+## §251 · 2026-11-19 · Section 1's dynamics corrected: one swell into ff for the opening; p → fff for the single crescendos; "crotales" once
+
+**His words:** "Yes, first entry only. And then I'm in error about the dynamics … at least for that first chunk, all the way through to 96 seconds, it just crescendos into, I'm going to say 2Fs, and then holds at 2F all the way through … let's take away that dynamic with the arrow, and … just to the right of the go line, just at the first instance, the onset … have the niente sign, have a hairpin that lasts about 1 or 1.5 seconds, and then the 2Fs, and then that's it for that first chunk. And then after that, starting at about 101, those are all individual crescendos … let's do the P to arrow to FF, I think. Can you look it up if I talked at all when I was composing … about what those dynamics should be?"
+
+**What the record says (SW-24, 2026-11-09):** "Let's do from piano to — I think three Fs is the loudest, right? — to whatever the loudest dynamic. We'll crescendo both the sine tone and the instrument tones." So the crescendos from 101.3 s were composed p → fff, and the save sounds that way. Built as the record has it (p → fff), put to him against his "P to FF, I think".
+
+**Built:** device `dynSwell {to, s}` — right of the go line: the niente circle, the standing timed hairpin (1.25 s), the mark. `dynFigure` may now begin on a mark (`{from:'p', to:'fff'}`). In `--glissGestures`: a part's FIRST gesture of the opening carries the swell into ff, its later gestures to 96.6 s carry no dynamic; each 'dictated' gesture (101.3 … 144.45) carries p → arrow → fff before its go line. The word "crotales" at the first crotales entry only (piece 2's rule). The crotales' own mp left as it stood.
+
+**Seen once on the throwaway:** the sax's first entry (circle · hairpin · ff right of the go line) and the chord at 101.3 (p → fff in three parts).
