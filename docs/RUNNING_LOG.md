@@ -4711,3 +4711,7 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 **The prototype now:** shape 1 = B3 and G4 with the bar (it stands for B3 · C4 · D4 · D#4 · E4 · F4 · G4); shape 2 = C4 and E4 with the bar (C4 · C#4 · D4 · D#4 · E4). Neither end note has an accidental here. The fourth-column question of §276 is gone with it (flags: none).
 **Checked once:** the page rendered to an image from the throwaway's own answer — both bars in their boxes, heads at both ends, the ledger line under the lower ones.
 **What the bar does NOT say:** which notes inside are played. Shape 1 has no C#4 and no F#4; the bar reads as "everything from B3 to G4".
+
+## §278 · 2026-11-20 · the workshop's server is the AI's to run, for now
+
+**His words:** "since there is continuous restarting of the server can you handle that for the next while, I'll take over when it is more infrequent". The port 5650 was free (his server stopped). The AI started the notation workshop there (launch name `notation-workshop`) and restarts it itself whenever a change needs it; he only reloads his Chrome page. This is HIS word for THIS server and this while — the standing rule (the AI never holds his score port, 5600) is unchanged. When he takes it back: the AI stops its copy and he runs the line by its full path.
