@@ -4757,3 +4757,14 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 - The strip under the staff is gone from both (kept as `style: "strip"`, the page name `gravity-proto-strip`, not in the picker).
 **Checked once:** both pages rendered to images from the server's own answers.
 **Seen, for his eye:** on the ribbon the broad rebound makes the end of the arc as heavy as its start; on the strobe the ticks at the entry sit on the flat top of the arc, where the arc itself shows no motion yet — the GC's fall (power 3.4) keeps the ball high for the first half of its time.
+
+## §283 · 2026-11-20 · the ribbon taken (his "maybe") — more contrast, a ball that shows outside it, the top of the picture in view
+
+**His words (on his screenshot of the ribbon page, its top cut off):** "lets go with the ribbon, maybe, let exaggerate the contrast , I guess make the thickest part thicker, and can you do something with the ball, like a certian amount of the balls area should be visible outside the ribbon, and can you fix my view so I can see more of the top of the image".
+
+**Changed (`bank/gravity_proto.json`):**
+- THE CONTRAST — the ribbon's greatest width 13 → 24 px (three staff spaces) and the exaggeration's power 1.6 → 2.4, so the thin stretch stays a line and the two bursts stand out more.
+- THE BALL — its radius is the GC's own 5 px or 1.35 × the ribbon's half width where it rides + 2 px, whichever is larger (`flow.ballOverRibbon`), with a white rim 1.6 px wide, so a ring of the ball always shows outside the ribbon. The same on the page and in the film.
+- THE VIEW — the arc's top was cut because its apex stood 8 px under the picture's edge and the ribbon is wider than that. Now the arc keeps clear of both edges by the ribbon's half width, and the picture runs lower: the band 628 … 780 (was … 752), what stands under the piano's lane covered in white (`coverFrom` 752). The arc's fall is the same height as before (116 px).
+**Checked once:** the page rendered to an image — the whole ribbon inside the picture, top and bottom. The ball's new size was not seen moving (the same function in the page and the film; his eye).
+**Seen:** the rebound's ribbon is at its widest right after the impact and passes behind the second shape's box.

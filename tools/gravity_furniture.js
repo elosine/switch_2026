@@ -36,7 +36,11 @@ module.exports = function furniture(o) {
 
   // 1 · the GC arc (notation/lib/gc.js's own curve), as a line or as a ribbon
   const GP = Gc.params(Object.assign({}, preset, { duration: A.t1 - A.t0, descentRatio: 100 * (A.bounce - A.t0) / (A.t1 - A.t0) }));
-  const imp = yBot - 8, apex = band[0] + 8, gy = s => imp - Gc.heightFrac(GP, s - A.bounce) * (imp - apex);
+  // [§283 — his "can you fix my view so I can see more of the top of the image"] the arc keeps clear of the picture's edges by the ribbon's own
+  // half width; and what stands under the piano (coverFrom down) is covered in white, so the picture may run lower than the piano's lane
+  if (P.coverFrom != null && !strip && yBot > P.coverFrom) out.push('<rect x="0" y="' + P.coverFrom + '" width="' + w + '" height="' + (yBot - P.coverFrom) + '" fill="#fff"/>');
+  const RW = style === 'ribbon' ? (F.ribbonMaxPx != null ? F.ribbonMaxPx : 13) : 0;
+  const imp = yBot - 6 - Math.max(look.impactRadiusPx, RW / 2), apex = band[0] + 6 + RW / 2, gy = s => imp - Gc.heightFrac(GP, s - A.bounce) * (imp - apex);
   const P2 = S.map(p => ({ s: p[0], x: xOf(p[0]), y: gy(p[0]), e: ex(p[1]) }));
   const normalAt = i => { const p = P2[Math.max(0, i - 1)], q = P2[Math.min(P2.length - 1, i + 1)], dx = q.x - p.x, dy = q.y - p.y, L = Math.hypot(dx, dy) || 1; return { nx: -dy / L, ny: dx / L }; };
   if (style === 'ribbon') {
@@ -121,5 +125,7 @@ module.exports = function furniture(o) {
     out.push('<g fill="' + INK + '">' + g.join('') + '</g>');
     sh.pitches = sh.set.map(n => n.sp.step + (n.sp.alter === 1 ? '#' : n.sp.alter === -1 ? 'b' : '') + n.sp.octave);
   }
-  return { svg: out.join(''), extraH: strip ? F.heightPx + pad : 0, shapes: shapes.map(s => ({ at: s.at, pitches: s.pitches })), flags };
+  // the ribbon's half width along the arc, for the ball (it must show outside the ribbon)
+  const wMinR = F.ribbonMinPx != null ? F.ribbonMinPx : look.arcStrokePx, ribbon = style === 'ribbon' ? P2.filter((p, i) => i % 4 === 0 || i === P2.length - 1).map(p => [+p.s.toFixed(3), +((wMinR + (RW - wMinR) * p.e) / 2).toFixed(2)]) : null;
+  return { svg: out.join(''), arcY: { imp, apex }, ribbon, extraH: strip ? F.heightPx + pad : 0, shapes: shapes.map(s => ({ at: s.at, pitches: s.pitches })), flags };
 };

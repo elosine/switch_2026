@@ -112,7 +112,13 @@
     if (s <= a.bounce) { const d = a.bounce - a.t0; return 1 - Math.pow(cl(d > 0 ? (s - a.t0) / d : 1), dp); }
     const d = a.t1 - a.bounce; return rb * (1 - Math.pow(1 - cl(d > 0 ? (s - a.bounce) / d : 1), ap));
   }
-  const gcY = (p, s) => { const B = p.arcBand || V.band, imp = B[0] + B[1] - 8, apex = B[0] + 8; return imp - gcFrac(p, s) * (imp - apex); };
+  const gcY = (p, s) => { const B = p.arcBand || V.band, imp = p.arcY ? p.arcY.imp : B[0] + B[1] - 8, apex = p.arcY ? p.arcY.apex : B[0] + 8; return imp - gcFrac(p, s) * (imp - apex); };
+  // the ball shows outside the ribbon: the GC's own radius, or 1.35 x the ribbon's half width where it rides + 2 px, whichever is larger
+  function ballR(p, s) {
+    const base = p.look.ballRadiusPx, rb = p.ribbon; if (!rb || !rb.length) return base;
+    let h = rb[rb.length - 1][1]; for (let i = 1; i < rb.length; i++) if (s <= rb[i][0]) { const a = rb[i - 1], b = rb[i], u = b[0] > a[0] ? (s - a[0]) / (b[0] - a[0]) : 0; h = a[1] + (b[1] - a[1]) * Math.max(0, Math.min(1, u)); break; }
+    return Math.max(base, ((p.flow && p.flow.ballOverRibbon) || 1.35) * h + 2);
+  }
   function drawProto() {
     const el = $('marks'), p = V.proto, a = p.arc, k = S.size, out = [], pts = [], n = 160;
     el.setAttribute('width', V.w * k); el.setAttribute('height', V.band[1] * k);
@@ -147,7 +153,7 @@
   function balls() {
     const g = document.getElementById('balls'); if (!g || !V) return;
     const out = [];
-    if (V.proto) { const p = V.proto, a = p.arc; if (t >= a.t0 && t <= a.t1) out.push('<circle cx="' + xOf(t).toFixed(1) + '" cy="' + yPx(gcY(p, t)).toFixed(1) + '" r="' + (p.look.ballRadiusPx * S.size).toFixed(1) + '" fill="' + p.look.color + '"/>'); g.innerHTML = out.join(''); return; }
+    if (V.proto) { const p = V.proto, a = p.arc; if (t >= a.t0 && t <= a.t1) out.push('<circle cx="' + xOf(t).toFixed(1) + '" cy="' + yPx(gcY(p, t)).toFixed(1) + '" r="' + (ballR(p, t) * S.size).toFixed(1) + '" fill="' + p.look.color + '" stroke="#fff" stroke-width="' + (1.6 * S.size).toFixed(1) + '"/>'); g.innerHTML = out.join(''); return; }
     for (const a of M.arcs || []) { if (t < a.t0 || t > a.t1) continue; const y = arcY(a, t); if (y != null) out.push('<circle cx="' + xOf(t).toFixed(1) + '" cy="' + yPx(y).toFixed(1) + '" r="6" fill="' + COL[a.hand] + '"/>'); }
     g.innerHTML = out.join('');
   }

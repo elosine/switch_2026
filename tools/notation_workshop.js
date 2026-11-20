@@ -104,7 +104,7 @@ function viewOf(page, t0, span, w) {
     const pps = (view.xOfSeconds(t0 + span) - x0) / span;
     const f = require('./gravity_furniture.js')({ proto: e.proto, ir: { events: e.proto._played || e.ir.events }, glyphs: e.glyphs, ChordColumn: e.ChordColumn, Gc: e.Gc, xOf: s => x0 + (s - t0) * pps, staff: staves[staves.length - 1], w, preset: e.proto.preset, look: e.proto.look, gaps: e.gaps });
     svg = svg.replace(/<\/svg>\s*$/, f.svg + '</svg>');
-    band = [e.band[0], e.band[1] + f.extraH]; protoOut.shapes = f.shapes; protoOut.flags = f.flags;
+    band = [e.band[0], e.band[1] + f.extraH]; protoOut.shapes = f.shapes; protoOut.flags = f.flags; protoOut.arcY = f.arcY; protoOut.ribbon = f.ribbon;
   }
   svg = svg.replace(/^<svg([^>]*?) width="[\d.]+" height="[\d.]+" viewBox="[^"]*"/, '<svg$1 viewBox="0 ' + band[0] + ' ' + w + ' ' + band[1] + '" preserveAspectRatio="xMinYMin meet"');
   return { svg, staves, x0, pps: (view.xOfSeconds(t0 + span) - x0) / span, band, proto: protoOut, w, window: [t0, t0 + span], srcWindow: e.ir.source.window };
@@ -134,6 +134,13 @@ function sendFile(req, res, file, type) {
 const FONT_FILES = ['CrimsonPro-Light.ttf', 'CrimsonPro-LightItalic.ttf'].map(f => path.join(ROOT, 'notation', 'app', 'fonts', f)).concat(['C:/Windows/Fonts/seguisym.ttf']).filter(p => fs.existsSync(p));
 const atempo = r => { const f = []; let x = r; while (x < 0.5) { f.push('atempo=0.5'); x /= 0.5; } while (x > 2) { f.push('atempo=2'); x /= 2; } f.push('atempo=' + x.toFixed(4)); return f.join(','); };
 const ff = args => new Promise((ok, no) => { const p = spawn('ffmpeg', args, { stdio: ['ignore', 'ignore', 'pipe'] }); let err = ''; p.stderr.on('data', d => { err += d; }); p.on('close', c => c === 0 ? ok() : no(new Error(err.slice(-400)))); });
+// [§283 — his "a certian amount of the balls area should be visible outside the ribbon"] the ball's radius: the GC's own, or ballOverRibbon times
+// the ribbon's half width where it rides plus 2 px, whichever is larger (the page computes the same)
+function ballR(p, s) {
+  const base = p.look.ballRadiusPx, rb = p.ribbon; if (!rb || !rb.length) return base;
+  let h = rb[rb.length - 1][1]; for (let i = 1; i < rb.length; i++) if (s <= rb[i][0]) { const a = rb[i - 1], b = rb[i], u = b[0] > a[0] ? (s - a[0]) / (b[0] - a[0]) : 0; h = a[1] + (b[1] - a[1]) * Math.max(0, Math.min(1, u)); break; }
+  return Math.max(base, ((p.flow && p.flow.ballOverRibbon) || 1.35) * h + 2);
+}
 async function makeClip(q) {
   const { Resvg } = require('@resvg/resvg-js');
   const page = q.page, t0 = +q.t0, span = +q.span, w = Math.round(+q.w), rate = Math.min(2, Math.max(0.2, +q.rate || 1));
@@ -149,7 +156,7 @@ async function makeClip(q) {
   if (v.proto) {
     const Gc = require(path.join(ROOT, 'notation', 'lib', 'gc.js')), A = v.proto.arc, L = v.proto.look;
     const GP = Gc.params(Object.assign({}, v.proto.preset, { duration: A.t1 - A.t0, descentRatio: 100 * (A.bounce - A.t0) / (A.t1 - A.t0) }));
-    const AB = v.proto.arcBand, imp = AB[0] + AB[1] - 8, apex = AB[0] + 8, xs = s => v.x0 + (s - t0) * v.pps;
+    const imp = v.proto.arcY.imp, apex = v.proto.arcY.apex, xs = s => v.x0 + (s - t0) * v.pps;
     const yOf = s => { const f = Gc.heightFrac(GP, s - A.bounce); return f == null ? null : imp - f * (imp - apex); };
     const pts = []; for (let i = 0; i <= 200; i++) { const s = A.t0 + (A.t1 - A.t0) * i / 200; pts.push(xs(s).toFixed(2) + ',' + yOf(s).toFixed(2)); }
     ballY = s => (s < A.t0 || s > A.t1) ? null : (yOf(s) - v.band[0]);
@@ -175,9 +182,10 @@ async function makeClip(q) {
       while (i < n) {
         const t = a + (i / fps) * rate, x = Math.round((v.x0 + (t - t0) * v.pps) * sc), fr = Buffer.from(base.subarray(0, W * H2 * 4));
         for (let dx = -1; dx <= 1; dx++) { const xx = x + dx; if (xx < 0 || xx >= W) continue; for (let y = 0; y < H2; y++) { const o = (y * W + xx) * 4; fr[o] = 255; fr[o + 1] = 21; fr[o + 2] = 160; fr[o + 3] = 255; } }
-        if (ballY) { const by = ballY(t); if (by != null) { const cx = (v.x0 + (t - t0) * v.pps) * sc, cy = by * sc, r = v.proto.look.ballRadiusPx * sc, r2 = r * r;
-          for (let yy = Math.max(0, Math.floor(cy - r)); yy <= Math.min(H2 - 1, Math.ceil(cy + r)); yy++) for (let xx = Math.max(0, Math.floor(cx - r)); xx <= Math.min(W - 1, Math.ceil(cx + r)); xx++)
-            if ((xx - cx) * (xx - cx) + (yy - cy) * (yy - cy) <= r2) { const o = (yy * W + xx) * 4; fr[o] = 255; fr[o + 1] = 21; fr[o + 2] = 160; fr[o + 3] = 255; } } }
+        if (ballY) { const by = ballY(t); if (by != null) { const cx = (v.x0 + (t - t0) * v.pps) * sc, cy = by * sc, r = ballR(v.proto, t) * sc, r2 = r * r, ro = r + 1.6 * sc, ro2 = ro * ro;   // [§283] the ball larger than the ribbon under it, a white rim round it
+          for (let yy = Math.max(0, Math.floor(cy - ro)); yy <= Math.min(H2 - 1, Math.ceil(cy + ro)); yy++) for (let xx = Math.max(0, Math.floor(cx - ro)); xx <= Math.min(W - 1, Math.ceil(cx + ro)); xx++) {
+            const d2 = (xx - cx) * (xx - cx) + (yy - cy) * (yy - cy); if (d2 > ro2) continue; const o = (yy * W + xx) * 4;
+            if (d2 <= r2) { fr[o] = 255; fr[o + 1] = 21; fr[o + 2] = 160; } else { fr[o] = 255; fr[o + 1] = 255; fr[o + 2] = 255; } fr[o + 3] = 255; } } }
         i++;
         if (!p.stdin.write(fr)) { p.stdin.once('drain', next); return; }
       }
