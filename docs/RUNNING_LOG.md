@@ -4456,3 +4456,17 @@ The working page `s1-sax-first-note` now runs 12 … 31.3 s.
 **Figures:** 4 — 149.98 s, three notes, stem up, 16th flag, one column. 5 — 151.04 s, the five on the upper staff and the C of 151.17 on the lower in one column, stem up, an 8TH flag (his word), the arpeggio across both staves.
 
 **Seen once on the throwaway:** flags clear the staves; the columns step aside at seconds; the arpeggios are LilyPond's and clear of the flags. The red "fit?" still stands by figure 1 (the lane's room; his).
+
+## §257 · 2026-11-20 · the five figures at full size; figure 5 a 16th; THE FLAG RULE MEASURED on the page; a longer-stem rule put to him
+
+**His words:** "we can convert those first 5 figures to full-size note heads, and just if you can push everything over. And then, yes, that's meant to be a 16th flag. And let's discuss the stem length. Just confirm that you found the rule and are applying it. It doesn't look like you are … for example, that first figure. It was something to do with like the top of the flags. And just confirm we're using the right flags, the same one we've been using … there should be a minimum gap between … the tails of the flags and the lowest staff line … However, for this part, I do want to make the stems even longer, since we don't have any notation in the above or below. So let's discuss a rule to make those stems longer so that it could be consistently applied. So the bottom stems should go a fair bit lower, and the top stems should go a fair bit higher."
+
+**Built:** a figure that has been taken (a unit of the hand file) has full-size heads and accidentals (`handUnit.unitHeadSize` 1); the notes not yet taken stay at 0.5. Figure 5's flag is a 16th.
+
+**THE FLAG RULE, measured on the page (the throwaway, staff space 7.315 px):** the rule is `objects.flag.staff` 0.38 — the flag's tail stands 0.38 ss clear of the staff's outer line (#4 day 23, his "just like three pixels or so — maybe not the full typical gap"; piece 2's own number was 1.0). The flags are the engine's own (`glyphs.json flag`, LilyPond, ported from piece 2 on 2026-08-22): up 16th 3.508 ss tall, down 16th 3.008.
+- Figure 1 (stem down, lower staff): the stem's tip 3.38 ss under the bottom line = 0.38 + 3.008. The rule, exactly.
+- Figure 3 (stem up): the tip 3.89 ss over the top line = 0.38 + 3.508. The rule, exactly.
+- Figures 4 · 5: the tips 4.64 ss over the top line — the stem's base length (3.5 past the top head) is the longer of the two, so the flag's tail stands 1.13 ss clear.
+So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
+
+**The longer stems — put to him, not built:** ONE number for this section, the flag's clearance from the staff. Raised from 0.38 to about 2 ss, every flag's tail (and every beam) stands the same distance outside the staff: the upper staff's tips on one line 7.5 ss over its middle, the lower staff's stems mirrored below. The same law, one row; nothing else changes.
