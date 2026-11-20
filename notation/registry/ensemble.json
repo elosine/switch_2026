@@ -39,10 +39,35 @@
    "id": "percussion",
    "short": "Perc",
    "clef": "treble",
-   "weight": 1.888,
+   "weight": 1.18,
    "staff": {
     "gapSs": 2,
     "noClef": true,
+    "lines": [
+     {
+      "short": "Coil",
+      "match": "small_metals_spring_coil",
+      "instrument": "spring coil"
+     },
+     {
+      "short": "China",
+      "match": "china_cymbals",
+      "instrument": "China cymbal"
+     },
+     {
+      "short": "Brake",
+      "match": "brake_drums",
+      "instrument": "brake drums"
+     },
+     {
+      "short": "BD",
+      "match": "gran_cassa",
+      "instrument": "bass drum"
+     }
+    ]
+   },
+   "_staffNote": "THE UNPITCHED STAFF — his \"b\" (2026-10-23, RUNNING_LOG §24: \"can this be reversed later when it comes time to notate?\" — yes: this entry is the whole of it; Decibel's hidden one-line form is one edit). PROVISIONAL: piece 6's eight-line staff of 2026-10-04 (its 755ed29, after Ferneyhough's Bone Alphabet — one line per instrument, 2 ss apart, no clef, the short names in the gutter, a note ON the line of its instrument by its technique key's prefix), for the SAME eight Abbey Road instruments this rack carries (bank/perc_selection.json). His instruments from the call's list (D10) replace the lines when chosen; the order is then his. | piece 6: THE UNPITCHED STAFF, piece #6's type (after Ferneyhough's Bone Alphabet — one line per instrument, 2 ss apart, no clef, the short names in the gutter, a note ON the line of its instrument by its technique key's prefix): EIGHT lines here, for his TENTATIVE list of 2026-10-04 (COMPOSITION_NOTES DEC-6). THE ORDER IS PROVISIONAL AND THE AI'S — his rule of piece #6 applied as far as eight instruments allow (\"high to low, no two neighbours of one material\"): metal · skin · metal · skin · metal · skin · wood · skin. A staff type's design is HIS (the protocol's 6.2): put to him; reordering is this list.",
+   "_staffWas": {
     "lines": [
      {
       "short": "Coil",
@@ -84,9 +109,11 @@
       "match": "bass_drum_alt",
       "instrument": "bass drum"
      }
-    ]
+    ],
+    "weight": 1.888,
+    "note": "piece 6's eight-line staff, the provisional one of the set-up (2026-10-23) — kept here for the record"
    },
-   "_staffNote": "THE UNPITCHED STAFF — his \"b\" (2026-10-23, RUNNING_LOG §24: \"can this be reversed later when it comes time to notate?\" — yes: this entry is the whole of it; Decibel's hidden one-line form is one edit). PROVISIONAL: piece 6's eight-line staff of 2026-10-04 (its 755ed29, after Ferneyhough's Bone Alphabet — one line per instrument, 2 ss apart, no clef, the short names in the gutter, a note ON the line of its instrument by its technique key's prefix), for the SAME eight Abbey Road instruments this rack carries (bank/perc_selection.json). His instruments from the call's list (D10) replace the lines when chosen; the order is then his. | piece 6: THE UNPITCHED STAFF, piece #6's type (after Ferneyhough's Bone Alphabet — one line per instrument, 2 ss apart, no clef, the short names in the gutter, a note ON the line of its instrument by its technique key's prefix): EIGHT lines here, for his TENTATIVE list of 2026-10-04 (COMPOSITION_NOTES DEC-6). THE ORDER IS PROVISIONAL AND THE AI'S — his rule of piece #6 applied as far as eight instruments allow (\"high to low, no two neighbours of one material\"): metal · skin · metal · skin · metal · skin · wood · skin. A staff type's design is HIS (the protocol's 6.2): put to him; reordering is this list."
+   "_linesNote": "THE SWITCH~ PIECE, 2026-11-19 (his word: \"get rid of any of the staff lines that we're not using … reduce it to 4\"): the four instruments the first draft plays (201 … 253 s) — spring coil · China cymbal · brake drums · bass drum; the two beaters of the brake drums and of the bass drum share a line (a word names the beater). weight 1.18 (the AI's: a five-line staff 1, the eight-line 1.888, by height)."
   },
   {
    "part": 4,

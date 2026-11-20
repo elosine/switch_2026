@@ -1381,12 +1381,27 @@
             // rising `glissUp` staff spaces from the head's own height (1 = a third) · the standard gap · the head.
             if (dev.headBefore) {
               const mB = { midi: e.pitch && e.pitch.midi, cents: 0 };
+              let HBk = null;
               if (dev.glissUp) {
                 const GLb = Object.assign({ gapSs: 0.45, thickSs: 0.13 }, o.dynArrow || {});   // RULES MIRROR (the header's chain, D45)
                 const glR = -o.nhGapSs, glL = glR - glyphs.notehead.open.wSs * 2;
-                const HB = justHead(e.onset, mB, glL - GLb.gapSs, { ev: e.id });
+                const HB = justHead(e.onset, mB, glL - GLb.gapSs, { ev: e.id }); HBk = HB;
                 items.push({ k: 'glissline', t: e.onset, dx0Ss: glL, dx1Ss: glR, ySs: HB.y, y1Ss: HB.y + (+dev.glissUp || 1), thickSs: GLb.thickSs, seq: 'glissLine', ev: e.id });
-              } else justHead(e.onset, mB, -o.nhGapSs, { ev: e.id });
+              } else HBk = justHead(e.onset, mB, -o.nhGapSs, { ev: e.id });
+              // `dynFigure` (his word the same day: "add the niente to fff with the arrow … in its standard location"): THE HEADER'S DYNAMIC FIGURE
+              // as the tubas' and the septets' headers draw it, number for number (the block above: `A` = rules objects.dynArrow, the circle
+              // `sectionHead.circleDiaSs`) — on the house dynamic row `dynY`, or a standard spacer under the head's lowest ink where that is
+              // lower; right to left from the go line: the spacer · the end mark · the spacer · the arrow · the spacer · the niente circle.
+              if (dev.dynFigure) {
+                const Ad = Object.assign({ lenSs: 2.0, headSs: 0.45, gapSs: 0.45, thickSs: 0.13 }, o.dynArrow || {});   // RULES MIRROR
+                const HDc = Object.assign({ circleDiaSs: 0.4695 }, o.sectionHead || {});                              // RULES MIRROR
+                const endM = typeof dev.dynFigure === 'string' ? dev.dynFigure : 'fff', mgD = (glyphs.dynamic || {})[endM] || { wSs: 1.6279 };
+                const markC = -Ad.gapSs - mgD.wSs / 2, arrR = markC - mgD.wSs / 2 - Ad.gapSs, arrL = arrR - Ad.lenSs, cirC = arrL - Ad.gapSs - HDc.circleDiaSs / 2;
+                const yDf = Math.min(o.dynY, (HBk && HBk.lowInk != null ? HBk.lowInk : 0) - Ad.gapSs - (mgD.hSs || 1) / 2);
+                items.push({ k: 'niente', t: e.onset, dxSs: cirC, ySs: yDf, diaSs: HDc.circleDiaSs, thickSs: Ad.thickSs, ev: e.id });
+                items.push({ k: 'dynarrow', t: e.onset, dx0Ss: arrL, dx1Ss: arrR, ySs: yDf, headSs: Ad.headSs, thickSs: Ad.thickSs, ev: e.id });
+                items.push({ k: 'glyph', g: 'dyn-' + endM, t: e.onset, dxSs: markC, ySs: yDf, align: 'center', ev: e.id });
+              }
             }
             if (dev.onsetHead) {
               const ohs = (o.figures && o.figures.cluster && o.figures.cluster.nhHeadScale) || 0.844;

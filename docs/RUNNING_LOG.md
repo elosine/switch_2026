@@ -4306,3 +4306,19 @@ line at 16.0 s and the open head before it, nothing else (seen on the throwaway)
 the gliss line rising from the head · the one pitch curve · niente → fff · the badge · the sine's own sign (his to think about).
 **For the method:** a new sign is built on the working page element by element with `--hand` and small device flags; it becomes a named
 device (a row set in `rules.json`) only once he has settled it — the device sheet's "lock", not its start.
+
+## §245. The beating gliss, elements 2 and 3; the percussion staff cut to four (2026-11-19)
+
+**Element 2 — the gliss line** (his: "one note head and the gliss up … the same width … up to about a third … a standard space and then the go
+line"): device flag `glissUp` — the septets' chain with the destination head out. **His eye (a screenshot): TWO heads** — the page's ordinary
+note already draws its own head before the go line (`byTechnique.ord`: `nhUnit`); the new head stood beside it. Cured on the hand
+(`nhUnit: false`, `dynMark: false`): the ONE head is the new one. *The lesson, and his words with it:* "as much as possible, we should be
+using whatever standards are in place and not just free drawing these things."
+**Element 3 — niente → fff with the arrow, "in its standard location":** device flag `dynFigure` — the tubas' / septets' header figure taken
+number for number (the dynamic row `dynY`; the arrow's `objects.dynArrow`; the circle's `sectionHead.circleDiaSs`; right to left from the
+go line: spacer · the end mark · spacer · the arrow · spacer · the circle; lowered a spacer under the head's low ink where that reaches the row).
+**The page tool's hand for the case:** `--hand wc-94:{"goLine":true,"headBefore":true,"glissUp":1,"dynFigure":"fff","nhUnit":false,"dynMark":false,"brick":false}`.
+**The percussion staff:** the draft plays four instruments (201 … 253 s): spring coil · China cymbal · brake drums (two beaters) · bass drum
+(two beaters). The staff carried from piece 6 had eight lines, two of them used. Cut to FOUR at his word (`ensemble.json` part 3; the old
+lines kept in `_staffWas`; weight 1.18, the AI's, by height). Seen on the throwaway: one head, the slanted line, the go line; the circle,
+the arrow and fff under the staff; the percussion staff four lines.

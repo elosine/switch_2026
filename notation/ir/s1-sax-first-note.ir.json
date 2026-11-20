@@ -16,7 +16,7 @@
   "date": "2026-11-20",
   "tool": "tools/notate_section.js (profile trance)",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only.",
-  "build": "node tools/notate_section.js --score piece-FirstDraft-Final --w0 12 --w1 23.9 --parts 2 --hand \"wc-94:{\\\"goLine\\\":true,\\\"headBefore\\\":true,\\\"glissUp\\\":1,\\\"brick\\\":false}\" --id s1-sax-first-note --label \"Section 1 - the sax's first note (a working page)\" --exp"
+  "build": "node tools/notate_section.js --score piece-FirstDraft-Final --w0 12 --w1 23.9 --parts 2 --hand \"wc-94:{\\\"goLine\\\":true,\\\"headBefore\\\":true,\\\"glissUp\\\":1,\\\"dynFigure\\\":\\\"fff\\\",\\\"nhUnit\\\":false,\\\"dynMark\\\":false,\\\"brick\\\":false}\" --id s1-sax-first-note --label \"Section 1 - the sax's first note (a working page)\" --exp"
  },
  "events": [
   {
@@ -172,6 +172,9 @@
      "goLine": true,
      "headBefore": true,
      "glissUp": 1,
+     "dynFigure": "fff",
+     "nhUnit": false,
+     "dynMark": false,
      "brick": false
     }
    },
