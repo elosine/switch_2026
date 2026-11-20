@@ -751,6 +751,7 @@
     //   · THE ARPEGGIO — piece #2's (CHORD_SPACING_RULES §5c.D; its session 66): LilyPond's arpeggio unit stacked one staff space apart, RIGHT of
     //     the chord ("arpeggio symbol always on the right"), chordToArpeggioGapSs from the chord's rightmost ink — the flag's, where they meet.
     const HU = Object.assign({ arpGapSs: 0.225, arpSide: 'right' }, o.handUnit || {});   // RULES MIRROR
+    const GRu = Object.assign({ headScale: 0.707, slashReachSs: 0.6, slashAt: 0.6, slashThickSs: 0.13, slashBeamInsetSs: 1 }, o.grace || {});   // RULES MIRROR (rules.json objects.graceHead · graceSlash)
     const c2cU = 4 + ((o.grandStaff && o.grandStaff.interStaffGapSs) || 6);
     const unitCG = new Map(), handUnits = [];
     {
@@ -762,8 +763,22 @@
       for (const e of ir.events || []) { const d = deviceOf(e); if (!d.puId || !ChordColumn) continue; const k = partOfEv.get(e.id) + '|' + d.puId; if (!byU.has(k)) byU.set(k, []); byU.get(k).push(e); }
       for (const evsU of byU.values()) {
         const d0 = deviceOf(evsU[0]), dir = d0.puStem === 'down' ? 'down' : 'up', tU0 = Math.min(...evsU.map(e => e.onset));
+        // [§258] PIECE #2's RESPELLING RULE FOR A TIGHT CLUSTER (CHORD_SPACING_RULES §5b, locked its session 66 · 78): a sharp whose LETTER
+        // another note of the chord has (an altered unison — two heads on one line) is written as the flat of the next letter, when that
+        // letter is free in the chord; when both spellings meet another note (A · A♯ · B) the spelling stays and the unison is accepted.
+        {
+          const LET = ['C', 'D', 'E', 'F', 'G', 'A', 'B'], keyOf = (st, sp) => st + '|' + sp.step + sp.octave;
+          const sps = evsU.map(e => ({ e, st: staffOfEv(e), sp: spelledOf(e) }));
+          for (const x of sps) {
+            if (x.sp.alter !== 1 || x.sp.step === 'B' || x.sp.step === 'E') continue;
+            if (!sps.some(y => y !== x && keyOf(y.st, y.sp) === keyOf(x.st, x.sp))) continue;
+            const nx = { step: LET[LET.indexOf(x.sp.step) + 1], alter: -1, octave: x.sp.octave };
+            if (sps.some(y => y !== x && keyOf(y.st, y.sp) === keyOf(x.st, nx))) continue;
+            respell.set(x.e.id, nx); x.sp = nx;
+          }
+        }
         const m = evsU.map(e => {
-          const dev = deviceOf(e), g = glyphs.notehead[dev.nhHead === 'filled' ? 'filled' : 'open'], k = dev.nhHeadScale > 0 ? dev.nhHeadScale : 1, ka = dev.nhAccScale > 0 ? dev.nhAccScale : 1;
+          const dev = deviceOf(e), g = glyphs.notehead[dev.nhHead === 'filled' ? 'filled' : 'open'], k = dev.grace ? GRu.headScale : dev.nhHeadScale > 0 ? dev.nhHeadScale : 1, ka = dev.grace ? GRu.headScale : dev.nhAccScale > 0 ? dev.nhAccScale : 1;   // [§258] a grace unit at the grace's size
           const sp = spelledOf(e), st = staffOfEv(e);
           let y = posOfEv(e); while (y > thU) y -= 3.5; while (y < -thU) y += 3.5;
           const L = ledgersForStd(y);
@@ -4172,7 +4187,7 @@
     // [§255 · §256] THE HAND UNIT's stem, flag, beam and arpeggio — once every staff is laid out, in the part's TOP staff (a lower-staff height
     // brought there by the distance between the staves' middle lines, as the cross-staff group's is, 2i.4). The rules: the pre-pass's header.
     {
-      const NHf = glyphs.notehead.filled, clrU = o.flagClearanceSs != null ? o.flagClearanceSs : 0.38, baseLU = o.stemLen != null ? o.stemLen : 3.5, EDGE = 2;
+      const NHf = glyphs.notehead.filled, clrU = HU.flagClearSs > 0 ? HU.flagClearSs : o.flagClearanceSs != null ? o.flagClearanceSs : 0.38, baseLU = o.stemLen != null ? o.stemLen : 3.5, EDGE = 2;   // [§258] HU.flagClearSs: this section's own clearance (rules.json objects.handUnit.flagClearSs)
       const stemTh = (glyphs.standards.stem && glyphs.standards.stem.thickness) || 0.13, BM = glyphs.standards.beam || {};
       const attOf = (dir, k) => { const a = dir === 'up' ? NHf.anchors.stemAttachUp : NHf.anchors.stemAttachDown; return { dx: (a.x - NHf.anchors.center.x) * k, dy: (a.y - NHf.anchors.center.y) * k }; };
       const built = [];
@@ -4181,23 +4196,27 @@
         const dir = U.dir, k = U.m[0].k, att = attOf(dir, k);
         const hi = U.m.reduce((a, b) => (b.yT > a.yT ? b : a)), lo = U.m.reduce((a, b) => (b.yT < a.yT ? b : a)), tipH = dir === 'up' ? hi : lo, off = -tipH.st * c2cU;
         const stemDx = U.base + att.dx, yHead = (dir === 'up' ? lo.yT : hi.yT) - att.dy, yS = tipH.y - att.dy;   // yS: the tip-side head's attach, in ITS staff
-        const fl = U.d.puFlag ? glyphs.flag[dir + U.d.puFlag] : null;
-        let L = (dir === 'up' ? tipH.y < 0 : tipH.y > 0) ? stemLenFor(tipH.y, baseLU) : baseLU;
-        if (fl && !U.d.puBeam) { const need = dir === 'up' ? (EDGE + clrU + fl.hSs) - yS : yS - (-EDGE - clrU - fl.hSs); if (!(HU.flagClearMaxSs > 0) || need <= HU.flagClearMaxSs) L = Math.max(L, need); }
-        built.push({ U, sysT, dir, stemDx, yHead, yTip: (dir === 'up' ? yS + L : yS - L) + off, yS: yS + off, hi, lo, fl, tipH });
+        const fl = U.d.puFlag ? glyphs.flag[dir + U.d.puFlag] : null, kG = U.d.grace ? GRu.headScale : 1;   // [§550] a grace's stem and flag at the grace scale
+        let L = ((dir === 'up' ? tipH.y < 0 : tipH.y > 0) ? stemLenFor(tipH.y, baseLU) : baseLU) * kG;
+        if (fl && !U.d.puBeam) { const need = dir === 'up' ? (EDGE + clrU + fl.hSs * kG) - yS : yS - (-EDGE - clrU - fl.hSs * kG); if (!(HU.flagClearMaxSs > 0) || need <= HU.flagClearMaxSs) L = Math.max(L, need); }
+        built.push({ U, sysT, dir, stemDx, yHead, yTip: (dir === 'up' ? yS + L : yS - L) + off, yS: yS + off, hi, lo, fl, tipH, kG });
       }
       const byB = new Map();
       for (const b of built) if (!b.none && b.U.d.puBeam) { const kb = b.U.part + '|' + b.U.d.puBeam; if (!byB.has(kb)) byB.set(kb, []); byB.get(kb).push(b); }
       for (const g of byB.values()) {
         const st = Math.min(...g.map(b => b.hi.st)), fgB = glyphs.flag.up16 || glyphs.flag.up8;
-        const y = Math.max(EDGE + clrU + fgB.hSs - st * c2cU, ...g.map(b => b.yS + baseLU));   // the flagged stem's height; no member under the base length
+        const kB = g.every(b => b.U.d.grace) ? GRu.headScale : 1;   // [§592] a grace group's beam at the heads' scale
+        const y = Math.max(EDGE + clrU + fgB.hSs * kB - st * c2cU, ...g.map(b => b.yS + baseLU * kB));   // the flagged stem's height; no member under the base length
         for (const b of g) { b.yTip = y; b.beamed = true; b.dir = 'up'; }
       }
       for (const b of built) {
         if (b.none) continue;
         const it = b.sysT.items, U = b.U;
         it.push({ k: 'stem', t: U.t, dxSs: b.stemDx, yA: b.yHead, yB: b.yTip, attach: b.dir, unit: U.d.puId });
-        if (b.fl && !b.beamed) it.push({ k: 'glyph', g: 'flag-' + b.dir + U.d.puFlag, t: U.t, dxSs: b.stemDx, ySs: b.yTip, align: 'stemTip', unit: U.d.puId });
+        if (b.fl && !b.beamed) it.push(Object.assign({ k: 'glyph', g: 'flag-' + b.dir + U.d.puFlag, t: U.t, dxSs: b.stemDx, ySs: b.yTip, align: 'stemTip', unit: U.d.puId }, b.kG !== 1 ? { scale: b.kG } : {}));
+        // [§550 · §666] a FLAGGED grace's stroke: through the stem at the standard grace stem's own distance under its tip, rising to the right on an up stem
+        if (U.d.grace && b.fl && !b.beamed) { const flS = b.dir === 'down' ? -1 : 1, yc = b.yTip - flS * (1 - GRu.slashAt) * baseLU * b.kG, r = GRu.slashReachSs;
+          it.push({ k: 'slash', t: U.t, dx0Ss: b.stemDx - r, y0Ss: yc - flS * r, dx1Ss: b.stemDx + r, y1Ss: yc + flS * r, thickSs: GRu.slashThickSs, unit: U.d.puId }); }
       }
       for (const b of built) {
         const U = b.U; if (!U.d.puArp || !b.sysT || !glyphs.arpeggio) continue;
@@ -4214,8 +4233,17 @@
       for (const g of byB.values()) {
         if (g.length < 2) continue;
         const tips = g.slice().sort((a, b2) => a.U.t - b2.U.t).map(b => ({ t: b.U.t, dxSs: b.stemDx, ySs: b.yTip }));
-        const n = g[0].U.d.puBeamN || 2, step = BM.stackStep != null ? BM.stackStep : 0.81;   // a 16th: two beams, the standard stack step apart
-        for (let i = 0; i < n; i++) g[0].sysT.items.push({ k: 'beam', dir: 'up', tips: tips.map(p => ({ t: p.t, dxSs: p.dxSs, ySs: p.ySs - i * step })), group: 'pu-' + g[0].U.d.puBeam });
+        const kB = g.every(b => b.U.d.grace) ? GRu.headScale : 1, n = g[0].U.d.puBeamN || 2, step = (BM.stackStep != null ? BM.stackStep : 0.81) * kB;   // a 16th: two beams, the standard stack step apart
+        for (let i = 0; i < n; i++) g[0].sysT.items.push(Object.assign({ k: 'beam', dir: 'up', tips: tips.map(p => ({ t: p.t, dxSs: p.dxSs, ySs: p.ySs - i * step })), group: 'pu-' + g[0].U.d.puBeam }, kB !== 1 ? { scale: kB } : {}));
+        // [§601 … §604] THE STROKE ON A BEAMED GRACE GROUP, the standing placement: on the FIRST stem only (§591); centered on the corner where
+        // that stem meets the beam stack — the stem's x, the stack's center — slid slashBeamInsetSs toward the heads; the near half reaches
+        // slashReachSs, the far half that plus twice the inset, so it juts the same beyond both faces of the stack; rising to the right (stems up)
+        if (kB !== 1) {
+          const f = g.slice().sort((a, b2) => a.U.t - b2.U.t)[0], bt = (BM.thickness != null ? BM.thickness : 0.4) * kB, ys = [];
+          for (let i = 0; i < n; i++) ys.push(f.yTip - i * step); ys.push(f.yTip);
+          const inner = Math.min(...ys) - bt / 2, outer = Math.max(...ys) + bt / 2, GRi = GRu.slashBeamInsetSs, cy = (inner + outer) / 2 - GRi, r = GRu.slashReachSs, rFar = r + 2 * GRi;
+          g[0].sysT.items.push({ k: 'slash', t: f.U.t, dx0Ss: +(f.stemDx - r).toFixed(4), y0Ss: +(cy - r).toFixed(4), dx1Ss: +(f.stemDx + rFar).toFixed(4), y1Ss: +(cy + rFar).toFixed(4), thickSs: GRu.slashThickSs, atBeam: true, unit: f.U.d.puId });
+        }
       }
     }
 

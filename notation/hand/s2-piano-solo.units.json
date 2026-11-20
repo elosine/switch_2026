@@ -65,6 +65,35 @@
    "stem": "up",
    "flag": 16,
    "arp": true
+  },
+  {
+   "_n": "6a · 151.41 s (the chord G#4 · E4, lower staff) — a grace figure, three partials beamed",
+   "ids": [
+    "wc-1698",
+    "wc-1699"
+   ],
+   "stem": "up",
+   "beam": "u6",
+   "grace": true
+  },
+  {
+   "_n": "6b · 151.42 s (the high C, upper staff)",
+   "ids": [
+    "wc-1701"
+   ],
+   "stem": "up",
+   "beam": "u6",
+   "grace": true
+  },
+  {
+   "_n": "6c · 151.48 s (the chord F4 · C5, lower staff)",
+   "ids": [
+    "wc-1700",
+    "wc-1702"
+   ],
+   "stem": "up",
+   "beam": "u6",
+   "grace": true
   }
  ]
 }

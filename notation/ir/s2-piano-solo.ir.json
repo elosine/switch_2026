@@ -29416,9 +29416,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1698",
+     "puStem": "up",
+     "puBeam": "u6",
+     "grace": true
     }
    },
    "provenance": "authored"
@@ -29437,9 +29440,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1700",
+     "puStem": "up",
+     "puBeam": "u6",
+     "grace": true
     }
    },
    "provenance": "authored"
@@ -29458,9 +29464,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1698",
+     "puStem": "up",
+     "puBeam": "u6",
+     "grace": true
     }
    },
    "provenance": "authored"
@@ -29479,9 +29488,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1701",
+     "puStem": "up",
+     "puBeam": "u6",
+     "grace": true
     }
    },
    "provenance": "authored"
@@ -29500,9 +29512,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1700",
+     "puStem": "up",
+     "puBeam": "u6",
+     "grace": true
     }
    },
    "provenance": "authored"

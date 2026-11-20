@@ -84,6 +84,9 @@ Built by `node tools/notate_section.js … --glissGestures all`. The crotales' d
 | the beam | at the flagged stem's height; no member's stem under the base length; the second beam 0.81 ss under | #4 day 23; `glyphs.json standards.beam` |
 | the arpeggio | LilyPond's unit stacked 1 ss apart; RIGHT of the chord; 0.225 ss from the chord's rightmost ink (the flag's, where they meet) | piece 2 `CHORD_SPACING_RULES.md` §5c.D; `glyphs.json arpeggio.unit` |
 | the head's place | the left edge of the column on the moment | D49 (`nhAnchor leftEdge`) |
+| a tight cluster's spelling | a sharp whose letter another note of the chord has becomes the flat of the next letter, when that letter is free | piece 2 `CHORD_SPACING_RULES.md` §5b (applied to a unit, §258) |
+| a grace figure | heads and accidentals 0.707; stem and flag at that scale; the beam at the heads' scale; the stroke on the first stem only, centered on the corner of stem and beam stack, slid 0.5 ss toward the heads, jutting equally past both faces | `objects.graceHead · graceSlash` (Recombination §550 · §591 · §592 · §601 … §604 · §666) |
+| the stems of the piano solo | the flag's tail and a beam stand 2 ss clear of the staff | `objects.handUnit.flagClearSs` (§258) |
 | this page's own | heads and accidentals at 0.5 (his, "eventually I'll make the note heads bigger") | `objects.handUnit` |
 
 **No rule yet — to discuss when met:** a stem, flag and beam at the small head's size (they are full size now) · the lane's room for a long figure (the layout's own flag, the red "fit?").
