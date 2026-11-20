@@ -13,9 +13,11 @@
 | the line at a page's right edge | only where the music ends | "I don't think I need to see a line on every page" (§241) |
 | the electronics | ONE tape-part lane at the bottom of the conductor's score, half a player's height, its own bracket, named ELEC; the waveform of the mixed electronics — a placeholder until the mix exists | SW-71 · §242 · §243 |
 
+**BEFORE A SECTION'S FIRST PAGE (2026-11-19, §248):** read `docs/NOTATION_STANDARDS.md` for that kind of material, say in one line which standing rule applies, then build. A gliss with re-breaths is §3 there: ONE header at the entry, ONE smooth curve for the whole gesture, a go line alone at each re-breath. No step or divot at a breath.
+
 ## 1 · Section 1 — the sine tones and the long notes that beat against them
 
-### DEVICE SHEET 1 — THE BEATING GLISS *(his words 2026-11-19; NOT BUILT — waiting on his go)*
+### DEVICE SHEET 1 — THE BEATING GLISS *(his words 2026-11-19; BUILT as one gesture, §245 … §248 — `--glissGestures`; the badge and the sine tone still open)*
 
 **The case:** the alto sax's first note — F4 (written D5), 16.0 → 34.5 s in three breaths, gliding up 44 cents against a sine tone on F4.
 

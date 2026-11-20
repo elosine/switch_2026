@@ -4348,3 +4348,17 @@ lane), the fill 16 px, beside the cursor.
 **The cursor:** `#FF15A0`, 3 px, opacity 1 — the same row, value for value, in pieces 5, 6 and here (`colours.cursor`, his D48 of piece 4).
 **The second note** (`wc-95`, 23.99 → 30.84 s) carries the same hand as the first — the head, the gliss line, niente → fff, the go line.
 The working page `s1-sax-first-note` now runs 12 … 31.3 s.
+
+## §248 · 2026-11-19 · the beating gliss is ONE GESTURE: one header, one smooth curve, go lines at the re-breaths
+
+**What prompted it (his words):** "this is not so different from a lot of the morph sections where it's one continuous gliss, and those are just rearticulations. So we would just get go lines every time there's meant to be a new breath, but just one pitch … each gliss is one thing. So it would get a header, a one continuous curve all the way to 35. And then at 35 … it's a new entity, a new curve, a new header." Then: "the curve has reverted to the half height curve … It's meant to be the full lane." Then: "The curves are meant to be smooth. There seems to be a little divot there at the breath line. No divots, just smooth curve … all the morph sections have our standard habits of behavior."
+
+**What was wrong:** §247 built a header per breath and one curve per note. That ignored the lineage's own rule (`NOTATION_STANDARDS.md` §3, the morph section: a header at the entry, one go line per breath, one gliss curve), which the AI had read and not applied. The "half height" was the per-note curves on a shared scale: the first breath's curve reached only 18.6 of 44.1 cents. The "divot" was the AI's first gesture curve holding flat through each breath gap.
+
+**What was built:** `tools/notate_section.js --glissGestures id,…`. A gesture = the notes of one sine brick and pair (`properties.sine`). Its first note carries the header (head · gliss line up · niente → fff). Later notes carry a go line alone. ONE pitch curve from the first start to the last end, on the whole lane, floor = the gesture's lowest pitch, top = its highest. Across a breath gap the curve runs straight on from where one breath stopped to where the next begins (the save's own numbers: 18.6 → 19.7 c; 40.3 → 41.9 c).
+
+**The page:** `s1-sax-first-note`, 12 → 53.4 s, the sax's first two gestures. Gesture 1: 16.00 → 34.50, re-breaths 23.99 · 31.33, 44.1 c. Gesture 2: 35.50 → 52.60, re-breaths 43.20 · 51.04, 29.5 c. Looked at once on the throwaway: two headers, go lines alone at the breaths, each curve smooth to the lane's top.
+
+**The remedy for the missing background (his question):** before a section's first page, the AI reads `docs/NOTATION_STANDARDS.md` for that KIND of material and states in one line which standing rule it will follow, then builds. Written into `docs/NOTATION_SCHEME.md` §0.
+
+**Next, his:** the sine tone on each part's lane (his words: "It's not part of the electronics below … each part will have its own sine tone. And for the percussion, the sine tone glisses rather than the percussion instrument"). Piece 6's purple box (`NOTATION_STANDARDS.md` §7, `--sines`) is the machinery in hand.

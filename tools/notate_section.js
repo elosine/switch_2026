@@ -1940,6 +1940,36 @@ function foldVibBows(flagName, gid, part, name, groupOnly) {
       console.log('  --pitchCurves ' + id + ': ' + o.startSeconds.toFixed(2) + ' … ' + o.endSeconds.toFixed(2) + ' s · ' + samples[0].toFixed(2) + ' → ' + samples[N - 1].toFixed(2) + ' of the gesture\'s ' + (hi - lo).toFixed(1) + ' cents (' + mates.length + ' notes)');
     }
   }
+  // THE BEATING GLISS AS ONE GESTURE (the Switch~ piece, 2026-11-19 — his correction, RUNNING_LOG §248; NOTATION_STANDARDS §3, the morph
+  // section's rule since the tubas: "a header at each part's entry … one go line per breath … the gliss curve"):
+  //   --glissGestures id,id,…   each id is ANY note of a gesture (the notes of one sine brick and pair, properties.sine — the composer
+  //                             score shows them as separate notes; the gesture was composed as ONE glide with re-breaths). Per gesture:
+  //                             · its FIRST note carries the header before its go line — the open head at the written pitch, the gliss
+  //                               line going up, niente → arrow → fff (devices headBefore · glissUp · dynFigure);
+  //                             · every later note is a RE-BREATH: its go line alone;
+  //                             · ONE pitch curve from the first note's start to the last note's end, on the whole lane, its floor the
+  //                               gesture's lowest pitch and its top its highest; through a breath the curve holds, then goes on.
+  {
+    const ids = (arg('glissGestures', '') || '').split(',').map(s => s.trim()).filter(Boolean);
+    const objs = score.objects || [], seen = new Set();
+    const bendAt = (mb, x) => { for (let i = 1; i < mb.length; i++) if (x <= mb[i][0]) { const p = mb[i - 1], q = mb[i]; return p[1] + (q[1] - p[1]) * (q[0] === p[0] ? 0 : (x - p[0]) / (q[0] - p[0])); } return mb[mb.length - 1][1]; };
+    const setDev = (id, device) => { const ex = doc.overlays.find(o => o.kind === 'engraving' && o.target && o.target.event === 'ev-' + id); if (ex) Object.assign(ex.value.device, device); else doc.overlays.push({ id: 'ov-gesture-dev-' + id, kind: 'engraving', target: { event: 'ev-' + id }, value: { device }, provenance: 'authored' }); };
+    for (const id of ids) {
+      const o = objs.find(x => x.id === id), sn = o && o.properties && o.properties.sine;
+      if (!o || !sn) { console.warn('  ALERT --glissGestures ' + id + ': no such note, or it belongs to no sine pair — nothing drawn'); continue; }
+      const key = o.layer + '|' + sn.brick + '|' + sn.pair; if (seen.has(key)) continue; seen.add(key);
+      const G = objs.filter(x => x.type === 'waveCurve' && x.layer === o.layer && x.properties && x.properties.sine && x.properties.sine.brick === sn.brick && x.properties.sine.pair === sn.pair).sort((a, b) => a.startSeconds - b.startSeconds);
+      const T0 = G[0].startSeconds, T1 = G[G.length - 1].endSeconds, all = G.flatMap(x => (x.morphBend || [[0, 0]]).map(p => p[1])), lo = Math.min(...all), hi = Math.max(...all);
+      // NO DIVOT AT A BREATH (his word 2026-11-19, "The curves are meant to be smooth … No divots"): the glide goes on through the breath —
+      // across the gap the curve runs straight from where one breath stopped to where the next begins, never a held step.
+      const centsAt = (t) => { let last = lo, tLast = T0; for (const x of G) { const mb = x.morphBend || [[0, 0]]; if (t < x.startSeconds) { const f = (t - tLast) / Math.max(1e-9, x.startSeconds - tLast); return last + (mb[0][1] - last) * f; } if (t <= x.endSeconds) return bendAt(mb, t - x.startSeconds); last = mb[mb.length - 1][1]; tLast = x.endSeconds; } return last; };
+      const N = Math.max(64, Math.round((T1 - T0) * 12)), samples = [];
+      for (let i = 0; i < N; i++) samples.push(+((centsAt(T0 + (T1 - T0) * i / (N - 1)) - lo) / ((hi - lo) || 1)).toFixed(4));
+      doc.overlays.push({ id: 'ov-gesture-' + G[0].id, kind: 'gliss', target: { part: o.layer, span: [+T0.toFixed(4), +T1.toFixed(4)] }, value: { samples, band: 'lane', scale: 'travel', travelC: +(hi - lo).toFixed(1), gesture: G.map(x => x.id) }, provenance: 'authored' });
+      G.forEach((x, i) => setDev(x.id, i === 0 ? { goLine: true, headBefore: true, glissUp: 1, dynFigure: 'fff', nhUnit: false, dynMark: false, brick: false } : { goLine: true, nhUnit: false, dynMark: false, brick: false }));
+      console.log('  --glissGestures ' + G[0].id + ': ' + T0.toFixed(2) + ' … ' + T1.toFixed(2) + ' s · one header, ' + (G.length - 1) + ' re-breath' + (G.length === 2 ? '' : 's') + ' (' + G.slice(1).map(x => x.startSeconds.toFixed(2)).join(' · ') + ') · one curve over ' + (hi - lo).toFixed(1) + ' cents');
+    }
+  }
   // THE DOT OFF (day 36 — the FOLD's regression, found on MAIN DRAFT).
   // The standalone morph pages have carried curveFollower:false since day 35
   // (notate_morph.js line 212; composer: "I want the meters. I don't want the
