@@ -4494,3 +4494,13 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 **Written down, not built:** the grace stroke — his brief verbatim and the AI's recommendation (one anchor at the outer corner of the first stem and the top beam, 45 degrees, two numbers `cutSs` · `jutSs`, equal juts by construction) in `docs/NOTATION_SCHEME.md` § 2 OPEN, with the three other cases that have no rule yet (the chromatic cluster · the accidentals' gap in a stemmed chord · the distance between beamed grace notes). None of his answers to those three is in hand: he placed figure 6's note by hand and left the rest.
 
 **Passed on:** `CLAUDE.md` § "Standing practice: THE ENGRAVING RULES" (find · apply · discuss · say which rule · measure a claim), its pointer in the orient list, the state line; the journal's checkpoint of this date; the auto-memory note `engraving-rules-first-never-improvised`.
+
+## §260 · 2026-11-20 · two rules made at his word: the third column; the accidental's gap beside a stemmed chord
+
+**His words (at the checkpoint):** "And then, yes, the 1 and 2 rules is good. Sorry, I didn't see those. Let's implement those rules as well."
+
+**The rules (§258's recommendations 1 and 2, now HIS; rows of `objects.handUnit`, in the table of `docs/NOTATION_SCHEME.md` § 2):**
+- **`thirdColumn`** — where the two-column walk would put two notes a step or less apart in one column (three notes a half step apart), the later one takes a third column: one head width beyond the default column, on the side away from the stem. The stem stays on the default column.
+- **`accGapStemmedSs`** — an accidental beside a chord that has a stem stands 0.25 ss from its head (the single note's `objects.accidental.beside`); a stemless column keeps 0.1.
+
+**Seen once on the throwaway:** figure 1 (A · A-sharp · B · D-sharp) in three columns, no head on another; the grace figure with its middle note between the two chords. The grace figure's two chords are 77 ms apart, so it is still narrow — the minimum distance between beamed grace notes stays open, with the stroke's place (the next session's first task).

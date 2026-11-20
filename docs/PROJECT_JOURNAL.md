@@ -79,8 +79,7 @@ is none, discuss; never show him something made up. It cost this session several
   verbatim and the AI's two-number recommendation: one anchor at the stem–beam corner, 45 degrees, `cutSs` and `jutSs`), put it to him in a few
   lines, and at his go build it as two rows of `objects.graceSlash` used by the hand unit's stroke (`layout.js`, "THE STROKE ON A BEAMED GRACE GROUP"
   inside the hand unit's post-pass), rebuild `s2-piano-solo`, look once, show him. Then go on through the piano solo figure by figure, at his word.
-- **Decisions pending him** (the OPEN table, `docs/NOTATION_SCHEME.md` § 2): the three-note chromatic cluster (a third column?) · the accidentals'
-  gap in a stemmed chord (0.25?) · a minimum distance between beamed grace notes · the grace stroke. Also, older: how the electronics lane shows
+- **Decisions pending him** (the OPEN table, `docs/NOTATION_SCHEME.md` § 2): a minimum distance between beamed grace notes · the grace stroke (the cluster's third column and the stemmed chord's 0.25 are HIS RULES since §260, built). Also, older: how the electronics lane shows
   its waveform · the tuplet notation and the dynamics notation of Section 3 · chords 460.4 → 480 and the electronics' ending at 480 · six
   unregistered techniques (alto sax double_tonguing · slap_exploding · slap_pitched; percussion brake_drums_rubber_mallets · gran_cassa_medium_felt ·
   gran_cassa_rute_on_rim).

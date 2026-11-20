@@ -786,6 +786,18 @@
         });
         const W = Math.max(...m.map(x => x.w));
         const col = ChordColumn.noteColumn(m.map(x => ({ ySs: x.yT })), dir, W, CCu.displaceThresholdSteps);
+        // [§260 — HIS RULE 2026-11-20, "the 1 and 2 rules is good … Let's implement those"] THE THIRD COLUMN (rules.json objects.handUnit.thirdColumn):
+        // the two-column walk puts a note back in the column of the note two before it; when those two are a step or less apart (three notes
+        // a half step apart — A · A♯ · B) they overlapped (piece #2's measured LilyPond, its chord 9). Such a note takes a THIRD column: one
+        // head width beyond the default column, on the side away from the stem.
+        if (HU.thirdColumn !== false) {
+          const ord = m.map((x, i) => i).sort((a, b) => dir === 'up' ? m[a].yT - m[b].yT : m[b].yT - m[a].yT), placed = [], third = dir === 'up' ? -W : W;
+          for (const i of ord) {
+            const hit = c => placed.some(j => Math.abs(col[j].xOffsetSs - c) < 1e-9 && Math.abs(m[j].yT - m[i].yT) <= 0.5 + 1e-9);
+            if (hit(col[i].xOffsetSs) && !hit(third)) col[i] = { side: 'third', xOffsetSs: third };
+            placed.push(i);
+          }
+        }
         const base = W / 2 - Math.min(...col.map(c => c.xOffsetSs));   // the column's leftmost head edge on the moment
         m.forEach((x, i) => { x.headDx = base + col[i].xOffsetSs; });
         const NAT = o.accNaturalInColumn !== false;
@@ -795,13 +807,15 @@
           return { w: a.wSs * x.ka, topExt: top * x.ka, botExt: (a.hSs - top) * x.ka, ySs: x.yT, w0: a.wSs, ax0: nY ? nY.x : a.wSs / 2 }; });
         const heads = m.map(x => ({ xLeft: x.headDx - x.w / 2, ySs: x.yT, hSs: x.h }));
         const ledg = []; for (const x of m) for (const Ly of x.L) ledg.push({ ySs: Ly - x.st * c2cU, xLeft: x.headDx - x.w / 2 - x.lext });
-        const packed = ChordColumn.accidentalColumn(accs, heads, ledg, { gapToNotehead: o.accGapColumn != null ? o.accGapColumn : ((stdsU.accidental && stdsU.accidental.gapToNotehead) || 0.1), minLateralGap: CCu.minLateralGap, yTol: CCu.verticalCollisionTolerance });
+        // [§260 — HIS RULE 2026-11-20] a chord WITH A STEM keeps the single note's gap between accidental and head (objects.accidental.beside, 0.25): the
+        // column's 0.1 was set on stemless chords and reads as touching beside a stem (rules.json objects.handUnit.accGapStemmedSs)
+        const packed = ChordColumn.accidentalColumn(accs, heads, ledg, { gapToNotehead: (d0.puStem && HU.accGapStemmedSs > 0) ? HU.accGapStemmedSs : o.accGapColumn != null ? o.accGapColumn : ((stdsU.accidental && stdsU.accidental.gapToNotehead) || 0.1), minLateralGap: CCu.minLateralGap, yTol: CCu.verticalCollisionTolerance });
         const accDx = new Map();
         // the unit draws a small accidental shrunk toward its head (nhAccScale): this is the offset that puts its RIGHT edge on the packed one
         withAcc.forEach((x, i) => accDx.set(x.e.id, packed[i].rightEdge - (accs[i].w0 - accs[i].ax0) - x.headDx));
         const top = m.reduce((a, b) => (b.yT > a.yT ? b : a));
         for (const x of m) unitCG.set(x.e.id, { t: tU0, headDx: x.headDx, accDxRel: accDx.has(x.e.id) ? accDx.get(x.e.id) : null, accKey: accKeyOf(x), top: x === top });
-        handUnits.push({ d: d0, dir, t: tU0, part: partOfEv.get(evsU[0].id), m, base, W,
+        handUnits.push({ d: d0, dir, t: tU0, part: partOfEv.get(evsU[0].id), m, base, W,   /* base = the DEFAULT column's head center: the stem's column */
           left: Math.min(...m.map(x => x.headDx - x.w / 2), ...packed.map(p => p.leftEdge)), right: Math.max(...m.map(x => x.headDx + x.w / 2 + x.lext)) });
       }
     }

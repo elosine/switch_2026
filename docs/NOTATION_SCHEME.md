@@ -87,6 +87,8 @@ Built by `node tools/notate_section.js … --glissGestures all`. The crotales' d
 | a tight cluster's spelling | a sharp whose letter another note of the chord has becomes the flat of the next letter, when that letter is free | piece 2 `CHORD_SPACING_RULES.md` §5b (applied to a unit, §258) |
 | a grace figure | heads and accidentals 0.707; stem and flag at that scale; the beam at the heads' scale; the stroke on the first stem only, centered on the corner of stem and beam stack, slid 0.5 ss toward the heads, jutting equally past both faces | `objects.graceHead · graceSlash` (Recombination §550 · §591 · §592 · §601 … §604 · §666) |
 | the stems of the piano solo | the flag's tail and a beam stand 2 ss clear of the staff | `objects.handUnit.flagClearSs` (§258) |
+| three notes a half step apart | the note that would share a column with a note a step or less away takes a THIRD column, beyond the default column, away from the stem | HIS RULE 2026-11-20 — `objects.handUnit.thirdColumn` (§260) |
+| an accidental beside a STEMMED chord | 0.25 from its head, as a single note's (the stemless column keeps 0.1) | HIS RULE 2026-11-20 — `objects.handUnit.accGapStemmedSs` (§260) |
 | this page's own | heads and accidentals at 0.5 (his, "eventually I'll make the note heads bigger") | `objects.handUnit` |
 
 **No rule yet — to discuss when met:** a stem, flag and beam at the small head's size (they are full size now) · the lane's room for a long figure (the layout's own flag, the red "fit?").
@@ -95,8 +97,6 @@ Built by `node tools/notate_section.js … --glissGestures all`. The crotales' d
 
 | the case | what the standing rule gives | the AI's recommendation (NOT built) |
 |---|---|---|
-| a three-note chromatic cluster (figure 1: A · A-sharp · B) | the two outer notes share a column and overlap (piece 2's measured LilyPond, its chord 9); respelling cannot help | the third note takes a third column |
-| the accidentals' gap in a chord that has a stem | 0.1 ss (`objects.accidental.besideUnit`, set on stemless chords) — reads as touching | a stemmed chord uses the single note's 0.25 |
 | the distance between beamed grace notes | none: each stands at its own time (19 ms apart = 0.35 ss) | a minimum of one and a half head widths; his word so far, for figure 6 only: the middle note midway between the two chords (`at` in the units file) |
 | THE GRACE STROKE'S PLACE — **the next session's first task** | Recombination's (§601 … §604): centered on the stem–beam corner, slid 0.5 ss toward the heads, the far half longer by twice that. He finds it unreliable and "potentially a little too long" | the two-number rule below |
 | stems, flags and beams beside small heads | full size | his, when the head size is settled |
