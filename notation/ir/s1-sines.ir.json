@@ -14666,7 +14666,7 @@
     "type": "beats",
     "place": "before",
     "scale": 0.6,
-    "gap": "nhGap"
+    "gap": "nhHead"
    },
    "provenance": "authored"
   },
@@ -14992,11 +14992,16 @@
     "device": {
      "goLine": true,
      "headBefore": true,
-     "dynPlain": "mp",
      "nhUnit": false,
      "dynMark": false,
      "brick": false,
-     "techText": "crotales"
+     "dynSwell": {
+      "to": "ff",
+      "s": 1.25
+     },
+     "dynNudgeSs": 1.3,
+     "techText": "crotales",
+     "techTextGap": "nhGap"
     }
    },
    "provenance": "authored"
@@ -16646,7 +16651,7 @@
     "type": "beats",
     "place": "before",
     "scale": 0.6,
-    "gap": "nhGap"
+    "gap": "nhHead"
    },
    "provenance": "authored"
   },
@@ -17061,10 +17066,10 @@
     "device": {
      "goLine": true,
      "headBefore": true,
-     "dynPlain": "mp",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynNudgeSs": 1.3
     }
    },
    "provenance": "authored"
@@ -20183,7 +20188,7 @@
     "type": "beats",
     "place": "before",
     "scale": 0.6,
-    "gap": "nhGap"
+    "gap": "nhHead"
    },
    "provenance": "authored"
   },
@@ -20318,10 +20323,14 @@
     "device": {
      "goLine": true,
      "headBefore": true,
-     "dynPlain": "mp",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     },
+     "dynNudgeSs": 1.3
     }
    },
    "provenance": "authored"
@@ -21057,7 +21066,7 @@
     "type": "beats",
     "place": "before",
     "scale": 0.6,
-    "gap": "nhGap"
+    "gap": "nhHead"
    },
    "provenance": "authored"
   },
@@ -21160,10 +21169,14 @@
     "device": {
      "goLine": true,
      "headBefore": true,
-     "dynPlain": "mp",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     },
+     "dynNudgeSs": 1.3
     }
    },
    "provenance": "authored"
@@ -21859,7 +21872,7 @@
     "type": "beats",
     "place": "before",
     "scale": 0.6,
-    "gap": "nhGap"
+    "gap": "nhHead"
    },
    "provenance": "authored"
   },
@@ -21954,10 +21967,14 @@
     "device": {
      "goLine": true,
      "headBefore": true,
-     "dynPlain": "mp",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     },
+     "dynNudgeSs": 1.3
     }
    },
    "provenance": "authored"
@@ -22753,7 +22770,7 @@
     "type": "beats",
     "place": "before",
     "scale": 0.6,
-    "gap": "nhGap"
+    "gap": "nhHead"
    },
    "provenance": "authored"
   },
@@ -22868,10 +22885,14 @@
     "device": {
      "goLine": true,
      "headBefore": true,
-     "dynPlain": "mp",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     },
+     "dynNudgeSs": 1.3
     }
    },
    "provenance": "authored"
@@ -23692,7 +23713,7 @@
     "type": "beats",
     "place": "before",
     "scale": 0.6,
-    "gap": "nhGap"
+    "gap": "nhHead"
    },
    "provenance": "authored"
   },
@@ -23812,10 +23833,14 @@
     "device": {
      "goLine": true,
      "headBefore": true,
-     "dynPlain": "mp",
      "nhUnit": false,
      "dynMark": false,
-     "brick": false
+     "brick": false,
+     "dynFigure": {
+      "from": "p",
+      "to": "fff"
+     },
+     "dynNudgeSs": 1.3
     }
    },
    "provenance": "authored"

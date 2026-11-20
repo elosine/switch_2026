@@ -4390,3 +4390,15 @@ The working page `s1-sax-first-note` now runs 12 … 31.3 s.
 **Built:** device `dynSwell {to, s}` — right of the go line: the niente circle, the standing timed hairpin (1.25 s), the mark. `dynFigure` may now begin on a mark (`{from:'p', to:'fff'}`). In `--glissGestures`: a part's FIRST gesture of the opening carries the swell into ff, its later gestures to 96.6 s carry no dynamic; each 'dictated' gesture (101.3 … 144.45) carries p → arrow → fff before its go line. The word "crotales" at the first crotales entry only (piece 2's rule). The crotales' own mp left as it stood.
 
 **Seen once on the throwaway:** the sax's first entry (circle · hairpin · ff right of the go line) and the chord at 101.3 (p → fff in three parts).
+
+## §252 · 2026-11-19 · the crotales take the same dynamics as the rest; the space before "crotales"; one sheet for the beating gliss
+
+**His words:** "let's keep as composed and the crotales should be the same. They should have that just like the other ones. The hairpin P to FFF with the hairpin in between. And take away the MP. And … there's meant to be some space … between the go line and the left of the word, crotales. But I guess what is a bigger issue is just we should have these standards in place. But it's fine. Let's put the space there and just try to … have some consistency about the way we're applying notation."
+
+**Decided:** the single crescendos stay p → fff (as composed, SW-24). The crotales carry the SAME dynamics as every other part (the swell into ff at their first entry; p → arrow → fff from 101.3 s); the mp is gone.
+
+**Built:** the dynamics rule moved ahead of the who-glides fork in `--glissGestures`, so one rule serves every part. "crotales" stands the house space (`nhGapSs`) right of the go line (device `techTextGap`). Two faults met and fixed on the low, joined mallets lane: (1) the dynamic row spilled 1.7 ss past the lane and the fit ladder split the figure (the circle flipped to the top) — a nudge of 1.3 ss up, the ladder's own rung 4 (`dynNudgeSs`, `--crotDynNudge`); tried first and rejected: a lane weight (a joined lane ignores it). (2) the badge lay ON the crotales' note head (found by reading the page's own boxes) — on that lane the badge stands left of the head (`gap: 'nhHead'`). The fit report: every unit at rung 0.
+
+**For consistency (his "we should have these standards in place"):** the beating gliss written as ONE sheet in `docs/NOTATION_SCHEME.md` — the players' column and the crotales' column, row by row.
+
+**Seen once on the throwaway:** the crotales' first entry — badge · head · go line · "crotales" · circle, hairpin, ff on one row.

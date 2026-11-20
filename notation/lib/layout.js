@@ -1408,7 +1408,7 @@
               if (dev.dynSwell) {
                 const AdS = Object.assign({ gapSs: 0.45, thickSs: 0.13 }, o.dynArrow || {}), HDs = Object.assign({ circleDiaSs: 0.4695 }, o.sectionHead || {});   // RULES MIRROR
                 const toM = dev.dynSwell.to || 'ff', mgS = (glyphs.dynamic || {})[toM] || { wSs: 1.6279 }, tS = e.onset + (+dev.dynSwell.s || 1.25);
-                const yS = Math.min(o.dynY, (HBk && HBk.lowInk != null ? HBk.lowInk : 0) - AdS.gapSs - (mgS.hSs || 1) / 2);
+                const yS = Math.min(o.dynY, (HBk && HBk.lowInk != null ? HBk.lowInk : 0) - AdS.gapSs - (mgS.hSs || 1) / 2) + (+dev.dynNudgeSs || 0);   // dynNudgeSs: the fit ladder's nudge (rung 4), a hand value on the device — a low lane (§252)
                 items.push({ k: 'niente', t: e.onset, dxSs: AdS.gapSs + HDs.circleDiaSs / 2, ySs: yS, diaSs: HDs.circleDiaSs, thickSs: AdS.thickSs, ev: e.id });
                 items.push({ k: 'hairpin-timed', t0: e.onset, t1: tS, dx0Ss: AdS.gapSs * 2 + HDs.circleDiaSs, dx1Ss: 0, ySs: yS, dir: 'cresc', thickSs: AdS.thickSs, ev: e.id });
                 items.push({ k: 'glyph', g: 'dyn-' + toM, t: tS, dxSs: AdS.gapSs + mgS.wSs / 2, ySs: yS, align: 'center', ev: e.id });
@@ -1418,7 +1418,7 @@
                 const HDc = Object.assign({ circleDiaSs: 0.4695 }, o.sectionHead || {});                              // RULES MIRROR
                 const endM = typeof dev.dynFigure === 'string' ? dev.dynFigure : (dev.dynFigure && dev.dynFigure.to) || 'fff', fromM = dev.dynFigure && dev.dynFigure.from, mgF = fromM ? ((glyphs.dynamic || {})[fromM] || { wSs: 1.2 }) : null, mgD = (glyphs.dynamic || {})[endM] || { wSs: 1.6279 };
                 const markC = -Ad.gapSs - mgD.wSs / 2, arrR = markC - mgD.wSs / 2 - Ad.gapSs, arrL = arrR - Ad.lenSs, cirC = arrL - Ad.gapSs - (mgF ? mgF.wSs : HDc.circleDiaSs) / 2;
-                const yDf = Math.min(o.dynY, (HBk && HBk.lowInk != null ? HBk.lowInk : 0) - Ad.gapSs - (mgD.hSs || 1) / 2);
+                const yDf = Math.min(o.dynY, (HBk && HBk.lowInk != null ? HBk.lowInk : 0) - Ad.gapSs - (mgD.hSs || 1) / 2) + (+dev.dynNudgeSs || 0);
                 // [the Switch~ piece §251] { from, to }: a dynamic mark where the niente circle stands (p → fff, the crescendos from 101.3 s)
                 if (fromM) items.push({ k: 'glyph', g: 'dyn-' + fromM, t: e.onset, dxSs: cirC, ySs: yDf, align: 'center', ev: e.id });
                 else items.push({ k: 'niente', t: e.onset, dxSs: cirC, ySs: yDf, diaSs: HDc.circleDiaSs, thickSs: Ad.thickSs, ev: e.id });
@@ -1531,7 +1531,7 @@
             // laneHalfSs) the original tag-row placement stands ("copy tuba
             // eight"). Emitted inside the nh-unit, which knows the head's x;
             // a techText on a device with no nh-unit takes the tag row.
-            if (dev.techText && !dev.nhUnit) items.push(Object.assign({ k: 'text', t: e.onset, dxSs: 0, ySs: o.tagY != null ? o.tagY : 3.5, text: dev.techText, seq: 'techText' }, WORD));
+            if (dev.techText && !dev.nhUnit) items.push(Object.assign({ k: 'text', t: e.onset, dxSs: dev.techTextGap === 'nhGap' ? o.nhGapSs : 0,   /* [the Switch~ piece §252] techTextGap 'nhGap': the house space between a go line and what stands beside it */ ySs: o.tagY != null ? o.tagY : 3.5, text: dev.techText, seq: 'techText' }, WORD));
             // [decibel PLAN 2.9, RUNNING_LOG §389 — his "the go line, the TR symbol … there won't be any pitch"] A TECHNIQUE SYMBOL WITH NO NOTE
             // UNDER IT: a device with a techSymbol, no nh-unit, and techSymbolAt 'laneTop'. The sign stands in the upper left corner of the
             // event's curve — its LEFT ink afterGoGapSs right of the go line (the trill column's rule, #5 §445 · §452, with one member), its TOP
@@ -3521,7 +3521,7 @@
         for (const w of stateWedges) if (w.part === spec.part && w.row) items.push(Object.assign({ k: 'wedge', t0: w.span[0], t1: w.span[1], segs: w.segs, row: w.row }, w.who ? { who: w.who } : {}, w.line ? { line: w.line } : {}));   // [§411] a row wedge may be a section's own LINE (the strikes' answers)
         for (const m of micOpens) if (m.part === spec.part) items.push(Object.assign({ k: 'mic', t0: m.span[0], t1: m.span[1] }, m.variant ? { variant: m.variant } : {}, m.noSign ? { noSign: true } : {}));
         for (const fb of finalBars) if (fb.part === spec.part) items.push({ k: 'finalbar', t: fb.t });   // [§411]
-        for (const b of badges) if (b.part === spec.part) items.push(Object.assign({ k: 'badge', t: b.t, type: b.type, place: b.place }, b.row ? { row: b.row } : {}, b.slot ? { slot: b.slot } : {}, b.v ? { v: b.v } : {}, b.dxSs ? { dxSs: b.dxSs } : {}, b.avoid ? { avoid: b.avoid } : {}, b.tEnd != null ? { tEnd: b.tEnd } : {}, b.edge ? { edge: b.edge } : {}, b.scale ? { scale: b.scale } : {}, b.gap === 'nhGap' ? { gapSs: o.nhGapSs } : {}));
+        for (const b of badges) if (b.part === spec.part) items.push(Object.assign({ k: 'badge', t: b.t, type: b.type, place: b.place }, b.row ? { row: b.row } : {}, b.slot ? { slot: b.slot } : {}, b.v ? { v: b.v } : {}, b.dxSs ? { dxSs: b.dxSs } : {}, b.avoid ? { avoid: b.avoid } : {}, b.tEnd != null ? { tEnd: b.tEnd } : {}, b.edge ? { edge: b.edge } : {}, b.scale ? { scale: b.scale } : {}, b.gap === 'nhGap' ? { gapSs: o.nhGapSs } : b.gap === 'nhHead' ? { gapSs: o.nhGapSs * 3 + glyphs.notehead.open.wSs + 1.1 } : {}));   // [§252] 'nhHead': the badge stands LEFT of a head that is in its own row (a low lane — the crotales): the head, its accidental's room (1.1 ss, a sharp), the house space on each side
         for (const sl of sineLines) if (sl.part === spec.part) items.push(Object.assign({ k: 'sineline', t0: sl.span[0], t1: sl.span[1] }, sl.samples ? { samples: sl.samples } : {}));   // samples = the sine itself glides (§250)   // [§399] v 'middle': centred in the lane   // [§335] `row` only on the electronics' badge · [§355] or a method's, with its `slot` — a language badge's item is as it was
         // [decibel §335] THE ELECTRONICS' RETURNS of this part — placed by the renderer in the lane's electronics' row (rules.json objects.elecReturn)
         for (const r of elecRets) if (r.part === spec.part) items.push({ k: 'elecret', t0: r.span[0], t1: r.span[1], count: r.count, all: r.all });

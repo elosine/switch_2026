@@ -53,3 +53,18 @@
 
 - how long the gliss line is (the septets' is two note heads wide; "enough horizontal room so you can see the gliss line");
 - whether the sine tone itself is shown on the sax's lane as well (piece 6 drew a box as long as the sine), or only in the ELEC lane.
+
+### THE BEATING GLISS AS IT STANDS (2026-11-19, §245 … §252) — one sheet, applied the same to every part
+
+| | the players (flute · clarinet · sax · violin · cello) | the crotales (the SINE glides) |
+|---|---|---|
+| a gesture | the notes of one sine brick and pair; ONE header at its entry, go lines alone at the re-breaths | the same; go lines alone at the re-attacks |
+| before the go line | the open head at the written pitch · the gliss line up a third | the open head alone, no gliss line |
+| the badge | audible beats, 60 %, the lane's top, the house space before the go line | the same badge, LEFT of the head (the lane is low: the head is in the badge's row) |
+| the sine tone | a purple line at the lane's top, through the badge's middle, the curve's two ends | a purple CURVE in the badge's band, the sine's own glide |
+| the pitch curve | orange, the whole lane, one smooth curve per gesture, no step at a breath | none (the crotale does not move) |
+| the dynamics, to 96.6 s | the part's FIRST entry only: niente · a hairpin of 1.25 s · ff, right of the go line | the same |
+| the dynamics, 101.3 s on | every entry: p → arrow → fff before the go line (SW-24, as composed) | the same |
+| a word | none | "crotales" at the first entry only (piece 2's rule), the house space right of the go line |
+
+Built by `node tools/notate_section.js … --glissGestures all`. The crotales' dynamic row is nudged 1.3 ss up (`--crotDynNudge`): the joined mallets lane is low, the fit ladder's own rung 4.

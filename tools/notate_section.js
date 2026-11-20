@@ -1968,16 +1968,22 @@ function foldVibBows(flagName, gid, part, name, groupOnly) {
       // [§250 — his "for the percussion, the sine tone glisses rather than the percussion instrument"] WHO GLIDES: 'sine' = the player holds (the
       // crotales) and the sine's own glide (its brick's elec.gliss, cents over the brick's length) is the purple CURVE. No orange curve, no gliss
       // line, no figure: the pitch, its dynamic (the brick's own mark), the instrument's name, the badge.
+      // [§251 · §252] THE DYNAMICS — one rule for every part, the crotales with the rest (his word 2026-11-19: "the crotales should be the same …
+      // just like the other ones"): the long opening (to 96.6 s) is ONE crescendo into ff, then held — the part's FIRST gesture alone carries it,
+      // right of its go line (niente · a hairpin of 1.25 s · ff); each single crescendo after it (shape 'dictated', from 101.3 s) carries
+      // p → arrow → fff before its go line (SW-24, as composed)
+      const dyn = sn.kind === 'dictated' ? { dynFigure: { from: 'p', to: 'fff' } } : swelled.has(o.layer) ? {} : { dynSwell: { to: 'ff', s: 1.25 } };
+      if (sn.kind !== 'dictated') swelled.add(o.layer);
       if (sn.who === 'sine') {
         const Z = objs.find(x => x.id === sn.brick), gp = Z && Z.elec && Z.elec.gliss && Array.isArray(Z.elec.gliss.points) ? Z.elec.gliss.points : [[0, 0], [1, 0]];
         const zc = (t) => bendAt(gp, Math.min(1, Math.max(0, (t - Z.startTime) / Math.max(1e-9, Z.endTime - Z.startTime)))), top = Math.max(...gp.map(p => p[1])) || 1;
         const NS = Math.max(64, Math.round((T1 - T0) * 12)), ss = [];
         for (let i = 0; i < NS; i++) ss.push(+(zc(T0 + (T1 - T0) * i / (NS - 1)) / top).toFixed(4));
-        doc.overlays.push({ id: 'ov-gesture-badge-' + G[0].id, kind: 'badge', target: { part: o.layer, t: +T0.toFixed(4) }, value: { type: 'beats', place: 'before', scale: 0.6, gap: 'nhGap' }, provenance: 'authored' });
+        doc.overlays.push({ id: 'ov-gesture-badge-' + G[0].id, kind: 'badge', target: { part: o.layer, t: +T0.toFixed(4) }, value: { type: 'beats', place: 'before', scale: 0.6, gap: 'nhHead' }, provenance: 'authored' });
         doc.overlays.push({ id: 'ov-gesture-sine-' + G[0].id, kind: 'sineLine', target: { part: o.layer, span: [+T0.toFixed(4), +T1.toFixed(4)] }, value: { samples: ss, travelC: top }, provenance: 'authored' });
         const mk = (Z && Z.properties && Z.properties.beat && Z.properties.beat.note) || 'mp', nm0 = /^crot/.test(G[0].technique || '') ? 'crotales' : null, nm = nm0 && !named.has(o.layer + nm0) ? nm0 : null;   // [§251, piece 2's rule] the instrument's name at its FIRST entry only
         if (nm0) named.add(o.layer + nm0);
-        G.forEach((x, i) => setDev(x.id, i === 0 ? Object.assign({ goLine: true, headBefore: true, dynPlain: mk, nhUnit: false, dynMark: false, brick: false }, nm ? { techText: nm } : {}) : { goLine: true, nhUnit: false, dynMark: false, brick: false }));
+        G.forEach((x, i) => setDev(x.id, i === 0 ? Object.assign({ goLine: true, headBefore: true, nhUnit: false, dynMark: false, brick: false }, dyn, { dynNudgeSs: +arg('crotDynNudge', 1.3) }, nm ? { techText: nm, techTextGap: 'nhGap' } : {}) : { goLine: true, nhUnit: false, dynMark: false, brick: false }));
         console.log('  --glissGestures ' + G[0].id + ' (the SINE glides, ' + top + ' cents): ' + T0.toFixed(2) + ' … ' + T1.toFixed(2) + ' s · the pitch, ' + mk + (nm ? ', "' + nm + '"' : '') + ' · ' + (G.length - 1) + ' re-attack(s)');
         continue;
       }
@@ -1990,8 +1996,6 @@ function foldVibBows(flagName, gid, part, name, groupOnly) {
       // [§251] THE DYNAMICS, his word 2026-11-19: the long opening (to 96.6 s) is ONE crescendo into ff, then held — the part's FIRST gesture alone
       // carries it, right of its go line (niente · a hairpin of 1.25 s · ff); the single crescendos after it (shape 'dictated', from 101.3 s) each
       // carry p → arrow → fff before the go line (SW-24: "from piano to … whatever the loudest dynamic")
-      const dyn = sn.kind === 'dictated' ? { dynFigure: { from: 'p', to: 'fff' } } : swelled.has(o.layer) ? {} : { dynSwell: { to: 'ff', s: 1.25 } };
-      if (sn.kind !== 'dictated') swelled.add(o.layer);
       G.forEach((x, i) => setDev(x.id, i === 0 ? Object.assign({ goLine: true, headBefore: true, glissUp: 1, nhUnit: false, dynMark: false, brick: false }, dyn) : { goLine: true, nhUnit: false, dynMark: false, brick: false }));
       console.log('  --glissGestures ' + G[0].id + ': ' + T0.toFixed(2) + ' … ' + T1.toFixed(2) + ' s · one header, ' + (G.length - 1) + ' re-breath' + (G.length === 2 ? '' : 's') + ' (' + G.slice(1).map(x => x.startSeconds.toFixed(2)).join(' · ') + ') · one curve over ' + (hi - lo).toFixed(1) + ' cents');
     }
