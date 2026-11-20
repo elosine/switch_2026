@@ -252,7 +252,10 @@ const ENS = (TRACKS && fs.existsSync(ENS_PATH)) ? JSON.parse(fs.readFileSync(ENS
 // a save with a DIFFERENT instrumentation (the staged tuba fixtures, ten
 // tracks) is not this ensemble's score — nothing to check it against, and
 // it extracts by the tuba rules exactly
-const ENS_APPLIES = !!(ENS && TRACKS.length === (ENS.parts || []).length);
+// [the Switch~ piece §254] the save has MORE lanes than the registry has parts (Elec 2 … 4, the META and curve lanes are no part of the page):
+// the ensemble applies when every registered part is the save's own track of that number. The old test (equal counts) was false for
+// every page of this piece, so its chords were never grouped and its ranges never checked — found at the piano solo.
+const ENS_APPLIES = !!(ENS && (ENS.parts || []).length && (TRACKS.length === ENS.parts.length || ENS.parts.every(p => TRACKS[p.part] && TRACKS[p.part].id === p.id)));
 {
   const ens = ENS;
   if (ENS_APPLIES) {
@@ -284,7 +287,9 @@ process.argv.forEach((a, i) => { if (a === '--sequence' && process.argv[i + 1]) 
 // a silent note makes no beat, no beam, no tempo label
 const SILENT_SPANS = process.argv.map((a, i) => ((a === '--silent' || a === '--gcOnly') ? String(process.argv[i + 1] || '') : null)).filter(s => s && !s.includes('@')).map(s => s.split('-').map(Number)).filter(s => s.length === 2 && s[1] > s[0])
   // [decibel §410] and the spans of --strikes t0:t1: a strike's notes are scattered attacks, never a pulse
-  .concat(process.argv.map((a, i) => (a === '--strikes' ? String(process.argv[i + 1] || '') : null)).filter(Boolean).map(s => s.split(':').slice(0, 2).map(Number)).filter(s => s.length === 2 && s[1] > s[0]));
+  .concat(process.argv.map((a, i) => (a === '--strikes' ? String(process.argv[i + 1] || '') : null)).filter(Boolean).map(s => s.split(':').slice(0, 2).map(Number)).filter(s => s.length === 2 && s[1] > s[0]))
+  // [the Switch~ piece §254] and the spans of --alone t0-t1: notes played in freely (the piano solo, layered takes) — no pulse is read into them
+  .concat(process.argv.map((a, i) => (a === '--alone' ? String(process.argv[i + 1] || '') : null)).filter(Boolean).map(s => s.split('-').map(Number)).filter(s => s.length === 2 && s[1] > s[0]));
 const { doc, warnings } = Extract.extract(score, {
   // chords (2a.4): the ensemble's players may sound several notes at one onset
   scoreName, window: [w0, w1], parts, id, registry, sampleLengths, profile, options: Object.assign(ENS_APPLIES ? { chords: true } : {}, flag('trills') ? { trills: true } : {}, flag('sines') ? { sines: true } : {}, flag('mics') ? { mics: true } : {}, flag('elec') ? { elec: true } : {}, flag('wedges') ? { wedges: true } : {}, process.argv.includes('--elecPlayers') ? { performers: true } : {}, SILENT_SPANS.length ? { oneshots: SILENT_SPANS } : {}, TRILL_RATE != null ? { trillRate: parseFloat(TRILL_RATE) } : {}, SEQ_GROUPS.length ? { sequences: SEQ_GROUPS } : {}), metaLayer, techniques,
@@ -1998,6 +2003,50 @@ function foldVibBows(flagName, gid, part, name, groupOnly) {
       // carry p → arrow → fff before the go line (SW-24: "from piano to … whatever the loudest dynamic")
       G.forEach((x, i) => setDev(x.id, i === 0 ? Object.assign({ goLine: true, headBefore: true, glissUp: 1, nhUnit: false, dynMark: false, brick: false }, dyn) : { goLine: true, nhUnit: false, dynMark: false, brick: false }));
       console.log('  --glissGestures ' + G[0].id + ': ' + T0.toFixed(2) + ' … ' + T1.toFixed(2) + ' s · one header, ' + (G.length - 1) + ' re-breath' + (G.length === 2 ? '' : 's') + ' (' + G.slice(1).map(x => x.startSeconds.toFixed(2)).join(' · ') + ') · one curve over ' + (hi - lo).toFixed(1) + ' cents');
+    }
+  }
+  // THE PIANO SOLO, IN TWO HANDS (the Switch~ piece, 2026-11-20 — RUNNING_LOG §254; his words: "just put the black note heads … they should fall
+  // into left and right hand parts … put the left hand in the lower staff. You might have to change it to treble clef … just do note heads for now"):
+  //   --pianoHands <part>   every note of that part in the window is dealt to a HAND and drawn on that hand's staff (upper = right, lower =
+  //                         left, both in treble), as a filled head alone — no stem, no dynamic, no let-ring slur.
+  // THE DEAL: the notes are taken in chords (onsets within --handChordS, 0.08 s). A chord's pitches, low to high, are cut at ONE point — the
+  // low side to the left hand, the high side to the right (so the hands never cross). The cut chosen costs least: a hand stretched past
+  // --handSpan (12 semitones) costs most; then each side's distance from where that hand last was (a running center per hand).
+  {
+    const hp = arg('pianoHands', null);
+    if (hp != null) {
+      const part = +hp, SPAN = +arg('handSpan', 12), CH = +arg('handChordS', 0.08);
+      const N = (score.objects || []).filter(x => x.type === 'waveCurve' && x.layer === part && x.sonifyNote != null && x.startSeconds >= w0 - 1e-9 && x.startSeconds < w1).sort((a, b) => a.startSeconds - b.startSeconds || a.sonifyNote - b.sonifyNote);
+      let cL = +arg('handLeftAt', 66), cR = +arg('handRightAt', 80), nL = 0, nR = 0, wide = 0;
+      const mean = a => a.reduce((s, x) => s + x, 0) / a.length;
+      for (let i = 0; i < N.length;) {
+        let j = i + 1; while (j < N.length && N[j].startSeconds - N[i].startSeconds <= CH) j++;
+        const C = N.slice(i, j).sort((a, b) => a.sonifyNote - b.sonifyNote), P = C.map(x => x.sonifyNote);
+        let best = null;
+        for (let k = 0; k <= P.length; k++) {
+          const L = P.slice(0, k), R = P.slice(k);
+          let cost = 0;
+          if (L.length) cost += Math.max(0, L[L.length - 1] - L[0] - SPAN) * 50 + Math.abs(mean(L) - cL);
+          if (R.length) cost += Math.max(0, R[R.length - 1] - R[0] - SPAN) * 50 + Math.abs(mean(R) - cR);
+          if (L.length && L[L.length - 1] > cR) cost += (L[L.length - 1] - cR) * 2;   // the left hand above where the right is
+          if (R.length && R[0] < cL) cost += (cL - R[0]) * 2;                          // the right hand below where the left is
+          if (!best || cost < best.cost) best = { k, cost, L, R };
+        }
+        if ((best.L.length && best.L[best.L.length - 1] - best.L[0] > SPAN) || (best.R.length && best.R[best.R.length - 1] - best.R[0] > SPAN)) wide++;
+        if (best.L.length) cL += (mean(best.L) - cL) * 0.5;
+        if (best.R.length) cR += (mean(best.R) - cR) * 0.5;
+        if (cR - cL < 3) { const m = (cL + cR) / 2; cL = m - 1.5; cR = m + 1.5; }
+        C.forEach((x, q) => {
+          const staff = q < best.k ? 1 : 0; if (staff) nL++; else nR++;
+          const device = { nhHead: 'filled', nhStem: false, dynMark: false, letRing: false, ringBar: false };
+          const ex = doc.overlays.find(v => v.kind === 'engraving' && v.target && v.target.event === 'ev-' + x.id);
+          if (ex) { ex.value.staff = staff; ex.value.device = Object.assign({}, ex.value.device, device); }
+          else doc.overlays.push({ id: 'ov-hand-' + x.id, kind: 'engraving', target: { event: 'ev-' + x.id }, value: { staff, device }, provenance: 'authored' });
+        });
+        i = j;
+      }
+      doc.overlays.push({ id: 'ov-staffclef-' + part + '-1', kind: 'staffClef', target: { part }, value: { staff: 1, clef: 'treble' }, provenance: 'authored' });
+      console.log('  --pianoHands ' + part + ': ' + N.length + ' notes · right hand ' + nR + ' · left hand ' + nL + ' · ' + wide + ' chord(s) where a hand is stretched past ' + SPAN + ' semitones · the lower staff in treble');
     }
   }
   // THE DOT OFF (day 36 — the FOLD's regression, found on MAIN DRAFT).

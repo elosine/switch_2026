@@ -379,6 +379,7 @@
       if (ov.kind === 'micOpening' && tgt.part !== undefined && tgt.span) { micOpens.push(Object.assign({ part: tgt.part, span: tgt.span }, ov.value && ov.value.variant ? { variant: ov.value.variant } : {}, ov.value && ov.value.noSign ? { noSign: true } : {})); continue; }
       if (ov.kind === 'finalBar' && tgt.part !== undefined && tgt.t !== undefined) { finalBars.push({ part: tgt.part, t: tgt.t }); continue; }   // [§410] its variant (a strike's own colour)
       if (ov.kind === 'badge' && tgt.part !== undefined && tgt.t !== undefined && ov.value && ov.value.type) { badges.push(Object.assign({ part: tgt.part, t: tgt.t, type: ov.value.type, place: ov.value.place || 'before' }, ov.value.row ? { row: ov.value.row } : {}, ov.value.slot ? { slot: ov.value.slot } : {}, ov.value.v ? { v: ov.value.v } : {}, ov.value.dxSs ? { dxSs: ov.value.dxSs } : {}, ov.value.avoid ? { avoid: ov.value.avoid } : {}, ov.value.tEnd != null ? { tEnd: ov.value.tEnd } : {}, ov.value.edge ? { edge: ov.value.edge } : {}, ov.value.scale ? { scale: ov.value.scale } : {}, ov.value.gap ? { gap: ov.value.gap } : {})); continue; }
+      if (ov.kind === 'staffClef') continue;   // [§254] read where the ensemble is taken
       if (ov.kind === 'sineLine' && tgt.part !== undefined && tgt.span) { sineLines.push(Object.assign({ part: tgt.part, span: tgt.span }, ov.value && Array.isArray(ov.value.samples) ? { samples: ov.value.samples } : {})); continue; }   // [the Switch~ piece §249] the sine tone's line on its player's lane
       // [decibel PLAN 2.6, RUNNING_LOG §355 — DEC-126] THE STATE WEDGE (the `stateWedge` overlay): a method's stretches on a lane, in time order
       if (ov.kind === 'stateWedge' && tgt.part !== undefined && tgt.span && ov.value && Array.isArray(ov.value.segs)) { stateWedges.push(Object.assign({ part: tgt.part, span: tgt.span, segs: ov.value.segs }, ov.value.row ? { row: ov.value.row } : {}, ov.value.who ? { who: ov.value.who } : {}, ov.value.line ? { line: ov.value.line } : {}, ov.value.leadSs > 0 ? { leadSs: ov.value.leadSs } : {})); continue; }   // [§360] row 'elec': a computer player's, in the electronics' row
@@ -479,11 +480,17 @@
     // the staff the note sits on. The authored respelling is of the WRITTEN
     // note, so it wins over the transposition; otherwise a transposing part
     // is spelled from its written pitch.
-    const ENS = o.ensemble || null;
+    // [the Switch~ piece §254] `staffClef` overlays ({ part }, value { staff, clef }): this page's clef for one staff of a part (the piano's lower
+    // staff in treble for the solo, his "You might have to change it to treble clef") — on a COPY of the ensemble; the registry is untouched
+    const ENS = (() => { const e0 = o.ensemble || null, sc = (ir.overlays || []).filter(v => v.kind === 'staffClef' && v.target && v.target.part !== undefined && v.value && v.value.clef);
+      if (!e0 || !sc.length) return e0; const e1 = JSON.parse(JSON.stringify(e0));
+      for (const v of sc) { const pc = e1.parts.find(p => p.part === v.target.part); if (pc && pc.staves && pc.staves[v.value.staff | 0]) pc.staves[v.value.staff | 0].clef = v.value.clef; }
+      return e1; })();
     const partOfEv = new Map();
     for (const c of ir.chunks) for (const id of c.events || []) partOfEv.set(id, c.part);
     const pcOfEv = e => partCfgOf(ENS, partOfEv.get(e.id));
-    const staffOfEv = e => staffIdxOf(pcOfEv(e), e.pitch.midi);
+    // [§254] an engraving overlay's `staff` (0 upper · 1 lower) puts the note on the staff of the HAND that plays it; without one, the split pitch
+    const staffOfEv = e => { const pc = pcOfEv(e), g = engOf(e.id); return nStavesOf(pc) > 1 && (g.staff === 0 || g.staff === 1) ? g.staff : staffIdxOf(pc, e.pitch.midi); };
     const TW = techWrittenOf(o.techniques);
     const unmatchedLine = new Set();
     const spelledOf = e => {
