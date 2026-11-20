@@ -762,7 +762,7 @@
       const byU = new Map();
       for (const e of ir.events || []) { const d = deviceOf(e); if (!d.puId || !ChordColumn) continue; const k = partOfEv.get(e.id) + '|' + d.puId; if (!byU.has(k)) byU.set(k, []); byU.get(k).push(e); }
       for (const evsU of byU.values()) {
-        const d0 = deviceOf(evsU[0]), dir = d0.puStem === 'down' ? 'down' : 'up', tU0 = Math.min(...evsU.map(e => e.onset));
+        const d0 = deviceOf(evsU[0]), dir = d0.puStem === 'down' ? 'down' : 'up', tU0 = Number.isFinite(d0.puT) ? d0.puT : Math.min(...evsU.map(e => e.onset));   // [§259] puT: a unit PLACED by hand at a time of its own (his word, the grace figure's middle note)
         // [§258] PIECE #2's RESPELLING RULE FOR A TIGHT CLUSTER (CHORD_SPACING_RULES §5b, locked its session 66 · 78): a sharp whose LETTER
         // another note of the chord has (an altered unison — two heads on one line) is written as the flat of the next letter, when that
         // letter is free in the chord; when both spellings meet another note (A · A♯ · B) the spelling stays and the unison is accepted.

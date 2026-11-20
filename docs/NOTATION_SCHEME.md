@@ -90,3 +90,24 @@ Built by `node tools/notate_section.js … --glissGestures all`. The crotales' d
 | this page's own | heads and accidentals at 0.5 (his, "eventually I'll make the note heads bigger") | `objects.handUnit` |
 
 **No rule yet — to discuss when met:** a stem, flag and beam at the small head's size (they are full size now) · the lane's room for a long figure (the layout's own flag, the red "fit?").
+
+### OPEN — no rule yet; each waits for his word, then becomes a row (2026-11-20, §258 · §259)
+
+| the case | what the standing rule gives | the AI's recommendation (NOT built) |
+|---|---|---|
+| a three-note chromatic cluster (figure 1: A · A-sharp · B) | the two outer notes share a column and overlap (piece 2's measured LilyPond, its chord 9); respelling cannot help | the third note takes a third column |
+| the accidentals' gap in a chord that has a stem | 0.1 ss (`objects.accidental.besideUnit`, set on stemless chords) — reads as touching | a stemmed chord uses the single note's 0.25 |
+| the distance between beamed grace notes | none: each stands at its own time (19 ms apart = 0.35 ss) | a minimum of one and a half head widths; his word so far, for figure 6 only: the middle note midway between the two chords (`at` in the units file) |
+| THE GRACE STROKE'S PLACE — **the next session's first task** | Recombination's (§601 … §604): centered on the stem–beam corner, slid 0.5 ss toward the heads, the far half longer by twice that. He finds it unreliable and "potentially a little too long" | the two-number rule below |
+| stems, flags and beams beside small heads | full size | his, when the head size is settled |
+| a long figure's room in the lane | the layout's red "fit?" (4 units on `s2-piano-solo`) | his, on the page |
+
+**THE GRACE STROKE — his brief (2026-11-20, verbatim):** "figure out a consistent placement for the slash and how to do it … we'll figure out the angle and then some measurement, maybe from the point, the top beam, left topmost point. Maybe we can do some sort of coordinate at a certain angle. And then I want like an equal amount jutting out to the left and an equal amount jutting out above to the right. And that one might be potentially a little too long."
+
+**The AI's recommendation, to build at his word:** ONE anchor and TWO numbers, the same for every grace figure.
+- **The anchor P** = the outer corner of the figure: where the FIRST stem's outer edge (its left edge) meets the outer face of the outermost beam (the top face of the top beam when the stems go up). For a flagged single grace, P = the stem's tip at its left edge.
+- **The angle** = 45 degrees, rising to the right (stems up); mirrored for stems down.
+- **`cutSs`** = how much of the corner the stroke cuts: it crosses the stem's left edge `cutSs` below P and the beam's top face `cutSs` to the right of P (equal, because the angle is 45).
+- **`jutSs`** = how far it sticks out past each crossing: its left end `jutSs` left of the stem's edge, its right end `jutSs` above the beam's top face. Equal on both ends by construction — his "an equal amount jutting out to the left and … above to the right".
+- So: left end (P.x − jut, P.y − cut − jut), right end (P.x + cut + jut, P.y + jut), with y up. It does not depend on how many beams there are or how long the stem is.
+- First numbers to try: `cutSs` 1.0, `jutSs` 0.4, both at the grace scale (the stroke is shorter than today's). Two rows in `objects.graceSlash`; the old `at` · `reachSs` · `beamInsetSs` retire for hand units.

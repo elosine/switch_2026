@@ -1,5 +1,5 @@
 {
- "_doc": "THE PIANO SOLO'S UNITS, taken one by one at his word (RUNNING_LOG §255 on). A unit = the notes on ONE stem. stem up|down · flag 16 · arp true = the arpeggio line · beam <name> = beamed (16th) to the other units of that name.",
+ "_doc": "THE PIANO SOLO'S UNITS, taken one by one at his word (RUNNING_LOG §255 on). A unit = the notes on ONE stem. stem up|down · flag 16 · arp true = the arpeggio line · beam <name> = beamed (16th) to the other units of that name. · at <seconds> = the unit is drawn at that time instead of its own.",
  "units": [
   {
    "_n": "1 · 148.20 s",
@@ -77,13 +77,14 @@
    "grace": true
   },
   {
-   "_n": "6b · 151.42 s (the high C, upper staff)",
+   "_n": "6b · the high C (played 151.424 s) — DRAWN midway between the two chords, his word 2026-11-20",
    "ids": [
     "wc-1701"
    ],
    "stem": "up",
    "beam": "u6",
-   "grace": true
+   "grace": true,
+   "at": 151.4435
   },
   {
    "_n": "6c · 151.48 s (the chord F4 · C5, lower staff)",

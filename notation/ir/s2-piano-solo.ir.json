@@ -29493,7 +29493,8 @@
      "puId": "wc-1701",
      "puStem": "up",
      "puBeam": "u6",
-     "grace": true
+     "grace": true,
+     "puT": 151.4435
     }
    },
    "provenance": "authored"

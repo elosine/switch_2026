@@ -61,6 +61,40 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+### CHECKPOINT 2026-11-20 — THE NOTATION PHASE: SECTION 1 DONE AS A WORKING PAGE; THE PIANO SOLO, FIGURE BY FIGURE *(mid-session checkpoint)*
+
+**READ `CLAUDE.md` § "Standing practice: THE ENGRAVING RULES" BEFORE ANY NOTATION WORK** — find the standard, apply the standard, and where there
+is none, discuss; never show him something made up. It cost this session several rounds (RUNNING_LOG §255 … §258).
+
+- **Where the piece stands:** the music is a first draft, whole (`scores/piece-FirstDraft-Final`; the copy `piece-FirstDraft-Final-B-noFadeAt96`
+  takes out the fade at 96.6 s and is what the notation pages are built from — his saves, never committed). The harmony, tuning and dynamics passes
+  of Section 3 are done (RUNNING_LOG up to §239; `docs/TUPLET_WORKSHOP.md`). The NOTATION PHASE is open (SW-71), section by section.
+- **Section 1 (the sine tones), the working page `s1-sines`** (12 → 146 s, all parts): the beating gliss — one sheet, players and crotales, in
+  `docs/NOTATION_SCHEME.md` § 1. Built by `node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 12 --w1 146 --parts 0,1,2,3,4,5,6,7,8 --glissGestures all --id s1-sines --label "…" --exp`.
+- **Section 2 (the piano solo, 148.2 → 251.7 s), the working page `s2-piano-solo`:** black heads in two hands, both staves treble; he takes the
+  figures ONE BY ONE and each goes into `notation/hand/s2-piano-solo.units.json` (six so far: 148.20 · 148.61 beamed · 149.09 · 149.98 · 151.04 ·
+  the grace figure at 151.41). Rebuilt by `node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 146 --w1 253 --parts 5 --alone 146-253 --pianoHands 5 --id s2-piano-solo --label "Section 2 - the piano solo, note heads in two hands (a working page)" --exp`.
+  The rules every figure is built from: the table in `docs/NOTATION_SCHEME.md` § 2.
+- **THE NEXT CONCRETE STEP (his word at this checkpoint):** settle THE GRACE STROKE'S PLACE — read `docs/NOTATION_SCHEME.md` § 2 "OPEN" (his brief
+  verbatim and the AI's two-number recommendation: one anchor at the stem–beam corner, 45 degrees, `cutSs` and `jutSs`), put it to him in a few
+  lines, and at his go build it as two rows of `objects.graceSlash` used by the hand unit's stroke (`layout.js`, "THE STROKE ON A BEAMED GRACE GROUP"
+  inside the hand unit's post-pass), rebuild `s2-piano-solo`, look once, show him. Then go on through the piano solo figure by figure, at his word.
+- **Decisions pending him** (the OPEN table, `docs/NOTATION_SCHEME.md` § 2): the three-note chromatic cluster (a third column?) · the accidentals'
+  gap in a stemmed chord (0.25?) · a minimum distance between beamed grace notes · the grace stroke. Also, older: how the electronics lane shows
+  its waveform · the tuplet notation and the dynamics notation of Section 3 · chords 460.4 → 480 and the electronics' ending at 480 · six
+  unregistered techniques (alto sax double_tonguing · slap_exploding · slap_pitched; percussion brake_drums_rubber_mallets · gran_cassa_medium_felt ·
+  gran_cassa_rute_on_rim).
+- **Held, his idea (SW-79):** the audio by STEMS — one file per part, the sine tones their own, mixed by him in Reaper. The notation page plays MIDI
+  only; the sine tones do not sound there. Not built.
+- **How he looks at a page:** `http://localhost:5600/notation/app/notation.html`, the picker, after a reload. The AI looks on the throwaway
+  `score-5601` only, once per build, and stops it.
+- **Resume reads:** `CLAUDE.md` § THE ENGRAVING RULES · `docs/NOTATION_SCHEME.md` (whole — it is short) · `notation/hand/s2-piano-solo.units.json` — nothing else beyond §2.
+- **Deliberately uncommitted** (`git status --short`): `scores/` (his saves and the AI's copies — never committed) · `bank/panel_snapshots.json` ·
+  `bank/sequences.json` · `reaper/switch_rack.rpp` · `reaper/icy_lab.rpp` (his, never without his word) · `.gitignore` · `docs/VERIFICATION_RECIPE.md`
+  (modified before this session; left as found) · `bank/set/…` · `midi/` · `notation/audio/` · `probes/…` · `reaper/place_…_midi.lua` (working
+  output, not the record).
+- **Model:** Fable for the grace stroke's discussion and the figures (judgment on notation); the rebuilds are mechanical.
+
 ### CHECKPOINT 2026-11-12 (late) — THE PHASE WORKSHOP AND THE PHASE FORM OF SECTION 3, IN HIS SAVE *(mid-session checkpoint)*
 
 - **The task and its state (RUNNING_LOG §167 … §214; his words SW-43 · SW-44):** the PHASE panel of SW-42 was set aside at his word
