@@ -4585,3 +4585,13 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 **The clips, the way from here on:** `node tools/piano_clip.js --t0 S --t1 S [--played]` — the export's ZOOM view (6 s of music across the frame, drawn at that size, so sharp), cropped to the piano's two staves (the band 1085 … 1505 of the 2160 frame), 1280 wide, with sound, half a second of lead and one of tail. Into `notation/video/clips/` (gitignored). He names two times; the AI runs it and sends the file. Screen recording (Game Bar is installed; nothing else) is not needed for this.
 
 **Made:** 147.9 → 152 s, the spaced page and the time-accurate copy.
+
+## §267 · 2026-11-20 · a clip keeps its passage on ONE page — the app's SHIFT+arrow pan, in the film tools
+
+**His words:** "so I am able to use the zoom feature and shift arrow keys to keep my passage on the same page, are you able to if not then the screen recording options"
+
+**Built:** `tools/export_video.js --zoomAnchor T` — the zoom pages are shifted so that one opens at T (the app's SHIFT+arrow pan, to any time, not whole seconds). `tools/piano_clip.js` now opens the page at the clip's start and, when the passage is longer than a 2× page holds, draws it at the largest zoom that still holds it whole; `--turn` gives the old paged way.
+
+**A wrong number on the way:** the first build assumed a 2× page holds 6 s and the page still turned 0.4 s before the end. `coords.js zoomCfg` has it: the labels and margins are zoomed too, so a page holds (1920 − 152 Z) / (147.33 Z) seconds — 5.48 s at 2×. With that sum the clip 151.49 → 156.12 (6.13 s with its lead and tail) is drawn at 1.82× on one page; the last frame checked — the cursor at the right edge, the same page.
+
+**So no screen recording is needed for these clips.**

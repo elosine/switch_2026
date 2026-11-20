@@ -21,12 +21,15 @@ if (!(t1 > t0)) { console.error('usage: piano_clip.js --t0 S --t1 S [--played] [
 const page = arg('page', flag('played') ? 's2-piano-solo-played' : 's2-piano-solo');
 const audio = arg('audio', 'notation/audio/piece-Section03-H-addTuplets.wav');   // the players' render; its piano solo is the first draft's, note for note (§266)
 const a = Math.max(0, t0 - +arg('lead', 0.5)), b = t1 + +arg('tail', 1);
-const [by, bh] = arg('band', '1085,420').split(',').map(Number);
+// [§267] THE PASSAGE ON ONE PAGE (his SHIFT+arrows in the app): the zoom page opens at the clip's start (--zoomAnchor); a passage longer
+// than the 5.5 s a 2x page holds is drawn at the largest zoom that still holds it whole (coords.js zoomCfg), down to 1. --turn = the old way.
+const need = b - a, zRaw = flag('turn') ? 2 : Math.max(1, Math.min(2, 1920 / (147.33 * (need + 0.05) + 152)))   /* the zoom page holds (1920 - 152 Z) / (147.33 Z) seconds: coords.js zoomCfg, the frame 1920 wide with 152 px of label and margin */, Z = Math.floor(1080 * zRaw / 2) * 2 / 1080;
+const [by0, bh0] = arg('band', '1085,420').split(',').map(Number), by = Math.round(by0 * Z / 2), bh = Math.round(bh0 * Z / 4) * 2;
 const dir = path.join(ROOT, 'notation', 'video', 'clips'); fs.mkdirSync(dir, { recursive: true });
 const name = page + '_' + String(t0).replace('.', '-') + '_' + String(t1).replace('.', '-');
 const full = path.join(dir, name + '.full.mp4'), out = path.join(dir, name + '.mp4');
 const run = (cmd, args) => { const r = spawnSync(cmd, args, { cwd: ROOT, stdio: ['ignore', 'pipe', 'pipe'], encoding: 'utf8' }); if (r.status !== 0) { console.error((r.stdout || '').slice(-600), (r.stderr || '').slice(-600)); process.exit(1); } };
-run('node', ['tools/export_video.js', '--ir', page, '--view', 'zoom', '--z', '2', '--fps', '30', '--t0', String(a), '--t1', String(b), '--fade', '0', '--audio', audio, '--out', full]);
+run('node', ['tools/export_video.js', '--ir', page, '--view', 'zoom', '--z', String(Z), ...(flag('turn') ? [] : ['--zoomAnchor', String(a)]), '--fps', '30', '--t0', String(a), '--t1', String(b), '--fade', '0', '--audio', audio, '--out', full]);
 run('ffmpeg', ['-y', '-v', 'error', '-i', full, '-vf', 'crop=1920:' + bh + ':0:' + by + ',scale=1280:-2:flags=lanczos', '-c:v', 'libx264', '-crf', '22', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', out]);
 fs.unlinkSync(full);
 console.log(out);

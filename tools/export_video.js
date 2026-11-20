@@ -180,6 +180,9 @@ function buildSegments(mode) {
   if (mode === 'zoom') {
     const probe = Coords.zoomCfg(baseCfgFor(0), Z, 0);
     const span = probe.window[1] - probe.window[0];
+    // [the Switch~ piece §267 — his SHIFT+arrows in the app, "to keep my passage on the same page"] --zoomAnchor T: the zoom pages are
+    // shifted so that one of them OPENS at T (the app's pan, to any time); the film must start at or after the first such page
+    if (arg('zoomAnchor') != null) { const anc = parseFloat(arg('zoomAnchor')); if (Number.isFinite(anc) && anc >= tCur) tCur = anc - Math.floor((anc - tCur) / span) * span; }
     for (let s = 0; tCur < srcEnd && s < 100000; s++) {
       const pi = pageContaining(tCur);
       const cfg = Coords.zoomCfg(baseCfgFor(pi), Z, tCur);
