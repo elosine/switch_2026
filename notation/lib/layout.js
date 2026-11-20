@@ -1375,7 +1375,19 @@
             // the left of the go line"): `headBefore` — a full-size OPEN head at the note's written pitch ON THE STAFF, its right edge one
             // standard gap before the line (anchor B, the reading regime: the head is read, then the line is the moment), with its accidental,
             // its ledger lines and the ottava fold — the sequence block's own `justHead`, nothing copied.
-            if (dev.headBefore) justHead(e.onset, { midi: e.pitch && e.pitch.midi, cents: 0 }, -o.nhGapSs, { ev: e.id });
+            // `glissUp` (his word the same day: "one note head and the gliss up … the gliss line the same width … up to about a third, just so it
+            // slants up … a standard space and then the go line. We're just taking the second note head out"): the septets' chain with the
+            // destination head removed — from the go line leftward: the standard gap · the gliss line (two open heads wide, as theirs),
+            // rising `glissUp` staff spaces from the head's own height (1 = a third) · the standard gap · the head.
+            if (dev.headBefore) {
+              const mB = { midi: e.pitch && e.pitch.midi, cents: 0 };
+              if (dev.glissUp) {
+                const GLb = Object.assign({ gapSs: 0.45, thickSs: 0.13 }, o.dynArrow || {});   // RULES MIRROR (the header's chain, D45)
+                const glR = -o.nhGapSs, glL = glR - glyphs.notehead.open.wSs * 2;
+                const HB = justHead(e.onset, mB, glL - GLb.gapSs, { ev: e.id });
+                items.push({ k: 'glissline', t: e.onset, dx0Ss: glL, dx1Ss: glR, ySs: HB.y, y1Ss: HB.y + (+dev.glissUp || 1), thickSs: GLb.thickSs, seq: 'glissLine', ev: e.id });
+              } else justHead(e.onset, mB, -o.nhGapSs, { ev: e.id });
+            }
             if (dev.onsetHead) {
               const ohs = (o.figures && o.figures.cluster && o.figures.cluster.nhHeadScale) || 0.844;
               const ohw = glyphs.notehead.filled.wSs * ohs;

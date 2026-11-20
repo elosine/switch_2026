@@ -1335,3 +1335,13 @@ want to build a new notation, it has to be like a system overhaul. That's not ne
 system right now. Let's just build the actual notation. So let's get rid of everything. And let me just see the go line and the pitch that the
 saxophone will play to the left of the go line."* — THE WAY OF WORKING ON A SIGN, from here: one element at a time on the working page, each
 one added and looked at; no talk of the engine.
+
+*His words, next (2026-11-19):* *"let me just check and make sure that we're using all those percussion instruments in the actual composer
+score. If not, we can reduce that staff. Then let's scoot over the pitch there. Let's establish where the columns should be. This is like an
+in-between. Previously, I had two note heads and a line between them for the gliss. Now I just want one note head and the gliss up. So the
+gliss line the same width. Let's have it go up theoretically to about a third, just so it slants up. But then a standard space and then the
+go line. So we're just taking the second note head out. But we have to push over that note head and the gliss line up."*
+*Done:* the chain, from the go line leftward — the standard gap · the gliss line (two open heads wide, as the septets'), rising one staff
+space (a third) · the standard gap · the open head at the written pitch. *The percussion (the draft, 201 … 253 s only):* spring coil · bass
+drum (two beaters: rute on the rim · medium felt) · China cymbal (scraped) · brake drums (two beaters: poly · rubber) — four instruments; the
+staff carried from piece 6 has eight lines, of which only the coil's and the China cymbal's are used.
