@@ -4673,3 +4673,15 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 ## §274 · 2026-11-20 · the prototype in the film — the arc, the ball and the lighter heads
 
 **His words:** "can i still see a video, of that passage 7 times at 50%". The workshop's film drew the page without its overlay, so the prototype's arc was not in it. Now: on the prototype page the lighter heads are in the picture itself (every glyph stamp right of the music's start takes the opacity, server side — the page and the film agree), the arc and its ring are drawn into the film's picture by `gc.js`'s own `heightFrac`, and the ball is drawn on each frame beside the cursor. Made and sent: 156.1 → 161.2 s (the whole prototype window, lead-in and lead-out included), 7 times at 50 %, 2 s gap, 85 s. One frame looked at: the ball on the arc at the cursor, the ring under the staff, the heads gray.
+
+## §275 · 2026-11-20 · SW-83, layer 2 — what the left hand does inside the prototype's arc (read before the discussion)
+
+**What prompted it:** SW-83's fourth word (the sketch pad): the hand in a position, the fingers wiggling into the gravity; how to write the position and the wiggle so a pianist reads it fast; and the chords the wiggle makes.
+
+**The prototype's 21 notes, read for this (the left hand, 157.82 → 159.64 s):**
+- EIGHT pitches inside a minor sixth, B3 … G4: E4 six times (the loudest, 127 twice) · D4 four · C4 three · B3, D#4, F4 twice each · C#4, G4 once.
+- NOT one position: eight keys are more than a hand's five. Read in order — D#4 · F4 · B3 at the entry; then the white keys C4 · D4 · E4 with B3, F4, G4; the impact C#4 · D#4 · E4; after it only C4 · D4 · E4. The hand shifts by a half step at the entry and at the impact; E4 is in every stage.
+- AFTER the impact the order is a clean rotation: D4 · C4 · E4 · D4 · C4 · E4. Before it the order is scattered.
+- The "chords" of the wiggle: five times two notes fall within 3 … 46 ms of each other, every time a whole tone or a neighbor pair (D#4 + F4 · D4 + E4 twice · D4 + C4 twice) — two adjacent fingers together, not a planned chord.
+
+**The AI's thoughts, put to him (nothing decided):** two layers for two needs — WHERE the hand is, written exactly and once (the keys under the hand, as a stacked cluster in a box at the arc's start; a second box where the hand shifts), and WHAT the fingers do, written as a contour (the gray heads along the arc, without accidentals, read as shape). A dyad of the wiggle = two heads stacked in the contour; no sign of its own. The open point: must a player keep his ORDER of notes, or only the position, the number of attacks and the contour.
