@@ -4715,3 +4715,13 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 ## §278 · 2026-11-20 · the workshop's server is the AI's to run, for now
 
 **His words:** "since there is continuous restarting of the server can you handle that for the next while, I'll take over when it is more infrequent". The port 5650 was free (his server stopped). The AI started the notation workshop there (launch name `notation-workshop`) and restarts it itself whenever a change needs it; he only reloads his Chrome page. This is HIS word for THIS server and this while — the standing rule (the AI never holds his score port, 5600) is unchanged. When he takes it back: the AI stops its copy and he runs the line by its full path.
+
+## §279 · 2026-11-20 · the prototype: no played heads, the flow a filled curve, the second shape on the rising arc
+
+**His words:** SW-83's seventh word (the sketch pad): "take out the ref noteheads, take out the dots, lets use the internal curve as the ebb and flow within the larger gc, so maybe a filled in curve, an exaggerated version of my playing and the player can intrepret the curve freely, density of action acceleration or loudness; and lets try to avoid chord changes near the impact so you can move the 2nd to a point on the up arc and if it is less than 4 note cluster just include all 3 pitches offset as typical".
+
+**Changed (`bank/gravity_proto.json` carries each number):**
+- `refHeads` false — the arc's own played notes are no longer drawn. The AI's reading: the LEAD-IN and LEAD-OUT notes stay (gray), as the passage's context; his to say if they go too.
+- THE EBB AND FLOW — the dots gone; the busyness curve stretched between its own low and high, raised to the power 1.6 (the exaggeration), never under 6 % of the strip, FILLED. It still stands in the strip under the staff, across the arc's span. It carries no instruction of its own: he names three readings (density of action, acceleration, loudness) and leaves the choice to the player.
+- THE SHAPES — the impact's notes now belong to the FIRST shape; the second is the notes AFTER the impact and its box BEGINS 30 % of the way up the rising arc (`afterImpact`), not at the impact. Shape 1 = B3 … G4 as a cluster bar (it now holds eight pitches, the impact's C#4 with them). Shape 2 = C4 · D4 · E4: three pitches, under the cluster's four, so all three are written, the middle one offset to the right — the standing column (a head a step from the one below moves over).
+**Checked once:** the page rendered to an image from the server's own answer.

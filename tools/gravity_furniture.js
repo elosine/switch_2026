@@ -36,19 +36,23 @@ module.exports = function furniture(o) {
     const N = 160, S = []; let mx = 0;
     for (let i = 0; i <= N; i++) { const s = A.t0 + (A.t1 - A.t0) * i / N, v = I(s); S.push([s, v]); if (v > mx) mx = v; }
     const base = yBot + pad / 2 + F.heightPx - 3, top = yBot + pad / 2 + 3, fy = v => base - (mx > 0 ? v / mx : 0) * (base - top);
-    out.push('<line x1="' + r1(xOf(A.t0)) + '" y1="' + r1(base) + '" x2="' + r1(xOf(A.t1)) + '" y2="' + r1(base) + '" stroke="#bbb" stroke-width="0.5"/>');
-    out.push('<polyline points="' + S.map(p => r1(xOf(p[0])) + ',' + r1(fy(p[1]))).join(' ') + '" fill="none" stroke="' + INK + '" stroke-width="0.8"/>');
-    const ev = []; for (const n of notes) { const x = ev[ev.length - 1]; if (x && n.t - x.t1 < 0.05) { x.n++; x.t1 = n.t; x.ts.push(n.t); } else ev.push({ t1: n.t, n: 1, ts: [n.t] }); }
-    for (const e of ev) { const s = e.ts.reduce((a, b) => a + b, 0) / e.ts.length; out.push('<circle cx="' + r1(xOf(s)) + '" cy="' + r1(fy(I(s))) + '" r="' + (1.7 + 0.9 * (e.n - 1)).toFixed(1) + '" fill="' + INK + '"/>'); }
+    // [§279 — his "take out the dots … a filled in curve, an exaggerated version of my playing and the player can intrepret the curve freely,
+    // density of action acceleration or loudness"] THE EBB AND FLOW: the busyness curve stretched between its own lowest and highest point and
+    // raised to flow.power (the exaggeration), never under flow.floor of the strip, FILLED down to the strip's base. No dots, no time marks.
+    const mn = Math.min(...S.map(p => p[1])), pw = F.power != null ? F.power : 1.6, fl = F.floor != null ? F.floor : 0.06;
+    const ex = v => fl + (1 - fl) * Math.pow(mx > mn ? (v - mn) / (mx - mn) : 0, pw), ey = v => base - ex(v) * (base - top);
+    out.push('<polygon points="' + r1(xOf(A.t0)) + ',' + r1(base) + ' ' + S.map(p => r1(xOf(p[0])) + ',' + r1(ey(p[1]))).join(' ') + ' ' + r1(xOf(A.t1)) + ',' + r1(base) + '" fill="' + (F.fill || '#2b2b2b') + '" stroke="none"/>');
   }
 
   // 3 · the shapes
   const LET = 'CDEFGAB', NH = glyphs.notehead.filled, W = NH.wSs, HH = NH.hSs, lf = (glyphs.standards.ledgerLine && glyphs.standards.ledgerLine.lengthFraction) || 0.25, lt = (glyphs.standards.ledgerLine && glyphs.standards.ledgerLine.thickness) || 0.1;
   const setOf = list => [...new Map(list.map(n => [n.midi, n])).values()].sort((a, b) => a.midi - b.midi);
-  const sideIn = setOf(pick(P.in)), sideOut = setOf(pick([].concat(P.impact || [], P.out || [])));
+  // [§279 — his "lets try to avoid chord changes near the impact so you can move the 2nd to a point on the up arc"] the impact's own notes belong to
+  // the FIRST shape; the second is the notes AFTER the impact and stands on the rising arc, its box BEGINNING afterImpact of the way up
+  const sideIn = setOf(pick([].concat(P.in || [], P.impact || []))), sideOut = setOf(pick(P.out));
   const R = Object.assign({ changeMin: 3 }, P.shapeRule || {});
   const diff = sideOut.filter(n => !sideIn.some(m => m.midi === n.midi)).length + sideIn.filter(n => !sideOut.some(m => m.midi === n.midi)).length;
-  const shapes = !sideIn.length ? [{ at: A.t0, set: sideOut }] : (sideOut.length && diff >= R.changeMin) ? [{ at: A.t0, set: sideIn }, { at: A.bounce, set: sideOut }] : [{ at: A.t0, set: setOf(sideIn.concat(sideOut)) }];
+  const shapes = !sideIn.length ? [{ at: A.t0, set: sideOut }] : (sideOut.length && diff >= R.changeMin) ? [{ at: A.t0, set: sideIn }, { at: A.bounce + (R.afterImpact != null ? R.afterImpact : 0.3) * (A.t1 - A.bounce), set: sideOut, from: true }] : [{ at: A.t0, set: setOf(sideIn.concat(sideOut)) }];
   for (const sh of shapes) {
     // [§277 — his "lets write clusters as a bar with noteheads on top and bottom the actual top note and bottom note of the cluster, including
     // accidentals"] THE CLUSTER BAR: a shape of clusterMinNotes or more pitches with no gap wider than clusterMaxGap semitones is written as
@@ -77,7 +81,7 @@ module.exports = function furniture(o) {
     // the ink's extent, in staff spaces
     const xs0 = Math.min(...m.map(x => x.dx), ...packed.map(p => p.leftEdge), ...led.map(l => l.x0)), xs1 = Math.max(...m.map(x => x.dx + W), ...led.map(l => l.x1));
     const ys1 = Math.max(...m.map(x => x.y + HH / 2), ...accs.map(a => a.ySs + a.topExt)), ys0 = Math.min(...m.map(x => x.y - HH / 2), ...accs.map(a => a.ySs - a.botExt));
-    const bp = 0.3, X0 = xOf(sh.at) - (0.6 + bp + xs1) * ss, px = x => X0 + x * ss, py = y => mid - y * ss;   // the box ends 0.6 ss before its moment
+    const bp = 0.3, X0 = sh.from ? xOf(sh.at) + (bp - xs0) * ss : xOf(sh.at) - (0.6 + bp + xs1) * ss, px = x => X0 + x * ss, py = y => mid - y * ss;   // the box ends 0.6 ss before its moment
     const g = [];
     g.push('<rect x="' + r1(px(xs0 - bp)) + '" y="' + r1(py(ys1 + bp)) + '" width="' + r1((xs1 - xs0 + 2 * bp) * ss) + '" height="' + r1((ys1 - ys0 + 2 * bp) * ss) + '" fill="#fff" fill-opacity="0.88" stroke="none"/>');
     for (const l of led) g.push('<rect x="' + r1(px(l.x0)) + '" y="' + r1(py(l.y) - lt * ss / 2) + '" width="' + r1((l.x1 - l.x0) * ss) + '" height="' + (lt * ss).toFixed(2) + '"/>');
