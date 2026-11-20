@@ -4599,3 +4599,20 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 ## §268 · 2026-11-20 · looped clips
 
 **His words:** "can I get 147.6 to 152.88 looped 6 times and with a 2 second gap between?" — `tools/piano_clip.js --loop N --gap S`: the clip N times over, its last frame held S seconds in silence after each pass (`<name>_xN.mp4`). Made for 147.6 → 152.88, both pages: 52.7 s each, on one page at about 1.67×.
+
+## §269 · 2026-11-20 · THE NOTATION WORKSHOP — the piano staves, a sideways stretch, a speed slider, loop points, a video of what it shows
+
+**His words:** "can we build a notation workshop for this, just the piano staff, if I can have a zoom so spaces between noteheads will shrink/grow, and a playback speed slider and then I'll take a phrase at a time and at the zoom level for the videos? lets discuss 1st" · after the read-back and one question: "like we are doing today, yes sideways stretch, and can I set loop points too go an build if you have no more questions".
+
+**Settled in the discussion:** the workshop LOOKS and LISTENS only; the figures are still taken in the chat (his "like we are doing today"). The zoom is a sideways stretch, not a magnifying glass. Loop points are his to set.
+
+**The AI's decisions (said to him, his to reverse):** the sound is the recorded players' render, slowed with its pitch kept by the browser — no Reaper, no loopMIDI, the same sound as the clips; both spacings on one switch; a page and a port of its own (5650; the throwaway 5651), the notation app untouched.
+
+**How it is made:** `tools/notation_workshop.js` + `workshop/notation/index.html`.
+- THE PICTURE is the notation app's own page: the same layout of the WHOLE ensemble at the 1080 frame (so every fit decision is the score's, not a piano-only frame's), drawn by `static_page.js` for a window of the page's choosing and cut to the piano's band by the SVG's viewBox (y 546 … 772). The STRETCH is that window's length — the seconds across the page (1 … 24); the staff and the heads keep their size. SIZE is a plain enlargement beside it.
+- The engine is re-read when the IR or the notation code changes on disk, so a figure taken in the chat shows after a reload of the picture, without restarting the server.
+- THE SOUND: a 16-bit cut of the render, 146 → 258 s, made once (`notation/audio/cuts/workshop-piano-146-258.wav`), served with ranges; the cursor is the audio's own clock. Speed 20 … 150 %.
+- THE LOOP: start and end by number, by "= cursor", or SHIFT+click and ALT+click on the score; a gap in seconds between passes; "Fit the page to the loop".
+- THE VIDEO: the picture rasterized once, the cursor drawn on each frame, piped to ffmpeg with the cut's sound at the same speed (`atempo`), the loop's gap held on the last frame, N times. The file goes to `notation/video/clips/` and `latest.json` there names it — "send the clip" in the chat is that file.
+
+**Proven once, on the throwaway (5651):** the page drew both staves at a 3 s stretch with the heads unchanged; `/audio` answered a range request (206); a video was made from the page's own request — 147.9 → 152 at half speed, twice, 20.4 s, picture and sound — and one frame of it looked at. NOT proven: the sound under his hands in his Chrome (play, the loop's gap, the speed by ear).

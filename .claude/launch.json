@@ -70,6 +70,17 @@
       ],
       "port": 5641,
       "_note": "THE TUPLET WORKSHOP on the throwaway port (SW-48) for the AI's own check; his is 5640, run by its full path"
+    },
+    {
+      "name": "notation-5651",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "tools/notation_workshop.js",
+        "--port",
+        "5651"
+      ],
+      "port": 5651,
+      "_note": "THE NOTATION WORKSHOP on the throwaway port (RUNNING_LOG §269) for the AI's own check; his is 5650, run by its full path"
     }
   ]
 }
