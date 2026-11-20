@@ -4504,3 +4504,11 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 - **`accGapStemmedSs`** — an accidental beside a chord that has a stem stands 0.25 ss from its head (the single note's `objects.accidental.beside`); a stemless column keeps 0.1.
 
 **Seen once on the throwaway:** figure 1 (A · A-sharp · B · D-sharp) in three columns, no head on another; the grace figure with its middle note between the two chords. The grace figure's two chords are 77 ms apart, so it is still narrow — the minimum distance between beamed grace notes stays open, with the stroke's place (the next session's first task).
+
+## §261 · 2026-11-20 · his rule for the spacing of a beamed grace group — written, to build after the clear
+
+**His words (after the checkpoint):** "Yes, the beamed grace notes minimum distance. I guess there'll need to be clearance for the ledger too. And let's make, well, it depends, but for these ones, let's make everything, or there'll be one version that's equal horizontal distance. So these ones should have equal horizontal distance. And this is hard to codify in a rule, but I guess we'll have to push where there's room. In this case, there's room to the left and to the right. So I guess if that's the case, we'll push out both sides. So the leftmost will go a little bit more left, the rightmost chord will go a little bit more right, and there'll be enough space so that the stems clear the ledger lines and the note head in the middle will be in between."
+
+**Decided:** the fourth open case of §258 is settled as a rule: equal horizontal distances; enough that each stem clears the neighbor's head and its ledger lines; pushed out on both sides where there is room on both sides. One side only: no rule yet. He names a second version to come (not equal distances) without describing it.
+
+**Not built in this session** (the context is at its end; the stroke's place and this spacing touch the same figure and are the next session's first task). Written into `docs/NOTATION_SCHEME.md` with the AI's read-back, the journal's checkpoint, and SW-82.

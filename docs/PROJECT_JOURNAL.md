@@ -75,11 +75,12 @@ is none, discuss; never show him something made up. It cost this session several
   figures ONE BY ONE and each goes into `notation/hand/s2-piano-solo.units.json` (six so far: 148.20 · 148.61 beamed · 149.09 · 149.98 · 151.04 ·
   the grace figure at 151.41). Rebuilt by `node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 146 --w1 253 --parts 5 --alone 146-253 --pianoHands 5 --id s2-piano-solo --label "Section 2 - the piano solo, note heads in two hands (a working page)" --exp`.
   The rules every figure is built from: the table in `docs/NOTATION_SCHEME.md` § 2.
+- **ALSO FIRST, WITH THE STROKE (his rule, given after the checkpoint — §261):** BUILD THE GRACE GROUP'S SPACING — equal distances, the stems clear of the neighbors' heads and ledger lines, pushed out on both sides where there is room; his words and the read-back at the end of `docs/NOTATION_SCHEME.md`. It is a rule already: build it, measure it, show it — no new discussion unless a figure has room on one side only.
 - **THE NEXT CONCRETE STEP (his word at this checkpoint):** settle THE GRACE STROKE'S PLACE — read `docs/NOTATION_SCHEME.md` § 2 "OPEN" (his brief
   verbatim and the AI's two-number recommendation: one anchor at the stem–beam corner, 45 degrees, `cutSs` and `jutSs`), put it to him in a few
   lines, and at his go build it as two rows of `objects.graceSlash` used by the hand unit's stroke (`layout.js`, "THE STROKE ON A BEAMED GRACE GROUP"
   inside the hand unit's post-pass), rebuild `s2-piano-solo`, look once, show him. Then go on through the piano solo figure by figure, at his word.
-- **Decisions pending him** (the OPEN table, `docs/NOTATION_SCHEME.md` § 2): a minimum distance between beamed grace notes · the grace stroke (the cluster's third column and the stemmed chord's 0.25 are HIS RULES since §260, built). Also, older: how the electronics lane shows
+- **Decisions pending him** (the OPEN table, `docs/NOTATION_SCHEME.md` § 2): the grace stroke (the grace group's spacing is HIS RULE since §261, to build; the cluster's third column and the stemmed chord's 0.25 are HIS RULES since §260, built). Also, older: how the electronics lane shows
   its waveform · the tuplet notation and the dynamics notation of Section 3 · chords 460.4 → 480 and the electronics' ending at 480 · six
   unregistered techniques (alto sax double_tonguing · slap_exploding · slap_pitched; percussion brake_drums_rubber_mallets · gran_cassa_medium_felt ·
   gran_cassa_rute_on_rim).

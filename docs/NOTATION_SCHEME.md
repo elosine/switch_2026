@@ -97,7 +97,7 @@ Built by `node tools/notate_section.js … --glissGestures all`. The crotales' d
 
 | the case | what the standing rule gives | the AI's recommendation (NOT built) |
 |---|---|---|
-| the distance between beamed grace notes | none: each stands at its own time (19 ms apart = 0.35 ss) | a minimum of one and a half head widths; his word so far, for figure 6 only: the middle note midway between the two chords (`at` in the units file) |
+| the distance between beamed grace notes — **HIS RULE 2026-11-20, to BUILD (with the stroke, the next session's first task)** | none: each stands at its own time | see THE GRACE GROUP'S SPACING below |
 | THE GRACE STROKE'S PLACE — **the next session's first task** | Recombination's (§601 … §604): centered on the stem–beam corner, slid 0.5 ss toward the heads, the far half longer by twice that. He finds it unreliable and "potentially a little too long" | the two-number rule below |
 | stems, flags and beams beside small heads | full size | his, when the head size is settled |
 | a long figure's room in the lane | the layout's red "fit?" (4 units on `s2-piano-solo`) | his, on the page |
@@ -111,3 +111,12 @@ Built by `node tools/notate_section.js … --glissGestures all`. The crotales' d
 - **`jutSs`** = how far it sticks out past each crossing: its left end `jutSs` left of the stem's edge, its right end `jutSs` above the beam's top face. Equal on both ends by construction — his "an equal amount jutting out to the left and … above to the right".
 - So: left end (P.x − jut, P.y − cut − jut), right end (P.x + cut + jut, P.y + jut), with y up. It does not depend on how many beams there are or how long the stem is.
 - First numbers to try: `cutSs` 1.0, `jutSs` 0.4, both at the grace scale (the stroke is shorter than today's). Two rows in `objects.graceSlash`; the old `at` · `reachSs` · `beamInsetSs` retire for hand units.
+
+**THE GRACE GROUP'S SPACING — his rule (2026-11-20, verbatim):** "Yes, the beamed grace notes minimum distance. I guess there'll need to be clearance for the ledger too. And let's make, well, it depends, but for these ones, let's make everything, or there'll be one version that's equal horizontal distance. So these ones should have equal horizontal distance. And this is hard to codify in a rule, but I guess we'll have to push where there's room. In this case, there's room to the left and to the right. So I guess if that's the case, we'll push out both sides. So the leftmost will go a little bit more left, the rightmost chord will go a little bit more right, and there'll be enough space so that the stems clear the ledger lines and the note head in the middle will be in between."
+
+**Read back, for the build (the AI's reading — the numbers are rows, his to move):**
+- The members of a beamed grace group stand at EQUAL horizontal distances (this version; he expects another version later — "there'll be one version that's equal horizontal distance").
+- The distance is the least that lets every stem clear its neighbor's head AND that head's ledger lines (a ledger line is wider than its head: the head's width plus a quarter of it each side), plus the house space.
+- The group is PUSHED OUT WHERE THERE IS ROOM: with room on both sides, both sides — the first member a little earlier than played, the last a little later, the middle ones between; the group stays centered on the span it was played in.
+- Room on one side only, or on neither: NO RULE YET — put it to him when a figure meets it.
+- Figure 6 is the first case: room both sides; the high C (on ledger lines) between the two chords. Its hand `at` goes when the rule is built.
