@@ -388,7 +388,7 @@ The size step: ×1.122462 (LilyPond's font-size step 2^(1/6) (§428)) · the com
 Every `engraving` overlay on an event (the per-event hands: `stemDir` · `dxSs` · `dySs` · `beamBreak` · `device` …) in the notation
 files the picker lists. A rung-8 override carries five fields (the object · the property · the value · the rung · his § and date).
 
-- `s1-sax-first-note` — 1 override(s): device ×1
+- `s1-sax-first-note` — 2 override(s): device ×2
 
 ---
 
