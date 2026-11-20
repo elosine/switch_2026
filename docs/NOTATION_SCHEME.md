@@ -130,7 +130,7 @@ Built by `node tools/notate_section.js … --glissGestures all`. The crotales' d
 
 **The name is three words — Shape Action Notation** (his correction, §285; the AI first took it as "action notation").
 
-**What it is for:** the flows of the piano solo — one hand's wave of notes played into a point of gravity and out of it. The fixed structures (his jabs and strikes) stay in STANDARD notation, the figures of § 2; the two kinds alternate. A third kind, a STUTTER notation (a quick repetitive shake), is HELD (SW-84).
+**What it is for:** the flows of the piano solo — one hand's wave of notes played into a point of gravity and out of it. The fixed structures (his jabs and strikes) stay in STANDARD notation, the figures of § 2; the two kinds alternate. A third kind, a STUTTER notation (a quick repetitive shake), is HELD (SW-84). A fourth, POINTILLISTIC — CONSTELLATION NOTATION: points that suggest a density over a ZONE, without exact rhythmic places — is named for later (SW-85).
 
 **Where it lives today:** only in the notation workshop (`http://localhost:5650/`, the page "prototype: ribbon"), drawn by `tools/gravity_furniture.js` from `bank/gravity_proto.json` — ONE example, the left hand, 157.82 → 159.64 s. It is not in `layout.js`, has no rows in `rules.json`, and is on no page of the score.
 

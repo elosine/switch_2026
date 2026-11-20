@@ -1401,3 +1401,9 @@ staff carried from piece 6 has eight lines, of which only the coil's and the Chi
 **The AI's reading:** the sign built through SW-83 (the GC arc as a ribbon, the boxed hand shapes, the ball) is ACTION NOTATION. The piano solo is written in two kinds that alternate: STANDARD NOTATION for the fixed structures (the figures taken one by one, §255 on) and ACTION NOTATION for the flows. HELD: a third kind, a STUTTER notation — a quick repetitive shake — to be thought about after action notation is finished, by looking for passages that warrant it.
 
 **SW-84, corrected by him (2026-11-20, verbatim):** "Shape Action Notation" — the name is these three words. The AI had read "Let's call this shape action notation" as "this shape" + "action notation"; wrong. Where SW-84's reading above says ACTION NOTATION, read SHAPE ACTION NOTATION.
+
+### SW-85 · 2026-11-20 · a FOURTH kind — pointillistic; CONSTELLATION NOTATION, over a zone
+
+**His words (verbatim):** "And Then a fourth, which is more of a pointillistic. Maybe this is where we use the constellation notation. So one that suggests a sort of pointillistic density rather than providing precise rhythmic locations. Over a zone. Over a zone."
+
+**The AI's reading:** the kinds of notation for the piano solo are now four — (1) STANDARD notation, the fixed structures; (2) SHAPE ACTION NOTATION, a hand's flow into a gravity (SW-83 · SW-84); (3) a STUTTER notation, a quick repetitive shake — held (SW-84); (4) a POINTILLISTIC kind, CONSTELLATION NOTATION — points that suggest a density over a ZONE, without exact rhythmic places. "The constellation notation" may be his "star chart" of SW-83's fifth word (dots where the played notes are, joined by thin lines), which was tried inside the arc and taken out (§279) — here it would have its own use. The AI takes (4) as noted for later, like (3); he did not say "hold" for it.

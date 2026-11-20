@@ -4776,3 +4776,7 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 ## §285 · 2026-11-20 · the name corrected: SHAPE ACTION NOTATION
 
 **His word:** "Shape Action Notation". §284 took "Let's call this shape action notation" as naming it "action notation"; the name is all three words. `docs/NOTATION_SCHEME.md` § 3's heading and the sketch pad carry the correction; §284 stands as written (append-only).
+
+## §286 · 2026-11-20 · a fourth kind named: the pointillistic, CONSTELLATION NOTATION, over a zone
+
+**His words:** SW-85 (the sketch pad): "a fourth, which is more of a pointillistic. Maybe this is where we use the constellation notation … a sort of pointillistic density rather than providing precise rhythmic locations. Over a zone." The four kinds, as the AI reads them: standard notation (the fixed structures) · Shape Action Notation (a hand's flow into a gravity) · a stutter notation (held) · constellation notation (density over a zone, named for later). The star chart of §276 — dots joined by thin lines, taken out of the arc at §279 — is the nearest thing already drawn. Nothing built.
