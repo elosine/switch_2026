@@ -4651,3 +4651,21 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 
 **In the workshop:** a third page, HEADS ONLY (`s2-piano-solo-heads`: no figures, the heads at 0.8 at their played times, the accidentals gone — `--handHeadSize 0.8 --handAccSize 0.001 --unitsFrom none --timeSpacing`), and a GRAVITY checkbox on any page: the walls as amber upright boxes on the hand's staff (both staves when both hands), the right hand's arcs above the upper staff (teal), the left hand's below the lower (purple), each arc a ball's path — falling from rest into the bounce, leaving it fast — with a ring at the bounce and a BALL riding the arc while it plays. The marks are the page's overlay; they are not in the video yet.
 **Checked once on the throwaway:** the heads page at 156 s, 6 s across — 4 walls and 5 arcs drawn in place, no error.
+
+## §273 · 2026-11-20 · SW-83 slowed down — ONE gravity moment in ONE hand, the prototype page
+
+**His words (SW-83's third word, whole in the sketch pad):** the wave curve joining the GC arcs — "Hold this"; then "lets take a step back and proceed more slowly … isolate one gravity moment in one hand, decide which notes belong on which side of impact, could be all on one side; next draw the arc from the moment of the 1st note of the cluster through to the moment of the last note; next decide on how to decide on the physics and shape of the arc; lets do this much and lets use the gc design I've been using … take out all the rest, let me have a few of the lead in and lead out notes, nothing from the second hand, make sure all fits on the page and reduce the notehead transparency, 60%".
+
+**The example chosen (the AI's, his to change):** the LEFT hand, 157.82 → 159.64 s. Why this one: it is one hand's wave with notes on BOTH sides of a clear heaviest moment, so the question "which side of the impact" has something to decide; it is short (1.8 s); and the same hand gives lead-in and lead-out notes close by.
+- lead in: the chord at 156.41 (G3 · D4 · E4) and the E4 at 157.705 (the left hand's note of the opening jab)
+- before the impact, 12 notes: 157.821 … 158.381 (D#4 · F4 · B3 · D4 · E4 · C4 · B3 · F4 · G4 · D4 · E4), then E4 alone at 158.820 (loudness 127)
+- THE IMPACT, 159.159 … 159.168: D#4 · E4 · C#4 (106 · 127 · 102) — the hand's heaviest event
+- after it, 6 notes: 159.281 … 159.641 (D4 · C4 · E4 · D4 · C4 · E4)
+- lead out: 160.19 … 160.98 (the left hand's part of the run into the big cluster)
+
+**The arc:** from the first note (157.821) through the impact (159.159) to the last note (159.641), in the lineage's GC — `notation/lib/gc.js`'s own curve with the registry's preset (piece 2's: ictus 120 → the fall 1 − u^3.4, stiffness 50 → the rise power 2, damping 80 → the rebound to 80 % of the drop), the fall stretched to 1.34 s and the rebound to 0.48 s; its look the GC's (magenta, 1.5 px, the ring at the impact, the ball). The apex at the top of the picture, the impact under the staff.
+
+**Built:** `bank/gravity_proto.json` (the example as data: hand · window · arc · the note lists per side — his to edit by word) and the workshop's fourth page, "prototype": the server filters the heads-only IR to that hand and window and lays it out; the picture is cut to the lower staff (the band 628 … 752); the heads at 60 % opacity; nothing else is drawn — no walls, no other arc, no right hand. Picking the page sets the view to the window and the phrase to the arc.
+**Checked once on the throwaway:** the page drew the left hand's notes of 156.1 → 161.2 on one staff, 53 heads lightened, the one arc with its ring, the ball at the arc's start; all inside the window, no scrolling.
+
+**Open, his (the method's steps 3 and 5):** which notes stand on which side — the first reading puts the impact on the heaviest event; and how the arc's shape is decided — today it is the GC's fixed curve stretched in time.

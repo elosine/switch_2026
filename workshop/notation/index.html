@@ -40,7 +40,7 @@
   <div class="g"><button id="clip" class="main">Make video</button><label for="loops">×</label><input id="loops" class="s" type="number" min="1" max="20" step="1"></div>
 </div>
 <div class="bar two">
-  <div class="g"><select id="page"><option value="s2-piano-solo">spaced</option><option value="s2-piano-solo-played">as played</option><option value="s2-piano-solo-heads">heads only</option></select></div>
+  <div class="g"><select id="page"><option value="s2-piano-solo">spaced</option><option value="s2-piano-solo-played">as played</option><option value="s2-piano-solo-heads">heads only</option><option value="gravity-proto">prototype</option></select></div>
   <div class="g"><label for="t0">Page from</label><input id="t0" type="number" step="0.1"><button id="back" title="LEFT">◀</button><button id="fwd" title="RIGHT">▶</button></div>
   <div class="g"><label for="a">Phrase</label><input id="a" type="number" step="0.01"><span class="dim">to</span><input id="b" type="number" step="0.01"></div>
   <div class="g"><label for="gap">Gap</label><input id="gap" class="s" type="number" step="0.5" min="0"></div>
@@ -81,6 +81,7 @@
       V = v; $('svgBox').innerHTML = v.svg;
       const svg = $('svgBox').querySelector('svg');
       svg.style.width = (v.w * S.size) + 'px'; svg.style.height = (v.band[1] * S.size) + 'px';
+      if (v.proto) for (const el of svg.querySelectorAll('g.sys path, g.sys use')) { const b = el.getBoundingClientRect(), o = svg.getBoundingClientRect(), k = S.size; if (b.width < 16 * k && b.height < 16 * k && b.left - o.left > (v.x0 - 4) * k) el.style.opacity = v.proto.headOpacity; }   // the note heads, lighter
       place(); drawMarks();
     }).catch(e => msg('The workshop server does not answer.'));
     fetch('/marks').then(r => r.json()).then(m => { M = m; drawMarks(); }).catch(() => {});
@@ -105,7 +106,25 @@
     else { const d = a.t1 - a.bounce, v = d > 0 ? (s - a.bounce) / d : 1; h = 1 - Math.pow(1 - v, 2); }
     return g.touch + (g.far - g.touch) * Math.max(0, Math.min(1, h));
   }
+  // ---- THE PROTOTYPE (bank/gravity_proto.json): ONE arc, the lineage's GC — the fall 1 - u^p into the impact, the rebound to damping %
+  function gcFrac(p, s) {
+    const a = p.arc, pr = p.preset, dp = 1 + (pr.ictus / 1000) * 20, ap = 1 + pr.stiffness / 50, rb = pr.damping / 100, cl = u => Math.max(0, Math.min(1, u));
+    if (s <= a.bounce) { const d = a.bounce - a.t0; return 1 - Math.pow(cl(d > 0 ? (s - a.t0) / d : 1), dp); }
+    const d = a.t1 - a.bounce; return rb * (1 - Math.pow(1 - cl(d > 0 ? (s - a.bounce) / d : 1), ap));
+  }
+  const gcY = (p, s) => { const imp = V.band[0] + V.band[1] - 8, apex = V.band[0] + 8; return imp - gcFrac(p, s) * (imp - apex); };
+  function drawProto() {
+    const el = $('marks'), p = V.proto, a = p.arc, k = S.size, out = [], pts = [], n = 160;
+    el.setAttribute('width', V.w * k); el.setAttribute('height', V.band[1] * k);
+    for (let i = 0; i <= n; i++) { const s = a.t0 + (a.t1 - a.t0) * i / n; pts.push(xOf(s).toFixed(1) + ',' + yPx(gcY(p, s)).toFixed(1)); }
+    const bi = pts.length; for (let i = 0; i <= 12; i++) { const s = a.bounce - 0.004 + 0.008 * i / 12; }   // (the corner at the impact is in the samples' own step)
+    out.push('<polyline points="' + pts.join(' ') + '" fill="none" stroke="' + p.look.color + '" stroke-width="' + Math.max(1.5, p.look.arcStrokePx * k).toFixed(1) + '"/>');
+    out.push('<circle cx="' + xOf(a.bounce).toFixed(1) + '" cy="' + yPx(gcY(p, a.bounce)).toFixed(1) + '" r="' + (p.look.impactRadiusPx * k).toFixed(1) + '" fill="none" stroke="' + p.look.color + '" stroke-width="' + Math.max(1.5, p.look.arcStrokePx * k).toFixed(1) + '"/>');
+    out.push('<g id="balls"></g>');
+    el.innerHTML = out.join(''); balls();
+  }
   function drawMarks() {
+    if (V && V.proto) return drawProto();
     const el = $('marks'); if (!V || !V.staves || !V.staves.length || !S.marksOn) { el.innerHTML = ''; return; }
     const W = V.w * S.size, H = V.band[1] * S.size, a0 = V.window[0], a1 = V.window[1], out = [];
     el.setAttribute('width', W); el.setAttribute('height', H);
@@ -129,6 +148,7 @@
   function balls() {
     const g = document.getElementById('balls'); if (!g || !V) return;
     const out = [];
+    if (V.proto) { const p = V.proto, a = p.arc; if (t >= a.t0 && t <= a.t1) out.push('<circle cx="' + xOf(t).toFixed(1) + '" cy="' + yPx(gcY(p, t)).toFixed(1) + '" r="' + (p.look.ballRadiusPx * S.size).toFixed(1) + '" fill="' + p.look.color + '"/>'); g.innerHTML = out.join(''); return; }
     for (const a of M.arcs || []) { if (t < a.t0 || t > a.t1) continue; const y = arcY(a, t); if (y != null) out.push('<circle cx="' + xOf(t).toFixed(1) + '" cy="' + yPx(y).toFixed(1) + '" r="6" fill="' + COL[a.hand] + '"/>'); }
     g.innerHTML = out.join('');
   }
@@ -148,7 +168,11 @@
     $('a').value = +S.a.toFixed(2); $('b').value = +S.b.toFixed(2); $('loopOn').checked = !!S.loopOn; $('marksOn').checked = !!S.marksOn; $('gap').value = S.gap; $('loops').value = S.loops;
   }
   const num = (id, d) => { const v = parseFloat($(id).value); return Number.isFinite(v) ? v : d; };
-  $('page').onchange = () => { S.page = $('page').value; save(); load(); };
+  $('page').onchange = () => {
+    S.page = $('page').value;
+    if (S.page === 'gravity-proto') return fetch('/proto').then(r => r.json()).then(p => { S.t0 = p.window[0]; S.span = +(p.window[1] - p.window[0]).toFixed(1); S.a = p.arc.t0; S.b = p.arc.t1; show(); save(); load(); });
+    save(); load();
+  };
   $('t0').onchange = () => { S.t0 = num('t0', S.t0); save(); load(); };
   $('span').oninput = () => { S.span = num('span', 6); show(); save(); later(); };
   $('size').oninput = () => { S.size = num('size', 2); show(); save(); later(); };

@@ -23,7 +23,7 @@ const DIR = path.join(ROOT, 'workshop', 'notation');
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 && process.argv[i + 1] != null ? process.argv[i + 1] : d; };
 const PORT = +(process.env.PORT || arg('port', 5650));
 const PART = +arg('part', 5);                                   // the piano's lane
-const PAGES = arg('pages', 's2-piano-solo,s2-piano-solo-played,s2-piano-solo-heads').split(',');
+const PAGES = arg('pages', 's2-piano-solo,s2-piano-solo-played,s2-piano-solo-heads,gravity-proto').split(',');
 const SRC_AUDIO = path.join(ROOT, arg('audio', 'notation/audio/piece-Section03-H-addTuplets.wav'));   // the players' render; its piano solo is the first draft's, note for note (§266)
 const A0 = +arg('a0', 146), A1 = +arg('a1', 258);               // the cut's span in score time
 const CUT = path.join(ROOT, 'notation', 'audio', 'cuts', 'workshop-piano-' + A0 + '-' + A1 + '.wav');
@@ -35,7 +35,9 @@ const rd = p => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
 // ---------------------------------------------------------------- the engine, re-read when its files change
 const WATCH = ['notation/lib/layout.js', 'notation/lib/render.js', 'notation/lib/static_page.js', 'notation/lib/coords.js', 'notation/lib/chord_column.js',
   'notation/lib/glyphs.json', 'notation/registry/rules.json', 'notation/registry/container.json', 'notation/registry/ensemble.json', 'notation/registry/techniques.json'];
-const stampOf = page => WATCH.concat('notation/ir/' + page + '.ir.json').map(f => { try { return fs.statSync(path.join(ROOT, f)).mtimeMs; } catch (e) { return 0; } }).join('|');
+// [§273] THE PROTOTYPE PAGE (bank/gravity_proto.json): one hand's notes of one window, read from another page's IR
+const PROTO = 'gravity-proto', protoOf = () => rd('bank/gravity_proto.json');
+const stampOf = page => WATCH.concat(page === PROTO ? ['bank/gravity_proto.json', 'notation/ir/' + protoOf().page + '.ir.json'] : ['notation/ir/' + page + '.ir.json']).map(f => { try { return fs.statSync(path.join(ROOT, f)).mtimeMs; } catch (e) { return 0; } }).join('|');
 const ENG = new Map();
 function engine(page) {
   if (!PAGES.includes(page)) throw new Error('no such page: ' + page);
@@ -45,7 +47,15 @@ function engine(page) {
   const lib = n => require(path.join(ROOT, 'notation', 'lib', n));
   const Coords = lib('coords.js'), Layout = lib('layout.js'), StaticPage = lib('static_page.js'), Fit = lib('fit.js');
   const glyphs = rd('notation/lib/glyphs.json'), C = lib('rules.js').loadContainer(ROOT), ens = rd('notation/registry/ensemble.json'), T = rd('notation/registry/techniques.json');
-  const ir = rd('notation/ir/' + page + '.ir.json');
+  let ir, proto = null;
+  if (page === PROTO) {
+    proto = protoOf(); ir = rd('notation/ir/' + proto.page + '.ir.json');
+    const staff = new Map(); for (const o of ir.overlays || []) if (o.kind === 'engraving' && o.target && o.target.event && o.value) staff.set(o.target.event, o.value.staff || 0);
+    const want = proto.hand === 'L' ? 1 : 0, keep = new Set(ir.events.filter(ev => (staff.get(ev.id) || 0) === want && ev.onset >= proto.window[0] && ev.onset <= proto.window[1]).map(ev => ev.id));
+    ir.events = ir.events.filter(ev => keep.has(ev.id));
+    ir.overlays = (ir.overlays || []).filter(o => !(o.target && o.target.event) || keep.has(o.target.event));
+    ir.chunks = (ir.chunks || []).map(c => Object.assign({}, c, { events: (c.events || []).filter(id => keep.has(id)) })).filter(c => c.events.length);
+  } else ir = rd('notation/ir/' + page + '.ir.json');
   // the frame is the notation app's and the film's (tools/export_video.js): every part, 1080 high — only the picture is cut to the piano
   const ENS = Layout.ensembleFor(ens, (C.realizations || {})['video-jury']);
   const ensPart = p => (ENS && ENS.parts.find(q => q.part === p)) || null;
@@ -55,7 +65,8 @@ function engine(page) {
   const FRAME = Coords.ensembleFrame(PARTS, { heightPx: H, lanes: rz.lanes || { padTopPx: 8, padBotPx: 8, gapPx: 4 }, staffHeightPx: (C.staff && C.staff.staffHeightPx) || 31.6,
     grandStaff: ((C.engraving || {}).layout || {}).grandStaff, weightOf: ENS ? (p => (ensPart(p) && ensPart(p).weight) || 1) : undefined,
     stavesOf: p => (ensPart(p) && ensPart(p).staves && ensPart(p).staves.length) || 1, ensemble: ENS });
-  const e = { stamp, Coords, StaticPage, glyphs, C, ENS, ir, model, H, FRAME, EDGES: Coords.edgesOf(C) };
+  const e = { stamp, Coords, StaticPage, glyphs, C, ENS, ir, model, H, FRAME, EDGES: Coords.edgesOf(C), band: (proto && proto.band) || BAND,
+    proto: proto && Object.assign({}, proto, { preset: (C.animated && C.animated.gc && C.animated.gc.preset) || lib('gc.js').DEFAULT_PRESET, look: lib('gc.js').LOOK }) };
   ENG.set(page, e);
   return e;
 }
@@ -65,7 +76,7 @@ function viewOf(page, t0, span, w) {
   const srcEnd = e.ir.source.window[1];
   let svg = e.StaticPage.staticPageSvg({ model: e.model, view, glyphs: e.glyphs, C: e.C, srcEnd, reshow: 0, ownsEnd: t0 + span >= srcEnd - 1e-9, ensemble: e.ENS, edgeBar: false });
   // the piano's band only: the SVG keeps its own coordinates, the viewBox cuts the picture
-  svg = svg.replace(/^<svg([^>]*?) width="[\d.]+" height="[\d.]+" viewBox="[^"]*"/, '<svg$1 viewBox="0 ' + BAND[0] + ' ' + w + ' ' + BAND[1] + '" preserveAspectRatio="xMinYMin meet"');
+  svg = svg.replace(/^<svg([^>]*?) width="[\d.]+" height="[\d.]+" viewBox="[^"]*"/, '<svg$1 viewBox="0 ' + e.band[0] + ' ' + w + ' ' + e.band[1] + '" preserveAspectRatio="xMinYMin meet"');
   // [§272] the two staves' top and bottom lines (the frame's own y), read from the piano's system — for the gravity marks drawn over the page
   const staves = [];
   { const re = new RegExp('<g class="sys sys-p' + PART + '"[^>]*>([\\s\\S]*?)</g>', 'g'); let m; const ys = [];
@@ -73,7 +84,7 @@ function viewOf(page, t0, span, w) {
     ys.sort((a, b) => a - b);
     for (let i = 0; i + 4 < ys.length; i += 5) staves.push([ys[i], ys[i + 4]]); }
   const x0 = view.xOfSeconds(t0);
-  return { svg, staves, x0, pps: (view.xOfSeconds(t0 + span) - x0) / span, band: BAND, w, window: [t0, t0 + span], srcWindow: e.ir.source.window };
+  return { svg, staves, x0, pps: (view.xOfSeconds(t0 + span) - x0) / span, band: e.band, proto: e.proto || undefined, w, window: [t0, t0 + span], srcWindow: e.ir.source.window };
 }
 
 // ---------------------------------------------------------------- the sound: one cut, made once
@@ -108,7 +119,7 @@ async function makeClip(q) {
   const loops = Math.max(1, Math.round(+q.loops || 1)), gap = Math.max(0, +q.gap || 0), fps = 30;
   const v = viewOf(page, t0, span, w);
   const outW = Math.floor(Math.min(1600, Math.max(640, w * (+q.k || 1))) / 2) * 2;
-  const svg = v.svg.replace('<svg', '<svg width="' + w + '" height="' + BAND[1] + '"');
+  const svg = v.svg.replace('<svg', '<svg width="' + w + '" height="' + v.band[1] + '"');
   const img = new Resvg(svg, { fitTo: { mode: 'width', value: outW }, background: 'white', font: { loadSystemFonts: false, fontFiles: FONT_FILES, defaultFontFamily: 'Crimson Pro Light' } }).render();
   const W = img.width, H2 = Math.floor(img.height / 2) * 2, base = Buffer.from(img.pixels), sc = W / w;
   const dur = (b - a) / rate, n = Math.max(1, Math.round(dur * fps));
@@ -152,6 +163,7 @@ http.createServer((req, res) => {
     if (u.pathname === '/' || u.pathname === '/index.html') return send(res, 200, fs.readFileSync(path.join(DIR, 'index.html')), 'text/html; charset=utf-8');
     if (u.pathname === '/info') return send(res, 200, JSON.stringify({ a0: A0, a1: A1, pages: PAGES, window: engine(PAGES[0]).ir.source.window, audio: ensureCut() }));
     if (u.pathname === '/view') return send(res, 200, JSON.stringify(viewOf(q.page || PAGES[0], +q.t0, Math.max(0.5, +q.span || 6), Math.max(300, Math.round(+q.w || 1400)))));
+    if (u.pathname === '/proto') return send(res, 200, JSON.stringify(protoOf()));
     if (u.pathname === '/marks') { const mf = path.join(ROOT, 'bank', 'gravity_sort.json'); return send(res, 200, fs.existsSync(mf) ? fs.readFileSync(mf) : '{"walls":[],"arcs":[]}'); }   // [§272] the gravity sorting (tools/gravity_sort.js)
     if (u.pathname === '/audio') { if (!ensureCut()) return send(res, 404, '{"error":"no audio render"}'); return sendFile(req, res, CUT, 'audio/wav'); }
     if (u.pathname.startsWith('/clips/')) return sendFile(req, res, path.join(CLIPS, path.basename(u.pathname)), 'video/mp4');
