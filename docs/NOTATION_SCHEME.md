@@ -125,3 +125,21 @@ Built by `node tools/notate_section.js … --glissGestures all`. The crotales' d
 - The group is PUSHED OUT WHERE THERE IS ROOM: with room on both sides, both sides — the first member a little earlier than played, the last a little later, the middle ones between; the group stays centered on the span it was played in.
 - Room on one side only, or on neither: NO RULE YET — put it to him when a figure meets it.
 - Figure 6 is the first case: room both sides; the high C (on ledger lines) between the two chords. Its hand `at` goes when the rule is built.
+
+## 3 · ACTION NOTATION (his name, SW-84, 2026-11-20) — a PROTOTYPE, not yet a sign of the score
+
+**What it is for:** the flows of the piano solo — one hand's wave of notes played into a point of gravity and out of it. The fixed structures (his jabs and strikes) stay in STANDARD notation, the figures of § 2; the two kinds alternate. A third kind, a STUTTER notation (a quick repetitive shake), is HELD (SW-84).
+
+**Where it lives today:** only in the notation workshop (`http://localhost:5650/`, the page "prototype: ribbon"), drawn by `tools/gravity_furniture.js` from `bank/gravity_proto.json` — ONE example, the left hand, 157.82 → 159.64 s. It is not in `layout.js`, has no rows in `rules.json`, and is on no page of the score.
+
+| the part | as it stands | whose |
+|---|---|---|
+| the arc | the lineage's GC (`gc.js`, piece 2's preset): from the flow's first note, through the impact, to its last note; the ball rides it | his ("use the gc design I've been using") |
+| the inner movement | the arc is a RIBBON: its width is the hand's busyness, up to 24 px, exaggerated (power 2.4) | his ("lets go with the ribbon, maybe") |
+| the ball | larger than the ribbon under it (1.35 × its half width + 2 px), a white rim | his word, the AI's numbers |
+| the hand's shape | a chord ON THE STAFF in a thin tight box, with accidentals; four or more pitches no more than a whole step apart = a CLUSTER BAR (the lowest and highest note, a bar between — piece 2's bar, half a head wide here) | his; the bar's width and the "four" are the AI's |
+| a second shape | only when the pitches after the impact differ from those before by 3 or more (added + dropped); never at the impact — it begins 30 % up the rising arc | his word, the AI's numbers |
+| the boxes' place | each begins at its moment and stays inside the arc's span | his |
+| played notes | none drawn | his |
+
+**OPEN (his method's steps, SW-83's third word):** which notes stand on which side of the impact (the first reading puts the impact on the hand's heaviest moment) · how the arc's physics and shape are decided (today the GC's fixed curve, stretched in time) · the other hand · how it meets the standard figures beside it.

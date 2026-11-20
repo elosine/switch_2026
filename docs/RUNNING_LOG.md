@@ -4768,3 +4768,7 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 - THE VIEW — the arc's top was cut because its apex stood 8 px under the picture's edge and the ribbon is wider than that. Now the arc keeps clear of both edges by the ribbon's half width, and the picture runs lower: the band 628 … 780 (was … 752), what stands under the piano's lane covered in white (`coverFrom` 752). The arc's fall is the same height as before (116 px).
 **Checked once:** the page rendered to an image — the whole ribbon inside the picture, top and bottom. The ball's new size was not seen moving (the same function in the page and the film; his eye).
 **Seen:** the rebound's ribbon is at its widest right after the impact and passes behind the second shape's box.
+
+## §284 · 2026-11-20 · the name: ACTION NOTATION; the stutter notation held
+
+**His words:** SW-84 (the sketch pad): "Let's call this shape action notation. We have the standard notation for these fixed structures, and that can be interspersed with this type of notation … one other, which is kind of like a stutter notation, or kind of quick repetitive shake. But just hold that. Let's finish this one up". Written down as it stands in `docs/NOTATION_SCHEME.md` § 3 — each part with whose decision it is, and what is still open. Nothing built.
