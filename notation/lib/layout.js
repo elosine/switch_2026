@@ -395,7 +395,7 @@
       // value: { samples:[0..1 ...], fit:'<the formula, for the record>' }
       if (ov.kind === 'gliss' && tgt.part !== undefined && tgt.span && ov.value && ov.value.samples) {
         // [LGMF 2k.4] a septet morph's overlay names its vertical scale (rules.json objects.glissCurve.scale); the renderer reads it
-        glissCurves.push(Object.assign({ part: tgt.part, span: tgt.span, samples: ov.value.samples }, ov.value.scale ? { scale: ov.value.scale } : {})); continue;
+        glissCurves.push(Object.assign({ part: tgt.part, span: tgt.span, samples: ov.value.samples }, ov.value.scale ? { scale: ov.value.scale } : {}, ov.value.band ? { band: ov.value.band } : {})); continue;
       }
       // the CRESCENDO, the glissando's twin: one interpolated curve for the
       // whole section in the BOTTOM half of the lane, limeGreen (day 35)
@@ -889,7 +889,7 @@
       // part the rule governs is marked `withStaff` — the renderer draws it only on a page whose left edge a staff segment covers
       if (!(spec.staffInfo && spec.staffInfo.noClef)) items.push(Object.assign({ k: 'clef', t: w0 }, (shownHere && o.staffShown && o.staffShown.clefWithStaff) ? { withStaff: true } : {}));   // [2a] a lined staff may carry none
       for (const g of glissCurves) if (g.part === part && first)
-        items.push(Object.assign({ k: 'glisscurve', t0: g.span[0], t1: g.span[1], samples: g.samples }, g.scale ? { scale: g.scale } : {}));
+        items.push(Object.assign({ k: 'glisscurve', t0: g.span[0], t1: g.span[1], samples: g.samples }, g.scale ? { scale: g.scale } : {}, g.band ? { band: g.band } : {}));   // `band: 'lane'` — the whole lane (the Switch~ piece)
       for (const cc of crescCurves) if (cc.part === part && first)
         items.push({ k: 'cresccurve', t0: cc.span[0], t1: cc.span[1], samples: cc.samples, full: cc.full });
       // the bar line sits a MEDIUM space to the LEFT of the bar's leftmost ink

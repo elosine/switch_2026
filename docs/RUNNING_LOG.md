@@ -4332,3 +4332,19 @@ save (0 → 18.6 cents over 7.55 s), 48 points, 0 … 1 of the note's travel —
 this note's travel, not a number of cents. Seen on the throwaway: the fill rises from the lane's floor at the go line.
 **Still by hand:** the samples are computed outside the page tool and passed in the note's hand; when the figure is settled the tool reads
 them from the save itself.
+
+## §247. The beating gliss: the second note; the curve read from the save; the moving meter on the whole lane; the cursor checked (2026-11-19)
+
+**His words:** *"can you build the second note … and can you make the curve follower the right color and to actually follow that curve full
+height?"* · *"can you double check the cursor's the same color it always was?"*
+**The curve is now the page tool's own:** `notate_section --pitchCurves id,id,…` writes one `gliss` overlay per named note (`band: 'lane'`,
+64 samples of the note's own bend from the save) — the layout's curve AND the animated meter both read it, so they cannot differ. THE SCALE
+IS THE GESTURE'S: the notes of one gesture (the same sine brick and pair) share one travel — here 44.1 cents over three breaths — so the first
+note runs 0 → 0.42 of the lane and the second 0.45 → 0.91: a second breath begins where the first stopped. (Until now the single note filled
+the lane with its own 18.6 cents; said to him, his to reverse — the other reading is one breath, one full lane.)
+**The moving meter** (`glissMeter`, the lineage's: an outlined bar left of the cursor whose fill is the curve's height now, the pitch's
+orange `#F04B00`): `band: 'lane'` in `animobj.js` — the bar spans the whole lane. Seen on the throwaway at 18.3 s: the outline 126 px (the
+lane), the fill 16 px, beside the cursor.
+**The cursor:** `#FF15A0`, 3 px, opacity 1 — the same row, value for value, in pieces 5, 6 and here (`colours.cursor`, his D48 of piece 4).
+**The second note** (`wc-95`, 23.99 → 30.84 s) carries the same hand as the first — the head, the gliss line, niente → fff, the go line.
+The working page `s1-sax-first-note` now runs 12 … 31.3 s.

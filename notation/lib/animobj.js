@@ -177,7 +177,9 @@
   register('glissMeter', (inst, view, t, st) => {
     if (t < inst.t0 || t > inst.t1) return [];
     const s = view.system(inst.part);
-    const yT = s.yTopPx, yMid = (s.yTopPx + s.yBotPx) / 2, H = yMid - yT;
+    // `band: 'lane'` (the Switch~ piece, 2026-11-19 — his "make the curve follower the right color and actually follow that curve full
+    // height"): the meter spans the WHOLE lane, as its curve does; without it the top half (the septets')
+    const yT = s.yTopPx, yMid = inst.band === 'lane' ? s.yBotPx : (s.yTopPx + s.yBotPx) / 2, H = yMid - yT;
     const frac = (t - inst.t0) / Math.max(1e-9, inst.t1 - inst.t0);
     const smp = inst.samples;
     const fi = frac * (smp.length - 1), i0 = Math.floor(fi);
@@ -444,7 +446,7 @@
     for (const ov of ((ir && ir.overlays) || [])) {
       const tg = ov.target || {};
       if (ov.kind === 'gliss' && tg.part !== undefined && tg.span && ov.value && ov.value.samples && has(tg.part)) {
-        out.push({ kind: 'glissMeter', part: tg.part, t0: tg.span[0], t1: tg.span[1], samples: ov.value.samples, _src: 'ir-gliss' });
+        out.push(Object.assign({ kind: 'glissMeter', part: tg.part, t0: tg.span[0], t1: tg.span[1], samples: ov.value.samples, _src: 'ir-gliss' }, ov.value.band ? { band: ov.value.band } : {}));
       }
       if (ov.kind === 'cresc' && tg.part !== undefined && tg.span && ov.value && ov.value.samples && has(tg.part)) {
         out.push({ kind: 'crescMeter', part: tg.part, t0: tg.span[0], t1: tg.span[1], samples: ov.value.samples,

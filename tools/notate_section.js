@@ -1921,6 +1921,25 @@ function foldVibBows(flagName, gid, part, name, groupOnly) {
     console.log('  --morph ' + gid + ': ' + built.length + ' parts, ' + dev + ' go-line events, ' + other
       + ' curve/header overlays  (displacement ' + built.map(b => b.extent.toFixed(0)).join('/') + ' c)');
   }
+  // THE PITCH CURVE OF A GLIDING NOTE (the Switch~ piece, 2026-11-19 — the beating gliss, docs/NOTATION_SCHEME.md device sheet 1):
+  //   --pitchCurves id,id,…   each named note (an object id wc-…) gets ONE curve, the pitch's orange, on the WHOLE lane (a `gliss`
+  //                           overlay with band 'lane' — the curve and its moving meter both read it): the note's own bend from the save.
+  //                           THE LANE'S HEIGHT IS THE GESTURE'S TRAVEL: the notes of one gesture (the same sine brick and pair,
+  //                           properties.sine) share one scale — the lane's floor the gesture's lowest pitch, its top the highest — so a
+  //                           second breath's curve begins where the first one stopped.
+  {
+    const ids = (arg('pitchCurves', '') || '').split(',').map(s => s.trim()).filter(Boolean);
+    const objs = score.objects || [], bendAt = (mb, x) => { for (let i = 1; i < mb.length; i++) if (x <= mb[i][0]) { const p = mb[i - 1], q = mb[i]; return p[1] + (q[1] - p[1]) * (q[0] === p[0] ? 0 : (x - p[0]) / (q[0] - p[0])); } return mb[mb.length - 1][1]; };
+    for (const id of ids) {
+      const o = objs.find(x => x.id === id);
+      if (!o || !Array.isArray(o.morphBend) || o.morphBend.length < 2) { console.warn('  ALERT --pitchCurves ' + id + ': no such note, or it does not glide — no curve'); continue; }
+      const sn = o.properties && o.properties.sine, mates = sn ? objs.filter(x => x.type === 'waveCurve' && x.layer === o.layer && Array.isArray(x.morphBend) && x.properties && x.properties.sine && x.properties.sine.brick === sn.brick && x.properties.sine.pair === sn.pair) : [o];
+      const all = mates.flatMap(x => x.morphBend.map(p => p[1])), lo = Math.min(...all), hi = Math.max(...all), dur = o.endSeconds - o.startSeconds, N = 64, samples = [];
+      for (let i = 0; i < N; i++) samples.push(+(((bendAt(o.morphBend, dur * i / (N - 1)) - lo) / ((hi - lo) || 1))).toFixed(4));
+      doc.overlays.push({ id: 'ov-pitch-' + id, kind: 'gliss', target: { part: o.layer, span: [+o.startSeconds.toFixed(4), +o.endSeconds.toFixed(4)] }, value: { samples, band: 'lane', scale: 'travel', travelC: +(hi - lo).toFixed(1), note: id }, provenance: 'authored' });
+      console.log('  --pitchCurves ' + id + ': ' + o.startSeconds.toFixed(2) + ' … ' + o.endSeconds.toFixed(2) + ' s · ' + samples[0].toFixed(2) + ' → ' + samples[N - 1].toFixed(2) + ' of the gesture\'s ' + (hi - lo).toFixed(1) + ' cents (' + mates.length + ' notes)');
+    }
+  }
   // THE DOT OFF (day 36 — the FOLD's regression, found on MAIN DRAFT).
   // The standalone morph pages have carried curveFollower:false since day 35
   // (notate_morph.js line 212; composer: "I want the meters. I don't want the
