@@ -68,3 +68,22 @@
 | a word | none | "crotales" at the first entry only (piece 2's rule), the house space right of the go line |
 
 Built by `node tools/notate_section.js … --glissGestures all`. The crotales' dynamic row is nudged 1.3 ss up (`--crotDynNudge`): the joined mallets lane is low, the fit ladder's own rung 4.
+
+## 2 · Section 2 — the piano solo (148.2 → 251.7 s)
+
+**The page:** `s2-piano-solo`. Black heads at half size, the right hand on the upper staff and the left on the lower, both in treble. Outside a figure, a head's left edge is on its own MIDI time. The figures are taken ONE BY ONE at his word and kept in `notation/hand/s2-piano-solo.units.json`.
+
+### THE RULES A FIGURE IS BUILT FROM (gathered 2026-11-20, §256 — read these BEFORE drawing; a figure adds no rule of its own)
+
+| the thing | the standing rule | where it lives |
+|---|---|---|
+| the chord's column | one column; a head a step or less from the one before steps to the other side of the stem | piece 2's locked chord rules — `notation/lib/chord_column.js`, `chordColumn` |
+| the accidentals | packed right to left beside the heads, clear of the ledgers; 0.1 from the head in a column, 0.2 between two; the natural beside a same-line neighbor's sign | `objects.accidental` (§479 · §482) |
+| the stem | 3.5 ss past the tip-side head, lengthened to the middle line | `objects.stem.lengthSs`, `stemLenFor` |
+| the flag | its near edge clears the staff's outer line by 0.38 ss; the law yields past 10.5 ss | `objects.flag.staff · clearMaxSs` (piece 2's flagClearance law) |
+| the beam | at the flagged stem's height; no member's stem under the base length; the second beam 0.81 ss under | #4 day 23; `glyphs.json standards.beam` |
+| the arpeggio | LilyPond's unit stacked 1 ss apart; RIGHT of the chord; 0.225 ss from the chord's rightmost ink (the flag's, where they meet) | piece 2 `CHORD_SPACING_RULES.md` §5c.D; `glyphs.json arpeggio.unit` |
+| the head's place | the left edge of the column on the moment | D49 (`nhAnchor leftEdge`) |
+| this page's own | heads and accidentals at 0.5 (his, "eventually I'll make the note heads bigger") | `objects.handUnit` |
+
+**No rule yet — to discuss when met:** a stem, flag and beam at the small head's size (they are full size now) · the lane's room for a long figure (the layout's own flag, the red "fit?").

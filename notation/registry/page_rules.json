@@ -30,6 +30,7 @@
     "glyph": { "screen": "clamp", "print": "whole" },
     "rest": { "screen": "clamp", "print": "whole" },
     "stem": { "screen": "clamp", "print": "whole" },
+    "arpeggio": { "screen": "clamp", "print": "whole", "_note": "the Switch~ piece §256: the arpeggio line — a point kind, whole with its chord" },
     "dot": { "screen": "clamp", "print": "whole" },
     "ledger": { "screen": "clamp", "print": "whole" },
     "text": { "screen": "clamp", "print": "whole" },

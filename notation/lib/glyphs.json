@@ -1186,5 +1186,8 @@
     "by": "tools/glyph_emmentaler.py"
    }
   }
+ },
+ "arpeggio": {
+  "unit": {"path":"M 0.172 0.112 c -0.016 -0.012 -0.024 -0.032 -0.024 -0.048 c 0 -0.032 0.028 -0.064 0.064 -0.064 c 0.012 0 0.028 0.004 0.04 0.016 l 0.512 0.428 c 0.032 0.024 0.044 0.052 0.044 0.08 c 0 0.096 -0.156 0.204 -0.272 0.312 c -0.06 0.056 -0.092 0.136 -0.092 0.212 c 0 0.068 0.02 0.132 0.068 0.188 l 0.124 0.1 c 0.016 0.012 0.024 0.032 0.024 0.048 c 0 0.032 -0.028 0.064 -0.064 0.064 c -0.012 0 -0.028 -0.004 -0.04 -0.016 l -0.512 -0.428 c -0.032 -0.024 -0.044 -0.052 -0.044 -0.08 c 0 -0.096 0.156 -0.204 0.272 -0.312 c 0.06 -0.056 0.092 -0.136 0.092 -0.212 c 0 -0.068 -0.02 -0.132 -0.068 -0.188 z","wSs":0.808,"hSs":1.448,"strideSs":1,"_provenance":"piece #2 (composition_for_two_pianos_and_two_percussion) tools/notation_studio/engine/glyphs/arpeggio_paths.json: LilyPond scripts.arpeggio, baked from the LP fixture arpeggio_unit.svg at set-global-staff-size 20 (its session 66, 2026-05-18). bbox top-left at (0, 0), y DOWN, in staff spaces. LilyPond stacks the units 1.0 ss apart (they overlap 0.448 ss, a continuous wiggle). Brought here 2026-11-20 (the Switch~ piece RUNNING_LOG §256)."}
  }
 }

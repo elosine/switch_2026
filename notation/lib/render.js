@@ -1058,6 +1058,12 @@
           const xF = view.xOfSeconds(it.t), thinF = FB.thinSs * ssPx, gapF = FB.gapSs * ssPx, thickF = FB.thickSs * ssPx;
           parts.push('<rect class="final-bar" x="' + xF.toFixed(2) + '" y="' + yF1.toFixed(2) + '" width="' + thinF.toFixed(2) + '" height="' + (yF2 - yF1).toFixed(2) + '" fill="' + FB.colour + '"/>' +
             '<rect class="final-bar" x="' + (xF + thinF + gapF).toFixed(2) + '" y="' + yF1.toFixed(2) + '" width="' + thickF.toFixed(2) + '" height="' + (yF2 - yF1).toFixed(2) + '" fill="' + FB.colour + '"/>');
+        } else if (it.k === 'arpeggio') {
+          // [the Switch~ piece RUNNING_LOG §256; glyphs.json arpeggio.unit — piece #2's bake of LilyPond's scripts.arpeggio] THE ARPEGGIO LINE:
+          // n units stacked one strideSs apart from yTopSs down (they overlap — a continuous wiggle), the stack's LEFT edge at dxSs. A point kind.
+          if (!owns(it.t) || !glyphs.arpeggio) continue;
+          const AU = glyphs.arpeggio.unit, ax = X(it.t, it.dxSs) + shiftOf(it.t);
+          for (let i = 0; i < it.n; i++) parts.push('<path class="arpeggio" transform="translate(' + ax.toFixed(2) + ' ' + (Y(it.yTopSs) + i * AU.strideSs * ssPx).toFixed(2) + ') scale(' + ssPx.toFixed(4) + ')" d="' + AU.path + '"/>');
         } else if (it.k === 'sineline') {
           // [the Switch~ piece RUNNING_LOG §249; rules.json objects.sineLine → engraving.render.sineLine] THE SINE TONE'S LINE on its player's lane:
           // a plain bar, the sine box's purple at its fill's opacity, no outline, the duration line's height; at the lane's top, its centre the

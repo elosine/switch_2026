@@ -29205,7 +29205,9 @@
      "ringBar": false,
      "nhHeadScale": 0.5,
      "nhAccScale": 0.5,
-     "chordRules": false
+     "puId": "wc-1691",
+     "puStem": "up",
+     "puFlag": "16"
     }
    },
    "provenance": "authored"
@@ -29226,7 +29228,9 @@
      "ringBar": false,
      "nhHeadScale": 0.5,
      "nhAccScale": 0.5,
-     "chordRules": false
+     "puId": "wc-1691",
+     "puStem": "up",
+     "puFlag": "16"
     }
    },
    "provenance": "authored"
@@ -29247,7 +29251,9 @@
      "ringBar": false,
      "nhHeadScale": 0.5,
      "nhAccScale": 0.5,
-     "chordRules": false
+     "puId": "wc-1691",
+     "puStem": "up",
+     "puFlag": "16"
     }
    },
    "provenance": "authored"
@@ -29268,7 +29274,10 @@
      "ringBar": false,
      "nhHeadScale": 0.5,
      "nhAccScale": 0.5,
-     "chordRules": false
+     "puId": "wc-1694",
+     "puStem": "up",
+     "puFlag": "8",
+     "puArp": true
     }
    },
    "provenance": "authored"
@@ -29289,7 +29298,10 @@
      "ringBar": false,
      "nhHeadScale": 0.5,
      "nhAccScale": 0.5,
-     "chordRules": false
+     "puId": "wc-1694",
+     "puStem": "up",
+     "puFlag": "8",
+     "puArp": true
     }
    },
    "provenance": "authored"
@@ -29310,7 +29322,10 @@
      "ringBar": false,
      "nhHeadScale": 0.5,
      "nhAccScale": 0.5,
-     "chordRules": false
+     "puId": "wc-1694",
+     "puStem": "up",
+     "puFlag": "8",
+     "puArp": true
     }
    },
    "provenance": "authored"
@@ -29331,7 +29346,10 @@
      "ringBar": false,
      "nhHeadScale": 0.5,
      "nhAccScale": 0.5,
-     "chordRules": false
+     "puId": "wc-1694",
+     "puStem": "up",
+     "puFlag": "8",
+     "puArp": true
     }
    },
    "provenance": "authored"
@@ -29352,7 +29370,10 @@
      "ringBar": false,
      "nhHeadScale": 0.5,
      "nhAccScale": 0.5,
-     "chordRules": false
+     "puId": "wc-1694",
+     "puStem": "up",
+     "puFlag": "8",
+     "puArp": true
     }
    },
    "provenance": "authored"
@@ -29373,7 +29394,10 @@
      "ringBar": false,
      "nhHeadScale": 0.5,
      "nhAccScale": 0.5,
-     "chordRules": false
+     "puId": "wc-1694",
+     "puStem": "up",
+     "puFlag": "8",
+     "puArp": true
     }
    },
    "provenance": "authored"

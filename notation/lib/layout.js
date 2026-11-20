@@ -737,6 +737,59 @@
       for (let i = 0; i < n; i++) specs.push({ part, staff: i, multi: n > 1, key: n > 1 ? part + ':' + i : part, clef: clefOf(pc, i), staffInfo: staffInfoOf(pc) });
     }
     const nhAll = new Map();   // [the Switch~ piece §255] event id → its drawn head, with its system — for THE HAND UNIT, built once every staff is laid out
+    // [the Switch~ piece RUNNING_LOG §255 · §256] THE HAND UNIT — notes that share device.puId are ONE figure on ONE stem, whatever staff each
+    // head is on (the piano solo, taken unit by unit at his word). NOTHING HERE IS A NEW RULE — each part is the standing one, applied to the
+    // unit as a whole (his word 2026-11-20: "let's stick to the engraving rules. Let's get them all"):
+    //   · THE COLUMN — piece #2's locked chord rules (chord_column.js; engraving.layout.chordColumn): every head of the unit in one column, a
+    //     head a step or less from the one before it stepping to the other side of the stem (by the unit's stem direction); the accidentals
+    //     packed right to left beside the heads, clear of the ledgers (objects.accidental besideUnit · betweenSs), the ♮ beside a same-line
+    //     neighbor's sign (§479). The column's leftmost head edge is on the unit's FIRST onset (D49).
+    //   · THE STEM — objects.stem.lengthSs past the tip-side head, lengthened to the middle line (stemLenFor); THE FLAG CLEARS THE STAFF
+    //     (objects.flag.staff, piece #2's flagClearance law — unless the stem would pass objects.flag.clearMaxSs).
+    //   · THE BEAM — at the flagged stem's height (the staff's edge + the flag clearance + a flag's height: "at the same height as our flagged
+    //     ones", #4 day 23), never leaving a member less than the stem's base length; a 16th's second beam glyphs.standards.beam.stackStep under.
+    //   · THE ARPEGGIO — piece #2's (CHORD_SPACING_RULES §5c.D; its session 66): LilyPond's arpeggio unit stacked one staff space apart, RIGHT of
+    //     the chord ("arpeggio symbol always on the right"), chordToArpeggioGapSs from the chord's rightmost ink — the flag's, where they meet.
+    const HU = Object.assign({ arpGapSs: 0.225, arpSide: 'right' }, o.handUnit || {});   // RULES MIRROR
+    const c2cU = 4 + ((o.grandStaff && o.grandStaff.interStaffGapSs) || 6);
+    const unitCG = new Map(), handUnits = [];
+    {
+      const CCu = Object.assign({ displaceThresholdSteps: 1, minLateralGap: 0.1, verticalCollisionTolerance: 0.05 }, o.chordColumn || {});
+      const ACCu = { '1': 'sharp', '-1': 'flat', '2': 'sharp', '-2': 'flat', '0.5': 'quarterSharp', '-0.5': 'quarterFlat', '1.5': 'threeQuarterSharp', '-1.5': 'threeQuarterFlat' };
+      const stdsU = glyphs.standards, thU = 2 + (o.ottavaLedgerThreshold != null ? o.ottavaLedgerThreshold : ((stdsU.ottava && stdsU.ottava.ledgerLineThreshold) || 3));
+      const lfU = (stdsU.ledgerLine && stdsU.ledgerLine.lengthFraction) || 0.25;
+      const byU = new Map();
+      for (const e of ir.events || []) { const d = deviceOf(e); if (!d.puId || !ChordColumn) continue; const k = partOfEv.get(e.id) + '|' + d.puId; if (!byU.has(k)) byU.set(k, []); byU.get(k).push(e); }
+      for (const evsU of byU.values()) {
+        const d0 = deviceOf(evsU[0]), dir = d0.puStem === 'down' ? 'down' : 'up', tU0 = Math.min(...evsU.map(e => e.onset));
+        const m = evsU.map(e => {
+          const dev = deviceOf(e), g = glyphs.notehead[dev.nhHead === 'filled' ? 'filled' : 'open'], k = dev.nhHeadScale > 0 ? dev.nhHeadScale : 1, ka = dev.nhAccScale > 0 ? dev.nhAccScale : 1;
+          const sp = spelledOf(e), st = staffOfEv(e);
+          let y = posOfEv(e); while (y > thU) y -= 3.5; while (y < -thU) y += 3.5;
+          const L = ledgersForStd(y);
+          return { e, dev, sp, st, y, yT: y - st * c2cU, L, k, ka, w: g.wSs * k, h: g.hSs * k, lext: L.length ? g.wSs * k * lfU : 0 };
+        });
+        const W = Math.max(...m.map(x => x.w));
+        const col = ChordColumn.noteColumn(m.map(x => ({ ySs: x.yT })), dir, W, CCu.displaceThresholdSteps);
+        const base = W / 2 - Math.min(...col.map(c => c.xOffsetSs));   // the column's leftmost head edge on the moment
+        m.forEach((x, i) => { x.headDx = base + col[i].xOffsetSs; });
+        const NAT = o.accNaturalInColumn !== false;
+        const accKeyOf = x => x.sp.alter ? ACCu[String(x.sp.alter)] : (NAT && m.some(y => y !== x && y.st === x.st && y.sp.step === x.sp.step && y.sp.octave === x.sp.octave && y.sp.alter) ? 'natural' : null);
+        const withAcc = m.filter(x => accKeyOf(x) && glyphs.accidental[accKeyOf(x)]);
+        const accs = withAcc.map(x => { const a = glyphs.accidental[accKeyOf(x)], nY = a.anchors && a.anchors.noteY, top = nY ? nY.y : a.hSs / 2;
+          return { w: a.wSs * x.ka, topExt: top * x.ka, botExt: (a.hSs - top) * x.ka, ySs: x.yT, w0: a.wSs, ax0: nY ? nY.x : a.wSs / 2 }; });
+        const heads = m.map(x => ({ xLeft: x.headDx - x.w / 2, ySs: x.yT, hSs: x.h }));
+        const ledg = []; for (const x of m) for (const Ly of x.L) ledg.push({ ySs: Ly - x.st * c2cU, xLeft: x.headDx - x.w / 2 - x.lext });
+        const packed = ChordColumn.accidentalColumn(accs, heads, ledg, { gapToNotehead: o.accGapColumn != null ? o.accGapColumn : ((stdsU.accidental && stdsU.accidental.gapToNotehead) || 0.1), minLateralGap: CCu.minLateralGap, yTol: CCu.verticalCollisionTolerance });
+        const accDx = new Map();
+        // the unit draws a small accidental shrunk toward its head (nhAccScale): this is the offset that puts its RIGHT edge on the packed one
+        withAcc.forEach((x, i) => accDx.set(x.e.id, packed[i].rightEdge - (accs[i].w0 - accs[i].ax0) - x.headDx));
+        const top = m.reduce((a, b) => (b.yT > a.yT ? b : a));
+        for (const x of m) unitCG.set(x.e.id, { t: tU0, headDx: x.headDx, accDxRel: accDx.has(x.e.id) ? accDx.get(x.e.id) : null, accKey: accKeyOf(x), top: x === top });
+        handUnits.push({ d: d0, dir, t: tU0, part: partOfEv.get(evsU[0].id), m, base, W,
+          left: Math.min(...m.map(x => x.headDx - x.w / 2), ...packed.map(p => p.leftEdge)), right: Math.max(...m.map(x => x.headDx + x.w / 2 + x.lext)) });
+      }
+    }
     const systems = specs.map(spec => {
       const part = spec.part;
       const first = spec.staff === 0;
@@ -1324,7 +1377,7 @@
             const XO = crossOf.get(e.id);
             if (XO && XO.yOff) xPend = { i0: items.length, yOff: XO.yOff, tip: null };
             const posOf = XO ? (sp => staffPos(sp, clefOf(pcOfEv(e), XO.staff))) : posOfSys;
-            const CG = chordGeo.get(e.id);
+            const CG = unitCG.get(e.id) || chordGeo.get(e.id);   // [§256] a hand unit's column first
             // [2a.4] a chord is drawn at ONE time, its first onset: heads, ledgers,
             // accidentals, go line and marks all at tU. The brick (and the ring
             // bar) keep each note's own sounding onset. No chord: tU = the onset.
@@ -4116,47 +4169,53 @@
         spec.staffInfo ? { staffLines: spec.staffInfo.offsets, lineLabels: spec.staffInfo.labels || undefined, noClef: spec.staffInfo.noClef } : {}) : { part, items };
     });
 
-    // [the Switch~ piece RUNNING_LOG §255 — the piano solo, his words 2026-11-20: "we'll just take this unit by unit. The first should be
-    // downstem … the arpeggio line … the second one stems up the three notes … beam those together, 16th note beam … a decent up stem and
-    // then a really long stem from the bottom two notes … the third … single stem up, 16 flag, and the arpeggio line … from the top note …
-    // down to just below the G"] THE HAND UNIT: notes that share device.puId are ONE figure, whatever staff each head is on — ONE stem
-    // (puStem up · down) through all its heads, a flag (puFlag '16') or a beam to the other units of its group (puBeam; a 16th = two beams,
-    // every stem up to one level line), an arpeggio line (puArp) the height of its heads. The heads are the nh-unit's own (the chord rules
-    // place them); this pass adds the rest, in the part's TOP staff — a lower-staff head's height brought there by the distance between
-    // the staves' middle lines, as the cross-staff group does (2i.4). Rows: rules.json objects.handUnit.
+    // [§255 · §256] THE HAND UNIT's stem, flag, beam and arpeggio — once every staff is laid out, in the part's TOP staff (a lower-staff height
+    // brought there by the distance between the staves' middle lines, as the cross-staff group's is, 2i.4). The rules: the pre-pass's header.
     {
-      const HU = Object.assign({ stemLenSs: 3.5, arpGapSs: 0.225, arpAmpSs: 0.3, arpStrideSs: 1, arpOverSs: 0.75, arpThickSs: 0.16, beamGapSs: 0.25 }, o.handUnit || {});   // RULES MIRROR
-      const c2cU = 4 + ((o.grandStaff && o.grandStaff.interStaffGapSs) || 6), NHf = glyphs.notehead.filled;
-      const attOf = dir => { const a = dir === 'up' ? NHf.anchors.stemAttachUp : NHf.anchors.stemAttachDown; return { dx: a.x - NHf.anchors.center.x, dy: a.y - NHf.anchors.center.y }; };
-      const byU = new Map();
-      for (const e of ir.events || []) { const d = deviceOf(e), h = nhAll.get(e.id); if (!d.puId || !h) continue; const k = h.part + '|' + d.puId; if (!byU.has(k)) byU.set(k, { d, hs: [], part: h.part }); byU.get(k).hs.push(Object.assign({}, h, { yT: h.y - h.staff * c2cU })); }
+      const NHf = glyphs.notehead.filled, clrU = o.flagClearanceSs != null ? o.flagClearanceSs : 0.38, baseLU = o.stemLen != null ? o.stemLen : 3.5, EDGE = 2;
+      const stemTh = (glyphs.standards.stem && glyphs.standards.stem.thickness) || 0.13, BM = glyphs.standards.beam || {};
+      const attOf = (dir, k) => { const a = dir === 'up' ? NHf.anchors.stemAttachUp : NHf.anchors.stemAttachDown; return { dx: (a.x - NHf.anchors.center.x) * k, dy: (a.y - NHf.anchors.center.y) * k }; };
       const built = [];
-      for (const U of byU.values()) {
-        const sysT = systems.find(s => s.part === U.part && (s.staff || 0) === 0); if (!sysT) continue;
-        const dir = U.d.puStem === 'down' ? 'down' : 'up', att = attOf(dir), k = U.hs[0].k || 1, t = Math.min(...U.hs.map(h => h.t));
-        const hi = U.hs.reduce((a, b) => (b.yT > a.yT ? b : a)), lo = U.hs.reduce((a, b) => (b.yT < a.yT ? b : a));
-        const col = dir === 'up' ? Math.min(...U.hs.map(h => h.dx)) : Math.max(...U.hs.map(h => h.dx)), stemDx = col + att.dx * k;
-        const yHead = dir === 'up' ? lo.yT - att.dy * k : hi.yT - att.dy * k, yTip = dir === 'up' ? hi.yT + HU.stemLenSs : lo.yT - HU.stemLenSs;
-        built.push({ U, sysT, dir, t, stemDx, yHead, yTip, hi, lo });
+      for (const U of handUnits) {
+        const sysT = systems.find(s => s.part === U.part && (s.staff || 0) === 0); if (!sysT || !U.d.puStem) { built.push({ U, sysT, none: true }); continue; }
+        const dir = U.dir, k = U.m[0].k, att = attOf(dir, k);
+        const hi = U.m.reduce((a, b) => (b.yT > a.yT ? b : a)), lo = U.m.reduce((a, b) => (b.yT < a.yT ? b : a)), tipH = dir === 'up' ? hi : lo, off = -tipH.st * c2cU;
+        const stemDx = U.base + att.dx, yHead = (dir === 'up' ? lo.yT : hi.yT) - att.dy, yS = tipH.y - att.dy;   // yS: the tip-side head's attach, in ITS staff
+        const fl = U.d.puFlag ? glyphs.flag[dir + U.d.puFlag] : null;
+        let L = (dir === 'up' ? tipH.y < 0 : tipH.y > 0) ? stemLenFor(tipH.y, baseLU) : baseLU;
+        if (fl && !U.d.puBeam) { const need = dir === 'up' ? (EDGE + clrU + fl.hSs) - yS : yS - (-EDGE - clrU - fl.hSs); if (!(HU.flagClearMaxSs > 0) || need <= HU.flagClearMaxSs) L = Math.max(L, need); }
+        built.push({ U, sysT, dir, stemDx, yHead, yTip: (dir === 'up' ? yS + L : yS - L) + off, yS: yS + off, hi, lo, fl, tipH });
       }
-      // a beam group's stems all reach ONE level line: the highest tip of its units
       const byB = new Map();
-      for (const b of built) if (b.U.d.puBeam) { const kb = b.U.part + '|' + b.U.d.puBeam; if (!byB.has(kb)) byB.set(kb, []); byB.get(kb).push(b); }
-      for (const g of byB.values()) { const y = Math.max(...g.map(b => b.yTip)); for (const b of g) { b.yTip = y; b.beamed = true; } }
+      for (const b of built) if (!b.none && b.U.d.puBeam) { const kb = b.U.part + '|' + b.U.d.puBeam; if (!byB.has(kb)) byB.set(kb, []); byB.get(kb).push(b); }
+      for (const g of byB.values()) {
+        const st = Math.min(...g.map(b => b.hi.st)), fgB = glyphs.flag.up16 || glyphs.flag.up8;
+        const y = Math.max(EDGE + clrU + fgB.hSs - st * c2cU, ...g.map(b => b.yS + baseLU));   // the flagged stem's height; no member under the base length
+        for (const b of g) { b.yTip = y; b.beamed = true; b.dir = 'up'; }
+      }
       for (const b of built) {
-        const it = b.sysT.items;
-        if (b.U.d.puStem) it.push({ k: 'stem', t: b.t, dxSs: b.stemDx, yA: b.yHead, yB: b.yTip, attach: b.dir, unit: b.U.d.puId });
-        if (b.U.d.puStem && b.U.d.puFlag && !b.beamed) it.push({ k: 'glyph', g: 'flag-' + b.dir + b.U.d.puFlag, t: b.t, dxSs: b.stemDx, ySs: b.yTip, align: 'stemTip', unit: b.U.d.puId });
-        if (b.U.d.puArp) {
-          const right = Math.max(...b.U.hs.map(h => h.dx + h.w / 2)) + HU.arpGapSs + HU.arpAmpSs, y0 = b.hi.yT + HU.arpOverSs, y1 = b.lo.yT - HU.arpOverSs;
-          it.push({ k: 'squiggle', t: b.t, dx0Ss: right, y0Ss: y0, dx1Ss: right, y1Ss: y1, ampSs: HU.arpAmpSs, waves: Math.max(1, Math.round((y0 - y1) / HU.arpStrideSs)), thickSs: HU.arpThickSs, unit: b.U.d.puId });
+        if (b.none) continue;
+        const it = b.sysT.items, U = b.U;
+        it.push({ k: 'stem', t: U.t, dxSs: b.stemDx, yA: b.yHead, yB: b.yTip, attach: b.dir, unit: U.d.puId });
+        if (b.fl && !b.beamed) it.push({ k: 'glyph', g: 'flag-' + b.dir + U.d.puFlag, t: U.t, dxSs: b.stemDx, ySs: b.yTip, align: 'stemTip', unit: U.d.puId });
+      }
+      for (const b of built) {
+        const U = b.U; if (!U.d.puArp || !b.sysT || !glyphs.arpeggio) continue;
+        const AU = glyphs.arpeggio.unit, hiY = Math.max(...U.m.map(x => x.yT)), loY = Math.min(...U.m.map(x => x.yT)), span = hiY - loY;
+        const n = Math.max(2, Math.ceil(span / AU.strideSs) + 1), tall = (n - 1) * AU.strideSs + AU.hSs, yTop = (hiY + loY) / 2 + tall / 2;   // piece #2: ceil(span / stride) + 1 units; centered on the chord
+        let right = U.right;
+        if (!b.none) {
+          if (b.dir === 'up') right = Math.max(right, b.stemDx + stemTh / 2);
+          // where the flag hangs beside the arpeggio's own height, the flag's edge is the chord's rightmost ink
+          if (b.fl && !b.beamed) { const f0 = b.dir === 'up' ? b.yTip - b.fl.hSs : b.yTip, f1 = b.dir === 'up' ? b.yTip : b.yTip + b.fl.hSs; if (f0 < yTop && f1 > yTop - tall) right = Math.max(right, b.stemDx + b.fl.wSs); }
         }
+        b.sysT.items.push({ k: 'arpeggio', t: U.t, dxSs: right + HU.arpGapSs, yTopSs: yTop, n, unit: U.d.puId });
       }
       for (const g of byB.values()) {
         if (g.length < 2) continue;
-        const tips = g.slice().sort((a, b2) => a.t - b2.t).map(b => ({ t: b.t, dxSs: b.stemDx, ySs: b.yTip })), bt = (glyphs.standards.beam && glyphs.standards.beam.thickness) || 0.5;
-        const n = g[0].U.d.puBeamN || 2;   // a 16th: two beams
-        for (let i = 0; i < n; i++) g[0].sysT.items.push({ k: 'beam', dir: 'up', tips: tips.map(p => ({ t: p.t, dxSs: p.dxSs, ySs: p.ySs - i * (bt + HU.beamGapSs) })), group: 'pu-' + g[0].U.d.puBeam });
+        const tips = g.slice().sort((a, b2) => a.U.t - b2.U.t).map(b => ({ t: b.U.t, dxSs: b.stemDx, ySs: b.yTip }));
+        const n = g[0].U.d.puBeamN || 2, step = BM.stackStep != null ? BM.stackStep : 0.81;   // a 16th: two beams, the standard stack step apart
+        for (let i = 0; i < n; i++) g[0].sysT.items.push({ k: 'beam', dir: 'up', tips: tips.map(p => ({ t: p.t, dxSs: p.dxSs, ySs: p.ySs - i * step })), group: 'pu-' + g[0].U.d.puBeam });
       }
     }
 
