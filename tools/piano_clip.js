@@ -32,4 +32,14 @@ const run = (cmd, args) => { const r = spawnSync(cmd, args, { cwd: ROOT, stdio: 
 run('node', ['tools/export_video.js', '--ir', page, '--view', 'zoom', '--z', String(Z), ...(flag('turn') ? [] : ['--zoomAnchor', String(a)]), '--fps', '30', '--t0', String(a), '--t1', String(b), '--fade', '0', '--audio', audio, '--out', full]);
 run('ffmpeg', ['-y', '-v', 'error', '-i', full, '-vf', 'crop=1920:' + bh + ':0:' + by + ',scale=1280:-2:flags=lanczos', '-c:v', 'libx264', '-crf', '22', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', out]);
 fs.unlinkSync(full);
+// [§268 — his "looped 6 times and with a 2 second gap between"] --loop N [--gap S]: the clip N times over, the last frame held S seconds
+// in silence after each pass. Written beside the single clip as <name>_xN.mp4.
+const loopN = Math.round(+arg('loop', 0)), gap = +arg('gap', 2);
+if (loopN > 1) {
+  const padded = path.join(dir, name + '.pad.mp4'), looped = path.join(dir, name + '_x' + loopN + '.mp4'), len = (b - a) + gap;
+  run('ffmpeg', ['-y', '-v', 'error', '-i', out, '-vf', 'tpad=stop_mode=clone:stop_duration=' + gap, '-af', 'apad=pad_dur=' + gap, '-t', len.toFixed(3), '-c:v', 'libx264', '-crf', '22', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '128k', padded]);
+  run('ffmpeg', ['-y', '-v', 'error', '-stream_loop', String(loopN - 1), '-i', padded, '-c', 'copy', '-movflags', '+faststart', looped]);
+  fs.unlinkSync(padded);
+  console.log(looped);
+} else
 console.log(out);

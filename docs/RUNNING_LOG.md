@@ -4595,3 +4595,7 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 **A wrong number on the way:** the first build assumed a 2× page holds 6 s and the page still turned 0.4 s before the end. `coords.js zoomCfg` has it: the labels and margins are zoomed too, so a page holds (1920 − 152 Z) / (147.33 Z) seconds — 5.48 s at 2×. With that sum the clip 151.49 → 156.12 (6.13 s with its lead and tail) is drawn at 1.82× on one page; the last frame checked — the cursor at the right edge, the same page.
 
 **So no screen recording is needed for these clips.**
+
+## §268 · 2026-11-20 · looped clips
+
+**His words:** "can I get 147.6 to 152.88 looped 6 times and with a 2 second gap between?" — `tools/piano_clip.js --loop N --gap S`: the clip N times over, its last frame held S seconds in silence after each pass (`<name>_xN.mp4`). Made for 147.6 → 152.88, both pages: 52.7 s each, on one page at about 1.67×.
