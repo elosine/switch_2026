@@ -769,7 +769,9 @@
           // 0 … 1 of the part's own travel, the half-lane its extremes. A curve extracted on another scale than the rule's is not drawn —
           // it would say a range it was not measured on (an item with no `scale` is the tuba's, travel by construction)
           if (it.scale && it.scale !== (GC2.scale || 'travel')) continue;
-          const yT = sys.yTopPx, yMid = (sys.yTopPx + sys.yBotPx) / 2;
+          // `band: 'lane'` (the Switch~ piece, 2026-11-19 — his "only one curve, the full lane height"): the curve owns the WHOLE lane, its
+          // floor the lane's bottom edge; without it the top half, the bottom half being the crescendo's (the septets')
+          const yT = sys.yTopPx, yMid = it.band === 'lane' ? sys.yBotPx : (sys.yTopPx + sys.yBotPx) / 2;
           const n = it.samples.length, gp = [];
           const whole = cutKind('glisscurve');   // [2c.3]
           for (let i = 0; i < n; i++) {

@@ -1392,6 +1392,9 @@
               // as the tubas' and the septets' headers draw it, number for number (the block above: `A` = rules objects.dynArrow, the circle
               // `sectionHead.circleDiaSs`) — on the house dynamic row `dynY`, or a standard spacer under the head's lowest ink where that is
               // lower; right to left from the go line: the spacer · the end mark · the spacer · the arrow · the spacer · the niente circle.
+              // `pitchCurve` (the same day: "now add the orange pitch curve, full lane height"): the lineage's gliss curve (`glisscurve`, the pitch's
+              // orange, rules objects.glissCurve) over the note's own length, its samples 0 … 1 of the note's travel, on the whole lane
+              if (Array.isArray(dev.pitchCurve) && dev.pitchCurve.length >= 2) items.push({ k: 'glisscurve', t0: e.onset, t1: e.onset + e.duration, samples: dev.pitchCurve, band: 'lane', ev: e.id });
               if (dev.dynFigure) {
                 const Ad = Object.assign({ lenSs: 2.0, headSs: 0.45, gapSs: 0.45, thickSs: 0.13 }, o.dynArrow || {});   // RULES MIRROR
                 const HDc = Object.assign({ circleDiaSs: 0.4695 }, o.sectionHead || {});                              // RULES MIRROR

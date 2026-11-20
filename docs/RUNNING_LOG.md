@@ -4322,3 +4322,13 @@ go line: spacer · the end mark · spacer · the arrow · spacer · the circle; 
 (two beaters). The staff carried from piece 6 had eight lines, two of them used. Cut to FOUR at his word (`ensemble.json` part 3; the old
 lines kept in `_staffWas`; weight 1.18, the AI's, by height). Seen on the throwaway: one head, the slanted line, the go line; the circle,
 the arrow and fff under the staff; the percussion staff four lines.
+
+## §246. The beating gliss, element 4: the orange pitch curve on the whole lane (2026-11-19)
+
+**His word:** *"now add the orange pitch curve, full lane height."* The lineage's `glisscurve` (the pitch's orange, `objects.glissCurve`) with
+one new field, `band: 'lane'` — the curve's floor is the lane's bottom edge and its top the lane's top (without the field: the top half,
+the bottom being the crescendo's, as the septets drew it); device flag `pitchCurve` = the samples. For the case: `wc-94`'s own bend from the
+save (0 → 18.6 cents over 7.55 s), 48 points, 0 … 1 of the note's travel — so the curve says the SHAPE of the glide; the lane's height is
+this note's travel, not a number of cents. Seen on the throwaway: the fill rises from the lane's floor at the go line.
+**Still by hand:** the samples are computed outside the page tool and passed in the note's hand; when the figure is settled the tool reads
+them from the save itself.
