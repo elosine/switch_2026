@@ -4402,3 +4402,13 @@ The working page `s1-sax-first-note` now runs 12 … 31.3 s.
 **For consistency (his "we should have these standards in place"):** the beating gliss written as ONE sheet in `docs/NOTATION_SCHEME.md` — the players' column and the crotales' column, row by row.
 
 **Seen once on the throwaway:** the crotales' first entry — badge · head · go line · "crotales" · circle, hairpin, ff on one row.
+
+## §253 · 2026-11-19 · no follower on the crotales; the fade at 96.6 s taken out (a copy of the save); the sine tones' sound in the notation page — status
+
+**His words:** "can you take out the curve follower from the percussion? It doesn't need it because it's just a sine tone. And then … how do we get the actual sine tones in here? … I might want to put the electronics mix in eventually. And … at the end of that first section, there's a weird fade out. Can we just have them go, full volume, 2 Fs until the end, and then just cut at the end? … I didn't realize that was there."
+
+**The follower:** the crotales' notes carried the generic hold wedge (`animobj.js`, `s1-hold`). A device that says `follower: false` now rides nothing; `--glissGestures` sets it (with `curve: false`) on a gesture whose sine glides.
+
+**The fade:** in `piece-FirstDraft-Final` the last note of each of the six parts (wc-165 · 166 · 168 · 169 · 171 · 173, all ending 96.6 s) had its level drawn down to 0.05 over its last stretch, and the six sine bricks ending there had `fadeOutMs` 2000. A COPY, `scores/piece-FirstDraft-Final-B-noFadeAt96.json` (his save untouched): those six notes held flat at their level to the end; the six sines' fade out 0 (in `elec` and in `properties.beat`). The page `s1-sines` is now built from the copy.
+
+**The sine tones' sound, status:** the notation page plays by MIDI, or slaves its clock to an audio file in `notation/audio/<save name>.wav|mp3` (its "♪ render" button). The sines are made live by the engine and are in neither. The offline chain (`elec_offline.js`) renders the material bricks only, not the sine bricks. The way in: render the players through Reaper (the chain in hand), synthesize the sine bricks offline from the save (pitch · glide · level · fades), mix, and put the file where the page finds it; the electronics mix joins the same file later. Not built — put to him.

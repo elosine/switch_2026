@@ -1983,7 +1983,7 @@ function foldVibBows(flagName, gid, part, name, groupOnly) {
         doc.overlays.push({ id: 'ov-gesture-sine-' + G[0].id, kind: 'sineLine', target: { part: o.layer, span: [+T0.toFixed(4), +T1.toFixed(4)] }, value: { samples: ss, travelC: top }, provenance: 'authored' });
         const mk = (Z && Z.properties && Z.properties.beat && Z.properties.beat.note) || 'mp', nm0 = /^crot/.test(G[0].technique || '') ? 'crotales' : null, nm = nm0 && !named.has(o.layer + nm0) ? nm0 : null;   // [§251, piece 2's rule] the instrument's name at its FIRST entry only
         if (nm0) named.add(o.layer + nm0);
-        G.forEach((x, i) => setDev(x.id, i === 0 ? Object.assign({ goLine: true, headBefore: true, nhUnit: false, dynMark: false, brick: false }, dyn, { dynNudgeSs: +arg('crotDynNudge', 1.3) }, nm ? { techText: nm, techTextGap: 'nhGap' } : {}) : { goLine: true, nhUnit: false, dynMark: false, brick: false }));
+        G.forEach((x, i) => setDev(x.id, i === 0 ? Object.assign({ goLine: true, headBefore: true, nhUnit: false, dynMark: false, brick: false, curve: false, follower: false }, dyn, { dynNudgeSs: +arg('crotDynNudge', 1.3) }, nm ? { techText: nm, techTextGap: 'nhGap' } : {}) : { goLine: true, nhUnit: false, dynMark: false, brick: false, curve: false, follower: false }));
         console.log('  --glissGestures ' + G[0].id + ' (the SINE glides, ' + top + ' cents): ' + T0.toFixed(2) + ' … ' + T1.toFixed(2) + ' s · the pitch, ' + mk + (nm ? ', "' + nm + '"' : '') + ' · ' + (G.length - 1) + ' re-attack(s)');
         continue;
       }

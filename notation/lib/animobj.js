@@ -478,10 +478,14 @@
     const leveled = new Set(((ir && ir.events) || [])
       .filter(e => e.level && e.level.samples)
       .map(e => e.source && e.source.objectId).filter(Boolean));
+    // [the Switch~ piece §253 — his 'take out the curve follower from the percussion … it's just a sine tone'] a device that says follower false
+    // rides nothing: no hold wedge, no follower (the crotales under a gliding sine)
+    const noFollow = new Set(((ir && ir.events) || []).filter(e => { const d = devOf && devOf(e); return d && d.follower === false; }).map(e => e.source && e.source.objectId).filter(Boolean));
     if (score && score.objects) {
       const groups = new Map();
       for (const o of score.objects) {
         if (o.type !== 'waveCurve') continue;
+        if (noFollow.has(o.id)) continue;
         if (o.morphBend && o.layer <= 9 && has(o.layer)) {
           out.push(Object.assign({ kind: 'curveFollower', part: o.layer, t0: o.startSeconds, t1: o.endSeconds, midi: o.sonifyNote, morphBend: o.morphBend, _src: 's1-morph' },
             O.posOfMidi ? { pos: O.posOfMidi(o.layer, o.sonifyNote) } : {}));
