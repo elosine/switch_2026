@@ -4624,3 +4624,16 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 **Changed:** the four boxed panels are two thin rows above the score. Top row, the ones he reaches for: Play · Speed · Stretch · Size · Loop · Fit phrase · Make video. Second row: spaced / as played · Page from · Phrase (from, to) · Gap · the cursor's and the mouse's time. The hints are gone but one line. Font 12.5 px. The score's band cut 22 px shorter under the lower staff (546 … 750 of the frame). The default size 1.5× (was 2×), the slider down to 0.8×.
 **Added (the AI's, offered in the last turn, unanswered — his to refuse):** DRAG across the score selects the phrase (the "loop" is called the phrase now; SHIFT+click and ALT+click still set its two ends); a plain click still moves the cursor.
 **Checked on the throwaway, 1024 × 768:** the whole page stands in the window without scrolling (document height = window height); a drag set the phrase to 149.53 → 151.90 and the shaded area followed.
+
+## §271 · 2026-11-20 · SW-83, the gravity notation — the first look at what he played, before any proposal
+
+**What prompted it:** SW-83 (`COMPOSITION_NOTES.md`, his words whole): long GC arcs as a gravity to play into and out of, fixed structures as bearing walls; "lets figure out a way to isolate what parts I'm doing in the playing … give me your thoughts first".
+
+**Looked at (his save `piece-FirstDraft-Final-B-noFadeAt96`, the piano lane, 152.4 → 166 s; notes within 40 ms counted as one event; times, gaps and sizes only — loudness NOT yet read):**
+- The events come in RUNS: small events (one or two notes, sometimes three or four) 0.04 … 0.17 s apart.
+- Most runs END on a large cluster in both hands, then silence: 153.06 (6 notes) then 0.64 s · 155.65 (10 notes) then 0.76 s · 160.40 (14 notes) · 163.64 (16 notes) then 0.70 s · 165.58 (12 notes).
+- Two chords stand ALONE, silence on both sides: 156.41 (5 notes; 0.76 s before, 1.27 s after) · 164.34 (9 notes; 0.70 s before, 0.44 s after).
+- After the 160.40 cluster the run thins out (160.66 … 161.23: 2 · 5 · 2 · 1 · 2 notes) before a 0.56 s silence — a tail.
+- In 157.68 → 160.14 the two registers interleave (59 … 67 below, 81 … 89 above): two lines at once, one per hand.
+
+**The AI's thoughts, put to him (not decided):** three kinds separate by measurement — a lone chord between silences (a wall), a run of small quick events (a flow), and the big cluster a run lands on (the candidate for the bounce); the open point is whether that landing cluster is the BOUNCE or a WALL. A prototype passage proposed: 156.41 → 161.23 (a wall, the long two-hand flow, the 14-note landing at 160.40, the tail). A way to isolate: the AI marks each note by kind and hand from timing, size, loudness and register, shown in color on the workshop page; he corrects by ear.
