@@ -1,0 +1,709 @@
+{
+ "_doc": "THE WORKING VERSION of the piano solo (SW-96; RUNNING_LOG §307 — his word: 'can we get like a working version that we work in and that keeps all our changes'). The workshop's page 'working version' = the page `base` (the standard figures taken one by one, notation/hand/<base>.units.json) with the GESTURES below drawn over it, and nothing else. A gesture hides the played notes inside its span. kind ribbon = Shape Action Notation's arc: t0 its start, bounce its impact (the 'hit'), t1 its end; flow.profile = its designed width (§296). kind strike = the scattered strike: a curtain from t0 to t1 with the thrown pebbles. A chord symbol (each hand's pitch set, bank/chord_changes.json `sets`) stands at the start of every ribbon and strike. His times are 'thereabouts' — he clicks them with the mouse. A POLE (a fixed structure in standard notation) is not here: it is a figure in the units file.",
+ "base": "s2-piano-solo",
+ "view": [
+  194.2,
+  197
+ ],
+ "band": [
+  470,
+  310
+ ],
+ "arcBand": [
+  546,
+  234
+ ],
+ "coverFrom": 752,
+ "flow": {
+  "style": "ribbon",
+  "sigmaS": 0.12,
+  "power": 2.4,
+  "ballOverRibbon": 1.35,
+  "ribbonMaxPx": 34,
+  "profile": {
+   "in": "depth",
+   "inPower": 1.3,
+   "out": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0.3
+    ]
+   ]
+  }
+ },
+ "curtain": {
+  "minSs": 3,
+  "padSs": 0.8,
+  "overSs": 3,
+  "opacity": 0.07,
+  "species": "boulders",
+  "density": 26,
+  "sizePx": 2.6,
+  "flightS": 1,
+  "flightSpread": 0.05,
+  "landSpread": 0.27,
+  "pileSpread": 0.2,
+  "bounce": 0.28
+ },
+ "gestures": [
+  {
+   "kind": "dyn",
+   "mark": "ff",
+   "t0": 148.204,
+   "_his": "Let's have the initial dynamic be FF",
+   "_note": "ff under the solo's first figure (148.204 s), between the two staves"
+  },
+  {
+   "kind": "ribbon",
+   "t0": 151.2,
+   "bounce": 152.123,
+   "t1": 152.5,
+   "_his": "start the ribbon just after that arpeggio, like around 151.2 … carry it over to around … 152.5; the two notes at 152.12: their rhythmic position will be the hit of the ribbon"
+  },
+  {
+   "kind": "strike",
+   "t0": 152.82,
+   "t1": 153.23,
+   "_his": "the section from 152.9 to about 153.2 … a pebble drop accent there",
+   "_note": "his 152.9 … 153.2 were clicked, \"thereabouts\": widened to the run actually played there, 152.839 … 153.213 (ten notes), so that none of it is left outside the curtain",
+   "curtain": {
+    "density": 34
+   },
+   "_pass": "§358: from the playing under it — 13 notes, heaviness 6.4 (the sum of (velocity / 127) squared) → 34 pebbles (it was 26); the loudness lies at 0.56 of the notes' span → the heap in the middle"
+  },
+  {
+   "kind": "strike",
+   "t0": 153.7,
+   "t1": 154.1,
+   "_his": "starting at 153.7, there's two notes. That's one drop cluster",
+   "_note": "the chord of 153.853 … .887 and the note at 154.024",
+   "impact": 153.86,
+   "_impact": "§309 — his ear: \"the second pebbles is late … I hear like a stripe towards the beginning of that container … Let's make it a little earlier\" — the four-note chord struck at 153.853 … .887 (loudness 116, the heaviest thing in the container); no principle made of it, this strike only",
+   "curtain": {
+    "density": 24,
+    "weight": 0.24
+   },
+   "_pass": "§358: from the playing under it — 5 notes, heaviness 3.6 (the sum of (velocity / 127) squared) → 24 pebbles (it was 26); the loudness lies at 0.17 of the notes' span → the heap at 0.24 of the curtain"
+  },
+  {
+   "kind": "strike",
+   "t0": 154.15,
+   "t1": 154.62,
+   "_his": "At 154.19, there's 3 kind of chords or partials. That's another drop cluster",
+   "_note": "the six notes of 154.229 … .326 and the note at 154.483",
+   "curtain": {
+    "density": 20,
+    "weight": 0.33
+   },
+   "_pass": "§358: from the playing under it — 7 notes, heaviness 2.3 (the sum of (velocity / 127) squared) → 20 pebbles (it was 26); the loudness lies at 0.29 of the notes' span → the heap at 0.33 of the curtain"
+  },
+  {
+   "kind": "strike",
+   "t0": 154.68,
+   "t1": 154.98,
+   "_his": "then 2 at 154.7",
+   "_note": "154.744, the six notes of 154.794 … .821, the two at 154.91",
+   "curtain": {
+    "density": 30
+   },
+   "_pass": "§358: from the playing under it — 9 notes, heaviness 5.2 (the sum of (velocity / 127) squared) → 30 pebbles (it was 26); the loudness lies at 0.46 of the notes' span → the heap in the middle"
+  },
+  {
+   "kind": "stutter",
+   "hand": "R",
+   "sign": 30,
+   "t0": 155.08,
+   "t1": 155.6,
+   "_his": "two different repeats starting at 155 all the way through to just before that notated bit … whatever clusters in the left and the right hand",
+   "_note": "the right hand: sign 30, the marks gathering",
+   "dropEnd": 1,
+   "from": 155
+  },
+  {
+   "kind": "stutter",
+   "hand": "L",
+   "sign": 29,
+   "t0": 155.08,
+   "t1": 155.6,
+   "_note": "the left hand: sign 29, the marks growing",
+   "dropStart": 3,
+   "from": 155
+  },
+  {
+   "kind": "ribbon",
+   "t0": 157.683,
+   "bounce": 158.544,
+   "t1": 159.641,
+   "fromPlaying": true,
+   "flow": {
+    "power": 1.3,
+    "ribbonMaxPx": 34
+   },
+   "_his": "a ribbon from 157.66 … to the ones at 159.66. impact at the partial at 158.55 … Try to get the ribbon to reflect some of the changes there … the thickness and thinness",
+   "_note": "snapped to the partials played: the first at 157.683, the impact on the C6 of 158.544 (loudness 125), the last at 159.641"
+  },
+  {
+   "kind": "stutter",
+   "hand": "R",
+   "sign": 29,
+   "t0": 159.786,
+   "t1": 160.28,
+   "_his": "repeated notes from 159.79 to 160.3",
+   "_note": "the right hand's A#5 · B5, struck 159.786 … 160.279; sign 29, growing — it runs into the pebble drop"
+  },
+  {
+   "kind": "strike",
+   "t0": 160.4,
+   "t1": 160.67,
+   "_his": "the chunk from 160.4 to 160.68 pebble drop",
+   "_note": "the landing of 160.404 … 160.537 and the two notes at 160.665",
+   "curtain": {
+    "density": 46,
+    "weight": 0.36
+   },
+   "_pass": "§358: from the playing under it — 16 notes, heaviness 10.0 (the sum of (velocity / 127) squared) → 46 pebbles (it was 26); the loudness lies at 0.33 of the notes' span → the heap at 0.36 of the curtain"
+  },
+  {
+   "kind": "strike",
+   "t0": 160.96,
+   "t1": 161.24,
+   "_his": "And then from 160.96 to 161.26, another pebble drop",
+   "_note": "the notes of 160.964 … 161.230",
+   "curtain": {
+    "density": 30,
+    "weight": 0.39
+   },
+   "_pass": "§358: from the playing under it — 10 notes, heaviness 5.2 (the sum of (velocity / 127) squared) → 30 pebbles (it was 26); the loudness lies at 0.36 of the notes' span → the heap at 0.39 of the curtain"
+  },
+  {
+   "kind": "ribbon",
+   "t0": 161.45,
+   "bounces": [
+    161.885,
+    162.513,
+    163.04,
+    163.596
+   ],
+   "t1": 163.896,
+   "tailPct": 85,
+   "fromPlaying": true,
+   "flow": {
+    "power": 1.3,
+    "ribbonMaxPx": 34
+   },
+   "_his": "a ribbon with like a multi-bounce … the first bounce is at 162.46. It starts at the partial there at 161.79. Another bounce at 163.09. And the final bounce at 163.71 with just a small tail up · (§348) \"There's a hit somewhere about 161.9. See if you can detect that, and just make sure you're using the loudness as well. Let's do something a little bit like the last figure with a quick down and a quick up, and you can extend the beginning tail so that you can get that gesture in. Let's see how it looks, but be prepared to revert to what we have currently\"",
+   "_note": "on the partials played: the start 161.789; the bounces on the heaviest moment near each of his times — 162.513 (seven notes; the five of 162.409 just before it), 163.040 (ten notes), 163.596 (seventeen notes, to 163.67); a short tail to 163.95 · §348: a FIRST impact added at 161.885 — the left hand's E5 · F5, velocities 114 · 117, the loudest notes between 161.3 and 162.4; a quick down and a quick up (hit 1.8, as the long ribbon's first); the ribbon's start moved back from 161.789 to 161.45 to give the fall room. _revert holds the earlier form.",
+   "hideTo": 163.95,
+   "_tail": "§320 — his word: \"the first two bounces, that velocity is pretty good. And that third bounce could … be closer to the first two bounces\". The first two rise to the full height in 0.26 and 0.28 s by the GC's own rise (power 2). The third's tail now uses the SAME rise curve, to 85 % of the height in 0.30 s — about three quarters of their speed off the bounce (it was about half). (§319's 0.529 s at 67 % is replaced.)",
+   "_revert": {
+    "t0": 161.789,
+    "bounces": [
+     162.513,
+     163.04,
+     163.596
+    ],
+    "_why": "the ribbon as it stood before §348 — his \"be prepared to revert to what we have currently\""
+   },
+   "hits": [
+    1.8,
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "kind": "ribbon",
+   "t0": 164.781,
+   "bounce": 165.833,
+   "t1": 166.133,
+   "tailPct": 85,
+   "flow": {
+    "ribbonMaxPx": 34,
+    "profile": {
+     "in": "time",
+     "inPower": 1,
+     "out": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0.25
+      ]
+     ]
+    }
+   },
+   "_his": "a ribbon that hits at 165.9 starts at the partials at 164.77 and it has a like a growing line, starts thin and progressively grows until impact. a short up tail",
+   "_note": "the start on the partial of 164.781; the impact on the nine notes struck from 165.785 (the left hand adds four more at 165.89 — his 165.9 is that cluster, its beginning taken); a short tail to 166.0 — §314: the impact moved to the LOUDNESS-WEIGHTED MIDDLE of that cluster, 165.833 (his 165.9 reads its end; its beginning was 165.785)",
+   "hideTo": 166
+  },
+  {
+   "kind": "stutter",
+   "hand": "R",
+   "sign": 29,
+   "from": 166.02,
+   "t0": 166.1,
+   "t1": 166.3,
+   "_his": "those next two will be a repeat, but we'll move them over a little bit so we have a little bit of room for the tail, and then go until somewhere around like 166.2 … the partials are like at 166.02 and 166.28 … push the start of that repeat to the right a little bit so you have room for the tail",
+   "_note": "the right hand's five notes at 166.038; the sign begins at 166.1, after the ribbon's tail; to 166.3 as he said. NO partial was found at 166.28 — the next one is the ten notes of both hands at 166.525"
+  },
+  {
+   "kind": "strike",
+   "t0": 166.525,
+   "t1": 166.82,
+   "_his": "From 166.52 to the one at 166.82, that's a pebble drop",
+   "_note": "the ten notes of 166.525 … .652 and the left hand's two at 166.727 · 166.811",
+   "curtain": {
+    "density": 37,
+    "weight": 0.33
+   },
+   "_pass": "§358: from the playing under it — 12 notes, heaviness 7.2 (the sum of (velocity / 127) squared) → 37 pebbles (it was 26); the loudness lies at 0.29 of the notes' span → the heap at 0.33 of the curtain"
+  },
+  {
+   "kind": "strike",
+   "t0": 167.023,
+   "t1": 167.33,
+   "_his": "167.02 to 167.33, that's another pebble drop",
+   "_note": "the nine notes of 167.023 … .183 and the three at 167.284 … .326",
+   "curtain": {
+    "density": 28
+   },
+   "_pass": "§358: from the playing under it — 12 notes, heaviness 4.7 (the sum of (velocity / 127) squared) → 28 pebbles (it was 26); the loudness lies at 0.42 of the notes' span → the heap in the middle"
+  },
+  {
+   "kind": "ribbon",
+   "t0": 167.555,
+   "bounce": 168.509,
+   "t1": 168.809,
+   "tailPct": 85,
+   "flow": {
+    "ribbonMaxPx": 34,
+    "profile": {
+     "in": "time",
+     "inPower": 1,
+     "out": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0.25
+      ]
+     ]
+    }
+   },
+   "_his": "from 167.56 to 168.59. That's a ribbon. Again, an accelerating. It goes from thin into thick and short uptail",
+   "_note": "the start on the partial of 167.555; the impact on the seventeen-note cluster of 168.425 … 168.606 — his 168.59 is its end; the impact stands at its loudness-weighted middle, 168.509; a short tail to 168.74",
+   "hideTo": 168.74
+  },
+  {
+   "kind": "ribbon",
+   "t0": 168.83,
+   "bounce": 169.415,
+   "t1": 169.715,
+   "tailPct": 85,
+   "flow": {
+    "ribbonMaxPx": 34,
+    "profile": {
+     "in": "time",
+     "inPower": 1,
+     "out": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0.25
+      ]
+     ]
+    }
+   },
+   "_his": "ribbon from 168.83 impact at 169.46 short tail again",
+   "_note": "the impact on the ten-note cluster of 169.354 … 169.451, at its loudness-weighted middle, 169.415; the tail to 169.62 (it takes the single B4 of 169.608 with it)",
+   "hideTo": 169.62
+  },
+  {
+   "kind": "strike",
+   "t0": 170.31,
+   "t1": 170.93,
+   "curtain": {
+    "shape": "hill",
+    "density": 75,
+    "hillPower": 2.6,
+    "minSs": 3
+   },
+   "_his": "something from 170.3 to 170.93 with the back half being fairly bit more dense … a substrate that kind of like starts thin and grows like a crescendo, you know, like a hill of pebbles. So it's thicker and denser towards the right",
+   "_note": "a pebble drop as a HILL: 75 pebbles, few at the left, crowding and piling to the right — the DENSITY only (§322): thrown as one handful and landing together at the curtain's middle, like every other drop"
+  },
+  {
+   "kind": "ribbon",
+   "t0": 171.741,
+   "bounces": [
+    172.2,
+    172.755
+   ],
+   "depths": [
+    0.6,
+    1
+   ],
+   "t1": 173.055,
+   "hideTo": 172.8,
+   "tailPct": 85,
+   "fromPlaying": true,
+   "flow": {
+    "power": 1.3,
+    "ribbonMaxPx": 34
+   },
+   "_his": "At 171.72, let's do like a two-wave ribbon, but the first one doesn't go all the way down … Let's start with like a 60% down … 172.2. And then the ending is 172.79. and one of those short tails that we refined earlier",
+   "_note": "the start on the partial of 171.741; the first turn a WAVE, 60 % of the way down, at 172.2 — his time kept: it lies between the partials of 172.104 and 172.305, no partial stands on it; the ending an impact on the three notes of 172.752 … .757 (172.755); the refined tail (85 % in 0.30 s)"
+  },
+  {
+   "kind": "hairpin",
+   "dir": "decresc",
+   "t0": 173.694,
+   "t1": 174.096,
+   "endSs": 1.2,
+   "_his": "Marcato at 173.74 and a decrescendo hairpin through to the end, starting there and through to the end of the notation there around 174",
+   "_note": "from the arpeggiated chord of 173.69 (unit 15) to the last of the three beamed figures (unit 16c, 174.096), ending a head's width past it; between the two staves"
+  },
+  {
+   "kind": "ribbon",
+   "t0": 174.243,
+   "bounce": 175.44,
+   "t1": 175.74,
+   "hideTo": 175.52,
+   "tailPct": 85,
+   "_his": "The section beginning at 174.23 and ending at 175.52, just a ribbon going down, impacting at 175.52 and a short tail up",
+   "_note": "the start on the partial of 174.243; the impact on the seven-note cluster of 175.393 … 175.503 — his 175.52 is its end — at its loudness-weighted middle, 175.44; the designed line (thin while level, growing with the drop); the refined tail"
+  },
+  {
+   "kind": "strike",
+   "t0": 175.898,
+   "t1": 176.21,
+   "_his": "175.9 to 176.21, that's a pebble drop",
+   "_note": "the partials of 175.898 … 176.205",
+   "curtain": {
+    "density": 32
+   },
+   "_pass": "§358: from the playing under it — 13 notes, heaviness 6.0 (the sum of (velocity / 127) squared) → 32 pebbles (it was 26); the loudness lies at 0.44 of the notes' span → the heap in the middle"
+  },
+  {
+   "kind": "stutter",
+   "hand": "R",
+   "sign": "sparse",
+   "t0": 176.762,
+   "t1": 176.99,
+   "_his": "the notes at 176.77 to maybe about 176.99. Let's make that a repeat, but like a more sparse one … put in some kind of sparsely repeated one for now",
+   "_note": "the right hand's F#5, struck at 176.783 and 176.877; a placeholder sparse sign · §350, his \"two more waves or parentheses at 176.75 … just continue it for two more\": four marks now, at the same spacing",
+   "more": 2
+  },
+  {
+   "kind": "stutter",
+   "hand": "L",
+   "sign": "sparse",
+   "t0": 176.762,
+   "t1": 176.99,
+   "_note": "the left hand's E4 · F4 · G4, struck 176.762 … 176.900 · §350, his \"two more waves or parentheses at 176.75 … just continue it for two more\": four marks now, at the same spacing",
+   "more": 2
+  },
+  {
+   "kind": "ribbon",
+   "t0": 177.729,
+   "bounce": 177.971,
+   "t1": 178.32,
+   "hideTo": 178.2,
+   "tailPct": 85,
+   "_his": "ribbon starting at 177.71, impact at 177.98, and a rise to 178.2",
+   "_note": "the start on the partial of 177.729; the impact on the left hand's three notes of 177.963 … .981 (177.971); the tail to 178.2 as he said (0.23 s — a little shorter than the refined 0.30), taking the B4 of 178.187 with it · §350, his \"at 177.74, a slightly longer tail, and … just a little bit milder descent. It's just a tiny bit quick there\": the tail to 178.32 (it was 178.2); the fall's power × 0.8 (2.8 → 2.24)",
+   "falls": [
+    0.8
+   ]
+  },
+  {
+   "kind": "ribbon",
+   "t0": 179.022,
+   "bounces": [
+    179.323,
+    179.709
+   ],
+   "depths": [
+    0.6,
+    1
+   ],
+   "t1": 179.97,
+   "hideTo": 179.97,
+   "tailPct": 85,
+   "fromPlaying": true,
+   "flow": {
+    "power": 1.3,
+    "ribbonMaxPx": 34
+   },
+   "_his": "starting on 179.02, let's make a two-wave one again, like an undulating one that strikes at 179.29, and, well, it descends to there. And then at 179.69 is where it strikes. And then the tail goes up to about 179.97",
+   "_note": "the start on the partial of 179.022; a WAVE to 60 % (as at 171.7) on the left hand's four notes of 179.290 … .344 (their middle, 179.323); the impact on the seven notes of 179.682 … .718 (179.709); the tail to 179.97 as he said"
+  },
+  {
+   "kind": "stutter",
+   "hand": "R",
+   "sign": 29,
+   "t0": 180.205,
+   "t1": 180.65,
+   "_his": "a repeat from 180.19 to somewhere around 180.64 or 66",
+   "_note": "the right hand: B5 at 180.205, then the cluster A#5 … D#6 struck three times (180.36 · 180.46 · 180.59), each heavier — sign 29, growing"
+  },
+  {
+   "kind": "stutter",
+   "hand": "R",
+   "sign": 29,
+   "t0": 181.589,
+   "t1": 181.93,
+   "_his": "From 181.55 to 182.03, let's do a repeated figure",
+   "_note": "the partials of 181.589 … 181.957: A#5 · B5 · C6 struck again and again (with F5 · G5 at the start); sign 29 (growing) is the AI's pick — he named none; the marks end at 181.93 so that they stand clear of the first strike's accidentals",
+   "hideTo": 182.03
+  },
+  {
+   "kind": "ribbon",
+   "t0": 182.401,
+   "bounces": [
+    182.773,
+    183.81
+   ],
+   "depths": [
+    0.78,
+    1
+   ],
+   "t1": 183.92,
+   "hideTo": 183.7,
+   "flow": {
+    "profile": {
+     "over": [
+      [
+       182.401,
+       1
+      ],
+      [
+       182.773,
+       0.5
+      ],
+      [
+       183.5,
+       0.16
+      ],
+      [
+       183.69,
+       0.16
+      ],
+      [
+       183.81,
+       0.55
+      ],
+      [
+       183.92,
+       0.06
+      ]
+     ]
+    }
+   },
+   "_his": "a ribbon with impact at 183.6 and a short tail. start at 182.4 an undulation into 182.78. But overall, let's go from thick to thin. So at impact and on rise, it's pretty thin. Start thick at the beginning and thin out through the undulation and then into the final hit",
+   "_note": "the start on the partial of 182.401; a WAVE to 60 % on the four notes of 182.773 … .805; the impact on the three notes of 183.633 … .639; the width DESIGNED over the whole ribbon (profile.over): full at the start, half at the wave, thin from before the impact and through the tail. The tail ends at 183.79 (0.15 s, not 0.30) so that it stops before the chord of 183.80 · §327, his \"make it at the strike point of 183.81 … and no tail\": the impact moved from 183.636 onto the chord of 183.803 … .870 (183.81); the ribbon ends at the impact · §330, his \"a sort of faster, steeper decrease … a little bit lower and a steeper, faster up\": the wave to 78 % (it was 60 %), its sides steepened (waveSharp 1.7) · §332, his \"the descent is too fast now. So somewhere in between the last two, the ascent is fine\": the way down 1.35 (between 1 and 1.7), the way up kept at 1.7 · §346, his \"too steep down … fall down quickly and kind of sit at the bottom. So maybe it needs a bit of a tail … it hits at that first partial of those two. Like the impact is there\": the last fall gentler (its power 2.8 → 1.8), and a small tail after the impact — up 45 % by 183.97, thinning out, ending before the second chord (184.0) · §353, his \"almost right. Let's have a grow just before that, like the ribbon grow, maybe starting around 183.69. And … just a smidge steeper. And … the tail a little bit shorter\": the width grows from 183.69 into the impact (0.16 → 0.55); the fall's power × 0.78 (it was 0.65); the tail ends at 183.92 (it was 183.97)",
+   "waveSharp": [
+    1.35,
+    1.7
+   ],
+   "falls": [
+    1,
+    0.78
+   ],
+   "tailPct": 45
+  },
+  {
+   "kind": "strike",
+   "t0": 184.18,
+   "t1": 184.34,
+   "_his": "a short pebble drop from 184.19 to 184.35, about that width and kind of centered between the two chords I just mentioned and then what's to come",
+   "_note": "the width his (0.16 s); centered between the chord of 184.0 and the chord of 184.5 (the middle 184.26, where the two notes of 184.255 … .280 are played) · §327, his \"They're a little late, so make them mostly down by 184.21\": the landing at 184.21 (it was the curtain's middle, 184.26) · §329, his \"now the pebble strike is too early. Maybe somewhere 184.3, maybe, or 31\": the landing at 184.30 · §331: 20 ms later, 184.32 · §353, his \"just a tad late, like a tiny bit forward\": 184.29 — FORWARD is EARLIER in his speech (so §331's 184.32 went the wrong way) · §357: 184.27 (\"a tiny bit late … nudge those forward\" = earlier)",
+   "impact": 184.27,
+   "curtain": {
+    "density": 16
+   },
+   "_pass": "§358: from the playing under it — 2 notes, heaviness 1.2 (the sum of (velocity / 127) squared) → 16 pebbles (it was 26); the loudness lies at 0.51 of the notes' span → the heap in the middle"
+  },
+  {
+   "kind": "ribbon",
+   "t0": 185.31,
+   "bounce": 185.75,
+   "t1": 186,
+   "hideTo": 186,
+   "tailPct": 85,
+   "_his": "ribbon impact at 185.77, starting at 185.31, tail up to about 185.97, maybe a little bit more",
+   "_note": "the start on the B4 of 185.310; the impact on the two notes of 185.746 … .747 (E5 · D5, the loudest there); the tail to 186.0, taking the notes of 185.811 … .913 with it"
+  },
+  {
+   "kind": "ribbon",
+   "t0": 186.792,
+   "bounces": [
+    188.16,
+    189.38,
+    189.985,
+    191.235
+   ],
+   "tops": [
+    188.7,
+    189.56,
+    190.57
+   ],
+   "depths": [
+    1,
+    1,
+    0.6,
+    1
+   ],
+   "hits": [
+    1.8,
+    1,
+    1,
+    1
+   ],
+   "t1": 191.46,
+   "hideTo": 191.46,
+   "tailPct": 85,
+   "fromPlaying": true,
+   "flow": {
+    "power": 1.3,
+    "ribbonMaxPx": 34
+   },
+   "_his": "Impact at 188.21. The ribbon starts at 186.8. And the tail till 188.67 · A new ribbon starts at 188.76. impact at 189.38 All right, let's make that 189.38. Let's have it go back up to peak at or top at 189.56. undulate to 189.99. up by 190.57 impact again at 191.24. and then tail to 191.46 · (§334) \"The one at 188.21, it could hit harder\" · (§335) \"let's connect those two curves around 188.7. Let's just make them all one curve\"",
+   "_note": "ONE ribbon of four turns: the impact 188.20 (hit 1.8) · the top 188.7, where the two ribbons met · the impact 189.38 · the top 189.56 · a wave to 60 % at 189.985 · the top 190.57 · the impact 191.235 · the tail to 191.46. The width from the playing, on one scale over the whole · §336, his \"The hit at 188.2 is a tiny bit late … probably just a slight bit before that\": the first impact on F5 · G5 of 188.132 … .136 (velocities 119 · 121, the loudest notes there), not the softer F5 of 188.193 · §337, his \"There's like two kind of repeated things, and it's the second where the hit is\": the two are F5 · G5 at 188.132 and F5 again at 188.193; the impact on the SECOND, set a hair before it (188.185) since 188.20 read as \"a tiny bit late\" · §338: 188.16, between the two strikes (188.134 was early for him, 188.185 still a little late)"
+  },
+  {
+   "kind": "strike",
+   "t0": 192.13,
+   "t1": 192.29,
+   "_his": "the notes from 192.13 to 192.28, Pebble Drop",
+   "_note": "the twelve notes of 192.146 … .279",
+   "curtain": {
+    "density": 41
+   },
+   "_pass": "§358: from the playing under it — 12 notes, heaviness 8.5 (the sum of (velocity / 127) squared) → 41 pebbles (it was 26); the loudness lies at 0.51 of the notes' span → the heap in the middle"
+  },
+  {
+   "kind": "slur",
+   "t0": 192.41,
+   "to": 192.57,
+   "_his": "the chord at 192.4. Let's make that a strike. I don't know if we can make it seem like a pickup. Maybe like a, let me try a slur into the pebble drop. I don't know how that would look",
+   "_note": "A TRY: a slur from the notated chord of 192.41 (unit 24) to the edge of the pebble drop of 192.57, under the heads; drawn in the workshop, by no engraving rule yet"
+  },
+  {
+   "kind": "strike",
+   "t0": 192.57,
+   "t1": 192.72,
+   "_his": "from 192.57 to 192.72, another Pebble Drop",
+   "_note": "the twelve notes of 192.572 … .699",
+   "curtain": {
+    "density": 36
+   },
+   "_pass": "§358: from the playing under it — 12 notes, heaviness 7.1 (the sum of (velocity / 127) squared) → 36 pebbles (it was 26); the loudness lies at 0.58 of the notes' span → the heap in the middle"
+  },
+  {
+   "kind": "strike",
+   "t0": 193.11,
+   "t1": 193.28,
+   "_his": "pebb drop from 193.11 to 193.28",
+   "_note": "the seven notes of 193.161 … .230",
+   "curtain": {
+    "density": 29,
+    "weight": 0.67
+   },
+   "_pass": "§358: from the playing under it — 7 notes, heaviness 5.1 (the sum of (velocity / 127) squared) → 29 pebbles (it was 26); the loudness lies at 0.71 of the notes' span → the heap at 0.67 of the curtain"
+  },
+  {
+   "kind": "ribbon",
+   "t0": 193.364,
+   "bounce": 193.686,
+   "t1": 193.86,
+   "hideTo": 193.6,
+   "tailPct": 85,
+   "_his": "ribbon impact at 193.69 starts at 193.36",
+   "_note": "the start on the F4 of 193.364; the impact on the eight notes of 193.682 … .702; he named no tail — a short one to 193.86 (0.17 s), stopping before the E6 of 193.883 that belongs to the next chord · §340, his \"At the point of impact at 193.68, can you draw in the notated chord that's there?\": the eight notes of the impact are shown as a notated chord (unit 26); the ribbon and its tail stay"
+  },
+  {
+   "kind": "ribbon",
+   "t0": 194.622,
+   "t1": 196.26,
+   "hideTo": 196.26,
+   "tailPct": 85,
+   "_his": "a ribbon to impact around 195.83 starts at 194.62 and ends, goes up to 196.26 · (§342) \"And then let's have an undulation to 195.58\"",
+   "_note": "the start on the partial of 194.622; the impact on the eleven notes of 195.822 … .868, all loud (velocities up to 127), at 195.83; the tail to 196.26 as he said (0.43 s), taking the notes to 196.230 with it — among them the loud ten-note cluster of 196.098 · §342: a WAVE to 60 % at 195.585 (the ten notes of 195.576 … .593) before the impact; the width from the playing, as the other many-turn ribbons · §343, his \"The widening of the ribbon at 195.12, let's exaggerate that a little bit … the final tail there thin out a little more … more like a tapered\": the width × 1.45 at 195.12 (eased from 1 at 194.85 and back by 195.4); the tail tapering from full at the impact to a quarter at its end",
+   "bounces": [
+    195.585,
+    195.83
+   ],
+   "depths": [
+    0.6,
+    1
+   ],
+   "fromPlaying": true,
+   "flow": {
+    "power": 1.3,
+    "ribbonMaxPx": 34,
+    "gain": [
+     [
+      194.85,
+      1
+     ],
+     [
+      195.12,
+      1.45
+     ],
+     [
+      195.4,
+      1
+     ],
+     [
+      195.83,
+      1
+     ],
+     [
+      196.26,
+      0.25
+     ]
+    ]
+   }
+  }
+ ],
+ "noOttava": true,
+ "onlyPiano": true,
+ "sliverSs": 0.5,
+ "shapeRule": {
+  "clusterMinNotes": 4,
+  "clusterMaxGap": 3,
+  "_note": "§310: a chord symbol of four pitches or more with no gap over a MINOR THIRD is a cluster bar (the prototype's rule was a whole step; a hand's set read over the whole solo has small holes, and a nine-note chord with six accidentals is not a symbol one reads)"
+ },
+ "omit": [
+  "wc-2093",
+  "wc-2368",
+  "wc-1818",
+  "wc-1820",
+  "wc-1819",
+  "wc-1821",
+  "wc-1822",
+  "wc-2241",
+  "wc-2353",
+  "wc-2354",
+  "wc-2268",
+  "wc-2269",
+  "wc-2266",
+  "wc-2267"
+ ],
+ "_omitNote": "§314 — his word: \"you can just eat that extra F. Just forget about that extra F at 170\" — the left hand's F4 at 170.042 is left out · §348, his \"some leftover little notes there at the bottom around 160.21 if we can hide those\": the left hand's five notes of 160.187 … .299 (wc-1818 … 1822) are hidden on the working version; they stand in no gesture. · §351, his \"just to the right of it, there's a D sharp. Can you just hide that?\": the D#5 of 178.912 (wc-2241). · §352, his \"hide the notes, their little leftover notes at 184.12\": D5 · C5 of 184.107 … .119 (wc-2353 · 2354). · §359, his \"some leftover little notes in the bottom staff at 180.41\": the left hand's four notes of 180.36 … .40 (wc-2268 · wc-2269 · wc-2266 · wc-2267).",
+ "shortTailS": 0.3,
+ "tailStiffness": 50,
+ "_tailNote": "§321 — ONE TAIL FOR EVERY RIBBON, the three-bounce ribbon's (the one whose motion he found right, §320): the GC's own rise curve (stiffness 50, power 2), to 85 % of the fall, in 0.30 s after the impact. §316's 0.46 s and §318's 58 % / steeper curve are replaced.",
+ "tailPct": 85
+}

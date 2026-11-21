@@ -61,6 +61,21 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+### CHECKPOINT 2026-11-21 — THE PIANO SOLO DONE AS A FINAL DRAFT (148.2 → 196.3 s); THE COUNTERPOINT OPENED AS NOTE HEADS *(mid-session checkpoint)*
+
+**READ `CLAUDE.md` § THE ENGRAVING RULES and `docs/NOTATION_SCHEME.md` § 2 · § 2b · § 3 before any notation work.**
+
+- **What happened (RUNNING_LOG §325 … §360; his words SW-105 … SW-119):** the working version was carried from 170.9 s to the end of the piano solo, 196.26 s, and then DRESSED: the notated chords that are clusters drawn as clusters (a rule), a marcato on every single struck chord and arpeggio (a rule — always above), an ff at the start, a hairpin, a slur into a pebble drop (a try), stray notes hidden. The ribbon gained its settings one by one at his word: the width designed over its length · a wave's depth and steepness · `tops` · "hit harder" (`hit` · `hits`) · a gentler fall (`falls`) · a width gain. The pebble drops took a first pass from his playing (number and where the heap lies).
+- **THE SAVES:** `bank/piano_solo_done.json` = the solo's final draft, frozen (tag `piano-solo-final-draft-2026-11-21`; the bookmark before the pebble pass is tag `piano-solo-work-2026-11-21`). `bank/piano_solo_work.json` stays the live record the workshop reads, should he touch the solo again. His composer saves were not touched.
+- **THE SOLO ENDS AT 196.3 s, not 251.7.** From 200 s the other players enter: the counterpoint, 200 → 253 s. (The solo's pages were built over 146 → 253 and so carry the counterpoint's 47 piano notes as loose heads at their end.)
+- **THE NEXT CONCRETE STEP:** the counterpoint's RHYTHM, with him, on the page `s2-ctpt-heads` in the notation app (`http://localhost:5600/notation/app/notation.html`, his server; the picker's last entry) — every note a head at its played time. He means to work "directly in the notation score" from here.
+- **OPEN, put to him:** PUSHING THE SOLO'S WORKING VERSION INTO THE REAL SCORE. The kinds (ribbon · pebble drop · repeat · chord symbol) and the ff · hairpin · slur live only in the workshop; the real score has the standard figures only. It is a build of its own — his go is asked.
+- **Open, smaller:** where an ff and a hairpin stand on a grand staff (between the staves now, no rule) · the slur into a pebble drop (a sketch, no rule) · the hit at 161.9 (a try; the earlier ribbon is kept in the gesture's `_revert`) · the hidden notes (fourteen, listed in the work file's `omit`).
+- **Not seen by the AI:** anything moving — the pebbles, the ball, the page turn. Stills and the served numbers only.
+- **Resume reads:** `docs/NOTATION_SCHEME.md` § 2b · this checkpoint — nothing else.
+- **Deliberately uncommitted:** as before (his saves, the racks, `bank/panel_snapshots.json` · `sequences.json`, `.gitignore`, `docs/VERIFICATION_RECIPE.md`, working output, `tools/port/scratch/*`).
+- **Model:** Fable for the rhythm's decisions with him; a clear before the counterpoint is a good moment — this session is long.
+
 ### CHECKPOINT 2026-11-20 (night) — THE PIANO SOLO IN FOUR KINDS OF NOTATION; THE WORKING VERSION TO 170.9 s *(session wrap)*
 
 **READ `CLAUDE.md` § THE ENGRAVING RULES and `docs/NOTATION_SCHEME.md` § 2 · § 3 before any notation work.**

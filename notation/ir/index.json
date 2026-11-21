@@ -75,6 +75,17 @@
    ],
    "profile": "trance",
    "exp": true
+  },
+  {
+   "id": "s2-ctpt-heads",
+   "label": "Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)",
+   "score": "piece-FirstDraft-Final-B-noFadeAt96",
+   "window": [
+    199,
+    254
+   ],
+   "profile": "trance",
+   "exp": true
   }
  ]
 }

@@ -2204,7 +2204,56 @@
    "players": [
     "bowed_vibraphone"
    ]
+  },
+  "slap_exploding": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Slap, Exploding",
+   "players": [
+    "alto_sax"
+   ]
+  },
+  "slap_pitched": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Slap, Pitched",
+   "players": [
+    "alto_sax"
+   ]
+  },
+  "double_tonguing": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Double Tonguing",
+   "players": [
+    "alto_sax"
+   ]
+  },
+  "gran_cassa_rute_on_rim": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Gran Cassa — Rute on Rim",
+   "players": [
+    "percussion"
+   ]
+  },
+  "gran_cassa_medium_felt": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Gran Cassa — Medium Felt",
+   "players": [
+    "percussion"
+   ]
+  },
+  "brake_drums_rubber_mallets": {
+   "family": "oneshot",
+   "notate": null,
+   "label": "Brake Drums — Rubber Mallets",
+   "players": [
+    "percussion"
+   ]
   }
  },
- "_usedInPieceDecibel": "decibel TENOR 2026 (container 6, 2026-10-04): 76 keys added by tools/register_techniques.js — the bass flute's, the eight Abbey Road instruments' (one per beater), the 39 Ricotti patches; 22 existing keys gained a Decibel lane. Every new key has \"notate: null\"."
+ "_usedInPieceDecibel": "decibel TENOR 2026 (container 6, 2026-10-04): 76 keys added by tools/register_techniques.js — the bass flute's, the eight Abbey Road instruments' (one per beater), the 39 Ricotti patches; 22 existing keys gained a Decibel lane. Every new key has \"notate: null\".",
+ "_usedInPieceSwitch": "the Switch~ piece (2026-11-21, RUNNING_LOG §360): six keys added by hand for the counterpoint's first page — the alto sax's slap_exploding · slap_pitched (oneshot) · double_tonguing (sustained), the percussion's gran_cassa_rute_on_rim · gran_cassa_medium_felt · brake_drums_rubber_mallets (oneshot) — by the family rule above. Every new key has \"notate: null\": the written instruction is his, when the technique is notated."
 }

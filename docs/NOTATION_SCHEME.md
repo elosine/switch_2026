@@ -69,7 +69,7 @@
 
 Built by `node tools/notate_section.js … --glissGestures all`. The crotales' dynamic row is nudged 1.3 ss up (`--crotDynNudge`): the joined mallets lane is low, the fit ladder's own rung 4.
 
-## 2 · Section 2 — the piano solo (148.2 → 251.7 s)
+## 2 · Section 2 — the piano solo (148.2 → 196.3 s) — FINAL DRAFT 2026-11-21 (§360)
 
 **The page:** `s2-piano-solo`. Black heads at half size, the right hand on the upper staff and the left on the lower, both in treble. Outside a figure, a head's left edge is on its own MIDI time. The figures are taken ONE BY ONE at his word and kept in `notation/hand/s2-piano-solo.units.json`.
 
@@ -129,6 +129,14 @@ Built by `node tools/notate_section.js … --glissGestures all`. The crotales' d
 - The group is PUSHED OUT WHERE THERE IS ROOM: with room on both sides, both sides — the first member a little earlier than played, the last a little later, the middle ones between; the group stays centered on the span it was played in.
 - Room on one side only, or on neither: NO RULE YET — put it to him when a figure meets it.
 - Figure 6 is the first case: room both sides; the high C (on ledger lines) between the two chords. Its hand `at` goes when the rule is built.
+
+## 2b · Section 2 — the counterpoint (200 → 253 s) — OPENED 2026-11-21 (§360)
+
+**The page:** `s2-ctpt-heads` (in the notation app's picker: "Section 2 - the counterpoint, 200 to 253 s: note heads at their played times"). Seven parts — flute · clarinet · alto sax · percussion · vibraphone · piano · violin; the cello rests. 296 notes. Every note is a head AT THE TIME IT IS PLAYED (`--timeSpacing`, `--alone 199-254`: no pulse is read into it), with its accidental. What the standing rules already draw for a technique (a gestural curve on a staccato, a duration bar, a technique's word) is left in, at his word. NOTHING IS DECIDED HERE YET: the rhythm first (his), then the articulations.
+
+**Built by:** `node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 199 --w1 254 --parts 0-6 --alone 199-254 --exp --noFitMark --timeSpacing --id s2-ctpt-heads --label "Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)"`
+
+**Its hand file, when the first figure is taken:** `notation/hand/s2-ctpt-heads.units.json`.
 
 ## 3 · SHAPE ACTION NOTATION (his name, SW-84, 2026-11-20) — a PROTOTYPE, not yet a sign of the score
 
