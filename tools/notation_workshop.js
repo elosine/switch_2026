@@ -203,7 +203,12 @@ function viewOf(page, t0, span, w, opts) {
       const CC = require('./chord_changes.js'), A = e.proto.arc, xOf2 = s => x0 + (s - t0) * pps, said = {}; let addSets = '';
       for (const h of ['R', 'L']) {
         const all = CC.persistent(e.proto._hands[h], e.proto._sets).filter(s => !s.brief), cur = all.filter(s => s.at <= A.t0).pop(), later = all.filter(s => s.at > A.t0 && s.at <= e.proto.window[1]);
-        const shapes = (cur ? [Object.assign({}, cur, { at: A.t0 })] : []).concat(later);
+        // [§306 — his "we should have, even if they're repeats, the chord symbols at the beginning of each gesture"] a hand's shape is SAID at
+        // the start of EVERY gesture it plays in — here the ribbon and the scattered strike — and it is the set the hand uses THROUGH that
+        // gesture (a change that falls inside a gesture is said at the gesture's start, not at its own moment)
+        const gest = [[A.t0, A.t1]].concat(e.strikeSpan ? [e.strikeSpan] : []);
+        const shapes = e.proto.sayEachGesture === false ? (cur ? [Object.assign({}, cur, { at: A.t0 })] : []).concat(later)
+          : gest.map(g => { const s = all.filter(x => x.at <= g[1]).pop(); return s ? Object.assign({}, s, { at: g[0] }) : null; }).filter(Boolean);
         addSets += CC.draw({ shapes, xOf: xOf2, staff: h === 'R' ? staves[0] : staves[staves.length - 1], glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps });
         said[h] = shapes.map(s => ({ at: +s.at.toFixed(3), from: s.set[0].midi, to: s.set[s.set.length - 1].midi }));
       }
@@ -213,7 +218,7 @@ function viewOf(page, t0, span, w, opts) {
         const U = Object.assign({ stepSs: 2.1, half: [0.7, 2.3], width: [0.7, 2.2], gapSs: 0.9 }, e.proto.stutter), st = U.hand === 'L' ? staves[staves.length - 1] : staves[0], ss = (st[1] - st[0]) / 4;
         const keys = [...new Map(e.proto._hands[U.hand].filter(n => U.midis.includes(n.midi)).map(n => [n.midi, n])).values()].sort((p, q) => p.midi - q.midi), shp = [{ at: U.t0, set: keys }];
         if (keys.length) {
-          addSets += CC.draw({ shapes: shp, xOf: xOf2, staff: st, glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps, box: false });
+          addSets += CC.draw({ shapes: shp, xOf: xOf2, staff: st, glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps, box: U.box !== false });   // [§306] the stutter's keys in a box too: its chord symbol, at its start
           const xA = shp[0].x1 + U.gapSs * ss, xB = xOf2(U.t1), yM = shp[0].yMid, n = Math.max(2, Math.floor((xB - xA) / (U.stepSs * ss)) + 1);
           for (let i = 0; i < n; i++) { const k = n > 1 ? i / (n - 1) : 1, x = xA + (xB - xA) * (n > 1 ? i / (n - 1) : 0), h = (U.half[0] + (U.half[1] - U.half[0]) * k) * ss, wd = U.width[0] + (U.width[1] - U.width[0]) * k;
             addSets += '<path d="M' + (x - 0.55 * ss).toFixed(1) + ' ' + (yM - h).toFixed(1) + ' Q' + (x + 0.45 * ss).toFixed(1) + ' ' + yM.toFixed(1) + ' ' + (x - 0.55 * ss).toFixed(1) + ' ' + (yM + h).toFixed(1) + '" fill="none" stroke="#111" stroke-width="' + wd.toFixed(2) + '" stroke-linecap="round"/>'; }
