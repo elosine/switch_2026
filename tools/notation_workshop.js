@@ -102,7 +102,8 @@ function engine(page) {
   ENG.set(page, e);
   return e;
 }
-function viewOf(page, t0, span, w) {
+function viewOf(page, t0, span, w, opts) {
+  opts = opts || {};
   const e = engine(page);
   const view = e.Coords.makeView(Object.assign({ widthPx: w, heightPx: e.H, window: [t0, t0 + span], systems: e.FRAME.systems, ssPerSystem: e.FRAME.ssPerSystem }, e.EDGES));
   const srcEnd = e.ir.source.window[1];
@@ -164,9 +165,19 @@ function viewOf(page, t0, span, w) {
     const on = e.ir.events.map(ev => ev.onset), a = Math.min(...on), b = Math.max(...on);
     const xa = xOf(a) - K.padSs * ss, xb = Math.max(xOf(b) + (K.padSs + 1.1) * ss, xa + K.minSs * ss), yT = staves[0][0] - K.overSs * ss, yB = staves[staves.length - 1][1] + K.overSs * ss;
     svg = svg.replace(/<\/svg>\s*$/, '<rect x="' + xa.toFixed(1) + '" y="' + yT.toFixed(1) + '" width="' + (xb - xa).toFixed(1) + '" height="' + (yB - yT).toFixed(1) + '" fill="' + (K.fill || '#5b7fa6') + '" fill-opacity="' + (K.opacity != null ? K.opacity : 0.13) + '" stroke="' + (K.fill || '#5b7fa6') + '" stroke-opacity="0.45" stroke-width="0.6"/></svg>');
-    let seed = 7; const rnd = () => (seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648;
-    const peb = []; for (let i = 0; i < K.pebbles; i++) peb.push({ x: +(xa + (xb - xa) * (0.08 + 0.84 * (i + rnd() * 0.8) / K.pebbles)).toFixed(1), drop: +(a + (b - a) * (i + rnd() * 0.9) / K.pebbles).toFixed(3), r: +(1.6 + rnd() * 1.6).toFixed(2), k: +(0.6 + rnd() * 0.5).toFixed(2), jx: +((rnd() - 0.5) * 2).toFixed(2), jy: +rnd().toFixed(2) });
-    strike = { t0: a, t1: b, xa, xb, yT, yB, prepS: K.prepS, fallS: K.fallS, pebbles: peb };
+    // [§298] THE SUBSTRATE IS synthesi-alpha's (tools/substrate.js — its generator's own species) and so is the FLIGHT (engine/score-anim.js):
+    // a bed of rocks along the curtain's MIDDLE line; each rock leaps to its own height, half of them up and half down (that piece's ±1), out
+    // fast and home by gravity. There the cursor's arrival threw a rock; here the whole bed is thrown BEFORE the strike (the backswing, its
+    // peak on the strike's start) and each rock comes home as the cursor reaches its place.
+    delete require.cache[require.resolve('./substrate.js')];
+    const SUB = require('./substrate.js'), species = SUB.species.includes(opts.sub) ? opts.sub : (K.species || 'sand'), nR = Math.max(6, Math.min(400, Math.round(opts.n || K.density || 90)));
+    const R = SUB.rng(11), mid = (yT + yB) / 2, half = (yB - yT) / 2 - 6, rocks = [];
+    for (let i = 0; i < nR; i++) {
+      const x = xa + (xb - xa) * (0.03 + 0.94 * R()), big = R() < 0.18, r = (species === 'sand' ? 0.9 : 1.3) * (big ? 2.2 + R() * 1.6 : 0.7 + R() * 1.3);
+      rocks.push({ d: SUB.shape(species, r, 1000 + i), x: +x.toFixed(1), y0: +(mid + (R() - 0.5) * 7).toFixed(1), dir: R() < 0.5 ? -1 : 1, lift: +(half * Math.pow(R(), 1.6) * (big ? 0.7 : 1)).toFixed(1),
+        drift: +((R() - 0.5) * 12).toFixed(1), f: +(1 + R() * 1.3).toFixed(2), ph: +R().toFixed(2), boil: +(1.5 + R() * 3).toFixed(1), gray: R() < 0.8 ? 17 : 97, home: +Math.max(a, t0 + (x - x0) / pps).toFixed(3) });
+    }
+    strike = { t0: a, t1: b, xa, xb, yT, yB, species, stroked: !!SUB.stroked[species], rise: K.rise != null ? K.rise : 0.43, settle: K.settle != null ? K.settle : 0.35, lead: 0.05, rocks, all: SUB.species };
   }
   // [§276] THE PROTOTYPE'S FURNITURE — the arc, the flow strip under the staff, the shapes (tools/gravity_furniture.js) — in the picture itself
   let band = e.bandOut || e.band;
@@ -278,7 +289,7 @@ http.createServer((req, res) => {
   try {
     if (u.pathname === '/' || u.pathname === '/index.html') return send(res, 200, fs.readFileSync(path.join(DIR, 'index.html')), 'text/html; charset=utf-8');
     if (u.pathname === '/info') return send(res, 200, JSON.stringify({ a0: A0, a1: A1, pages: PAGES, window: engine(PAGES[0]).ir.source.window, audio: ensureCut() }));
-    if (u.pathname === '/view') return send(res, 200, JSON.stringify(viewOf(q.page || PAGES[0], +q.t0, Math.max(0.5, +q.span || 6), Math.max(300, Math.round(+q.w || 1400)))));
+    if (u.pathname === '/view') return send(res, 200, JSON.stringify(viewOf(q.page || PAGES[0], +q.t0, Math.max(0.5, +q.span || 6), Math.max(300, Math.round(+q.w || 1400)), { sub: q.sub, n: +q.n || 0 })));
     if (u.pathname === '/proto') return send(res, 200, JSON.stringify(protoOf()));
     if (u.pathname === '/excerpt') return send(res, 200, JSON.stringify(EXCERPTS[q.name] ? rd(EXCERPTS[q.name]) : {}));
     if (u.pathname === '/marks') { const mf = path.join(ROOT, 'bank', 'gravity_sort.json'); return send(res, 200, fs.existsSync(mf) ? fs.readFileSync(mf) : '{"walls":[],"arcs":[]}'); }   // [§272] the gravity sorting (tools/gravity_sort.js)

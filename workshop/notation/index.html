@@ -46,6 +46,7 @@
   <div class="g"><label for="gap">Gap</label><input id="gap" class="s" type="number" step="0.5" min="0"></div>
   <div class="g"><label for="marksOn" title="Walls (amber) and the two hands' arcs: the first sorting, yours to correct">Gravity</label><input id="marksOn" type="checkbox"></div>
   <div class="g dim">cursor <b class="n" id="tNow">–</b> mouse <b class="n" id="tHover">–</b></div>
+  <div class="g" id="subBox" style="display:none"><label for="sub">Substrate</label><select id="sub"></select><label for="dens">×</label><input id="dens" class="s" type="number" min="6" max="400" step="10"></div>
   <div class="g dim" id="help">drag on the score = select a phrase · click = cursor</div>
   <div id="msg"></div>
 </div>
@@ -75,7 +76,10 @@
   const stageW = () => $('stage').clientWidth || Math.max(300, window.innerWidth - 22);
   function load() {
     const n = ++fetchN, w = Math.max(300, Math.round(stageW() / S.size));
-    fetch('/view?page=' + encodeURIComponent(S.page) + '&t0=' + S.t0 + '&span=' + S.span + '&w=' + w).then(r => r.json()).then(v => {
+    fetch('/view?page=' + encodeURIComponent(S.page) + '&t0=' + S.t0 + '&span=' + S.span + '&w=' + w + '&sub=' + encodeURIComponent(S.sub || '') + '&n=' + (S.dens || 0)).then(r => r.json()).then(v => {
+      // the substrate's two controls show only where a curtain is on the page
+      $('subBox').style.display = v.strike ? 'flex' : 'none';
+      if (v.strike) { const sel = $('sub'); if (!sel.options.length) for (const k of v.strike.all) { const o = document.createElement('option'); o.value = k; o.textContent = k; sel.appendChild(o); } sel.value = v.strike.species; $('dens').value = v.strike.rocks.length; }
       if (n !== fetchN) return;
       if (v.error) { msg('The page could not be drawn: ' + v.error); return; }
       V = v; $('svgBox').innerHTML = v.svg;
@@ -132,14 +136,15 @@
   // foot; it RISES together through prepS before the strike (the backswing, the GC's own rise curve) and each pebble then DROPS at its own
   // moment across the strike (the GC's own fall curve), drifting to its own place
   function pebblesSvg() {
-    const K = V.strike, out = [], foot = K.yB - 4, top = K.yT + 6, cx = K.xa + (K.xb - K.xa) * 0.16;
-    for (const p of K.pebbles) {
-      let x, y;
-      const home = { x: cx + p.jx * 5, y: foot - p.jy * 5 };
-      if (t < K.t0 - K.prepS) { x = home.x; y = home.y; }
-      else if (t < p.drop) { const u = Math.min(1, (t - (K.t0 - K.prepS)) / K.prepS), h = 1 - Math.pow(1 - u, 2); x = home.x; y = home.y - h * (home.y - (top + p.jy * 8)); }
-      else { const u = Math.min(1, (t - p.drop) / K.fallS), h = 1 - Math.pow(u, 3.4), y0 = top + p.jy * 8; x = home.x + (p.x - home.x) * Math.min(1, u * 1.15); y = foot - h * (foot - y0); }
-      out.push('<ellipse cx="' + (x * S.size).toFixed(1) + '" cy="' + yPx(y).toFixed(1) + '" rx="' + (p.r * S.size).toFixed(1) + '" ry="' + (p.r * p.k * S.size).toFixed(1) + '" fill="#3d5f86"/>');
+    // synthesi-alpha's flight (engine/score-anim.js `flight`): out fast — u(2 - u) over the rise — then home by gravity — (1 - v)^1.6 over the settle
+    const K = V.strike, out = [], up0 = K.t0 - K.rise - K.lead;
+    for (const p of K.rocks) {
+      let o = 0;
+      if (t >= p.home) { const v = (t - p.home) / K.settle; o = v >= 1 ? 0 : Math.pow(1 - v, 1.6); }
+      else if (t > up0) { const u = Math.min(1, (t - up0) / K.rise); o = u * (2 - u); }
+      const boil = o * p.boil * Math.sin(6.283 * (t * p.f + p.ph));
+      const x = p.x + p.drift * o + o * p.boil * 0.6 * Math.cos(6.283 * (t * p.f * 0.8 + p.ph)), y = p.y0 + p.dir * p.lift * o + boil, c = 'rgb(' + p.gray + ',' + p.gray + ',' + p.gray + ')';
+      out.push('<path d="' + p.d + '" transform="translate(' + (x * S.size).toFixed(1) + ' ' + yPx(y).toFixed(1) + ') scale(' + S.size + ')" ' + (K.stroked ? 'fill="none" stroke="' + c + '" stroke-width="0.6"' : 'fill="' + c + '"') + '/>');
     }
     return out.join('');
   }
@@ -207,6 +212,8 @@
   $('gap').onchange = () => { S.gap = Math.max(0, num('gap', 2)); save(); };
   $('loops').onchange = () => { S.loops = Math.max(1, Math.round(num('loops', 1))); save(); };
   $('loopOn').onchange = () => { S.loopOn = $('loopOn').checked; save(); };
+  $('sub').onchange = () => { S.sub = $('sub').value; save(); load(); };
+  $('dens').onchange = () => { S.dens = Math.max(6, Math.min(400, Math.round(num('dens', 90)))); save(); load(); };
   $('marksOn').onchange = () => { S.marksOn = $('marksOn').checked; save(); drawMarks(); };
   const pan = d => { S.t0 = Math.max(INFO.a0, +(S.t0 + d * S.span / 4).toFixed(2)); show(); save(); load(); };
   $('back').onclick = () => pan(-1); $('fwd').onclick = () => pan(1);

@@ -132,10 +132,11 @@
   "minSs": 6,
   "padSs": 0.8,
   "overSs": 3,
-  "pebbles": 11,
-  "prepS": 0.605,
-  "fallS": 0.38,
-  "opacity": 0.13,
-  "_note": "§296 — THE SCATTERED STRIKE's curtain and pebbles (his words: \"almost like a curtain, like a shower. So like a transparent block … handful of rocks rise up, the backswing, and then get dropped\"). The curtain covers the stretch where the strike's notes fall (padSs before and after, at least minSs wide), over the grand staff and overSs beyond each staff. pebbles = how many; prepS = the backswing (the GC's own fall time in piece 2's preset, 0.605 s); fallS = one pebble's drop."
+  "opacity": 0.07,
+  "_note": "§296 · §298 — THE SCATTERED STRIKE's curtain. The block covers the stretch where the strike's notes fall (padSs each side, at least minSs wide), over the grand staff and overSs beyond each staff. THE SUBSTRATE is synthesi-alpha's: species (sand · boulders · shards · commas · rings · blocks · burrs — tools/substrate.js, ported from that piece's generator) and density (how many rocks), a bed along the curtain's middle line. THE FLIGHT is that piece's too: rise (out fast) and settle (home by gravity), in seconds; the bed is thrown before the strike so its peak is on the strike's start, and each rock comes home as the cursor reaches it.",
+  "species": "sand",
+  "density": 90,
+  "rise": 0.43,
+  "settle": 0.35
  }
 }
