@@ -5274,3 +5274,10 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **Done:** the first impact 188.20 → 188.134. Nothing else moved.
 **For the next placements:** where his clicked time lies near two partials, the LOUDER one is the likelier impact.
 **Checked once:** the page rendered to an image, 186.3 → 191.9 s.
+
+## §337 · 2026-11-21 · the first impact back onto the second of the two repeated strikes, 188.185 — §336 corrected
+
+**His words:** "There's like two kind of repeated things, and it's the second where the hit is."
+**The AI's reading:** the two repeated things are F5 · G5 at 188.132 … .136 and the F5 struck again at 188.193. §336 put the impact on the FIRST (the louder); he hears it on the second. So the rule of thumb written in §336 ("the louder partial is the likelier impact") is WRONG here and is withdrawn: a repeated strike can carry the accent on its second.
+**Done:** the first impact 188.134 → 188.185 — on the second strike, 8 ms ahead of its note and 15 ms ahead of the 188.20 he found "a tiny bit late".
+**Not checked:** it shows only when the page plays; his to see.
