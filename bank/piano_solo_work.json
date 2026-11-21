@@ -425,8 +425,11 @@
     }
    },
    "_his": "a ribbon with impact at 183.6 and a short tail. start at 182.4 an undulation into 182.78. But overall, let's go from thick to thin. So at impact and on rise, it's pretty thin. Start thick at the beginning and thin out through the undulation and then into the final hit",
-   "_note": "the start on the partial of 182.401; a WAVE to 60 % on the four notes of 182.773 … .805; the impact on the three notes of 183.633 … .639; the width DESIGNED over the whole ribbon (profile.over): full at the start, half at the wave, thin from before the impact and through the tail. The tail ends at 183.79 (0.15 s, not 0.30) so that it stops before the chord of 183.80 · §327, his \"make it at the strike point of 183.81 … and no tail\": the impact moved from 183.636 onto the chord of 183.803 … .870 (183.81); the ribbon ends at the impact · §330, his \"a sort of faster, steeper decrease … a little bit lower and a steeper, faster up\": the wave to 78 % (it was 60 %), its sides steepened (waveSharp 1.7)",
-   "waveSharp": 1.7
+   "_note": "the start on the partial of 182.401; a WAVE to 60 % on the four notes of 182.773 … .805; the impact on the three notes of 183.633 … .639; the width DESIGNED over the whole ribbon (profile.over): full at the start, half at the wave, thin from before the impact and through the tail. The tail ends at 183.79 (0.15 s, not 0.30) so that it stops before the chord of 183.80 · §327, his \"make it at the strike point of 183.81 … and no tail\": the impact moved from 183.636 onto the chord of 183.803 … .870 (183.81); the ribbon ends at the impact · §330, his \"a sort of faster, steeper decrease … a little bit lower and a steeper, faster up\": the wave to 78 % (it was 60 %), its sides steepened (waveSharp 1.7) · §332, his \"the descent is too fast now. So somewhere in between the last two, the ascent is fine\": the way down 1.35 (between 1 and 1.7), the way up kept at 1.7",
+   "waveSharp": [
+    1.35,
+    1.7
+   ]
   },
   {
    "kind": "strike",

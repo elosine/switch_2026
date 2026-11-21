@@ -5234,3 +5234,9 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **His words:** "The pebbles are just about there. Let's move it another like 0.01 maybe. What is that, 10 milliseconds? So then 20 milliseconds, 0.02."
 **Done:** the landing 20 ms LATER, 184.30 → 184.32 — "another" read as the same way as the last move (184.21 → 184.30). The tries: 184.26 · 184.21 · 184.30 · 184.32.
 **Not checked:** it shows only when the page plays; his to see.
+
+## §332 · 2026-11-21 · the wave's way down eased, its way up kept
+
+**His words:** "That curve 182.8, the descent is too fast now. So somewhere in between the last two, the ascent is fine."
+**Done:** `waveSharp` may be a pair, [the way down, the way up]. The ribbon of 182.4: down 1.35 (halfway between the plain cosine, 1, and §330's 1.7), up 1.7 as it was. The depth stays 78 %.
+**Checked once:** the page rendered to an image, 181.0 → 185.0 s.

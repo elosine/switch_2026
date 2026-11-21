@@ -48,8 +48,9 @@ module.exports = function furniture(o) {
   const impFull = yBot - 6 - Math.max(look.impactRadiusPx, RW / 2), apex = band[0] + 6 + RW / 2, imp = apex + (impFull - apex) * (P.depth != null ? P.depth : 1), rbW = (preset.damping != null ? preset.damping : 100) / 100;
   // [§330 — his "a sort of faster, steeper decrease … a steeper, faster up on the upside of that curve"] waveSharp (1 = the plain cosine): the
   // wave's sides are steepened — it stays level longer at the top, drops faster through the middle, and climbs out as fast
-  const wk = P.waveSharp || 1, shp = h => wk === 1 ? h : Math.pow(h, wk) / (Math.pow(h, wk) + Math.pow(1 - h, wk));
-  const hFrac = s => { if (!P.wave) return Gc.heightFrac(GP, s - A.bounce); if (s <= A.bounce) { const u = Math.max(0, Math.min(1, (s - A.t0) / ((A.bounce - A.t0) || 1))); return shp((1 + Math.cos(Math.PI * u)) / 2); } const v = Math.max(0, Math.min(1, (s - A.bounce) / ((A.t1 - A.bounce) || 1))); return rbW * shp((1 - Math.cos(Math.PI * v)) / 2); };
+  // [§332 — his "the descent is too fast now … the ascent is fine"] waveSharp may be a pair [the way down, the way up]
+  const wkA = [].concat(P.waveSharp || 1), shpK = (h, wk) => wk === 1 ? h : Math.pow(h, wk) / (Math.pow(h, wk) + Math.pow(1 - h, wk)), shp = h => shpK(h, wkA[0]), shpUp = h => shpK(h, wkA[wkA.length - 1]);
+  const hFrac = s => { if (!P.wave) return Gc.heightFrac(GP, s - A.bounce); if (s <= A.bounce) { const u = Math.max(0, Math.min(1, (s - A.t0) / ((A.bounce - A.t0) || 1))); return shp((1 + Math.cos(Math.PI * u)) / 2); } const v = Math.max(0, Math.min(1, (s - A.bounce) / ((A.t1 - A.bounce) || 1))); return rbW * shpUp((1 - Math.cos(Math.PI * v)) / 2); };
   const gy = s => imp - hFrac(s) * (imp - apex);
   const P2 = S.map(p => ({ s: p[0], x: xOf(p[0]), y: gy(p[0]), e: ex(p[1]) }));
   // [§296 — HIS WORD: the playing is "just kind of a guideline"; the ribbon has "its own dynamic"] A DESIGNED PROFILE (flow.profile) replaces the
