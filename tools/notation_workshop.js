@@ -155,6 +155,19 @@ function viewOf(page, t0, span, w) {
     protoOut = { arc: A, preset, look, flow: P.flow, arcY: f.arcY, ribbon: f.ribbon, headOpacity: 1, shapesAt: said };
     e.bandOut = B.cfg.band;
   }
+  // [§296] THE SCATTERED STRIKE's CURTAIN (the page 'burst'): a transparent block over the stretch where the strike's notes fall, at least
+  // minSs wide, over the whole grand staff; the pebbles that rise and drop in it are the page's animation — their places are given here
+  let strike;
+  if (page === 'burst' && staves.length) {
+    const ex = rd(EXCERPTS.burst), K = Object.assign({ minSs: 6, padSs: 0.8, overSs: 3, pebbles: 11, prepS: 0.605, fallS: 0.38 }, ex.curtain || {});
+    const pps = (view.xOfSeconds(t0 + span) - x0) / span, xOf = s => x0 + (s - t0) * pps, ss = (staves[0][1] - staves[0][0]) / 4;
+    const on = e.ir.events.map(ev => ev.onset), a = Math.min(...on), b = Math.max(...on);
+    const xa = xOf(a) - K.padSs * ss, xb = Math.max(xOf(b) + (K.padSs + 1.1) * ss, xa + K.minSs * ss), yT = staves[0][0] - K.overSs * ss, yB = staves[staves.length - 1][1] + K.overSs * ss;
+    svg = svg.replace(/<\/svg>\s*$/, '<rect x="' + xa.toFixed(1) + '" y="' + yT.toFixed(1) + '" width="' + (xb - xa).toFixed(1) + '" height="' + (yB - yT).toFixed(1) + '" fill="' + (K.fill || '#5b7fa6') + '" fill-opacity="' + (K.opacity != null ? K.opacity : 0.13) + '" stroke="' + (K.fill || '#5b7fa6') + '" stroke-opacity="0.45" stroke-width="0.6"/></svg>');
+    let seed = 7; const rnd = () => (seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648;
+    const peb = []; for (let i = 0; i < K.pebbles; i++) peb.push({ x: +(xa + (xb - xa) * (0.08 + 0.84 * (i + rnd() * 0.8) / K.pebbles)).toFixed(1), drop: +(a + (b - a) * (i + rnd() * 0.9) / K.pebbles).toFixed(3), r: +(1.6 + rnd() * 1.6).toFixed(2), k: +(0.6 + rnd() * 0.5).toFixed(2), jx: +((rnd() - 0.5) * 2).toFixed(2), jy: +rnd().toFixed(2) });
+    strike = { t0: a, t1: b, xa, xb, yT, yB, prepS: K.prepS, fallS: K.fallS, pebbles: peb };
+  }
   // [§276] THE PROTOTYPE'S FURNITURE — the arc, the flow strip under the staff, the shapes (tools/gravity_furniture.js) — in the picture itself
   let band = e.bandOut || e.band;
   if (e.proto && staves.length) {
@@ -165,7 +178,7 @@ function viewOf(page, t0, span, w) {
     band = [e.band[0], e.band[1] + f.extraH]; protoOut.shapes = f.shapes; protoOut.flags = f.flags; protoOut.arcY = f.arcY; protoOut.ribbon = f.ribbon;
   }
   svg = svg.replace(/^<svg([^>]*?) width="[\d.]+" height="[\d.]+" viewBox="[^"]*"/, '<svg$1 viewBox="0 ' + band[0] + ' ' + w + ' ' + band[1] + '" preserveAspectRatio="xMinYMin meet"');
-  return { svg, staves, x0, pps: (view.xOfSeconds(t0 + span) - x0) / span, band, proto: protoOut, chords: chordsOut, w, window: [t0, t0 + span], srcWindow: e.ir.source.window };
+  return { svg, staves, x0, pps: (view.xOfSeconds(t0 + span) - x0) / span, band, proto: protoOut, chords: chordsOut, strike, w, window: [t0, t0 + span], srcWindow: e.ir.source.window };
 }
 
 // ---------------------------------------------------------------- the sound: one cut, made once

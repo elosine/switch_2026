@@ -80,7 +80,7 @@ function draw(o) {
     const bp = 0.3, want = xOf(sh.at) + (bp - xs0) * ss, least = lastRight + 0.35 * ss + (bp - xs0) * ss, X0 = Math.max(want, least), px = x => X0 + x * ss, py = y => mid - y * ss;
     sh.pushed = X0 > want + 0.5; sh.cluster = cluster; lastRight = px(xs1 + bp);
     const g = [], box = 'x="' + r1(px(xs0 - bp)) + '" y="' + r1(py(ys1 + bp)) + '" width="' + r1((xs1 - xs0 + 2 * bp) * ss) + '" height="' + r1((ys1 - ys0 + 2 * bp) * ss) + '"';
-    g.push('<rect ' + box + ' fill="#fff" fill-opacity="0.9" stroke="none"/>');
+    // [§296 — his "the bounding box should be completely transparent. So just a border, no fill. You should see the staff lines"] no ground under a shape
     for (const l of led) g.push('<rect x="' + r1(px(l.x0)) + '" y="' + r1(py(l.y) - lt * ss / 2) + '" width="' + r1((l.x1 - l.x0) * ss) + '" height="' + (lt * ss).toFixed(2) + '"/>');
     if (cluster && m.length === 2) { const bw = W * R.clusterBarW, cx = m[0].dx + W / 2; g.push('<rect x="' + r1(px(cx - bw / 2)) + '" y="' + r1(py(m[1].y)) + '" width="' + r1(bw * ss) + '" height="' + r1((m[1].y - m[0].y) * ss) + '"/>'); }
     for (const x of m) g.push('<g transform="translate(' + r3(px(x.dx)) + ' ' + r3(py(x.y) - NH.anchors.center.y * ss) + ') scale(' + ss.toFixed(5) + ')"><path d="' + NH.path + '"/></g>');

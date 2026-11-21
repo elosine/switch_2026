@@ -42,6 +42,15 @@ module.exports = function furniture(o) {
   const RW = style === 'ribbon' ? (F.ribbonMaxPx != null ? F.ribbonMaxPx : 13) : 0;
   const imp = yBot - 6 - Math.max(look.impactRadiusPx, RW / 2), apex = band[0] + 6 + RW / 2, gy = s => imp - Gc.heightFrac(GP, s - A.bounce) * (imp - apex);
   const P2 = S.map(p => ({ s: p[0], x: xOf(p[0]), y: gy(p[0]), e: ex(p[1]) }));
+  // [§296 — HIS WORD: the playing is "just kind of a guideline"; the ribbon has "its own dynamic"] A DESIGNED PROFILE (flow.profile) replaces the
+  // measured busyness: on the FALL the width follows the DROP itself — a hair while the arc is almost level, growing all the way down
+  // (in: "depth", raised to inPower); on the REBOUND it runs through the keyframes `out` — [how far up the rebound 0 … 1, width 0 … 1] —
+  // eased between them. Width 1 = the ribbon's greatest.
+  if (F.profile) {
+    const PR = F.profile, kf = (PR.out || [[0, 1], [1, 0]]).slice().sort((p, q) => p[0] - q[0]);
+    const outAt = u => { if (u <= kf[0][0]) return kf[0][1]; for (let i = 1; i < kf.length; i++) if (u <= kf[i][0]) { const a2 = kf[i - 1], b2 = kf[i], v = (u - a2[0]) / ((b2[0] - a2[0]) || 1), c = (1 - Math.cos(Math.PI * v)) / 2; return a2[1] + (b2[1] - a2[1]) * c; } return kf[kf.length - 1][1]; };
+    for (const p of P2) p.e = p.s <= A.bounce ? Math.pow(Math.max(0, 1 - Gc.heightFrac(GP, p.s - A.bounce)), PR.inPower != null ? PR.inPower : 1) : outAt((p.s - A.bounce) / ((A.t1 - A.bounce) || 1));
+  }
   const normalAt = i => { const p = P2[Math.max(0, i - 1)], q = P2[Math.min(P2.length - 1, i + 1)], dx = q.x - p.x, dy = q.y - p.y, L = Math.hypot(dx, dy) || 1; return { nx: -dy / L, ny: dx / L }; };
   if (style === 'ribbon') {
     // the fall and the rebound are two ribbons that meet at the impact (the corner there is the arc's own)

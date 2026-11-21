@@ -1,15 +1,77 @@
 {
  "_doc": "SHAPE ACTION NOTATION FOR BOTH HANDS (SW-88 · SW-90; RUNNING_LOG §295): ONE gesture for the two hands — the arc as a ribbon, placed between or across the staves — and each hand's SHAPES on its own staff (the pitch sets of bank/chord_changes.json `sets`, the hand's current one said at the gesture's start, a change where it falls). The workshop's pages 'both: between / inner / across' differ ONLY in the ribbon's lane. page = the IR the notes are read from · window = the notes the gesture's busyness is read from (both hands) · arc: t0 the first note, bounce the heaviest moment of BOTH hands, t1 the last note before the next silence · view = what the page shows · lanes: each option's [top, height] in the frame's y, and its ribbon's greatest width.",
  "page": "s2-piano-solo-heads",
- "window": [157.6, 161.3],
- "arc": { "t0": 157.683, "bounce": 160.404, "t1": 161.23 },
- "view": [157.3, 161.7],
- "band": [546, 234],
+ "window": [
+  157.6,
+  161.3
+ ],
+ "arc": {
+  "t0": 157.683,
+  "bounce": 160.404,
+  "t1": 161.23
+ },
+ "view": [
+  157.3,
+  161.7
+ ],
+ "band": [
+  546,
+  234
+ ],
  "coverFrom": 752,
- "flow": { "style": "ribbon", "sigmaS": 0.12, "power": 2.4, "ballOverRibbon": 1.35 },
+ "flow": {
+  "style": "ribbon",
+  "sigmaS": 0.12,
+  "power": 2.4,
+  "ballOverRibbon": 1.35,
+  "profile": {
+   "in": "depth",
+   "inPower": 1.3,
+   "out": [
+    [
+     0,
+     1
+    ],
+    [
+     0.42,
+     0
+    ],
+    [
+     0.62,
+     0
+    ],
+    [
+     1,
+     0.5
+    ]
+   ],
+   "_note": "§296 — HIS DESIGN for this gesture (the playing only suggests): the fall a hair while the arc is almost level, growing with the drop all the way down to the greatest width; the rebound begins at that width (\"a lot of activity\"), goes to none, and ends at a medium width. in \"depth\" = the width follows how far the arc has dropped (to the power inPower); out = [how far up the rebound 0 … 1, width 0 … 1], eased between."
+  }
+ },
  "lanes": {
-  "between": { "arcBand": [621, 52], "ribbonMaxPx": 12, "_note": "inside the gap between the two staves only: from the upper staff's bottom line to the lower staff's top line" },
-  "inner": { "arcBand": [596, 102], "ribbonMaxPx": 18, "_note": "from the upper staff's middle line to the lower staff's middle line" },
-  "across": { "arcBand": [546, 234], "ribbonMaxPx": 24, "_note": "across both staves: from above the upper staff to below the lower" }
+  "between": {
+   "arcBand": [
+    621,
+    52
+   ],
+   "ribbonMaxPx": 12,
+   "_note": "inside the gap between the two staves only: from the upper staff's bottom line to the lower staff's top line"
+  },
+  "inner": {
+   "arcBand": [
+    596,
+    102
+   ],
+   "ribbonMaxPx": 18,
+   "_note": "from the upper staff's middle line to the lower staff's middle line"
+  },
+  "across": {
+   "arcBand": [
+    546,
+    234
+   ],
+   "ribbonMaxPx": 34,
+   "_note": "across both staves: from above the upper staff to below the lower"
+  }
  }
 }

@@ -1,6 +1,28 @@
 {
  "_doc": "THE BURST, looked at alone (SW-86; RUNNING_LOG §290 — his word: 'can I just see just the burst … plain small note heads, but put them in appropriate staff'). The workshop's page 'burst' draws ONLY the notes each hand plays inside its own time span, as plain heads on that hand's staff, at their played times. page = the IR the notes are read from · hands: L / R = [from, to] in seconds · view = what the page shows.",
  "page": "s2-piano-solo-heads",
- "hands": { "L": [160.18, 160.56], "R": [160.39, 160.56] },
- "view": [159.95, 160.85]
+ "hands": {
+  "L": [
+   160.18,
+   160.56
+  ],
+  "R": [
+   160.39,
+   160.56
+  ]
+ },
+ "view": [
+  159.2,
+  161.2
+ ],
+ "curtain": {
+  "minSs": 6,
+  "padSs": 0.8,
+  "overSs": 3,
+  "pebbles": 11,
+  "prepS": 0.605,
+  "fallS": 0.38,
+  "opacity": 0.13,
+  "_note": "§296 — THE SCATTERED STRIKE's curtain and pebbles (his words: \"almost like a curtain, like a shower. So like a transparent block … handful of rocks rise up, the backswing, and then get dropped\"). The curtain covers the stretch where the strike's notes fall (padSs before and after, at least minSs wide), over the grand staff and overSs beyond each staff. pebbles = how many; prepS = the backswing (the GC's own fall time in piece 2's preset, 0.605 s); fallS = one pebble's drop."
+ }
 }

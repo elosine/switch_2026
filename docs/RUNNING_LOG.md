@@ -4879,3 +4879,22 @@ Tried and not kept as alternatives: 14 (one shape for the whole right hand — i
 - ACROSS — from above the upper staff to below the lower: a fall of 198 px, the ribbon to 24 px. A true arc; it crosses both staves and passes the shapes.
 **Checked once:** the three pages rendered to images.
 **Seen, for his word:** (1) with the landing four times heavier than anything before it and the exaggeration at 2.4, the ribbon is a hair until its last half second — the two earlier swells do not show; a lower power would bring them back. (2) In INNER and ACROSS the ribbon's thick part meets the left hand's new shape at 160.43 (the box stands over it). (3) The ball's fall now lasts 2.7 s on piece 2's curve (power 3.4): it hangs near the top for the first second and a half.
+
+## §296 · 2026-11-20 · the method stated — playing suggests, the shape is designed; the ribbon re-drawn by his edit; the scattered strike's curtain and pebbles
+
+**His words:** SW-91 (the sketch pad, whole). The points acted on: "let's go with the last one, the full grand staff" · "the bounding box should be completely transparent. So just a border, no fill" · "my playing will suggest certain shapes and then we'll develop those into more substantial shapes that really look like some kind of action that the player can follow" · the ribbon's edit (the fall thin while almost level, then growing all the way down, the thickest thicker; the rebound matched at the impact, to none, then medium at the tail) · "maybe as a first pass, and then I can look at the actual shapes that get generated and do an edit like this" · the scattered strike as "a curtain, like a shower … a transparent block", the pebbles rising in a backswing and dropped.
+
+**THE METHOD, as it now stands (his, in the AI's words):** (1) the playing is measured — the gesture's span, its heaviest moment, its busyness (§295); (2) that gives a FIRST-PASS shape; (3) he looks and edits the shape IN WORDS; (4) the edit is kept as the gesture's own DESIGNED PROFILE, and the measured curve is no longer drawn. The profile is data per gesture (`flow.profile`), so each ribbon carries its own dynamic.
+
+**The ribbon re-drawn (`bank/gravity_both.json`; one page now, "both hands: ribbon", the lane across the grand staff):**
+- THE FALL: the width follows the DROP ITSELF — how far the arc has fallen, to the power 1.3 — so it is a hair along the level top and grows continuously to the impact. Measured half widths along it: 0.75 px to 158.1 s · 1.3 at 158.96 · 2.8 at 159.39 · 6.2 at 159.81 · 13 at 160.24 · 17 at the impact (the greatest width 24 → 34 px).
+- THE REBOUND: keyframes [how far up, width]: 0 → full · 0.42 → none · 0.62 → none · 1 → half; eased between. It leaves the impact at the fall's full width, thins to the bare line through the middle, and ends at a medium width.
+- Rejected for this gesture: the measured busyness as the width (§295: a hair until the last half second, the early bursts lost).
+**The shapes' boxes:** no ground any more — a border only, the staff lines through them (`chord_changes.js`). The locked one-hand prototype (§283) keeps its own.
+
+**THE SCATTERED STRIKE (the workshop's page "scattered strike", `bank/burst_proto.json` `curtain`):**
+- THE CURTAIN: a transparent slate block (13 %) with a faint border, in the picture itself: from 0.8 ss before the strike's first note to past its last, at least 6 ss wide, over the grand staff and 3 ss beyond each staff. The strike's notes stay as plain heads inside it.
+- THE PEBBLES (the page's animation; eleven small slate ovals): at rest in a little pile at the curtain's foot, left; from 0.605 s before the strike they RISE together to the curtain's top — 0.605 s is the GC's own fall time in piece 2's preset, and the rise is the GC's rebound curve (fast, then slowing), so the backswing matches the arc's physics; then each DROPS at its own moment, spread across the strike's 0.36 s, by the GC's fall curve (power 3.4), drifting to its own place along the curtain's foot. One pebble's drop lasts 0.38 s.
+- First drawn dark like the note heads — at once mistakable for notes; tinted slate.
+**Checked once:** the ribbon page rendered to an image; the strike's curtain rendered with the pebbles placed by the same arithmetic at two moments (0.3 s before the strike, 0.2 s into it). NOT seen: the pebbles moving on the page; they are not in the film yet.
+**Open:** the first-pass generator of step 2 for a NEW gesture is not built — this ribbon's profile was written from his words.
