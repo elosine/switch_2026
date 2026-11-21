@@ -5440,3 +5440,9 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **Every single struck chord and arpeggio:** the units with a flag or an arpeggio that are not beamed and not grace. They are 1 · 3 · 4 · 5 · 10 · 11 · 12 · 15 · 17 · 18 · 23 · 24 · 26 — thirteen. New with this entry: 18 (180.72) · 23 (185.13) · 24 (192.41, the pickup into the pebble drop) · 26 (193.68, the cluster at the ribbon's impact).
 **Checked once:** the page rendered to images, 147.6 → 151.6 · 155.0 → 158.0 · 192.7 → 196.5 s.
 **And the go line at 193.68 is taken out** — his "And then let's take out the Go line at 193.68": unit 26 no longer says `go`. (The way to give a unit a go line, §343, stays.)
+
+## §357 · 2026-11-21 · the pebble drop of 184.18 lands at 184.27
+
+**His words:** "The pebbles at 184.26 are a tiny bit late. Let's nudge those forward a little bit."
+**Done:** the landing 184.29 → 184.27 (forward = earlier, §353). The tries: 184.26 · 184.21 · 184.30 · 184.32 · 184.29 · 184.27. The first try, the curtain's middle at 184.26, he called late — but the flight has since been judged against the sound several times; the two notes are played at 184.255 and 184.280.
+**Not checked:** it shows only when the page plays; his to see.
