@@ -49,7 +49,7 @@ function engine(page) {
   const lib = n => require(path.join(ROOT, 'notation', 'lib', n));
   const Coords = lib('coords.js'), Layout = lib('layout.js'), StaticPage = lib('static_page.js'), Fit = lib('fit.js');
   const glyphs = rd('notation/lib/glyphs.json'), C = lib('rules.js').loadContainer(ROOT), ens = rd('notation/registry/ensemble.json'), T = rd('notation/registry/techniques.json');
-  let ir, proto = null, chords = null, both = null, keepNone = false;
+  let ir, proto = null, chords = null, both = null, keepNone = false, strikeSpan = null;   // strikeSpan: the strike's first and last note, kept though its notes are not drawn (§300)
   if (page.startsWith(PROTO)) {
     proto = protoOf(); proto.flow = Object.assign({}, proto.flow, { style: page === PROTO ? ((proto.flow || {}).style || 'ribbon') : page.slice(PROTO.length + 1) });   // [§282] the page's name says how the inner movement is drawn
     ir = rd('notation/ir/' + proto.page + '.ir.json');
@@ -61,7 +61,7 @@ function engine(page) {
     if (proto.leadHeads === false) keep.clear();
     // [§291 — his "can you put them in just after, just the burst ones, just after the ribbon"] also: the notes of proto.also (each hand's own span),
     // as plain heads on their own staves — the burst that follows the flow, both hands
-    if (proto.also) for (const ev of ir.events) { const wnd = proto.also[(staff.get(ev.id) || 0) === 1 ? 'L' : 'R']; if (wnd && ev.onset >= wnd[0] && ev.onset <= wnd[1]) keep.add(ev.id); }   // [§280 — his "take out the lead in and lead out notes too"] no played note is drawn at all
+    if (proto.also) for (const ev of ir.events) { const wnd = proto.also[(staff.get(ev.id) || 0) === 1 ? 'L' : 'R']; if (wnd && ev.onset >= wnd[0] && ev.onset <= wnd[1]) { strikeSpan = strikeSpan ? [Math.min(strikeSpan[0], ev.onset), Math.max(strikeSpan[1], ev.onset)] : [ev.onset, ev.onset]; if (proto.alsoHeads !== false) keep.add(ev.id); } }   // [§280 — his "take out the lead in and lead out notes too"] no played note is drawn at all
     ir.events = ir.events.filter(ev => keep.has(ev.id));
     ir.overlays = (ir.overlays || []).filter(o => !(o.target && o.target.event) || keep.has(o.target.event));
     ir.chunks = (ir.chunks || []).map(c => Object.assign({}, c, { events: (c.events || []).filter(id => keep.has(id)) })).filter(c => c.events.length);
@@ -73,6 +73,8 @@ function engine(page) {
     if (page.startsWith('chords-')) chords = { cfg: ex, span: ex.spans[page.slice(7)], sets: page === 'chords-sets', hands: { R: [], L: [] } };
     // [§295] ONE GESTURE FOR BOTH HANDS (bank/gravity_both.json): the notes of the gesture (both hands, for its busyness), each hand's notes of
     // the longer stretch (for its pitch sets), and NO played note drawn
+    // [§300 — his "you can remove those notes out of there"] the strike's notes give the curtain its place and are not drawn (curtain.heads false)
+    if (page === 'burst') { const on = ir.events.filter(inSpan).map(ev => ev.onset); if (on.length) strikeSpan = [Math.min(...on), Math.max(...on)]; if (ex.curtain && ex.curtain.heads === false) keepNone = true; }
     if (page.startsWith('both-')) {
       const cc = rd('bank/chord_changes.json'), handOf = ev => (staff.get(ev.id) || 0) === 1 ? 'L' : 'R';
       both = { cfg: ex, lane: ex.lanes[page.slice(5)], sets: cc.sets, played: ir.events.filter(inSpan).map(ev => ({ id: ev.id, onset: ev.onset, vel: ev.vel, pitch: ev.pitch })), hands: { R: [], L: [] } };
@@ -97,7 +99,7 @@ function engine(page) {
     stavesOf: p => (ensPart(p) && ensPart(p).staves && ensPart(p).staves.length) || 1, ensemble: ENS });
   const LO = (C.engraving && C.engraving.layout) || {};
   const e = { stamp, Coords, StaticPage, glyphs, C, ENS, ir, model, H, FRAME, EDGES: Coords.edgesOf(C), band: (proto && proto.band) || BAND,
-    chords, both, Gc: lib('gc.js'), ChordColumn: lib('chord_column.js'), gaps: { toHead: LO.accGapColumn != null ? LO.accGapColumn : 0.1, between: (LO.chordColumn && LO.chordColumn.minLateralGap) || 0.1 },
+    chords, both, strikeSpan, Gc: lib('gc.js'), ChordColumn: lib('chord_column.js'), gaps: { toHead: LO.accGapColumn != null ? LO.accGapColumn : 0.1, between: (LO.chordColumn && LO.chordColumn.minLateralGap) || 0.1 },
     proto: proto && Object.assign({}, proto, { preset: (C.animated && C.animated.gc && C.animated.gc.preset) || lib('gc.js').DEFAULT_PRESET, look: lib('gc.js').LOOK }) };
   ENG.set(page, e);
   return e;
@@ -159,10 +161,10 @@ function viewOf(page, t0, span, w, opts) {
   // [§296] THE SCATTERED STRIKE's CURTAIN (the page 'burst'): a transparent block over the stretch where the strike's notes fall, at least
   // minSs wide, over the whole grand staff; the pebbles that rise and drop in it are the page's animation — their places are given here
   let strike;
-  if ((page === 'burst' || (e.proto && e.proto.curtain)) && staves.length && e.ir.events.length) {   // [§297] also on the prototype page: the curtain over its third part, the burst's notes
+  if ((page === 'burst' || (e.proto && e.proto.curtain)) && staves.length && e.strikeSpan) {   // [§297] also on the prototype page: the curtain over its third part, the burst's notes
     const ex = page === 'burst' ? rd(EXCERPTS.burst) : e.proto, K = Object.assign({ minSs: 6, padSs: 0.8, overSs: 3, pebbles: 11, prepS: 0.605, fallS: 0.38 }, ex.curtain || {});
     const pps = (view.xOfSeconds(t0 + span) - x0) / span, xOf = s => x0 + (s - t0) * pps, ss = (staves[0][1] - staves[0][0]) / 4;
-    const on = e.ir.events.map(ev => ev.onset), a = Math.min(...on), b = Math.max(...on);
+    const a = e.strikeSpan[0], b = e.strikeSpan[1];
     const xa = xOf(a) - K.padSs * ss, xb = Math.max(xOf(b) + (K.padSs + 1.1) * ss, xa + K.minSs * ss), yT = staves[0][0] - K.overSs * ss, yB = staves[staves.length - 1][1] + K.overSs * ss;
     svg = svg.replace(/<\/svg>\s*$/, '<rect x="' + xa.toFixed(1) + '" y="' + yT.toFixed(1) + '" width="' + (xb - xa).toFixed(1) + '" height="' + (yB - yT).toFixed(1) + '" fill="' + (K.fill || '#5b7fa6') + '" fill-opacity="' + (K.opacity != null ? K.opacity : 0.13) + '" stroke="' + (K.fill || '#5b7fa6') + '" stroke-opacity="0.45" stroke-width="0.6"/></svg>');
     // [§299 — HIS WORD: "nail the physics of exactly as I described, throwing a handful of pebbles into the air … they sort of hang … there's a
