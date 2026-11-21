@@ -5081,3 +5081,17 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 - **Told to him:** no partial stands at 166.28. After 166.038 the next one is the ten notes of both hands at 166.525. So the repeat as built holds ONE partial; whether it should run on to 166.53, or that cluster is something of its own, is his.
 **A fault found and mended on the way:** the image rasterizer (the film's too) crashed on this page — a clipped group with nothing left inside it, once the earlier gestures lay wholly off the page to the left. A gesture wholly outside the page is no longer drawn.
 **Checked once:** the page rendered to an image, 163.9 → 167.3 s.
+
+## §314 · 2026-11-20 · the working version, 166.5 → 170 s — two pebble drops, two growing ribbons, a pole, a note left out; where an impact stands in a cluster
+
+**His words:** SW-101 (the sketch pad): "From 166.52 to the one at 166.82, that's a pebble drop. 167.02 to 167.33 … another pebble drop. from 167.56 to 168.59. That's a ribbon. Again, an accelerating … thin into thick and short uptail. the two figures at 169.7 and then 169.93 … a poll, notated, just two notated chords … eat that extra F … at 170. ribbon from 168.83 impact at 169.46 short tail again."
+(It also answers §313's question: the ten-note cluster at 166.525 is a pebble drop of its own; the repeat before it holds one partial.)
+
+**Written into the working version:**
+- PEBBLE DROPS 166.525 → 166.82 and 167.023 → 167.33.
+- RIBBON 167.555 → impact 168.509 → 168.74, and RIBBON 168.83 → impact 169.415 → 169.62: both with the growing line of §313 (`in` "time") and a short tail (30 % of the height).
+- A POLE: units 13 and 14 — A5 · A#5 · B5 at 169.752 (upper staff) and D#4 · F4 · F#4 · G4 at 169.930 (lower staff), each a notated chord, stem up, a 16th flag.
+- A NOTE LEFT OUT: the left hand's F4 at 170.042 (`omit`, wc-2093) — a played note removed from the piece at his word; it stays in his save and on the pages "spaced" and "as played".
+
+**WHERE AN IMPACT STANDS IN A CLUSTER — a pattern seen, and the AI's choice:** three times now his impact time is the END of a cluster that is struck over a tenth of a second or more: 165.9 (the cluster runs 165.785 … 165.89) · "to 168.59" (168.425 … 168.606) · 169.46 (169.354 … 169.451). He clicks on what he sees, and the last heads of a cluster stand at its right. The impact is put at the cluster's LOUDNESS-WEIGHTED MIDDLE — the mean of its notes' times, each weighted by its loudness: 165.833 · 168.509 · 169.415 (§313's 165.785, the cluster's beginning, is moved to 165.833). Between his reading and the first note; his to overrule.
+**Checked once:** the page rendered to an image, 166.0 → 170.6 s.

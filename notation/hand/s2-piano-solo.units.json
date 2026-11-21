@@ -297,6 +297,35 @@
     164.34,
     164.38
    ]
+  },
+  {
+   "_n": "13 · 169.75 s — a POLE, the first of two notated chords: A5 · A#5 · B5 (upper staff) (his word, §314)",
+   "ids": [
+    "wc-2087",
+    "wc-2088",
+    "wc-2086"
+   ],
+   "stem": "up",
+   "flag": 16,
+   "played": [
+    169.752,
+    169.757
+   ]
+  },
+  {
+   "_n": "14 · 169.93 s — the second: D#4 · F4 · F#4 · G4 (lower staff)",
+   "ids": [
+    "wc-2091",
+    "wc-2092",
+    "wc-2090",
+    "wc-2089"
+   ],
+   "stem": "up",
+   "flag": 16,
+   "played": [
+    169.93,
+    169.947
+   ]
   }
  ]
 }
