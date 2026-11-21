@@ -69,7 +69,11 @@
    "t0": 152.82,
    "t1": 153.23,
    "_his": "the section from 152.9 to about 153.2 … a pebble drop accent there",
-   "_note": "his 152.9 … 153.2 were clicked, \"thereabouts\": widened to the run actually played there, 152.839 … 153.213 (ten notes), so that none of it is left outside the curtain"
+   "_note": "his 152.9 … 153.2 were clicked, \"thereabouts\": widened to the run actually played there, 152.839 … 153.213 (ten notes), so that none of it is left outside the curtain",
+   "curtain": {
+    "density": 34
+   },
+   "_pass": "§358: from the playing under it — 13 notes, heaviness 6.4 (the sum of (velocity / 127) squared) → 34 pebbles (it was 26); the loudness lies at 0.56 of the notes' span → the heap in the middle"
   },
   {
    "kind": "strike",
@@ -78,21 +82,35 @@
    "_his": "starting at 153.7, there's two notes. That's one drop cluster",
    "_note": "the chord of 153.853 … .887 and the note at 154.024",
    "impact": 153.86,
-   "_impact": "§309 — his ear: \"the second pebbles is late … I hear like a stripe towards the beginning of that container … Let's make it a little earlier\" — the four-note chord struck at 153.853 … .887 (loudness 116, the heaviest thing in the container); no principle made of it, this strike only"
+   "_impact": "§309 — his ear: \"the second pebbles is late … I hear like a stripe towards the beginning of that container … Let's make it a little earlier\" — the four-note chord struck at 153.853 … .887 (loudness 116, the heaviest thing in the container); no principle made of it, this strike only",
+   "curtain": {
+    "density": 24,
+    "weight": 0.24
+   },
+   "_pass": "§358: from the playing under it — 5 notes, heaviness 3.6 (the sum of (velocity / 127) squared) → 24 pebbles (it was 26); the loudness lies at 0.17 of the notes' span → the heap at 0.24 of the curtain"
   },
   {
    "kind": "strike",
    "t0": 154.15,
    "t1": 154.62,
    "_his": "At 154.19, there's 3 kind of chords or partials. That's another drop cluster",
-   "_note": "the six notes of 154.229 … .326 and the note at 154.483"
+   "_note": "the six notes of 154.229 … .326 and the note at 154.483",
+   "curtain": {
+    "density": 20,
+    "weight": 0.33
+   },
+   "_pass": "§358: from the playing under it — 7 notes, heaviness 2.3 (the sum of (velocity / 127) squared) → 20 pebbles (it was 26); the loudness lies at 0.29 of the notes' span → the heap at 0.33 of the curtain"
   },
   {
    "kind": "strike",
    "t0": 154.68,
    "t1": 154.98,
    "_his": "then 2 at 154.7",
-   "_note": "154.744, the six notes of 154.794 … .821, the two at 154.91"
+   "_note": "154.744, the six notes of 154.794 … .821, the two at 154.91",
+   "curtain": {
+    "density": 30
+   },
+   "_pass": "§358: from the playing under it — 9 notes, heaviness 5.2 (the sum of (velocity / 127) squared) → 30 pebbles (it was 26); the loudness lies at 0.46 of the notes' span → the heap in the middle"
   },
   {
    "kind": "stutter",
@@ -142,14 +160,24 @@
    "t0": 160.4,
    "t1": 160.67,
    "_his": "the chunk from 160.4 to 160.68 pebble drop",
-   "_note": "the landing of 160.404 … 160.537 and the two notes at 160.665"
+   "_note": "the landing of 160.404 … 160.537 and the two notes at 160.665",
+   "curtain": {
+    "density": 46,
+    "weight": 0.36
+   },
+   "_pass": "§358: from the playing under it — 16 notes, heaviness 10.0 (the sum of (velocity / 127) squared) → 46 pebbles (it was 26); the loudness lies at 0.33 of the notes' span → the heap at 0.36 of the curtain"
   },
   {
    "kind": "strike",
    "t0": 160.96,
    "t1": 161.24,
    "_his": "And then from 160.96 to 161.26, another pebble drop",
-   "_note": "the notes of 160.964 … 161.230"
+   "_note": "the notes of 160.964 … 161.230",
+   "curtain": {
+    "density": 30,
+    "weight": 0.39
+   },
+   "_pass": "§358: from the playing under it — 10 notes, heaviness 5.2 (the sum of (velocity / 127) squared) → 30 pebbles (it was 26); the loudness lies at 0.36 of the notes' span → the heap at 0.39 of the curtain"
   },
   {
    "kind": "ribbon",
@@ -229,14 +257,23 @@
    "t0": 166.525,
    "t1": 166.82,
    "_his": "From 166.52 to the one at 166.82, that's a pebble drop",
-   "_note": "the ten notes of 166.525 … .652 and the left hand's two at 166.727 · 166.811"
+   "_note": "the ten notes of 166.525 … .652 and the left hand's two at 166.727 · 166.811",
+   "curtain": {
+    "density": 37,
+    "weight": 0.33
+   },
+   "_pass": "§358: from the playing under it — 12 notes, heaviness 7.2 (the sum of (velocity / 127) squared) → 37 pebbles (it was 26); the loudness lies at 0.29 of the notes' span → the heap at 0.33 of the curtain"
   },
   {
    "kind": "strike",
    "t0": 167.023,
    "t1": 167.33,
    "_his": "167.02 to 167.33, that's another pebble drop",
-   "_note": "the nine notes of 167.023 … .183 and the three at 167.284 … .326"
+   "_note": "the nine notes of 167.023 … .183 and the three at 167.284 … .326",
+   "curtain": {
+    "density": 28
+   },
+   "_pass": "§358: from the playing under it — 12 notes, heaviness 4.7 (the sum of (velocity / 127) squared) → 28 pebbles (it was 26); the loudness lies at 0.42 of the notes' span → the heap in the middle"
   },
   {
    "kind": "ribbon",
@@ -351,7 +388,11 @@
    "t0": 175.898,
    "t1": 176.21,
    "_his": "175.9 to 176.21, that's a pebble drop",
-   "_note": "the partials of 175.898 … 176.205"
+   "_note": "the partials of 175.898 … 176.205",
+   "curtain": {
+    "density": 32
+   },
+   "_pass": "§358: from the playing under it — 13 notes, heaviness 6.0 (the sum of (velocity / 127) squared) → 32 pebbles (it was 26); the loudness lies at 0.44 of the notes' span → the heap in the middle"
   },
   {
    "kind": "stutter",
@@ -487,7 +528,11 @@
    "t1": 184.34,
    "_his": "a short pebble drop from 184.19 to 184.35, about that width and kind of centered between the two chords I just mentioned and then what's to come",
    "_note": "the width his (0.16 s); centered between the chord of 184.0 and the chord of 184.5 (the middle 184.26, where the two notes of 184.255 … .280 are played) · §327, his \"They're a little late, so make them mostly down by 184.21\": the landing at 184.21 (it was the curtain's middle, 184.26) · §329, his \"now the pebble strike is too early. Maybe somewhere 184.3, maybe, or 31\": the landing at 184.30 · §331: 20 ms later, 184.32 · §353, his \"just a tad late, like a tiny bit forward\": 184.29 — FORWARD is EARLIER in his speech (so §331's 184.32 went the wrong way) · §357: 184.27 (\"a tiny bit late … nudge those forward\" = earlier)",
-   "impact": 184.27
+   "impact": 184.27,
+   "curtain": {
+    "density": 16
+   },
+   "_pass": "§358: from the playing under it — 2 notes, heaviness 1.2 (the sum of (velocity / 127) squared) → 16 pebbles (it was 26); the loudness lies at 0.51 of the notes' span → the heap in the middle"
   },
   {
    "kind": "ribbon",
@@ -541,7 +586,11 @@
    "t0": 192.13,
    "t1": 192.29,
    "_his": "the notes from 192.13 to 192.28, Pebble Drop",
-   "_note": "the twelve notes of 192.146 … .279"
+   "_note": "the twelve notes of 192.146 … .279",
+   "curtain": {
+    "density": 41
+   },
+   "_pass": "§358: from the playing under it — 12 notes, heaviness 8.5 (the sum of (velocity / 127) squared) → 41 pebbles (it was 26); the loudness lies at 0.51 of the notes' span → the heap in the middle"
   },
   {
    "kind": "slur",
@@ -555,14 +604,23 @@
    "t0": 192.57,
    "t1": 192.72,
    "_his": "from 192.57 to 192.72, another Pebble Drop",
-   "_note": "the twelve notes of 192.572 … .699"
+   "_note": "the twelve notes of 192.572 … .699",
+   "curtain": {
+    "density": 36
+   },
+   "_pass": "§358: from the playing under it — 12 notes, heaviness 7.1 (the sum of (velocity / 127) squared) → 36 pebbles (it was 26); the loudness lies at 0.58 of the notes' span → the heap in the middle"
   },
   {
    "kind": "strike",
    "t0": 193.11,
    "t1": 193.28,
    "_his": "pebb drop from 193.11 to 193.28",
-   "_note": "the seven notes of 193.161 … .230"
+   "_note": "the seven notes of 193.161 … .230",
+   "curtain": {
+    "density": 29,
+    "weight": 0.67
+   },
+   "_pass": "§358: from the playing under it — 7 notes, heaviness 5.1 (the sum of (velocity / 127) squared) → 29 pebbles (it was 26); the loudness lies at 0.71 of the notes' span → the heap at 0.67 of the curtain"
   },
   {
    "kind": "ribbon",

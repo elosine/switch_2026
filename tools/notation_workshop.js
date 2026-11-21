@@ -204,13 +204,17 @@ function viewOf(page, t0, span, w, opts) {
       xsr.forEach((x, i) => { const r = (K.sizePx != null ? K.sizePx : 2.6) * (0.7 + R() * 0.75), k = Math.max(0.8, 1 + gauss() * sp), lvl = pile.filter(p => Math.abs(p.x - x) < (p.r + r) * 0.8).length, yh = lvl * r * 1.25 + R() * 1.5, land = t0 + (x - x0) / pps;
         pile.push({ x, r });
         rocks.push({ d: SUB.shape(species, r, 5000 + i), r: +r.toFixed(2), T: +(Th * k).toFixed(3), H: +((H - yh) * (0.45 + 0.5 * R())).toFixed(1), dly: +((R() - 0.5) * 0.03).toFixed(3),   /* [§322 — his "I didn't mean for the timing to change, just the … density"] the hill is thrown as ONE handful, like every pebble drop: no pebble has a moment of its own */ xh: +x.toFixed(1), yh: +yh.toFixed(1), yl: +yh.toFixed(1), xl: +(x + (R() - 0.5) * 3).toFixed(1), spin: +((R() - 0.5) * 700).toFixed(0), gray: Math.round(17 + R() * 50) }); });
-    } else
+    } else {
+    // [§358 — his "if the pebble drop tends to … hit more in the middle, there'll just be a kind of a cluster of rocks in the middle … or … a
+    // little bit more on the right end"] weight (0 … 1, 0.5 = the middle): WHERE along the curtain the handful lies and lands. The throw is
+    // untouched — one handful, one moment, the same parabola; only the place of the heap moves.
+    const xm = xa + (K.weight != null ? K.weight : 0.5) * (xb - xa);
     for (let i = 0; i < nR; i++) {
       const k = Math.max(0.8, 1 + gauss() * sp), r = (K.sizePx != null ? K.sizePx : 2.6) * (0.7 + R() * 0.75);
       rocks.push({ d: SUB.shape(species, r, 3000 + i), r: +r.toFixed(2), T: +(T * k).toFixed(3), H: +(H * Math.min(1, k * k * 0.9)).toFixed(1), dly: +((R() - 0.5) * 0.03).toFixed(3),
         xh: +Math.max(xa + 5, Math.min(xb - 5, xm + gauss() * (xb - xa) * (K.pileSpread != null ? K.pileSpread : 0.1))).toFixed(1),   /* [§302] the handful at rest: spread along the floor, not one clump */ yh: +(R() * 6).toFixed(1), xl: +Math.max(xa + 5, Math.min(xb - 5, xm + gauss() * (xb - xa) * (K.landSpread != null ? K.landSpread : 0.17))).toFixed(1),
         spin: +((R() - 0.5) * 900).toFixed(0), gray: Math.round(17 + R() * 50) });
-    }
+    } }
     return { t0: a, t1: b, xa, xb, yT, yB, floor, species, stroked: !!SUB.stroked[species], impact: +(K.impact != null ? K.impact : t0 + (xm - x0) / pps).toFixed(3)   /* [§309] impact: set by hand for one strike, else the curtain's middle */, flightS: T, bounce: K.bounce != null ? K.bounce : 0.28, shape: K.shape || 'throw', rocks, all: SUB.species };
   };
   const strikes = [], protos = [];

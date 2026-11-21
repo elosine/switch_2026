@@ -5446,3 +5446,31 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **His words:** "The pebbles at 184.26 are a tiny bit late. Let's nudge those forward a little bit."
 **Done:** the landing 184.29 → 184.27 (forward = earlier, §353). The tries: 184.26 · 184.21 · 184.30 · 184.32 · 184.29 · 184.27. The first try, the curtain's middle at 184.26, he called late — but the flight has since been judged against the sound several times; the two notes are played at 184.255 and 184.280.
 **Not checked:** it shows only when the page plays; his to see.
+
+## §358 · 2026-11-21 · THE BOOKMARK (tag `piano-solo-work-2026-11-21`) and the first pebble pass: number and horizontal weight from the playing
+
+**His words:** SW-118 (the sketch pad): "let's bookmark this version and can you do a pass with the pebbles? … look at … my playing, and see if you can adjust the sort of density of pebbles … really just the number of pebbles. I like the physics of them, so try not to change them … so the fall feels a little heavier or lighter … [and] horizontal weight. So like if the pebble drop tends to … hit more in the middle, there'll just be a kind of a cluster of rocks in the middle … do a pass on all those and just see if it makes a difference."
+**The bookmark:** the git tag `piano-solo-work-2026-11-21` on `445df23` (pushed) — the working version to 196.26 s, every pebble drop at 26 pebbles in the middle.
+**The two measures, from the notes under each drop (both hands, the hidden notes left out):**
+- HEAVINESS = the sum over the notes of (velocity / 127)². It grows with how many notes there are and, faster, with how hard they are struck. → THE NUMBER: pebbles = 12 + 3.4 × heaviness (so the old 26 is a heaviness of about 4; the range here is 16 … 46).
+- WHERE THE LOUDNESS LIES = the velocity-weighted mean time of the notes, as a share of their own span (0 = the first note, 1 = the last). → THE HEAP: where it is 0.1 or more off the middle, the heap moves that way (weight = 0.5 + 0.8 × the offset); otherwise it stays in the middle.
+**What was built:** `weight` on a curtain (`tools/notation_workshop.js`): the place along the curtain where the handful lies at rest and lands. The throw is untouched — one handful, one moment, the same parabola, the same spreads.
+**The pass (start · notes · heaviness · where the loudness lies → the result):**
+- 152.82 · 13 · 6.4 · 0.56 → 34 pebbles, middle
+- 153.70 · 5 · 3.6 · 0.17 → 24 pebbles, heap at 0.24
+- 154.15 · 7 · 2.3 · 0.29 → 20 pebbles, heap at 0.33
+- 154.68 · 9 · 5.2 · 0.46 → 30 pebbles, middle
+- 160.40 · 16 · 10.0 · 0.33 → 46 pebbles, heap at 0.36
+- 160.96 · 10 · 5.2 · 0.36 → 30 pebbles, heap at 0.39
+- 166.53 · 12 · 7.2 · 0.29 → 37 pebbles, heap at 0.33
+- 167.02 · 12 · 4.7 · 0.42 → 28 pebbles, middle
+- 170.31 · 19 · 10.3 · 0.67 → the hill — his own, left as it is (75, crowding to the right)
+- 175.90 · 13 · 6.0 · 0.44 → 32 pebbles, middle
+- 184.18 · 2 · 1.2 · 0.51 → 16 pebbles, middle
+- 192.13 · 12 · 8.5 · 0.51 → 41 pebbles, middle
+- 192.57 · 12 · 7.1 · 0.58 → 36 pebbles, middle
+- 193.11 · 7 · 5.1 · 0.71 → 29 pebbles, heap at 0.67
+**Read:** six drops lean LEFT — the playing strikes hardest at the start and trails off (153.70 most of all); one leans right (193.11); six sit in the middle. None but the hill leans far right. The one he names, 152.98 ("more pebbles towards the right"), measures 0.56 — the middle; what he saw there was the chance of the scatter.
+**Not touched:** the hill of 170.31 (his own design, §317 · §322); every landing moment; the physics.
+**Checked once:** the page rendered to images at rest, 152.6 → 155.2 · 160.2 → 161.5 · 192.0 → 193.5 s.
+**For the second pass (SW-104):** the two measures are a first spectrum — number × place. A third is in the data and unused: how SPREAD the loudness is (a tight clump or an even scatter).
