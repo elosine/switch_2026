@@ -1557,3 +1557,9 @@ staff carried from piece 6 has eight lines, of which only the coil's and the Chi
 **His words (verbatim):** "The notes around 185.15 are a notated chord, struct chord. ribbon impact at 185.77, starting at 185.31, tail up to about 185.97, maybe a little bit more."
 
 **The AI's reading:** two placements. The notes about 185.15 as a struck chord in standard notation; a ribbon from 185.31, its impact at 185.77, its tail up to a little past 185.97.
+
+### SW-109 · 2026-11-21 · two long ribbons, 186.8 … 188.67 and 188.76 … 191.46 (impact, top, undulation, top, impact, tail)
+
+**His words (verbatim):** "Impact at 188.21. The ribbon starts at 186.8. And the tail till 188.67. A new ribbon starts at 188.76. impact at 189.38 All right, let's make that 189.38. Let's have it go back up to peak at or top at 189.56. undulate to 189.99. up by 190.57 impact again at 191.24. and then tail to 191.46."
+
+**The AI's reading:** two ribbons, back to back, the longest so far. The first is plain: 186.8, impact 188.21, a tail to 188.67. The second he draws POINT BY POINT, tops as well as turns: start 188.76 · impact 189.38 · top 189.56 · an undulation (a wave, no strike) at 189.99 · top 190.57 · impact 191.24 · tail to 191.46. He is now giving the ribbon's whole line, not only where it strikes.

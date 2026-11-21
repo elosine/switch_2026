@@ -2,8 +2,8 @@
  "_doc": "THE WORKING VERSION of the piano solo (SW-96; RUNNING_LOG §307 — his word: 'can we get like a working version that we work in and that keeps all our changes'). The workshop's page 'working version' = the page `base` (the standard figures taken one by one, notation/hand/<base>.units.json) with the GESTURES below drawn over it, and nothing else. A gesture hides the played notes inside its span. kind ribbon = Shape Action Notation's arc: t0 its start, bounce its impact (the 'hit'), t1 its end; flow.profile = its designed width (§296). kind strike = the scattered strike: a curtain from t0 to t1 with the thrown pebbles. A chord symbol (each hand's pitch set, bank/chord_changes.json `sets`) stands at the start of every ribbon and strike. His times are 'thereabouts' — he clicks them with the mouse. A POLE (a fixed structure in standard notation) is not here: it is a figure in the units file.",
  "base": "s2-piano-solo",
  "view": [
-  181,
-  185.2
+  186.4,
+  191.8
  ],
  "band": [
   470,
@@ -448,6 +448,44 @@
    "tailPct": 85,
    "_his": "ribbon impact at 185.77, starting at 185.31, tail up to about 185.97, maybe a little bit more",
    "_note": "the start on the B4 of 185.310; the impact on the two notes of 185.746 … .747 (E5 · D5, the loudest there); the tail to 186.0, taking the notes of 185.811 … .913 with it"
+  },
+  {
+   "kind": "ribbon",
+   "t0": 186.792,
+   "bounce": 188.2,
+   "t1": 188.67,
+   "hideTo": 188.67,
+   "tailPct": 85,
+   "_his": "Impact at 188.21. The ribbon starts at 186.8. And the tail till 188.67",
+   "_note": "the start on the two notes of 186.792 … .796; the impact on the partial of 188.193 … .211; the tail to 188.67 as he said (0.47 s — a long one), taking the notes to 188.640 with it"
+  },
+  {
+   "kind": "ribbon",
+   "t0": 188.757,
+   "bounces": [
+    189.38,
+    189.985,
+    191.235
+   ],
+   "tops": [
+    189.56,
+    190.57
+   ],
+   "depths": [
+    1,
+    0.6,
+    1
+   ],
+   "t1": 191.46,
+   "hideTo": 191.46,
+   "tailPct": 85,
+   "fromPlaying": true,
+   "flow": {
+    "power": 1.3,
+    "ribbonMaxPx": 34
+   },
+   "_his": "A new ribbon starts at 188.76. impact at 189.38 All right, let's make that 189.38. Let's have it go back up to peak at or top at 189.56. undulate to 189.99. up by 190.57 impact again at 191.24. and then tail to 191.46",
+   "_note": "the start on the partial of 188.757; the first impact at his 189.38 (the end of the seven notes 189.329 … .383 — he said the time twice); the top at 189.56; a WAVE to 60 % at 189.985 (F4 · F#4); the top again at 190.57; the second impact on the six notes of 191.219 … .254; the tail to 191.46. The width from the playing, as the other many-turn ribbons"
   }
  ],
  "noOttava": true,

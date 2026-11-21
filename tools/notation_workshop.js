@@ -241,7 +241,10 @@ function viewOf(page, t0, span, w, opts) {
         // the height). Each stretch is one arc of the GC's own curve; the width is on ONE scale over the whole ribbon.
         const bs = g.bounces && g.bounces.length ? g.bounces : [g.bounce], src = g.fromPlaying ? WK.played.filter(p => p.onset >= g.t0 - 1e-9 && p.onset <= g.t1 + 1e-9) : [];
         bs.forEach((b, i) => {
-          const last = i === bs.length - 1, a0 = i === 0 ? g.t0 : (bs[i - 1] + b) / 2, a1 = last ? g.t1 : (b + bs[i + 1]) / 2;
+          // [§333 — his "go back up to peak at or top at 189.56 … up by 190.57"] tops: WHERE the ribbon is at its top between two turns (tops[i] lies
+          // between turn i and turn i + 1); without it, the midpoint
+          const topOf = k => g.tops && g.tops[k] != null ? g.tops[k] : (bs[k] + bs[k + 1]) / 2;
+          const last = i === bs.length - 1, a0 = i === 0 ? g.t0 : topOf(i - 1), a1 = last ? g.t1 : topOf(i);
           const P = { band: cfg.band, arcBand: cfg.arcBand || cfg.band, arc: { t0: a0, bounce: b, t1: a1 }, noShapes: true, flow: Object.assign({ style: 'ribbon' }, cfg.flow, g.flow) };
           if (g.fromPlaying) { P.in = src.map(p => p.id.replace(/^ev-/, '')); P.flow = Object.assign({}, P.flow, { profile: null }, g.flow); P.normSpan = [g.t0, g.t1]; }
           if (g.depths && g.depths[i] != null && g.depths[i] < 1) { P.depth = g.depths[i]; P.wave = true; if (g.waveSharp) P.waveSharp = g.waveSharp; }   // [§323] a wave: this turn goes only part of the way down

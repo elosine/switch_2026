@@ -5240,3 +5240,14 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **His words:** "That curve 182.8, the descent is too fast now. So somewhere in between the last two, the ascent is fine."
 **Done:** `waveSharp` may be a pair, [the way down, the way up]. The ribbon of 182.4: down 1.35 (halfway between the plain cosine, 1, and §330's 1.7), up 1.7 as it was. The depth stays 78 %.
 **Checked once:** the page rendered to an image, 181.0 → 185.0 s.
+
+## §333 · 2026-11-21 · the working version to 191.46 s — two long ribbons; a ribbon's TOPS can be given
+
+**His words:** SW-109 (the sketch pad): "Impact at 188.21. The ribbon starts at 186.8. And the tail till 188.67. A new ribbon starts at 188.76. impact at 189.38 … go back up to peak at or top at 189.56. undulate to 189.99. up by 190.57 impact again at 191.24. and then tail to 191.46."
+**Set on the played partials:**
+- the ribbon 186.792 → the impact 188.20 (the partial of 188.193 … .211) → 188.67. The tail is 0.47 s, his word, longer than the one tail of §321.
+- the ribbon 188.757 → the impact 189.38 (his time, said twice; the end of the seven notes 189.329 … .383) → the top 189.56 → a wave to 60 % at 189.985 → the top 190.57 → the impact 191.235 (the six notes 191.219 … .254) → 191.46. The width from the playing (power 1.3).
+**NEW: `tops` on a many-turn ribbon** (`tools/notation_workshop.js`). Until now the ribbon stood at its top halfway between two turns. He gives the tops himself here (189.56 is 0.18 s after the impact and 0.43 s before the wave: a fast rise, a slow fall), so `tops[i]` says where the top lies between turn i and turn i + 1.
+**The wave's depth (60 %) is the AI's**, the standing value; he said only "undulate".
+**Checked once:** the page rendered to an image, 186.4 → 191.8 s.
+**For the paper:** the passage 186.8 … 191.5 is the densest of the solo so far (some 140 notes in 4.7 s) and he gives it to two ribbons only, no chord, no pebbles.
