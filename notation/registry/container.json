@@ -528,7 +528,8 @@
       "nhGapSs": "@anchors.C.gapSs",
       "dynMark": "band",
       "dynBesideStem": true,
-      "instrFirst": "T. R."
+      "instrText": "T. R.",
+      "instrAlign": "middle"
      },
      "jet_whistle": {
       "sheet": "the Switch~ piece §372 (2026-11-21, his word on the counterpoint's page, the flute at 213.67: 'Let's make that a black one with the flag and all. And any other jet whistles that are like that, they should be black notes') — the staccato unit's look without its dot: a jet whistle is a short note here (0.05 … 0.20 s), not a staccato",
@@ -544,7 +545,8 @@
       "nhGapSs": "@anchors.C.gapSs",
       "dynMark": "band",
       "dynBesideStem": true,
-      "instrFirst": "jet wh."
+      "instrText": "jet whistle",
+      "instrAlign": "middle"
      },
      "staccato": {
       "sheet": "#4 day 23 (wc-29 — the staccato unit)",
