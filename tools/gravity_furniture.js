@@ -14,7 +14,7 @@ module.exports = function furniture(o) {
   const { proto: P, ir, glyphs, ChordColumn, Gc, xOf, staff, w, preset, look, gaps } = o;
   const out = [], flags = [], r1 = x => (+x).toFixed(1), r3 = x => (+x).toFixed(3);
   const ss = (staff[1] - staff[0]) / 4, mid = (staff[0] + staff[1]) / 2;
-  const band = P.band, A = P.arc, F = Object.assign({ heightPx: 46, sigmaS: 0.12 }, P.flow || {}), pad = 10, yBot = band[0] + band[1];
+  const band = P.arcBand || P.band, A = P.arc,   /* [§291] the arc's own lane (the hand's staff), when the picture shows more than that */ F = Object.assign({ heightPx: 46, sigmaS: 0.12 }, P.flow || {}), pad = 10, yBot = band[0] + band[1];
   const INK = '#111';
   const byId = new Map(ir.events.map(e => [e.id.replace(/^ev-/, ''), e]));
   const pick = ids => (ids || []).map(id => byId.get(id)).filter(Boolean).map(e => ({ t: e.onset, v: e.vel != null ? e.vel : 64, sp: e.pitch.spelled, midi: e.pitch.midi }));

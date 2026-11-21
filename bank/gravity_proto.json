@@ -7,10 +7,10 @@
   161.2
  ],
  "band": [
-  628,
-  152
+  546,
+  234
  ],
- "headOpacity": 0.6,
+ "headOpacity": 1,
  "arc": {
   "t0": 157.821,
   "bounce": 159.159,
@@ -89,5 +89,20 @@
  },
  "refHeads": false,
  "leadHeads": false,
- "coverFrom": 752
+ "coverFrom": 752,
+ "arcBand": [
+  628,
+  152
+ ],
+ "also": {
+  "L": [
+   160.18,
+   160.56
+  ],
+  "R": [
+   160.39,
+   160.56
+  ],
+  "_note": "§291: the burst that follows the flow, both hands — plain heads at their played times on their own staves (the same spans as bank/burst_proto.json). The picture shows both staves for it (band); the arc keeps its own lane on the lower staff (arcBand)."
+ }
 }

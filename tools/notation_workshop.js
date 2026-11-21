@@ -58,7 +58,10 @@ function engine(page) {
     proto._played = ir.events.filter(ev => keep.has(ev.id));   // the hand's notes of the window, whole — the flow and the shapes are read from these
     // [§279 — his "take out the ref noteheads"] refHeads false: the arc's own played notes are not drawn (the lead-in and lead-out notes stay)
     if (proto.refHeads === false) for (const id of [].concat(proto.in || [], proto.impact || [], proto.out || [])) keep.delete('ev-' + id);
-    if (proto.leadHeads === false) keep.clear();   // [§280 — his "take out the lead in and lead out notes too"] no played note is drawn at all
+    if (proto.leadHeads === false) keep.clear();
+    // [§291 — his "can you put them in just after, just the burst ones, just after the ribbon"] also: the notes of proto.also (each hand's own span),
+    // as plain heads on their own staves — the burst that follows the flow, both hands
+    if (proto.also) for (const ev of ir.events) { const wnd = proto.also[(staff.get(ev.id) || 0) === 1 ? 'L' : 'R']; if (wnd && ev.onset >= wnd[0] && ev.onset <= wnd[1]) keep.add(ev.id); }   // [§280 — his "take out the lead in and lead out notes too"] no played note is drawn at all
     ir.events = ir.events.filter(ev => keep.has(ev.id));
     ir.overlays = (ir.overlays || []).filter(o => !(o.target && o.target.event) || keep.has(o.target.event));
     ir.chunks = (ir.chunks || []).map(c => Object.assign({}, c, { events: (c.events || []).filter(id => keep.has(id)) })).filter(c => c.events.length);
