@@ -5128,3 +5128,10 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **His words (while §318 was being built):** "Like the three bounce one, though, that those physics feel pretty good. And that tail can be just ever so slightly longer, maybe like another 15%, but with the same sort of velocity."
 **Noted:** the three-bounce ribbon's motion is the one that feels right to him — its bounces between impacts rise to the full height by the GC's own rise. **Changed:** its last tail lasts 0.529 s (0.46 + 15 %) and rises to 67 % of the fall (58 + 15 %), so the speed off the bounce is unchanged. The other tails stay at 0.46 s and 58 %.
 **Said to him:** this message and §318's crossed — he may have judged the tail before it was made faster; the 15 % is applied on top of the faster tail.
+
+## §320 · 2026-11-20 · the three-bounce ribbon's third bounce made like the first two
+
+**His words:** "Or I guess maybe the first two bounces, that velocity is pretty good. And that third bounce could have a, be closer to the first two bounces."
+**Measured:** the first two bounces rise to the FULL height in 0.26 s and 0.28 s (half the gap to the next bounce), by the GC's own rise (power 2). The third's tail, after §319, rose to 67 % in 0.53 s by a steeper curve — about half their speed off the bounce, and a different shape.
+**Changed (this ribbon only):** its tail uses the SAME rise curve as the bounces (`tailStiffness` 50), to 85 % of the height in 0.30 s — about three quarters of their speed, and the same shape. It is no longer "small": it ends just under the height of the two turns before it. §319's version is replaced. The other ribbons' tails stay as §318 left them (58 %, 0.46 s).
+**Checked once:** the ribbon rendered to an image.
