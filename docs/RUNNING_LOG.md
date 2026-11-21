@@ -5122,3 +5122,9 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **Why they were slower:** §316 made each tail longer in TIME and left its HEIGHT at 30 % of the fall, so the same small rise was spread over more time — a shallower angle off the bounce, a slower ball.
 **Changed:** a tail's leaving speed is its height over its time, times the power of the GC's rise curve. Every short tail now rises to 58 % of the fall (`tailPct`, was 30) and leaves by a steeper curve (`tailStiffness` 110 → the rise's power 3.2, was 2: off the bounce fast, levelling sooner). At the bounce the ball now leaves about three times as fast as after §316. The fall and the bounces between the multi-bounce's impacts are untouched.
 **Checked once:** the page rendered to an image, 163.0 → 170.4 s — the tails stand off the impacts steeply and level out about the top of the lower staff. The speed itself is his to judge in motion.
+
+## §319 · 2026-11-20 · the three-bounce ribbon's tail 15 % longer at the same speed
+
+**His words (while §318 was being built):** "Like the three bounce one, though, that those physics feel pretty good. And that tail can be just ever so slightly longer, maybe like another 15%, but with the same sort of velocity."
+**Noted:** the three-bounce ribbon's motion is the one that feels right to him — its bounces between impacts rise to the full height by the GC's own rise. **Changed:** its last tail lasts 0.529 s (0.46 + 15 %) and rises to 67 % of the fall (58 + 15 %), so the speed off the bounce is unchanged. The other tails stay at 0.46 s and 58 %.
+**Said to him:** this message and §318's crossed — he may have judged the tail before it was made faster; the 15 % is applied on top of the faster tail.
