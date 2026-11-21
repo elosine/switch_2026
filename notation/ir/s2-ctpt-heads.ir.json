@@ -22,7 +22,7 @@
   "date": "2026-11-21",
   "tool": "tools/notate_section.js (profile trance)",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only.",
-  "build": "node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 199 --w1 254 --parts 0-6 --alone 199-254 --exp --noFitMark --timeSpacing --id s2-ctpt-heads --label \"Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)\" --beam 205.9985-206.29@0 --beam 209.80-210.45@0 --beam 233.97-234.08@0 --beam 206.40-206.70@1 --beam 217.36-217.71@1 --beam 223.39-223.74@1 --hand \"wc-2742:{\\\"grace\\\":true,\\\"pickupTo\\\":\\\"wc-2743\\\",\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --noGc wc-2742 --hand \"wc-2692:{\\\"grace\\\":true,\\\"pickupTo\\\":\\\"wc-2691\\\",\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --noGc wc-2692"
+  "build": "node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 199 --w1 254 --parts 0-6 --alone 199-254 --exp --noFitMark --timeSpacing --id s2-ctpt-heads --label \"Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)\" --beam 205.9985-206.29@0 --hand \"wc-2691:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2693:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 209.8-210.45@0 --hand \"wc-2695:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2696:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2697:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 220.3-220.73@0 --hand \"wc-2703:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2704:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 233.97-234.08@0 --hand \"wc-2715:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2714:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2907:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 248.93-249.46@0 --hand \"wc-2919:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2920:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 206.4-206.7@1 --hand \"wc-2721:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2722:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 217.36-217.71@1 --hand \"wc-2730:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2731:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 223.39-223.74@1 --hand \"wc-2736:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2737:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2742:{\\\"grace\\\":true,\\\"pickupTo\\\":\\\"wc-2743\\\",\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --noGc wc-2742 --hand \"wc-2692:{\\\"grace\\\":true,\\\"pickupTo\\\":\\\"wc-2691\\\",\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --noGc wc-2692"
  },
  "events": [
   {
@@ -10272,9 +10272,10 @@
      "noteBeams": 2,
      "beamPos": 0,
      "noteUnits": 1,
-     "goLine": true,
+     "goLine": false,
      "gc": true,
-     "dynAboveBeam": true
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
     }
    },
    "provenance": "authored"
@@ -10313,9 +10314,10 @@
      "noteBeams": 2,
      "beamPos": 0,
      "noteUnits": 1,
-     "goLine": true,
+     "goLine": false,
      "gc": true,
-     "dynAboveBeam": true
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
     }
    },
    "provenance": "authored"
@@ -10363,10 +10365,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-bm-3-ev-wc-2715",
+   "id": "ov-bm-3-ev-wc-2703",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-2715"
+    "event": "ev-wc-2703"
    },
    "value": {
     "device": {
@@ -10375,18 +10377,19 @@
      "noteBeams": 2,
      "beamPos": 0,
      "noteUnits": 1,
-     "goLine": true,
+     "goLine": false,
      "gc": true,
-     "dynAboveBeam": true
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
     }
    },
    "provenance": "authored"
   },
   {
-   "id": "ov-bm-3-ev-wc-2714",
+   "id": "ov-bm-3-ev-wc-2704",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-2714"
+    "event": "ev-wc-2704"
    },
    "value": {
     "device": {
@@ -10404,7 +10407,49 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-bm-3-ev-wc-2907",
+   "id": "ov-bm-4-ev-wc-2715",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2715"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-4",
+     "noteBeams": 2,
+     "beamPos": 0,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": true,
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-4-ev-wc-2714",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2714"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-4",
+     "noteBeams": 2,
+     "beamPos": 1,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": false,
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-4-ev-wc-2907",
    "kind": "engraving",
    "target": {
     "event": "ev-wc-2907"
@@ -10412,7 +10457,7 @@
    "value": {
     "device": {
      "nhStem": "beam",
-     "beamGroup": "bm-3",
+     "beamGroup": "bm-4",
      "noteBeams": 2,
      "beamPos": 2,
      "noteUnits": 1,
@@ -10425,7 +10470,49 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-bm-4-ev-wc-2721",
+   "id": "ov-bm-5-ev-wc-2919",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2919"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-5",
+     "noteBeams": 2,
+     "beamPos": 0,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": true,
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-5-ev-wc-2920",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2920"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-5",
+     "noteBeams": 2,
+     "beamPos": 1,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": false,
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-6-ev-wc-2721",
    "kind": "engraving",
    "target": {
     "event": "ev-wc-2721"
@@ -10433,19 +10520,20 @@
    "value": {
     "device": {
      "nhStem": "beam",
-     "beamGroup": "bm-4",
+     "beamGroup": "bm-6",
      "noteBeams": 2,
      "beamPos": 0,
      "noteUnits": 1,
-     "goLine": true,
+     "goLine": false,
      "gc": true,
-     "dynAboveBeam": true
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
     }
    },
    "provenance": "authored"
   },
   {
-   "id": "ov-bm-4-ev-wc-2722",
+   "id": "ov-bm-6-ev-wc-2722",
    "kind": "engraving",
    "target": {
     "event": "ev-wc-2722"
@@ -10453,7 +10541,7 @@
    "value": {
     "device": {
      "nhStem": "beam",
-     "beamGroup": "bm-4",
+     "beamGroup": "bm-6",
      "noteBeams": 2,
      "beamPos": 1,
      "noteUnits": 1,
@@ -10466,7 +10554,7 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-bm-5-ev-wc-2730",
+   "id": "ov-bm-7-ev-wc-2730",
    "kind": "engraving",
    "target": {
     "event": "ev-wc-2730"
@@ -10474,19 +10562,20 @@
    "value": {
     "device": {
      "nhStem": "beam",
-     "beamGroup": "bm-5",
+     "beamGroup": "bm-7",
      "noteBeams": 2,
      "beamPos": 0,
      "noteUnits": 1,
-     "goLine": true,
+     "goLine": false,
      "gc": true,
-     "dynAboveBeam": true
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
     }
    },
    "provenance": "authored"
   },
   {
-   "id": "ov-bm-5-ev-wc-2731",
+   "id": "ov-bm-7-ev-wc-2731",
    "kind": "engraving",
    "target": {
     "event": "ev-wc-2731"
@@ -10494,7 +10583,7 @@
    "value": {
     "device": {
      "nhStem": "beam",
-     "beamGroup": "bm-5",
+     "beamGroup": "bm-7",
      "noteBeams": 2,
      "beamPos": 1,
      "noteUnits": 1,
@@ -10507,7 +10596,7 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-bm-6-ev-wc-2736",
+   "id": "ov-bm-8-ev-wc-2736",
    "kind": "engraving",
    "target": {
     "event": "ev-wc-2736"
@@ -10515,19 +10604,20 @@
    "value": {
     "device": {
      "nhStem": "beam",
-     "beamGroup": "bm-6",
+     "beamGroup": "bm-8",
      "noteBeams": 2,
      "beamPos": 0,
      "noteUnits": 1,
-     "goLine": true,
+     "goLine": false,
      "gc": true,
-     "dynAboveBeam": true
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
     }
    },
    "provenance": "authored"
   },
   {
-   "id": "ov-bm-6-ev-wc-2737",
+   "id": "ov-bm-8-ev-wc-2737",
    "kind": "engraving",
    "target": {
     "event": "ev-wc-2737"
@@ -10535,7 +10625,7 @@
    "value": {
     "device": {
      "nhStem": "beam",
-     "beamGroup": "bm-6",
+     "beamGroup": "bm-8",
      "noteBeams": 2,
      "beamPos": 1,
      "noteUnits": 1,

@@ -154,10 +154,11 @@ Every page of the score may say its own pace — how many seconds stand across o
 
 | the thing | his decision | how it is written |
 |---|---|---|
-| THE BEAMING THRESHOLD | two notes of one part no farther apart than the clarinet's pair at 217.37 → 217.70 s (0.329 s) are beamed; "for now" | `--beam t0-t1@part`, one per group (six so far) |
+| THE BEAMING THRESHOLD | two notes of one part no farther apart than the clarinet's pair at 217.37 → 217.70 s (0.329 s) are beamed; "for now" — and the pairs he names beyond it (the flute's 220.33 · 248.95, §374) | `tools/build_ctpt_page.js` BEAMS (eight so far) |
+| A BEAMED GROUP'S REGIME (the tubas' rule; the lineage's D43 · D49 — HIS, re-stated §374: "let's make sure we get this as the standard") | the LEFT EDGE of the first note's head stands on the gestural curve's go time — every head's left edge is its moment — and there is NO GO LINE (a go line marks a head that stands off its moment) | each beamed note: `{ nhAnchor: "leftEdge", goLine: false }`, written by the build file for every member of BEAMS |
 | the heads | black for a short note, white for a held one — kept; ALL AT THE STANDARD SIZE (his, §370) | the standing devices; `objects.cueHead.size` 1 |
 | the gestural curves | kept, for now | the standing devices |
-| a note just before another (the clarinet 230.37 · the flute 206.00) | a GRACE-NOTE PICKUP: small, its own flag and stroke, standing a little to the LEFT of its main note (2.2 ss; 1.2 more past an accidental), NO slur, never on the main note's beam; no go line, dynamic or gestural curve of its own (§369 · §371) | `--hand <grace>:{grace, pickupTo, goLine:false, dynMark:false}` · `--noGc`; `objects.graceHead.pickupLeadSs · pickupAccSs` |
+| a note just before another (the clarinet 230.37 · the flute 206.00) | a GRACE-NOTE PICKUP: small, its own flag and stroke, standing a little to the LEFT of its main note (2.2 ss; 1.2 more past an accidental), NO slur, never on the main note's beam; no go line, dynamic or gestural curve of its own (§369 · §371); ITS STEM REACHES the height of the main note's stem tip — that flag's far end, or the beam (§374, `objects.graceHead.pickupStemToMain`) | `--hand <grace>:{grace, pickupTo, goLine:false, dynMark:false}` · `--noGc`; `objects.graceHead.pickupLeadSs · pickupAccSs` |
 | a TONGUE RAM | the flagged staccato: a black note with its dot, flag, go line and gestural curve — the staccato unit's look whole (§373) | `container.json` devices.byTechnique.tongue_ram |
 | a JET WHISTLE (short here) | a black note with its flag, go line and gestural curve — the staccato unit's look without the dot (§372) | `container.json` devices.byTechnique.jet_whistle |
 

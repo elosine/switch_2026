@@ -3961,6 +3961,20 @@
         const sps = spsV || 0;
         const units = [...nhAt.entries()].map(([id, u]) => Object.assign({ id }, u)).sort((p, q) => p.t - q.t);
         const tipOf = u => u.stemItem ? u.stemItem.yB : null;
+        // [§374 — HIS RULE 2026-11-21: "Longer stems on the grace notes … extend them down so the bottom of the stem is at the same height as the
+        // bottom of the flags there, or the beams of the next thing"] A GRACE PICKUP's STEM REACHES ITS MAIN NOTE's (rules.json
+        // objects.graceHead.pickupStemToMain): its tip stands at the height of the main note's stem tip — the far end of that flag, or the beam —
+        // when both stems go the same way; never shortened. Its flag and its stroke go with the tip. Read here, where the beams are levelled.
+        if ((o.grace || {}).pickupStemToMain !== false) for (const a of units) {
+          const hand = ((engOf(a.id) || {}).device) || {};
+          if (!hand.grace || !hand.pickupTo || !nhAt.has(hand.pickupTo) || !a.stemItem) continue;
+          const mN = nhAt.get(hand.pickupTo), st = a.stemItem; if (!mN.stemItem || mN.stemItem.attach !== st.attach) continue;
+          const d = mN.stemItem.yB - st.yB; if (Math.abs(d) < 1e-6 || (st.attach === 'up' ? d < 0 : d > 0)) continue;
+          st.yB += d;
+          for (const it of items) { if (it === st || it.t == null || Math.abs(it.t - st.t) > 1e-9) continue;
+            if (it.k === 'glyph' && /^flag-/.test(it.g || '') && Math.abs(it.dxSs - st.dxSs) < 1e-6) it.ySs += d;
+            else if (it.k === 'slash' && it.ev === a.id) { it.y0Ss += d; it.y1Ss += d; } }
+        }
         for (const a of units) {
           const hand = ((engOf(a.id) || {}).device) || {};
           if (!hand.slurTo || !nhAt.has(hand.slurTo)) continue;

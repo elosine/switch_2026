@@ -1,17 +1,42 @@
 #!/usr/bin/env node
-// build_ctpt_page.js — THE COUNTERPOINT'S PAGE (s2-ctpt-heads), built with every decision taken on it so far (the Switch~ piece RUNNING_LOG §369).
+// build_ctpt_page.js — THE COUNTERPOINT'S PAGE (s2-ctpt-heads), built with every decision taken on it so far (the Switch~ piece RUNNING_LOG §369 on).
 //   node tools/build_ctpt_page.js      (run from the repo root)
 // A decision of his on this page is a line added here; the page is then built again by this one file.
-const { spawnSync } = require('child_process');
-const args = ['tools/notate_section.js', '--score', 'piece-FirstDraft-Final-B-noFadeAt96', '--w0', '199', '--w1', '254', '--parts', '0-6', '--alone', '199-254', '--exp', '--noFitMark', '--timeSpacing',
-  '--id', 's2-ctpt-heads', '--label', 'Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)',
-  // THE BEAMING THRESHOLD (his, §369): two notes of a part no farther apart than the clarinet's pair at 217.37 → 217.70 (0.329 s) are beamed
-  '--beam', '205.9985-206.29@0', '--beam', '209.80-210.45@0', '--beam', '233.97-234.08@0',   // (the flute's first: its two 16ths — the note before them is their grace pickup, §371)
-  '--beam', '206.40-206.70@1', '--beam', '217.36-217.71@1', '--beam', '223.39-223.74@1',
-  // THE GRACE-NOTE PICKUPS (his, §369 · §371): the note before is a grace note that leads to the next — its own flag and stroke, stood off to
-  // the left, no slur, no beam; no go line, dynamic or gestural curve of its own (one curve, on the main note)
-  ...[['wc-2742', 'wc-2743'],   // the clarinet, 230.37 → 230.42
-      ['wc-2692', 'wc-2691']]   // the flute, 205.998 → the two 16ths of 206.00 · 206.28
-    .flatMap(([g, m]) => ['--hand', g + ':' + JSON.stringify({ grace: true, pickupTo: m, goLine: false, dynMark: false }), '--noGc', g])];
-const r = spawnSync('node', args, { encoding: 'utf8' });
-console.log((r.stdout + r.stderr).split('\n').filter(l => /READY|FAILED|INVALID|Error|beam|hand|grace|usage/i.test(l)).join('\n').slice(0, 2500));
+'use strict';
+const fs = require('fs'), path = require('path'), { spawnSync } = require('child_process');
+const ROOT = path.join(__dirname, '..'), SCORE = 'piece-FirstDraft-Final-B-noFadeAt96';
+const save = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', SCORE + '.json'), 'utf8'));
+
+// THE BEAMED GROUPS [from, to, part] — THE BEAMING THRESHOLD (his, §369): two notes of a part no farther apart than the clarinet's pair at
+// 217.37 → 217.70 (0.329 s) are beamed; and the pairs he has since named one by one (§374).
+const BEAMS = [
+  [205.9985, 206.29, 0],   // flute: the two 16ths (the note before them is their grace pickup, §371)
+  [209.80, 210.45, 0],     // flute: three
+  [220.30, 220.73, 0],     // flute: a tongue ram and a staccato, 0.39 s apart — his word, §374 ("You can beam the 2 starting at 220.27")
+  [233.97, 234.08, 0],     // flute: three
+  [248.93, 249.46, 0],     // flute: a tongue ram and a staccato, 0.49 s apart — his word, §374 ("The 2 at 248.8 can be beamed")
+  [206.40, 206.70, 1],     // clarinet
+  [217.36, 217.71, 1],     // clarinet: THE PAIR HE NAMED
+  [223.39, 223.74, 1],     // clarinet
+];
+// THE GRACE-NOTE PICKUPS [the grace note, its main note] (his, §369 · §371): its own flag and stroke, stood off to the left, no slur, no beam;
+// no go line, dynamic or gestural curve of its own (one curve, on the main note)
+const GRACES = [
+  ['wc-2742', 'wc-2743'],   // the clarinet, 230.37 → 230.42
+  ['wc-2692', 'wc-2691'],   // the flute, 205.998 → the two 16ths of 206.00 · 206.28
+];
+
+const args = ['tools/notate_section.js', '--score', SCORE, '--w0', '199', '--w1', '254', '--parts', '0-6', '--alone', '199-254', '--exp', '--noFitMark', '--timeSpacing',
+  '--id', 's2-ctpt-heads', '--label', 'Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)'];
+const graceIds = new Set(GRACES.map(g => g[0]));
+for (const [a, b, part] of BEAMS) {
+  args.push('--beam', a + '-' + b + '@' + part);
+  // A BEAMED GROUP's REGIME (his, §374 — the tubas' rule, the lineage's D43 · D49): the head's LEFT EDGE is the moment, on the gestural curve's
+  // go time, and there is NO go line (a go line marks a head that stands off its moment; these do not)
+  for (const o of save.objects) if (o.type === 'waveCurve' && o.layer === part && o.startSeconds >= a - 1e-9 && o.startSeconds <= b + 1e-9 && !graceIds.has(o.id))
+    args.push('--hand', o.id + ':' + JSON.stringify({ nhAnchor: 'leftEdge', goLine: false }));
+}
+for (const [g, m] of GRACES) args.push('--hand', g + ':' + JSON.stringify({ grace: true, pickupTo: m, goLine: false, dynMark: false }), '--noGc', g);
+
+const r = spawnSync('node', args, { cwd: ROOT, encoding: 'utf8' });
+console.log((r.stdout + r.stderr).split('\n').filter(l => /READY|FAILED|INVALID|Error|beam bm|--hand|usage|not an event/i.test(l)).join('\n').slice(0, 4000));
