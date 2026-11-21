@@ -55,6 +55,10 @@ function engine(page) {
     ir = rd('notation/ir/' + proto.page + '.ir.json');
     const staff = new Map(); for (const o of ir.overlays || []) if (o.kind === 'engraving' && o.target && o.target.event && o.value) staff.set(o.target.event, o.value.staff || 0);
     const want = proto.hand === 'L' ? 1 : 0, keep = new Set(ir.events.filter(ev => (staff.get(ev.id) || 0) === want && ev.onset >= proto.window[0] && ev.onset <= proto.window[1]).map(ev => ev.id));
+    // [§301 — his "put in the proper chord changes in there, even if they were going to be shown earlier"] pitchSets: the shapes on this page are
+    // each hand's PITCH SETS (§294, bank/chord_changes.json) — both hands, on their own staves — not the one hand's two shapes of §276
+    if (proto.pitchSets) { const cc = rd('bank/chord_changes.json'); proto.noShapes = true; proto._sets = cc.sets; proto._hands = { R: [], L: [] };
+      for (const ev of ir.events) if (ev.onset >= cc.window[0] && ev.onset <= cc.window[1]) proto._hands[(staff.get(ev.id) || 0) === 1 ? 'L' : 'R'].push({ t: ev.onset, midi: ev.pitch.midi, sp: ev.pitch.spelled }); }
     proto._played = ir.events.filter(ev => keep.has(ev.id));   // the hand's notes of the window, whole — the flow and the shapes are read from these
     // [§279 — his "take out the ref noteheads"] refHeads false: the arc's own played notes are not drawn (the lead-in and lead-out notes stay)
     if (proto.refHeads === false) for (const id of [].concat(proto.in || [], proto.impact || [], proto.out || [])) keep.delete('ev-' + id);
@@ -123,7 +127,7 @@ function viewOf(page, t0, span, w, opts) {
   if (e.proto) {
     const op = e.proto.headOpacity;
     if (op > 0 && op < 1) svg = svg.replace(/<g transform="translate\(([\d.]+) /g, (m, x) => +x > x0 - 4 ? '<g opacity="' + op + '" transform="translate(' + x + ' ' : m);
-    protoOut = Object.assign({}, e.proto, { headOpacity: 1, arcBand: e.band, _played: undefined });
+    protoOut = Object.assign({}, e.proto, { headOpacity: 1, arcBand: e.band, _played: undefined, _hands: undefined, _sets: undefined });
   }
   // [§293] THE CHORD-CHANGE PAGES: the played notes faint, each hand's shapes boxed on its own staff where they begin
   let chordsOut;
@@ -193,6 +197,18 @@ function viewOf(page, t0, span, w, opts) {
     const pps = (view.xOfSeconds(t0 + span) - x0) / span;
     const f = require('./gravity_furniture.js')({ proto: e.proto, ir: { events: e.proto._played || e.ir.events }, glyphs: e.glyphs, ChordColumn: e.ChordColumn, Gc: e.Gc, xOf: s => x0 + (s - t0) * pps, staff: staves[staves.length - 1], w, preset: e.proto.preset, look: e.proto.look, gaps: e.gaps });
     svg = svg.replace(/<\/svg>\s*$/, f.svg + '</svg>');
+    if (e.proto.pitchSets) {
+      // the set each hand is using when the ribbon begins is SAID there, though it began earlier; a change later on the page stands at its own moment
+      delete require.cache[require.resolve('./chord_changes.js')];
+      const CC = require('./chord_changes.js'), A = e.proto.arc, xOf2 = s => x0 + (s - t0) * pps, said = {}; let addSets = '';
+      for (const h of ['R', 'L']) {
+        const all = CC.persistent(e.proto._hands[h], e.proto._sets).filter(s => !s.brief), cur = all.filter(s => s.at <= A.t0).pop(), later = all.filter(s => s.at > A.t0 && s.at <= e.proto.window[1]);
+        const shapes = (cur ? [Object.assign({}, cur, { at: A.t0 })] : []).concat(later);
+        addSets += CC.draw({ shapes, xOf: xOf2, staff: h === 'R' ? staves[0] : staves[staves.length - 1], glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps });
+        said[h] = shapes.map(s => ({ at: +s.at.toFixed(3), from: s.set[0].midi, to: s.set[s.set.length - 1].midi }));
+      }
+      svg = svg.replace(/<\/svg>\s*$/, () => addSets + '</svg>'); protoOut.sets = said;
+    }
     band = [e.band[0], e.band[1] + f.extraH]; protoOut.shapes = f.shapes; protoOut.flags = f.flags; protoOut.arcY = f.arcY; protoOut.ribbon = f.ribbon;
   }
   svg = svg.replace(/^<svg([^>]*?) width="[\d.]+" height="[\d.]+" viewBox="[^"]*"/, '<svg$1 viewBox="0 ' + band[0] + ' ' + w + ' ' + band[1] + '" preserveAspectRatio="xMinYMin meet"');

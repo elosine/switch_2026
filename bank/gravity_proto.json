@@ -143,5 +143,6 @@
   "bounce": 0.28,
   "heads": false
  },
- "alsoHeads": false
+ "alsoHeads": false,
+ "pitchSets": true
 }
