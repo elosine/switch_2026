@@ -1411,3 +1411,9 @@ staff carried from piece 6 has eight lines, of which only the coil's and the Chi
 **SW-85, his second word (2026-11-20, verbatim) — what a constellation's points are:** "So more thoughts on the constellation, maybe actual, like a constellation with each unit instead of a dot being the actual note on a staff or a few notes on the staff connected like with a constellation type of thing or spokes."
 
 **The AI's reading:** in constellation notation each POINT is not a dot but real notation — the actual note on the staff, or a small group of a few notes — and the points are JOINED by thin lines as the stars of a constellation are, or by SPOKES (lines from a center out to each). So the pitches are exact and on the staff; the lines say "these belong together, in this zone"; the horizontal places are not rhythm. Two forms he names: a chain or web (the constellation) and a hub with spokes. Still a thought for later; nothing built.
+
+### SW-86 · 2026-11-20 · Shape Action Notation LOCKED for now; next the stutter, and the short burst
+
+**His words (verbatim):** "Okay, that's great. I think we can lock that for now. And actually, the gestures that follow are good to test the repeated sort of stutter or repeated. Let's discuss that, figure that out. And then there's maybe a shorter arc that just bursts. And let's figure that out too. That's probably just a shorter GC, but let's consider if it should be something different, if it's just a short burst."
+
+**The AI's reading:** Shape Action Notation stands as built (the ribbon page of §283), locked for now. Two things to work out next, by discussion first, on the gestures just after the prototype (from about 159.3 s): (1) the STUTTER — a repeated, quick shake (SW-84's held third kind, now opened); (2) the SHORT BURST — a brief arc; perhaps only a shorter GC, perhaps a sign of its own.
