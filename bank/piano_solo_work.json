@@ -2,8 +2,8 @@
  "_doc": "THE WORKING VERSION of the piano solo (SW-96; RUNNING_LOG §307 — his word: 'can we get like a working version that we work in and that keeps all our changes'). The workshop's page 'working version' = the page `base` (the standard figures taken one by one, notation/hand/<base>.units.json) with the GESTURES below drawn over it, and nothing else. A gesture hides the played notes inside its span. kind ribbon = Shape Action Notation's arc: t0 its start, bounce its impact (the 'hit'), t1 its end; flow.profile = its designed width (§296). kind strike = the scattered strike: a curtain from t0 to t1 with the thrown pebbles. A chord symbol (each hand's pitch set, bank/chord_changes.json `sets`) stands at the start of every ribbon and strike. His times are 'thereabouts' — he clicks them with the mouse. A POLE (a fixed structure in standard notation) is not here: it is a figure in the units file.",
  "base": "s2-piano-solo",
  "view": [
-  177,
-  181.4
+  181,
+  185.2
  ],
  "band": [
   470,
@@ -378,6 +378,62 @@
    "t1": 180.65,
    "_his": "a repeat from 180.19 to somewhere around 180.64 or 66",
    "_note": "the right hand: B5 at 180.205, then the cluster A#5 … D#6 struck three times (180.36 · 180.46 · 180.59), each heavier — sign 29, growing"
+  },
+  {
+   "kind": "stutter",
+   "hand": "R",
+   "sign": 29,
+   "t0": 181.589,
+   "t1": 181.93,
+   "_his": "From 181.55 to 182.03, let's do a repeated figure",
+   "_note": "the partials of 181.589 … 181.957: A#5 · B5 · C6 struck again and again (with F5 · G5 at the start); sign 29 (growing) is the AI's pick — he named none; the marks end at 181.93 so that they stand clear of the first strike's accidentals",
+   "hideTo": 182.03
+  },
+  {
+   "kind": "ribbon",
+   "t0": 182.401,
+   "bounces": [
+    182.773,
+    183.636
+   ],
+   "depths": [
+    0.6,
+    1
+   ],
+   "t1": 183.79,
+   "hideTo": 183.65,
+   "tailPct": 85,
+   "flow": {
+    "profile": {
+     "over": [
+      [
+       182.401,
+       1
+      ],
+      [
+       182.773,
+       0.5
+      ],
+      [
+       183.45,
+       0.16
+      ],
+      [
+       183.79,
+       0.1
+      ]
+     ]
+    }
+   },
+   "_his": "a ribbon with impact at 183.6 and a short tail. start at 182.4 an undulation into 182.78. But overall, let's go from thick to thin. So at impact and on rise, it's pretty thin. Start thick at the beginning and thin out through the undulation and then into the final hit",
+   "_note": "the start on the partial of 182.401; a WAVE to 60 % on the four notes of 182.773 … .805; the impact on the three notes of 183.633 … .639; the width DESIGNED over the whole ribbon (profile.over): full at the start, half at the wave, thin from before the impact and through the tail. The tail ends at 183.79 (0.15 s, not 0.30) so that it stops before the chord of 183.80"
+  },
+  {
+   "kind": "strike",
+   "t0": 184.18,
+   "t1": 184.34,
+   "_his": "a short pebble drop from 184.19 to 184.35, about that width and kind of centered between the two chords I just mentioned and then what's to come",
+   "_note": "the width his (0.16 s); centered between the chord of 184.0 and the chord of 184.5 (the middle 184.26, where the two notes of 184.255 … .280 are played)"
   }
  ],
  "noOttava": true,
@@ -389,7 +445,8 @@
   "_note": "§310: a chord symbol of four pitches or more with no gap over a MINOR THIRD is a cluster bar (the prototype's rule was a whole step; a hand's set read over the whole solo has small holes, and a nine-note chord with six accidentals is not a symbol one reads)"
  },
  "omit": [
-  "wc-2093"
+  "wc-2093",
+  "wc-2368"
  ],
  "_omitNote": "§314 — his word: \"you can just eat that extra F. Just forget about that extra F at 170\" — the left hand's F4 at 170.042 is left out",
  "shortTailS": 0.3,

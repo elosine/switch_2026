@@ -42031,9 +42031,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2288",
+     "puStem": "up",
+     "puBeam": "u19",
+     "grace": true
     }
    },
    "provenance": "authored"
@@ -42052,9 +42055,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2289",
+     "puStem": "up",
+     "puBeam": "u19",
+     "grace": true
     }
    },
    "provenance": "authored"
@@ -42073,9 +42079,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2288",
+     "puStem": "up",
+     "puBeam": "u19",
+     "grace": true
     }
    },
    "provenance": "authored"
@@ -42094,9 +42103,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2291",
+     "puStem": "up",
+     "puBeam": "u19",
+     "grace": true
     }
    },
    "provenance": "authored"
@@ -42325,9 +42337,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2305",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
     }
    },
    "provenance": "authored"
@@ -42346,9 +42361,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2305",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
     }
    },
    "provenance": "authored"
@@ -42367,9 +42385,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2305",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
     }
    },
    "provenance": "authored"
@@ -42388,9 +42409,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2305",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
     }
    },
    "provenance": "authored"
@@ -42409,9 +42433,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2305",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
     }
    },
    "provenance": "authored"
@@ -42430,9 +42457,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2307",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
     }
    },
    "provenance": "authored"
@@ -42451,9 +42481,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2307",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
     }
    },
    "provenance": "authored"
@@ -42472,9 +42505,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2307",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
     }
    },
    "provenance": "authored"
@@ -42493,9 +42529,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2307",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
     }
    },
    "provenance": "authored"
@@ -42514,9 +42553,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2307",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
     }
    },
    "provenance": "authored"
@@ -42535,9 +42577,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2312",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
     }
    },
    "provenance": "authored"
@@ -42577,9 +42622,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2312",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
     }
    },
    "provenance": "authored"
@@ -43165,9 +43213,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2342",
+     "puStem": "up",
+     "puFlag": "16"
     }
    },
    "provenance": "authored"
@@ -43186,9 +43236,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2342",
+     "puStem": "up",
+     "puFlag": "16"
     }
    },
    "provenance": "authored"
@@ -43207,9 +43259,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2342",
+     "puStem": "up",
+     "puFlag": "16"
     }
    },
    "provenance": "authored"
@@ -43228,9 +43282,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2342",
+     "puStem": "up",
+     "puFlag": "16"
     }
    },
    "provenance": "authored"
@@ -43249,9 +43305,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2342",
+     "puStem": "up",
+     "puFlag": "16"
     }
    },
    "provenance": "authored"
@@ -43270,9 +43328,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2342",
+     "puStem": "up",
+     "puFlag": "16"
     }
    },
    "provenance": "authored"
@@ -43291,9 +43351,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2342",
+     "puStem": "up",
+     "puFlag": "16"
     }
    },
    "provenance": "authored"
@@ -43312,9 +43374,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2349",
+     "puStem": "up",
+     "puFlag": "16"
     }
    },
    "provenance": "authored"
@@ -43333,9 +43397,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2349",
+     "puStem": "up",
+     "puFlag": "16"
     }
    },
    "provenance": "authored"
@@ -43354,9 +43420,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2349",
+     "puStem": "up",
+     "puFlag": "16"
     }
    },
    "provenance": "authored"
@@ -43375,9 +43443,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2349",
+     "puStem": "up",
+     "puFlag": "16"
     }
    },
    "provenance": "authored"
@@ -43480,9 +43550,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2357",
+     "puStem": "up",
+     "puBeam": "u22"
     }
    },
    "provenance": "authored"
@@ -43501,9 +43573,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2357",
+     "puStem": "up",
+     "puBeam": "u22"
     }
    },
    "provenance": "authored"
@@ -43522,9 +43596,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2357",
+     "puStem": "up",
+     "puBeam": "u22"
     }
    },
    "provenance": "authored"
@@ -43543,9 +43619,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2357",
+     "puStem": "up",
+     "puBeam": "u22"
     }
    },
    "provenance": "authored"
@@ -43564,9 +43642,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2357",
+     "puStem": "up",
+     "puBeam": "u22"
     }
    },
    "provenance": "authored"
@@ -43585,9 +43665,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2363",
+     "puStem": "up",
+     "puBeam": "u22"
     }
    },
    "provenance": "authored"
@@ -43606,9 +43688,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2363",
+     "puStem": "up",
+     "puBeam": "u22"
     }
    },
    "provenance": "authored"
@@ -43627,9 +43711,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2363",
+     "puStem": "up",
+     "puBeam": "u22"
     }
    },
    "provenance": "authored"
@@ -43648,9 +43734,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2363",
+     "puStem": "up",
+     "puBeam": "u22"
     }
    },
    "provenance": "authored"
@@ -43669,9 +43757,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2363",
+     "puStem": "up",
+     "puBeam": "u22"
     }
    },
    "provenance": "authored"
@@ -43711,9 +43801,11 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2363",
+     "puStem": "up",
+     "puBeam": "u22"
     }
    },
    "provenance": "authored"

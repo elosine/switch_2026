@@ -58,7 +58,12 @@ module.exports = function furniture(o) {
     const outAt = u => { if (u <= kf[0][0]) return kf[0][1]; for (let i = 1; i < kf.length; i++) if (u <= kf[i][0]) { const a2 = kf[i - 1], b2 = kf[i], v = (u - a2[0]) / ((b2[0] - a2[0]) || 1), c = (1 - Math.cos(Math.PI * v)) / 2; return a2[1] + (b2[1] - a2[1]) * c; } return kf[kf.length - 1][1]; };
     // [§313 — his "a growing line, starts thin and progressively grows until impact"] in "time": the width grows steadily with the TIME gone by
     // (from the start to the impact), not with the drop — so it is already growing along the level top
-    for (const p of P2) p.e = p.s <= A.bounce ? Math.pow(Math.max(0, PR.in === 'time' ? (p.s - A.t0) / ((A.bounce - A.t0) || 1) : 1 - Gc.heightFrac(GP, p.s - A.bounce)), PR.inPower != null ? PR.inPower : 1) : outAt((p.s - A.bounce) / ((A.t1 - A.bounce) || 1));
+    // [§326 — his "overall, let's go from thick to thin … Start thick at the beginning and thin out through the undulation and then into the
+    // final hit"] over: the width DESIGNED OVER THE WHOLE RIBBON — keyframes [time in seconds, width 0 … 1], eased between them; it runs across
+    // every stretch of a many-turn ribbon, so the fall and the rebound have no say
+    const ov = PR.over && PR.over.slice().sort((p, q) => p[0] - q[0]);
+    const overAt = s => { if (s <= ov[0][0]) return ov[0][1]; for (let i = 1; i < ov.length; i++) if (s <= ov[i][0]) { const a2 = ov[i - 1], b2 = ov[i], v = (s - a2[0]) / ((b2[0] - a2[0]) || 1), c = (1 - Math.cos(Math.PI * v)) / 2; return a2[1] + (b2[1] - a2[1]) * c; } return ov[ov.length - 1][1]; };
+    for (const p of P2) p.e = ov ? overAt(p.s) : p.s <= A.bounce ? Math.pow(Math.max(0, PR.in === 'time' ? (p.s - A.t0) / ((A.bounce - A.t0) || 1) : 1 - Gc.heightFrac(GP, p.s - A.bounce)), PR.inPower != null ? PR.inPower : 1) : outAt((p.s - A.bounce) / ((A.t1 - A.bounce) || 1));
   }
   const normalAt = i => { const p = P2[Math.max(0, i - 1)], q = P2[Math.min(P2.length - 1, i + 1)], dx = q.x - p.x, dy = q.y - p.y, L = Math.hypot(dx, dy) || 1; return { nx: -dy / L, ny: dx / L }; };
   if (style === 'ribbon') {

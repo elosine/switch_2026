@@ -418,6 +418,148 @@
     180.722,
     180.744
    ]
+  },
+  {
+   "_n": "19a · 181.39 s — G5 · F5, a grace figure of three partials, beamed, evenly spaced (his word, §326)",
+   "ids": [
+    "wc-2288",
+    "wc-2290"
+   ],
+   "stem": "up",
+   "beam": "u19",
+   "grace": true
+  },
+  {
+   "_n": "19b · F#5 (played 181.442)",
+   "ids": [
+    "wc-2289"
+   ],
+   "stem": "up",
+   "beam": "u19",
+   "grace": true
+  },
+  {
+   "_n": "19c · D#5 (played 181.497)",
+   "ids": [
+    "wc-2291"
+   ],
+   "stem": "up",
+   "beam": "u19",
+   "grace": true
+  },
+  {
+   "_n": "20a · 182.09 s — the first of THREE STRIKES beamed (a 16th beam, evenly spaced): G5 · G#5 · A#5 · B5 · C6",
+   "ids": [
+    "wc-2305",
+    "wc-2303",
+    "wc-2302",
+    "wc-2304",
+    "wc-2306"
+   ],
+   "stem": "up",
+   "beam": "u20",
+   "spread": "both",
+   "played": [
+    182.086,
+    182.11
+   ]
+  },
+  {
+   "_n": "20b · 182.21 s — the second, with the G#5 in the bass: G#5 · C6 · D6 · G6 · A6",
+   "ids": [
+    "wc-2307",
+    "wc-2309",
+    "wc-2311",
+    "wc-2308",
+    "wc-2310"
+   ],
+   "stem": "up",
+   "beam": "u20",
+   "spread": "both",
+   "played": [
+    182.207,
+    182.232
+   ]
+  },
+  {
+   "_n": "20c · 182.33 s — the third: F#5 · A5",
+   "ids": [
+    "wc-2312",
+    "wc-2316"
+   ],
+   "stem": "up",
+   "beam": "u20",
+   "spread": "both",
+   "played": [
+    182.327,
+    182.345
+   ]
+  },
+  {
+   "_n": "21a · 183.80 s — the cluster of seven with the G on top (C6 · B5 · A5 · G5 · F5 · E5 · G6), a notated chord",
+   "ids": [
+    "wc-2342",
+    "wc-2343",
+    "wc-2344",
+    "wc-2345",
+    "wc-2346",
+    "wc-2348",
+    "wc-2347"
+   ],
+   "stem": "up",
+   "flag": 16,
+   "played": [
+    183.803,
+    183.87
+   ]
+  },
+  {
+   "_n": "21b · 184.00 s — B4 · D5 · E5 · F5, a notated chord",
+   "ids": [
+    "wc-2349",
+    "wc-2350",
+    "wc-2351",
+    "wc-2352"
+   ],
+   "stem": "up",
+   "flag": 16,
+   "played": [
+    183.995,
+    184.015
+   ]
+  },
+  {
+   "_n": "22a · 184.51 s — D#5 · D5 · C#5 with the two notes that follow (C5 · B4): the first of two chords beamed as a strike",
+   "ids": [
+    "wc-2357",
+    "wc-2359",
+    "wc-2358",
+    "wc-2360",
+    "wc-2361"
+   ],
+   "stem": "up",
+   "beam": "u22",
+   "played": [
+    184.504,
+    184.569
+   ]
+  },
+  {
+   "_n": "22b · 184.62 s — F6 · C7 · G6 · C#7 with the two at the bottom (G4 · A4); the C7 struck again at 184.664 is left out (the same key twice)",
+   "ids": [
+    "wc-2363",
+    "wc-2367",
+    "wc-2364",
+    "wc-2362",
+    "wc-2365",
+    "wc-2366"
+   ],
+   "stem": "up",
+   "beam": "u22",
+   "played": [
+    184.607,
+    184.63
+   ]
   }
  ]
 }

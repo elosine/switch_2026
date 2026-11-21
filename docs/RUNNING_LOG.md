@@ -5181,3 +5181,19 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 - unit 18, a struck chord at 180.72: the eight notes of both hands (A#5 · B5 · C6 · G6 over C5 · C#5 · D#5 · E5), one stem up, a 16th flag.
 **Checked once:** the page rendered to an image, 177.2 → 181.2 s.
 **Seen, for his eye:** two leftovers stand as small heads (the D#5 after the chord of 178.81; the left hand's four notes under the repeat). The repeat's sign is the AI's pick.
+
+## §326 · 2026-11-21 · the working version to 184.63 s — and a ribbon's width designed over its whole length (thick to thin)
+
+**His words:** SW-106 (the sketch pad): a grace figure 181.38 … 181.52 "evenly spaced" · "From 181.55 to 182.03 … a repeated figure" · 182.09, 182.24 and "the two ones in 182.34 … 3 strikes" beamed, "include that G sharp in the bass in the second chord" · "a ribbon with impact at 183.6 and a short tail. start at 182.4 an undulation into 182.78. But overall, let's go from thick to thin … Start thick at the beginning and thin out through the undulation and then into the final hit" · the cluster at 183.84 and the notes at 184 "as two chords" · "a short pebble drop from 184.19 to 184.35 … centered between the two chords … and then what's to come" · two chords at 184.52 (with "those first two notes that follow") and 184.64 ("including the two at the bottom") "beamed together as a strike".
+**Set on the played partials:**
+- unit 19a … c, the grace figure: G5 · F5 (181.386) · F#5 (181.442) · D#5 (181.497) — three partials beamed, the grace group's equal spacing (§262), the corner-rule stroke.
+- the repeat 181.589 → 181.93 (right hand; the notes hidden to 182.03): A#5 · B5 · C6 struck again and again. He named no sign; sign 29 (growing) put in. First drawn to 182.03, its marks ran into the accidentals of the first strike, so they end at 181.93.
+- unit 20a … c, THREE STRIKES on one 16th beam, spread evenly: G5 · G#5 · A#5 · B5 · C6 (182.09) · G#5 · C6 · D6 · G6 · A6 (182.21, the G# with it) · F#5 · A5 (182.33).
+- the ribbon 182.401 → a wave to 60 % at 182.773 → the impact 183.636 (A6 · G#6 · G6) → 183.79.
+- unit 21a · 21b, two chords, each its own stem and 16th flag (he did not say beamed): the seven notes of 183.803 … .870, the four of 183.995 … 184.015.
+- the pebble drop 184.18 → 184.34: his width (0.16 s), centered between the chord of 184.0 and the chord of 184.5 — where the two notes of 184.255 … .280 are played.
+- unit 22a · 22b, two chords on one beam: D#5 · D5 · C#5 with C5 · B4 (184.504 … .569) · F6 · G6 · C7 · C#7 with G4 · A4 (184.607 … .630). The C7 struck again at 184.664 (wc-2368) is left out — the same key twice in one chord (the "eat that extra F" case of §314).
+**NEW IN THE RIBBON — the width designed over the whole length.** Until now a ribbon's width came from the drop (thin level, growing down), from the time (growing to the impact), or from the playing. `flow.profile.over` (`tools/gravity_furniture.js`) is a list of [time, width 0 … 1], eased between, running across every stretch of a many-turn ribbon. Here: 1 at the start · 0.5 at the wave · 0.16 from 183.45 · 0.1 at the tail's end.
+**A choice the AI made:** the tail is 0.15 s, not the one tail of §321 (0.30 s): at 0.30 it would run into the chord of 183.80.
+**Checked once:** the page rendered to an image, 181.0 → 185.0 s.
+**Seen, for his eye:** the two notes of 184.107 (D5 · C5) are in no gesture and stand as small heads before the pebble drop; the first two of the three strikes stand close.
