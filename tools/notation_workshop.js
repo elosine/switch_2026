@@ -311,6 +311,8 @@ http.createServer((req, res) => {
   const u = new URL(req.url, 'http://localhost'), q = Object.fromEntries(u.searchParams);
   try {
     if (u.pathname === '/' || u.pathname === '/index.html') return send(res, 200, fs.readFileSync(path.join(DIR, 'index.html')), 'text/html; charset=utf-8');
+    // [§303] the catalog pages beside the workshop: /pages/<name> = workshop/<name>/index.html, /pages/<name>/<file> = a file beside it
+    { const pm = /^\/pages\/([a-z0-9_-]+)(?:\/([a-z0-9_.-]+))?$/i.exec(u.pathname); if (pm) { const pf = path.join(ROOT, 'workshop', pm[1], pm[2] || 'index.html'); if (!fs.existsSync(pf)) return send(res, 404, '{"error":"not found"}'); return send(res, 200, fs.readFileSync(pf), /\.js$/.test(pf) ? 'text/javascript; charset=utf-8' : 'text/html; charset=utf-8'); } }
     if (u.pathname === '/info') return send(res, 200, JSON.stringify({ a0: A0, a1: A1, pages: PAGES, window: engine(PAGES[0]).ir.source.window, audio: ensureCut() }));
     if (u.pathname === '/view') return send(res, 200, JSON.stringify(viewOf(q.page || PAGES[0], +q.t0, Math.max(0.5, +q.span || 6), Math.max(300, Math.round(+q.w || 1400)), { sub: q.sub, n: +q.n || 0 })));
     if (u.pathname === '/proto') return send(res, 200, JSON.stringify(protoOf()));

@@ -4962,3 +4962,13 @@ Tried and not kept as alternatives: 14 (one shape for the whole right hand — i
 
 **His words (while §301 was being built):** "Then they're in a clump when they start. Maybe have them a little bit less of a clump, maybe spread out a little bit, just so it's clear that it's like a collection of pebbles. And you can actually increase the density a little bit more. You're like 20% of what's current."
 **Changed:** the handful at rest lies along the curtain's floor about its middle — each pebble's place spread by 10 % of the curtain's width (`pileSpread`; it was 3 px, one clump) — and each still flies from where it lies to where it lands. The count 22 → 26 (a fifth more).
+
+## §303 · 2026-11-20 · the stutter — a catalog of nineteen still signs for repetition
+
+**His words:** SW-95 (the sketch pad): "What kind of comic book style, static notation is there for repetition? … Let's do something like the workshop where I did substrates … a page of various types of possibilities."
+**Built:** `workshop/stutter/` — `candidates.js` (one drawing function per sign, the same file for the page and for a contact sheet) and `index.html`, served by the workshop's server at `http://localhost:5650/pages/stutter` (a new route `/pages/<name>` for catalog pages). Every candidate on the same small staff: the two neighboring keys of his stutter as a plain dyad, then about a second of repetition. Numbered only so one can be named in the chat; nothing is decided.
+- **A · the comic's own marks:** 1 ghost copies (the note again and again, fading — afterimages) · 2 shake brackets (curved marks each side of the note) · 3 shake brackets, running · 4 speed lines · 5 radiating ticks (the ringing bell) · 6 impact stars in a row (a burst per strike) · 7 jitter outline (the note drawn off itself — a blur) · 8 zigzag.
+- **B · marks along a line:** 9 ticks on a line (the strobe of §282) · 10 ticks, gathering (crowding toward the end) · 11 dots in a row · 12 broken bar · 13 chevrons · 14 coil · 15 wavy line.
+- **C · music's own, for comparison:** 16 tremolo strokes · 17 beam with stubs (his uneven-group sign from Recombination, §557 there) · 18 feathered beam · 19 repeat box with a running line.
+**Drawn from what the AI knows of comic conventions; nothing was looked up.** The drawings are plain SVG sketches, not engraved: the heads are ellipses, not LilyPond's glyph — a catalog for choosing a KIND; the chosen one is then built by the engraving rules.
+**Checked once:** a contact sheet of the nineteen rendered and looked at; the two routes answer 200.

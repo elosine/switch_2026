@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stutter signs</title>
+<style>
+  :root { --ink: #1b1b1b; --muted: #6b6b6b; --line: #d9d9d9; --panel: #f6f5f2; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #fff; color: var(--ink); font: 14px/1.4 system-ui, "Segoe UI", sans-serif; }
+  header { padding: 14px 16px 6px; max-width: 1180px; margin: 0 auto; }
+  h1 { font-size: 20px; margin: 0 0 4px; font-weight: 600; }
+  header p { margin: 0; color: var(--muted); max-width: 70ch; }
+  main { max-width: 1180px; margin: 0 auto; padding: 0 16px 40px; }
+  h2 { font-size: 15px; margin: 22px 0 8px; font-weight: 600; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 12px; }
+  .card { border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px 10px; background: #fff; }
+  .card svg { display: block; width: 100%; height: auto; }
+  .card h3 { margin: 2px 0 2px; font-size: 14px; font-weight: 600; }
+  .card h3 b { display: inline-block; min-width: 26px; font-variant-numeric: tabular-nums; }
+  .card p { margin: 0; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Signs for a repeated, stuttered note</h1>
+  <p>Nineteen possibilities, each on the same small staff: two neighboring keys, then about a second of repeating. Name the ones you like by number in the chat.</p>
+</header>
+<main id="main"></main>
+<script src="/pages/stutter/candidates.js"></script>
+<script>
+(() => {
+  const S = window.StutterCandidates, main = document.getElementById('main');
+  for (const fam of Object.keys(S.FAMILIES)) {
+    const h = document.createElement('h2'); h.textContent = S.FAMILIES[fam]; main.appendChild(h);
+    const g = document.createElement('div'); g.className = 'grid'; main.appendChild(g);
+    for (const c of S.list.filter(x => x.family === fam)) {
+      const d = document.createElement('div'); d.className = 'card';
+      d.innerHTML = S.svgOf(c) + '<h3><b>' + c.n + '</b>' + c.name + '</h3><p>' + c.says + '</p>';
+      g.appendChild(d);
+    }
+  }
+})();
+</script>
+</body>
+</html>
