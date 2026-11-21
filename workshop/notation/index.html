@@ -67,7 +67,7 @@
   const KEY = 'notationWorkshop.v2';
   const S = Object.assign({ page: 's2-piano-solo', t0: 147.4, span: 8, size: 1.5, rate: 1, a: 147.9, b: 152, loopOn: false, gap: 2, loops: 1, marksOn: true }, (() => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } })());
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
-  let V = null, INFO = { a0: 146, a1: 258, window: [146, 253] }, t = S.a, playing = false, waitUntil = 0, fetchN = 0, timer = 0;
+  let V = null, INFO = { a0: 146, a1: 258, window: [146, 253] }, t = S.a, playing = false, waitUntil = 0, fetchN = 0, timer = 0, turning = false;   // turning: a page turn has been asked for and its picture is not here yet
   const audio = new Audio('/audio'); audio.preload = 'auto'; audio.preservesPitch = true;
   const msg = h => { $('msg').innerHTML = h || ''; };
   const fmt = x => (+x).toFixed(2);
@@ -83,7 +83,7 @@
       if (n !== fetchN) return;
       if (v.error) { msg('The page could not be drawn: ' + v.error); return; }
       v.protos = v.protos || (v.proto ? [v.proto] : []); v.strikes = v.strikes || (v.strike ? [v.strike] : []);   // a page may carry several ribbons and several strikes
-      V = v; $('svgBox').innerHTML = v.svg;
+      V = v; turning = false; $('svgBox').innerHTML = v.svg;
       const svg = $('svgBox').querySelector('svg');
       svg.style.width = (v.w * S.size) + 'px'; svg.style.height = (v.band[1] * S.size) + 'px';
       if (v.proto) for (const el of svg.querySelectorAll('g.sys path, g.sys use')) { const b = el.getBoundingClientRect(), o = svg.getBoundingClientRect(), k = S.size; if (b.width < 16 * k && b.height < 16 * k && b.left - o.left > (v.x0 - 4) * k) el.style.opacity = v.proto.headOpacity; }   // the note heads, lighter
@@ -270,7 +270,9 @@
       t = audio.currentTime + INFO.a0;
       if (S.loopOn && S.b > S.a && t >= S.b) { audio.pause(); t = S.b; waitUntil = performance.now() + S.gap * 1000 + 1; }
       else if (audio.ended || t >= INFO.a1 - 0.06) { halt(); }
-      else if (V && t > V.window[1] && !(S.loopOn && S.b > S.a)) { S.t0 = +V.window[1].toFixed(2); show(); save(); load(); }   // the page turns
+      // THE PAGE TURNS when the cursor passes the right edge — asked for ONCE: before (§312) every frame asked again while the first answer
+      // was on its way, each new asking threw the last answer away, and the page never turned
+      else if (V && t > V.window[1] && !turning && !(S.loopOn && S.b > S.a)) { turning = true; setTimeout(() => { turning = false; }, 3000); S.t0 = +V.window[1].toFixed(2); show(); save(); load(); }
     }
     place(); requestAnimationFrame(tick);
   }

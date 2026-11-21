@@ -276,6 +276,27 @@
     156.409,
     156.471
    ]
+  },
+  {
+   "_n": "12 · 164.34 s — the nine notes of both hands, an arpeggiated strike: a chord with the arpeggio sign (his word, §312)",
+   "ids": [
+    "wc-1917",
+    "wc-1923",
+    "wc-1916",
+    "wc-1918",
+    "wc-1922",
+    "wc-1919",
+    "wc-1915",
+    "wc-1921",
+    "wc-1920"
+   ],
+   "stem": "up",
+   "flag": 16,
+   "arp": true,
+   "played": [
+    164.34,
+    164.38
+   ]
   }
  ]
 }

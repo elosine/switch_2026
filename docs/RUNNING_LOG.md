@@ -5063,3 +5063,10 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **The chord symbols inside it:** at its start both hands' sets; at a later stretch's start only where a hand's set has changed — the left hand's new cluster (E4 … D5, used from 163.51) stands at the third stretch's start.
 **Open, seen while building:** real bounces lose height each time; these three are equal. Whether a multi-bounce should decay, or its heights say something (the weight of each impact), is his.
 **Checked once:** the page rendered to an image, 160.2 → 164.6 s.
+
+## §312 · 2026-11-20 · the arpeggiated strike at 164.34; the workshop's page turn mended
+
+**His words (while §311 was being built):** "And then the figure at 164.34 is, again, the arpeggiated strike And then the score doesn't seem to, or flip pages are advanced with the cursor. If we can get that working, that'd be good."
+- UNIT 12 — the nine notes of both hands at 164.340 … 164.380 (F4 · F#4 · G4 below; E6 · F#6 · G6 · G#6 · A6 · B6 above): one chord, stem up with a 16th flag, the arpeggio sign — as unit 11 at 156.41. "The arpeggiated strike" is his name for this kind of notated figure; the pages rebuilt.
+- THE PAGE TURN: the workshop page was meant to move on when the cursor passed its right edge, and never did. The fault, in the AI's own page code (§269): on every animation frame past the edge it asked the server for the next page AGAIN, and each new asking discards the answer to the one before — so no answer was ever kept. Now it asks once and waits (a flag, cleared when the picture arrives, or after 3 s).
+**NOT verified by the AI:** in its hidden browser pane the playback clock does not run (the cursor stayed at 151.60 through a 2.5 s play), so the turn could not be watched. The fix is his to see: play across a page's right edge.
