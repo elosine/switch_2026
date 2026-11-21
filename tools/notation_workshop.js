@@ -74,9 +74,9 @@ function engine(page) {
     // drawn; each hand's notes of the whole solo kept for its pitch sets (the chord symbols)
     const wk = rd('bank/piano_solo_work.json'), cc = rd('bank/chord_changes.json'); ir = rd('notation/ir/' + wk.base + '.ir.json');
     const staff = new Map(); for (const o of ir.overlays || []) if (o.kind === 'engraving' && o.target && o.target.event && o.value) staff.set(o.target.event, o.value.staff || 0);
-    work = { cfg: wk, sets: cc.sets, hands: { R: [], L: [] } };
+    work = { cfg: wk, sets: cc.sets, hands: { R: [], L: [] }, played: ir.events.filter(ev => ev.pitch && ev.pitch.midi != null).map(ev => ({ id: ev.id, onset: ev.onset, vel: ev.vel, pitch: ev.pitch })) };   // played: every note, for a ribbon drawn from the playing (§310)
     for (const ev of ir.events) if (ev.pitch && ev.pitch.midi != null) work.hands[(staff.get(ev.id) || 0) === 1 ? 'L' : 'R'].push({ t: ev.onset, midi: ev.pitch.midi, sp: ev.pitch.spelled });
-    const hidden = ev => wk.gestures.some(g => g.hide !== false && (g.kind === 'ribbon' || g.kind === 'strike' || (g.kind === 'stutter' && g.hand === ((staff.get(ev.id) || 0) === 1 ? 'L' : 'R'))) && ev.onset >= (g.from != null ? g.from : g.t0) - 1e-9 && ev.onset <= g.t1 + 1e-9);   // (from: where its notes begin, when the sign is drawn later) a repeat hides its own hand's notes
+    const hidden = ev => wk.gestures.some(g => g.hide !== false && (g.kind === 'ribbon' || g.kind === 'strike' || (g.kind === 'stutter' && g.hand === ((staff.get(ev.id) || 0) === 1 ? 'L' : 'R'))) && ev.onset >= (g.from != null ? g.from : g.t0) - 0.02 && ev.onset <= g.t1 + 0.02);   // (20 ms of grace each side: his times are clicked) (from: where its notes begin, when the sign is drawn later) a repeat hides its own hand's notes
     const keep = new Set(ir.events.filter(ev => !hidden(ev)).map(ev => ev.id));
     ir.events = ir.events.filter(ev => keep.has(ev.id));
     ir.overlays = (ir.overlays || []).filter(o => !(o.target && o.target.event) || keep.has(o.target.event));
@@ -213,13 +213,19 @@ function viewOf(page, t0, span, w, opts) {
     if (cfg.onlyPiano) svg = svg.replace(/(<svg[^>]*>)/, (m0) => m0 + '<style>' + [0,1, 2, 3, 4, 6, 7, 8, 9, 10, 11].filter(p => p !== PART).map(p => '.sys-p' + p).join(',') + '{display:none}</style>');
     delete require.cache[require.resolve('./gravity_furniture.js')]; delete require.cache[require.resolve('./chord_changes.js')];
     const CC = require('./chord_changes.js'), FUR = require('./gravity_furniture.js'), preset = (e.C.animated && e.C.animated.gc && e.C.animated.gc.preset) || e.Gc.DEFAULT_PRESET, look = e.Gc.LOOK;
-    const flush = add => { svg = svg.replace(/<\/svg>\s*$/, () => add + '</svg>'); };
+    // a gesture that began before the page's left edge is cut at the music's start, as the staff's own notes are (not drawn over the clef)
+    svg = svg.replace(/<\/svg>\s*$/, () => '<defs><clipPath id="wkclip"><rect x="' + (x0 - 2).toFixed(1) + '" y="0" width="' + (w - x0 + 2).toFixed(1) + '" height="2000"/></clipPath></defs></svg>');
+    const flush = add => { svg = svg.replace(/<\/svg>\s*$/, () => '<g clip-path="url(#wkclip)">' + add + '</g></svg>'); };
     if (cfg.coverFrom != null) flush('<rect x="0" y="' + cfg.coverFrom + '" width="' + w + '" height="' + (cfg.band[0] + cfg.band[1] - cfg.coverFrom) + '" fill="#fff"/>');
     const sets = {}, sym = { R: [], L: [] }; for (const h of ['R', 'L']) sets[h] = CC.persistent(WK.hands[h], WK.sets).filter(s => !s.brief);
     for (const g of cfg.gestures) {
       if (g.kind === 'ribbon') {
         const P = { band: cfg.band, arcBand: cfg.arcBand || cfg.band, arc: { t0: g.t0, bounce: g.bounce, t1: g.t1 }, noShapes: true, flow: Object.assign({ style: 'ribbon' }, cfg.flow, g.flow) };
-        const f = FUR({ proto: P, ir: { events: [] }, glyphs: e.glyphs, ChordColumn: e.ChordColumn, Gc: e.Gc, xOf, staff: staves[staves.length - 1], w, preset, look, gaps: e.gaps });
+        // [§310 — his "try to get the ribbon to reflect some of the changes there … the thickness and thinness"] fromPlaying: this ribbon's width
+        // is the measured busyness of BOTH hands inside its span (§279's bell sum, exaggerated by flow.power), not a designed profile
+        const src = g.fromPlaying ? WK.played.filter(p => p.onset >= g.t0 - 1e-9 && p.onset <= g.t1 + 1e-9) : [];
+        if (g.fromPlaying) { P.in = src.map(p => p.id.replace(/^ev-/, '')); P.flow = Object.assign({}, P.flow, { profile: null }, g.flow); }
+        const f = FUR({ proto: P, ir: { events: src }, glyphs: e.glyphs, ChordColumn: e.ChordColumn, Gc: e.Gc, xOf, staff: staves[staves.length - 1], w, preset, look, gaps: e.gaps });
         flush(f.svg); protos.push({ arc: P.arc, preset, look, flow: P.flow, arcY: f.arcY, ribbon: f.ribbon });
       } else if (g.kind === 'stutter') {
         // [§308 — his "two different repeats"] A REPEAT in one hand: its chord symbol — the keys that hand uses in the span, boxed — then the
@@ -228,7 +234,7 @@ function viewOf(page, t0, span, w, opts) {
         const st = g.hand === 'L' ? staves[staves.length - 1] : staves[0], sq = (st[1] - st[0]) / 4;
         const keys = [...new Map(WK.hands[g.hand].filter(n => n.t >= (g.from != null ? g.from : g.t0) - 1e-9 && n.t <= g.t1 + 1e-9).map(n => [n.midi, n])).values()].sort((p, q) => p.midi - q.midi), shp = [{ at: g.t0, set: keys }];
         if (keys.length) {
-          let m = CC.draw({ shapes: shp, xOf, staff: st, glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps });
+          let m = CC.draw({ shapes: shp, xOf, staff: st, glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps, rule: cfg.shapeRule });
           const xA = shp[0].x1 + 0.7 * sq, xB = xOf(g.t1), yM = shp[0].yMid, marks = [], sign = g.sign || 29;
           if (sign === 30 || sign === 31) { let x = xA, gap = 2.3 * sq; const xs = []; while (x < xB) { xs.push(x); gap = Math.max(0.45 * sq, gap * 0.8); x += gap; } for (const x1 of xs) marks.push([sign === 30 ? x1 : xA + xB - x1, 1.3, 1.3]); }
           else { const n = Math.max(2, Math.floor((xB - xA) / (0.95 * sq)) + 1); for (let i = 0; i < n; i++) { const k0 = i / (n - 1), k = sign === 28 ? 1 - k0 : k0; marks.push([xA + (xB - xA) * k0, 0.6 + 1.5 * k, 0.6 + 1.4 * k]); } }
@@ -243,7 +249,7 @@ function viewOf(page, t0, span, w, opts) {
       else continue;
       for (const h of ['R', 'L']) { const s3 = sets[h].filter(x => x.at <= g.t1).pop() || sets[h][0]; if (s3 && (g.hands || 'RL').includes(h)) sym[h].push(Object.assign({}, s3, { at: g.t0 })); }
     }
-    let addS = ''; for (const h of ['R', 'L']) addS += CC.draw({ shapes: sym[h], xOf, staff: h === 'R' ? staves[0] : staves[staves.length - 1], glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps });
+    let addS = ''; for (const h of ['R', 'L']) addS += CC.draw({ shapes: sym[h], xOf, staff: h === 'R' ? staves[0] : staves[staves.length - 1], glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps, rule: cfg.shapeRule });
     flush(addS);
     if (!strike && strikes.length) strike = strikes[0];
     e.bandOut = cfg.band;

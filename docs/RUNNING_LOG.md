@@ -5035,3 +5035,19 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 - ROOM ABOVE: the picture begins 76 px higher (the band 470 … 780, was 546 … 780) — up into the space of the percussion staff above; the other parts' staves are not drawn on this page (`onlyPiano`: a style line in the picture hides their systems; a white patch covers the brace of the part above).
 - THE SECOND DROP CLUSTER'S IMPACT set by hand to 153.86 (it was the curtain's middle, 153.93). The analysis he asked for: the container holds the four-note chord struck at 153.853 … .887 (loudness 116) and one soft note at 154.02 — his "stripe towards the beginning" is that chord. No principle made of it, as he said; but it is the same thing §299 noted of the first strike (the notes begin before the curtain's middle).
 **Checked once:** the page rendered to an image, twice (a stray note at 155.079 and the upper part's brace showed in the first; both gone).
+
+## §310 · 2026-11-20 · the working version, 156.4 → 161.3 s — an arpeggiated chord, a ribbon drawn from the playing, a repeat, two pebble drops
+
+**His words:** SW-98 (the sketch pad): "156.39, make that a chord with the arpeggio symbol … a ribbon from 157.66 … let's make these from the times of the actual partials … to the ones at 159.66. impact at the partial at 158.55 … Try to get the ribbon to reflect some of the changes there … the thickness and thinness. repeated notes from 159.79 to 160.3 And the chunk from 160.4 to 160.68 pebble drop." · "And then from 160.96 to 161.26, another pebble drop."
+**HIS STANDING INSTRUCTION, now a habit of the build:** the times he gives are clicked approximations; each gesture is set on the partials actually played (and a gesture hides the notes within 20 ms of its ends).
+
+**Written into the working version:**
+- UNIT 11 — the five notes of both hands at 156.409 … 156.471 (G3 · D4 · E4 below, A5 · E6 above): one chord, stem up with a 16th flag, the arpeggio sign.
+- THE RIBBON 157.683 → the impact 158.544 → 159.641 (his 157.66 · 158.55 · 159.66 on the partials; the impact is the C6 struck at 158.544, loudness 125). `fromPlaying`: its width is the MEASURED busyness of both hands inside its span (the bell sum of §279, exaggerated only a little, power 1.3), not the designed profile of §296. What it shows: broad through the first 0.7 s (half width about 8 px), thinning to a HAIR from 158.5 to 158.8, swelling to its widest at 159.2 (the left hand's old impact), tapering to the end.
+- **A thing he should know of it:** the impact he chose is where the ribbon is THINNEST. The C6 at 158.544 is a single loud note in a sparse half second; the busyness measures how MUCH is played, and there it is least. So this ribbon falls broad and lands on a hair — the opposite of the designed one. Whether the impact should carry its own weight on a played ribbon (loudness, not count) is open.
+- THE REPEAT, the right hand, 159.786 → 160.28: its two keys A#5 · B5 boxed, then sign 29, growing, into the pebble drop.
+- THE PEBBLE DROPS: 160.4 → 160.67 (the landing and the two notes at 160.665) and 160.96 → 161.24.
+- CHORD SYMBOLS: `shapeRule.clusterMaxGap` 2 → 3 on this page — a set of four pitches or more with no gap over a minor third is a cluster bar. The left hand's set read over the whole solo came out as a nine-note chord with six accidentals at the ribbon's start; as a bar it is C#4 … A4.
+**Left on the page, his to place:** the left hand's notes of 160.19 … 160.30 (the first two events of its climb) stand as small heads between the repeat and the pebble drop — the repeat is the right hand's only.
+**In the code:** a gesture that began before the page's left edge is clipped at the music's start.
+**Checked once:** the page rendered to an image, 155.9 → 161.7 s.

@@ -259,6 +259,23 @@
     155.646,
     155.695
    ]
+  },
+  {
+   "_n": "11 · 156.41 s — the five notes of both hands, a chord with the arpeggio sign (his word, §310)",
+   "ids": [
+    "wc-1777",
+    "wc-1776",
+    "wc-1775",
+    "wc-1778",
+    "wc-1779"
+   ],
+   "stem": "up",
+   "flag": 16,
+   "arp": true,
+   "played": [
+    156.409,
+    156.471
+   ]
   }
  ]
 }
