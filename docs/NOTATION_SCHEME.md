@@ -150,7 +150,22 @@ Every page of the score may say its own pace — how many seconds stand across o
 
 **THE PAGE IS NOW BUILT BY ONE FILE, `node tools/build_ctpt_page.js`** (§369) — the command above plus every decision taken on the page; a decision is a line added there.
 
-**Decided so far (§369, flute and clarinet only):**
+### THE RECIPE FOR A PART OF THE COUNTERPOINT (kept at his word, §375: "keep track of … the process and the decisions, because then we'll repeat … something similar with the other parts")
+
+Worked out on the FLUTE (and the first of the clarinet). A new part is taken by these steps, in this order; where a step meets something it has no answer for, the AI lists it for him and does not guess.
+
+1. **Every note is a head at the time it is played**, with its accidental. Black for a short note, white for a held one. All at the standard size.
+2. **Each playing technique has ONE look.** Settled: staccato = the flagged staccato (black, dot, flag, go line, curve) · tongue ram = the same · jet whistle = the same without the dot. A technique with no look yet is LISTED for him with an example time — he says what it is (the flute's flutter-tongue is still a white head and a bar).
+3. **Beams.** Two notes of the part 0.33 s apart or less go on one beam (the clarinet's pair at 217.37 is the measure). Pairs a little wider (to about 0.5 s) are LISTED for him; he beams by eye past the measure (the flute's 220.33 and 248.95).
+4. **A beamed group's regime.** The left edge of each head is its moment; the first one stands on the curve's go time; no go line.
+5. **A note just before another** (0.05 s or less, not the same instant) is a GRACE-NOTE PICKUP to it: small, its own flag and stroke, a little to the left, no slur, never on the beam, its stem down to the main note's flag or beam; no go line, dynamic or curve of its own.
+6. **Two notes at the same instant** (under 0.01 s) are LISTED for him: on a wind, one player cannot play both (the flute's 221.34 and 233.97); and where both are the SAME pitch only one sounds (the flute's D5 at 206.00).
+7. **The curves stay**, one per note or per beamed group, for now.
+8. **Then, and only then:** articulations, dynamics, the words for the techniques.
+
+Everything decided is a line in `tools/build_ctpt_page.js` (the beams, the pickups) or a row of the rules (the looks, the sizes, the distances). The table below is the record, decision by decision.
+
+**Decided so far (§369 … §374, flute and clarinet only):**
 
 | the thing | his decision | how it is written |
 |---|---|---|
