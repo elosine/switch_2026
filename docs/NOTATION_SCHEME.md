@@ -148,7 +148,18 @@ Every page of the score may say its own pace — how many seconds stand across o
 
 **Built by:** `node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 199 --w1 254 --parts 0-6 --alone 199-254 --exp --noFitMark --timeSpacing --id s2-ctpt-heads --label "Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)"`
 
-**Its hand file, when the first figure is taken:** `notation/hand/s2-ctpt-heads.units.json`.
+**THE PAGE IS NOW BUILT BY ONE FILE, `node tools/build_ctpt_page.js`** (§369) — the command above plus every decision taken on the page; a decision is a line added there.
+
+**Decided so far (§369, flute and clarinet only):**
+
+| the thing | his decision | how it is written |
+|---|---|---|
+| THE BEAMING THRESHOLD | two notes of one part no farther apart than the clarinet's pair at 217.37 → 217.70 s (0.329 s) are beamed; "for now" | `--beam t0-t1@part`, one per group (six so far) |
+| the heads | black for a short note, white for a held one — kept | the standing devices |
+| the gestural curves | kept, for now | the standing devices |
+| a note 0.05 s before another (the clarinet, 230.37) | a GRACE-NOTE PICKUP to it: small, with its stroke and a slur; ONE gestural curve, on the main note | `--hand wc-2742:{grace, slurTo}` · `--noGc wc-2742` |
+
+**Its pace:** the registry's 12 seconds a page (no pace of its own yet).
 
 ## 3 · SHAPE ACTION NOTATION (his name, SW-84, 2026-11-20) — a PROTOTYPE, not yet a sign of the score
 

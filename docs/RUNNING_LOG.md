@@ -5570,3 +5570,23 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **Checked once:** on the AI's throwaway — Section 1 driven to its end hands over to the piano solo (its first page, 142 → 146.8 s, the signs in place); a frame at 146.5 s draws there.
 **Not built:** the next / previous page buttons do not cross from one page of the draft to the next (the picker does); the film (`export_video.js`) renders one page of the draft at a time — to join for the submission's video.
 **To add a section to the draft:** its page's id into "draft".order.
+
+## §369 · 2026-11-21 · the counterpoint, first rhythm decisions on the flute and the clarinet: the beaming threshold (0.33 s), a grace-note pickup
+
+**His words:** SW-120 (the sketch pad): "the clarinet at (217.2) … let's make that … distance, those two notes, the … beaming threshold. So let's beam those two and any ones that are under that. If there are ones around that, you can just flag them to me … keep the black note heads and white note heads … confirm that they're from the same … size species … keep the GCs for now … just do the flute and the clarinet that way. And let me know what the timing is … the clarinet at 230.3. Let's make the first note a grace note pickup to that, the other one, and just one GC on the second partial."
+**THE THRESHOLD, measured:** the clarinet's pair is 217.370 → 217.699 s, 0.329 s apart (both staccato). So: two successive notes of a part 0.33 s apart or less are beamed.
+**THE GROUPS UNDER IT (flute and clarinet, 199 → 254 s):**
+- flute 205.998 · 205.999 → 206.282 (0.283): two notes struck together, then a tongue ram — three notes on one beam
+- flute 209.813 → 210.136 → 210.439 (0.323 · 0.303): jet whistle · staccato · tongue ram — three on one beam
+- flute 233.974 · 233.982 → 234.070 (0.088): two together, then a jet whistle — three on one beam
+- clarinet 206.410 → 206.695 (0.285): a staccato into a held flutter-tongue
+- clarinet 217.370 → 217.699 (0.329): the pair he named
+- clarinet 223.402 → 223.729 (0.327)
+**FLAGGED TO HIM — a little over the threshold (0.33 … 0.40 s), not beamed:** flute 220.325 → 220.717 (0.392) · clarinet 217.699 → 218.076 (0.377; it would join the named pair into three) · clarinet 243.785 → 244.179 (0.394).
+**Left as they are:** notes struck together within 0.01 s (flute 221.336 · .337; clarinet 251.676 · .680) — chords, not rhythm.
+**THE GRACE-NOTE PICKUP:** the clarinet's 230.369 → 230.418 (0.049 s): the first note is a grace note (the standing grace: the head at 0.707, its stroke, a slur to the main note — `objects.graceHead`, LG-129) and its gestural curve is dropped, so ONE curve stands, on the main note.
+**How it is written:** the engine's own `--beam t0-t1@part` (each note keeps its own look and only gains a stem to a shared beam), `--hand …{grace, slurTo}` and `--noGc`. The page is built from now on by ONE file, `tools/build_ctpt_page.js`.
+**THE HEADS' SIZES — he was right to doubt:** they are NOT one size. A STACCATO's black head is the small "cue head", 0.844 of full size (the staccato unit's own rule, #4 day 23); every other technique here — jet whistle, tongue ram (black), flutter-tongue (white) — has no rule of its own yet and takes the plain look at FULL size. So the black heads are two sizes, and the white ones are larger than the staccatos'. Nothing changed; put to him.
+**THE TIMING:** this page runs at the standard 12 seconds a page, not the piano solo's 4.8.
+**Checked once:** the page in the notation app on the AI's throwaway, zoom view at 215.6 s and 228.6 s — the clarinet's pair on one beam (stems down, the beam under), the grace note small with its stroke and slur and one curve.
+**Seen, for his eye:** in a beamed group only the FIRST note keeps a gestural curve (the engine's rule for a beamed group) · at 230.37 the grace note, its accidental and the two dynamics stand very close.
