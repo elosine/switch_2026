@@ -238,6 +238,27 @@
    "played": [
     152.731
    ]
+  },
+  {
+   "_n": "10 · 155.65 s — the cluster in BOTH hands (ten notes), a notated one: one stem going up (his word, §308)",
+   "ids": [
+    "wc-1766",
+    "wc-1765",
+    "wc-1767",
+    "wc-1771",
+    "wc-1770",
+    "wc-1768",
+    "wc-1774",
+    "wc-1773",
+    "wc-1772",
+    "wc-1769"
+   ],
+   "stem": "up",
+   "flag": 16,
+   "played": [
+    155.646,
+    155.695
+   ]
   }
  ]
 }

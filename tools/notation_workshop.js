@@ -76,7 +76,7 @@ function engine(page) {
     const staff = new Map(); for (const o of ir.overlays || []) if (o.kind === 'engraving' && o.target && o.target.event && o.value) staff.set(o.target.event, o.value.staff || 0);
     work = { cfg: wk, sets: cc.sets, hands: { R: [], L: [] } };
     for (const ev of ir.events) if (ev.pitch && ev.pitch.midi != null) work.hands[(staff.get(ev.id) || 0) === 1 ? 'L' : 'R'].push({ t: ev.onset, midi: ev.pitch.midi, sp: ev.pitch.spelled });
-    const hidden = ev => wk.gestures.some(g => g.hide !== false && (g.kind === 'ribbon' || g.kind === 'strike') && ev.onset >= g.t0 - 1e-9 && ev.onset <= g.t1 + 1e-9);
+    const hidden = ev => wk.gestures.some(g => g.hide !== false && (g.kind === 'ribbon' || g.kind === 'strike' || (g.kind === 'stutter' && g.hand === ((staff.get(ev.id) || 0) === 1 ? 'L' : 'R'))) && ev.onset >= g.t0 - 1e-9 && ev.onset <= g.t1 + 1e-9);   // a repeat hides its own hand's notes
     const keep = new Set(ir.events.filter(ev => !hidden(ev)).map(ev => ev.id));
     ir.events = ir.events.filter(ev => keep.has(ev.id));
     ir.overlays = (ir.overlays || []).filter(o => !(o.target && o.target.event) || keep.has(o.target.event));
@@ -217,6 +217,21 @@ function viewOf(page, t0, span, w, opts) {
         const P = { band: cfg.band, arcBand: cfg.arcBand || cfg.band, arc: { t0: g.t0, bounce: g.bounce, t1: g.t1 }, noShapes: true, flow: Object.assign({ style: 'ribbon' }, cfg.flow, g.flow) };
         const f = FUR({ proto: P, ir: { events: [] }, glyphs: e.glyphs, ChordColumn: e.ChordColumn, Gc: e.Gc, xOf, staff: staves[staves.length - 1], w, preset, look, gaps: e.gaps });
         flush(f.svg); protos.push({ arc: P.arc, preset, look, flow: P.flow, arcY: f.arcY, ribbon: f.ribbon });
+      } else if (g.kind === 'stutter') {
+        // [§308 — his "two different repeats"] A REPEAT in one hand: its chord symbol — the keys that hand uses in the span, boxed — then the
+        // running shake marks of the catalog (§303 · §305): sign 29 GROWING (each mark taller and heavier) · 28 its opposite, fading ·
+        // 30 GATHERING (the marks crowd toward the end) · 31 its opposite, spreading
+        const st = g.hand === 'L' ? staves[staves.length - 1] : staves[0], sq = (st[1] - st[0]) / 4;
+        const keys = [...new Map(WK.hands[g.hand].filter(n => n.t >= g.t0 - 1e-9 && n.t <= g.t1 + 1e-9).map(n => [n.midi, n])).values()].sort((p, q) => p.midi - q.midi), shp = [{ at: g.t0, set: keys }];
+        if (keys.length) {
+          let m = CC.draw({ shapes: shp, xOf, staff: st, glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps });
+          const xA = shp[0].x1 + 0.7 * sq, xB = xOf(g.t1), yM = shp[0].yMid, marks = [], sign = g.sign || 29;
+          if (sign === 30 || sign === 31) { let x = xA, gap = 2.3 * sq; const xs = []; while (x < xB) { xs.push(x); gap = Math.max(0.45 * sq, gap * 0.8); x += gap; } for (const x1 of xs) marks.push([sign === 30 ? x1 : xA + xB - x1, 1.3, 1.3]); }
+          else { const n = Math.max(2, Math.floor((xB - xA) / (0.95 * sq)) + 1); for (let i = 0; i < n; i++) { const k0 = i / (n - 1), k = sign === 28 ? 1 - k0 : k0; marks.push([xA + (xB - xA) * k0, 0.6 + 1.5 * k, 0.6 + 1.4 * k]); } }
+          for (const [x, hf, wd] of marks) m += '<path d="M' + (x - 0.55 * sq).toFixed(1) + ' ' + (yM - hf * sq).toFixed(1) + ' Q' + (x + 0.45 * sq).toFixed(1) + ' ' + yM.toFixed(1) + ' ' + (x - 0.55 * sq).toFixed(1) + ' ' + (yM + hf * sq).toFixed(1) + '" fill="none" stroke="#111" stroke-width="' + wd.toFixed(2) + '" stroke-linecap="round"/>';
+          flush(m);
+        }
+        continue;
       } else if (g.kind === 'strike') { const s2 = strikeOf(g.t0, g.t1, Object.assign({}, cfg.curtain, g.curtain)); if (s2) strikes.push(s2); }
       else continue;
       for (const h of ['R', 'L']) { const s3 = sets[h].filter(x => x.at <= g.t1).pop() || sets[h][0]; if (s3 && (g.hands || 'RL').includes(h)) sym[h].push(Object.assign({}, s3, { at: g.t0 })); }

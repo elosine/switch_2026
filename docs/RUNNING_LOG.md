@@ -5012,3 +5012,14 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **In the code:** the workshop's server takes a list of gestures per page (several ribbons, several strikes; the page animates every ball and every handful); the curtain became a function. The pages "spaced" and "as played" were rebuilt for the pole.
 **Checked once:** the page rendered to an image, 147.6 → 154.2 s.
 **Seen, for his eye:** the ribbon's first chord symbols stand at 151.2, hard against the third arpeggio's wavy line; the pole's first note stands 0.04 s after the ribbon's end.
+
+## §308 · 2026-11-20 · the working version, 153.7 → 155.7 s — three drop clusters, two repeats, a notated cluster on one stem
+
+**His words:** SW-97 (the sketch pad): "the cluster at in both hands at 155.66. That's a notated one. One stem going up … starting at 153.7, there's two notes. That's one drop cluster. At 154.19, there's 3 … another drop cluster. then 2 at 154.7 … two different repeats starting at 155 all the way through to just before that notated bit … whatever clusters in the left and the right hand there."
+
+**Written into the working version (`bank/piano_solo_work.json`, the units file):**
+- DROP CLUSTERS (the scattered strike), each a curtain with its pebbles and both hands' chord symbols at its start: 153.7 → 154.1 (the chord of 153.85 and the note at 154.02) · 154.15 → 154.62 (the six notes of 154.23 … .33 and the note at 154.48) · 154.68 → 154.98 (154.74, the six notes of 154.79 … .82, the two at 154.91). Their impacts — the cursor at each curtain's middle — at 153.93 · 154.41 · 154.86.
+- TWO REPEATS, 155.0 → 155.6, one per hand, a different kept sign each (the AI's reading of "two different"): the RIGHT hand sign 30, the shake marks GATHERING; the LEFT hand sign 29, the marks GROWING. Each begins with its chord symbol: the keys that hand plays in the span — the right hand's seven (E5 … C#6 with gaps: a chord of all its notes, not a cluster bar), the left hand's four (G4 … D5). A new gesture kind in the workshop, `stutter`; a repeat hides only its own hand's played notes. Signs 28 and 31 (their opposites) are drawn by the same code when asked.
+- THE NOTATED CLUSTER: unit 10 — the ten notes of 155.646 … 155.695, both hands, ONE stem, up, with a 16th flag as the other single figures have (he did not name a flag: the AI's, his to change).
+**Checked once:** the page rendered to an image, 150.8 → 156.2 s.
+**Seen, for his eye:** (1) the three drop clusters stand so close that their curtains OVERLAP (each has a least width of 6 ss and a pad each side); (2) with a one-second flight, a drop cluster's pebbles are thrown while the one before is still falling; (3) the right hand's repeat has room for six marks only, after its wide chord symbol; (4) the engine writes an 8va over the notated cluster's top notes.

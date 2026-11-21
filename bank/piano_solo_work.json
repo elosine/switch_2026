@@ -2,8 +2,8 @@
  "_doc": "THE WORKING VERSION of the piano solo (SW-96; RUNNING_LOG §307 — his word: 'can we get like a working version that we work in and that keeps all our changes'). The workshop's page 'working version' = the page `base` (the standard figures taken one by one, notation/hand/<base>.units.json) with the GESTURES below drawn over it, and nothing else. A gesture hides the played notes inside its span. kind ribbon = Shape Action Notation's arc: t0 its start, bounce its impact (the 'hit'), t1 its end; flow.profile = its designed width (§296). kind strike = the scattered strike: a curtain from t0 to t1 with the thrown pebbles. A chord symbol (each hand's pitch set, bank/chord_changes.json `sets`) stands at the start of every ribbon and strike. His times are 'thereabouts' — he clicks them with the mouse. A POLE (a fixed structure in standard notation) is not here: it is a figure in the units file.",
  "base": "s2-piano-solo",
  "view": [
-  147.4,
-  155.6
+  150.6,
+  156.4
  ],
  "band": [
   546,
@@ -63,6 +63,44 @@
    "t1": 153.23,
    "_his": "the section from 152.9 to about 153.2 … a pebble drop accent there",
    "_note": "his 152.9 … 153.2 were clicked, \"thereabouts\": widened to the run actually played there, 152.839 … 153.213 (ten notes), so that none of it is left outside the curtain"
+  },
+  {
+   "kind": "strike",
+   "t0": 153.7,
+   "t1": 154.1,
+   "_his": "starting at 153.7, there's two notes. That's one drop cluster",
+   "_note": "the chord of 153.853 … .887 and the note at 154.024"
+  },
+  {
+   "kind": "strike",
+   "t0": 154.15,
+   "t1": 154.62,
+   "_his": "At 154.19, there's 3 kind of chords or partials. That's another drop cluster",
+   "_note": "the six notes of 154.229 … .326 and the note at 154.483"
+  },
+  {
+   "kind": "strike",
+   "t0": 154.68,
+   "t1": 154.98,
+   "_his": "then 2 at 154.7",
+   "_note": "154.744, the six notes of 154.794 … .821, the two at 154.91"
+  },
+  {
+   "kind": "stutter",
+   "hand": "R",
+   "sign": 30,
+   "t0": 155,
+   "t1": 155.6,
+   "_his": "two different repeats starting at 155 all the way through to just before that notated bit … whatever clusters in the left and the right hand",
+   "_note": "the right hand: sign 30, the marks gathering"
+  },
+  {
+   "kind": "stutter",
+   "hand": "L",
+   "sign": 29,
+   "t0": 155,
+   "t1": 155.6,
+   "_note": "the left hand: sign 29, the marks growing"
   }
  ]
 }
