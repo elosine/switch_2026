@@ -22,7 +22,7 @@
   "date": "2026-11-21",
   "tool": "tools/notate_section.js (profile trance)",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only.",
-  "build": "node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 199 --w1 254 --parts 0-6 --alone 199-254 --exp --noFitMark --timeSpacing --id s2-ctpt-heads --label \"Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)\" --beam 205.9985-206.29@0 --hand \"wc-2691:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2693:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 209.8-210.45@0 --hand \"wc-2695:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2696:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2697:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 220.3-220.73@0 --hand \"wc-2703:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2704:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 233.97-234.08@0 --hand \"wc-2715:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2714:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2907:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 248.93-249.46@0 --hand \"wc-2919:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2920:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 206.4-206.7@1 --hand \"wc-2721:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2722:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 217.36-217.71@1 --hand \"wc-2730:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2731:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 223.39-223.74@1 --hand \"wc-2736:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2737:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2742:{\\\"grace\\\":true,\\\"pickupTo\\\":\\\"wc-2743\\\",\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --noGc wc-2742 --hand \"wc-2692:{\\\"grace\\\":true,\\\"pickupTo\\\":\\\"wc-2691\\\",\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --noGc wc-2692"
+  "build": "node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 199 --w1 254 --parts 0-6 --alone 199-254 --exp --noFitMark --timeSpacing --id s2-ctpt-heads --label \"Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)\" --beam 205.99-206.29@0 --hand \"wc-2691:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2693:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 209.8-210.45@0 --hand \"wc-2695:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2696:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2697:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 220.3-220.73@0 --hand \"wc-2703:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2704:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 233.97-234.15@0 --hand \"wc-2714:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2907:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 248.93-249.46@0 --hand \"wc-2919:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2920:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 206.4-206.7@1 --hand \"wc-2721:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2722:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 217.36-217.71@1 --hand \"wc-2730:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2731:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 223.39-223.74@1 --hand \"wc-2736:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2737:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2742:{\\\"grace\\\":true,\\\"pickupTo\\\":\\\"wc-2743\\\",\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --noGc wc-2742"
  },
  "events": [
   {
@@ -588,27 +588,6 @@
     }
    },
    "technique": "brake_drums_rubber_mallets",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 127
-  },
-  {
-   "id": "ev-wc-2692",
-   "source": {
-    "score": "piece-FirstDraft-Final-B-noFadeAt96",
-    "objectId": "wc-2692"
-   },
-   "onset": 205.998,
-   "duration": 0.2609999999999957,
-   "pitch": {
-    "midi": 74,
-    "spelled": {
-     "step": "D",
-     "alter": 0,
-     "octave": 5
-    }
-   },
-   "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
    "vel": 127
@@ -3953,27 +3932,6 @@
    "vel": 127
   },
   {
-   "id": "ev-wc-2715",
-   "source": {
-    "score": "piece-FirstDraft-Final-B-noFadeAt96",
-    "objectId": "wc-2715"
-   },
-   "onset": 233.974,
-   "duration": 0.20000000000001705,
-   "pitch": {
-    "midi": 77,
-    "spelled": {
-     "step": "F",
-     "alter": 0,
-     "octave": 5
-    }
-   },
-   "technique": "jet_whistle",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 127
-  },
-  {
    "id": "ev-wc-2714",
    "source": {
     "score": "piece-FirstDraft-Final-B-noFadeAt96",
@@ -4000,7 +3958,7 @@
     "score": "piece-FirstDraft-Final-B-noFadeAt96",
     "objectId": "wc-2907"
    },
-   "onset": 234.07,
+   "onset": 234.132,
    "duration": 0.08899999999999864,
    "pitch": {
     "midi": 78,
@@ -6276,7 +6234,7 @@
    "part": 0,
    "span": [
     203.619,
-    205.998
+    205.999
    ],
    "class": "fixed-oneshot",
    "strategy": "unresolved",
@@ -6286,16 +6244,15 @@
    "provenance": "derived"
   },
   {
-   "id": "ch-0-wc-2692",
+   "id": "ch-0-wc-2691",
    "part": 0,
    "span": [
-    205.998,
+    205.999,
     206.282
    ],
    "class": "fixed-oneshot",
    "strategy": "unresolved",
    "events": [
-    "ev-wc-2692",
     "ev-wc-2691"
    ],
    "provenance": "derived"
@@ -6572,7 +6529,7 @@
    "part": 0,
    "span": [
     231.925,
-    233.974
+    233.982
    ],
    "class": "fixed-oneshot",
    "strategy": "unresolved",
@@ -6582,16 +6539,15 @@
    "provenance": "derived"
   },
   {
-   "id": "ch-0-wc-2715",
+   "id": "ch-0-wc-2714",
    "part": 0,
    "span": [
-    233.974,
-    234.07
+    233.982,
+    234.132
    ],
-   "class": "ord-sustained",
+   "class": "fixed-oneshot",
    "strategy": "unresolved",
    "events": [
-    "ev-wc-2715",
     "ev-wc-2714"
    ],
    "provenance": "derived"
@@ -6600,7 +6556,7 @@
    "id": "ch-0-wc-2907",
    "part": 0,
    "span": [
-    234.07,
+    234.132,
     235.402
    ],
    "class": "ord-sustained",
@@ -10407,10 +10363,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-bm-4-ev-wc-2715",
+   "id": "ov-bm-4-ev-wc-2714",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-2715"
+    "event": "ev-wc-2714"
    },
    "value": {
     "device": {
@@ -10428,27 +10384,6 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-bm-4-ev-wc-2714",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-2714"
-   },
-   "value": {
-    "device": {
-     "nhStem": "beam",
-     "beamGroup": "bm-4",
-     "noteBeams": 2,
-     "beamPos": 1,
-     "noteUnits": 1,
-     "goLine": false,
-     "gc": false,
-     "dynAboveBeam": true,
-     "nhAnchor": "leftEdge"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
    "id": "ov-bm-4-ev-wc-2907",
    "kind": "engraving",
    "target": {
@@ -10459,7 +10394,7 @@
      "nhStem": "beam",
      "beamGroup": "bm-4",
      "noteBeams": 2,
-     "beamPos": 2,
+     "beamPos": 1,
      "noteUnits": 1,
      "goLine": false,
      "gc": false,
@@ -10648,23 +10583,6 @@
      "gc": false,
      "grace": true,
      "pickupTo": "ev-wc-2743",
-     "goLine": false,
-     "dynMark": false
-    }
-   },
-   "provenance": "authored"
-  },
-  {
-   "id": "ov-nogc-ev-wc-2692",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-2692"
-   },
-   "value": {
-    "device": {
-     "gc": false,
-     "grace": true,
-     "pickupTo": "ev-wc-2691",
      "goLine": false,
      "dynMark": false
     }

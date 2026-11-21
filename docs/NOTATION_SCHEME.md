@@ -161,7 +161,9 @@ Worked out on the FLUTE (and the first of the clarinet). A new part is taken by 
 5. **A note just before another** (0.05 s or less, not the same instant) is a GRACE-NOTE PICKUP to it: small, its own flag and stroke, a little to the left, no slur, never on the beam, its stem down to the main note's flag or beam; no go line, dynamic or curve of its own.
 6. **Two notes at the same instant** (under 0.01 s) are LISTED for him: on a wind, one player cannot play both (the flute's 221.34 and 233.97); and where both are the SAME pitch only one sounds (the flute's D5 at 206.00).
 7. **The curves stay**, one per note or per beamed group, for now.
-8. **Then, and only then:** articulations, dynamics, the words for the techniques.
+8. **The technique's word** is written at the part's first note and wherever the technique CHANGES, never on every note (the standing change rule, Gould): the flute's T. R. · jet wh. · flz. (§376).
+9. **After every build the AI runs `node tools/check_rules.js`** and says what is red. Its part (10) MEASURES the page: every flag's clearance from the staff, every ottava bracket's gap before a go line, every staccato dot's clearance from a line (§376).
+10. **Then:** dynamics (next), articulations.
 
 Everything decided is a line in `tools/build_ctpt_page.js` (the beams, the pickups) or a row of the rules (the looks, the sizes, the distances). The table below is the record, decision by decision.
 
@@ -175,6 +177,9 @@ Everything decided is a line in `tools/build_ctpt_page.js` (the beams, the picku
 | the gestural curves | kept, for now | the standing devices |
 | a note just before another (the clarinet 230.37 · the flute 206.00) | a GRACE-NOTE PICKUP: small, its own flag and stroke, standing a little to the LEFT of its main note (2.2 ss; 1.2 more past an accidental), NO slur, never on the main note's beam; no go line, dynamic or gestural curve of its own (§369 · §371); ITS STEM REACHES the height of the main note's stem tip — that flag's far end, or the beam (§374, `objects.graceHead.pickupStemToMain`) | `--hand <grace>:{grace, pickupTo, goLine:false, dynMark:false}` · `--noGc`; `objects.graceHead.pickupLeadSs · pickupAccSs` |
 | a TONGUE RAM | the flagged staccato: a black note with its dot, flag, go line and gestural curve — the staccato unit's look whole (§373) | `container.json` devices.byTechnique.tongue_ram |
+| the flute's WORDS | T. R. (tongue ram — the lineage's word, #5 §401g) · jet wh. (jet whistle) · flz. (flutter-tongue): at the first note and at each change of technique (§376). "jet wh." and "flz." are the AI's spellings; no word yet says "back to ordinary" on a staccato after one of them | `container.json` devices … `instrFirst`; `techniques.json` flz `notate` |
+| a staccato DOT beside a line | it keeps from a staff or ledger line the tight gap it keeps from its head (0.15 ss); nearer, it goes to the middle of the next space (his eye, §376) | `objects.staccatoDot.lineClearSs` |
+| an OTTAVA bracket beside a go line | the bracket's end is the unit's ink: it — not the head — keeps the unit's gap before the go line (the standing "hook is ink", now on every unit; his eye, §376) | `objects.ottava.hookIsInk` |
 | a JET WHISTLE (short here) | a black note with its flag, go line and gestural curve — the staccato unit's look without the dot (§372) | `container.json` devices.byTechnique.jet_whistle |
 
 **Its pace:** the registry's 12 seconds a page (no pace of its own yet).

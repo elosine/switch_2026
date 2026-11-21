@@ -109,6 +109,8 @@ const ens = rd('notation/registry/ensemble.json'), T = rd('notation/registry/tec
 const ENS = Layout.ensembleFor(ens, ((C || raw).realizations || {})['video-jury']);
 const irFiles = fs.readdirSync(path.join(ROOT, 'notation', 'ir')).filter(f => f.endsWith('.ir.json')).sort();
 const sigs = new Map();         // signature → first place seen
+const M10 = { flags: 0, badFlags: [], hooks: 0, badHooks: [], dots: 0, badDots: [], flagClear: ((R.objects || {}).flag || {}).staff || 0.38, flagMax: ((R.objects || {}).flag || {}).clearMaxSs || 10.5, hookGap: ((R.objects || {}).ottava || {}).stack || 0.45,
+  dotClear: ((R.objects || {}).staccatoDot || {}).lineClearSs || 0, dotR: (((R.objects || {}).staccatoDot || {}).diameterSs || 0.4) / 2 };
 const kindsSeen = new Set();
 for (const f of irFiles) {
   let m;
@@ -117,6 +119,18 @@ for (const f of irFiles) {
     m = Layout.layoutSection(ir, glyphs, Object.assign({ m4AttackLines: false, frameParts: ENS ? ENS.parts.map(p => p.part) : undefined, ensemble: ENS, techniques: T },
       ((C || raw).engraving || {}).layout || {}));
   } catch (e) { ok(false, f + ' does not lay out: ' + e.message); continue; }
+  // [§376] (10) measured on every page: the flag's clearance from its staff · the ottava's hook before a go line · the dot's clearance from a line
+  for (const s of m.systems) { if (s.staffLines) continue; const its = s.items || [], pg = f.replace('.ir.json', '');
+    for (const it of its) {
+      if (it.k === 'glyph' && /^flag-/.test(it.g || '') && !(it.scale < 1) && !it.unit) {   // a grace's flag and a hand unit's (its own 2 ss rule) are not this gate's
+        const G = glyphs.flag[it.g.replace('flag-', '')], h = G.hSs * (it.scaleY || 1), down = /down/.test(it.g), st = its.find(x => x.k === 'stem' && Math.abs(x.t - it.t) < 1e-9 && Math.abs(x.dxSs - it.dxSs) < 1e-6);
+        const clear = down ? -2 - (it.ySs + h) : (it.ySs - h) - 2, len = st ? Math.abs(st.yB - st.yA) : 0;
+        M10.flags++; if (clear < M10.flagClear - 0.01 && len + (M10.flagClear - clear) <= M10.flagMax + 0.01) M10.badFlags.push(pg + ' p' + s.part + '@' + it.t.toFixed(2) + ' ' + clear.toFixed(2)); }
+      if (it.k === 'ottava' && !it.seq) { const go = its.find(x => x.k === 'goline' && Math.abs(x.t - it.t) < 1e-9); if (go) { M10.hooks++; if (-it.dx1Ss < M10.hookGap - 0.01) M10.badHooks.push(pg + ' p' + s.part + '@' + it.t.toFixed(2) + ' ' + (-it.dx1Ss).toFixed(2)); } }
+      if (it.k === 'dot') { const hd = its.find(x => x.k === 'glyph' && /^notehead/.test(x.g || '') && Math.abs(x.t - it.t) < 1e-9 && Math.abs(x.dxSs - it.dxSs) < 1e-6); if (hd) {
+        const lines = [-2, -1, 0, 1, 2]; for (let L = 3; L <= Math.abs(hd.ySs) + 0.01; L++) lines.push(hd.ySs > 0 ? L : -L);
+        const dl = Math.min(...lines.map(L => Math.abs(it.ySs - L))) - M10.dotR; M10.dots++; if (dl < M10.dotClear - 0.02) M10.badDots.push(pg + ' p' + s.part + '@' + it.t.toFixed(2) + ' ' + dl.toFixed(2)); } }
+    } }
   for (const s of m.systems) for (const it of s.items || []) {
     kindsSeen.add(it.k);
     const sig = it.k === 'glyph' ? 'glyph:' + it.g : it.k + (it.seq ? '[' + it.seq + ']' : '');
@@ -321,5 +335,9 @@ console.log('(9) THE OTTAVA ON EVERY HEAD · THE COLUMN OUTSIDE THE STAFF · NO 
 }
 
 console.log('');
+console.log('(10) MEASURED ON EVERY PAGE — the flag · the ottava\'s hook · the dot (§376)');
+ok(!M10.badFlags.length, '(10) every flag clears its staff\'s outer line by objects.flag.staff ' + M10.flagClear + ' ss, or its stem has reached clearMaxSs (' + M10.flags + ' flags)' + (M10.badFlags.length ? ' — not: ' + M10.badFlags.slice(0, 8).join(' · ') : ''));
+ok(!M10.badHooks.length, '(10) every ottava bracket beside a go line ends the spacer ' + M10.hookGap + ' ss or more before it — the hook is ink (' + M10.hooks + ' brackets)' + (M10.badHooks.length ? ' — not: ' + M10.badHooks.slice(0, 8).join(' · ') : ''));
+ok(!M10.badDots.length, '(10) every staccato dot keeps objects.staccatoDot.lineClearSs ' + M10.dotClear + ' ss from a line (' + M10.dots + ' dots)' + (M10.badDots.length ? ' — not: ' + M10.badDots.slice(0, 8).join(' · ') : ''));
 console.log(failures ? 'RULES RED: ' + failures + ' of ' + checks + ' checks failed' : 'RULES GREEN: ' + checks + ' checks');
 process.exit(failures ? 1 : 0);

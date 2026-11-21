@@ -13,3 +13,4 @@ glyph on a mic opening · the sign of origin · the processed return · the elec
 |---|---|---|---|
 | 1 | THE HOUSE — the technical rider against the call's offer: one close mic per player (the ensemble close-mics everything) · stereo or quad · the two technologists' role · what runs on the ensemble's machines | not yet — the music's | the call's text (`COMPOSITION_NOTES.md` "The call") · piece 6's row 8 |
 | 2 | ANONYMITY — nothing on the score, in the notes or in the file names identifies the composer until the selection | 2026-10-20 (the call; journal D3) | — |
+| 3 | THE COUNTERPOINT'S DYNAMICS ARE RELATIVE (Section 2, 200 → 253 s): every note is to be heard ABOVE the electronics; within that, the marked dynamics keep their contrast — p quieter than f — but a p is still audible over the electronics | 2026-11-21 (SW-123, RUNNING_LOG §377) | his words, verbatim, in `docs/COMPOSITION_NOTES.md` SW-123 |

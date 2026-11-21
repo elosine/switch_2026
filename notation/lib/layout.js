@@ -1862,7 +1862,13 @@
                       ledgers: ledgersFor(yN) };
                   }
                 }
-                const rightExt = Math.max(nhO.wSs / 2 + ledgerExt, flagRight, TPG ? TPG.right : -Infinity);
+                // [§376 — HIS EYE 2026-11-21: "the ottava … there's a standard for that, to where the right side of the bracket has a certain gap before
+                // the go lines"] THE HOOK IS INK (§528, rules.json objects.ottava.hookIsInk) ON EVERY UNIT THAT STANDS BEFORE A GO LINE: a folded
+                // head's bracket ends ottavaEndGapSs past the head, and that end — not the head — is what keeps the unit's gap before the go line.
+                // §528 did this for the folded sequence heads only; the staccato unit's bracket came to 0.30 … 0.39 ss from its go line.
+                const hookExt = (octShift !== 0 && o.ottavaHookIsInk !== false && dev.goLine && dev.nhAnchor !== 'leftEdge' && !CG)
+                  ? nhO.wSs / 2 + ledgerExt + (o.ottavaEndGapSs != null ? o.ottavaEndGapSs : (((stds.ottava || {}).endPadSs != null) ? stds.ottava.endPadSs : 0)) : -Infinity;
+                const rightExt = Math.max(nhO.wSs / 2 + ledgerExt, flagRight, TPG ? TPG.right : -Infinity, hookExt);
                 // ACCIDENTAL GEOMETRY, computed BEFORE the anchor (day 23):
                 // every offset below is relative to the head's center, so
                 // the unit's horizontal ink is known before it is placed —
@@ -2151,7 +2157,12 @@
                   // ink would touch a line — the staff's or a ledger — then it takes the centre of the next SPACE out (never on a line)
                   if (!lined && Array.isArray(o.floorTier) && o.floorTier.includes('staccatoDot')) {   // switched on by the table (column.floorTiers.inside)
                     const halfLine = ((stds.staff && stds.staff.lineThickness) || 0.1) / 2, lines = [-2, -1, 0, 1, 2].concat(ledgers);
-                    if (lines.some(Lx => Math.abs(yDot - Lx) < rDot + halfLine - 1e-9))
+                    // [§376 — HIS EYE 2026-11-21: "the ones that are above the note head that are on a space. So they're above the staff line. They seem
+                    // awful, maybe even resting on the staff line"] the dot keeps the same tight gap from a LINE that it keeps from its head
+                    // (rules.json objects.staccatoDot.lineClearSs): nearer than that, it takes the centre of the next space out. Before, only a
+                    // dot that TOUCHED a line moved, and a head in a space left its dot 0.09 ss over the next line.
+                    const lineClear = o.dotLineClearSs > 0 ? o.dotLineClearSs : 0;
+                    if (lines.some(Lx => Math.abs(yDot - Lx) < rDot + halfLine + lineClear - 1e-9))
                       yDot = stemDir === 'up' ? Math.floor(yDot + 0.5) - 0.5 : Math.ceil(yDot - 0.5) + 0.5;
                   }
                 }

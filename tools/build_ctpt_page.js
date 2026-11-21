@@ -10,10 +10,10 @@ const save = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', SCORE + '.json
 // THE BEAMED GROUPS [from, to, part] — THE BEAMING THRESHOLD (his, §369): two notes of a part no farther apart than the clarinet's pair at
 // 217.37 → 217.70 (0.329 s) are beamed; and the pairs he has since named one by one (§374).
 const BEAMS = [
-  [205.9985, 206.29, 0],   // flute: the two 16ths (the note before them is their grace pickup, §371)
+  [205.99, 206.29, 0],     // flute: the two 16ths (the D5 doubled before them is out of the save, §376)
   [209.80, 210.45, 0],     // flute: three
   [220.30, 220.73, 0],     // flute: a tongue ram and a staccato, 0.39 s apart — his word, §374 ("You can beam the 2 starting at 220.27")
-  [233.97, 234.08, 0],     // flute: three
+  [233.97, 234.15, 0],     // flute: the staccato and the jet whistle a fast 16th after it (the first jet whistle is out of the save, §376)
   [248.93, 249.46, 0],     // flute: a tongue ram and a staccato, 0.49 s apart — his word, §374 ("The 2 at 248.8 can be beamed")
   [206.40, 206.70, 1],     // clarinet
   [217.36, 217.71, 1],     // clarinet: THE PAIR HE NAMED
@@ -23,7 +23,6 @@ const BEAMS = [
 // no go line, dynamic or gestural curve of its own (one curve, on the main note)
 const GRACES = [
   ['wc-2742', 'wc-2743'],   // the clarinet, 230.37 → 230.42
-  ['wc-2692', 'wc-2691'],   // the flute, 205.998 → the two 16ths of 206.00 · 206.28
 ];
 
 const args = ['tools/notate_section.js', '--score', SCORE, '--w0', '199', '--w1', '254', '--parts', '0-6', '--alone', '199-254', '--exp', '--noFitMark', '--timeSpacing',

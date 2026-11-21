@@ -515,7 +515,7 @@
      "tongue_ram": {
       "sheet": "the Switch~ piece §373 (2026-11-21, his word on the counterpoint's page: 'The tongue rams should be the flag staccato [too], for example, 201.56') — the staccato unit's look whole, dot and all",
       "anchorRow": "C",
-      "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc"],
+      "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc","instruction"],
       "goLine": true,
       "gc": true,
       "nhUnit": true,
@@ -527,12 +527,13 @@
       "nhDotGapSs": "@objects.staccatoDot.parent",
       "nhGapSs": "@anchors.C.gapSs",
       "dynMark": "band",
-      "dynBesideStem": true
+      "dynBesideStem": true,
+      "instrFirst": "T. R."
      },
      "jet_whistle": {
       "sheet": "the Switch~ piece §372 (2026-11-21, his word on the counterpoint's page, the flute at 213.67: 'Let's make that a black one with the flag and all. And any other jet whistles that are like that, they should be black notes') — the staccato unit's look without its dot: a jet whistle is a short note here (0.05 … 0.20 s), not a staccato",
       "anchorRow": "C",
-      "memberRows": ["cueHead","ledger","accidental","stem","flag","accent","dynamic","ottava","goLine","gc"],
+      "memberRows": ["cueHead","ledger","accidental","stem","flag","accent","dynamic","ottava","goLine","gc","instruction"],
       "goLine": true,
       "gc": true,
       "nhUnit": true,
@@ -542,7 +543,8 @@
       "nhStemRule": "flagClear",
       "nhGapSs": "@anchors.C.gapSs",
       "dynMark": "band",
-      "dynBesideStem": true
+      "dynBesideStem": true,
+      "instrFirst": "jet wh."
      },
      "staccato": {
       "sheet": "#4 day 23 (wc-29 — the staccato unit)",
@@ -676,6 +678,7 @@
    "ottavaLedgerThreshold": "@objects.ottava.ledgerThreshold",
    "ottavaEndGapSs": "@objects.ottava.endBeside",
    "ottavaHookIsInk": "@objects.ottava.hookIsInk",
+   "dotLineClearSs": "@objects.staccatoDot.lineClearSs",
    "glissOnStaffLine": "@objects.glissLine.onStaffLine",
    "_ottavaEndNote": "§401m (2026-09-11, the composer): the bracket's hook ends at the rightmost ink of the note (the head, or the ledger line's overhang) plus THE SMALLEST GAP — the staccato-dot gap (tightGapSs 0.15; medium 0.3; standard 0.45). LilyPond's OttavaBracket runs 0.6 ss past the last note; Gould: 'a little beyond'. The left end sits at the accidental's left edge already.",
    "_ottavaNote": "RUNNING_LOG §401j (2026-09-11, the composer, on the piano's A♯1 on its 4th ledger line: 'last pno strike missed ottava'): the smallest ottava that brings a written note within THIS many ledger lines — 3, piece #2's staff-router rule and Gould's; the shared glyph standard (glyphs.json standards.ottava.ledgerLineThreshold) says 4, the tuba's choice, and keeps it for the tuba pages. Every part, both piano staves.",
