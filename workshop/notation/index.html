@@ -40,7 +40,7 @@
   <div class="g"><button id="clip" class="main">Make video</button><label for="loops">×</label><input id="loops" class="s" type="number" min="1" max="20" step="1"></div>
 </div>
 <div class="bar two">
-  <div class="g"><select id="page"><option value="s2-piano-solo">spaced</option><option value="s2-piano-solo-played">as played</option><option value="s2-piano-solo-heads">heads only</option><option value="gravity-proto">prototype: ribbon</option><option value="gravity-proto-strobe">prototype: strobe</option><option value="burst">burst</option><option value="chords-sets">chords: pitch sets</option></select></div>
+  <div class="g"><select id="page"><option value="s2-piano-solo">spaced</option><option value="s2-piano-solo-played">as played</option><option value="s2-piano-solo-heads">heads only</option><option value="gravity-proto">prototype: ribbon</option><option value="gravity-proto-strobe">prototype: strobe</option><option value="burst">burst</option><option value="chords-sets">chords: pitch sets</option><option value="both-between">both hands: ribbon between</option><option value="both-inner">both hands: ribbon inner</option><option value="both-across">both hands: ribbon across</option></select></div>
   <div class="g"><label for="t0">Page from</label><input id="t0" type="number" step="0.1"><button id="back" title="LEFT">◀</button><button id="fwd" title="RIGHT">▶</button></div>
   <div class="g"><label for="a">Phrase</label><input id="a" type="number" step="0.01"><span class="dim">to</span><input id="b" type="number" step="0.01"></div>
   <div class="g"><label for="gap">Gap</label><input id="gap" class="s" type="number" step="0.5" min="0"></div>
@@ -130,7 +130,7 @@
   }
   function drawMarks() {
     if (V && V.proto) return drawProto();
-    const el = $('marks'); if (!V || !V.staves || !V.staves.length || !S.marksOn || /^(chords-|burst)/.test(S.page)) { el.innerHTML = ''; return; }   // the first sorting's walls and arcs are never drawn on the chord or burst pages
+    const el = $('marks'); if (!V || !V.staves || !V.staves.length || !S.marksOn || /^(chords-|burst|both-)/.test(S.page)) { el.innerHTML = ''; return; }   // the first sorting's walls and arcs are never drawn on the chord or burst pages
     const W = V.w * S.size, H = V.band[1] * S.size, a0 = V.window[0], a1 = V.window[1], out = [];
     el.setAttribute('width', W); el.setAttribute('height', H);
     for (const w of M.walls || []) {
@@ -175,6 +175,7 @@
   const num = (id, d) => { const v = parseFloat($(id).value); return Number.isFinite(v) ? v : d; };
   $('page').onchange = () => {
     S.page = $('page').value;
+    if (S.page.startsWith('both-')) return fetch('/excerpt?name=both').then(r => r.json()).then(x => { if (x.view) { S.t0 = x.view[0]; S.span = +(x.view[1] - x.view[0]).toFixed(1); S.a = x.arc.t0; S.b = x.arc.t1; } show(); save(); load(); });
     if (S.page.startsWith('chords-')) return fetch('/excerpt?name=chords').then(r => r.json()).then(x => { if (x.view) { S.t0 = x.view[0]; S.span = +(x.view[1] - x.view[0]).toFixed(1); S.a = x.window[0]; S.b = x.window[1]; } show(); save(); load(); });
     if (S.page === 'burst') return fetch('/excerpt?name=burst').then(r => r.json()).then(x => { if (x.view) { S.t0 = x.view[0]; S.span = +(x.view[1] - x.view[0]).toFixed(1); const h = Object.values(x.hands || {}); S.a = Math.min(...h.map(w => w[0])); S.b = Math.max(...h.map(w => w[1])); } show(); save(); load(); });
     if (S.page.startsWith('gravity-proto')) return fetch('/proto').then(r => r.json()).then(p => { S.t0 = p.window[0]; S.span = +(p.window[1] - p.window[0]).toFixed(1); S.a = p.arc.t0; S.b = p.arc.t1; show(); save(); load(); });

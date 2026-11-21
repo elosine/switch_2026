@@ -81,7 +81,7 @@ module.exports = function furniture(o) {
   const sideIn = setOf(pick([].concat(P.in || [], P.impact || []))), sideOut = setOf(pick(P.out));
   const R = Object.assign({ changeMin: 3 }, P.shapeRule || {});
   const diff = sideOut.filter(n => !sideIn.some(m => m.midi === n.midi)).length + sideIn.filter(n => !sideOut.some(m => m.midi === n.midi)).length;
-  const shapes = !sideIn.length ? [{ at: A.t0, set: sideOut }] : (sideOut.length && diff >= R.changeMin) ? [{ at: A.t0, set: sideIn, from: true }, { at: A.bounce + (R.afterImpact != null ? R.afterImpact : 0.3) * (A.t1 - A.bounce), set: sideOut, from: true }] : [{ at: A.t0, set: setOf(sideIn.concat(sideOut)) }];
+  const shapes = P.noShapes ? [] : !sideIn.length ? [{ at: A.t0, set: sideOut }] : (sideOut.length && diff >= R.changeMin) ? [{ at: A.t0, set: sideIn, from: true }, { at: A.bounce + (R.afterImpact != null ? R.afterImpact : 0.3) * (A.t1 - A.bounce), set: sideOut, from: true }] : [{ at: A.t0, set: setOf(sideIn.concat(sideOut)) }];
   for (const sh of shapes) {
     // [§277 — his "lets write clusters as a bar with noteheads on top and bottom the actual top note and bottom note of the cluster, including
     // accidentals"] THE CLUSTER BAR: a shape of clusterMinNotes or more pitches with no gap wider than clusterMaxGap semitones is written as

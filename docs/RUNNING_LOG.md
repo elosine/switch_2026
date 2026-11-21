@@ -4862,3 +4862,20 @@ Tried and not kept as alternatives: 14 (one shape for the whole right hand — i
 
 **The page:** "chords: pitch sets" — the five bars boxed where each begins, the played notes faint under them; the first sorting's arcs and amber boxes are never drawn on the chord and burst pages now (they were the Gravity overlay, still on). The faint heads now stand at pitch: the engine's 8va folding is off on these pages, so heads and shapes agree on the upper staff (§293's flaw).
 **Seen:** the right hand's one bar begins at 152.54 and says nothing for 17 s — whether a shape is said AGAIN after a wall or a silence is not decided.
+
+## §295 · 2026-11-20 · the ribbon for BOTH hands — it moves and doubles in length; three vertical placements
+
+**His words:** SW-90 (the sketch pad): the pitch sets "for now"; the specific harmonies as poles in "the afterpass"; "can you do an assessment of whether it still stays there for including both hands? And then let's reposition the ribbon. And also like its length and arc … let's find the proper vertical placement. I guess in between for now … give me some options."
+
+**The assessment — NO, it does not stay (both hands' notes, 157.4 → 161.5 s; notes within 45 ms one moment; the weight of a moment = the sum of its notes' loudness):**
+- The heaviest moment of both hands is the 14-note landing at 160.40 (weight 1444). The left hand's impact at 159.16, where the one-hand arc landed, weighs 335 — a quarter of it, and no more than the opening jab at 157.68 (332).
+- The run has no silence over 0.3 s from 157.68 to 161.23: one gesture, 3.55 s long (the one-hand arc was 1.82 s).
+- So the arc becomes 157.683 → THE IMPACT 160.404 → 161.23: the fall 2.72 s (was 1.34), the rebound 0.83 s (was 0.48); the impact one and a quarter seconds later.
+- The busyness of both hands (the bell sum of §279, read every 0.1 s, in tens): 45 through 157.7 … 158.3 · a dip to 22 at 158.6 … 158.8 · 60 at 159.2 (the left hand's old impact — now a swell on the way) · a dip to 25 at 159.8 … 159.9 · then 53 · 86 · 122 · 150 at 160.1 … 160.4 · 49 at 160.7 · a last swell of 65 at 161.0. His "the overall accel comes in bursts": three, each larger.
+
+**Built (`bank/gravity_both.json`; the pages "both hands: ribbon between / inner / across"):** one ribbon for both hands on that arc, drawn by the same `gravity_furniture.js` (its own shapes switched off); each hand's shapes are §294's pitch sets — the set in use at the gesture's start SAID at its start (the right hand's E5 … F6, the left's C#4 … A4), a change inside the gesture at its own moment (the left hand's A#4 … F#5 at 160.43); no played note drawn. The three placements differ only in the ribbon's lane:
+- BETWEEN — inside the gap between the staves (the upper staff's bottom line to the lower staff's top line): the fall is 28 px, the ribbon at most 12 px. Nothing crosses a staff; the arc is nearly flat.
+- INNER — from the upper staff's middle line to the lower staff's middle line: a fall of 72 px, the ribbon to 18 px. It crosses the inner half of each staff.
+- ACROSS — from above the upper staff to below the lower: a fall of 198 px, the ribbon to 24 px. A true arc; it crosses both staves and passes the shapes.
+**Checked once:** the three pages rendered to images.
+**Seen, for his word:** (1) with the landing four times heavier than anything before it and the exaggeration at 2.4, the ribbon is a hair until its last half second — the two earlier swells do not show; a lower power would bring them back. (2) In INNER and ACROSS the ribbon's thick part meets the left hand's new shape at 160.43 (the box stands over it). (3) The ball's fall now lasts 2.7 s on piece 2's curve (power 3.4): it hangs near the top for the first second and a half.

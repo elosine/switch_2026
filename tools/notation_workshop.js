@@ -23,7 +23,7 @@ const DIR = path.join(ROOT, 'workshop', 'notation');
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 && process.argv[i + 1] != null ? process.argv[i + 1] : d; };
 const PORT = +(process.env.PORT || arg('port', 5650));
 const PART = +arg('part', 5);                                   // the piano's lane
-const PAGES = arg('pages', 's2-piano-solo,s2-piano-solo-played,s2-piano-solo-heads,gravity-proto,gravity-proto-strobe,gravity-proto-strip,burst,chords-few,chords-some,chords-many,chords-sets').split(',');
+const PAGES = arg('pages', 's2-piano-solo,s2-piano-solo-played,s2-piano-solo-heads,gravity-proto,gravity-proto-strobe,gravity-proto-strip,burst,chords-few,chords-some,chords-many,chords-sets,both-between,both-inner,both-across').split(',');
 const SRC_AUDIO = path.join(ROOT, arg('audio', 'notation/audio/piece-Section03-H-addTuplets.wav'));   // the players' render; its piano solo is the first draft's, note for note (§266)
 const A0 = +arg('a0', 146), A1 = +arg('a1', 258);               // the cut's span in score time
 const CUT = path.join(ROOT, 'notation', 'audio', 'cuts', 'workshop-piano-' + A0 + '-' + A1 + '.wav');
@@ -38,7 +38,7 @@ const WATCH = ['notation/lib/layout.js', 'notation/lib/render.js', 'notation/lib
 // [§273] THE PROTOTYPE PAGE (bank/gravity_proto.json): one hand's notes of one window, read from another page's IR
 const PROTO = 'gravity-proto', protoOf = () => rd('bank/gravity_proto.json');
 // [§290] AN EXCERPT PAGE ('burst', bank/burst_proto.json): only the notes each hand plays inside its own span, both staves
-const EXCERPTS = { burst: 'bank/burst_proto.json', 'chords-few': 'bank/chord_changes.json', 'chords-some': 'bank/chord_changes.json', 'chords-many': 'bank/chord_changes.json', chords: 'bank/chord_changes.json', 'chords-sets': 'bank/chord_changes.json' };
+const EXCERPTS = { burst: 'bank/burst_proto.json', 'chords-few': 'bank/chord_changes.json', 'chords-some': 'bank/chord_changes.json', 'chords-many': 'bank/chord_changes.json', chords: 'bank/chord_changes.json', 'chords-sets': 'bank/chord_changes.json', both: 'bank/gravity_both.json', 'both-between': 'bank/gravity_both.json', 'both-inner': 'bank/gravity_both.json', 'both-across': 'bank/gravity_both.json' };
 const stampOf = page => WATCH.concat(EXCERPTS[page] ? [EXCERPTS[page], 'notation/ir/' + rd(EXCERPTS[page]).page + '.ir.json'] : page.startsWith(PROTO) ? ['bank/gravity_proto.json', 'notation/ir/' + protoOf().page + '.ir.json'] : ['notation/ir/' + page + '.ir.json']).map(f => { try { return fs.statSync(path.join(ROOT, f)).mtimeMs; } catch (e) { return 0; } }).join('|');
 const ENG = new Map();
 function engine(page) {
@@ -49,7 +49,7 @@ function engine(page) {
   const lib = n => require(path.join(ROOT, 'notation', 'lib', n));
   const Coords = lib('coords.js'), Layout = lib('layout.js'), StaticPage = lib('static_page.js'), Fit = lib('fit.js');
   const glyphs = rd('notation/lib/glyphs.json'), C = lib('rules.js').loadContainer(ROOT), ens = rd('notation/registry/ensemble.json'), T = rd('notation/registry/techniques.json');
-  let ir, proto = null, chords = null;
+  let ir, proto = null, chords = null, both = null, keepNone = false;
   if (page.startsWith(PROTO)) {
     proto = protoOf(); proto.flow = Object.assign({}, proto.flow, { style: page === PROTO ? ((proto.flow || {}).style || 'ribbon') : page.slice(PROTO.length + 1) });   // [§282] the page's name says how the inner movement is drawn
     ir = rd('notation/ir/' + proto.page + '.ir.json');
@@ -71,8 +71,16 @@ function engine(page) {
     const inSpan = ev => { const w = ex.hands ? ex.hands[(staff.get(ev.id) || 0) === 1 ? 'L' : 'R'] : ex.window; return !!w && ev.onset >= w[0] && ev.onset <= w[1]; };
     // [§293] the chord-change pages: the same notes, read per hand for the shapes (tools/chord_changes.js); the page's name carries the alternative
     if (page.startsWith('chords-')) chords = { cfg: ex, span: ex.spans[page.slice(7)], sets: page === 'chords-sets', hands: { R: [], L: [] } };
+    // [§295] ONE GESTURE FOR BOTH HANDS (bank/gravity_both.json): the notes of the gesture (both hands, for its busyness), each hand's notes of
+    // the longer stretch (for its pitch sets), and NO played note drawn
+    if (page.startsWith('both-')) {
+      const cc = rd('bank/chord_changes.json'), handOf = ev => (staff.get(ev.id) || 0) === 1 ? 'L' : 'R';
+      both = { cfg: ex, lane: ex.lanes[page.slice(5)], sets: cc.sets, played: ir.events.filter(inSpan).map(ev => ({ id: ev.id, onset: ev.onset, vel: ev.vel, pitch: ev.pitch })), hands: { R: [], L: [] } };
+      for (const ev of ir.events) if (ev.onset >= cc.window[0] && ev.onset <= cc.window[1]) both.hands[handOf(ev)].push({ t: ev.onset, midi: ev.pitch.midi, sp: ev.pitch.spelled });
+      keepNone = true;
+    }
     if (chords) for (const ev of ir.events) if (inSpan(ev)) chords.hands[(staff.get(ev.id) || 0) === 1 ? 'L' : 'R'].push({ t: ev.onset, midi: ev.pitch.midi, sp: ev.pitch.spelled });
-    const keep = new Set(ir.events.filter(inSpan).map(ev => ev.id));
+    const keep = new Set(keepNone ? [] : ir.events.filter(inSpan).map(ev => ev.id));
     ir.events = ir.events.filter(ev => keep.has(ev.id));
     ir.overlays = (ir.overlays || []).filter(o => !(o.target && o.target.event) || keep.has(o.target.event));
     ir.chunks = (ir.chunks || []).map(c => Object.assign({}, c, { events: (c.events || []).filter(id => keep.has(id)) })).filter(c => c.events.length);
@@ -89,7 +97,7 @@ function engine(page) {
     stavesOf: p => (ensPart(p) && ensPart(p).staves && ensPart(p).staves.length) || 1, ensemble: ENS });
   const LO = (C.engraving && C.engraving.layout) || {};
   const e = { stamp, Coords, StaticPage, glyphs, C, ENS, ir, model, H, FRAME, EDGES: Coords.edgesOf(C), band: (proto && proto.band) || BAND,
-    chords, Gc: lib('gc.js'), ChordColumn: lib('chord_column.js'), gaps: { toHead: LO.accGapColumn != null ? LO.accGapColumn : 0.1, between: (LO.chordColumn && LO.chordColumn.minLateralGap) || 0.1 },
+    chords, both, Gc: lib('gc.js'), ChordColumn: lib('chord_column.js'), gaps: { toHead: LO.accGapColumn != null ? LO.accGapColumn : 0.1, between: (LO.chordColumn && LO.chordColumn.minLateralGap) || 0.1 },
     proto: proto && Object.assign({}, proto, { preset: (C.animated && C.animated.gc && C.animated.gc.preset) || lib('gc.js').DEFAULT_PRESET, look: lib('gc.js').LOOK }) };
   ENG.set(page, e);
   return e;
@@ -127,8 +135,28 @@ function viewOf(page, t0, span, w) {
       chordsOut.hands[h] = shapes.map(s => ({ at: +s.at.toFixed(3), pitches: s.set.length, cluster: s.cluster, pushed: s.pushed })); }
     svg = svg.replace(/<\/svg>\s*$/, add + '</svg>');
   }
+  // [§295] ONE GESTURE FOR BOTH HANDS: the ribbon in its lane (the page's name says which), each hand's shapes on its own staff
+  if (e.both && staves.length) {
+    const B = e.both, A = B.cfg.arc, pps = (view.xOfSeconds(t0 + span) - x0) / span, xOf = s => x0 + (s - t0) * pps, ids = f => B.played.filter(f).map(p => p.id.replace(/^ev-/, ''));
+    const preset = (e.C.animated && e.C.animated.gc && e.C.animated.gc.preset) || e.Gc.DEFAULT_PRESET, look = e.Gc.LOOK;
+    const P = { band: B.cfg.band, arcBand: B.lane.arcBand, coverFrom: B.cfg.coverFrom, arc: A, noShapes: true, flow: Object.assign({}, B.cfg.flow, { ribbonMaxPx: B.lane.ribbonMaxPx }),
+      in: ids(p => p.onset < A.bounce - 0.03), impact: ids(p => Math.abs(p.onset - A.bounce) <= 0.03), out: ids(p => p.onset > A.bounce + 0.03) };
+    delete require.cache[require.resolve('./gravity_furniture.js')]; delete require.cache[require.resolve('./chord_changes.js')];
+    const f = require('./gravity_furniture.js')({ proto: P, ir: { events: B.played }, glyphs: e.glyphs, ChordColumn: e.ChordColumn, Gc: e.Gc, xOf, staff: staves[staves.length - 1], w, preset, look, gaps: e.gaps });
+    // each hand's pitch sets (§294): the one in use at the gesture's start is SAID there; a change inside the gesture stands at its own moment
+    const CC = require('./chord_changes.js'); let add = f.svg; const said = {};
+    for (const h of ['R', 'L']) {
+      const all = CC.persistent(B.hands[h], B.sets).filter(s => !s.brief), cur = all.filter(s => s.at <= A.t0).pop(), inside = all.filter(s => s.at > A.t0 && s.at <= A.t1);
+      const shapes = (cur ? [Object.assign({}, cur, { at: A.t0 })] : []).concat(inside);
+      add += CC.draw({ shapes, xOf, staff: h === 'R' ? staves[0] : staves[staves.length - 1], glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps });
+      said[h] = shapes.map(s => +s.at.toFixed(3));
+    }
+    svg = svg.replace(/<\/svg>\s*$/, add + '</svg>');
+    protoOut = { arc: A, preset, look, flow: P.flow, arcY: f.arcY, ribbon: f.ribbon, headOpacity: 1, shapesAt: said };
+    e.bandOut = B.cfg.band;
+  }
   // [§276] THE PROTOTYPE'S FURNITURE — the arc, the flow strip under the staff, the shapes (tools/gravity_furniture.js) — in the picture itself
-  let band = e.band;
+  let band = e.bandOut || e.band;
   if (e.proto && staves.length) {
     delete require.cache[require.resolve('./gravity_furniture.js')];
     const pps = (view.xOfSeconds(t0 + span) - x0) / span;
