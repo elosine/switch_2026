@@ -5162,3 +5162,10 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 - THE RIBBON 174.243 → the impact 175.44 → the refined tail. The designed line of §296 (a hair while level, growing with the drop). His 175.52 is the END of the seven-note cluster 175.393 … 175.503; the impact stands at its loudness-weighted middle (§314's choice, still unanswered by him).
 **Checked once:** the page rendered to an image, 171.2 → 176.1 s.
 **Seen, for his eye:** the three beamed figures stand very close (equal, but only about 2.3 ss apart, right after the arpeggio's wavy line); the falling ribbon's first chord symbols stand under its level start.
+
+## §324 · 2026-11-21 · a pebble drop at 175.9, two sparse repeats at 176.77; the second pass named — a spectrum of each kind
+
+**His words:** SW-104 (the sketch pad): "175.9 to 176.21, that's a pebble drop. the notes at 176.77 to maybe about 176.99 … a repeat, but like a more sparse one … things we'll maybe refine at a second pass … I want a spectrum, a gradation of the pebble drops of like density or … weighted in the front or weighted in the back … And same with the repeats … sparsely repeated, ones that grow bigger … put in some kind of sparsely repeated one for now."
+**Written into the working version:** the pebble drop 175.898 → 176.21 (the partials of 175.898 … 176.205) · the repeat 176.762 → 176.99 in BOTH hands, since both play there — the right hand's single F#5 (struck twice), the left hand's E4 · F4 · G4 — each with the new sign "sparse": few marks, 2.6 ss apart, one modest size (two marks fit). A placeholder, as he says.
+**THE SECOND PASS, written into `docs/NOTATION_SCHEME.md` § 3:** a spectrum of each kind — pebble drops by density and by where the weight lies; repeats by sparseness and by what they do. What exists to draw on: the plain drop and the hill; the repeat signs sparse · 29 · 28 · 30 · 31 and the catalog.
+**Checked once:** the page rendered to an image, 174.0 → 177.6 s.

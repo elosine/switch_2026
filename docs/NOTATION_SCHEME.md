@@ -144,6 +144,8 @@ Built by `node tools/notate_section.js … --glissGestures all`. The crotales' d
 | the boxes' place | each begins at its moment and stays inside the arc's span | his |
 | played notes | none drawn | his |
 
+**HIS NOTE FOR THE SECOND PASS (SW-104, 2026-11-21) — A SPECTRUM OF EACH KIND:** the pebble drops in a GRADATION — of density, and of where the weight lies (weighted in the front, weighted in the back); the repeats likewise — sparsely repeated, ones that grow bigger, and so on. "Let's find a variety of those." What exists to draw on: the plain drop (26 pebbles) and the hill (weighted to the back, §317 · §322); the repeat signs sparse · 29 growing · 28 fading · 30 gathering · 31 spreading, and the catalog page `http://localhost:5650/pages/stutter`.
+
 **HIS NOTE TO COME BACK TO (SW-102, 2026-11-20):** refine the pebble drops' DENSITIES — so they reflect the playing a little, and so there is variety among the drops (today every drop but the hill at 170.3 has the same 26 pebbles).
 
 **OPEN (his method's steps, SW-83's third word):** which notes stand on which side of the impact (the first reading puts the impact on the hand's heaviest moment) · how the arc's physics and shape are decided (today the GC's fixed curve, stretched in time) · the other hand · how it meets the standard figures beside it.

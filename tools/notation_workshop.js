@@ -263,7 +263,9 @@ function viewOf(page, t0, span, w, opts) {
         if (keys.length) {
           let m = CC.draw({ shapes: shp, xOf, staff: st, glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps, rule: cfg.shapeRule });
           const xA = shp[0].x1 + 0.7 * sq, xB = xOf(g.t1), yM = shp[0].yMid, marks = [], sign = g.sign || 29;
-          if (sign === 30 || sign === 31) { let x = xA, gap = 2.3 * sq; const xs = []; while (x < xB) { xs.push(x); gap = Math.max(0.45 * sq, gap * 0.8); x += gap; } for (const x1 of xs) marks.push([sign === 30 ? x1 : xA + xB - x1, 1.3, 1.3]); }
+          // [§324 — his "a repeat, but like a more sparse one"] sign "sparse": few marks, far apart (2.6 ss), all one modest size
+          if (sign === 'sparse') { for (let x = xA + 0.6 * sq; x < xB + 0.2 * sq; x += 2.6 * sq) marks.push([x, 1.0, 1.0]); if (marks.length < 2) marks.push([xA + 3.2 * sq, 1.0, 1.0]); }
+          else if (sign === 30 || sign === 31) { let x = xA, gap = 2.3 * sq; const xs = []; while (x < xB) { xs.push(x); gap = Math.max(0.45 * sq, gap * 0.8); x += gap; } for (const x1 of xs) marks.push([sign === 30 ? x1 : xA + xB - x1, 1.3, 1.3]); }
           else { const n = Math.max(2, Math.floor((xB - xA) / (0.95 * sq)) + 1); for (let i = 0; i < n; i++) { const k0 = i / (n - 1), k = sign === 28 ? 1 - k0 : k0; marks.push([xA + (xB - xA) * k0, 0.6 + 1.5 * k, 0.6 + 1.4 * k]); } }
           // [§309] dropStart · dropEnd: so many marks left off the repeat's beginning or end (his "take out a few of the ending ones … a few of the beginning ones")
           for (const [x, hf, wd] of marks.slice(g.dropStart || 0, marks.length - (g.dropEnd || 0))) m += '<path d="M' + (x - 0.55 * sq).toFixed(1) + ' ' + (yM - hf * sq).toFixed(1) + ' Q' + (x + 0.45 * sq).toFixed(1) + ' ' + yM.toFixed(1) + ' ' + (x - 0.55 * sq).toFixed(1) + ' ' + (yM + hf * sq).toFixed(1) + '" fill="none" stroke="#111" stroke-width="' + wd.toFixed(2) + '" stroke-linecap="round"/>';

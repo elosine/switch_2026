@@ -2,8 +2,8 @@
  "_doc": "THE WORKING VERSION of the piano solo (SW-96; RUNNING_LOG §307 — his word: 'can we get like a working version that we work in and that keeps all our changes'). The workshop's page 'working version' = the page `base` (the standard figures taken one by one, notation/hand/<base>.units.json) with the GESTURES below drawn over it, and nothing else. A gesture hides the played notes inside its span. kind ribbon = Shape Action Notation's arc: t0 its start, bounce its impact (the 'hit'), t1 its end; flow.profile = its designed width (§296). kind strike = the scattered strike: a curtain from t0 to t1 with the thrown pebbles. A chord symbol (each hand's pitch set, bank/chord_changes.json `sets`) stands at the start of every ribbon and strike. His times are 'thereabouts' — he clicks them with the mouse. A POLE (a fixed structure in standard notation) is not here: it is a figure in the units file.",
  "base": "s2-piano-solo",
  "view": [
-  170,
-  176
+  174,
+  178
  ],
  "band": [
   470,
@@ -313,6 +313,30 @@
    "tailPct": 85,
    "_his": "The section beginning at 174.23 and ending at 175.52, just a ribbon going down, impacting at 175.52 and a short tail up",
    "_note": "the start on the partial of 174.243; the impact on the seven-note cluster of 175.393 … 175.503 — his 175.52 is its end — at its loudness-weighted middle, 175.44; the designed line (thin while level, growing with the drop); the refined tail"
+  },
+  {
+   "kind": "strike",
+   "t0": 175.898,
+   "t1": 176.21,
+   "_his": "175.9 to 176.21, that's a pebble drop",
+   "_note": "the partials of 175.898 … 176.205"
+  },
+  {
+   "kind": "stutter",
+   "hand": "R",
+   "sign": "sparse",
+   "t0": 176.762,
+   "t1": 176.99,
+   "_his": "the notes at 176.77 to maybe about 176.99. Let's make that a repeat, but like a more sparse one … put in some kind of sparsely repeated one for now",
+   "_note": "the right hand's F#5, struck at 176.783 and 176.877; a placeholder sparse sign"
+  },
+  {
+   "kind": "stutter",
+   "hand": "L",
+   "sign": "sparse",
+   "t0": 176.762,
+   "t1": 176.99,
+   "_note": "the left hand's E4 · F4 · G4, struck 176.762 … 176.900"
   }
  ],
  "noOttava": true,
