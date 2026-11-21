@@ -5099,3 +5099,10 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 ## §315 · 2026-11-20 · the pole's two chords beamed
 
 **His words:** "Beam those last two clusters together, please." Units 13 and 14 (169.752 · 169.930) lose their flags and share one 16th beam (`u13`), stems up, across the two staves — the beam at the standing height above the upper staff, the second chord's stem running up from the lower staff. By the hand unit's standing rules; the pages rebuilt. **Checked once:** the spot rendered to an image.
+
+## §316 · 2026-11-20 · the short tails lengthened to one length, 0.46 s
+
+**His words:** "And the short tails can be maybe about 30% longer, even if it goes in a little bit into the space of the next thing, it's fine. Looks like they'll clear. So the short tail at 163.6. I don't know if they're all the same length, but even longer than that one. That seems a little longer."
+**They were not the same length:** after the impacts at 163.596 · 165.833 · 168.509 · 169.415 the tails lasted 0.354 · 0.167 · 0.231 · 0.205 s (each had been cut to what followed it). The one at 163.6 was the longest, as he saw.
+**Changed:** every short tail now lasts 0.46 s (`shortTailS` — the longest one plus 30 %), whatever follows; so the tails run to 164.056 · 166.293 · 168.969 · 169.875. `hideTo` keeps each ribbon's span of replaced notes where it was, so a longer tail does not swallow the notes after it (the pole's first chord at 169.75 stays).
+**Checked once:** the page rendered to an image, 163.0 → 170.4 s. **Seen:** the tails end low, about the lower staff's bottom line; three of them now reach under or through what follows on the LOWER staff — the left hand's chord symbol at 168.83 (the tail of the ribbon before passes through its box) and the pole's second chord at 169.93 (the last tail ends at its accidentals). On the upper staff everything clears, as he judged.

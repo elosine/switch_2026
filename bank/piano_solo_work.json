@@ -152,7 +152,7 @@
     163.04,
     163.596
    ],
-   "t1": 163.95,
+   "t1": 164.056,
    "tailPct": 30,
    "fromPlaying": true,
    "flow": {
@@ -160,13 +160,14 @@
     "ribbonMaxPx": 34
    },
    "_his": "a ribbon with like a multi-bounce … the first bounce is at 162.46. It starts at the partial there at 161.79. Another bounce at 163.09. And the final bounce at 163.71 with just a small tail up",
-   "_note": "on the partials played: the start 161.789; the bounces on the heaviest moment near each of his times — 162.513 (seven notes; the five of 162.409 just before it), 163.040 (ten notes), 163.596 (seventeen notes, to 163.67); a short tail to 163.95"
+   "_note": "on the partials played: the start 161.789; the bounces on the heaviest moment near each of his times — 162.513 (seven notes; the five of 162.409 just before it), 163.040 (ten notes), 163.596 (seventeen notes, to 163.67); a short tail to 163.95",
+   "hideTo": 163.95
   },
   {
    "kind": "ribbon",
    "t0": 164.781,
    "bounce": 165.833,
-   "t1": 166,
+   "t1": 166.293,
    "tailPct": 30,
    "flow": {
     "ribbonMaxPx": 34,
@@ -186,7 +187,8 @@
     }
    },
    "_his": "a ribbon that hits at 165.9 starts at the partials at 164.77 and it has a like a growing line, starts thin and progressively grows until impact. a short up tail",
-   "_note": "the start on the partial of 164.781; the impact on the nine notes struck from 165.785 (the left hand adds four more at 165.89 — his 165.9 is that cluster, its beginning taken); a short tail to 166.0 — §314: the impact moved to the LOUDNESS-WEIGHTED MIDDLE of that cluster, 165.833 (his 165.9 reads its end; its beginning was 165.785)"
+   "_note": "the start on the partial of 164.781; the impact on the nine notes struck from 165.785 (the left hand adds four more at 165.89 — his 165.9 is that cluster, its beginning taken); a short tail to 166.0 — §314: the impact moved to the LOUDNESS-WEIGHTED MIDDLE of that cluster, 165.833 (his 165.9 reads its end; its beginning was 165.785)",
+   "hideTo": 166
   },
   {
    "kind": "stutter",
@@ -216,7 +218,7 @@
    "kind": "ribbon",
    "t0": 167.555,
    "bounce": 168.509,
-   "t1": 168.74,
+   "t1": 168.969,
    "tailPct": 30,
    "flow": {
     "ribbonMaxPx": 34,
@@ -236,13 +238,14 @@
     }
    },
    "_his": "from 167.56 to 168.59. That's a ribbon. Again, an accelerating. It goes from thin into thick and short uptail",
-   "_note": "the start on the partial of 167.555; the impact on the seventeen-note cluster of 168.425 … 168.606 — his 168.59 is its end; the impact stands at its loudness-weighted middle, 168.509; a short tail to 168.74"
+   "_note": "the start on the partial of 167.555; the impact on the seventeen-note cluster of 168.425 … 168.606 — his 168.59 is its end; the impact stands at its loudness-weighted middle, 168.509; a short tail to 168.74",
+   "hideTo": 168.74
   },
   {
    "kind": "ribbon",
    "t0": 168.83,
    "bounce": 169.415,
-   "t1": 169.62,
+   "t1": 169.875,
    "tailPct": 30,
    "flow": {
     "ribbonMaxPx": 34,
@@ -262,7 +265,8 @@
     }
    },
    "_his": "ribbon from 168.83 impact at 169.46 short tail again",
-   "_note": "the impact on the ten-note cluster of 169.354 … 169.451, at its loudness-weighted middle, 169.415; the tail to 169.62 (it takes the single B4 of 169.608 with it)"
+   "_note": "the impact on the ten-note cluster of 169.354 … 169.451, at its loudness-weighted middle, 169.415; the tail to 169.62 (it takes the single B4 of 169.608 with it)",
+   "hideTo": 169.62
   }
  ],
  "noOttava": true,
@@ -276,5 +280,7 @@
  "omit": [
   "wc-2093"
  ],
- "_omitNote": "§314 — his word: \"you can just eat that extra F. Just forget about that extra F at 170\" — the left hand's F4 at 170.042 is left out"
+ "_omitNote": "§314 — his word: \"you can just eat that extra F. Just forget about that extra F at 170\" — the left hand's F4 at 170.042 is left out",
+ "shortTailS": 0.46,
+ "_shortTailNote": "§316 — his word: the short tails about 30 % longer, \"even longer than\" the one at 163.6 (which was 0.354 s, the longest): every short tail now lasts 0.46 s after its impact, and may run into the space of what follows; hideTo keeps the span of played notes it replaces where it was"
 }
