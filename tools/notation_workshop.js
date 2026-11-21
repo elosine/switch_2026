@@ -207,6 +207,18 @@ function viewOf(page, t0, span, w, opts) {
         addSets += CC.draw({ shapes, xOf: xOf2, staff: h === 'R' ? staves[0] : staves[staves.length - 1], glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps });
         said[h] = shapes.map(s => ({ at: +s.at.toFixed(3), from: s.set[0].midi, to: s.set[s.set.length - 1].midi }));
       }
+      // [§305 — his "let's put in 29 there"] THE STUTTER, the prototype's middle part (proto.stutter): its keys written once as plain notes on
+      // the hand's staff, then catalog sign 29 — the running shake marks GROWING: each mark taller and heavier than the one before, to the end
+      if (e.proto.stutter) {
+        const U = Object.assign({ stepSs: 2.1, half: [0.7, 2.3], width: [0.7, 2.2], gapSs: 0.9 }, e.proto.stutter), st = U.hand === 'L' ? staves[staves.length - 1] : staves[0], ss = (st[1] - st[0]) / 4;
+        const keys = [...new Map(e.proto._hands[U.hand].filter(n => U.midis.includes(n.midi)).map(n => [n.midi, n])).values()].sort((p, q) => p.midi - q.midi), shp = [{ at: U.t0, set: keys }];
+        if (keys.length) {
+          addSets += CC.draw({ shapes: shp, xOf: xOf2, staff: st, glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps, box: false });
+          const xA = shp[0].x1 + U.gapSs * ss, xB = xOf2(U.t1), yM = shp[0].yMid, n = Math.max(2, Math.floor((xB - xA) / (U.stepSs * ss)) + 1);
+          for (let i = 0; i < n; i++) { const k = n > 1 ? i / (n - 1) : 1, x = xA + (xB - xA) * (n > 1 ? i / (n - 1) : 0), h = (U.half[0] + (U.half[1] - U.half[0]) * k) * ss, wd = U.width[0] + (U.width[1] - U.width[0]) * k;
+            addSets += '<path d="M' + (x - 0.55 * ss).toFixed(1) + ' ' + (yM - h).toFixed(1) + ' Q' + (x + 0.45 * ss).toFixed(1) + ' ' + yM.toFixed(1) + ' ' + (x - 0.55 * ss).toFixed(1) + ' ' + (yM + h).toFixed(1) + '" fill="none" stroke="#111" stroke-width="' + wd.toFixed(2) + '" stroke-linecap="round"/>'; }
+        }
+      }
       svg = svg.replace(/<\/svg>\s*$/, () => addSets + '</svg>'); protoOut.sets = said;
     }
     band = [e.band[0], e.band[1] + f.extraH]; protoOut.shapes = f.shapes; protoOut.flags = f.flags; protoOut.arcY = f.arcY; protoOut.ribbon = f.ribbon;

@@ -145,5 +145,26 @@
   "pileSpread": 0.2
  },
  "alsoHeads": false,
- "pitchSets": true
+ "pitchSets": true,
+ "stutter": {
+  "hand": "R",
+  "t0": 159.68,
+  "t1": 160.12,
+  "midis": [
+   82,
+   83
+  ],
+  "sign": 29,
+  "stepSs": 0.95,
+  "half": [
+   0.6,
+   2.1
+  ],
+  "width": [
+   0.6,
+   2
+  ],
+  "gapSs": 0.7,
+  "_note": "§305 — THE STUTTER, the prototype's middle part: the right hand's two keys (A#5 · B5, struck 159.27 … 160.28) written once as plain notes at t0, then catalog sign 29, the running shake marks GROWING, to t1 (before the curtain). half = each mark's half height in staff spaces, first to last; width = its stroke in px, first to last; stepSs = the distance between marks. Its place is drawn in the gap between the ribbon and the curtain; the played stutter began earlier, under the ribbon."
+ }
 }

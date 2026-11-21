@@ -1475,3 +1475,7 @@ staff carried from piece 6 has eight lines, of which only the coil's and the Chi
 **His words (verbatim):** "Okay, now let's look at the repeated notes. What kind of comic book style, static notation is there for repetition? Maybe you can give me a few examples. Let's do something like the workshop where I did substrates. Maybe you can make me a page of various types of possibilities."
 
 **The AI's reading:** the stutter (SW-84's third kind, the prototype's middle part) wants a STILL sign in the manner of comic-book drawing — how a comic shows a thing shaking or repeating — and a page of many candidates to choose from, as the substrate page of *synthesi-alpha* was.
+
+**SW-95, his choice (2026-11-20, verbatim):** "1 and 3 are interesting. Can you maybe produce some variations or ones along those lines?" · then: "Let's keep 29, 23, and 30, and their sort of inverses or variations. And let's put in 29 there and see how that looks."
+
+**The AI's reading:** KEPT for the stutter: 29 (the shake marks growing), 23 (the ghost copies gathering), 30 (the shake marks gathering) — and each one's opposite or near variants (the marks fading — 28; the copies thinning out; the marks spreading apart). So the stutter's sign is a FAMILY that can say what the repetition DOES: build or die, speed up or slow down. First to be seen in place: 29, in the prototype's middle part.

@@ -4981,3 +4981,11 @@ Tried and not kept as alternatives: 14 (one shape for the whole right hand — i
 - from the brackets: 26 both ways (pairs facing each other) · 27 doubled · 28 fading · 29 growing · 30 gathering · 31 tall (across the whole staff) · 32 on a ghost trail (a pale smear under the marks) · 33 the note at each end (a drawn stop).
 What the variations vary: how the repeat is shown (copy · mark · both), and what else the sign can carry — a change over its length (fading, growing, speeding up), which key, a clear end.
 **Checked once:** a contact sheet of the fourteen rendered and looked at.
+
+## §305 · 2026-11-20 · the stutter's signs kept — 29, 23, 30 and their opposites; 29 in the prototype's middle part
+
+**His words:** "Let's keep 29, 23, and 30, and their sort of inverses or variations. And let's put in 29 there and see how that looks."
+**Kept (the sketch pad, SW-95):** 29 the shake marks GROWING · 23 the ghost copies GATHERING · 30 the shake marks GATHERING — with their opposites (28 fading; copies thinning out; marks spreading apart). The other candidates stay on the catalog page as the record.
+**Built — 29 in the prototype (`bank/gravity_proto.json` `stutter`; the page "prototype: ribbon"):** the right hand's two keys, A#5 and B5, written once as PLAIN notes (no box — they are the notes themselves, not a hand's shape) by the same chord drawing as the shapes (LilyPond's heads, the upper one offset, the sharp, the ledger line); then the running shake marks, each taller and heavier than the one before (half height 0.6 → 2.1 ss, stroke 0.6 → 2.0 px), ending before the curtain.
+**The fit, and what it shows:** the gap between the ribbon's end (159.64) and the curtain (160.19) is 0.45 s — at this page's scale about 9 staff spaces. At the catalog's spacing (2.1 ss between marks) only TWO marks fitted and the sign did not read; drawn at 0.95 ss, six do. The stutter he played is longer than its place here: it began at 159.27, under the ribbon's tail, and ran to 160.28, into the strike. So the three parts as they stand OVERLAP in the playing and are laid end to end on the page — his "figure out … the minimum amount of time … to hold a certain texture" (SW-92) meets this at once.
+**Checked once:** the page rendered to an image (both spacings).
