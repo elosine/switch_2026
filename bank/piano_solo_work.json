@@ -631,9 +631,11 @@
   "wc-1819",
   "wc-1821",
   "wc-1822",
-  "wc-2241"
+  "wc-2241",
+  "wc-2353",
+  "wc-2354"
  ],
- "_omitNote": "§314 — his word: \"you can just eat that extra F. Just forget about that extra F at 170\" — the left hand's F4 at 170.042 is left out · §348, his \"some leftover little notes there at the bottom around 160.21 if we can hide those\": the left hand's five notes of 160.187 … .299 (wc-1818 … 1822) are hidden on the working version; they stand in no gesture. · §351, his \"just to the right of it, there's a D sharp. Can you just hide that?\": the D#5 of 178.912 (wc-2241).",
+ "_omitNote": "§314 — his word: \"you can just eat that extra F. Just forget about that extra F at 170\" — the left hand's F4 at 170.042 is left out · §348, his \"some leftover little notes there at the bottom around 160.21 if we can hide those\": the left hand's five notes of 160.187 … .299 (wc-1818 … 1822) are hidden on the working version; they stand in no gesture. · §351, his \"just to the right of it, there's a D sharp. Can you just hide that?\": the D#5 of 178.912 (wc-2241). · §352, his \"hide the notes, their little leftover notes at 184.12\": D5 · C5 of 184.107 … .119 (wc-2353 · 2354).",
  "shortTailS": 0.3,
  "tailStiffness": 50,
  "_tailNote": "§321 — ONE TAIL FOR EVERY RIBBON, the three-bounce ribbon's (the one whose motion he found right, §320): the GC's own rise curve (stiffness 50, power 2), to 85 % of the fall, in 0.30 s after the impact. §316's 0.46 s and §318's 58 % / steeper curve are replaced.",

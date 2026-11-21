@@ -5395,3 +5395,9 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **His words:** "Marcato at 178.83, and just to the right of it, there's a D sharp. Can you just hide that? There's like leftover small notehead."
 **Done:** unit 17 (the struck chord of 178.81) takes `artic: marcato` (§348's rule); the D#5 of 178.912 (wc-2241), left outside the chord in §325, is hidden on the working version (`omit`).
 **Checked once:** the page rendered to an image, 177.2 → 181.2 s.
+
+## §352 · 2026-11-21 · the two leftovers at 184.11 hidden
+
+**His words:** "hide the notes, their little leftover notes at 184.12"
+**Done:** D5 · C5 of 184.107 … .119 (wc-2353 · 2354), in no gesture since §326, are hidden on the working version (`omit`).
+**The hidden notes so far** (`bank/piano_solo_work.json` omit): the extra F of 169.9 · the C7 struck twice at 184.66 · five left-hand notes at 160.2 · the D#5 of 178.91 · these two. They are played in the sound and stand for nothing in the notation — a list to read again when the kinds are final.
