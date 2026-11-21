@@ -23,7 +23,7 @@ const DIR = path.join(ROOT, 'workshop', 'notation');
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 && process.argv[i + 1] != null ? process.argv[i + 1] : d; };
 const PORT = +(process.env.PORT || arg('port', 5650));
 const PART = +arg('part', 5);                                   // the piano's lane
-const PAGES = arg('pages', 's2-piano-solo,s2-piano-solo-played,s2-piano-solo-heads,gravity-proto,gravity-proto-strobe,gravity-proto-strip,burst,chords-few,chords-some,chords-many,chords-sets,both-between,both-inner,both-across').split(',');
+const PAGES = arg('pages', 's2-piano-solo,s2-piano-solo-played,s2-piano-solo-heads,gravity-proto,gravity-proto-strobe,gravity-proto-strip,burst,chords-few,chords-some,chords-many,chords-sets,both-between,both-inner,both-across,work').split(',');
 const SRC_AUDIO = path.join(ROOT, arg('audio', 'notation/audio/piece-Section03-H-addTuplets.wav'));   // the players' render; its piano solo is the first draft's, note for note (§266)
 const A0 = +arg('a0', 146), A1 = +arg('a1', 258);               // the cut's span in score time
 const CUT = path.join(ROOT, 'notation', 'audio', 'cuts', 'workshop-piano-' + A0 + '-' + A1 + '.wav');
@@ -39,7 +39,7 @@ const WATCH = ['notation/lib/layout.js', 'notation/lib/render.js', 'notation/lib
 const PROTO = 'gravity-proto', protoOf = () => rd('bank/gravity_proto.json');
 // [§290] AN EXCERPT PAGE ('burst', bank/burst_proto.json): only the notes each hand plays inside its own span, both staves
 const EXCERPTS = { burst: 'bank/burst_proto.json', 'chords-few': 'bank/chord_changes.json', 'chords-some': 'bank/chord_changes.json', 'chords-many': 'bank/chord_changes.json', chords: 'bank/chord_changes.json', 'chords-sets': 'bank/chord_changes.json', both: 'bank/gravity_both.json', 'both-between': 'bank/gravity_both.json', 'both-inner': 'bank/gravity_both.json', 'both-across': 'bank/gravity_both.json' };
-const stampOf = page => WATCH.concat(EXCERPTS[page] ? [EXCERPTS[page], 'notation/ir/' + rd(EXCERPTS[page]).page + '.ir.json'] : page.startsWith(PROTO) ? ['bank/gravity_proto.json', 'notation/ir/' + protoOf().page + '.ir.json'] : ['notation/ir/' + page + '.ir.json']).map(f => { try { return fs.statSync(path.join(ROOT, f)).mtimeMs; } catch (e) { return 0; } }).join('|');
+const stampOf = page => WATCH.concat(page === 'work' ? ['bank/piano_solo_work.json', 'bank/chord_changes.json', 'notation/ir/' + rd('bank/piano_solo_work.json').base + '.ir.json'] : EXCERPTS[page] ? [EXCERPTS[page], 'notation/ir/' + rd(EXCERPTS[page]).page + '.ir.json'] : page.startsWith(PROTO) ? ['bank/gravity_proto.json', 'notation/ir/' + protoOf().page + '.ir.json'] : ['notation/ir/' + page + '.ir.json']).map(f => { try { return fs.statSync(path.join(ROOT, f)).mtimeMs; } catch (e) { return 0; } }).join('|');
 const ENG = new Map();
 function engine(page) {
   if (!PAGES.includes(page)) throw new Error('no such page: ' + page);
@@ -49,7 +49,7 @@ function engine(page) {
   const lib = n => require(path.join(ROOT, 'notation', 'lib', n));
   const Coords = lib('coords.js'), Layout = lib('layout.js'), StaticPage = lib('static_page.js'), Fit = lib('fit.js');
   const glyphs = rd('notation/lib/glyphs.json'), C = lib('rules.js').loadContainer(ROOT), ens = rd('notation/registry/ensemble.json'), T = rd('notation/registry/techniques.json');
-  let ir, proto = null, chords = null, both = null, keepNone = false, strikeSpan = null;   // strikeSpan: the strike's first and last note, kept though its notes are not drawn (§300)
+  let ir, proto = null, chords = null, both = null, keepNone = false, strikeSpan = null, work = null;   // strikeSpan: the strike's first and last note, kept though its notes are not drawn (§300)
   if (page.startsWith(PROTO)) {
     proto = protoOf(); proto.flow = Object.assign({}, proto.flow, { style: page === PROTO ? ((proto.flow || {}).style || 'ribbon') : page.slice(PROTO.length + 1) });   // [§282] the page's name says how the inner movement is drawn
     ir = rd('notation/ir/' + proto.page + '.ir.json');
@@ -66,6 +66,18 @@ function engine(page) {
     // [§291 — his "can you put them in just after, just the burst ones, just after the ribbon"] also: the notes of proto.also (each hand's own span),
     // as plain heads on their own staves — the burst that follows the flow, both hands
     if (proto.also) for (const ev of ir.events) { const wnd = proto.also[(staff.get(ev.id) || 0) === 1 ? 'L' : 'R']; if (wnd && ev.onset >= wnd[0] && ev.onset <= wnd[1]) { strikeSpan = strikeSpan ? [Math.min(strikeSpan[0], ev.onset), Math.max(strikeSpan[1], ev.onset)] : [ev.onset, ev.onset]; if (proto.alsoHeads !== false) keep.add(ev.id); } }   // [§280 — his "take out the lead in and lead out notes too"] no played note is drawn at all
+    ir.events = ir.events.filter(ev => keep.has(ev.id));
+    ir.overlays = (ir.overlays || []).filter(o => !(o.target && o.target.event) || keep.has(o.target.event));
+    ir.chunks = (ir.chunks || []).map(c => Object.assign({}, c, { events: (c.events || []).filter(id => keep.has(id)) })).filter(c => c.events.length);
+  } else if (page === 'work') {
+    // [§307] THE WORKING VERSION (bank/piano_solo_work.json): the page of the standard figures, the played notes inside a gesture's span not
+    // drawn; each hand's notes of the whole solo kept for its pitch sets (the chord symbols)
+    const wk = rd('bank/piano_solo_work.json'), cc = rd('bank/chord_changes.json'); ir = rd('notation/ir/' + wk.base + '.ir.json');
+    const staff = new Map(); for (const o of ir.overlays || []) if (o.kind === 'engraving' && o.target && o.target.event && o.value) staff.set(o.target.event, o.value.staff || 0);
+    work = { cfg: wk, sets: cc.sets, hands: { R: [], L: [] } };
+    for (const ev of ir.events) if (ev.pitch && ev.pitch.midi != null) work.hands[(staff.get(ev.id) || 0) === 1 ? 'L' : 'R'].push({ t: ev.onset, midi: ev.pitch.midi, sp: ev.pitch.spelled });
+    const hidden = ev => wk.gestures.some(g => g.hide !== false && (g.kind === 'ribbon' || g.kind === 'strike') && ev.onset >= g.t0 - 1e-9 && ev.onset <= g.t1 + 1e-9);
+    const keep = new Set(ir.events.filter(ev => !hidden(ev)).map(ev => ev.id));
     ir.events = ir.events.filter(ev => keep.has(ev.id));
     ir.overlays = (ir.overlays || []).filter(o => !(o.target && o.target.event) || keep.has(o.target.event));
     ir.chunks = (ir.chunks || []).map(c => Object.assign({}, c, { events: (c.events || []).filter(id => keep.has(id)) })).filter(c => c.events.length);
@@ -103,7 +115,7 @@ function engine(page) {
     stavesOf: p => (ensPart(p) && ensPart(p).staves && ensPart(p).staves.length) || 1, ensemble: ENS });
   const LO = (C.engraving && C.engraving.layout) || {};
   const e = { stamp, Coords, StaticPage, glyphs, C, ENS, ir, model, H, FRAME, EDGES: Coords.edgesOf(C), band: (proto && proto.band) || BAND,
-    chords, both, strikeSpan, Gc: lib('gc.js'), ChordColumn: lib('chord_column.js'), gaps: { toHead: LO.accGapColumn != null ? LO.accGapColumn : 0.1, between: (LO.chordColumn && LO.chordColumn.minLateralGap) || 0.1 },
+    chords, both, strikeSpan, work, Gc: lib('gc.js'), ChordColumn: lib('chord_column.js'), gaps: { toHead: LO.accGapColumn != null ? LO.accGapColumn : 0.1, between: (LO.chordColumn && LO.chordColumn.minLateralGap) || 0.1 },
     proto: proto && Object.assign({}, proto, { preset: (C.animated && C.animated.gc && C.animated.gc.preset) || lib('gc.js').DEFAULT_PRESET, look: lib('gc.js').LOOK }) };
   ENG.set(page, e);
   return e;
@@ -165,10 +177,9 @@ function viewOf(page, t0, span, w, opts) {
   // [§296] THE SCATTERED STRIKE's CURTAIN (the page 'burst'): a transparent block over the stretch where the strike's notes fall, at least
   // minSs wide, over the whole grand staff; the pebbles that rise and drop in it are the page's animation — their places are given here
   let strike;
-  if ((page === 'burst' || (e.proto && e.proto.curtain)) && staves.length && e.strikeSpan) {   // [§297] also on the prototype page: the curtain over its third part, the burst's notes
-    const ex = page === 'burst' ? rd(EXCERPTS.burst) : e.proto, K = Object.assign({ minSs: 6, padSs: 0.8, overSs: 3, pebbles: 11, prepS: 0.605, fallS: 0.38 }, ex.curtain || {});
+  const strikeOf = (a, b, K0) => { if (!staves.length) return null;   // [§297] also on the prototype page: the curtain over its third part, the burst's notes
+    const K = Object.assign({ minSs: 6, padSs: 0.8, overSs: 3, pebbles: 11, prepS: 0.605, fallS: 0.38 }, K0 || {});
     const pps = (view.xOfSeconds(t0 + span) - x0) / span, xOf = s => x0 + (s - t0) * pps, ss = (staves[0][1] - staves[0][0]) / 4;
-    const a = e.strikeSpan[0], b = e.strikeSpan[1];
     const xa = xOf(a) - K.padSs * ss, xb = Math.max(xOf(b) + (K.padSs + 1.1) * ss, xa + K.minSs * ss), yT = staves[0][0] - K.overSs * ss, yB = staves[staves.length - 1][1] + K.overSs * ss;
     svg = svg.replace(/<\/svg>\s*$/, '<rect x="' + xa.toFixed(1) + '" y="' + yT.toFixed(1) + '" width="' + (xb - xa).toFixed(1) + '" height="' + (yB - yT).toFixed(1) + '" fill="' + (K.fill || '#5b7fa6') + '" fill-opacity="' + (K.opacity != null ? K.opacity : 0.13) + '" stroke="' + (K.fill || '#5b7fa6') + '" stroke-opacity="0.45" stroke-width="0.6"/></svg>');
     // [§299 — HIS WORD: "nail the physics of exactly as I described, throwing a handful of pebbles into the air … they sort of hang … there's a
@@ -188,7 +199,32 @@ function viewOf(page, t0, span, w, opts) {
         xh: +Math.max(xa + 5, Math.min(xb - 5, xm + gauss() * (xb - xa) * (K.pileSpread != null ? K.pileSpread : 0.1))).toFixed(1),   /* [§302] the handful at rest: spread along the floor, not one clump */ yh: +(R() * 6).toFixed(1), xl: +Math.max(xa + 5, Math.min(xb - 5, xm + gauss() * (xb - xa) * (K.landSpread != null ? K.landSpread : 0.17))).toFixed(1),
         spin: +((R() - 0.5) * 900).toFixed(0), gray: Math.round(17 + R() * 50) });
     }
-    strike = { t0: a, t1: b, xa, xb, yT, yB, floor, species, stroked: !!SUB.stroked[species], impact: +(t0 + (xm - x0) / pps).toFixed(3), flightS: T, bounce: K.bounce != null ? K.bounce : 0.28, rocks, all: SUB.species };
+    return { t0: a, t1: b, xa, xb, yT, yB, floor, species, stroked: !!SUB.stroked[species], impact: +(t0 + (xm - x0) / pps).toFixed(3), flightS: T, bounce: K.bounce != null ? K.bounce : 0.28, rocks, all: SUB.species };
+  };
+  const strikes = [], protos = [];
+  if ((page === 'burst' || (e.proto && e.proto.curtain)) && e.strikeSpan) { const s1 = strikeOf(e.strikeSpan[0], e.strikeSpan[1], (page === 'burst' ? rd(EXCERPTS.burst) : e.proto).curtain); if (s1) { strike = s1; strikes.push(s1); } }
+  // [§307] THE WORKING VERSION's gestures, in order: a ribbon (gravity_furniture.js, its own shapes off), a scattered strike (the curtain and
+  // its pebbles), and at the start of each the chord symbol of each hand (its pitch set through that gesture, §294 · §306)
+  if (e.work && staves.length) {
+    const WK = e.work, cfg = WK.cfg, pps = (view.xOfSeconds(t0 + span) - x0) / span, xOf = s => x0 + (s - t0) * pps;
+    delete require.cache[require.resolve('./gravity_furniture.js')]; delete require.cache[require.resolve('./chord_changes.js')];
+    const CC = require('./chord_changes.js'), FUR = require('./gravity_furniture.js'), preset = (e.C.animated && e.C.animated.gc && e.C.animated.gc.preset) || e.Gc.DEFAULT_PRESET, look = e.Gc.LOOK;
+    const flush = add => { svg = svg.replace(/<\/svg>\s*$/, () => add + '</svg>'); };
+    if (cfg.coverFrom != null) flush('<rect x="0" y="' + cfg.coverFrom + '" width="' + w + '" height="' + (cfg.band[0] + cfg.band[1] - cfg.coverFrom) + '" fill="#fff"/>');
+    const sets = {}, sym = { R: [], L: [] }; for (const h of ['R', 'L']) sets[h] = CC.persistent(WK.hands[h], WK.sets).filter(s => !s.brief);
+    for (const g of cfg.gestures) {
+      if (g.kind === 'ribbon') {
+        const P = { band: cfg.band, arcBand: cfg.arcBand || cfg.band, arc: { t0: g.t0, bounce: g.bounce, t1: g.t1 }, noShapes: true, flow: Object.assign({ style: 'ribbon' }, cfg.flow, g.flow) };
+        const f = FUR({ proto: P, ir: { events: [] }, glyphs: e.glyphs, ChordColumn: e.ChordColumn, Gc: e.Gc, xOf, staff: staves[staves.length - 1], w, preset, look, gaps: e.gaps });
+        flush(f.svg); protos.push({ arc: P.arc, preset, look, flow: P.flow, arcY: f.arcY, ribbon: f.ribbon });
+      } else if (g.kind === 'strike') { const s2 = strikeOf(g.t0, g.t1, Object.assign({}, cfg.curtain, g.curtain)); if (s2) strikes.push(s2); }
+      else continue;
+      for (const h of ['R', 'L']) { const s3 = sets[h].filter(x => x.at <= g.t1).pop() || sets[h][0]; if (s3 && (g.hands || 'RL').includes(h)) sym[h].push(Object.assign({}, s3, { at: g.t0 })); }
+    }
+    let addS = ''; for (const h of ['R', 'L']) addS += CC.draw({ shapes: sym[h], xOf, staff: h === 'R' ? staves[0] : staves[staves.length - 1], glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps });
+    flush(addS);
+    if (!strike && strikes.length) strike = strikes[0];
+    e.bandOut = cfg.band;
   }
   // [§276] THE PROTOTYPE'S FURNITURE — the arc, the flow strip under the staff, the shapes (tools/gravity_furniture.js) — in the picture itself
   let band = e.bandOut || e.band;
@@ -229,7 +265,7 @@ function viewOf(page, t0, span, w, opts) {
     band = [e.band[0], e.band[1] + f.extraH]; protoOut.shapes = f.shapes; protoOut.flags = f.flags; protoOut.arcY = f.arcY; protoOut.ribbon = f.ribbon;
   }
   svg = svg.replace(/^<svg([^>]*?) width="[\d.]+" height="[\d.]+" viewBox="[^"]*"/, '<svg$1 viewBox="0 ' + band[0] + ' ' + w + ' ' + band[1] + '" preserveAspectRatio="xMinYMin meet"');
-  return { svg, staves, x0, pps: (view.xOfSeconds(t0 + span) - x0) / span, band, proto: protoOut, chords: chordsOut, strike, w, window: [t0, t0 + span], srcWindow: e.ir.source.window };
+  return { svg, staves, x0, pps: (view.xOfSeconds(t0 + span) - x0) / span, band, proto: protoOut, protos: protos.length ? protos : undefined, strikes: strikes.length ? strikes : undefined, chords: chordsOut, strike, w, window: [t0, t0 + span], srcWindow: e.ir.source.window };
 }
 
 // ---------------------------------------------------------------- the sound: one cut, made once
@@ -333,7 +369,7 @@ http.createServer((req, res) => {
     if (u.pathname === '/info') return send(res, 200, JSON.stringify({ a0: A0, a1: A1, pages: PAGES, window: engine(PAGES[0]).ir.source.window, audio: ensureCut() }));
     if (u.pathname === '/view') return send(res, 200, JSON.stringify(viewOf(q.page || PAGES[0], +q.t0, Math.max(0.5, +q.span || 6), Math.max(300, Math.round(+q.w || 1400)), { sub: q.sub, n: +q.n || 0 })));
     if (u.pathname === '/proto') return send(res, 200, JSON.stringify(protoOf()));
-    if (u.pathname === '/excerpt') return send(res, 200, JSON.stringify(EXCERPTS[q.name] ? rd(EXCERPTS[q.name]) : {}));
+    if (u.pathname === '/excerpt') return send(res, 200, JSON.stringify(q.name === 'work' ? rd('bank/piano_solo_work.json') : EXCERPTS[q.name] ? rd(EXCERPTS[q.name]) : {}));
     if (u.pathname === '/marks') { const mf = path.join(ROOT, 'bank', 'gravity_sort.json'); return send(res, 200, fs.existsSync(mf) ? fs.readFileSync(mf) : '{"walls":[],"arcs":[]}'); }   // [§272] the gravity sorting (tools/gravity_sort.js)
     if (u.pathname === '/audio') { if (!ensureCut()) return send(res, 404, '{"error":"no audio render"}'); return sendFile(req, res, CUT, 'audio/wav'); }
     if (u.pathname.startsWith('/clips/')) return sendFile(req, res, path.join(CLIPS, path.basename(u.pathname)), 'video/mp4');

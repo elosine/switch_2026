@@ -1,0 +1,68 @@
+{
+ "_doc": "THE WORKING VERSION of the piano solo (SW-96; RUNNING_LOG §307 — his word: 'can we get like a working version that we work in and that keeps all our changes'). The workshop's page 'working version' = the page `base` (the standard figures taken one by one, notation/hand/<base>.units.json) with the GESTURES below drawn over it, and nothing else. A gesture hides the played notes inside its span. kind ribbon = Shape Action Notation's arc: t0 its start, bounce its impact (the 'hit'), t1 its end; flow.profile = its designed width (§296). kind strike = the scattered strike: a curtain from t0 to t1 with the thrown pebbles. A chord symbol (each hand's pitch set, bank/chord_changes.json `sets`) stands at the start of every ribbon and strike. His times are 'thereabouts' — he clicks them with the mouse. A POLE (a fixed structure in standard notation) is not here: it is a figure in the units file.",
+ "base": "s2-piano-solo",
+ "view": [
+  147.4,
+  155.6
+ ],
+ "band": [
+  546,
+  234
+ ],
+ "arcBand": [
+  546,
+  234
+ ],
+ "coverFrom": 752,
+ "flow": {
+  "style": "ribbon",
+  "sigmaS": 0.12,
+  "power": 2.4,
+  "ballOverRibbon": 1.35,
+  "ribbonMaxPx": 34,
+  "profile": {
+   "in": "depth",
+   "inPower": 1.3,
+   "out": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0.3
+    ]
+   ]
+  }
+ },
+ "curtain": {
+  "minSs": 6,
+  "padSs": 0.8,
+  "overSs": 3,
+  "opacity": 0.07,
+  "species": "boulders",
+  "density": 26,
+  "sizePx": 2.6,
+  "flightS": 1,
+  "flightSpread": 0.05,
+  "landSpread": 0.27,
+  "pileSpread": 0.2,
+  "bounce": 0.28
+ },
+ "gestures": [
+  {
+   "kind": "ribbon",
+   "t0": 151.2,
+   "bounce": 152.123,
+   "t1": 152.5,
+   "_his": "start the ribbon just after that arpeggio, like around 151.2 … carry it over to around … 152.5; the two notes at 152.12: their rhythmic position will be the hit of the ribbon"
+  },
+  {
+   "kind": "strike",
+   "t0": 152.82,
+   "t1": 153.23,
+   "_his": "the section from 152.9 to about 153.2 … a pebble drop accent there",
+   "_note": "his 152.9 … 153.2 were clicked, \"thereabouts\": widened to the run actually played there, 152.839 … 153.213 (ten notes), so that none of it is left outside the curtain"
+  }
+ ]
+}

@@ -205,6 +205,39 @@
    "played": [
     152.226
    ]
+  },
+  {
+   "_n": "9a · G5 (upper staff) — A POLE: three notes beamed, normal size, at their played places (his word, §307)",
+   "ids": [
+    "wc-1716"
+   ],
+   "stem": "up",
+   "beam": "u9",
+   "played": [
+    152.537
+   ]
+  },
+  {
+   "_n": "9b · D#4 (lower staff)",
+   "ids": [
+    "wc-1717"
+   ],
+   "stem": "up",
+   "beam": "u9",
+   "played": [
+    152.651
+   ]
+  },
+  {
+   "_n": "9c · F#5 (upper staff)",
+   "ids": [
+    "wc-1718"
+   ],
+   "stem": "up",
+   "beam": "u9",
+   "played": [
+    152.731
+   ]
   }
  ]
 }
