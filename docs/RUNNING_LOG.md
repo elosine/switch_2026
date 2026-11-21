@@ -5337,3 +5337,12 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **MEASURE:** the page rendered to an image, 192.7 → 196.5 s and 181.0 → 185.0 s: the bars stand, the go line runs from the chord down to the lower staff, the stem of unit 26 is the long one. NOT measured in the page's own boxes (the 4 ss between head and flag is by construction, not by a measurement); the layout shield was not run — no baseline was written before the change.
 **The ribbon of 194.62 (his second message):** NEW `flow.gain` (`tools/gravity_furniture.js`) — keyframes [time, factor] that multiply the width, whatever it came from. Here × 1.45 at 195.12 (eased from 1 at 194.85, back by 195.4), and the tail from 1 at the impact to 0.25 at its end.
 **Seen, for his eye:** the go line stops at the lower staff, above the ribbon's impact point at the floor; unit 25b is so small a cluster (G4 … B4) that its bar is barely longer than a head.
+
+## §344 · 2026-11-21 · a review of the ledger lines on the clusters — nothing wrong in them; the odd look is the bar beside the stem
+
+**His words:** "The ledger lines are meant to be drawn behind, right? I don't think they're drawn behind … Something looks a little funny with the ledger lines and the clusters. But if everything is correct, then just leave it. Like the clusters and the [chord] changes, they look pretty good. But something about the ones with ledger lines, I'm not sure if something's wrong there."
+**Looked at (a close-up of 193.4 … 194.3 s, the chord symbol's cluster beside unit 26):**
+- THE LEDGER LINES are the same in both: one for every line between the staff and each end of the cluster, the standard length past the head on both sides, the same ink as the bar. Since bar and ledger are the same black, which is drawn first makes no visible difference. Nothing is wrong there; nothing was changed.
+- WHAT DOES LOOK ODD, and only on a notated cluster WITH A STEM: the bar is half a head wide and centered on the heads; the stem stands at the heads' right edge. Between them is a hairline of white, so the two read as a DOUBLE LINE, and the short ledger lines cross both. A chord symbol has no stem, so its bar reads cleanly — which is why those look right to him.
+- Also on unit 26: the go line stands just left of the chord and touches the ends of its ledger lines.
+**No rule covers a bar beside a stem (piece 2's cluster bars carry no stem). Put to him, not built:** the AI's one recommendation — the bar reaches to the stem, so bar and stem are one solid shape.
