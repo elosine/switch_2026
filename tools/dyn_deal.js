@@ -24,17 +24,22 @@ const s = JSON.parse(fs.readFileSync(file, 'utf8'));
 const onlyLanes = arg('lanes') ? arg('lanes').split(',') : null;
 const notes = s.objects.filter((o) => o.type === 'waveCurve' && o.sonifyNote != null && o.startSeconds >= from && o.startSeconds < to && !TRACKS[o.layer].elec && (!onlyLanes || onlyLanes.includes(TRACKS[o.layer].id)));
 if (has('undo')) { let n = 0; for (const o of notes) { const w = o.properties && o.properties.dyn && o.properties.dyn.was; if (w == null) continue; o.recVel = w; delete o.properties.dyn; n++; } console.log(n + ' note(s) back to their struck velocities'); if (!has('dry')) { fs.writeFileSync(outFile, JSON.stringify(s)); console.log('written: scores/' + outName + '.json'); } process.exit(0); }
+const tie = +arg('tie', 0);
 const rnd = Roll.mulberry32(seed);
 const shuffle = (a) => { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
 const tally = {};
 for (let L = 0; L < TRACKS.length; L++) {
     const mine = notes.filter((o) => o.layer === L).sort((a, b) => a.startSeconds - b.startSeconds); if (!mine.length) continue;
-    let pile = [], last = null; tally[TRACKS[L].id] = {};
+    let pile = [], last = null, prevT = -1e9; tally[TRACKS[L].id] = {};
     for (const o of mine) {
-        if (!pile.length) { pile = shuffle(levels); if (last && pile[0] === last && levels.length > 1) pile.push(pile.shift()); }
-        const lv = pile.shift(); last = lv;
+        // [the Switch~ piece §384 — his "just the ones that are quite close together. So like the ones at 234.02 … pick a minimum duration and then
+        // those could be the same dynamic"] --tie S: a note that begins within S seconds of the one before it in its lane takes THAT note's
+        // dynamic and is marked tied — the notation writes one mark for the two (properties.dyn.tied)
+        const tied = tie > 0 && last && o.startSeconds - prevT <= tie + 1e-9; prevT = o.startSeconds;
+        if (!tied && !pile.length) { pile = shuffle(levels); if (last && pile[0] === last && levels.length > 1) pile.push(pile.shift()); }
+        const lv = tied ? last : pile.shift(); last = lv;
         const was = (o.properties && o.properties.dyn && o.properties.dyn.was != null) ? o.properties.dyn.was : o.recVel;
-        o.properties = o.properties || {}; o.properties.dyn = { was, level: lv }; o.recVel = ANCHOR[lv];
+        o.properties = o.properties || {}; o.properties.dyn = Object.assign({ was, level: lv }, tied ? { tied: true } : {}); o.recVel = ANCHOR[lv];
         tally[TRACKS[L].id][lv] = (tally[TRACKS[L].id][lv] || 0) + 1;
     }
 }

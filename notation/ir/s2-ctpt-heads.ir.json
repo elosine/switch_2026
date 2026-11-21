@@ -22,7 +22,7 @@
   "date": "2026-11-21",
   "tool": "tools/notate_section.js (profile trance)",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only.",
-  "build": "node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 199 --w1 254 --parts 0-6 --alone 199-254 --exp --noFitMark --timeSpacing --id s2-ctpt-heads --label \"Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)\" --beam 205.99-206.29@0 --hand \"wc-2691:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2693:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 209.8-210.45@0 --hand \"wc-2695:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2696:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2697:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 220.3-220.73@0 --hand \"wc-2703:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2704:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 233.97-234.15@0 --hand \"wc-2714:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2907:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 248.93-249.46@0 --hand \"wc-2919:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2920:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 206.4-206.7@1 --hand \"wc-2721:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2722:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 217.36-217.71@1 --hand \"wc-2730:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2731:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 223.39-223.74@1 --hand \"wc-2736:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2737:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2742:{\\\"grace\\\":true,\\\"pickupTo\\\":\\\"wc-2743\\\",\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --noGc wc-2742"
+  "build": "node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 199 --w1 254 --parts 0-6 --alone 199-254 --exp --noFitMark --timeSpacing --id s2-ctpt-heads --label \"Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)\" --beam 205.99-206.29@0 --hand \"wc-2691:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2693:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 209.8-210.45@0 --hand \"wc-2695:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2696:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2697:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 220.3-220.73@0 --hand \"wc-2703:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2704:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 233.97-234.15@0 --hand \"wc-2714:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2907:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 248.93-249.46@0 --hand \"wc-2919:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2920:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 206.4-206.7@1 --hand \"wc-2721:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2722:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 217.36-217.71@1 --hand \"wc-2730:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2731:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 223.39-223.74@1 --hand \"wc-2736:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2737:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2907:{\\\"dynMark\\\":false}\" --hand \"wc-2742:{\\\"grace\\\":true,\\\"pickupTo\\\":\\\"wc-2743\\\",\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --noGc wc-2742"
  },
  "events": [
   {
@@ -44,7 +44,7 @@
    "technique": "jet_whistle",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 109
   },
   {
    "id": "ev-wc-2860",
@@ -611,7 +611,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2693",
@@ -632,7 +632,7 @@
    "technique": "tongue_ram",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2816",
@@ -821,7 +821,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2865",
@@ -1115,7 +1115,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2934",
@@ -1157,7 +1157,7 @@
    "technique": "tongue_ram",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2725",
@@ -1493,7 +1493,7 @@
    "technique": "jet_whistle",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2937",
@@ -1703,7 +1703,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2823",
@@ -1913,7 +1913,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2825",
@@ -2039,7 +2039,7 @@
    "technique": "jet_whistle",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2874",
@@ -2249,7 +2249,7 @@
    "technique": "tongue_ram",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2734",
@@ -2291,7 +2291,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2945",
@@ -2417,7 +2417,7 @@
    "technique": "tongue_ram",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 109
   },
   {
    "id": "ev-wc-2946",
@@ -2564,7 +2564,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2947",
@@ -2753,7 +2753,7 @@
    "technique": "jet_whistle",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2948",
@@ -2942,7 +2942,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2834",
@@ -3089,7 +3089,7 @@
    "technique": "tongue_ram",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2952",
@@ -3362,7 +3362,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2955",
@@ -3509,7 +3509,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2742",
@@ -3719,7 +3719,7 @@
    "technique": "tongue_ram",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2744",
@@ -3929,7 +3929,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2907",
@@ -4139,7 +4139,7 @@
    "technique": "tongue_ram",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 109
   },
   {
    "id": "ev-wc-2795",
@@ -4412,7 +4412,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2797",
@@ -4622,7 +4622,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2967",
@@ -4727,7 +4727,7 @@
    "technique": "jet_whistle",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2896",
@@ -4811,7 +4811,7 @@
    "technique": "tongue_ram",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2897",
@@ -5000,7 +5000,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2802",
@@ -5126,7 +5126,7 @@
    "technique": "jet_whistle",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2803",
@@ -5315,7 +5315,7 @@
    "technique": "tongue_ram",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2752",
@@ -5399,7 +5399,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2973",
@@ -5525,7 +5525,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2753",
@@ -5693,7 +5693,7 @@
    "technique": "tongue_ram",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 109
   },
   {
    "id": "ev-wc-2920",
@@ -5714,7 +5714,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2905",
@@ -5924,7 +5924,7 @@
    "technique": "jet_whistle",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2981",
@@ -6113,7 +6113,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 109
   },
   {
    "id": "ev-wc-2983",
@@ -10377,7 +10377,8 @@
      "goLine": false,
      "gc": false,
      "dynAboveBeam": true,
-     "nhAnchor": "leftEdge"
+     "nhAnchor": "leftEdge",
+     "dynMark": false
     }
    },
    "provenance": "authored"

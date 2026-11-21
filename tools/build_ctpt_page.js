@@ -35,6 +35,10 @@ for (const [a, b, part] of BEAMS) {
   for (const o of save.objects) if (o.type === 'waveCurve' && o.layer === part && o.startSeconds >= a - 1e-9 && o.startSeconds <= b + 1e-9 && !graceIds.has(o.id))
     args.push('--hand', o.id + ':' + JSON.stringify({ nhAnchor: 'leftEdge', goLine: false }));
 }
+// THE DYNAMICS (his, §384): every note its own mark, except a note that follows the one before within 0.2 s — it shares that note's mark
+// (the save says which: properties.dyn.tied, written by tools/dyn_deal.js --tie)
+for (const o of save.objects) if (o.type === 'waveCurve' && o.startSeconds >= 199 && o.startSeconds < 254 && o.properties && o.properties.dyn && o.properties.dyn.tied && !graceIds.has(o.id))
+  args.push('--hand', o.id + ':' + JSON.stringify({ dynMark: false }));
 for (const [g, m] of GRACES) args.push('--hand', g + ':' + JSON.stringify({ grace: true, pickupTo: m, goLine: false, dynMark: false }), '--noGc', g);
 
 const r = spawnSync('node', args, { cwd: ROOT, encoding: 'utf8' });
