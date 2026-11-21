@@ -5281,3 +5281,14 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **The AI's reading:** the two repeated things are F5 · G5 at 188.132 … .136 and the F5 struck again at 188.193. §336 put the impact on the FIRST (the louder); he hears it on the second. So the rule of thumb written in §336 ("the louder partial is the likelier impact") is WRONG here and is withdrawn: a repeated strike can carry the accent on its second.
 **Done:** the first impact 188.134 → 188.185 — on the second strike, 8 ms ahead of its note and 15 ms ahead of the 188.20 he found "a tiny bit late".
 **Not checked:** it shows only when the page plays; his to see.
+
+## §338 · 2026-11-21 · the working version to 192.72 s — two pebble drops, a chord as a pickup, a SLUR INTO A PEBBLE DROP (a try); the 188.2 hit to 188.16
+
+**His words:** SW-111 (the sketch pad): "the notes from 192.13 to 192.28, Pebble Drop. And from 192.57 to 192.72, another Pebble Drop. And then the chord at 192.4. Let's make that a strike. I don't know if we can make it seem like a pickup. Maybe like a, let me try a slur into the pebble drop. I don't know how that would look." · and, of the long ribbon: "The one at 188.2 is maybe a little late still. So maybe it's the first of the two repeated things. Anyways, let's try a time slightly earlier. We'll get it."
+**Set on the played partials:**
+- the pebble drop 192.13 → 192.29 (the twelve notes of 192.146 … .279) · the pebble drop 192.57 → 192.72 (the twelve of 192.572 … .699).
+- unit 24, a struck chord at 192.41: B4 · C5 · D5, one stem up, a 16th flag.
+**THE SLUR — a try, and NOT by an engraving rule.** A new gesture kind in the workshop, `slur` (`tools/notation_workshop.js`): from a notated chord (`t0`) to the edge of the gesture that begins at `to`. Drawn under the heads (the stem goes up), from 1.7 ss right of the chord's time and 1 ss under its lowest head, to a quarter ss before the curtain; a thin lens, its sag growing with its length. The standing slur of the engine (`layout.js`, a slur between two units) joins two note heads and has no notion of a curtain, so it could not be called; these numbers are the AI's and stand in no row. BY THE ENGRAVING RULES' STEP 3 (discuss): if he keeps the figure, its side, its ends and its thickness are to be decided with him and written as rows.
+**What is new in the notation:** a standard sign (the slur) joining a figure of one kind (a notated chord) to a figure of another (a pebble drop) — the kinds until now only stood side by side.
+**The long ribbon's first impact:** 188.185 → 188.16 — between the two repeated strikes (188.134, the first, and 188.193, the second). The tries: 188.20 (a tiny bit late) · 188.134 (not it) · 188.185 (a little late still) · 188.16.
+**Checked once:** the page rendered to an image, 191.0 → 194.0 s.

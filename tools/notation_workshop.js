@@ -283,6 +283,18 @@ function viewOf(page, t0, span, w, opts) {
       } else if (g.kind === 'strike') { // [§309 — his "so there's … just a sliver between all four of those"] a curtain ends a sliver (sliverSs) before the next gesture begins
         const nx = cfg.gestures.filter(x => x.t0 > g.t0 + 1e-6 && x.kind !== 'ribbon').sort((p, q) => p.t0 - q.t0)[0], KC = Object.assign({}, cfg.curtain, g.curtain), ssw = (staves[0][1] - staves[0][0]) / 4, sl = (cfg.sliverSs != null ? cfg.sliverSs : 0.5) * ssw;
         const s2 = strikeOf(g.t0, g.t1, Object.assign(KC, { impact: g.impact }, nx ? { maxX: xOf(nx.t0) - (nx.kind === 'strike' ? (KC.padSs != null ? KC.padSs : 0.8) * ssw : 0) - sl } : {})); if (s2) strikes.push(s2); }
+      else if (g.kind === 'slur') {
+        // [§338 — his "I don't know if we can make it seem like a pickup. Maybe like a, let me try a slur into the pebble drop. I don't know how that
+        // would look"] A TRY, drawn here in the workshop and by no engraving rule yet: a slur from a notated chord (at t0) to the edge of the
+        // gesture that begins at `to` — under the heads, since the chord's stem goes up. If he keeps it, its numbers become rows (the DISCUSS step).
+        const hd = ['R', 'L'].find(h => WK.hands[h].some(n => n.t >= g.t0 - 0.01 && n.t <= g.t0 + 0.06)); if (!hd) continue;
+        const st = hd === 'L' ? staves[staves.length - 1] : staves[0], sq = (st[1] - st[0]) / 4, keys = WK.hands[hd].filter(n => n.t >= g.t0 - 0.01 && n.t <= g.t0 + 0.06), shp = [{ at: g.t0, set: keys }];
+        CC.draw({ shapes: shp, xOf, staff: st, glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps, rule: cfg.shapeRule });   // only for the set's middle height
+        const stp = keys.map(n => n.sp.octave * 7 + 'CDEFGAB'.indexOf(n.sp.step)), yLow = shp[0].yMid + (Math.max(...stp) - Math.min(...stp)) / 2 * sq / 2;
+        const xa = xOf(g.t0) + (g.dxSs != null ? g.dxSs : 1.7) * sq, xb = xOf(g.to) - 0.25 * sq, ya = yLow + 1.0 * sq, dx = xb - xa, sag = Math.min(1.8 * sq, 0.5 * sq + 0.14 * dx), th = 0.22 * sq;
+        if (dx > sq) flush('<path d="M' + xa.toFixed(1) + ' ' + ya.toFixed(1) + ' C' + (xa + dx / 3).toFixed(1) + ' ' + (ya + sag).toFixed(1) + ' ' + (xb - dx / 3).toFixed(1) + ' ' + (ya + sag).toFixed(1) + ' ' + xb.toFixed(1) + ' ' + ya.toFixed(1) + ' C' + (xb - dx / 3).toFixed(1) + ' ' + (ya + sag + th).toFixed(1) + ' ' + (xa + dx / 3).toFixed(1) + ' ' + (ya + sag + th).toFixed(1) + ' ' + xa.toFixed(1) + ' ' + ya.toFixed(1) + 'Z" fill="#111"/>');
+        continue;
+      }
       else continue;
       // the chord symbol at the gesture's start; inside a multi-bounce ribbon, again at a later stretch's start WHEN the hand's set has changed (§311)
       if (!segs.length) segs.push([g.t0, g.t1]);

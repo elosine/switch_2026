@@ -1569,3 +1569,9 @@ staff carried from piece 6 has eight lines, of which only the coil's and the Chi
 **His words (verbatim):** "The one at 188.21, it could hit harder, and I guess instead of me saying like ascent, descend, and ascent, it can just hit harder. So I guess it would be a harder descent and a quicker ascent, whatever that works out to be."
 
 **The AI's reading:** a correction to the ribbon of 186.8 (a harder strike at 188.2), and a way of speaking: he would rather say HOW HARD a ribbon hits, one word, than give its fall and its rise apart. So "hit harder" is to be a single setting of a ribbon.
+
+### SW-111 · 2026-11-21 · two pebble drops with a chord between them — the chord as a PICKUP, a slur into the pebble drop (a try)
+
+**His words (verbatim):** "the notes from 192.13 to 192.28, Pebble Drop. And from 192.57 to 192.72, another Pebble Drop. And then the chord at 192.4. Let's make that a strike. I don't know if we can make it seem like a pickup. Maybe like a, let me try a slur into the pebble drop. I don't know how that would look."
+
+**The AI's reading:** two pebble drops (192.13 … 192.28 and 192.57 … 192.72) and, between them, the chord of 192.4 as a notated struck chord. NEW: he hears that chord as a PICKUP into the second drop and wants to see whether a slur from the chord into the pebble drop says so — a standard sign tying a standard figure to a figure of another kind. A try; he does not yet know how it will look.

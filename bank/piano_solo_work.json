@@ -2,8 +2,8 @@
  "_doc": "THE WORKING VERSION of the piano solo (SW-96; RUNNING_LOG §307 — his word: 'can we get like a working version that we work in and that keeps all our changes'). The workshop's page 'working version' = the page `base` (the standard figures taken one by one, notation/hand/<base>.units.json) with the GESTURES below drawn over it, and nothing else. A gesture hides the played notes inside its span. kind ribbon = Shape Action Notation's arc: t0 its start, bounce its impact (the 'hit'), t1 its end; flow.profile = its designed width (§296). kind strike = the scattered strike: a curtain from t0 to t1 with the thrown pebbles. A chord symbol (each hand's pitch set, bank/chord_changes.json `sets`) stands at the start of every ribbon and strike. His times are 'thereabouts' — he clicks them with the mouse. A POLE (a fixed structure in standard notation) is not here: it is a figure in the units file.",
  "base": "s2-piano-solo",
  "view": [
-  186.4,
-  191.8
+  191,
+  194
  ],
  "band": [
   470,
@@ -453,7 +453,7 @@
    "kind": "ribbon",
    "t0": 186.792,
    "bounces": [
-    188.185,
+    188.16,
     189.38,
     189.985,
     191.235
@@ -484,7 +484,28 @@
     "ribbonMaxPx": 34
    },
    "_his": "Impact at 188.21. The ribbon starts at 186.8. And the tail till 188.67 · A new ribbon starts at 188.76. impact at 189.38 All right, let's make that 189.38. Let's have it go back up to peak at or top at 189.56. undulate to 189.99. up by 190.57 impact again at 191.24. and then tail to 191.46 · (§334) \"The one at 188.21, it could hit harder\" · (§335) \"let's connect those two curves around 188.7. Let's just make them all one curve\"",
-   "_note": "ONE ribbon of four turns: the impact 188.20 (hit 1.8) · the top 188.7, where the two ribbons met · the impact 189.38 · the top 189.56 · a wave to 60 % at 189.985 · the top 190.57 · the impact 191.235 · the tail to 191.46. The width from the playing, on one scale over the whole · §336, his \"The hit at 188.2 is a tiny bit late … probably just a slight bit before that\": the first impact on F5 · G5 of 188.132 … .136 (velocities 119 · 121, the loudest notes there), not the softer F5 of 188.193 · §337, his \"There's like two kind of repeated things, and it's the second where the hit is\": the two are F5 · G5 at 188.132 and F5 again at 188.193; the impact on the SECOND, set a hair before it (188.185) since 188.20 read as \"a tiny bit late\""
+   "_note": "ONE ribbon of four turns: the impact 188.20 (hit 1.8) · the top 188.7, where the two ribbons met · the impact 189.38 · the top 189.56 · a wave to 60 % at 189.985 · the top 190.57 · the impact 191.235 · the tail to 191.46. The width from the playing, on one scale over the whole · §336, his \"The hit at 188.2 is a tiny bit late … probably just a slight bit before that\": the first impact on F5 · G5 of 188.132 … .136 (velocities 119 · 121, the loudest notes there), not the softer F5 of 188.193 · §337, his \"There's like two kind of repeated things, and it's the second where the hit is\": the two are F5 · G5 at 188.132 and F5 again at 188.193; the impact on the SECOND, set a hair before it (188.185) since 188.20 read as \"a tiny bit late\" · §338: 188.16, between the two strikes (188.134 was early for him, 188.185 still a little late)"
+  },
+  {
+   "kind": "strike",
+   "t0": 192.13,
+   "t1": 192.29,
+   "_his": "the notes from 192.13 to 192.28, Pebble Drop",
+   "_note": "the twelve notes of 192.146 … .279"
+  },
+  {
+   "kind": "slur",
+   "t0": 192.41,
+   "to": 192.57,
+   "_his": "the chord at 192.4. Let's make that a strike. I don't know if we can make it seem like a pickup. Maybe like a, let me try a slur into the pebble drop. I don't know how that would look",
+   "_note": "A TRY: a slur from the notated chord of 192.41 (unit 24) to the edge of the pebble drop of 192.57, under the heads; drawn in the workshop, by no engraving rule yet"
+  },
+  {
+   "kind": "strike",
+   "t0": 192.57,
+   "t1": 192.72,
+   "_his": "from 192.57 to 192.72, another Pebble Drop",
+   "_note": "the twelve notes of 192.572 … .699"
   }
  ],
  "noOttava": true,
