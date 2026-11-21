@@ -2,8 +2,8 @@
  "_doc": "THE WORKING VERSION of the piano solo (SW-96; RUNNING_LOG §307 — his word: 'can we get like a working version that we work in and that keeps all our changes'). The workshop's page 'working version' = the page `base` (the standard figures taken one by one, notation/hand/<base>.units.json) with the GESTURES below drawn over it, and nothing else. A gesture hides the played notes inside its span. kind ribbon = Shape Action Notation's arc: t0 its start, bounce its impact (the 'hit'), t1 its end; flow.profile = its designed width (§296). kind strike = the scattered strike: a curtain from t0 to t1 with the thrown pebbles. A chord symbol (each hand's pitch set, bank/chord_changes.json `sets`) stands at the start of every ribbon and strike. His times are 'thereabouts' — he clicks them with the mouse. A POLE (a fixed structure in standard notation) is not here: it is a figure in the units file.",
  "base": "s2-piano-solo",
  "view": [
-  183.6,
-  187.2
+  181,
+  185.2
  ],
  "band": [
   470,
@@ -397,7 +397,7 @@
     183.81
    ],
    "depths": [
-    0.6,
+    0.78,
     1
    ],
    "t1": 183.81,
@@ -425,7 +425,8 @@
     }
    },
    "_his": "a ribbon with impact at 183.6 and a short tail. start at 182.4 an undulation into 182.78. But overall, let's go from thick to thin. So at impact and on rise, it's pretty thin. Start thick at the beginning and thin out through the undulation and then into the final hit",
-   "_note": "the start on the partial of 182.401; a WAVE to 60 % on the four notes of 182.773 … .805; the impact on the three notes of 183.633 … .639; the width DESIGNED over the whole ribbon (profile.over): full at the start, half at the wave, thin from before the impact and through the tail. The tail ends at 183.79 (0.15 s, not 0.30) so that it stops before the chord of 183.80 · §327, his \"make it at the strike point of 183.81 … and no tail\": the impact moved from 183.636 onto the chord of 183.803 … .870 (183.81); the ribbon ends at the impact"
+   "_note": "the start on the partial of 182.401; a WAVE to 60 % on the four notes of 182.773 … .805; the impact on the three notes of 183.633 … .639; the width DESIGNED over the whole ribbon (profile.over): full at the start, half at the wave, thin from before the impact and through the tail. The tail ends at 183.79 (0.15 s, not 0.30) so that it stops before the chord of 183.80 · §327, his \"make it at the strike point of 183.81 … and no tail\": the impact moved from 183.636 onto the chord of 183.803 … .870 (183.81); the ribbon ends at the impact · §330, his \"a sort of faster, steeper decrease … a little bit lower and a steeper, faster up\": the wave to 78 % (it was 60 %), its sides steepened (waveSharp 1.7)",
+   "waveSharp": 1.7
   },
   {
    "kind": "strike",

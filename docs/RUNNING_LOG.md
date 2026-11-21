@@ -5222,3 +5222,9 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **His words:** "Okay, now the pebble strike is too early. Maybe somewhere 184.3, maybe, or 31. Give that a try. Let's see how that looks."
 **Done:** the landing (`impact`) from 184.21 (§327, too early) to 184.30. The record of the three tries: the curtain's middle 184.26 (late, he said — though the fall was judged by eye against the sound) · 184.21 (too early) · 184.30 (a try). The two notes it stands for are played at 184.255 and 184.280.
 **Not checked:** it shows only when the page plays; his to see.
+
+## §330 · 2026-11-21 · a wave with steeper sides (the ribbon of 182.4)
+
+**His words:** "the curve around 182.49. Can we have a sort of faster, steeper decrease? So maybe it goes down a little bit lower and a steeper, faster up on the upside of that curve."
+**Done:** the wave of the thick-to-thin ribbon (§326) goes down to 78 % of the drop (it was 60 %), and its sides are steeper. NEW: `waveSharp` on a gesture (`tools/gravity_furniture.js`; the page's ball follows the same curve) — the wave's cosine h is reshaped to h^k / (h^k + (1 − h)^k); k = 1 is the plain cosine, k = 1.7 here. The wave stays level longer at the top, drops faster through the middle, and climbs out as fast. Its turn stays at 182.773.
+**Checked once:** the page rendered to an image, 181.0 → 185.0 s.
