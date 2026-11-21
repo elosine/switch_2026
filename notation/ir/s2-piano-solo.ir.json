@@ -28947,7 +28947,8 @@
      "puId": "wc-1678",
      "puStem": "down",
      "puFlag": "16",
-     "puArp": true
+     "puArp": true,
+     "puArtic": "marcato"
     }
    },
    "provenance": "authored"
@@ -28971,7 +28972,8 @@
      "puId": "wc-1678",
      "puStem": "down",
      "puFlag": "16",
-     "puArp": true
+     "puArp": true,
+     "puArtic": "marcato"
     }
    },
    "provenance": "authored"
@@ -28995,7 +28997,8 @@
      "puId": "wc-1678",
      "puStem": "down",
      "puFlag": "16",
-     "puArp": true
+     "puArp": true,
+     "puArtic": "marcato"
     }
    },
    "provenance": "authored"
@@ -29019,7 +29022,8 @@
      "puId": "wc-1678",
      "puStem": "down",
      "puFlag": "16",
-     "puArp": true
+     "puArp": true,
+     "puArtic": "marcato"
     }
    },
    "provenance": "authored"
@@ -29042,7 +29046,8 @@
      "nhAccScale": 1,
      "puId": "wc-1682",
      "puStem": "up",
-     "puBeam": "u2"
+     "puBeam": "u2",
+     "puArtic": "accent"
     }
    },
    "provenance": "authored"
@@ -29112,7 +29117,8 @@
      "puId": "wc-1687",
      "puStem": "up",
      "puFlag": "16",
-     "puArp": true
+     "puArp": true,
+     "puArtic": "marcato"
     }
    },
    "provenance": "authored"
@@ -29136,7 +29142,8 @@
      "puId": "wc-1687",
      "puStem": "up",
      "puFlag": "16",
-     "puArp": true
+     "puArp": true,
+     "puArtic": "marcato"
     }
    },
    "provenance": "authored"
@@ -29160,7 +29167,8 @@
      "puId": "wc-1687",
      "puStem": "up",
      "puFlag": "16",
-     "puArp": true
+     "puArp": true,
+     "puArtic": "marcato"
     }
    },
    "provenance": "authored"
@@ -29184,7 +29192,8 @@
      "puId": "wc-1687",
      "puStem": "up",
      "puFlag": "16",
-     "puArp": true
+     "puArp": true,
+     "puArtic": "marcato"
     }
    },
    "provenance": "authored"
@@ -29207,7 +29216,8 @@
      "nhAccScale": 1,
      "puId": "wc-1691",
      "puStem": "up",
-     "puFlag": "16"
+     "puFlag": "16",
+     "puArtic": "marcato"
     }
    },
    "provenance": "authored"
@@ -29230,7 +29240,8 @@
      "nhAccScale": 1,
      "puId": "wc-1691",
      "puStem": "up",
-     "puFlag": "16"
+     "puFlag": "16",
+     "puArtic": "marcato"
     }
    },
    "provenance": "authored"
@@ -29253,7 +29264,8 @@
      "nhAccScale": 1,
      "puId": "wc-1691",
      "puStem": "up",
-     "puFlag": "16"
+     "puFlag": "16",
+     "puArtic": "marcato"
     }
    },
    "provenance": "authored"
@@ -29277,7 +29289,8 @@
      "puId": "wc-1694",
      "puStem": "up",
      "puFlag": "16",
-     "puArp": true
+     "puArp": true,
+     "puArtic": "marcato"
     }
    },
    "provenance": "authored"
@@ -29301,7 +29314,8 @@
      "puId": "wc-1694",
      "puStem": "up",
      "puFlag": "16",
-     "puArp": true
+     "puArp": true,
+     "puArtic": "marcato"
     }
    },
    "provenance": "authored"
@@ -29325,7 +29339,8 @@
      "puId": "wc-1694",
      "puStem": "up",
      "puFlag": "16",
-     "puArp": true
+     "puArp": true,
+     "puArtic": "marcato"
     }
    },
    "provenance": "authored"
@@ -29349,7 +29364,8 @@
      "puId": "wc-1694",
      "puStem": "up",
      "puFlag": "16",
-     "puArp": true
+     "puArp": true,
+     "puArtic": "marcato"
     }
    },
    "provenance": "authored"
@@ -29373,7 +29389,8 @@
      "puId": "wc-1694",
      "puStem": "up",
      "puFlag": "16",
-     "puArp": true
+     "puArp": true,
+     "puArtic": "marcato"
     }
    },
    "provenance": "authored"
@@ -29397,7 +29414,8 @@
      "puId": "wc-1694",
      "puStem": "up",
      "puFlag": "16",
-     "puArp": true
+     "puArp": true,
+     "puArtic": "marcato"
     }
    },
    "provenance": "authored"

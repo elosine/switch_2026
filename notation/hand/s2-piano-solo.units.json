@@ -11,7 +11,8 @@
    ],
    "stem": "down",
    "flag": 16,
-   "arp": true
+   "arp": true,
+   "artic": "marcato"
   },
   {
    "_n": "2a · 148.61 s (B, upper staff)",
@@ -19,7 +20,8 @@
     "wc-1682"
    ],
    "stem": "up",
-   "beam": "u2"
+   "beam": "u2",
+   "artic": "accent"
   },
   {
    "_n": "2b · 148.71 s (the chord, lower staff)",
@@ -40,7 +42,8 @@
    ],
    "stem": "up",
    "flag": 16,
-   "arp": true
+   "arp": true,
+   "artic": "marcato"
   },
   {
    "_n": "4 · 149.98 s",
@@ -50,7 +53,8 @@
     "wc-1689"
    ],
    "stem": "up",
-   "flag": 16
+   "flag": 16,
+   "artic": "marcato"
   },
   {
    "_n": "5 · 151.04 s (the five on the upper staff and the C of 151.17 on the lower, one column)",
@@ -64,7 +68,8 @@
    ],
    "stem": "up",
    "flag": 16,
-   "arp": true
+   "arp": true,
+   "artic": "marcato"
   },
   {
    "_n": "6a · 151.41 s (the chord G#4 · E4, lower staff) — a grace figure, three partials beamed",

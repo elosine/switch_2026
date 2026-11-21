@@ -5409,3 +5409,10 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **The pebble drop:** the landing 184.32 → 184.29.
 **A CORRECTION TO §331.** There he said "Sorry, forward" and the AI read forward as LATER (184.30 → 184.32). Here "a tad late, like a tiny bit forward" shows that in his speech FORWARD = EARLIER. So §331 moved it the wrong way; the landing he was after then was about 184.28. The tries: 184.26 · 184.21 · 184.30 · 184.32 (wrong way) · 184.29.
 **Checked once:** the page rendered to an image, 182.9 → 185.3 s (the ribbon; the pebbles' timing shows only when the page plays).
+
+## §354 · 2026-11-21 · the opening dressed: an accent on the first partial at 148.61, a marcato on each of the four opening chords
+
+**His words:** "Accent on just the first partial there at 148.63. And then all of those other four opening chords should get a marcato, please."
+**Done (§348's rule, `artic` in the units file):** unit 2a (the B of 148.613, the first of the two beamed partials) takes an ACCENT; units 1 (148.20) · 3 (149.09) · 4 (149.98) · 5 (151.04) each a MARCATO. Unit 1's stem goes down, so its marcato stands over its top head; the others stand over the stem's tip; the accent over the beam.
+**Read as the four:** the four full-size chords of the opening before the grace figures begin (151.4). The marcatos so far: 148.20 · 149.09 · 149.98 · 151.04 · 155.66 · 164.38 · 173.74 · 178.81.
+**Checked once:** the page rendered to an image, 147.6 → 151.6 s.
