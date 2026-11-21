@@ -1575,3 +1575,9 @@ staff carried from piece 6 has eight lines, of which only the coil's and the Chi
 **His words (verbatim):** "the notes from 192.13 to 192.28, Pebble Drop. And from 192.57 to 192.72, another Pebble Drop. And then the chord at 192.4. Let's make that a strike. I don't know if we can make it seem like a pickup. Maybe like a, let me try a slur into the pebble drop. I don't know how that would look."
 
 **The AI's reading:** two pebble drops (192.13 … 192.28 and 192.57 … 192.72) and, between them, the chord of 192.4 as a notated struck chord. NEW: he hears that chord as a PICKUP into the second drop and wants to see whether a slur from the chord into the pebble drop says so — a standard sign tying a standard figure to a figure of another kind. A try; he does not yet know how it will look.
+
+### SW-112 · 2026-11-21 · a pebble drop, a ribbon, and FIVE figures on one beam at their rhythmic places
+
+**His words (verbatim):** "pebb drop from 193.11 to 193.28. ribbon impact at 193.69 starts at 193.36. There's a chord at around 193.96. Include that high E just before it and that B just after it. Actually, sorry, put the B in with the next one. And then a strike at 194.08. And then at 194.21. And then 194.36 and the node at 194.44. Let's see what that looks like in there. You can, you know, kind of interpolate a rhythmic position for each of those and beam those together. Let's just see what it looks like."
+
+**The AI's reading:** "pebb" is pebble; "node" is note. A pebble drop 193.11 … 193.28; a ribbon 193.36 → impact 193.69; then five notated figures on ONE beam — the chord of 193.96 (with the high E before it), the strike of 194.08 (with the B before it), 194.21, 194.36, and the single note of 194.44 — each at a rhythmic place taken from where it is played, not evenly spread. A look to judge ("let's just see what it looks like"), the longest beamed group so far.

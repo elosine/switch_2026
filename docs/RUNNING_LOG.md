@@ -5292,3 +5292,14 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **What is new in the notation:** a standard sign (the slur) joining a figure of one kind (a notated chord) to a figure of another (a pebble drop) — the kinds until now only stood side by side.
 **The long ribbon's first impact:** 188.185 → 188.16 — between the two repeated strikes (188.134, the first, and 188.193, the second). The tries: 188.20 (a tiny bit late) · 188.134 (not it) · 188.185 (a little late still) · 188.16.
 **Checked once:** the page rendered to an image, 191.0 → 194.0 s.
+
+## §339 · 2026-11-21 · the working version to 194.44 s — a pebble drop, a ribbon, five figures on one beam at their played places
+
+**His words:** SW-112 (the sketch pad): "pebb drop from 193.11 to 193.28. ribbon impact at 193.69 starts at 193.36. There's a chord at around 193.96. Include that high E just before it and that B just after it. Actually, sorry, put the B in with the next one. And then a strike at 194.08. And then at 194.21. And then 194.36 and the node at 194.44 … kind of interpolate a rhythmic position for each of those and beam those together. Let's just see what it looks like."
+**Set on the played partials:**
+- the pebble drop 193.11 → 193.28 (the seven notes of 193.161 … .230).
+- the ribbon 193.364 (the F4) → the impact 193.686 (the eight notes of 193.682 … .702) → 193.86. He named no tail; a short one of 0.17 s, so it stops before the E6 of 193.883, which belongs to the next chord.
+- units 25a … e on one 16th beam (u25), each drawn at its played place — no `spread`: 25a E5 · F5 · D5 · C5 with the E6 before it, drawn at 193.951 · 25b G#4 · A4 · G4 with the B4 before it, at 194.078 · 25c G#5 · A5 · A#5 · B5 · F6 (194.204) · 25d B4 · D5 (194.360) · 25e C#5 (194.442). The gaps between them: 127 · 126 · 156 · 82 ms.
+**How "interpolate a rhythmic position" was read:** the figures stand where they are played, as the pole of §307 (units 9a … c); a note taken into a chord from just before it (the E6, the B4) is drawn on the chord's own place (`at`).
+**Checked once:** the page rendered to an image, 192.7 → 195.3 s.
+**Seen, for his eye:** the beam runs level over all five; the third figure's accidentals reach back toward the second's stem.

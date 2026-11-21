@@ -2,8 +2,8 @@
  "_doc": "THE WORKING VERSION of the piano solo (SW-96; RUNNING_LOG §307 — his word: 'can we get like a working version that we work in and that keeps all our changes'). The workshop's page 'working version' = the page `base` (the standard figures taken one by one, notation/hand/<base>.units.json) with the GESTURES below drawn over it, and nothing else. A gesture hides the played notes inside its span. kind ribbon = Shape Action Notation's arc: t0 its start, bounce its impact (the 'hit'), t1 its end; flow.profile = its designed width (§296). kind strike = the scattered strike: a curtain from t0 to t1 with the thrown pebbles. A chord symbol (each hand's pitch set, bank/chord_changes.json `sets`) stands at the start of every ribbon and strike. His times are 'thereabouts' — he clicks them with the mouse. A POLE (a fixed structure in standard notation) is not here: it is a figure in the units file.",
  "base": "s2-piano-solo",
  "view": [
-  191,
-  194
+  192.8,
+  195
  ],
  "band": [
   470,
@@ -506,6 +506,23 @@
    "t1": 192.72,
    "_his": "from 192.57 to 192.72, another Pebble Drop",
    "_note": "the twelve notes of 192.572 … .699"
+  },
+  {
+   "kind": "strike",
+   "t0": 193.11,
+   "t1": 193.28,
+   "_his": "pebb drop from 193.11 to 193.28",
+   "_note": "the seven notes of 193.161 … .230"
+  },
+  {
+   "kind": "ribbon",
+   "t0": 193.364,
+   "bounce": 193.686,
+   "t1": 193.86,
+   "hideTo": 193.72,
+   "tailPct": 85,
+   "_his": "ribbon impact at 193.69 starts at 193.36",
+   "_note": "the start on the F4 of 193.364; the impact on the eight notes of 193.682 … .702; he named no tail — a short one to 193.86 (0.17 s), stopping before the E6 of 193.883 that belongs to the next chord"
   }
  ],
  "noOttava": true,

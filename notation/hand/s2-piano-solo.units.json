@@ -590,6 +590,79 @@
     192.41,
     192.447
    ]
+  },
+  {
+   "_n": "25a · 193.95 s — E5 · F5 · D5 · C5 with the high E6 just before it (193.883): the first of FIVE figures on one beam, each at its played place (his word, §339)",
+   "ids": [
+    "wc-2591",
+    "wc-2590",
+    "wc-2592",
+    "wc-2593",
+    "wc-2589"
+   ],
+   "stem": "up",
+   "beam": "u25",
+   "at": 193.951,
+   "played": [
+    193.883,
+    193.967
+   ]
+  },
+  {
+   "_n": "25b · 194.08 s — G#4 · A4 · G4 with the B4 just before it (194.008; his \"put the B in with the next one\")",
+   "ids": [
+    "wc-2594",
+    "wc-2598",
+    "wc-2600",
+    "wc-2595"
+   ],
+   "stem": "up",
+   "beam": "u25",
+   "at": 194.078,
+   "played": [
+    194.008,
+    194.105
+   ]
+  },
+  {
+   "_n": "25c · 194.21 s — G#5 · A5 · A#5 · B5 · F6",
+   "ids": [
+    "wc-2602",
+    "wc-2601",
+    "wc-2597",
+    "wc-2596",
+    "wc-2599"
+   ],
+   "stem": "up",
+   "beam": "u25",
+   "played": [
+    194.204,
+    194.239
+   ]
+  },
+  {
+   "_n": "25d · 194.36 s — B4 · D5",
+   "ids": [
+    "wc-2603",
+    "wc-2604"
+   ],
+   "stem": "up",
+   "beam": "u25",
+   "played": [
+    194.36,
+    194.378
+   ]
+  },
+  {
+   "_n": "25e · 194.44 s — the note C#5",
+   "ids": [
+    "wc-2605"
+   ],
+   "stem": "up",
+   "beam": "u25",
+   "played": [
+    194.442
+   ]
   }
  ]
 }
