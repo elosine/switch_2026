@@ -3982,6 +3982,37 @@
         const sps = spsV || 0;
         const units = [...nhAt.entries()].map(([id, u]) => Object.assign({ id }, u)).sort((p, q) => p.t - q.t);
         const tipOf = u => u.stemItem ? u.stemItem.yB : null;
+        // [§380 — HIS WORD 2026-11-21: "The [ottava] on 210.13 is in the dynamics … what our rule, if any, is for the vertical stack … the flutter
+        // tongue is too close to the note head … we got to figure out how to space these things correctly based on a consistently applied
+        // standard"] THE STACK ABOVE A NOTE. The order is the column's own (rules.json column.order — articulation · dynamic · ottava ·
+        // instruction, outward from the note; §420 · §421) and the gap the house stack gap; it was BUILT only for the marks under a note (the
+        // ottava's own comment: "above — no above-chrome yet"), so above a note each mark was placed from the head alone and they met. Here,
+        // per moment, the marks above are read outward and each one that stands nearer the one inside it than the gap is moved OUT:
+        //   the dynamic stays where the column put it · the OTTAVA's hook ends the gap above the dynamic · a technique's WORD stands the
+        //   instruction's own distance (objects.instruction.aboveNoteSs) above whatever is under it and never nearer the staff than
+        //   staffClearSs (§561 — until now the family look's word used the tubas' medium gap from the head and no more).
+        // Nothing is moved that already stands clear.
+        if (o.stackAbove !== false) {
+          const SA = Object.assign({ gapSs: 0.45, staffClearSs: 1 }, o.instructionAbove || {}), OS = (glyphs.standards || {}).ottava || {}, gapS = OS.standardGapSs || 0.45, hookS = OS.hookLengthSs || 0.8;
+          const emW = TS.instruction * (o.textEmScale != null ? o.textEmScale : 1.3), byT = new Map();
+          for (const it of items) if (typeof it.t === 'number') { const k = it.t.toFixed(6); if (!byT.has(k)) byT.set(k, []); byT.get(k).push(it); }
+          for (const G of byT.values()) {
+            const heads = G.filter(it => it.k === 'glyph' && /^notehead/.test(it.g || '')); if (!heads.length) continue;
+            const hiHead = Math.max(...heads.map(h => h.ySs));
+            let cur = Math.max(...heads.map(h => h.ySs + 0.45 * (h.scale || 1)));
+            for (const it of G) { if (it.k === 'dot' && it.ySs > hiHead) cur = Math.max(cur, it.ySs + 0.2); else if (it.k === 'glyph' && /^accidental-/.test(it.g || '')) cur = Math.max(cur, it.ySs + 0.95); else if (it.k === 'stem' && it.attach === 'up') cur = Math.max(cur, it.yA, it.yB); }
+            const dyns = G.filter(it => it.k === 'glyph' && /^dyn-/.test(it.g || '') && it.ySs > hiHead).sort((p, q) => p.ySs - q.ySs);
+            for (const d of dyns) { const gD = glyphs.dynamic[d.g.slice(4)]; cur = Math.max(cur, d.ySs + ((gD && gD.hSs) || 1) * (d.scale || 1) / 2); }
+            const hasDyn = dyns.length > 0;
+            for (const ot of G.filter(it => it.k === 'ottava' && it.dir === 'above' && !it.seq || (it.k === 'ottava' && it.dir === 'above' && it.noFlip))) {
+              if (hasDyn && ot.ySs < cur + gapS + hookS - 1e-6) ot.ySs = +(cur + gapS + hookS).toFixed(4);
+              cur = Math.max(cur, ot.ySs + 0.33); }
+            for (const w of G.filter(it => it.k === 'text' && it.seq === 'techText' && it.yAt !== 'top' && it.ySs > hiHead).sort((p, q) => p.ySs - q.ySs)) {
+              const need = Math.max(cur + SA.gapSs, 2 + SA.staffClearSs) + 0.2 * emW;
+              if (w.ySs < need - 1e-6) w.ySs = +need.toFixed(4);
+              cur = Math.max(cur, w.ySs + 0.8 * emW); }
+          }
+        }
         // [§374 — HIS RULE 2026-11-21: "Longer stems on the grace notes … extend them down so the bottom of the stem is at the same height as the
         // bottom of the flags there, or the beams of the next thing"] A GRACE PICKUP's STEM REACHES ITS MAIN NOTE's (rules.json
         // objects.graceHead.pickupStemToMain): its tip stands at the height of the main note's stem tip — the far end of that flag, or the beam —
