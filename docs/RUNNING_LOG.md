@@ -5614,3 +5614,11 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **Done:** a device of its own, `container.json` devices.byTechnique.jet_whistle — the staccato unit's look (black head, stem, 16th flag clear of the staff, go line, gestural curve, dynamic) WITHOUT the staccato dot: it is a short note, not a staccato. All eleven follow. Its family in the technique table is left "sustained" (that governs how its length is read, not its look).
 **Checked once (§371 · §372):** the page in the notation app on the AI's throwaway, zoom view at 204.2 · 228.6 · 211.5 s — the flute's grace note left of its two beamed 16ths; the clarinet's grace note left of its main note, no slur, one curve; the flute's jet whistle at 213.67 black with its flag and curve.
 **Also said to him:** the electronics are muted by the box "electronics" in the notation app's top bar (§364) — unticked while playing, it sends the two stops.
+
+## §373 · 2026-11-21 · the tongue ram is the flagged staccato
+
+**His words:** "The tongue rams should be the flag staccato [too], for example, 201.56."
+**Found:** like the jet whistle (§372), the tongue ram had no look of its own; the technique table calls it a one-shot, so it drew as a bare black head with its bar — no stem, flag, go line or curve.
+**Done:** `container.json` devices.byTechnique.tongue_ram — the staccato unit's look WHOLE (black head, staccato dot, stem and 16th flag, go line, gestural curve, dynamic). The dot is kept here, by his word "staccato"; the jet whistle of §372 has none. All eleven tongue rams of the counterpoint follow (the flute's, 201.56 among them).
+**Not checked in the running app** — the same mechanism as §372's, proven there; his reload shows it.
+**The flute's three looks so far in the counterpoint:** staccato (the unit) · tongue ram (the unit, §373) · jet whistle (the unit without its dot, §372) · flutter-tongue (a white head and its bar — no rule yet).

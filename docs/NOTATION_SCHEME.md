@@ -158,6 +158,7 @@ Every page of the score may say its own pace — how many seconds stand across o
 | the heads | black for a short note, white for a held one — kept; ALL AT THE STANDARD SIZE (his, §370) | the standing devices; `objects.cueHead.size` 1 |
 | the gestural curves | kept, for now | the standing devices |
 | a note just before another (the clarinet 230.37 · the flute 206.00) | a GRACE-NOTE PICKUP: small, its own flag and stroke, standing a little to the LEFT of its main note (2.2 ss; 1.2 more past an accidental), NO slur, never on the main note's beam; no go line, dynamic or gestural curve of its own (§369 · §371) | `--hand <grace>:{grace, pickupTo, goLine:false, dynMark:false}` · `--noGc`; `objects.graceHead.pickupLeadSs · pickupAccSs` |
+| a TONGUE RAM | the flagged staccato: a black note with its dot, flag, go line and gestural curve — the staccato unit's look whole (§373) | `container.json` devices.byTechnique.tongue_ram |
 | a JET WHISTLE (short here) | a black note with its flag, go line and gestural curve — the staccato unit's look without the dot (§372) | `container.json` devices.byTechnique.jet_whistle |
 
 **Its pace:** the registry's 12 seconds a page (no pace of its own yet).

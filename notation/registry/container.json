@@ -512,6 +512,23 @@
       "dynMark": "band"
      },
      "_ordNote": "day 24, PROVISIONAL: plain (non-surge) sustained ord had no entry, so the ten-part octaves-Bb blast at 48.05 (wc-1611..wc-1620, 4.41 s, vel 112, one per part) drew as ten bare parachute bricks. Minimum honest reading: go line + nh-unit + one band dynamic. NO gc (the surge precedent: a sustained entry is not a point-in-time impact, and byEnv.surge carries no gc) and NO ring bar (ord duration is the real drawn duration per D9, and the brick already shows it; the ring bar exists to show a FIXED one-shot ringing past its written value). Surges are unaffected: byEnv.surge now carries dynMark false, which cancels this band mark on top of the technique entry, so the settled surge look (curve + cut + go line + nh-unit + dynPair) is byte-identical to day 23.",
+     "tongue_ram": {
+      "sheet": "the Switch~ piece §373 (2026-11-21, his word on the counterpoint's page: 'The tongue rams should be the flag staccato [too], for example, 201.56') — the staccato unit's look whole, dot and all",
+      "anchorRow": "C",
+      "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","accent","dynamic","ottava","goLine","gc"],
+      "goLine": true,
+      "gc": true,
+      "nhUnit": true,
+      "nhHead": "filled",
+      "nhHeadScale": "@objects.cueHead.size",
+      "nhStem": "flag16",
+      "nhStemRule": "flagClear",
+      "nhDot": true,
+      "nhDotGapSs": "@objects.staccatoDot.parent",
+      "nhGapSs": "@anchors.C.gapSs",
+      "dynMark": "band",
+      "dynBesideStem": true
+     },
      "jet_whistle": {
       "sheet": "the Switch~ piece §372 (2026-11-21, his word on the counterpoint's page, the flute at 213.67: 'Let's make that a black one with the flag and all. And any other jet whistles that are like that, they should be black notes') — the staccato unit's look without its dot: a jet whistle is a short note here (0.05 … 0.20 s), not a staccato",
       "anchorRow": "C",
