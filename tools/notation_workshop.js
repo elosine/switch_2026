@@ -198,12 +198,12 @@ function viewOf(page, t0, span, w, opts) {
     // right, piled on one another where they crowd (hillPower: how steeply the crowding grows). Each is thrown straight up from where it lies
     // and lands there again AS THE CURSOR REACHES IT — so the landings come thin at first and thick at the end: a crescendo of impacts.
     if (K.shape === 'hill') {
-      const W2 = xb - xa - 12, hp = K.hillPower != null ? K.hillPower : 2.2, Th = K.flightS != null ? K.flightS : 0.6, pile = [];
+      const W2 = xb - xa - 12, hp = K.hillPower != null ? K.hillPower : 2.2, Th = T, pile = [];
       const xsr = []; for (let i = 0; i < nR; i++) xsr.push(xa + 6 + W2 * Math.pow((i + 0.5 + (R() - 0.5) * 0.8) / nR, 1 / hp));
       xsr.sort((p, q) => p - q);
       xsr.forEach((x, i) => { const r = (K.sizePx != null ? K.sizePx : 2.6) * (0.7 + R() * 0.75), k = Math.max(0.8, 1 + gauss() * sp), lvl = pile.filter(p => Math.abs(p.x - x) < (p.r + r) * 0.8).length, yh = lvl * r * 1.25 + R() * 1.5, land = t0 + (x - x0) / pps;
         pile.push({ x, r });
-        rocks.push({ d: SUB.shape(species, r, 5000 + i), r: +r.toFixed(2), T: +(Th * k).toFixed(3), H: +((H - yh) * (0.45 + 0.5 * R())).toFixed(1), tl: +(land - Th * k).toFixed(3), xh: +x.toFixed(1), yh: +yh.toFixed(1), yl: +yh.toFixed(1), xl: +(x + (R() - 0.5) * 3).toFixed(1), spin: +((R() - 0.5) * 700).toFixed(0), gray: Math.round(17 + R() * 50) }); });
+        rocks.push({ d: SUB.shape(species, r, 5000 + i), r: +r.toFixed(2), T: +(Th * k).toFixed(3), H: +((H - yh) * (0.45 + 0.5 * R())).toFixed(1), dly: +((R() - 0.5) * 0.03).toFixed(3),   /* [§322 — his "I didn't mean for the timing to change, just the … density"] the hill is thrown as ONE handful, like every pebble drop: no pebble has a moment of its own */ xh: +x.toFixed(1), yh: +yh.toFixed(1), yl: +yh.toFixed(1), xl: +(x + (R() - 0.5) * 3).toFixed(1), spin: +((R() - 0.5) * 700).toFixed(0), gray: Math.round(17 + R() * 50) }); });
     } else
     for (let i = 0; i < nR; i++) {
       const k = Math.max(0.8, 1 + gauss() * sp), r = (K.sizePx != null ? K.sizePx : 2.6) * (0.7 + R() * 0.75);

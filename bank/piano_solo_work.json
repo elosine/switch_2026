@@ -277,11 +277,10 @@
     "shape": "hill",
     "density": 75,
     "hillPower": 2.6,
-    "flightS": 0.6,
     "minSs": 3
    },
    "_his": "something from 170.3 to 170.93 with the back half being fairly bit more dense … a substrate that kind of like starts thin and grows like a crescendo, you know, like a hill of pebbles. So it's thicker and denser towards the right",
-   "_note": "a pebble drop as a HILL: 46 pebbles, few at the left, crowding and piling to the right; each lands as the cursor reaches it"
+   "_note": "a pebble drop as a HILL: 75 pebbles, few at the left, crowding and piling to the right — the DENSITY only (§322): thrown as one handful and landing together at the curtain's middle, like every other drop"
   }
  ],
  "noOttava": true,
