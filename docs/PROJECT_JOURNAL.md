@@ -61,6 +61,21 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+### CHECKPOINT 2026-11-20 (night) — THE PIANO SOLO IN FOUR KINDS OF NOTATION; THE WORKING VERSION TO 170.9 s *(session wrap)*
+
+**READ `CLAUDE.md` § THE ENGRAVING RULES and `docs/NOTATION_SCHEME.md` § 2 · § 3 before any notation work.**
+
+- **What happened (RUNNING_LOG §262 … §322; his words SW-83 … SW-102):** the piano solo is no longer taken note by note. It is written in KINDS that alternate, each named by him: STANDARD notation for the fixed structures ("poles", "the arpeggiated strike" — figures in `notation/hand/s2-piano-solo.units.json`, 14 so far) · SHAPE ACTION NOTATION, the RIBBON (the GC arc as a band whose width is the hand's activity; one bounce or several; a tail) · the PEBBLE DROP / scattered strike (a curtain with a handful of pebbles thrown and landing together — synthesi-alpha's substrates, ballistic) · the REPEAT / stutter (the keys boxed, then running shake marks — catalog signs 29 · 30 and their opposites, `http://localhost:5650/pages/stutter`). A CHORD SYMBOL (each hand's pitch set, a cluster bar) stands at the start of every gesture. Constellation notation (SW-85) is named, not begun.
+- **THE WORKING VERSION is the one place the piece is now written:** the workshop's page "working version" (`http://localhost:5650/`), built from `bank/piano_solo_work.json` (the gestures, in his words, each with the note of how his clicked times were set on the partials) + the units file. Worked from 148.2 to 170.93 s. On it: no 8va (a trial), only the piano, room above.
+- **How he works there (his way since §307):** he names times "thereabouts" and a kind; the AI sets them on the partials actually played, writes the line, restarts the workshop server itself (it runs the server on 5650 at his word, §278 — launch name `notation-workshop`), renders the page to an image as its one check, and sends the picture.
+- **THE NEXT CONCRETE STEP:** start the workshop server (`notation-workshop`), then go on from 170.93 s at his word, gesture by gesture. The first notes not yet placed: after 170.93 (and two small left-hand groups at 160.19 … 160.30 he has not placed).
+- **His notes to come back to:** refine the pebble drops' densities for variety (SW-102) · a way to ASSIGN ribbons to sections and to get a first shape he then tweaks, with the least time a texture needs (SW-92) · the wave curve joining GC arcs (held, SW-83).
+- **Open, put to him and unanswered:** whether an impact stands on a cluster's weighted middle (the AI's choice, §314) or its last note (where he clicks) · whether "no 8va" becomes the rule for the score · the page turn of the workshop (mended §312, NOT seen working by the AI — its browser pane's clock does not run) · none of the pebbles, tails or the hill were seen MOVING by the AI, only stills.
+- **Not built:** the kinds live only in the workshop (`tools/notation_workshop.js` · `gravity_furniture.js` · `chord_changes.js` · `substrate.js`); nothing of them is in `layout.js`, `rules.json` or the real score, and the workshop's "Make video" carries ribbons but not pebbles (a side script does: `tools/port/scratch/strike_film.js`).
+- **Resume reads:** `docs/NOTATION_SCHEME.md` § 3 · `bank/piano_solo_work.json` · RUNNING_LOG §307 … §322 only if a question about a gesture's making arises — nothing else beyond §2.
+- **Deliberately uncommitted:** as the checkpoint below lists (his saves, the racks, `bank/panel_snapshots.json` · `sequences.json`, `.gitignore`, `docs/VERIFICATION_RECIPE.md`, working output); plus `tools/port/scratch/*` (the AI's scratch scripts) and `notation/video/clips/` (gitignored films).
+- **Model:** Fable — every step is his ear and a judgment of notation.
+
 ### CHECKPOINT 2026-11-20 — THE NOTATION PHASE: SECTION 1 DONE AS A WORKING PAGE; THE PIANO SOLO, FIGURE BY FIGURE *(mid-session checkpoint)*
 
 **READ `CLAUDE.md` § "Standing practice: THE ENGRAVING RULES" BEFORE ANY NOTATION WORK** — find the standard, apply the standard, and where there
