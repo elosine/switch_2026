@@ -2,8 +2,8 @@
  "_doc": "THE WORKING VERSION of the piano solo (SW-96; RUNNING_LOG §307 — his word: 'can we get like a working version that we work in and that keeps all our changes'). The workshop's page 'working version' = the page `base` (the standard figures taken one by one, notation/hand/<base>.units.json) with the GESTURES below drawn over it, and nothing else. A gesture hides the played notes inside its span. kind ribbon = Shape Action Notation's arc: t0 its start, bounce its impact (the 'hit'), t1 its end; flow.profile = its designed width (§296). kind strike = the scattered strike: a curtain from t0 to t1 with the thrown pebbles. A chord symbol (each hand's pitch set, bank/chord_changes.json `sets`) stands at the start of every ribbon and strike. His times are 'thereabouts' — he clicks them with the mouse. A POLE (a fixed structure in standard notation) is not here: it is a figure in the units file.",
  "base": "s2-piano-solo",
  "view": [
-  192.8,
-  195
+  194.2,
+  197
  ],
  "band": [
   470,
@@ -523,6 +523,16 @@
    "tailPct": 85,
    "_his": "ribbon impact at 193.69 starts at 193.36",
    "_note": "the start on the F4 of 193.364; the impact on the eight notes of 193.682 … .702; he named no tail — a short one to 193.86 (0.17 s), stopping before the E6 of 193.883 that belongs to the next chord · §340, his \"At the point of impact at 193.68, can you draw in the notated chord that's there?\": the eight notes of the impact are shown as a notated chord (unit 26); the ribbon and its tail stay"
+  },
+  {
+   "kind": "ribbon",
+   "t0": 194.622,
+   "bounce": 195.83,
+   "t1": 196.26,
+   "hideTo": 196.26,
+   "tailPct": 85,
+   "_his": "a ribbon to impact around 195.83 starts at 194.62 and ends, goes up to 196.26",
+   "_note": "the start on the partial of 194.622; the impact on the eleven notes of 195.822 … .868, all loud (velocities up to 127), at 195.83; the tail to 196.26 as he said (0.43 s), taking the notes to 196.230 with it — among them the loud ten-note cluster of 196.098"
   }
  ],
  "noOttava": true,

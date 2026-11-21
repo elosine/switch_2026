@@ -1581,3 +1581,9 @@ staff carried from piece 6 has eight lines, of which only the coil's and the Chi
 **His words (verbatim):** "pebb drop from 193.11 to 193.28. ribbon impact at 193.69 starts at 193.36. There's a chord at around 193.96. Include that high E just before it and that B just after it. Actually, sorry, put the B in with the next one. And then a strike at 194.08. And then at 194.21. And then 194.36 and the node at 194.44. Let's see what that looks like in there. You can, you know, kind of interpolate a rhythmic position for each of those and beam those together. Let's just see what it looks like."
 
 **The AI's reading:** "pebb" is pebble; "node" is note. A pebble drop 193.11 … 193.28; a ribbon 193.36 → impact 193.69; then five notated figures on ONE beam — the chord of 193.96 (with the high E before it), the strike of 194.08 (with the B before it), 194.21, 194.36, and the single note of 194.44 — each at a rhythmic place taken from where it is played, not evenly spread. A look to judge ("let's just see what it looks like"), the longest beamed group so far.
+
+### SW-113 · 2026-11-21 · a ribbon 194.62 → 195.83 → 196.26
+
+**His words (verbatim):** "a ribbon to impact around 195.83 starts at 194.62 and ends, goes up to 196.26."
+
+**The AI's reading:** one plain ribbon: start 194.62, impact about 195.83, its tail up to 196.26.

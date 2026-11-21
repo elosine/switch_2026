@@ -5310,3 +5310,10 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **Done:** unit 26, the eight notes of 193.682 … .702 (A5 · A#5 · B5 · C6 · C#6 · D6 · D#6 · F6, all in the upper staff), one stem up, a 16th flag. The ribbon of 193.364 keeps its impact and its tail; it now hides its notes only up to 193.6, so the chord shows.
 **What it is:** the second form of a ribbon WITH a standard figure at its impact. §327's ribbon falls into a chord and ends there; this one strikes, shows what is struck, and rebounds. The chord stands above the impact point (it is high; the impact is at the band's floor), a little right of it.
 **Checked once:** the page rendered to an image, 192.7 → 195.3 s.
+
+## §341 · 2026-11-21 · the working version to 196.26 s — a ribbon 194.62 → 195.83 → 196.26
+
+**His words:** SW-113 (the sketch pad): "a ribbon to impact around 195.83 starts at 194.62 and ends, goes up to 196.26."
+**Set on the played partials:** the start 194.622 · the impact 195.83, on the eleven notes of 195.822 … .868 (the low cluster E4 … E5, velocities to 127) · the tail to 196.26 (0.43 s). The standing line: thin while level, growing with the drop.
+**Seen, for his eye:** the tail passes over a second loud cluster, the ten notes of 196.098 … .115 (G5 … F6, velocities 122 … 127) — as loud as the impact. It is inside the tail now and shows no strike of its own.
+**Checked once:** the page rendered to an image, 194.2 → 197.0 s.
