@@ -1475,7 +1475,12 @@
             // [2a.4] a chord is drawn at ONE time, its first onset: heads, ledgers,
             // accidentals, go line and marks all at tU. The brick (and the ring
             // bar) keep each note's own sounding onset. No chord: tU = the onset.
-            const tU = CG ? CG.t : e.onset;
+            // [§371 — HIS RULE 2026-11-21 for a grace-note pickup: "push them over slightly. To the left, maybe, so they have a little bit of spacing
+            // and no slur … they stand alone, so the grace [note] has a flag instead of being beamed"] A GRACE PICKUP (a hand: grace + pickupTo, the
+            // note it leads to) is drawn AT ITS MAIN NOTE'S TIME and stood off to the left by a fixed distance (below) — so the two keep one
+            // spacing whatever the page's pace, and however few milliseconds lie between them in the playing
+            const pkM = !CG ? (d0 => (d0.grace && d0.pickupTo ? evById.get(d0.pickupTo) : null))(deviceOf(e)) : null;
+            const tU = CG ? CG.t : pkM ? pkM.onset : e.onset;
             const ySs = posOf(spelledOf(e));
             // hover identity (day 22): what this un-notated material IS —
             // pitch · technique · envelope · mode · span · class/strategy ·
@@ -1953,6 +1958,8 @@
                 // text and the pedal mark begin at the note; the dynamic stays centred
                 // on the head. (§494's column-ink shift, written to clear a go line the
                 // unit no longer carries, is gone with it.)
+                // [§371] the grace pickup's distance (rules.json objects.graceHead.pickupLeadSs, and pickupAccSs more where the main note has an accidental)
+                if (pkM) headDx -= (GR.pickupLeadSs > 0 ? GR.pickupLeadSs : 2.2) + (spelledOf(pkM).alter ? (GR.pickupAccSs > 0 ? GR.pickupAccSs : 1.2) : 0);
                 const chromeDx = g => dev.nhAnchor === 'leftEdge' ? headDx - nhO.wSs / 2 + g.wSs / 2 : headDx;
                 // [§494 — the running order's step 1, his "demonstrate the color head"] a bow's head carries its SEAT; render.js fills it in
                 // the seat's hue when rules.json vibMarks.headColour is 'seat' (ink otherwise)

@@ -22,7 +22,7 @@
   "date": "2026-11-21",
   "tool": "tools/notate_section.js (profile trance)",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only.",
-  "build": "node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 199 --w1 254 --parts 0-6 --alone 199-254 --exp --noFitMark --timeSpacing --id s2-ctpt-heads --label \"Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)\" --beam 205.99-206.29@0 --beam 209.80-210.45@0 --beam 233.97-234.08@0 --beam 206.40-206.70@1 --beam 217.36-217.71@1 --beam 223.39-223.74@1 --hand \"wc-2742:{\\\"grace\\\":true,\\\"slurTo\\\":\\\"wc-2743\\\"}\" --noGc wc-2742"
+  "build": "node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 199 --w1 254 --parts 0-6 --alone 199-254 --exp --noFitMark --timeSpacing --id s2-ctpt-heads --label \"Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)\" --beam 205.9985-206.29@0 --beam 209.80-210.45@0 --beam 233.97-234.08@0 --beam 206.40-206.70@1 --beam 217.36-217.71@1 --beam 223.39-223.74@1 --hand \"wc-2742:{\\\"grace\\\":true,\\\"pickupTo\\\":\\\"wc-2743\\\",\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --noGc wc-2742 --hand \"wc-2692:{\\\"grace\\\":true,\\\"pickupTo\\\":\\\"wc-2691\\\",\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --noGc wc-2692"
  },
  "events": [
   {
@@ -10260,10 +10260,10 @@
  ],
  "overlays": [
   {
-   "id": "ov-bm-1-ev-wc-2692",
+   "id": "ov-bm-1-ev-wc-2691",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-2692"
+    "event": "ev-wc-2691"
    },
    "value": {
     "device": {
@@ -10280,27 +10280,6 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-bm-1-ev-wc-2691",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-2691"
-   },
-   "value": {
-    "device": {
-     "nhStem": "beam",
-     "beamGroup": "bm-1",
-     "noteBeams": 2,
-     "beamPos": 1,
-     "noteUnits": 1,
-     "goLine": false,
-     "gc": false,
-     "dynAboveBeam": true,
-     "nhAnchor": "leftEdge"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
    "id": "ov-bm-1-ev-wc-2693",
    "kind": "engraving",
    "target": {
@@ -10311,7 +10290,7 @@
      "nhStem": "beam",
      "beamGroup": "bm-1",
      "noteBeams": 2,
-     "beamPos": 2,
+     "beamPos": 1,
      "noteUnits": 1,
      "goLine": false,
      "gc": false,
@@ -10578,7 +10557,26 @@
     "device": {
      "gc": false,
      "grace": true,
-     "slurTo": "ev-wc-2743"
+     "pickupTo": "ev-wc-2743",
+     "goLine": false,
+     "dynMark": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-nogc-ev-wc-2692",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2692"
+   },
+   "value": {
+    "device": {
+     "gc": false,
+     "grace": true,
+     "pickupTo": "ev-wc-2691",
+     "goLine": false,
+     "dynMark": false
     }
    },
    "provenance": "authored"

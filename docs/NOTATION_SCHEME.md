@@ -157,7 +157,8 @@ Every page of the score may say its own pace — how many seconds stand across o
 | THE BEAMING THRESHOLD | two notes of one part no farther apart than the clarinet's pair at 217.37 → 217.70 s (0.329 s) are beamed; "for now" | `--beam t0-t1@part`, one per group (six so far) |
 | the heads | black for a short note, white for a held one — kept; ALL AT THE STANDARD SIZE (his, §370) | the standing devices; `objects.cueHead.size` 1 |
 | the gestural curves | kept, for now | the standing devices |
-| a note 0.05 s before another (the clarinet, 230.37) | a GRACE-NOTE PICKUP to it: small, with its stroke and a slur; ONE gestural curve, on the main note | `--hand wc-2742:{grace, slurTo}` · `--noGc wc-2742` |
+| a note just before another (the clarinet 230.37 · the flute 206.00) | a GRACE-NOTE PICKUP: small, its own flag and stroke, standing a little to the LEFT of its main note (2.2 ss; 1.2 more past an accidental), NO slur, never on the main note's beam; no go line, dynamic or gestural curve of its own (§369 · §371) | `--hand <grace>:{grace, pickupTo, goLine:false, dynMark:false}` · `--noGc`; `objects.graceHead.pickupLeadSs · pickupAccSs` |
+| a JET WHISTLE (short here) | a black note with its flag, go line and gestural curve — the staccato unit's look without the dot (§372) | `container.json` devices.byTechnique.jet_whistle |
 
 **Its pace:** the registry's 12 seconds a page (no pace of its own yet).
 

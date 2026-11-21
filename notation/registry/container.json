@@ -110,7 +110,7 @@
    "floorTier": "@column.floorTiers.inside",
    "ladder": { "on": "@ladder.built", "sizeStep": "@ladder.sizeStep", "compressStack": "@ladder.compressStack", "flipClearsStaff": "@ladder.flipClearsStaff", "leaves": { "instruction": "@objects.instruction.leaves", "techSymbol": "@objects.techSymbol.leaves", "number": "@objects.number.leaves" } },
    "stemLen": "@objects.stem.lengthSs", "stemLenLinedSs": "@objects.stem.lengthLinedSs",
-   "grace": { "headScale": "@objects.graceHead.size", "slashReachSs": "@objects.graceSlash.reachSs", "slashAt": "@objects.graceSlash.at", "slashBeamInsetSs": "@objects.graceSlash.beamInsetSs", "slashCutSs": "@objects.graceSlash.cutSs", "slashJutSs": "@objects.graceSlash.jutSs", "slashThickSs": "@objects.graceSlash.thickSs", "_note": "§550 — the grace note's look; a hand (engraving { grace: true }) on the note, never a device row" },
+   "grace": { "headScale": "@objects.graceHead.size", "pickupLeadSs": "@objects.graceHead.pickupLeadSs", "pickupAccSs": "@objects.graceHead.pickupAccSs", "slashReachSs": "@objects.graceSlash.reachSs", "slashAt": "@objects.graceSlash.at", "slashBeamInsetSs": "@objects.graceSlash.beamInsetSs", "slashCutSs": "@objects.graceSlash.cutSs", "slashJutSs": "@objects.graceSlash.jutSs", "slashThickSs": "@objects.graceSlash.thickSs", "_note": "§550 — the grace note's look; a hand (engraving { grace: true }) on the note, never a device row" },
    "slur": { "heightRatio": "@objects.slur.heightRatio", "heightMaxSs": "@objects.slur.heightMaxSs", "thickSs": "@objects.slur.thickSs", "endThickSs": "@objects.slur.endThickSs", "freeHeadSs": "@objects.slur.freeHeadSs", "freeSlurSs": "@objects.slur.freeSlurSs", "maxSlope": "@objects.slur.maxSlope", "minHeightSs": "@objects.slur.minHeightSs", "_note": "§555 — the slur standard (LilyPond's Slur + Gould's ends); a hand (engraving { slurTo: event }) on the first note names the last" },
    "groupStub": { "protrudeSs": "@objects.groupStub.protrudeSs", "squiggleHand": "@objects.groupStub.squiggleHand", "squiggleFalls": "@objects.groupStub.squiggleFalls", "squiggleInsetSs": "@objects.groupStub.squiggleInsetSs", "squiggleReachSs": "@objects.groupStub.squiggleReachSs", "squiggleAmpSs": "@objects.groupStub.squiggleAmpSs", "squiggleWaves": "@objects.groupStub.squiggleWaves", "thickSs": "@objects.groupStub.thickSs", "_note": "§557 — his uneven-group sign; a hand (engraving { beamStub: true }) on each member of a --beam group" },
    "hairpinHand": { "heightSs": "@objects.hairpin.heightSs", "thickSs": "@objects.hairpin.thickSs", "beside": "@objects.hairpin.beside", "_note": "§559 — a hairpin from a note's name by hand (engraving { hairpinTo: seconds, hairpinDir }): the timed hairpin's kind on the dynamic row, the 2f hairpin's height, thickness and gap" },
@@ -512,6 +512,21 @@
       "dynMark": "band"
      },
      "_ordNote": "day 24, PROVISIONAL: plain (non-surge) sustained ord had no entry, so the ten-part octaves-Bb blast at 48.05 (wc-1611..wc-1620, 4.41 s, vel 112, one per part) drew as ten bare parachute bricks. Minimum honest reading: go line + nh-unit + one band dynamic. NO gc (the surge precedent: a sustained entry is not a point-in-time impact, and byEnv.surge carries no gc) and NO ring bar (ord duration is the real drawn duration per D9, and the brick already shows it; the ring bar exists to show a FIXED one-shot ringing past its written value). Surges are unaffected: byEnv.surge now carries dynMark false, which cancels this band mark on top of the technique entry, so the settled surge look (curve + cut + go line + nh-unit + dynPair) is byte-identical to day 23.",
+     "jet_whistle": {
+      "sheet": "the Switch~ piece §372 (2026-11-21, his word on the counterpoint's page, the flute at 213.67: 'Let's make that a black one with the flag and all. And any other jet whistles that are like that, they should be black notes') — the staccato unit's look without its dot: a jet whistle is a short note here (0.05 … 0.20 s), not a staccato",
+      "anchorRow": "C",
+      "memberRows": ["cueHead","ledger","accidental","stem","flag","accent","dynamic","ottava","goLine","gc"],
+      "goLine": true,
+      "gc": true,
+      "nhUnit": true,
+      "nhHead": "filled",
+      "nhHeadScale": "@objects.cueHead.size",
+      "nhStem": "flag16",
+      "nhStemRule": "flagClear",
+      "nhGapSs": "@anchors.C.gapSs",
+      "dynMark": "band",
+      "dynBesideStem": true
+     },
      "staccato": {
       "sheet": "#4 day 23 (wc-29 — the staccato unit)",
       "anchorRow": "C",
