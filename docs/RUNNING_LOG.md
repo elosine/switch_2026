@@ -5070,3 +5070,14 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 - UNIT 12 — the nine notes of both hands at 164.340 … 164.380 (F4 · F#4 · G4 below; E6 · F#6 · G6 · G#6 · A6 · B6 above): one chord, stem up with a 16th flag, the arpeggio sign — as unit 11 at 156.41. "The arpeggiated strike" is his name for this kind of notated figure; the pages rebuilt.
 - THE PAGE TURN: the workshop page was meant to move on when the cursor passed its right edge, and never did. The fault, in the AI's own page code (§269): on every animation frame past the edge it asked the server for the next page AGAIN, and each new asking discards the answer to the one before — so no answer was ever kept. Now it asks once and waits (a flag, cleared when the picture arrives, or after 3 s).
 **NOT verified by the AI:** in its hidden browser pane the playback clock does not run (the cursor stayed at 151.60 through a 2.5 s play), so the turn could not be watched. The fix is his to see: play across a page's right edge.
+
+## §313 · 2026-11-20 · 164.8 → 166.3 s — a ribbon whose line grows with time, a short tail, a repeat moved over for it
+
+**His words:** SW-100 (the sketch pad): "a ribbon that hits at 165.9 starts at the partials at 164.77 … a growing line, starts thin and progressively grows until impact. a short up tail … those next two will be a repeat … move them over a little bit so we have … room for the tail … until somewhere around like 166.2 … the partials are like at 166.02 and 166.28".
+**Written into the working version:**
+- THE RIBBON 164.781 → the impact 165.785 → 166.0. Its width is DESIGNED, a new form of the fall: `profile.in` "time" — the width grows steadily with the time gone by from the start to the impact, so it is already growing along the level top (the form of §296, "depth", stays a hair until the arc drops). The tail: 30 % of the height (`tailPct`, now for a one-bounce ribbon too), 0.2 s long, thinning.
+- THE IMPACT's place: his 165.9 is a cluster struck in two waves — nine notes of both hands from 165.785, four more of the left hand at 165.89. The impact is put on its beginning, 165.785.
+- THE REPEAT: the right hand's five notes of 166.038 (G#5 … C6), boxed as its symbol at 166.1 — moved right of the ribbon's tail — then sign 29, growing, to 166.3.
+- **Told to him:** no partial stands at 166.28. After 166.038 the next one is the ten notes of both hands at 166.525. So the repeat as built holds ONE partial; whether it should run on to 166.53, or that cluster is something of its own, is his.
+**A fault found and mended on the way:** the image rasterizer (the film's too) crashed on this page — a clipped group with nothing left inside it, once the earlier gestures lay wholly off the page to the left. A gesture wholly outside the page is no longer drawn.
+**Checked once:** the page rendered to an image, 163.9 → 167.3 s.

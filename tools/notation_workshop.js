@@ -219,6 +219,8 @@ function viewOf(page, t0, span, w, opts) {
     if (cfg.coverFrom != null) flush('<rect x="0" y="' + cfg.coverFrom + '" width="' + w + '" height="' + (cfg.band[0] + cfg.band[1] - cfg.coverFrom) + '" fill="#fff"/>');
     const sets = {}, sym = { R: [], L: [] }; for (const h of ['R', 'L']) sets[h] = CC.persistent(WK.hands[h], WK.sets).filter(s => !s.brief);
     for (const g of cfg.gestures) {
+      // a gesture wholly off the page is not drawn (the film's rasterizer fails on a clipped group with nothing left in it — §313)
+      if (g.t1 < t0 - 0.05 || (g.from != null ? Math.min(g.from, g.t0) : g.t0) > t0 + span + 0.05) continue;
       const segs = [];   // the stretches of this gesture: one, or a multi-bounce ribbon's several
       if (g.kind === 'ribbon') {
         // [§310] fromPlaying: the ribbon's width is the measured busyness of BOTH hands inside its span (§279's bell sum, exaggerated by flow.power)
@@ -230,7 +232,7 @@ function viewOf(page, t0, span, w, opts) {
           const last = i === bs.length - 1, a0 = i === 0 ? g.t0 : (bs[i - 1] + b) / 2, a1 = last ? g.t1 : (b + bs[i + 1]) / 2;
           const P = { band: cfg.band, arcBand: cfg.arcBand || cfg.band, arc: { t0: a0, bounce: b, t1: a1 }, noShapes: true, flow: Object.assign({ style: 'ribbon' }, cfg.flow, g.flow) };
           if (g.fromPlaying) { P.in = src.map(p => p.id.replace(/^ev-/, '')); P.flow = Object.assign({}, P.flow, { profile: null }, g.flow); P.normSpan = [g.t0, g.t1]; }
-          const pre = bs.length > 1 ? Object.assign({}, preset, { damping: last ? (g.tailPct != null ? g.tailPct : 30) : 100 }) : preset;
+          const pre = bs.length > 1 ? Object.assign({}, preset, { damping: last ? (g.tailPct != null ? g.tailPct : 30) : 100 }) : g.tailPct != null ? Object.assign({}, preset, { damping: g.tailPct }) : preset;   // tailPct on a one-bounce ribbon too: a short tail up (§313)
           const f = FUR({ proto: P, ir: { events: src }, glyphs: e.glyphs, ChordColumn: e.ChordColumn, Gc: e.Gc, xOf, staff: staves[staves.length - 1], w, preset: pre, look, gaps: e.gaps });
           flush(f.svg); protos.push({ arc: P.arc, preset: pre, look, flow: P.flow, arcY: f.arcY, ribbon: f.ribbon });
           segs.push([a0, a1]);
@@ -261,7 +263,7 @@ function viewOf(page, t0, span, w, opts) {
         for (const sg of segs) { const s3 = sets[h].filter(x => x.at <= sg[1]).pop() || sets[h][0]; if (s3 && s3 !== was) { sym[h].push(Object.assign({}, s3, { at: sg[0] })); was = s3; } } }
     }
     let addS = ''; for (const h of ['R', 'L']) addS += CC.draw({ shapes: sym[h], xOf, staff: h === 'R' ? staves[0] : staves[staves.length - 1], glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps, rule: cfg.shapeRule });
-    flush(addS);
+    if (addS) flush(addS);
     if (!strike && strikes.length) strike = strikes[0];
     e.bandOut = cfg.band;
   }

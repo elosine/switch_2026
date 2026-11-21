@@ -2,8 +2,8 @@
  "_doc": "THE WORKING VERSION of the piano solo (SW-96; RUNNING_LOG §307 — his word: 'can we get like a working version that we work in and that keeps all our changes'). The workshop's page 'working version' = the page `base` (the standard figures taken one by one, notation/hand/<base>.units.json) with the GESTURES below drawn over it, and nothing else. A gesture hides the played notes inside its span. kind ribbon = Shape Action Notation's arc: t0 its start, bounce its impact (the 'hit'), t1 its end; flow.profile = its designed width (§296). kind strike = the scattered strike: a curtain from t0 to t1 with the thrown pebbles. A chord symbol (each hand's pitch set, bank/chord_changes.json `sets`) stands at the start of every ribbon and strike. His times are 'thereabouts' — he clicks them with the mouse. A POLE (a fixed structure in standard notation) is not here: it is a figure in the units file.",
  "base": "s2-piano-solo",
  "view": [
-  158.6,
-  164.4
+  163.6,
+  167.2
  ],
  "band": [
   470,
@@ -161,6 +161,42 @@
    },
    "_his": "a ribbon with like a multi-bounce … the first bounce is at 162.46. It starts at the partial there at 161.79. Another bounce at 163.09. And the final bounce at 163.71 with just a small tail up",
    "_note": "on the partials played: the start 161.789; the bounces on the heaviest moment near each of his times — 162.513 (seven notes; the five of 162.409 just before it), 163.040 (ten notes), 163.596 (seventeen notes, to 163.67); a short tail to 163.95"
+  },
+  {
+   "kind": "ribbon",
+   "t0": 164.781,
+   "bounce": 165.785,
+   "t1": 166,
+   "tailPct": 30,
+   "flow": {
+    "ribbonMaxPx": 34,
+    "profile": {
+     "in": "time",
+     "inPower": 1,
+     "out": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0.25
+      ]
+     ]
+    }
+   },
+   "_his": "a ribbon that hits at 165.9 starts at the partials at 164.77 and it has a like a growing line, starts thin and progressively grows until impact. a short up tail",
+   "_note": "the start on the partial of 164.781; the impact on the nine notes struck from 165.785 (the left hand adds four more at 165.89 — his 165.9 is that cluster, its beginning taken); a short tail to 166.0"
+  },
+  {
+   "kind": "stutter",
+   "hand": "R",
+   "sign": 29,
+   "from": 166.02,
+   "t0": 166.1,
+   "t1": 166.3,
+   "_his": "those next two will be a repeat, but we'll move them over a little bit so we have a little bit of room for the tail, and then go until somewhere around like 166.2 … the partials are like at 166.02 and 166.28 … push the start of that repeat to the right a little bit so you have room for the tail",
+   "_note": "the right hand's five notes at 166.038; the sign begins at 166.1, after the ribbon's tail; to 166.3 as he said. NO partial was found at 166.28 — the next one is the ten notes of both hands at 166.525"
   }
  ],
  "noOttava": true,
