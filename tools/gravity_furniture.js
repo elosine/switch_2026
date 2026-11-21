@@ -32,6 +32,9 @@ module.exports = function furniture(o) {
   const I = s => notes.reduce((acc, n) => acc + n.v * Math.exp(-0.5 * Math.pow((s - n.t) / F.sigmaS, 2)), 0);
   const N = 200, S = []; let mx = 0, mn = Infinity;
   for (let i = 0; i <= N; i++) { const s = A.t0 + (A.t1 - A.t0) * i / N, v = notes.length ? I(s) : 0; S.push([s, v]); if (v > mx) mx = v; if (v < mn) mn = v; }
+  // [§311] normSpan: the low and high of the busyness are taken over a LONGER span than this arc (a multi-bounce ribbon's whole length), so
+  // its several arcs share one scale of width
+  if (P.normSpan && notes.length) { mx = 0; mn = Infinity; for (let i = 0; i <= 400; i++) { const v = I(P.normSpan[0] + (P.normSpan[1] - P.normSpan[0]) * i / 400); if (v > mx) mx = v; if (v < mn) mn = v; } }
   const pw = F.power != null ? F.power : 1.6, ex = v => Math.pow(mx > mn ? Math.max(0, (v - mn) / (mx - mn)) : 0, pw);
 
   // 1 · the GC arc (notation/lib/gc.js's own curve), as a line or as a ribbon

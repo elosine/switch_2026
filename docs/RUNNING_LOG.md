@@ -5051,3 +5051,15 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **Left on the page, his to place:** the left hand's notes of 160.19 … 160.30 (the first two events of its climb) stand as small heads between the repeat and the pebble drop — the repeat is the right hand's only.
 **In the code:** a gesture that began before the page's left edge is clipped at the music's start.
 **Checked once:** the page rendered to an image, 155.9 → 161.7 s.
+
+## §311 · 2026-11-20 · THE MULTI-BOUNCE RIBBON — three impacts in one ribbon, 161.79 → 163.95 s
+
+**His words:** SW-99 (the sketch pad): "can you make a ribbon with like a multi-bounce? … the first bounce is at 162.46. It starts at the partial there at 161.79. Another bounce at 163.09. And the final bounce at 163.71 with just a small tail up … if you need to make [chord] changes throughout that three bounce, please do. It seems … around like 163, the notes seem a little bit denser. I could be wrong."
+
+**His ear checked (both hands, 161.7 → 164.0 s):** notes per quarter second from 161.75 — 5 · 4 · 8 · 9 · 4 · 12 · 3 · 17 · 2. He is right: the quarter from 163.0 holds 12 notes, three times its neighbors (4 before, 3 after) — the ten-note cluster at 163.04. It is not the densest moment of the passage (the seventeen-note landing at 163.60 is), but it is a clear swell in the middle.
+**The bounces, set on the partials:** his 162.46 lies between two heavy moments 0.1 s apart — five notes at 162.409 (weight 509) and seven at 162.513 (652); the bounce is put on the heavier, 162.513. His 163.09 → the ten notes at 163.040 (939). His 163.71 → the seventeen notes beginning 163.596 (1541), struck through 163.67. Start 161.789; a short tail to 163.95.
+
+**Built (a ribbon gesture with `bounces`):** between two bounces the ball rises to the FULL height and falls again, turning at the midpoint between them (162.78 · 163.32); after the last bounce a small tail, 30 % of the height (`tailPct`). Each stretch is one arc of the GC's own curve — the rise is the GC's rebound with its damping at 100 instead of piece 2's 80, so the next fall starts where the rise ended. The width is the measured busyness (`fromPlaying`), on ONE scale over the whole ribbon (`normSpan`), so the three impacts can be compared: each is broad, the third broadest. One ball rides it; three rings.
+**The chord symbols inside it:** at its start both hands' sets; at a later stretch's start only where a hand's set has changed — the left hand's new cluster (E4 … D5, used from 163.51) stands at the third stretch's start.
+**Open, seen while building:** real bounces lose height each time; these three are equal. Whether a multi-bounce should decay, or its heights say something (the weight of each impact), is his.
+**Checked once:** the page rendered to an image, 160.2 → 164.6 s.

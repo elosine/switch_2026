@@ -219,14 +219,22 @@ function viewOf(page, t0, span, w, opts) {
     if (cfg.coverFrom != null) flush('<rect x="0" y="' + cfg.coverFrom + '" width="' + w + '" height="' + (cfg.band[0] + cfg.band[1] - cfg.coverFrom) + '" fill="#fff"/>');
     const sets = {}, sym = { R: [], L: [] }; for (const h of ['R', 'L']) sets[h] = CC.persistent(WK.hands[h], WK.sets).filter(s => !s.brief);
     for (const g of cfg.gestures) {
+      const segs = [];   // the stretches of this gesture: one, or a multi-bounce ribbon's several
       if (g.kind === 'ribbon') {
-        const P = { band: cfg.band, arcBand: cfg.arcBand || cfg.band, arc: { t0: g.t0, bounce: g.bounce, t1: g.t1 }, noShapes: true, flow: Object.assign({ style: 'ribbon' }, cfg.flow, g.flow) };
-        // [§310 — his "try to get the ribbon to reflect some of the changes there … the thickness and thinness"] fromPlaying: this ribbon's width
-        // is the measured busyness of BOTH hands inside its span (§279's bell sum, exaggerated by flow.power), not a designed profile
-        const src = g.fromPlaying ? WK.played.filter(p => p.onset >= g.t0 - 1e-9 && p.onset <= g.t1 + 1e-9) : [];
-        if (g.fromPlaying) { P.in = src.map(p => p.id.replace(/^ev-/, '')); P.flow = Object.assign({}, P.flow, { profile: null }, g.flow); }
-        const f = FUR({ proto: P, ir: { events: src }, glyphs: e.glyphs, ChordColumn: e.ChordColumn, Gc: e.Gc, xOf, staff: staves[staves.length - 1], w, preset, look, gaps: e.gaps });
-        flush(f.svg); protos.push({ arc: P.arc, preset, look, flow: P.flow, arcY: f.arcY, ribbon: f.ribbon });
+        // [§310] fromPlaying: the ribbon's width is the measured busyness of BOTH hands inside its span (§279's bell sum, exaggerated by flow.power)
+        // [§311 — his "can you make a ribbon with like a multi-bounce?"] bounces: SEVERAL impacts in one ribbon. Between two bounces the ball
+        // rises to the full height and falls again, the turn at the midpoint between them; after the last bounce a SMALL tail up (tailPct of
+        // the height). Each stretch is one arc of the GC's own curve; the width is on ONE scale over the whole ribbon.
+        const bs = g.bounces && g.bounces.length ? g.bounces : [g.bounce], src = g.fromPlaying ? WK.played.filter(p => p.onset >= g.t0 - 1e-9 && p.onset <= g.t1 + 1e-9) : [];
+        bs.forEach((b, i) => {
+          const last = i === bs.length - 1, a0 = i === 0 ? g.t0 : (bs[i - 1] + b) / 2, a1 = last ? g.t1 : (b + bs[i + 1]) / 2;
+          const P = { band: cfg.band, arcBand: cfg.arcBand || cfg.band, arc: { t0: a0, bounce: b, t1: a1 }, noShapes: true, flow: Object.assign({ style: 'ribbon' }, cfg.flow, g.flow) };
+          if (g.fromPlaying) { P.in = src.map(p => p.id.replace(/^ev-/, '')); P.flow = Object.assign({}, P.flow, { profile: null }, g.flow); P.normSpan = [g.t0, g.t1]; }
+          const pre = bs.length > 1 ? Object.assign({}, preset, { damping: last ? (g.tailPct != null ? g.tailPct : 30) : 100 }) : preset;
+          const f = FUR({ proto: P, ir: { events: src }, glyphs: e.glyphs, ChordColumn: e.ChordColumn, Gc: e.Gc, xOf, staff: staves[staves.length - 1], w, preset: pre, look, gaps: e.gaps });
+          flush(f.svg); protos.push({ arc: P.arc, preset: pre, look, flow: P.flow, arcY: f.arcY, ribbon: f.ribbon });
+          segs.push([a0, a1]);
+        });
       } else if (g.kind === 'stutter') {
         // [§308 — his "two different repeats"] A REPEAT in one hand: its chord symbol — the keys that hand uses in the span, boxed — then the
         // running shake marks of the catalog (§303 · §305): sign 29 GROWING (each mark taller and heavier) · 28 its opposite, fading ·
@@ -247,7 +255,10 @@ function viewOf(page, t0, span, w, opts) {
         const nx = cfg.gestures.filter(x => x.t0 > g.t0 + 1e-6 && x.kind !== 'ribbon').sort((p, q) => p.t0 - q.t0)[0], KC = Object.assign({}, cfg.curtain, g.curtain), ssw = (staves[0][1] - staves[0][0]) / 4, sl = (cfg.sliverSs != null ? cfg.sliverSs : 0.5) * ssw;
         const s2 = strikeOf(g.t0, g.t1, Object.assign(KC, { impact: g.impact }, nx ? { maxX: xOf(nx.t0) - (nx.kind === 'strike' ? (KC.padSs != null ? KC.padSs : 0.8) * ssw : 0) - sl } : {})); if (s2) strikes.push(s2); }
       else continue;
-      for (const h of ['R', 'L']) { const s3 = sets[h].filter(x => x.at <= g.t1).pop() || sets[h][0]; if (s3 && (g.hands || 'RL').includes(h)) sym[h].push(Object.assign({}, s3, { at: g.t0 })); }
+      // the chord symbol at the gesture's start; inside a multi-bounce ribbon, again at a later stretch's start WHEN the hand's set has changed (§311)
+      if (!segs.length) segs.push([g.t0, g.t1]);
+      for (const h of ['R', 'L']) { if (!(g.hands || 'RL').includes(h)) continue; let was = null;
+        for (const sg of segs) { const s3 = sets[h].filter(x => x.at <= sg[1]).pop() || sets[h][0]; if (s3 && s3 !== was) { sym[h].push(Object.assign({}, s3, { at: sg[0] })); was = s3; } } }
     }
     let addS = ''; for (const h of ['R', 'L']) addS += CC.draw({ shapes: sym[h], xOf, staff: h === 'R' ? staves[0] : staves[staves.length - 1], glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps, rule: cfg.shapeRule });
     flush(addS);
