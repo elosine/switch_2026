@@ -5401,3 +5401,11 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **His words:** "hide the notes, their little leftover notes at 184.12"
 **Done:** D5 · C5 of 184.107 … .119 (wc-2353 · 2354), in no gesture since §326, are hidden on the working version (`omit`).
 **The hidden notes so far** (`bank/piano_solo_work.json` omit): the extra F of 169.9 · the C7 struck twice at 184.66 · five left-hand notes at 160.2 · the D#5 of 178.91 · these two. They are played in the sound and stand for nothing in the notation — a list to read again when the kinds are final.
+
+## §353 · 2026-11-21 · the ribbon into 183.81 grows into its impact; the pebbles at 184.29 — and FORWARD means EARLIER
+
+**His words:** "the impact at 183.81 is almost right. Let's have a grow just before that, like the ribbon grow, maybe starting around 183.69. And let's make it just a smidge steeper. And you can make the tail a little bit shorter. The pebbles in 184.26 are just a tad late, like a tiny bit forward."
+**The ribbon of 182.4:** its width, thin since 183.5, now GROWS from 183.69 into the impact (0.16 → 0.55 of the full width) and thins out through the tail; the last fall a little steeper (its power × 0.78; §346 had 0.65); the tail ends at 183.92 (it was 183.97).
+**The pebble drop:** the landing 184.32 → 184.29.
+**A CORRECTION TO §331.** There he said "Sorry, forward" and the AI read forward as LATER (184.30 → 184.32). Here "a tad late, like a tiny bit forward" shows that in his speech FORWARD = EARLIER. So §331 moved it the wrong way; the landing he was after then was about 184.28. The tries: 184.26 · 184.21 · 184.30 · 184.32 (wrong way) · 184.29.
+**Checked once:** the page rendered to an image, 182.9 → 185.3 s (the ribbon; the pebbles' timing shows only when the page plays).

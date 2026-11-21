@@ -437,7 +437,7 @@
     0.78,
     1
    ],
-   "t1": 183.97,
+   "t1": 183.92,
    "hideTo": 183.7,
    "flow": {
     "profile": {
@@ -455,25 +455,29 @@
        0.16
       ],
       [
-       183.81,
-       0.12
+       183.69,
+       0.16
       ],
       [
-       183.97,
+       183.81,
+       0.55
+      ],
+      [
+       183.92,
        0.06
       ]
      ]
     }
    },
    "_his": "a ribbon with impact at 183.6 and a short tail. start at 182.4 an undulation into 182.78. But overall, let's go from thick to thin. So at impact and on rise, it's pretty thin. Start thick at the beginning and thin out through the undulation and then into the final hit",
-   "_note": "the start on the partial of 182.401; a WAVE to 60 % on the four notes of 182.773 … .805; the impact on the three notes of 183.633 … .639; the width DESIGNED over the whole ribbon (profile.over): full at the start, half at the wave, thin from before the impact and through the tail. The tail ends at 183.79 (0.15 s, not 0.30) so that it stops before the chord of 183.80 · §327, his \"make it at the strike point of 183.81 … and no tail\": the impact moved from 183.636 onto the chord of 183.803 … .870 (183.81); the ribbon ends at the impact · §330, his \"a sort of faster, steeper decrease … a little bit lower and a steeper, faster up\": the wave to 78 % (it was 60 %), its sides steepened (waveSharp 1.7) · §332, his \"the descent is too fast now. So somewhere in between the last two, the ascent is fine\": the way down 1.35 (between 1 and 1.7), the way up kept at 1.7 · §346, his \"too steep down … fall down quickly and kind of sit at the bottom. So maybe it needs a bit of a tail … it hits at that first partial of those two. Like the impact is there\": the last fall gentler (its power 2.8 → 1.8), and a small tail after the impact — up 45 % by 183.97, thinning out, ending before the second chord (184.0)",
+   "_note": "the start on the partial of 182.401; a WAVE to 60 % on the four notes of 182.773 … .805; the impact on the three notes of 183.633 … .639; the width DESIGNED over the whole ribbon (profile.over): full at the start, half at the wave, thin from before the impact and through the tail. The tail ends at 183.79 (0.15 s, not 0.30) so that it stops before the chord of 183.80 · §327, his \"make it at the strike point of 183.81 … and no tail\": the impact moved from 183.636 onto the chord of 183.803 … .870 (183.81); the ribbon ends at the impact · §330, his \"a sort of faster, steeper decrease … a little bit lower and a steeper, faster up\": the wave to 78 % (it was 60 %), its sides steepened (waveSharp 1.7) · §332, his \"the descent is too fast now. So somewhere in between the last two, the ascent is fine\": the way down 1.35 (between 1 and 1.7), the way up kept at 1.7 · §346, his \"too steep down … fall down quickly and kind of sit at the bottom. So maybe it needs a bit of a tail … it hits at that first partial of those two. Like the impact is there\": the last fall gentler (its power 2.8 → 1.8), and a small tail after the impact — up 45 % by 183.97, thinning out, ending before the second chord (184.0) · §353, his \"almost right. Let's have a grow just before that, like the ribbon grow, maybe starting around 183.69. And … just a smidge steeper. And … the tail a little bit shorter\": the width grows from 183.69 into the impact (0.16 → 0.55); the fall's power × 0.78 (it was 0.65); the tail ends at 183.92 (it was 183.97)",
    "waveSharp": [
     1.35,
     1.7
    ],
    "falls": [
     1,
-    0.65
+    0.78
    ],
    "tailPct": 45
   },
@@ -482,8 +486,8 @@
    "t0": 184.18,
    "t1": 184.34,
    "_his": "a short pebble drop from 184.19 to 184.35, about that width and kind of centered between the two chords I just mentioned and then what's to come",
-   "_note": "the width his (0.16 s); centered between the chord of 184.0 and the chord of 184.5 (the middle 184.26, where the two notes of 184.255 … .280 are played) · §327, his \"They're a little late, so make them mostly down by 184.21\": the landing at 184.21 (it was the curtain's middle, 184.26) · §329, his \"now the pebble strike is too early. Maybe somewhere 184.3, maybe, or 31\": the landing at 184.30 · §331: 20 ms later, 184.32",
-   "impact": 184.32
+   "_note": "the width his (0.16 s); centered between the chord of 184.0 and the chord of 184.5 (the middle 184.26, where the two notes of 184.255 … .280 are played) · §327, his \"They're a little late, so make them mostly down by 184.21\": the landing at 184.21 (it was the curtain's middle, 184.26) · §329, his \"now the pebble strike is too early. Maybe somewhere 184.3, maybe, or 31\": the landing at 184.30 · §331: 20 ms later, 184.32 · §353, his \"just a tad late, like a tiny bit forward\": 184.29 — FORWARD is EARLIER in his speech (so §331's 184.32 went the wrong way)",
+   "impact": 184.29
   },
   {
    "kind": "ribbon",
