@@ -276,7 +276,8 @@ function viewOf(page, t0, span, w, opts) {
           let m = CC.draw({ shapes: shp, xOf, staff: st, glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps, rule: cfg.shapeRule });
           const xA = shp[0].x1 + 0.7 * sq, xB = xOf(g.t1), yM = shp[0].yMid, marks = [], sign = g.sign || 29;
           // [§324 — his "a repeat, but like a more sparse one"] sign "sparse": few marks, far apart (2.6 ss), all one modest size
-          if (sign === 'sparse') { for (let x = xA + 0.6 * sq; x < xB + 0.2 * sq; x += 2.6 * sq) marks.push([x, 1.0, 1.0]); if (marks.length < 2) marks.push([xA + 3.2 * sq, 1.0, 1.0]); }
+          if (sign === 'sparse') { for (let x = xA + 0.6 * sq; x < xB + 0.2 * sq; x += 2.6 * sq) marks.push([x, 1.0, 1.0]); if (marks.length < 2) marks.push([xA + 3.2 * sq, 1.0, 1.0]);
+            for (let k = 0; k < (g.more || 0); k++) marks.push([marks[marks.length - 1][0] + (marks[marks.length - 1][0] - marks[marks.length - 2][0]), 1.0, 1.0]); }   // [§350 — his "two more waves or parentheses … whatever spacing you have there, just continue it for two more"] more: so many marks added, at the spacing the last two have
           else if (sign === 30 || sign === 31) { let x = xA, gap = 2.3 * sq; const xs = []; while (x < xB) { xs.push(x); gap = Math.max(0.45 * sq, gap * 0.8); x += gap; } for (const x1 of xs) marks.push([sign === 30 ? x1 : xA + xB - x1, 1.3, 1.3]); }
           else { const n = Math.max(2, Math.floor((xB - xA) / (0.95 * sq)) + 1); for (let i = 0; i < n; i++) { const k0 = i / (n - 1), k = sign === 28 ? 1 - k0 : k0; marks.push([xA + (xB - xA) * k0, 0.6 + 1.5 * k, 0.6 + 1.4 * k]); } }
           // [§309] dropStart · dropEnd: so many marks left off the repeat's beginning or end (his "take out a few of the ending ones … a few of the beginning ones")
@@ -291,9 +292,20 @@ function viewOf(page, t0, span, w, opts) {
         // [§347 — his "Let's have the initial dynamic be FF"] a DYNAMIC on the working version: LilyPond's own glyph (glyphs.json dynamic.*), at the
         // engine's size (objects.dynamic.size 1), its left edge on the figure's time, centered BETWEEN the two staves — the piano's place for a
         // dynamic that holds for both hands. Drawn here in the workshop; the engine's own dynamic row is for a one-staff part.
-        const G = e.glyphs.dynamic && e.glyphs.dynamic[g.mark]; if (!G || staves.length < 2) continue;
+        const G = e.glyphs.dynamic && e.glyphs.dynamic[g.mark]; if (!G || staves.length < 2 || xOf(g.t0) < -40 || xOf(g.t0) > w + 40) continue;   // off the page: nothing (an empty clipped group stops the still renderer)
         const sq = (staves[0][1] - staves[0][0]) / 4, yMid = (staves[0][1] + staves[staves.length - 1][0]) / 2;
         flush('<path d="' + G.path + '" transform="translate(' + (xOf(g.t0) - (g.dxSs || 0) * sq).toFixed(1) + ' ' + (yMid - (G.hSs || 1) * sq / 2).toFixed(1) + ') scale(' + sq.toFixed(3) + ')" fill="#111"/>');
+        continue;
+      }
+      else if (g.kind === 'hairpin') {
+        // [§349 — his "a decrescendo hairpin through to the end, starting there and through to the end of the notation there around 174"] a TIMED
+        // HAIRPIN on the working version, by its standing row (rules.json objects.hairpinTimed: the opening heightSs, the lines thickSs — the
+        // stem's): two lines from t0 to t1, closed at the right for a decrescendo, centered between the two staves like the dynamic (§347).
+        if (staves.length < 2 || xOf(g.t1) < -40 || xOf(g.t0) > w + 40) continue;
+        const RO = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, '..', 'notation', 'registry', 'rules.json'), 'utf8')).objects, HT = RO.hairpinTimed || {}, HP = RO.hairpin || {};
+        const sq = (staves[0][1] - staves[0][0]) / 4, yMid = (staves[0][1] + staves[staves.length - 1][0]) / 2, hh = (HT.heightSs > 0 ? HT.heightSs : 1.333) * sq / 2, th = (HP.thickSs > 0 ? HP.thickSs : 0.13) * sq;
+        const xa = xOf(g.t0), xb = xOf(g.t1) + (g.endSs || 0) * sq, tip = g.dir === 'cresc' ? xa : xb, open = g.dir === 'cresc' ? xb : xa;
+        flush('<path d="M' + open.toFixed(1) + ' ' + (yMid - hh).toFixed(1) + ' L' + tip.toFixed(1) + ' ' + yMid.toFixed(1) + ' L' + open.toFixed(1) + ' ' + (yMid + hh).toFixed(1) + '" fill="none" stroke="#111" stroke-width="' + th.toFixed(2) + '" stroke-linecap="round" stroke-linejoin="round"/>');
         continue;
       }
       else if (g.kind === 'slur') {

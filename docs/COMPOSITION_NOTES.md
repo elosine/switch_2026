@@ -1601,3 +1601,13 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim):** "Let's have the initial dynamic be FF."
 
 **The AI's reading:** the piano solo's opening dynamic is ff — read as the dynamic at the solo's first figure (148.2 s), the first dynamic written into this notation. (If he meant the dynamic of the ribbon then in hand, it moves.)
+
+### SW-116 · 2026-11-21 · the first ARTICULATIONS and a hairpin: marcatos, a decrescendo; leftovers hidden; a new hit at 161.9; two more repeat marks; the ribbon at 177.7 eased
+
+**His words (verbatim), four messages:**
+1. "Marcato accent at 155.66. There's some leftover little notes there at the bottom around 160.21 if we can hide those. There's a hit somewhere about 161.9. See if you can detect that, and just make sure you're using the loudness as well. Let's do something a little bit like the last figure with a quick down and a quick up, and you can extend the beginning tail so that you can get that gesture in. Let's see how it looks, but be prepared to revert to what we have currently."
+2. "Marcato at 164.38. Marcato at 173.74 and a decrescendo hairpin through to the end, starting there and through to the end of the notation there around 174."
+3. "Let's add two more, two more waves or parentheses at 176.75. The spacing is pretty good, or whatever spacing you have there, just continue it for two more."
+4. "at 177.74, a slightly longer tail, and a little bit, just a little bit milder descent. It's just a tiny bit quick there."
+
+**The AI's reading:** he is now going back over the working version and DRESSING it — the first articulation signs (three marcatos, on the three big struck and arpeggiated chords) and the first hairpin, on standard figures. With it, corrections: five stray notes hidden; a strike he hears about 161.9, to be found by loudness and given a quick down and up at the head of the three-bounce ribbon (a try, to be undone if it does not serve); the sparse repeat at 176.75 longer by two marks; the ribbon at 177.7 a touch gentler with a longer tail.

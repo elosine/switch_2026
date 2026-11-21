@@ -1,5 +1,5 @@
 {
- "_doc": "THE PIANO SOLO'S UNITS, taken one by one at his word (RUNNING_LOG §255 on). A unit = the notes on ONE stem. stem up|down · flag 16 · arp true = the arpeggio line · beam <name> = beamed (16th) to the other units of that name. · at <seconds> = the unit is drawn at that time instead of its own. · sg <name> = a SCATTERED GRACE (§263): the units of that name are one figure in two hands, drawn at even distances across its span; played = the unit's played time(s), the record of its rhythm. · spread right|both = a beamed group at equal distances for fit (§262 · §265): right = the first unit stays on its played place. · go true = the unit takes a go line (§343). · A CLUSTER (four or more notes in one staff, each within a whole step of the next) is drawn by rule as its two ends and a bar (rules.json objects.handUnit.cluster*, §343) — nothing to write here.",
+ "_doc": "THE PIANO SOLO'S UNITS, taken one by one at his word (RUNNING_LOG §255 on). A unit = the notes on ONE stem. stem up|down · flag 16 · arp true = the arpeggio line · beam <name> = beamed (16th) to the other units of that name. · at <seconds> = the unit is drawn at that time instead of its own. · sg <name> = a SCATTERED GRACE (§263): the units of that name are one figure in two hands, drawn at even distances across its span; played = the unit's played time(s), the record of its rhythm. · spread right|both = a beamed group at equal distances for fit (§262 · §265): right = the first unit stays on its played place. · go true = the unit takes a go line (§343). · A CLUSTER (four or more notes in one staff, each within a whole step of the next) is drawn by rule as its two ends and a bar (rules.json objects.handUnit.cluster*, §343) — nothing to write here. · artic accent|marcato|tenuto = the sign over the unit (§348).",
  "units": [
   {
    "_n": "1 · 148.20 s",
@@ -258,7 +258,8 @@
    "played": [
     155.646,
     155.695
-   ]
+   ],
+   "artic": "marcato"
   },
   {
    "_n": "11 · 156.41 s — the five notes of both hands, a chord with the arpeggio sign (his word, §310)",
@@ -296,7 +297,8 @@
    "played": [
     164.34,
     164.38
-   ]
+   ],
+   "artic": "marcato"
   },
   {
    "_n": "13 · 169.75 s — a POLE, the first of two notated chords: A5 · A#5 · B5 (upper staff) (his word, §314)",
@@ -343,7 +345,8 @@
    "played": [
     173.694,
     173.735
-   ]
+   ],
+   "artic": "marcato"
   },
   {
    "_n": "16a · 173.85 s — the left hand's three (D5 · F#4 · B4), a struck chord; beamed with the next two, the three evenly spaced, a 16th beam",

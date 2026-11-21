@@ -4306,6 +4306,13 @@
         else if (U.d.grace && b.fl && !b.beamed) { const flS = b.dir === 'down' ? -1 : 1, yc = b.yTip - flS * (1 - GRu.slashAt) * baseLU * b.kG, r = GRu.slashReachSs;
           it.push({ k: 'slash', t: U.t, dx0Ss: b.stemDx - r, y0Ss: yc - flS * r, dx1Ss: b.stemDx + r, y1Ss: yc + flS * r, thickSs: GRu.slashThickSs, unit: U.d.puId }); }
       }
+      // [§348 — his "Marcato accent at 155.66"] A HAND UNIT'S ACCENT (the unit says artic: accent | marcato | tenuto): LilyPond's glyph, centered on
+      // the stem's column, ABOVE — over the stem's tip when the stem goes up, over the top head when it goes down or there is none — by the
+      // accent row's own two distances (rules.json objects.handUnit.articGapSs · articStaffSs = LilyPond's Script padding · staff-padding, the
+      // seeds of objects.accent): articGapSs from what it stands over, and never nearer the staff than articStaffSs.
+      for (const b of built) { const U = b.U, A = U.d.puArtic && (glyphs.articulation || {})[U.d.puArtic], sysA = b.sysT || systems.find(s => s.part === U.part && (s.staff || 0) === 0); if (!A || !sysA) continue;
+        const hiA = U.m.reduce((p, q) => (q.yT > p.yT ? q : p)), over = (!b.none && b.dir === 'up') ? b.yTip : hiA.yT + hiA.h / 2, gapA = HU.articGapSs > 0 ? HU.articGapSs : 0.2, stA = HU.articStaffSs > 0 ? HU.articStaffSs : 0.25;
+        sysA.items.push({ k: 'glyph', g: 'artic-' + U.d.puArtic, t: U.t, dxSs: U.base, ySs: Math.max(over + gapA, 2 + stA) + (A.hSs || 0.8) / 2, align: 'center', unit: U.d.puId }); }
       // [§343] THE CLUSTER BAR: from the lowest head's middle to the highest's, in their column, clusterBarW of a head wide (the stem item, thick)
       for (const b of built) { const U = b.U, sysC = b.sysT || systems.find(s => s.part === U.part && (s.staff || 0) === 0); if (!sysC) continue;
         for (const c of U.clusters || []) {

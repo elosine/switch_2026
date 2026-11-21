@@ -5369,3 +5369,23 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **Built on the working version:** a gesture kind `dyn` (`tools/notation_workshop.js`): LilyPond's glyph (`glyphs.json` dynamic.ff), at the engine's size, its left edge on the first figure's time, centered between the two staves.
 **The rule it stands on, and where there is none:** the glyph and its size are the standing ones (`objects.dynamic`). ITS PLACE is not: the engine's dynamic row belongs to a one-staff part; between the staves is the piano's convention, taken here without a row. To settle with him when dynamics are written through the solo.
 **Checked once:** the page rendered to an image, 147.6 → 151.0 s.
+
+## §348 · 2026-11-21 · a marcato on a notated chord (155.66) — built in the engine; five leftovers hidden; a first impact at 161.885 in the three-bounce ribbon (a try)
+
+**His words:** SW-116 (1): "Marcato accent at 155.66 … some leftover little notes there at the bottom around 160.21 if we can hide those. There's a hit somewhere about 161.9. See if you can detect that, and just make sure you're using the loudness as well … like the last figure with a quick down and a quick up, and you can extend the beginning tail so that you can get that gesture in … be prepared to revert to what we have currently."
+**THE MARCATO — FIND:** the glyph is LilyPond's (`glyphs.json` articulation.marcato); the accent's row (`objects.accent`) carries LilyPond's two paddings as SEEDS "not yet read by the layout" (parent 0.2, staff 0.25); the engine's accent chain serves the beamed patterns, not a hand unit. **APPLY:** `artic` in the units file → the hand unit's post-pass (`layout.js`): the glyph centered on the stem's column, above — 0.2 ss over the stem's tip when the stem goes up, over the top head otherwise, never nearer the staff than 0.25 ss. Rows `objects.handUnit.articGapSs · articStaffSs`, the scheme's table. The numbers are LilyPond's, not his; said so in the row.
+**The leftovers:** the left hand's A#3 · F4 · F#4 · G4 · F#4 of 160.187 … .299 (wc-1818 … 1822) — in no gesture since §310 — are hidden on the working version (`omit`).
+**The hit near 161.9, by loudness:** between 161.3 and 162.4 the loudest notes are the left hand's E5 · F5 at 161.885, velocities 114 · 117 (the ribbon's start, C6 · C#6 at 161.789, is 110 · 100). The three-bounce ribbon of §311 takes a FIRST impact there: quick down, quick up (hit 1.8, §334), and its start moves back from 161.789 to 161.45 so the fall has room. Four turns now: 161.885 · 162.513 · 163.04 · 163.596. THE EARLIER FORM IS KEPT in the gesture (`_revert`: t0 161.789, bounces 162.513 · 163.04 · 163.596) and in git (`ef2d41f`).
+**A fault met:** the `dyn` gesture of §347, far off the page, stopped the still renderer (an empty clipped group) — it now draws nothing when off the page.
+
+## §349 · 2026-11-21 · marcatos at 164.38 and 173.74; a decrescendo hairpin 173.69 → 174.1
+
+**His words:** SW-116 (2): "Marcato at 164.38. Marcato at 173.74 and a decrescendo hairpin through to the end, starting there and through to the end of the notation there around 174."
+**Done:** units 12 and 15 take `artic: marcato` (§348's rule). THE HAIRPIN — FIND: `objects.hairpinTimed` (a hairpin that spans time: opening 1.333 ss, his "double what it is now", §478; lines at the stem's thickness, 0.13). APPLY: a gesture kind `hairpin` on the working version, read from that row — from the arpeggiated chord (173.694) to a head's width past the last of the three beamed figures (174.096), closed at the right, centered between the two staves as the ff is. ITS PLACE between the staves stands on no row yet (as §347's).
+**Seen, for his eye:** the hairpin runs through the arpeggio's wavy line and close over the lower staff's first figure.
+
+## §350 · 2026-11-21 · two more marks on the sparse repeat (176.76); the ribbon at 177.7 eased
+
+**His words:** SW-116 (3) "two more waves or parentheses at 176.75 … whatever spacing you have there, just continue it for two more" · (4) "at 177.74, a slightly longer tail, and … just a little bit milder descent. It's just a tiny bit quick there."
+**Done:** `more: 2` on both hands' sparse repeat — four marks, the spacing unchanged (2.6 ss). The ribbon of 177.729: the tail to 178.32 (it was 178.2), the fall's power × 0.8 (`falls`, §346).
+**Checked once (§348 … §350 together):** the page rendered to images — 155.0 → 158.0 · 159.7 → 164.2 · 163.4 → 165.2 · 172.9 → 178.7 s.
