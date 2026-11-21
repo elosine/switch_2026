@@ -92,7 +92,7 @@ const rz = (C.realizations || {})['video-jury'] || {};
 const lanes = rz.lanes || { padTopPx: 8, padBotPx: 8, gapPx: 4 };
 const W = (C.frame && C.frame.widthPx) || 1920;
 const H = (C.frame && C.frame.heightPx) || 1080;
-const pageSeconds = (C.timeScale && C.timeScale.defaults && C.timeScale.defaults.trance) || 12;
+const pageSeconds = (ir.layoutPolicy && ir.layoutPolicy.pageSeconds > 0 ? +ir.layoutPolicy.pageSeconds : 0) || (C.timeScale && C.timeScale.defaults && C.timeScale.defaults.trance) || 12;   // [§366] a page's own pace (layoutPolicy.pageSeconds), else the registry's
 // [2a.1 on the page] lanes WEIGHTED by the ensemble (the piano's grand staff = 2): lanePx is one weight unit, each lane's staff
 // scale follows its weight, and a multi-staff part's staves are placed at the registry's inter-staff gap.
 // [PLAN 2b.1.2 — 2026-09-17] those fifteen lines now live in Coords.ensembleFrame, which the PRINT exporter calls too (it had

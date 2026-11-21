@@ -705,5 +705,7 @@
  "shortTailS": 0.3,
  "tailStiffness": 50,
  "_tailNote": "§321 — ONE TAIL FOR EVERY RIBBON, the three-bounce ribbon's (the one whose motion he found right, §320): the GC's own rise curve (stiffness 50, power 2), to 85 % of the fall, in 0.30 s after the impact. §316's 0.46 s and §318's 58 % / steeper curve are replaced.",
- "tailPct": 85
+ "tailPct": 85,
+ "pageSeconds": 4.8,
+ "_pageSecondsNote": "§366 (2026-11-21): THE SOLO'S PACE IN THE NOTATION SCORE — seconds across one page. His workshop setting as he read it off the page: \"5.8s score pace 4.8s/page size 0.85\" (Stretch 5.8 s, Size 0.85). tools/solo_to_score.js writes it into the page (layoutPolicy.pageSeconds); the registry's pace for the rest of the piece is 12."
 }

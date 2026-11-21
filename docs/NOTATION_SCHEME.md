@@ -132,6 +132,12 @@ Built by `node tools/notate_section.js … --glissGestures all`. The crotales' d
 
 **IN THE REAL SCORE (§361 · §362):** the page `s2-piano-solo-final` of the notation app. Its standard figures are a page like any other (written by `node tools/solo_to_score.js` from the working version: the replaced notes left out, `layoutPolicy.noOttava`); the signs of the other kinds and their motion are the workshop's own drawing, asked of the score server for each window (`layoutPolicy.furniture: "work"` → `/api/notation/furniture`). So the workshop stays the ONE place the kinds are drawn, and the score shows exactly what it shows. Video and zoom views; print and the exported film are not built.
 
+**ITS PACE (§366):** 4.8 seconds across a page (`bank/piano_solo_work.json` pageSeconds) — his workshop setting.
+
+### THE PACE OF A SECTION (his rule, §366: "each section its own pace")
+
+Every page of the score may say its own pace — how many seconds stand across one page: `layoutPolicy.pageSeconds` in the page, written by `notate_section.js --pageSeconds N` (or, for the solo, by `solo_to_score.js`). The app and the film read it. A page that says nothing takes the registry's pace, 12 s. Set so far: the piano solo 4.8. The workshop shows any stretch as a pace ("score pace … s/page" beside its Stretch).
+
 ## 2b · Section 2 — the counterpoint (200 → 253 s) — OPENED 2026-11-21 (§360)
 
 **The page:** `s2-ctpt-heads` (in the notation app's picker: "Section 2 - the counterpoint, 200 to 253 s: note heads at their played times"). Seven parts — flute · clarinet · alto sax · percussion · vibraphone · piano · violin; the cello rests. 296 notes. Every note is a head AT THE TIME IT IS PLAYED (`--timeSpacing`, `--alone 199-254`: no pulse is read into it), with its accidental. What the standing rules already draw for a technique (a gestural curve on a staccato, a duration bar, a technique's word) is left in, at his word. NOTHING IS DECIDED HERE YET: the rhythm first (his), then the articulations.

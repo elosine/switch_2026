@@ -7509,6 +7509,7 @@
  "layoutPolicy": {
   "fitMark": false,
   "noOttava": true,
-  "furniture": "work"
+  "furniture": "work",
+  "pageSeconds": 4.8
  }
 }

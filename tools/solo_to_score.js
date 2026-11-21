@@ -23,7 +23,7 @@ ir.overlays = (ir.overlays || []).filter(o => !(o.target && o.target.event) || k
 ir.chunks = (ir.chunks || []).map(c => Object.assign({}, c, { events: (c.events || []).filter(id => keep.has(id)) })).filter(c => c.events.length);
 ir.id = ID;
 ir.source = Object.assign({}, ir.source, { window: [ir.source.window[0], END] });
-ir.layoutPolicy = Object.assign({}, ir.layoutPolicy, { noOttava: true, furniture: 'work' });
+ir.layoutPolicy = Object.assign({}, ir.layoutPolicy, { noOttava: true, furniture: 'work' }, e.work.cfg.pageSeconds > 0 ? { pageSeconds: +e.work.cfg.pageSeconds } : {});   // [§366] the solo's own pace (bank/piano_solo_work.json pageSeconds)
 ir.provenance = Object.assign({}, ir.provenance, { build: 'tools/solo_to_score.js — from the workshop\'s working version (bank/piano_solo_work.json over ' + e.work.cfg.base + '); not a notate_section build, so the app\'s refresh leaves it alone' });
 fs.writeFileSync(path.join(ROOT, 'notation', 'ir', ID + '.ir.json'), JSON.stringify(ir, null, 1) + '\n');
 const ixf = path.join(ROOT, 'notation', 'ir', 'index.json'), ix = JSON.parse(fs.readFileSync(ixf, 'utf8'));

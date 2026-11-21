@@ -327,6 +327,8 @@ if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
 // [§264] --noFitMark: the page leaves the red "fit?" mark out · --timeSpacing: grace figures keep their PLAYED spacing (the experiments copy)
 if (flag('noFitMark')) doc.layoutPolicy = Object.assign(doc.layoutPolicy || {}, { fitMark: false });
 if (flag('timeSpacing')) doc.layoutPolicy = Object.assign(doc.layoutPolicy || {}, { timeSpacing: true });
+// [§366 — his 'each section its own pace'] --pageSeconds N: this page's own pace in the score — N seconds across one page (the app and the film read layoutPolicy.pageSeconds; absent = the registry's 12)
+{ const ps = +arg('pageSeconds', 0); if (ps > 0) doc.layoutPolicy = Object.assign(doc.layoutPolicy || {}, { pageSeconds: ps }); }
 // --bricks (day 23, the composer's working loop — "bricks and the midi sound
 // all the way through"): every chunk stays UNRESOLVED, so the page shows the
 // parachute bricks everywhere and each note carries its technique's device;

@@ -751,7 +751,9 @@
       // primary mode pages by the REGISTRY time scale; the width box only
       // rules when ⚙ engineering is on (a hidden stale box was silently
       // stretching pages — the ¾-staff report)
-      const regSeconds = (C.timeScale && C.timeScale.defaults && C.timeScale.defaults.trance) || 12;
+      // [§366 — his "whatever that Zoom was, I'd like to try that for the pace of the notation score"] A PAGE'S OWN PACE: layoutPolicy.pageSeconds
+      // (the registry foresaw a pace per section, 2026-08-20) — how many seconds stand across this page of the score; absent = the registry's
+      const regSeconds = (state.ir.layoutPolicy && state.ir.layoutPolicy.pageSeconds > 0 ? +state.ir.layoutPolicy.pageSeconds : 0) || (C.timeScale && C.timeScale.defaults && C.timeScale.defaults.trance) || 12;
       const pageSeconds = $('eng').checked
         ? Math.max(2, parseFloat($('w').value) || regSeconds)
         : regSeconds;
