@@ -4814,3 +4814,16 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 **His words:** "And you put them in with the ribbon. And can you put them in just after, just the burst ones, just after the ribbon?"
 **Built:** the prototype page now also draws the burst's notes (`bank/gravity_proto.json` `also`: the lower hand 160.18 … 160.56, the upper 160.39 … 160.56 — §290's spans) as plain black heads at their played times, each on its own staff; nothing else played is drawn. For the upper hand's notes the picture shows BOTH staves (the band 546 … 780); the arc keeps its own lane on the lower staff (`arcBand` 628 … 780), so the ribbon is where it was. The upper staff is empty until the burst.
 **Checked once:** rendered to an image — the ribbon and its two shapes on the lower staff, then, 0.55 s after the ribbon's end, three groups on the lower staff and two on the upper.
+
+## §292 · 2026-11-20 · the scattered strike — what synthesi-alpha's animation does, and the brainstorm
+
+**What prompted it:** SW-87 (the sketch pad): the scattered strike, "throwing a handful of pebbles in the air"; look at the animations of *synthesi-alpha*; open to alternatives; the GC with the grace may be enough.
+
+**Lineage first — read: `synthesi-alpha/engine/score-anim.js`** (the shared animation core of that piece's score). Its unit is a GRAIN drawn as up to four pieces. As the cursor reaches a grain its pieces LEAP and come back by one function, `flight(dt, rise, settle)`: out fast (u·(2 − u) over the rise), then "gravity home" ((1 − v)^1.6 over the settle); the animation is LED by the grain's own rise so that the PEAK of the leap lands exactly as the cursor arrives (its comment: triggering at the true time "read as late"). With it: a swell and a paling that relax over the tail, blades that sway at rest, ripple rings on a 0.28 s grid, and a "leaf-blower" swirl of particles. So the pebble throw exists there as motion: fast out, gravity home, the peak on the cursor.
+
+**The AI's ideas, put to him (nothing built):**
+- The note heads themselves as the pebbles: at rest they stand in their places on the staff; as the cursor arrives they leap and fall back by synthesi-alpha's `flight`. On paper nothing shows of it, so a still sign is needed with it.
+- A still sign for the throw: thin lines fanning from ONE point to each head — a hub with spokes (his own second thought for the constellation, SW-85), the point being the hand that throws. It says one impulse, many arrivals.
+- What it sits beside: the scattered grace of §263 (stems, beams, the wavy slash — the notes exact and in order), the arrowed arpeggio (too orderly: it promises bottom to top), several small GC balls landing a hair apart (precise, likely overdone).
+- The GC stays for the WHEN, as in his ensemble writing; the new sign says the HOW.
+**The recommendation:** the fan — plain heads, exact pitches, thin lines from one point under them — with the heads' leap as its animation, and one GC ball for the moment; to try on the burst at 160.19 s that is on the ribbon page now.
