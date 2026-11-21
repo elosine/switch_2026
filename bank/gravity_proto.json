@@ -1,5 +1,5 @@
 {
- "_doc": "THE GRAVITY PROTOTYPE (SW-83, his third word; RUNNING_LOG §273): ONE gravity moment in ONE hand, with a few lead-in and lead-out notes of the same hand, nothing of the other hand. The workshop's page 'prototype' is drawn from this file. page = the IR the notes are read from · hand L|R · window = what the page shows · arc: t0 = the first note of the cluster, bounce = the impact, t1 = the last note · in / out = which notes stand on which side of the impact (the AI's first reading — HIS TO DECIDE; 'could be all on one side') · the arc's shape is the lineage's GC (notation/lib/gc.js: fall 1 - u^p, rebound to `damping` %) with the registry's preset, the fall lasting t0 -> bounce and the rebound bounce -> t1.",
+ "_doc": "THE GRAVITY PROTOTYPE (SW-83, his third word; RUNNING_LOG §273): ONE gravity moment in ONE hand, with a few lead-in and lead-out notes of the same hand, nothing of the other hand. The workshop's page 'prototype' is drawn from this file. page = the IR the notes are read from · hand L|R · window = what the page shows · arc: t0 = the first note of the cluster, bounce = the impact, t1 = the last note · in / out = which notes stand on which side of the impact (the AI's first reading — HIS TO DECIDE; 'could be all on one side') · the arc's shape is the lineage's GC (notation/lib/gc.js: fall 1 - u^p, rebound to `damping` %) with the registry's preset, the fall lasting t0 -> bounce and the rebound bounce -> t1. — §297 (his word, SW-92): THE THREE-PART PROTOTYPE on this one page: (1) this gesture, its span UNCHANGED, the ribbon now across the grand staff and drawn by the designed profile of §296; (2) the repeated notes between, not yet drawn; (3) the scattered strike's curtain over the burst's notes (`also`), with its pebbles.",
  "page": "s2-piano-solo-heads",
  "hand": "L",
  "window": [
@@ -73,9 +73,32 @@
   "power": 2.4,
   "floor": 0.06,
   "style": "ribbon",
-  "ribbonMaxPx": 24,
+  "ribbonMaxPx": 34,
   "tickPx": 11,
-  "ballOverRibbon": 1.35
+  "ballOverRibbon": 1.35,
+  "profile": {
+   "in": "depth",
+   "inPower": 1.3,
+   "out": [
+    [
+     0,
+     1
+    ],
+    [
+     0.42,
+     0
+    ],
+    [
+     0.62,
+     0
+    ],
+    [
+     1,
+     0.5
+    ]
+   ],
+   "_note": "§296 — HIS DESIGN for this gesture (the playing only suggests): the fall a hair while the arc is almost level, growing with the drop all the way down to the greatest width; the rebound begins at that width (\"a lot of activity\"), goes to none, and ends at a medium width. in \"depth\" = the width follows how far the arc has dropped (to the power inPower); out = [how far up the rebound 0 … 1, width 0 … 1], eased between."
+  }
  },
  "shapeRule": {
   "changeMin": 3,
@@ -91,8 +114,8 @@
  "leadHeads": false,
  "coverFrom": 752,
  "arcBand": [
-  628,
-  152
+  546,
+  234
  ],
  "also": {
   "L": [
@@ -104,5 +127,15 @@
    160.56
   ],
   "_note": "§291: the burst that follows the flow, both hands — plain heads at their played times on their own staves (the same spans as bank/burst_proto.json). The picture shows both staves for it (band); the arc keeps its own lane on the lower staff (arcBand)."
+ },
+ "curtain": {
+  "minSs": 6,
+  "padSs": 0.8,
+  "overSs": 3,
+  "pebbles": 11,
+  "prepS": 0.605,
+  "fallS": 0.38,
+  "opacity": 0.13,
+  "_note": "§296 — THE SCATTERED STRIKE's curtain and pebbles (his words: \"almost like a curtain, like a shower. So like a transparent block … handful of rocks rise up, the backswing, and then get dropped\"). The curtain covers the stretch where the strike's notes fall (padSs before and after, at least minSs wide), over the grand staff and overSs beyond each staff. pebbles = how many; prepS = the backswing (the GC's own fall time in piece 2's preset, 0.605 s); fallS = one pebble's drop."
  }
 }

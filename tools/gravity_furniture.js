@@ -124,7 +124,7 @@ module.exports = function furniture(o) {
     const bp = 0.3, ins = (R.insetSs != null ? R.insetSs : 0.3) * ss, lo = xOf(A.t0) + ins + (bp - xs0) * ss, hi = xOf(A.t1) - ins - (xs1 + bp) * ss;
     const X0 = sh.from ? Math.max(lo, Math.min(hi, xOf(sh.at) + ins + (bp - xs0) * ss)) : xOf(sh.at) - (0.6 + bp + xs1) * ss, px = x => X0 + x * ss, py = y => mid - y * ss;   // the box ends 0.6 ss before its moment
     const g = [];
-    g.push('<rect x="' + r1(px(xs0 - bp)) + '" y="' + r1(py(ys1 + bp)) + '" width="' + r1((xs1 - xs0 + 2 * bp) * ss) + '" height="' + r1((ys1 - ys0 + 2 * bp) * ss) + '" fill="#fff" fill-opacity="0.88" stroke="none"/>');
+    // [§296] no ground under a shape: a border only, the staff lines through it (his word)
     for (const l of led) g.push('<rect x="' + r1(px(l.x0)) + '" y="' + r1(py(l.y) - lt * ss / 2) + '" width="' + r1((l.x1 - l.x0) * ss) + '" height="' + (lt * ss).toFixed(2) + '"/>');
     if (sh.cluster && m.length === 2) { const bw = W * (R.clusterBarW != null ? R.clusterBarW : 0.5), cx = m[0].dx + W / 2;
       g.push('<rect x="' + r1(px(cx - bw / 2)) + '" y="' + r1(py(m[1].y)) + '" width="' + r1(bw * ss) + '" height="' + r1((m[1].y - m[0].y) * ss) + '"/>'); }

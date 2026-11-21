@@ -158,8 +158,8 @@ function viewOf(page, t0, span, w) {
   // [§296] THE SCATTERED STRIKE's CURTAIN (the page 'burst'): a transparent block over the stretch where the strike's notes fall, at least
   // minSs wide, over the whole grand staff; the pebbles that rise and drop in it are the page's animation — their places are given here
   let strike;
-  if (page === 'burst' && staves.length) {
-    const ex = rd(EXCERPTS.burst), K = Object.assign({ minSs: 6, padSs: 0.8, overSs: 3, pebbles: 11, prepS: 0.605, fallS: 0.38 }, ex.curtain || {});
+  if ((page === 'burst' || (e.proto && e.proto.curtain)) && staves.length && e.ir.events.length) {   // [§297] also on the prototype page: the curtain over its third part, the burst's notes
+    const ex = page === 'burst' ? rd(EXCERPTS.burst) : e.proto, K = Object.assign({ minSs: 6, padSs: 0.8, overSs: 3, pebbles: 11, prepS: 0.605, fallS: 0.38 }, ex.curtain || {});
     const pps = (view.xOfSeconds(t0 + span) - x0) / span, xOf = s => x0 + (s - t0) * pps, ss = (staves[0][1] - staves[0][0]) / 4;
     const on = e.ir.events.map(ev => ev.onset), a = Math.min(...on), b = Math.max(...on);
     const xa = xOf(a) - K.padSs * ss, xb = Math.max(xOf(b) + (K.padSs + 1.1) * ss, xa + K.minSs * ss), yT = staves[0][0] - K.overSs * ss, yB = staves[staves.length - 1][1] + K.overSs * ss;

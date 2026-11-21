@@ -144,7 +144,7 @@
     return out.join('');
   }
   function drawMarks() {
-    if (V && V.strike) { const el2 = $('marks'); el2.setAttribute('width', V.w * S.size); el2.setAttribute('height', V.band[1] * S.size); el2.innerHTML = '<g id="balls"></g>'; return balls(); }
+    if (V && V.strike && !V.proto) { const el2 = $('marks'); el2.setAttribute('width', V.w * S.size); el2.setAttribute('height', V.band[1] * S.size); el2.innerHTML = '<g id="balls"></g>'; return balls(); }
     if (V && V.proto) return drawProto();
     const el = $('marks'); if (!V || !V.staves || !V.staves.length || !S.marksOn || /^(chords-|burst|both-)/.test(S.page)) { el.innerHTML = ''; return; }   // the first sorting's walls and arcs are never drawn on the chord or burst pages
     const W = V.w * S.size, H = V.band[1] * S.size, a0 = V.window[0], a1 = V.window[1], out = [];
@@ -168,9 +168,9 @@
   }
   function balls() {
     const g = document.getElementById('balls'); if (!g || !V) return;
-    if (V.strike) { g.innerHTML = pebblesSvg(); return; }
+    if (V.strike && !V.proto) { g.innerHTML = pebblesSvg(); return; }
     const out = [];
-    if (V.proto) { const p = V.proto, a = p.arc; if (t >= a.t0 && t <= a.t1) out.push('<circle cx="' + xOf(t).toFixed(1) + '" cy="' + yPx(gcY(p, t)).toFixed(1) + '" r="' + (ballR(p, t) * S.size).toFixed(1) + '" fill="' + p.look.color + '" stroke="#fff" stroke-width="' + (1.6 * S.size).toFixed(1) + '"/>'); g.innerHTML = out.join(''); return; }
+    if (V.proto) { const p = V.proto, a = p.arc; if (t >= a.t0 && t <= a.t1) out.push('<circle cx="' + xOf(t).toFixed(1) + '" cy="' + yPx(gcY(p, t)).toFixed(1) + '" r="' + (ballR(p, t) * S.size).toFixed(1) + '" fill="' + p.look.color + '" stroke="#fff" stroke-width="' + (1.6 * S.size).toFixed(1) + '"/>'); g.innerHTML = (V.strike ? pebblesSvg() : '') + out.join(''); return; }
     for (const a of M.arcs || []) { if (t < a.t0 || t > a.t1) continue; const y = arcY(a, t); if (y != null) out.push('<circle cx="' + xOf(t).toFixed(1) + '" cy="' + yPx(y).toFixed(1) + '" r="6" fill="' + COL[a.hand] + '"/>'); }
     g.innerHTML = out.join('');
   }

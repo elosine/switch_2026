@@ -4898,3 +4898,16 @@ Tried and not kept as alternatives: 14 (one shape for the whole right hand — i
 - First drawn dark like the note heads — at once mistakable for notes; tinted slate.
 **Checked once:** the ribbon page rendered to an image; the strike's curtain rendered with the pebbles placed by the same arithmetic at two moments (0.3 s before the strike, 0.2 s into it). NOT seen: the pebbles moving on the page; they are not in the film yet.
 **Open:** the first-pass generator of step 2 for a NEW gesture is not built — this ribbon's profile was written from his words.
+
+## §297 · 2026-11-20 · the ribbon back on its first span; the three-part prototype on one page
+
+**His words:** SW-92 (the sketch pad): "I was wrong about changing the … position of the ribbon … Did you move the ribbon to include what I considered the pebbles? … let's do this as a prototype, these three sections … keep that gesture just with the new vertical size, that ribbon, and then can you put the curtain over those notes to the right … the third part of that sequence"; and for later: assigning ribbons to sections, an initial shape to tweak, "the minimum amount of time for transitions or to hold a certain texture … that final tail is too short … It's hard to increase activity for that small amount of time."
+
+**The answer to his question:** yes — §295's both-hands arc landed at 160.40, the middle of the burst (160.19 … 160.55), because by weight that IS both hands' heaviest moment. So the measurement and his ear part ways here: the weight says one gesture into the landing; he hears a flow, then repeated notes, then a strike of its own. His ear decides; the both-hands page stays in the picker as the record of the other reading.
+
+**Built — the page "prototype: ribbon" is now the three-part prototype (`bank/gravity_proto.json`):**
+1. THE RIBBON — its span unchanged (157.821 → 159.159 → 159.641); its lane now the full grand staff (the arc's top above the upper staff, its impact below the lower: a fall of 188 px, was 116); its width by the designed profile of §296 (the fall growing with the drop; the rebound full → none → half), the greatest width 34 px. Its two shapes as before, their boxes now without ground.
+2. THE REPEATED NOTES — nothing drawn yet: 159.64 … 160.19 is empty staff.
+3. THE SCATTERED STRIKE — the curtain over the burst's notes (160.19 … 160.55, both staves) with the eleven pebbles; on this page the pebbles and the ribbon's ball animate together.
+**Checked once:** the page rendered to an image.
+**Seen, and it is his own point:** on this ribbon the rebound lasts 0.48 s, so "full → none → half" happens in under half a second — a thin line and then a sudden wedge at the very end. The least time a change of thickness needs is not yet a rule.
