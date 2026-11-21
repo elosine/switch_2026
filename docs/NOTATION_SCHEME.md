@@ -134,6 +134,10 @@ Built by `node tools/notate_section.js … --glissGestures all`. The crotales' d
 
 **ITS PACE (§366):** 4.8 seconds across a page (`bank/piano_solo_work.json` pageSeconds) — his workshop setting.
 
+### THE DRAFT SCORE (§368)
+
+The score so far is a LIST of pages in the order of the piece — `notation/ir/index.json` "draft".order: `s1-sines` → `s2-piano-solo-final` → `s2-ctpt-heads`. The notation app marks them "DRAFT n of N" in its picker and plays them as one score: where a page ends, the next begins, the clock running. A section taken into the score is added to the list.
+
 ### THE PACE OF A SECTION (his rule, §366: "each section its own pace")
 
 Every page of the score may say its own pace — how many seconds stand across one page: `layoutPolicy.pageSeconds` in the page, written by `notate_section.js --pageSeconds N` (or, for the solo, by `solo_to_score.js`). The app and the film read it. A page that says nothing takes the registry's pace, 12 s. Set so far: the piano solo 4.8. The workshop shows any stretch as a pace ("score pace … s/page" beside its Stretch).

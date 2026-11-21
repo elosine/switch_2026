@@ -97,5 +97,13 @@
    ],
    "profile": "trance"
   }
- ]
+ ],
+ "draft": {
+  "_doc": "THE DRAFT SCORE — the pages that are the score so far, in the order of the piece (the Switch~ piece RUNNING_LOG §368). The notation app marks them \"DRAFT n of N\" in its picker and plays them as one: where a page's material ends it goes on to the next. A section that is taken into the score is added here.",
+  "order": [
+   "s1-sines",
+   "s2-piano-solo-final",
+   "s2-ctpt-heads"
+  ]
+ }
 }

@@ -5560,3 +5560,13 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **The fix:** the page is drawn at once, as it always was; the furniture is asked for AFTER and laid into the drawn page when it arrives (a few milliseconds later), unless another page has been drawn meanwhile. Nothing waits.
 **Checked once:** on the AI's throwaway — a turn asked for by hand from page 1 lands on page 2, and the furniture is in the page.
 **The lesson, for this app:** nothing may stand between a page turn and the new page's drawing; the turn and the frame loop share the page's state.
+
+## §368 · 2026-11-21 · THE DRAFT SCORE: the pages of the score so far, played as one
+
+**His words:** "I've lost track of where we are with save scores. Is there like a draft score that has all the progress so far? And then I guess also with the next section's note heads too. Might as well use just one score."
+**Where things stood:** there was no one score. The notation so far was three separate pages of the notation app — Section 1's sine tones (`s1-sines`, 12 → 146 s), the piano solo's final draft (`s2-piano-solo-final`, 146 → 199 s), the counterpoint's note heads (`s2-ctpt-heads`, 199 → 254 s) — all read from ONE composer save (`piece-FirstDraft-Final-B-noFadeAt96`); beside them the working pages and experiments. Their windows meet end to end.
+**The decision (the AI's):** NOT one merged page. Each section keeps its own page, because a page is where a section's own things live — its pace (§366), its rules (the solo at pitch), its signs (the solo's furniture), its way of being built. THE DRAFT is the list of those pages in the order of the piece (`notation/ir/index.json` "draft".order), and the app plays the list as one score: where a page's material ends it loads the next and the clock, the instruments and the electronics run on. The picker marks them "DRAFT 1 of 3 …".
+**Built** in `notation/app/notation.html` (`draftNext` · `markDraft` · the end-of-material branch of the frame drawing; while the next page loads nothing is turned or drawn — §367's lesson, applied before the fault this time).
+**Checked once:** on the AI's throwaway — Section 1 driven to its end hands over to the piano solo (its first page, 142 → 146.8 s, the signs in place); a frame at 146.5 s draws there.
+**Not built:** the next / previous page buttons do not cross from one page of the draft to the next (the picker does); the film (`export_video.js`) renders one page of the draft at a time — to join for the submission's video.
+**To add a section to the draft:** its page's id into "draft".order.

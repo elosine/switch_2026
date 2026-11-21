@@ -545,7 +545,13 @@
   window.notationIr = id => !state.ir ? null : id ? (state.ir.events.find(e => e.id === id) || null)
     : { id: state.ir.id, window: state.ir.source.window, events: state.ir.events.length, build: state.ir.provenance && state.ir.provenance.build,
         view: $('view').value, pageIdx: state.pageIdx, zoomT0: state.zoomT0 };
+  // [§368 — his "Is there like a draft score that has all the progress so far? … Might as well use just one score"] THE DRAFT: the pages that
+  // ARE the score so far, in the order of the piece (notation/ir/index.json "draft".order). Each keeps its own page — its pace, its rules,
+  // its signs — and the app plays them as ONE: where a page's material ends, the next one of the draft is loaded and the playing goes on.
+  function draftNext() { const d = state.draft || [], i = state.ir ? d.indexOf(state.ir.id) : -1; return i >= 0 && i < d.length - 1 ? d[i + 1] : null; }
+  function markDraft() { const d = state.draft || []; for (const o of $('ir').querySelectorAll('option')) { const i = d.indexOf(o.value); if (i >= 0 && !o.dataset.draft) { o.dataset.draft = '1'; o.textContent = 'DRAFT ' + (i + 1) + ' of ' + d.length + ' · ' + o.textContent; } } }
   function mergeManifest(man) {
+    if (man && man.draft && Array.isArray(man.draft.order)) state.draft = man.draft.order;
     const sel = $('ir');
     const have = new Set([...sel.querySelectorAll('option')].map(o => o.value));
     let expGroup = sel.querySelector('optgroup[label="experiments"]');
@@ -604,6 +610,7 @@
     try {
       const man = await fetch('/notation/ir/index.json').then(r => r.ok ? r.json() : null);
       if (man) mergeManifest(man);
+      markDraft();
     } catch (e) { /* manifest optional */ }
     for (const p of FRAME_PARTS) {
       const opt = document.createElement('option');
@@ -1227,13 +1234,19 @@
     // past the material — playback stops at the material)
     const srcEnd = state.ir.source.window[1];
     const endT = Math.min(w1, srcEnd);
+    if (state.chaining) return { turned: false, t };   // [§368] the draft's next page is loading: nothing is turned or drawn on the old one (§367's lesson)
     if (state.transport.isPlaying() && t >= endT - 1e-9) {
       // system turn: hard cut to the next page/window
       if (vv === 'video' && state.vPages && state.pageIdx < state.vPages.length - 1) {
         state.pageIdx++; render();
       } else if (vv === 'zoom' && t < srcEnd) {
         state.zoomT0 = w1; render();
-      } else { state.transport.pause(); $('play').textContent = '▶'; }
+      } else {
+        const dn = draftNext();   // [§368] the material ends: on to the draft's next page, the clock running
+        if (dn) { state.chaining = true; $('ir').value = dn; midiFlush();
+          loadIr(dn).then(() => { render(); }).catch(e => { state.transport.pause(); $('play').textContent = '▶'; $('err').textContent = 'draft: ' + String(e.message || e); }).then(() => { state.chaining = false; }); }
+        else { state.transport.pause(); $('play').textContent = '▶'; }
+      }
       return { turned: true, t };
     }
     const ov = document.getElementById('animov');
