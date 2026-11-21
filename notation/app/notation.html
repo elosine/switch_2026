@@ -96,6 +96,7 @@
   <label id="midiWrap" style="display:none" title="live MIDI to the loopMIDI/Reaper rig (the working-loop default; unchecks itself when a render is attached)"><input type="checkbox" id="midi" checked> MIDI</label>
   <label id="metaWrap" title="the META layer over the frame: layer-10 shape overlay + its envelope follower — off by default in the working loop"><input type="checkbox" id="metaov"> META</label>
   <label id="bricksWrap" title="parachute bricks (and their hover identity) on/off"><input type="checkbox" id="bricks" checked> bricks</label>
+  <label id="elecWrap" title="the electronics: as the score plays, the save's sine and material bricks are sent to the engine (it must be up: start_electronics.bat) — the sound returns on Reaper's track ELEC RETURN, whose fader is its volume"><input type="checkbox" id="elec" checked> electronics</label>
   <span id="soloWrap" title="solo a part: click toggles, ALT+click = exclusive (ALT+click the only soloed part clears it). Soloed parts keep full ink and are the only ones that sound; the rest dim to 30%. An attached audio render cannot be soloed - MIDI can.">solo <span id="soloBtns"></span></span>
   <button id="rend" style="display:none" title="a Reaper render exists for this score (notation/audio/) — click to slave the clock to it">♪ render</button>
   <label id="scoreWrap" style="display:none">score <select id="score">
@@ -154,6 +155,14 @@
 <script src="/sonify_core.js"></script>
 <script src="/cresc.js"></script><!-- [2i.8] the curve template: layout.drawnLevelSamples reads Cresc.segmentFor + SonifyCore.evalWaveCurve at call time -->
 <script src="/notation/lib/midiplayer.js"></script>
+<!-- [the Switch~ piece §364 — his "let's figure out how to play the electronics in the notation score"] THE ELECTRONICS' VOICE AND BRICKS, the
+     ENGINE's own page code, the files the composer score loads (electronics/score/): le_msg = LE.send -> POST /api/elec -> OSC -> the engine;
+     le_objects = the bricks' transport (tick: each brick's message ahead of its start); le_sine · le_material = the two kinds this piece has.
+     Absent or unserved, window.LE / window.LEObjects are undefined and the score plays without electronics. -->
+<script src="/electronics/le_msg.js"></script>
+<script src="/electronics/le_objects.js"></script>
+<script src="/electronics/le_sine.js"></script>
+<script src="/electronics/le_material.js"></script>
 <script>
 (async function () {
   const $ = id => document.getElementById(id);
@@ -1239,6 +1248,30 @@
     tnowShown = s;
     $('tnow').textContent = s; $('tbar').textContent = s;
   }
+  // [§364] THE ELECTRONICS RIDE THE LOOP, as the MIDI does (never drawOverlayFrame — the exporter steps that and must stay silent). The
+  // engine's code asks a HOST for five things; the composer page is one, this is the other: the save's objects · the moment this pass began
+  // (playStartTime, ms of the page's clock) and the score time it began at (playStartOffset, with pixelsPerSecond 1) — from which the code
+  // works out how far ahead each message is · the lanes that are players' (opts.lanes) · the MIDI port of a lane (opts.portOf — the
+  // engine's name for the player). A start, or a jump of the playhead, is a new pass: the anchors are set again.
+  const ELEC = { host: { objects: [], playStartTime: 0, playStartOffset: 0, pixelsPerSecond: 1 }, was: false, last: null, score: null };
+  function elecFrame() {
+    const L = window.LEObjects; if (!L || !window.LE || !state.ir) return;
+    const playing = state.transport.isPlaying() && $('elec') && $('elec').checked;
+    if (!playing) { if (ELEC.was) { if (L.sineStop) L.sineStop(); if (L.materialStop) L.materialStop(); } ELEC.was = false; ELEC.last = null; return; }
+    const name = state.ir.source.score, sc = state.scores[name]; if (!sc) return;
+    if (ELEC.score !== name) {
+      ELEC.score = name; ELEC.host.objects = sc.objects || [];
+      L.host = ELEC.host;
+      L.opts = Object.assign({}, L.opts, { lanes: (sc.tracks || []).length || 12,
+        portOf: l => { const k = ((sc.tracks || [])[l] || {}).instKey, I = typeof INSTRUMENTS !== 'undefined' ? INSTRUMENTS[k] : null; return I ? I.port : null; },
+        laneLabel: l => ((sc.tracks || [])[l] || {}).short || ('lane ' + l) });
+    }
+    const t = state.transport.now();
+    if (!ELEC.was || ELEC.last == null || Math.abs(t - ELEC.last) > 0.25) { ELEC.host.playStartTime = performance.now(); ELEC.host.playStartOffset = t; }
+    ELEC.was = true; ELEC.last = t;
+    try { L.tick(ELEC.host, t); } catch (e) { $('err').textContent = 'electronics: ' + String(e.message || e); }
+  }
+  window.__elecFrame = elecFrame;   // headless verification, as __notationFrame is
   function animLoop() {
     rafId = null;
     const fr = drawOverlayFrame();
@@ -1264,6 +1297,7 @@
       }
     } else if (midiWasPlaying) midiFlush(); // pause/stop/toggle-off: the cure
     midiWasPlaying = playing;
+    elecFrame();
     rafId = requestAnimationFrame(animLoop);
   }
   function ensureLoop() { if (!rafId) rafId = requestAnimationFrame(animLoop); }
