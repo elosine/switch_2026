@@ -5475,3 +5475,9 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **Checked once:** the page rendered to images at rest, 152.6 → 155.2 · 160.2 → 161.5 · 192.0 → 193.5 s.
 **For the second pass (SW-104):** the two measures are a first spectrum — number × place. A third is in the data and unused: how SPREAD the loudness is (a tight clump or an even scatter).
 **A correction to the line "Checked once" above:** no image was rendered — a still shows no pebbles (they are drawn by the page as it plays). What was checked: the numbers the server now sends the page for nine of the drops — the count of pebbles and the mean place of the heap (e.g. 153.70: 24 pebbles, the heap at 0.23 of the curtain; 160.40: 46, at 0.33; 193.11: 29, at 0.62; 192.13: 41, at 0.46). How it LOOKS and FEELS in motion is unseen by the AI — his to judge.
+
+## §359 · 2026-11-21 · the leftovers under the repeat at 180.4 hidden
+
+**His words:** "There's some leftover little notes in the bottom staff at 180.41. If we can hide those, please."
+**Done:** the left hand's four notes of 180.358 … .396 (F4 · E4 · A4 · G4; wc-2268 · wc-2269 · wc-2266 · wc-2267), played once under the right hand's repeat (§325), are hidden on the working version (`omit`).
+**Checked once:** the page rendered to an image, 179.6 → 181.6 s.
