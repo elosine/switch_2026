@@ -5552,3 +5552,11 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **His Size, 0.85,** is how large the workshop drew the frame on his screen; the score's frame is fitted to the window, so it has no counterpart.
 **Checked once:** the solo's page on the AI's throwaway — twelve pages now (it was five), page 3 = 151.6 → 156.4 s, the signs in place.
 **What follows from the pace:** a page turn every 4.8 s in the solo; the zoom view is 2.2 s across there.
+
+## §367 · 2026-11-21 · a fault of §361, found by him: the score jumped to its end at the first page turn — fixed
+
+**His words:** "there's something buggy about the notation score. When it gets to the end of the first page, it jumps to another section, maybe the end, and the cursor's not moving anymore. First page of the piano solo."
+**The cause (the AI's own, read from the code, not probed):** §361 made the page's drawing WAIT for the server's answer with the furniture before it put the new page on the screen. The frame loop goes on in that wait and still holds the old page; it sees the playhead past that page's end and turns the page again — once a frame, until the last page; there the playhead is outside the page and the cursor stands. It showed on the solo first because only that page asks for furniture, and at 4.8 s a page its first turn comes soon.
+**The fix:** the page is drawn at once, as it always was; the furniture is asked for AFTER and laid into the drawn page when it arrives (a few milliseconds later), unless another page has been drawn meanwhile. Nothing waits.
+**Checked once:** on the AI's throwaway — a turn asked for by hand from page 1 lands on page 2, and the furniture is in the page.
+**The lesson, for this app:** nothing may stand between a page turn and the new page's drawing; the turn and the frame loop share the page's state.

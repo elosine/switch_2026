@@ -862,13 +862,20 @@
       }
       // [§361] THE PAGE'S FURNITURE (layoutPolicy.furniture — the piano solo's working version): the signs the workshop draws over the engine's
       // page, asked of the server for this window; drawn in the frame's own coordinates and scaled with the zoom
-      let furn = '';
-      const FURN = state.ir.layoutPolicy && state.ir.layoutPolicy.furniture;
-      if (FURN) { try { const fr = await fetch('/api/notation/furniture?page=' + encodeURIComponent(FURN) + '&t0=' + view.window[0] + '&span=' + (view.window[1] - view.window[0]) + '&w=' + (W / Z)).then(r => r.json());
-        if (fr.success) { furn = '<g class="furniture"' + (Z !== 1 ? ' transform="scale(' + Z + ')"' : '') + '>' + fr.add + '</g>'; state.furniture = { Z, protos: fr.protos, strikes: fr.strikes }; } else $('err').textContent = 'furniture: ' + fr.error; } catch (e) { $('err').textContent = 'furniture: ' + String(e.message || e); } }
-      else state.furniture = null;
-      svg = svg.replace('</svg>', metaOverlaySvg(view) + furn + endBar + '</svg>');
+      // [§367 — A FAULT HE FOUND: "When it gets to the end of the first page, it jumps to another section, maybe the end, and the cursor's not moving"]
+      // the furniture is asked for AFTER the page is drawn, never before: §361 waited for the server's answer BEFORE drawing, and in that wait the
+      // frame loop, still holding the old page, saw the playhead past its end and turned the page again and again — to the last one.
+      const FURN = state.ir.layoutPolicy && state.ir.layoutPolicy.furniture, furnTok = state.furnTok = {};
+      state.furniture = null;
+      svg = svg.replace('</svg>', metaOverlaySvg(view) + endBar + '</svg>');
       $('sheet').innerHTML = svg;
+      if (FURN) fetch('/api/notation/furniture?page=' + encodeURIComponent(FURN) + '&t0=' + view.window[0] + '&span=' + (view.window[1] - view.window[0]) + '&w=' + (W / Z)).then(r => r.json()).then(fr => {
+        if (state.furnTok !== furnTok) return;   // another page has been drawn since
+        if (!fr.success) { $('err').textContent = 'furniture: ' + fr.error; return; }
+        const pg = $('sheet').querySelector('svg'); if (!pg) return;
+        pg.insertAdjacentHTML('beforeend', '<g class="furniture"' + (Z !== 1 ? ' transform="scale(' + Z + ')"' : '') + '>' + fr.add + '</g>');
+        state.furniture = { Z, protos: fr.protos, strikes: fr.strikes };
+      }).catch(e => { $('err').textContent = 'furniture: ' + String(e.message || e); });
       // V2: the ANIMATION OVERLAY — a second SVG over the static page;
       // redrawn per frame from pure state(t), never touching the page.
       const ov = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
