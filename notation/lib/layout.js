@@ -4308,7 +4308,12 @@
       }
       // [§343] THE CLUSTER BAR: from the lowest head's middle to the highest's, in their column, clusterBarW of a head wide (the stem item, thick)
       for (const b of built) { const U = b.U, sysC = b.sysT || systems.find(s => s.part === U.part && (s.staff || 0) === 0); if (!sysC) continue;
-        for (const c of U.clusters || []) sysC.items.push({ k: 'stem', t: U.t, dxSs: c.lo.headDx, yA: c.lo.yT, yB: c.hi.yT, thickSs: U.W * (HU.clusterBarW > 0 ? HU.clusterBarW : 0.5), cluster: true, unit: U.d.puId }); }
+        for (const c of U.clusters || []) {
+          // [§345 — HIS RULE 2026-11-21, "yes, join the bar to the stem"] (rules.json objects.handUnit.clusterBarToStem) beside a stem the bar is not
+          // centered: it keeps its far edge and REACHES TO THE STEM's outer edge, so bar and stem are one solid shape — no hairline between them
+          const bw = U.W * (HU.clusterBarW > 0 ? HU.clusterBarW : 0.5); let x0 = c.lo.headDx - bw / 2, x1 = c.lo.headDx + bw / 2;
+          if (HU.clusterBarToStem !== false && !b.none && Math.abs(c.lo.headDx - U.base) < 1e-6) { if (b.dir === 'up') x1 = Math.max(x1, b.stemDx + stemTh / 2); else x0 = Math.min(x0, b.stemDx - stemTh / 2); }
+          sysC.items.push({ k: 'stem', t: U.t, dxSs: (x0 + x1) / 2, yA: c.lo.yT, yB: c.hi.yT, thickSs: x1 - x0, cluster: true, unit: U.d.puId }); } }
       for (const b of built) {
         const U = b.U; if (!U.d.puArp || !b.sysT || !glyphs.arpeggio) continue;
         const AU = glyphs.arpeggio.unit, hiY = Math.max(...U.m.map(x => x.yT)), loY = Math.min(...U.m.map(x => x.yT)), span = hiY - loY;

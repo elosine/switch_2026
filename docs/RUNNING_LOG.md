@@ -5346,3 +5346,10 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 - WHAT DOES LOOK ODD, and only on a notated cluster WITH A STEM: the bar is half a head wide and centered on the heads; the stem stands at the heads' right edge. Between them is a hairline of white, so the two read as a DOUBLE LINE, and the short ledger lines cross both. A chord symbol has no stem, so its bar reads cleanly — which is why those look right to him.
 - Also on unit 26: the go line stands just left of the chord and touches the ends of its ledger lines.
 **No rule covers a bar beside a stem (piece 2's cluster bars carry no stem). Put to him, not built:** the AI's one recommendation — the bar reaches to the stem, so bar and stem are one solid shape.
+
+## §345 · 2026-11-21 · the cluster bar joined to the stem — his rule
+
+**His words:** "yes, join the bar to the stem" (to §344's one recommendation).
+**The rule (row `objects.handUnit.clusterBarToStem`, the scheme's table):** where a notated cluster has a stem, and stands in the stem's column, its bar keeps its far edge and reaches to the stem's outer edge. Bar and stem are one solid shape. A cluster with no stem (the chord symbols) keeps its centered bar, half a head wide.
+**Built** in `notation/lib/layout.js` (the cluster bar's pass): the bar's width and middle are computed from the two edges; with an up stem the right edge goes to the stem's right edge, with a down stem the left edge to the stem's left.
+**Checked once:** a close-up of 193.4 … 194.3 s rendered to an image.
