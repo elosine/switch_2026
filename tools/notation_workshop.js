@@ -23,7 +23,7 @@ const DIR = path.join(ROOT, 'workshop', 'notation');
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 && process.argv[i + 1] != null ? process.argv[i + 1] : d; };
 const PORT = +(process.env.PORT || arg('port', 5650));
 const PART = +arg('part', 5);                                   // the piano's lane
-const PAGES = arg('pages', 's2-piano-solo,s2-piano-solo-played,s2-piano-solo-heads,gravity-proto,gravity-proto-strobe,gravity-proto-strip,burst,chords-few,chords-some,chords-many').split(',');
+const PAGES = arg('pages', 's2-piano-solo,s2-piano-solo-played,s2-piano-solo-heads,gravity-proto,gravity-proto-strobe,gravity-proto-strip,burst,chords-few,chords-some,chords-many,chords-sets').split(',');
 const SRC_AUDIO = path.join(ROOT, arg('audio', 'notation/audio/piece-Section03-H-addTuplets.wav'));   // the players' render; its piano solo is the first draft's, note for note (§266)
 const A0 = +arg('a0', 146), A1 = +arg('a1', 258);               // the cut's span in score time
 const CUT = path.join(ROOT, 'notation', 'audio', 'cuts', 'workshop-piano-' + A0 + '-' + A1 + '.wav');
@@ -38,7 +38,7 @@ const WATCH = ['notation/lib/layout.js', 'notation/lib/render.js', 'notation/lib
 // [§273] THE PROTOTYPE PAGE (bank/gravity_proto.json): one hand's notes of one window, read from another page's IR
 const PROTO = 'gravity-proto', protoOf = () => rd('bank/gravity_proto.json');
 // [§290] AN EXCERPT PAGE ('burst', bank/burst_proto.json): only the notes each hand plays inside its own span, both staves
-const EXCERPTS = { burst: 'bank/burst_proto.json', 'chords-few': 'bank/chord_changes.json', 'chords-some': 'bank/chord_changes.json', 'chords-many': 'bank/chord_changes.json', chords: 'bank/chord_changes.json' };
+const EXCERPTS = { burst: 'bank/burst_proto.json', 'chords-few': 'bank/chord_changes.json', 'chords-some': 'bank/chord_changes.json', 'chords-many': 'bank/chord_changes.json', chords: 'bank/chord_changes.json', 'chords-sets': 'bank/chord_changes.json' };
 const stampOf = page => WATCH.concat(EXCERPTS[page] ? [EXCERPTS[page], 'notation/ir/' + rd(EXCERPTS[page]).page + '.ir.json'] : page.startsWith(PROTO) ? ['bank/gravity_proto.json', 'notation/ir/' + protoOf().page + '.ir.json'] : ['notation/ir/' + page + '.ir.json']).map(f => { try { return fs.statSync(path.join(ROOT, f)).mtimeMs; } catch (e) { return 0; } }).join('|');
 const ENG = new Map();
 function engine(page) {
@@ -70,7 +70,7 @@ function engine(page) {
     const staff = new Map(); for (const o of ir.overlays || []) if (o.kind === 'engraving' && o.target && o.target.event && o.value) staff.set(o.target.event, o.value.staff || 0);
     const inSpan = ev => { const w = ex.hands ? ex.hands[(staff.get(ev.id) || 0) === 1 ? 'L' : 'R'] : ex.window; return !!w && ev.onset >= w[0] && ev.onset <= w[1]; };
     // [§293] the chord-change pages: the same notes, read per hand for the shapes (tools/chord_changes.js); the page's name carries the alternative
-    if (page.startsWith('chords-')) chords = { cfg: ex, span: ex.spans[page.slice(7)], hands: { R: [], L: [] } };
+    if (page.startsWith('chords-')) chords = { cfg: ex, span: ex.spans[page.slice(7)], sets: page === 'chords-sets', hands: { R: [], L: [] } };
     if (chords) for (const ev of ir.events) if (inSpan(ev)) chords.hands[(staff.get(ev.id) || 0) === 1 ? 'L' : 'R'].push({ t: ev.onset, midi: ev.pitch.midi, sp: ev.pitch.spelled });
     const keep = new Set(ir.events.filter(inSpan).map(ev => ev.id));
     ir.events = ir.events.filter(ev => keep.has(ev.id));
@@ -81,7 +81,8 @@ function engine(page) {
   const ENS = Layout.ensembleFor(ens, (C.realizations || {})['video-jury']);
   const ensPart = p => (ENS && ENS.parts.find(q => q.part === p)) || null;
   const PARTS = ENS ? ENS.parts.map(p => p.part) : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const model = Layout.layoutSection(ir, glyphs, Object.assign({ m4AttackLines: false, frameParts: PARTS, ensemble: ENS, techniques: T, fitBoxes: Fit.boxesFor(C, ENS, PARTS) }, (C.engraving && C.engraving.layout) || {}));
+  const model = Layout.layoutSection(ir, glyphs, Object.assign({ m4AttackLines: false, frameParts: PARTS, ensemble: ENS, techniques: T, fitBoxes: Fit.boxesFor(C, ENS, PARTS) }, (C.engraving && C.engraving.layout) || {},
+    chords ? { ottavaLedgerThreshold: 1e6 } : {}));   // [§294] the chord pages: no 8va folding — the faint heads at pitch, as the shapes are
   const rz = (C.realizations || {})['video-jury'] || {}, H = (C.frame && C.frame.heightPx) || 1080;
   const FRAME = Coords.ensembleFrame(PARTS, { heightPx: H, lanes: rz.lanes || { padTopPx: 8, padBotPx: 8, gapPx: 4 }, staffHeightPx: (C.staff && C.staff.staffHeightPx) || 31.6,
     grandStaff: ((C.engraving || {}).layout || {}).grandStaff, weightOf: ENS ? (p => (ensPart(p) && ensPart(p).weight) || 1) : undefined,
@@ -121,7 +122,8 @@ function viewOf(page, t0, span, w) {
     delete require.cache[require.resolve('./chord_changes.js')];
     const CC = require('./chord_changes.js'); chordsOut = { span: e.chords.span, hands: {} };
     let add = '';
-    for (const h of ['R', 'L']) { const shapes = CC.segment(e.chords.hands[h], e.chords.span); add += CC.draw({ shapes, xOf, staff: h === 'R' ? staves[0] : staves[staves.length - 1], glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps });
+    for (const h of ['R', 'L']) { const all = e.chords.sets ? CC.persistent(e.chords.hands[h], e.chords.cfg.sets) : CC.segment(e.chords.hands[h], e.chords.span), shapes = all.filter(s => !s.brief);
+      if (e.chords.sets) chordsOut.brief = (chordsOut.brief || []).concat(all.filter(s => s.brief).map(s => ({ hand: h, at: +s.at.toFixed(3), notes: s.set.length }))); add += CC.draw({ shapes, xOf, staff: h === 'R' ? staves[0] : staves[staves.length - 1], glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps });
       chordsOut.hands[h] = shapes.map(s => ({ at: +s.at.toFixed(3), pitches: s.set.length, cluster: s.cluster, pushed: s.pushed })); }
     svg = svg.replace(/<\/svg>\s*$/, add + '</svg>');
   }

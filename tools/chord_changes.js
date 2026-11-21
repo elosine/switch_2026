@@ -23,6 +23,37 @@ function segment(notes, span) {
   for (const s of out) s.set = [...new Map(s.notes.map(n => [n.midi, n])).values()].sort((a, b) => a.midi - b.midi);
   return out;
 }
+// [§294 — HIS CRITERION, replacing the span: "if it's like a pitch set. So if a set of pitches … lasts for a little while … does that group of notes
+// change at a certain point? Or it could be that it's just mostly a bottom and the top cluster all the time"] THE PERSISTENT SETS of one hand:
+// the hand's current PLACE is the range of the notes it has been using. An event that falls inside it (within tolSemis of its edges) belongs
+// to it. An event outside it is looked at with what FOLLOWS: if, over the next lookS seconds, at least `share` of the notes are outside the
+// place too, the hand has MOVED — a new set begins there; if not, the event was a passing reach (kept as an outlier, not part of the set).
+// A set that lasts less than minDurS is BRIEF — a particular harmony at one point, for the standard notation's second pass, not a shape.
+function persistent(notes, opts) {
+  // A set is FOUNDED on what the hand plays in its first foundS seconds (as long as that stays within foundSpan semitones); after that its
+  // place is HELD: it never grows, so a hand that wanders is seen to have left it. (The first version let the place grow with every note
+  // and it swallowed everything — §294.)
+  const O = Object.assign({ tolSemis: 2, lookS: 1.0, share: 0.6, minDurS: 0.8, foundS: 0.8, foundSpan: 9 }, opts || {});
+  const ev = []; for (const n of notes.slice().sort((p, q) => p.t - q.t || p.midi - q.midi)) { const x = ev[ev.length - 1]; if (x && n.t - x.t1 < 0.045) { x.notes.push(n); x.t1 = n.t; } else ev.push({ t: n.t, t1: n.t, notes: [n] }); }
+  const out = []; let cur = null;
+  const inside = (c, m) => m >= c.lo - O.tolSemis && m <= c.hi + O.tolSemis;
+  for (let i = 0; i < ev.length; i++) {
+    const e = ev[i];
+    if (cur) {
+      const founding = e.t - cur.at <= O.foundS;
+      const inN = e.notes.filter(n => founding ? Math.max(cur.hi, n.midi) - Math.min(cur.lo, n.midi) <= O.foundSpan : inside(cur, n.midi));
+      if (inN.length * 2 >= e.notes.length) {
+        for (const n of inN) { if (founding) { cur.lo = Math.min(cur.lo, n.midi); cur.hi = Math.max(cur.hi, n.midi); } cur.notes.push(n); }
+        cur.out.push(...e.notes.filter(n => !inN.includes(n))); cur.t1 = e.t1; continue;
+      }
+      const ahead = []; for (let j = i; j < ev.length && ev[j].t <= e.t + O.lookS; j++) ahead.push(...ev[j].notes);
+      if (ahead.filter(n => !inside(cur, n.midi)).length / ahead.length < O.share) { cur.out.push(...e.notes); continue; }   // a passing reach
+    }
+    cur = { at: e.t, t1: e.t1, lo: Math.min(...e.notes.map(n => n.midi)), hi: Math.max(...e.notes.map(n => n.midi)), notes: e.notes.slice(), out: [] }; out.push(cur);
+  }
+  out.forEach((x, i) => { x.until = i < out.length - 1 ? out[i + 1].at : x.t1; x.brief = x.t1 - x.at < O.minDurS; x.set = [...new Map(x.notes.map(n => [n.midi, n])).values()].sort((p, q) => p.midi - q.midi); });
+  return out;
+}
 function draw(o) {
   const { shapes, xOf, staff, glyphs, ChordColumn, gaps } = o, R = Object.assign({ clusterMinNotes: 4, clusterMaxGap: 2, clusterBarW: 0.5 }, o.rule || {});
   const ss = (staff[1] - staff[0]) / 4, mid = (staff[0] + staff[1]) / 2, INK = '#111', r1 = x => (+x).toFixed(1), r3 = x => (+x).toFixed(3), out = [];
@@ -59,4 +90,4 @@ function draw(o) {
   }
   return out.join('');
 }
-module.exports = { segment, draw };
+module.exports = { segment, persistent, draw };

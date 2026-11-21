@@ -1,8 +1,27 @@
 {
  "_doc": "HOW OFTEN THE HAND'S SHAPE CHANGES — three alternatives to look at (SW-88; RUNNING_LOG §293), drawn by tools/chord_changes.js on the workshop's pages 'chords: few / some / many'. page = the IR the notes are read from · window = the passage read (both hands) · view = what the page shows · headOpacity = the played notes, kept faint as his reference · spans = each alternative's ONE knob: how many semitones a hand may reach before its shape is written again.",
  "page": "s2-piano-solo-heads",
- "window": [157.6, 160.7],
- "view": [157.4, 161.0],
+ "window": [
+  152.4,
+  170
+ ],
+ "view": [
+  152.2,
+  170.3
+ ],
  "headOpacity": 0.3,
- "spans": { "few": 12, "some": 8, "many": 6 }
+ "spans": {
+  "few": 12,
+  "some": 8,
+  "many": 6
+ },
+ "sets": {
+  "tolSemis": 2,
+  "lookS": 1,
+  "share": 0.6,
+  "minDurS": 0.8,
+  "_note": "§294 (his criterion): a hand's PLACE is the range of the notes it has been using; a note within tolSemis of it belongs to it; an event outside it starts a NEW set only if at least `share` of the notes of the next lookS seconds are outside it too — otherwise it was a passing reach. A set lasting under minDurS is brief: a particular harmony for the standard notation, not a shape. A set is FOUNDED on its first foundS seconds (within foundSpan semitones) and then HELD — it does not grow.",
+  "foundS": 0.8,
+  "foundSpan": 9
+ }
 }

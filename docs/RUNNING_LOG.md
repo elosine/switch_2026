@@ -4846,3 +4846,19 @@ Tried and not kept as alternatives: 14 (one shape for the whole right hand — i
 **Seen on the three pages:** in FEW the right hand's first shape is six notes that are not a cluster (A5 · A#5 · B5 · C6 with F6 and G6 far above) — a wide box that reads as a chord, which it never was; in SOME and MANY the burst's boxes crowd so that three of them had to be pushed right of their moments; MANY's extra changes in the flow (158.33, 159.28 in the left hand) are the half-step shifts he asked NOT to mark near the impact.
 **The pages:** "chords: few / some / many" in the workshop — the played notes kept faint (30 %) under the boxes, both staves. **A known flaw of the reference:** the engine folds the right hand's high notes under an 8va, the shapes are written at pitch with ledger lines — the faint heads and the boxes sit an octave apart on the upper staff.
 **Not done:** the one gesture in the middle; looking wider than this passage.
+
+## §294 · 2026-11-20 · the shapes by HIS criterion — a pitch set that lasts; 152.4 → 170 s
+
+**His words:** SW-89 (the sketch pad): "the criteria should be if it's like a pitch set … a group of notes that is used for a certain duration … does that group of notes change at a certain point? Or it could be that it's just mostly a bottom and the top cluster all the time … the specific harmonies for certain points, we'll just write those in as actual notated gestures … a second pass … can you do a slightly longer pass? … take out all the other graphics then, all the lines and yellow boxes".
+**Rejected by him:** §293's span alternatives ("your approach to these is maybe not the correct one"). The three pages are out of the picker; the code stays.
+
+**The rule built (`tools/chord_changes.js` `persistent`, the numbers in `bank/chord_changes.json` `sets`):** a hand's set is FOUNDED on what it plays in its first 0.8 s (while that stays within 9 semitones) and then HELD — it does not grow. A later note within 2 semitones of the place belongs to it. An event outside it begins a NEW set only if at least 60 % of the notes of the next second are outside it too; otherwise it was a passing REACH and is left out of the shape. A set lasting under 0.8 s is BRIEF — one of his particular harmonies, for the second pass — and gets no box.
+**A dead end on the way:** the first version let the place grow by 2 semitones with every note that touched its edge; over 17 s it swallowed the whole right hand (C#5 … A6, 21 pitches) and most of the left. Holding the founded place is what makes a wandering hand visible.
+
+**The result, 152.4 → 170 s:**
+- THE RIGHT HAND: ONE set for the whole 17 s — E5 … F6, fourteen pitches, 180 notes, with 27 reaches beyond it. His "it could be that it's just mostly a bottom and the top cluster all the time".
+- THE LEFT HAND: FOUR sets — C#4 … A4 (152.65 → 159.49, 6.8 s, 12 reaches) · A#4 … F#5 (160.43 → 163.25, 2.8 s) · E4 … D5 (163.51 → 167.65, 4.1 s) · A#4 … F5 (167.75 → 169.36, 1.6 s) — and TWO brief ones left for the second pass: 159.54 → 160.30 (the reach down to A#3 before the burst) and 169.45 → 169.95.
+- All five are cluster bars. A change of shape comes every 2 … 7 s in the left hand and never in the right.
+
+**The page:** "chords: pitch sets" — the five bars boxed where each begins, the played notes faint under them; the first sorting's arcs and amber boxes are never drawn on the chord and burst pages now (they were the Gravity overlay, still on). The faint heads now stand at pitch: the engine's 8va folding is off on these pages, so heads and shapes agree on the upper staff (§293's flaw).
+**Seen:** the right hand's one bar begins at 152.54 and says nothing for 17 s — whether a shape is said AGAIN after a wall or a silence is not decided.
