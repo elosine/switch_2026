@@ -165,19 +165,24 @@ function viewOf(page, t0, span, w, opts) {
     const on = e.ir.events.map(ev => ev.onset), a = Math.min(...on), b = Math.max(...on);
     const xa = xOf(a) - K.padSs * ss, xb = Math.max(xOf(b) + (K.padSs + 1.1) * ss, xa + K.minSs * ss), yT = staves[0][0] - K.overSs * ss, yB = staves[staves.length - 1][1] + K.overSs * ss;
     svg = svg.replace(/<\/svg>\s*$/, '<rect x="' + xa.toFixed(1) + '" y="' + yT.toFixed(1) + '" width="' + (xb - xa).toFixed(1) + '" height="' + (yB - yT).toFixed(1) + '" fill="' + (K.fill || '#5b7fa6') + '" fill-opacity="' + (K.opacity != null ? K.opacity : 0.13) + '" stroke="' + (K.fill || '#5b7fa6') + '" stroke-opacity="0.45" stroke-width="0.6"/></svg>');
-    // [§298] THE SUBSTRATE IS synthesi-alpha's (tools/substrate.js — its generator's own species) and so is the FLIGHT (engine/score-anim.js):
-    // a bed of rocks along the curtain's MIDDLE line; each rock leaps to its own height, half of them up and half down (that piece's ±1), out
-    // fast and home by gravity. There the cursor's arrival threw a rock; here the whole bed is thrown BEFORE the strike (the backswing, its
-    // peak on the strike's start) and each rock comes home as the cursor reaches its place.
+    // [§299 — HIS WORD: "nail the physics of exactly as I described, throwing a handful of pebbles into the air … they sort of hang … there's a
+    // clear impact point, but it'll be a little bit scattered"] THE THROW IS A REAL ONE: each pebble flies a PARABOLA (what gravity alone
+    // gives a thrown thing: height = H · 4u(1 − u) over its flight) — fast off the hand, slowing to a hang at the top, falling faster and
+    // faster. A handful leaves ONE hand at ONE moment with nearly one speed: each pebble's flight time differs from the others' by a few
+    // per cent (flightSpread), so they land nearly together, a little scattered in time and across the floor; each then takes one small
+    // bounce (bounce = how much of its speed it keeps) and lies still. THE IMPACT — the handful's landing — is the moment the cursor
+    // reaches the MIDDLE of the curtain; the throw begins one flight time before it. The pebbles are synthesi-alpha's species (§298).
     delete require.cache[require.resolve('./substrate.js')];
-    const SUB = require('./substrate.js'), species = SUB.species.includes(opts.sub) ? opts.sub : (K.species || 'sand'), nR = Math.max(6, Math.min(400, Math.round(opts.n || K.density || 90)));
-    const R = SUB.rng(11), mid = (yT + yB) / 2, half = (yB - yT) / 2 - 6, rocks = [];
+    const SUB = require('./substrate.js'), species = SUB.species.includes(opts.sub) ? opts.sub : (K.species || 'boulders'), nR = Math.max(3, Math.min(400, Math.round(opts.n || K.density || 16)));
+    const R = SUB.rng(23), gauss = () => { let u = 0; while (u === 0) u = R(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * R()); };
+    const floor = yB - 5, H = (floor - yT) - 10, xm = (xa + xb) / 2, T = K.flightS != null ? K.flightS : 1.0, sp = K.flightSpread != null ? K.flightSpread : 0.05, rocks = [];
     for (let i = 0; i < nR; i++) {
-      const x = xa + (xb - xa) * (0.03 + 0.94 * R()), big = R() < 0.18, r = (species === 'sand' ? 0.9 : 1.3) * (big ? 2.2 + R() * 1.6 : 0.7 + R() * 1.3);
-      rocks.push({ d: SUB.shape(species, r, 1000 + i), x: +x.toFixed(1), y0: +(mid + (R() - 0.5) * 7).toFixed(1), dir: R() < 0.5 ? -1 : 1, lift: +(half * Math.pow(R(), 1.6) * (big ? 0.7 : 1)).toFixed(1),
-        drift: +((R() - 0.5) * 12).toFixed(1), f: +(1 + R() * 1.3).toFixed(2), ph: +R().toFixed(2), boil: +(1.5 + R() * 3).toFixed(1), gray: R() < 0.8 ? 17 : 97, home: +Math.max(a, t0 + (x - x0) / pps).toFixed(3) });
+      const k = Math.max(0.8, 1 + gauss() * sp), r = (K.sizePx != null ? K.sizePx : 2.6) * (0.7 + R() * 0.75);
+      rocks.push({ d: SUB.shape(species, r, 3000 + i), r: +r.toFixed(2), T: +(T * k).toFixed(3), H: +(H * Math.min(1, k * k * 0.9)).toFixed(1), dly: +((R() - 0.5) * 0.03).toFixed(3),
+        xh: +(xm + gauss() * 3).toFixed(1), yh: +(R() * 6).toFixed(1), xl: +Math.max(xa + 5, Math.min(xb - 5, xm + gauss() * (xb - xa) * (K.landSpread != null ? K.landSpread : 0.17))).toFixed(1),
+        spin: +((R() - 0.5) * 900).toFixed(0), gray: Math.round(17 + R() * 50) });
     }
-    strike = { t0: a, t1: b, xa, xb, yT, yB, species, stroked: !!SUB.stroked[species], rise: K.rise != null ? K.rise : 0.43, settle: K.settle != null ? K.settle : 0.35, lead: 0.05, rocks, all: SUB.species };
+    strike = { t0: a, t1: b, xa, xb, yT, yB, floor, species, stroked: !!SUB.stroked[species], impact: +(t0 + (xm - x0) / pps).toFixed(3), flightS: T, bounce: K.bounce != null ? K.bounce : 0.28, rocks, all: SUB.species };
   }
   // [§276] THE PROTOTYPE'S FURNITURE — the arc, the flow strip under the staff, the shapes (tools/gravity_furniture.js) — in the picture itself
   let band = e.bandOut || e.band;

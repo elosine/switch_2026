@@ -46,7 +46,7 @@
   <div class="g"><label for="gap">Gap</label><input id="gap" class="s" type="number" step="0.5" min="0"></div>
   <div class="g"><label for="marksOn" title="Walls (amber) and the two hands' arcs: the first sorting, yours to correct">Gravity</label><input id="marksOn" type="checkbox"></div>
   <div class="g dim">cursor <b class="n" id="tNow">–</b> mouse <b class="n" id="tHover">–</b></div>
-  <div class="g" id="subBox" style="display:none"><label for="sub">Substrate</label><select id="sub"></select><label for="dens">×</label><input id="dens" class="s" type="number" min="6" max="400" step="10"></div>
+  <div class="g" id="subBox" style="display:none"><label for="sub">Substrate</label><select id="sub"></select><label for="dens">×</label><input id="dens" class="s" type="number" min="3" max="400" step="2"></div>
   <div class="g dim" id="help">drag on the score = select a phrase · click = cursor</div>
   <div id="msg"></div>
 </div>
@@ -136,15 +136,17 @@
   // foot; it RISES together through prepS before the strike (the backswing, the GC's own rise curve) and each pebble then DROPS at its own
   // moment across the strike (the GC's own fall curve), drifting to its own place
   function pebblesSvg() {
-    // synthesi-alpha's flight (engine/score-anim.js `flight`): out fast — u(2 - u) over the rise — then home by gravity — (1 - v)^1.6 over the settle
-    const K = V.strike, out = [], up0 = K.t0 - K.rise - K.lead;
+    // THE THROW (§299): every pebble a parabola — height = H · 4u(1 − u) over its own flight — from the hand at the curtain's foot, landing
+    // about the impact (the cursor at the curtain's middle), then one small bounce, then still
+    const K = V.strike, out = [], e = K.bounce;
     for (const p of K.rocks) {
-      let o = 0;
-      if (t >= p.home) { const v = (t - p.home) / K.settle; o = v >= 1 ? 0 : Math.pow(1 - v, 1.6); }
-      else if (t > up0) { const u = Math.min(1, (t - up0) / K.rise); o = u * (2 - u); }
-      const boil = o * p.boil * Math.sin(6.283 * (t * p.f + p.ph));
-      const x = p.x + p.drift * o + o * p.boil * 0.6 * Math.cos(6.283 * (t * p.f * 0.8 + p.ph)), y = p.y0 + p.dir * p.lift * o + boil, c = 'rgb(' + p.gray + ',' + p.gray + ',' + p.gray + ')';
-      out.push('<path d="' + p.d + '" transform="translate(' + (x * S.size).toFixed(1) + ' ' + yPx(y).toFixed(1) + ') scale(' + S.size + ')" ' + (K.stroked ? 'fill="none" stroke="' + c + '" stroke-width="0.6"' : 'fill="' + c + '"') + '/>');
+      const tl = K.impact - K.flightS + p.dly, u = (t - tl) / p.T; let x, y, air;
+      if (u < 0) { x = p.xh; y = K.floor - p.yh; air = 0; }
+      else if (u <= 1) { x = p.xh + (p.xl - p.xh) * u; y = K.floor - p.H * 4 * u * (1 - u); air = t - tl; }
+      else { const tb = t - tl - p.T, Tb = p.T * e, ub = tb / Tb, dx = (p.xl - p.xh) * e * 0.5;
+        if (ub < 1) { x = p.xl + dx * ub; y = K.floor - p.H * e * e * 4 * ub * (1 - ub); air = p.T + tb; } else { x = p.xl + dx; y = K.floor; air = p.T + Tb; } }
+      const c = 'rgb(' + p.gray + ',' + p.gray + ',' + p.gray + ')';
+      out.push('<path d="' + p.d + '" transform="translate(' + (x * S.size).toFixed(1) + ' ' + yPx(y - p.r * 0.6).toFixed(1) + ') rotate(' + (p.spin * air).toFixed(0) + ') scale(' + S.size + ')" ' + (K.stroked ? 'fill="none" stroke="' + c + '" stroke-width="0.6"' : 'fill="' + c + '"') + '/>');
     }
     return out.join('');
   }
@@ -213,7 +215,7 @@
   $('loops').onchange = () => { S.loops = Math.max(1, Math.round(num('loops', 1))); save(); };
   $('loopOn').onchange = () => { S.loopOn = $('loopOn').checked; save(); };
   $('sub').onchange = () => { S.sub = $('sub').value; save(); load(); };
-  $('dens').onchange = () => { S.dens = Math.max(6, Math.min(400, Math.round(num('dens', 90)))); save(); load(); };
+  $('dens').onchange = () => { S.dens = Math.max(3, Math.min(400, Math.round(num('dens', 16)))); save(); load(); };
   $('marksOn').onchange = () => { S.marksOn = $('marksOn').checked; save(); drawMarks(); };
   const pan = d => { S.t0 = Math.max(INFO.a0, +(S.t0 + d * S.span / 4).toFixed(2)); show(); save(); load(); };
   $('back').onclick = () => pan(-1); $('fwd').onclick = () => pan(1);
