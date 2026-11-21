@@ -5169,3 +5169,15 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **Written into the working version:** the pebble drop 175.898 → 176.21 (the partials of 175.898 … 176.205) · the repeat 176.762 → 176.99 in BOTH hands, since both play there — the right hand's single F#5 (struck twice), the left hand's E4 · F4 · G4 — each with the new sign "sparse": few marks, 2.6 ss apart, one modest size (two marks fit). A placeholder, as he says.
 **THE SECOND PASS, written into `docs/NOTATION_SCHEME.md` § 3:** a spectrum of each kind — pebble drops by density and by where the weight lies; repeats by sparseness and by what they do. What exists to draw on: the plain drop and the hill; the repeat signs sparse · 29 · 28 · 30 · 31 and the catalog.
 **Checked once:** the page rendered to an image, 174.0 → 177.6 s.
+
+## §325 · 2026-11-21 · the working version to 180.74 s — a ribbon, a struck chord, a two-wave ribbon, a growing repeat, a struck chord
+
+**His words:** SW-105 (the sketch pad): "ribbon starting at 177.71, impact at 177.98, and a rise to 178.2. The notes at 178.83 … a struct chord … starting on 179.02 … a two-wave one again, like an undulating one that strikes at 179.29, and, well, it descends to there. And then at 179.69 is where it strikes. And then the tail goes up to about 179.97. The notes at 180.74 is just a notated struct chord. And … a repeat from 180.19 to somewhere around 180.64 or 66."
+**Set on the played partials (his times are thereabouts):**
+- the ribbon 177.729 → impact 177.971 (the left hand's G4 · E4 · F4, 177.963 … .981) → 178.2. The tail ends where he said, 0.23 s after the impact, a little shorter than the one tail of §321 (0.30 s); it takes the B4 of 178.187 with it.
+- unit 17, a struck chord at 178.81: the right hand's G4 · A4 · A#4 · D#5 · F5 (178.808 … .842), one stem up, a 16th flag. The lone D#5 that follows at 178.912 is NOT in the chord; it stands as a small head beside it.
+- the two-wave ribbon 179.022 → a wave to 60 % at 179.323 (the middle of the left hand's four notes 179.290 … .344, as the wave of 171.7) → the impact 179.709 (the seven notes of both hands, 179.682 … .718) → 179.97; its width from the playing (power 1.3), as the earlier two-wave ribbon.
+- the repeat 180.205 → 180.65, right hand: B5, then the cluster A#5 … D#6 struck three times (180.36 · 180.46 · 180.59). He named no sign; sign 29 (growing) is put in, since each strike is fuller than the last. The left hand plays F4 · E4 · A4 · G4 once, at 180.36; it is no repeat and stands as small heads under the marks.
+- unit 18, a struck chord at 180.72: the eight notes of both hands (A#5 · B5 · C6 · G6 over C5 · C#5 · D#5 · E5), one stem up, a 16th flag.
+**Checked once:** the page rendered to an image, 177.2 → 181.2 s.
+**Seen, for his eye:** two leftovers stand as small heads (the D#5 after the chord of 178.81; the left hand's four notes under the repeat). The repeat's sign is the AI's pick.

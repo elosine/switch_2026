@@ -383,6 +383,41 @@
    "played": [
     174.096
    ]
+  },
+  {
+   "_n": "17 · 178.81 s — the right hand's five notes (G4 · A4 · A#4 · D#5 · F5), a struck chord, notated (his word, §325)",
+   "ids": [
+    "wc-2237",
+    "wc-2236",
+    "wc-2238",
+    "wc-2235",
+    "wc-2239"
+   ],
+   "stem": "up",
+   "flag": 16,
+   "played": [
+    178.808,
+    178.842
+   ]
+  },
+  {
+   "_n": "18 · 180.72 s — the eight notes of both hands, a struck chord, notated",
+   "ids": [
+    "wc-2283",
+    "wc-2285",
+    "wc-2284",
+    "wc-2286",
+    "wc-2282",
+    "wc-2287",
+    "wc-2280",
+    "wc-2281"
+   ],
+   "stem": "up",
+   "flag": 16,
+   "played": [
+    180.722,
+    180.744
+   ]
   }
  ]
 }

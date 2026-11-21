@@ -2,8 +2,8 @@
  "_doc": "THE WORKING VERSION of the piano solo (SW-96; RUNNING_LOG §307 — his word: 'can we get like a working version that we work in and that keeps all our changes'). The workshop's page 'working version' = the page `base` (the standard figures taken one by one, notation/hand/<base>.units.json) with the GESTURES below drawn over it, and nothing else. A gesture hides the played notes inside its span. kind ribbon = Shape Action Notation's arc: t0 its start, bounce its impact (the 'hit'), t1 its end; flow.profile = its designed width (§296). kind strike = the scattered strike: a curtain from t0 to t1 with the thrown pebbles. A chord symbol (each hand's pitch set, bank/chord_changes.json `sets`) stands at the start of every ribbon and strike. His times are 'thereabouts' — he clicks them with the mouse. A POLE (a fixed structure in standard notation) is not here: it is a figure in the units file.",
  "base": "s2-piano-solo",
  "view": [
-  174,
-  178
+  177,
+  181.4
  ],
  "band": [
   470,
@@ -337,6 +337,47 @@
    "t0": 176.762,
    "t1": 176.99,
    "_note": "the left hand's E4 · F4 · G4, struck 176.762 … 176.900"
+  },
+  {
+   "kind": "ribbon",
+   "t0": 177.729,
+   "bounce": 177.971,
+   "t1": 178.2,
+   "hideTo": 178.2,
+   "tailPct": 85,
+   "_his": "ribbon starting at 177.71, impact at 177.98, and a rise to 178.2",
+   "_note": "the start on the partial of 177.729; the impact on the left hand's three notes of 177.963 … .981 (177.971); the tail to 178.2 as he said (0.23 s — a little shorter than the refined 0.30), taking the B4 of 178.187 with it"
+  },
+  {
+   "kind": "ribbon",
+   "t0": 179.022,
+   "bounces": [
+    179.323,
+    179.709
+   ],
+   "depths": [
+    0.6,
+    1
+   ],
+   "t1": 179.97,
+   "hideTo": 179.97,
+   "tailPct": 85,
+   "fromPlaying": true,
+   "flow": {
+    "power": 1.3,
+    "ribbonMaxPx": 34
+   },
+   "_his": "starting on 179.02, let's make a two-wave one again, like an undulating one that strikes at 179.29, and, well, it descends to there. And then at 179.69 is where it strikes. And then the tail goes up to about 179.97",
+   "_note": "the start on the partial of 179.022; a WAVE to 60 % (as at 171.7) on the left hand's four notes of 179.290 … .344 (their middle, 179.323); the impact on the seven notes of 179.682 … .718 (179.709); the tail to 179.97 as he said"
+  },
+  {
+   "kind": "stutter",
+   "hand": "R",
+   "sign": 29,
+   "t0": 180.205,
+   "t1": 180.65,
+   "_his": "a repeat from 180.19 to somewhere around 180.64 or 66",
+   "_note": "the right hand: B5 at 180.205, then the cluster A#5 … D#6 struck three times (180.36 · 180.46 · 180.59), each heavier — sign 29, growing"
   }
  ],
  "noOttava": true,
