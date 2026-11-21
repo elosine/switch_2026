@@ -4972,3 +4972,12 @@ Tried and not kept as alternatives: 14 (one shape for the whole right hand — i
 - **C · music's own, for comparison:** 16 tremolo strokes · 17 beam with stubs (his uneven-group sign from Recombination, §557 there) · 18 feathered beam · 19 repeat box with a running line.
 **Drawn from what the AI knows of comic conventions; nothing was looked up.** The drawings are plain SVG sketches, not engraved: the heads are ellipses, not LilyPond's glyph — a catalog for choosing a KIND; the chosen one is then built by the engraving rules.
 **Checked once:** a contact sheet of the nineteen rendered and looked at; the two routes answer 200.
+
+## §304 · 2026-11-20 · the stutter — he takes up 1 and 3; fourteen variations
+
+**His words:** "1 and 3 are interesting. Can you maybe produce some variations or ones along those lines?" (1 = ghost copies, 3 = shake brackets running along.)
+**Added to the catalog (`workshop/stutter/candidates.js`, family D, shown first on the page; numbers 20 … 33):**
+- from the ghosts: 20 close (the copies overlap into one smear) · 21 hollow (the first note solid, the repeats outlines) · 22 shrinking · 23 gathering (crowding toward the end) · 24 the two keys in turn (the copies show which key — lower, upper, both — as he played it) · 25 ghosts in brackets (1 and 3 together).
+- from the brackets: 26 both ways (pairs facing each other) · 27 doubled · 28 fading · 29 growing · 30 gathering · 31 tall (across the whole staff) · 32 on a ghost trail (a pale smear under the marks) · 33 the note at each end (a drawn stop).
+What the variations vary: how the repeat is shown (copy · mark · both), and what else the sign can carry — a change over its length (fading, growing, speeding up), which key, a clear end.
+**Checked once:** a contact sheet of the fourteen rendered and looked at.
