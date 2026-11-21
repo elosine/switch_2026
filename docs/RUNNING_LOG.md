@@ -4957,3 +4957,8 @@ Tried and not kept as alternatives: 14 (one shape for the whole right hand — i
 **Built (`bank/gravity_proto.json` `pitchSets` true):** the prototype page's shapes are now §294's pitch sets, BOTH hands, each on its own staff — the one hand's two shapes of §276 … §280 are no longer drawn there. The set each hand is using when the ribbon begins is SAID at the ribbon's start though it began earlier (the right hand's since 152.54, the left's since 152.65): the right hand's cluster bar E5 … F6 on the upper staff, the left's C#4 … A4 on the lower. A change later on the page stands at its own moment: the left hand's A#4 … F#5 at 160.43 — which falls INSIDE the scattered strike's curtain. The boxes have no ground.
 **Checked once:** the page rendered to an image.
 **Seen, for his eye:** (1) the right hand's box at the ribbon's start sits where the ribbon begins — the hair of the ribbon runs out of its top; (2) the left hand's new shape stands inside the curtain, where the pebbles fall through it.
+
+## §302 · 2026-11-20 · the pebbles at rest spread out; a fifth more of them
+
+**His words (while §301 was being built):** "Then they're in a clump when they start. Maybe have them a little bit less of a clump, maybe spread out a little bit, just so it's clear that it's like a collection of pebbles. And you can actually increase the density a little bit more. You're like 20% of what's current."
+**Changed:** the handful at rest lies along the curtain's floor about its middle — each pebble's place spread by 10 % of the curtain's width (`pileSpread`; it was 3 px, one clump) — and each still flies from where it lies to where it lands. The count 22 → 26 (a fifth more).

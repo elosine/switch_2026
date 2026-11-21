@@ -185,7 +185,7 @@ function viewOf(page, t0, span, w, opts) {
     for (let i = 0; i < nR; i++) {
       const k = Math.max(0.8, 1 + gauss() * sp), r = (K.sizePx != null ? K.sizePx : 2.6) * (0.7 + R() * 0.75);
       rocks.push({ d: SUB.shape(species, r, 3000 + i), r: +r.toFixed(2), T: +(T * k).toFixed(3), H: +(H * Math.min(1, k * k * 0.9)).toFixed(1), dly: +((R() - 0.5) * 0.03).toFixed(3),
-        xh: +(xm + gauss() * 3).toFixed(1), yh: +(R() * 6).toFixed(1), xl: +Math.max(xa + 5, Math.min(xb - 5, xm + gauss() * (xb - xa) * (K.landSpread != null ? K.landSpread : 0.17))).toFixed(1),
+        xh: +Math.max(xa + 5, Math.min(xb - 5, xm + gauss() * (xb - xa) * (K.pileSpread != null ? K.pileSpread : 0.1))).toFixed(1),   /* [§302] the handful at rest: spread along the floor, not one clump */ yh: +(R() * 6).toFixed(1), xl: +Math.max(xa + 5, Math.min(xb - 5, xm + gauss() * (xb - xa) * (K.landSpread != null ? K.landSpread : 0.17))).toFixed(1),
         spin: +((R() - 0.5) * 900).toFixed(0), gray: Math.round(17 + R() * 50) });
     }
     strike = { t0: a, t1: b, xa, xb, yT, yB, floor, species, stroked: !!SUB.stroked[species], impact: +(t0 + (xm - x0) / pps).toFixed(3), flightS: T, bounce: K.bounce != null ? K.bounce : 0.28, rocks, all: SUB.species };

@@ -135,13 +135,14 @@
   "opacity": 0.07,
   "_note": "§296 · §298 · §299 — THE SCATTERED STRIKE: a transparent block over the stretch where the strike's notes fall (padSs each side, at least minSs wide; the grand staff and overSs beyond each staff), and a HANDFUL OF PEBBLES thrown in it. The pebbles: species and sizePx (synthesi-alpha's substrates, tools/substrate.js), density = how many. THE THROW is ballistic: each pebble a parabola lasting about flightS seconds (flightSpread = how much the pebbles' flight times differ, as a share), landing about the IMPACT — the moment the cursor reaches the curtain's middle — scattered across the floor by landSpread (a share of the curtain's width); one bounce keeping `bounce` of the speed, then still.",
   "species": "boulders",
-  "density": 22,
+  "density": 26,
   "sizePx": 2.6,
   "flightS": 1,
   "flightSpread": 0.05,
   "landSpread": 0.27,
   "bounce": 0.28,
-  "heads": false
+  "heads": false,
+  "pileSpread": 0.1
  },
  "alsoHeads": false,
  "pitchSets": true
