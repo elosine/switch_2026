@@ -394,15 +394,14 @@
    "t0": 182.401,
    "bounces": [
     182.773,
-    183.636
+    183.81
    ],
    "depths": [
     0.6,
     1
    ],
-   "t1": 183.79,
-   "hideTo": 183.65,
-   "tailPct": 85,
+   "t1": 183.81,
+   "hideTo": 183.7,
    "flow": {
     "profile": {
      "over": [
@@ -415,25 +414,26 @@
        0.5
       ],
       [
-       183.45,
+       183.5,
        0.16
       ],
       [
-       183.79,
-       0.1
+       183.81,
+       0.12
       ]
      ]
     }
    },
    "_his": "a ribbon with impact at 183.6 and a short tail. start at 182.4 an undulation into 182.78. But overall, let's go from thick to thin. So at impact and on rise, it's pretty thin. Start thick at the beginning and thin out through the undulation and then into the final hit",
-   "_note": "the start on the partial of 182.401; a WAVE to 60 % on the four notes of 182.773 … .805; the impact on the three notes of 183.633 … .639; the width DESIGNED over the whole ribbon (profile.over): full at the start, half at the wave, thin from before the impact and through the tail. The tail ends at 183.79 (0.15 s, not 0.30) so that it stops before the chord of 183.80"
+   "_note": "the start on the partial of 182.401; a WAVE to 60 % on the four notes of 182.773 … .805; the impact on the three notes of 183.633 … .639; the width DESIGNED over the whole ribbon (profile.over): full at the start, half at the wave, thin from before the impact and through the tail. The tail ends at 183.79 (0.15 s, not 0.30) so that it stops before the chord of 183.80 · §327, his \"make it at the strike point of 183.81 … and no tail\": the impact moved from 183.636 onto the chord of 183.803 … .870 (183.81); the ribbon ends at the impact"
   },
   {
    "kind": "strike",
    "t0": 184.18,
    "t1": 184.34,
    "_his": "a short pebble drop from 184.19 to 184.35, about that width and kind of centered between the two chords I just mentioned and then what's to come",
-   "_note": "the width his (0.16 s); centered between the chord of 184.0 and the chord of 184.5 (the middle 184.26, where the two notes of 184.255 … .280 are played)"
+   "_note": "the width his (0.16 s); centered between the chord of 184.0 and the chord of 184.5 (the middle 184.26, where the two notes of 184.255 … .280 are played) · §327, his \"They're a little late, so make them mostly down by 184.21\": the landing at 184.21 (it was the curtain's middle, 184.26)",
+   "impact": 184.21
   }
  ],
  "noOttava": true,

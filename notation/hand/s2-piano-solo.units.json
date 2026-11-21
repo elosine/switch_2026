@@ -507,11 +507,11 @@
     "wc-2347"
    ],
    "stem": "up",
-   "flag": 16,
    "played": [
     183.803,
     183.87
-   ]
+   ],
+   "beam": "u21"
   },
   {
    "_n": "21b · 184.00 s — B4 · D5 · E5 · F5, a notated chord",
@@ -522,11 +522,11 @@
     "wc-2352"
    ],
    "stem": "up",
-   "flag": 16,
    "played": [
     183.995,
     184.015
-   ]
+   ],
+   "beam": "u21"
   },
   {
    "_n": "22a · 184.51 s — D#5 · D5 · C#5 with the two notes that follow (C5 · B4): the first of two chords beamed as a strike",

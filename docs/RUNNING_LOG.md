@@ -5197,3 +5197,14 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **A choice the AI made:** the tail is 0.15 s, not the one tail of §321 (0.30 s): at 0.30 it would run into the chord of 183.80.
 **Checked once:** the page rendered to an image, 181.0 → 185.0 s.
 **Seen, for his eye:** the two notes of 184.107 (D5 · C5) are in no gesture and stand as small heads before the pebble drop; the first two of the three strikes stand close.
+
+## §327 · 2026-11-21 · a ribbon that falls INTO a notated chord; the two chords beamed; the pebbles land at 184.21
+
+**His words:** SW-107 (the sketch pad): "the strike at 183.64. Let's make it at the strike point of 183.81, or whatever the time of that chord is, and no tail. And then can you beam the two figures? … the main sort of fall of the pebbles? They're a little late, so make them mostly down by 184.21."
+**Done:**
+- the ribbon of 182.401: its impact from 183.636 to 183.81 (the chord of 183.803 … .870, unit 21a), and it ENDS there — no tail. The width's keyframes follow: 1 at the start · 0.5 at the wave · 0.16 from 183.5 · 0.12 at the impact. The three notes of 183.633 … .639 stay hidden inside the fall.
+- units 21a · 21b on one beam (u21), the flags gone.
+- the pebble drop of 184.18 … 184.34: the landing at 184.21 (`impact`), not the curtain's middle (184.26). The curtain stays where it is.
+**A fault met and fixed:** with the ribbon's notes hidden up to 183.79, the chord's first two notes (183.803 · .810) vanished — the hiding has 20 ms of grace for his clicked times. The hiding now stops at 183.7.
+**What is new in the notation:** a ribbon's impact can BE a standard figure. Until now a ribbon replaced the notes at its impact.
+**Checked once:** the page rendered to an image, 181.0 → 185.0 s.
