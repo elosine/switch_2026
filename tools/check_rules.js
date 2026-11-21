@@ -109,7 +109,7 @@ const ens = rd('notation/registry/ensemble.json'), T = rd('notation/registry/tec
 const ENS = Layout.ensembleFor(ens, ((C || raw).realizations || {})['video-jury']);
 const irFiles = fs.readdirSync(path.join(ROOT, 'notation', 'ir')).filter(f => f.endsWith('.ir.json')).sort();
 const sigs = new Map();         // signature → first place seen
-const M10 = { flags: 0, badFlags: [], hooks: 0, badHooks: [], dots: 0, badDots: [], flagClear: ((R.objects || {}).flag || {}).staff || 0.38, flagMax: ((R.objects || {}).flag || {}).clearMaxSs || 10.5, hookGap: ((R.objects || {}).ottava || {}).stack || 0.45,
+const M10 = { words: 0, badWords: [], wordEm: (((R.objects || {}).instruction || {}).size || 0.75) * 1.3, flags: 0, badFlags: [], hooks: 0, badHooks: [], dots: 0, badDots: [], flagClear: ((R.objects || {}).flag || {}).staff || 0.38, flagMax: ((R.objects || {}).flag || {}).clearMaxSs || 10.5, hookGap: ((R.objects || {}).ottava || {}).stack || 0.45,
   dotClear: ((R.objects || {}).staccatoDot || {}).lineClearSs || 0, dotR: (((R.objects || {}).staccatoDot || {}).diameterSs || 0.4) / 2 };
 const kindsSeen = new Set();
 for (const f of irFiles) {
@@ -127,6 +127,9 @@ for (const f of irFiles) {
         const clear = down ? -2 - (it.ySs + h) : (it.ySs - h) - 2, len = st ? Math.abs(st.yB - st.yA) : 0;
         M10.flags++; if (clear < M10.flagClear - 0.01 && len + (M10.flagClear - clear) <= M10.flagMax + 0.01) M10.badFlags.push(pg + ' p' + s.part + '@' + it.t.toFixed(2) + ' ' + clear.toFixed(2)); }
       if (it.k === 'ottava' && !it.seq) { const go = its.find(x => x.k === 'goline' && Math.abs(x.t - it.t) < 1e-9); if (go) { M10.hooks++; if (-it.dx1Ss < M10.hookGap - 0.01) M10.badHooks.push(pg + ' p' + s.part + '@' + it.t.toFixed(2) + ' ' + (-it.dx1Ss).toFixed(2)); } }
+      if (it.k === 'text' && it.seq === 'techText' && typeof it.text === 'string' && it.yAt !== 'top') { const go = its.find(x => x.k === 'goline' && Math.abs(x.t - it.t) < 1e-9); if (go) {
+        const w = it.text.length * 0.5 * M10.wordEm, right = it.anchor === 'end' ? it.dxSs : it.anchor === 'middle' ? it.dxSs + w / 2 : it.dxSs + w, left = right - w;
+        M10.words++; if (right > -0.01 && left < 0.01) M10.badWords.push(pg + ' p' + s.part + '@' + it.t.toFixed(2) + ' "' + it.text + '"'); } }
       if (it.k === 'dot') { const hd = its.find(x => x.k === 'glyph' && /^notehead/.test(x.g || '') && Math.abs(x.t - it.t) < 1e-9 && Math.abs(x.dxSs - it.dxSs) < 1e-6); if (hd) {
         const lines = [-2, -1, 0, 1, 2]; for (let L = 3; L <= Math.abs(hd.ySs) + 0.01; L++) lines.push(hd.ySs > 0 ? L : -L);
         const dl = Math.min(...lines.map(L => Math.abs(it.ySs - L))) - M10.dotR; M10.dots++; if (dl < M10.dotClear - 0.02) M10.badDots.push(pg + ' p' + s.part + '@' + it.t.toFixed(2) + ' ' + dl.toFixed(2)); } }
@@ -339,5 +342,6 @@ console.log('(10) MEASURED ON EVERY PAGE — the flag · the ottava\'s hook · t
 ok(!M10.badFlags.length, '(10) every flag clears its staff\'s outer line by objects.flag.staff ' + M10.flagClear + ' ss, or its stem has reached clearMaxSs (' + M10.flags + ' flags)' + (M10.badFlags.length ? ' — not: ' + M10.badFlags.slice(0, 8).join(' · ') : ''));
 ok(!M10.badHooks.length, '(10) every ottava bracket beside a go line ends the spacer ' + M10.hookGap + ' ss or more before it — the hook is ink (' + M10.hooks + ' brackets)' + (M10.badHooks.length ? ' — not: ' + M10.badHooks.slice(0, 8).join(' · ') : ''));
 ok(!M10.badDots.length, '(10) every staccato dot keeps objects.staccatoDot.lineClearSs ' + M10.dotClear + ' ss from a line (' + M10.dots + ' dots)' + (M10.badDots.length ? ' — not: ' + M10.badDots.slice(0, 8).join(' · ') : ''));
+ok(!M10.badWords.length, '(10) no technique word stands across its own go line (' + M10.words + ' words beside a go line)' + (M10.badWords.length ? ' — across: ' + M10.badWords.slice(0, 8).join(' · ') : ''));
 console.log(failures ? 'RULES RED: ' + failures + ' of ' + checks + ' checks failed' : 'RULES GREEN: ' + checks + ' checks');
 process.exit(failures ? 1 : 0);

@@ -2615,7 +2615,17 @@
                 if (instrTxt) {
                   const yT = placeChain(instrEm);
                   const alRaw = (instrIsFirst && dev.instrFirstAlign) || dev.instrAlign;   // §401g: the first text may sit differently ('tongue ram' right, 'T. R.' centred)
-                  const al = alRaw === 'end' || alRaw === 'middle' ? alRaw : 'start';   // §401b: the composer — tongue ram right-justified (clear of the GC), (slap) / jeté centred
+                  let al = alRaw === 'end' || alRaw === 'middle' ? alRaw : 'start';   // §401b: the composer — tongue ram right-justified (clear of the GC), (slap) / jeté centred
+                  // [§379 — HIS RULE 2026-11-21: "The jet whistle is obscured by the GC. Let's figure out how to avoid those conflicts and then write
+                  // it into the standard … make sure it clears the go line … and then have some way of … standardizing that"] A WORD NEVER
+                  // STANDS ON ITS NOTE'S MOMENT (rules.json objects.instruction.goLineClearSs): (a) a unit that stands BEFORE a go line — a word
+                  // centred on the head that would come nearer the go line than that is RIGHT-JUSTIFIED on the head instead (§401b's own answer for
+                  // "tongue ram"), so it ends at the head's right edge, the unit's gap before the line; (b) a unit whose head's LEFT EDGE is the
+                  // moment (a beamed group's, D49) — the word BEGINS at that edge (Gould: a technique's word starts at its note), to the right of
+                  // the moment, where the gestural curve has already landed.
+                  { const clearG = o.instrGoLineClearSs >= 0 ? o.instrGoLineClearSs : 0.45, wT = String(instrTxt).length * 0.5 * instrEm;
+                    if (dev.nhAnchor === 'leftEdge') al = 'start';
+                    else if (dev.goLine && al === 'middle' && headDx + wT / 2 > -clearG) al = 'end'; }
                   const dxT = al === 'end' ? headDx + nhO.wSs / 2 : al === 'middle' ? headDx : headDx - nhO.wSs / 2;
                   items.push(Object.assign({ k: 'text', t: tU, dxSs: dxT, ySs: yT - instrEm / 2 + instrEm * 0.2, text: instrTxt, anchor: al, seq: 'techText' }, WORD));
                   recChrome(items[items.length - 1], chainAbove ? 'above' : 'below', instrEm * 0.8, -instrEm * 0.2);
