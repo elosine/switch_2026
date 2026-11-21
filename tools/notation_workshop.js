@@ -23,7 +23,7 @@ const DIR = path.join(ROOT, 'workshop', 'notation');
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 && process.argv[i + 1] != null ? process.argv[i + 1] : d; };
 const PORT = +(process.env.PORT || arg('port', 5650));
 const PART = +arg('part', 5);                                   // the piano's lane
-const PAGES = arg('pages', 's2-piano-solo,s2-piano-solo-played,s2-piano-solo-heads,gravity-proto,gravity-proto-strobe,gravity-proto-strip').split(',');
+const PAGES = arg('pages', 's2-piano-solo,s2-piano-solo-played,s2-piano-solo-heads,gravity-proto,gravity-proto-strobe,gravity-proto-strip,burst').split(',');
 const SRC_AUDIO = path.join(ROOT, arg('audio', 'notation/audio/piece-Section03-H-addTuplets.wav'));   // the players' render; its piano solo is the first draft's, note for note (§266)
 const A0 = +arg('a0', 146), A1 = +arg('a1', 258);               // the cut's span in score time
 const CUT = path.join(ROOT, 'notation', 'audio', 'cuts', 'workshop-piano-' + A0 + '-' + A1 + '.wav');
@@ -37,7 +37,9 @@ const WATCH = ['notation/lib/layout.js', 'notation/lib/render.js', 'notation/lib
   'notation/lib/glyphs.json', 'notation/registry/rules.json', 'notation/registry/container.json', 'notation/registry/ensemble.json', 'notation/registry/techniques.json'];
 // [§273] THE PROTOTYPE PAGE (bank/gravity_proto.json): one hand's notes of one window, read from another page's IR
 const PROTO = 'gravity-proto', protoOf = () => rd('bank/gravity_proto.json');
-const stampOf = page => WATCH.concat(page.startsWith(PROTO) ? ['bank/gravity_proto.json', 'notation/ir/' + protoOf().page + '.ir.json'] : ['notation/ir/' + page + '.ir.json']).map(f => { try { return fs.statSync(path.join(ROOT, f)).mtimeMs; } catch (e) { return 0; } }).join('|');
+// [§290] AN EXCERPT PAGE ('burst', bank/burst_proto.json): only the notes each hand plays inside its own span, both staves
+const EXCERPTS = { burst: 'bank/burst_proto.json' };
+const stampOf = page => WATCH.concat(EXCERPTS[page] ? [EXCERPTS[page], 'notation/ir/' + rd(EXCERPTS[page]).page + '.ir.json'] : page.startsWith(PROTO) ? ['bank/gravity_proto.json', 'notation/ir/' + protoOf().page + '.ir.json'] : ['notation/ir/' + page + '.ir.json']).map(f => { try { return fs.statSync(path.join(ROOT, f)).mtimeMs; } catch (e) { return 0; } }).join('|');
 const ENG = new Map();
 function engine(page) {
   if (!PAGES.includes(page)) throw new Error('no such page: ' + page);
@@ -57,6 +59,14 @@ function engine(page) {
     // [§279 — his "take out the ref noteheads"] refHeads false: the arc's own played notes are not drawn (the lead-in and lead-out notes stay)
     if (proto.refHeads === false) for (const id of [].concat(proto.in || [], proto.impact || [], proto.out || [])) keep.delete('ev-' + id);
     if (proto.leadHeads === false) keep.clear();   // [§280 — his "take out the lead in and lead out notes too"] no played note is drawn at all
+    ir.events = ir.events.filter(ev => keep.has(ev.id));
+    ir.overlays = (ir.overlays || []).filter(o => !(o.target && o.target.event) || keep.has(o.target.event));
+    ir.chunks = (ir.chunks || []).map(c => Object.assign({}, c, { events: (c.events || []).filter(id => keep.has(id)) })).filter(c => c.events.length);
+  } else if (EXCERPTS[page]) {
+    const ex = rd(EXCERPTS[page]); ir = rd('notation/ir/' + ex.page + '.ir.json');
+    const staff = new Map(); for (const o of ir.overlays || []) if (o.kind === 'engraving' && o.target && o.target.event && o.value) staff.set(o.target.event, o.value.staff || 0);
+    const inSpan = ev => { const w = ex.hands[(staff.get(ev.id) || 0) === 1 ? 'L' : 'R']; return !!w && ev.onset >= w[0] && ev.onset <= w[1]; };
+    const keep = new Set(ir.events.filter(inSpan).map(ev => ev.id));
     ir.events = ir.events.filter(ev => keep.has(ev.id));
     ir.overlays = (ir.overlays || []).filter(o => !(o.target && o.target.event) || keep.has(o.target.event));
     ir.chunks = (ir.chunks || []).map(c => Object.assign({}, c, { events: (c.events || []).filter(id => keep.has(id)) })).filter(c => c.events.length);
@@ -209,6 +219,7 @@ http.createServer((req, res) => {
     if (u.pathname === '/info') return send(res, 200, JSON.stringify({ a0: A0, a1: A1, pages: PAGES, window: engine(PAGES[0]).ir.source.window, audio: ensureCut() }));
     if (u.pathname === '/view') return send(res, 200, JSON.stringify(viewOf(q.page || PAGES[0], +q.t0, Math.max(0.5, +q.span || 6), Math.max(300, Math.round(+q.w || 1400)))));
     if (u.pathname === '/proto') return send(res, 200, JSON.stringify(protoOf()));
+    if (u.pathname === '/excerpt') return send(res, 200, JSON.stringify(EXCERPTS[q.name] ? rd(EXCERPTS[q.name]) : {}));
     if (u.pathname === '/marks') { const mf = path.join(ROOT, 'bank', 'gravity_sort.json'); return send(res, 200, fs.existsSync(mf) ? fs.readFileSync(mf) : '{"walls":[],"arcs":[]}'); }   // [§272] the gravity sorting (tools/gravity_sort.js)
     if (u.pathname === '/audio') { if (!ensureCut()) return send(res, 404, '{"error":"no audio render"}'); return sendFile(req, res, CUT, 'audio/wav'); }
     if (u.pathname.startsWith('/clips/')) return sendFile(req, res, path.join(CLIPS, path.basename(u.pathname)), 'video/mp4');

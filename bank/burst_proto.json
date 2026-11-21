@@ -1,0 +1,6 @@
+{
+ "_doc": "THE BURST, looked at alone (SW-86; RUNNING_LOG §290 — his word: 'can I just see just the burst … plain small note heads, but put them in appropriate staff'). The workshop's page 'burst' draws ONLY the notes each hand plays inside its own time span, as plain heads on that hand's staff, at their played times. page = the IR the notes are read from · hands: L / R = [from, to] in seconds · view = what the page shows.",
+ "page": "s2-piano-solo-heads",
+ "hands": { "L": [160.18, 160.56], "R": [160.39, 160.56] },
+ "view": [159.95, 160.85]
+}
