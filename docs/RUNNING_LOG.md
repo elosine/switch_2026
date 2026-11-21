@@ -5590,3 +5590,10 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **THE TIMING:** this page runs at the standard 12 seconds a page, not the piano solo's 4.8.
 **Checked once:** the page in the notation app on the AI's throwaway, zoom view at 215.6 s and 228.6 s — the clarinet's pair on one beam (stems down, the beam under), the grace note small with its stroke and slur and one curve.
 **Seen, for his eye:** in a beamed group only the FIRST note keeps a gestural curve (the engine's rule for a beamed group) · at 230.37 the grace note, its accidental and the two dynamics stand very close.
+
+## §370 · 2026-11-21 · HIS RULE: the note heads at the standard size
+
+**His words:** "Okay, let's do the [note] heads at standard size." (to §369's finding and its one question)
+**The row changed, no code:** `rules.json` objects.cueHead.size 0.844 → 1. The cue head was the lineage's small head for a short note (piece 2's cell motive; piece 4's staccato unit). In this piece a short note now has the standard head, the same size as a held note's.
+**Its reach — said plainly:** it is one number for the whole piece, not for the counterpoint's page alone. Every device that names the cue head follows: the staccato, the strike, gettato, bartók, slap and pizzicato units, and the beamed cluster (Section 3's tuplets, when they are notated). The grace note keeps its own small head (0.707). The piano solo's figures were already at full size.
+**Not checked in the running app** — the app reads the rules as it loads; his reload shows it. `docs/ENGRAVING_RULES.md` regenerated; `tools/check_rules.js` run.

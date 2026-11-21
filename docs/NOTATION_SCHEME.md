@@ -155,7 +155,7 @@ Every page of the score may say its own pace — how many seconds stand across o
 | the thing | his decision | how it is written |
 |---|---|---|
 | THE BEAMING THRESHOLD | two notes of one part no farther apart than the clarinet's pair at 217.37 → 217.70 s (0.329 s) are beamed; "for now" | `--beam t0-t1@part`, one per group (six so far) |
-| the heads | black for a short note, white for a held one — kept | the standing devices |
+| the heads | black for a short note, white for a held one — kept; ALL AT THE STANDARD SIZE (his, §370) | the standing devices; `objects.cueHead.size` 1 |
 | the gestural curves | kept, for now | the standing devices |
 | a note 0.05 s before another (the clarinet, 230.37) | a GRACE-NOTE PICKUP to it: small, with its stroke and a slur; ONE gestural curve, on the main note | `--hand wc-2742:{grace, slurTo}` · `--noGc wc-2742` |
 
