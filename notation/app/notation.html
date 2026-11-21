@@ -849,7 +849,14 @@
         endBar = '<rect x="' + (xEnd - eb.wPx).toFixed(2) + '" y="' + ys.toFixed(1) +
           '" width="' + eb.wPx + '" height="' + (ye - ys).toFixed(1) + '" fill="#111" opacity="' + (eb.opacity || 0.55) + '"/>';
       }
-      svg = svg.replace('</svg>', metaOverlaySvg(view) + endBar + '</svg>');
+      // [§361] THE PAGE'S FURNITURE (layoutPolicy.furniture — the piano solo's working version): the signs the workshop draws over the engine's
+      // page, asked of the server for this window; drawn in the frame's own coordinates and scaled with the zoom
+      let furn = '';
+      const FURN = state.ir.layoutPolicy && state.ir.layoutPolicy.furniture;
+      if (FURN) { try { const fr = await fetch('/api/notation/furniture?page=' + encodeURIComponent(FURN) + '&t0=' + view.window[0] + '&span=' + (view.window[1] - view.window[0]) + '&w=' + (W / Z)).then(r => r.json());
+        if (fr.success) { furn = '<g class="furniture"' + (Z !== 1 ? ' transform="scale(' + Z + ')"' : '') + '>' + fr.add + '</g>'; state.furniture = { Z, protos: fr.protos, strikes: fr.strikes }; } else $('err').textContent = 'furniture: ' + fr.error; } catch (e) { $('err').textContent = 'furniture: ' + String(e.message || e); } }
+      else state.furniture = null;
+      svg = svg.replace('</svg>', metaOverlaySvg(view) + furn + endBar + '</svg>');
       $('sheet').innerHTML = svg;
       // V2: the ANIMATION OVERLAY — a second SVG over the static page;
       // redrawn per frame from pure state(t), never touching the page.
@@ -1159,6 +1166,37 @@
   // point V4's exporter steps through (t = k/fps) — and it lets the frame
   // path be verified without a compositing display (rAF never fires in a
   // hidden tab; found during V2 verification).
+  // [§362 — the second part of his "implement … the piano solo into the real score"] THE FURNITURE'S MOTION, from the workshop's own page
+  // (workshop/notation/index.html — the same curves, so the two never differ): THE BALL on every ribbon — the gestural curve's fall into the
+  // impact and its rebound, or a wave's cosine; its radius the larger of the GC's own and the ribbon's half width where it rides — and THE
+  // PEBBLES of every pebble drop: each a thrown parabola landing about the impact, one small bounce, then still. The server gives both in
+  // the frame's own coordinates (state.furniture); the zoom scales them.
+  function furnitureFrameSvg(view, t) {
+    const F = state.furniture; if (!F || !((F.protos && F.protos.length) || (F.strikes && F.strikes.length))) return '';
+    const Z = F.Z || 1, cl = u => Math.max(0, Math.min(1, u)), out = [];
+    for (const K of F.strikes || []) { const e = K.bounce;
+      for (const p of K.rocks) {
+        const tl = p.tl != null ? p.tl : K.impact - K.flightS + p.dly, u = (t - tl) / p.T, yl = p.yl || 0; let x, y, air;
+        if (u < 0) { x = p.xh; y = K.floor - p.yh; air = 0; }
+        else if (u <= 1) { x = p.xh + (p.xl - p.xh) * u; y = K.floor - yl - p.H * 4 * u * (1 - u); air = t - tl; }
+        else { const tb = t - tl - p.T, Tb = p.T * e, ub = tb / Tb, dx = (p.xl - p.xh) * e * 0.5;
+          if (ub < 1) { x = p.xl + dx * ub; y = K.floor - yl - p.H * e * e * 4 * ub * (1 - ub); air = p.T + tb; } else { x = p.xl + dx; y = K.floor - yl; air = p.T + Tb; } }
+        const c = 'rgb(' + p.gray + ',' + p.gray + ',' + p.gray + ')';
+        out.push('<path d="' + p.d + '" transform="translate(' + x.toFixed(1) + ' ' + (y - p.r * 0.6).toFixed(1) + ') rotate(' + (p.spin * air).toFixed(0) + ')" ' + (K.stroked ? 'fill="none" stroke="' + c + '" stroke-width="0.6"' : 'fill="' + c + '"') + '/>');
+      } }
+    for (const p of F.protos || []) { const a = p.arc; if (t < a.t0 || t > a.t1 || !p.arcY) continue;
+      const pr = p.preset, dp = 1 + (pr.ictus / 1000) * 20, ap = 1 + pr.stiffness / 50, rb = pr.damping / 100; let fr;
+      if (p.wave) { const wkA = [].concat(p.sharp || 1), shpK = (h, wk) => wk === 1 ? h : Math.pow(h, wk) / (Math.pow(h, wk) + Math.pow(1 - h, wk));
+        if (t <= a.bounce) { const d = a.bounce - a.t0; fr = shpK((1 + Math.cos(Math.PI * cl(d > 0 ? (t - a.t0) / d : 1))) / 2, wkA[0]); }
+        else { const d2 = a.t1 - a.bounce; fr = rb * shpK((1 - Math.cos(Math.PI * cl(d2 > 0 ? (t - a.bounce) / d2 : 1))) / 2, wkA[wkA.length - 1]); } }
+      else if (t <= a.bounce) { const d = a.bounce - a.t0; fr = 1 - Math.pow(cl(d > 0 ? (t - a.t0) / d : 1), dp); }
+      else { const d = a.t1 - a.bounce; fr = rb * (1 - Math.pow(1 - cl(d > 0 ? (t - a.bounce) / d : 1), ap)); }
+      let r = p.look.ballRadiusPx; const rbn = p.ribbon;
+      if (rbn && rbn.length) { let h = rbn[rbn.length - 1][1]; for (let i = 1; i < rbn.length; i++) if (t <= rbn[i][0]) { const q0 = rbn[i - 1], q1 = rbn[i], u2 = q1[0] > q0[0] ? (t - q0[0]) / (q1[0] - q0[0]) : 0; h = q0[1] + (q1[1] - q0[1]) * cl(u2); break; }
+        r = Math.max(r, ((p.flow && p.flow.ballOverRibbon) || 1.35) * h + 2); }
+      out.push('<circle cx="' + (view.xOfSeconds(t) / Z).toFixed(1) + '" cy="' + (p.arcY.imp - fr * (p.arcY.imp - p.arcY.apex)).toFixed(1) + '" r="' + r.toFixed(1) + '" fill="' + p.look.color + '" stroke="#fff" stroke-width="1.6"/>'); }
+    return '<g class="furniture-motion"' + (Z !== 1 ? ' transform="scale(' + Z + ')"' : '') + '>' + out.join('') + '</g>';
+  }
   function drawOverlayFrame(tArg) {
     const vv = $('view').value;
     if (vv !== 'video' && vv !== 'zoom') return null;
@@ -1189,7 +1227,7 @@
       let svg = NotationAnimObj.frameSvg(on, view, t, state.animStyle, AE ? { edge: AE } : undefined);
       if (state.animOff && state.animOff.length)
         svg += '<g opacity="0.3">' + NotationAnimObj.frameSvg(state.animOff, view, t, state.animStyle, { cursor: false, edge: AE }) + '</g>';
-      ov.innerHTML = svg;
+      ov.innerHTML = svg + furnitureFrameSvg(view, t);
     }
     return { turned: false, t, window: [w0, w1] };
   }

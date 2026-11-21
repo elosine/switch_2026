@@ -1208,6 +1208,19 @@ const server = http.createServer((req, res) => {
 
     // notation workflow: list available audio renders (notation/audio/) so
     // the page can offer one-click attach without a HEAD-probe dance
+    // [the Switch~ piece RUNNING_LOG §361 — his "let's go ahead and implement … the piano solo into the real score"] THE WORKING VERSION'S SIGNS
+    // FOR A PAGE OF THE NOTATION APP: the ribbons, curtains, repeats, chord symbols, the dynamic, hairpin and slur of bank/piano_solo_work.json,
+    // drawn by the workshop's own code (tools/notation_workshop.js) for the window the app shows — t0, span, and w = the frame's width
+    // divided by the zoom, so the app scales the answer by the zoom. The page that wants them says so: layoutPolicy.furniture.
+    if (req.method === 'GET' && url === '/api/notation/furniture') {
+        try {
+            const q = new URL(req.url, 'http://localhost').searchParams;
+            if (q.get('page') !== 'work') return R.status(400).json({ success: false, error: 'no furniture named ' + q.get('page') });
+            const v = require('../tools/notation_workshop.js').viewOf('work', +q.get('t0'), +q.get('span'), +q.get('w'), { real: true });
+            const clip = '<defs><clipPath id="wkclip"><rect x="' + (v.x0 - 2).toFixed(1) + '" y="0" width="' + (v.w - v.x0 + 2).toFixed(1) + '" height="4000"/></clipPath></defs>';
+            return R.json({ success: true, add: clip + (v.adds || []).map(a => '<g clip-path="url(#wkclip)">' + a + '</g>').join(''), protos: v.protos || [], strikes: v.strikes || [] });
+        } catch (e) { return R.status(500).json({ success: false, error: String(e.message || e) }); }
+    }
     if (req.method === 'GET' && url === '/api/notation/renders') {
         const dir = path.join(__dirname, '..', 'notation', 'audio');
         let files = [];

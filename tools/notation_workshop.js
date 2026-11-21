@@ -177,11 +177,15 @@ function viewOf(page, t0, span, w, opts) {
   // [§296] THE SCATTERED STRIKE's CURTAIN (the page 'burst'): a transparent block over the stretch where the strike's notes fall, at least
   // minSs wide, over the whole grand staff; the pebbles that rise and drop in it are the page's animation — their places are given here
   let strike;
+  // [§361 — his "let's push it to the notation score"] adds: every piece the working version draws OVER the engine's page, in order — what the real
+  // score takes (opts.real: nothing that hides the other parts is drawn)
+  let adds = null;
   const strikeOf = (a, b, K0) => { if (!staves.length) return null;   // [§297] also on the prototype page: the curtain over its third part, the burst's notes
     const K = Object.assign({ minSs: 6, padSs: 0.8, overSs: 3, pebbles: 11, prepS: 0.605, fallS: 0.38 }, K0 || {});
     const pps = (view.xOfSeconds(t0 + span) - x0) / span, xOf = s => x0 + (s - t0) * pps, ss = (staves[0][1] - staves[0][0]) / 4;
     const xa = xOf(a) - K.padSs * ss, xb = Math.max(xa + 2 * ss, Math.min(K.maxX != null ? K.maxX : Infinity, Math.max(xOf(b) + (K.padSs + 1.1) * ss, xa + K.minSs * ss)))   /* [§309] maxX: never past what follows it */, yT = staves[0][0] - K.overSs * ss, yB = staves[staves.length - 1][1] + K.overSs * ss;
-    svg = svg.replace(/<\/svg>\s*$/, '<rect x="' + xa.toFixed(1) + '" y="' + yT.toFixed(1) + '" width="' + (xb - xa).toFixed(1) + '" height="' + (yB - yT).toFixed(1) + '" fill="' + (K.fill || '#5b7fa6') + '" fill-opacity="' + (K.opacity != null ? K.opacity : 0.13) + '" stroke="' + (K.fill || '#5b7fa6') + '" stroke-opacity="0.45" stroke-width="0.6"/></svg>');
+    { const cur = '<rect x="' + xa.toFixed(1) + '" y="' + yT.toFixed(1) + '" width="' + (xb - xa).toFixed(1) + '" height="' + (yB - yT).toFixed(1) + '" fill="' + (K.fill || '#5b7fa6') + '" fill-opacity="' + (K.opacity != null ? K.opacity : 0.13) + '" stroke="' + (K.fill || '#5b7fa6') + '" stroke-opacity="0.45" stroke-width="0.6"/>';
+      svg = svg.replace(/<\/svg>\s*$/, cur + '</svg>'); if (adds) adds.push(cur); }
     // [§299 — HIS WORD: "nail the physics of exactly as I described, throwing a handful of pebbles into the air … they sort of hang … there's a
     // clear impact point, but it'll be a little bit scattered"] THE THROW IS A REAL ONE: each pebble flies a PARABOLA (what gravity alone
     // gives a thrown thing: height = H · 4u(1 − u) over its flight) — fast off the hand, slowing to a hang at the top, falling faster and
@@ -225,14 +229,15 @@ function viewOf(page, t0, span, w, opts) {
     const WK = e.work, cfg = WK.cfg, pps = (view.xOfSeconds(t0 + span) - x0) / span, xOf = s => x0 + (s - t0) * pps;
     // [§309 — his "give me more room … maybe all the way to what would have been the next staff up"] onlyPiano: the other parts' staves are not
     // drawn, so the picture may reach up into the space of the staff above (cfg.band)
-    if (cfg.onlyPiano) svg = svg.replace(/<\/svg>\s*$/, () => '<rect x="0" y="' + cfg.band[0] + '" width="' + (x0 - 3).toFixed(1) + '" height="' + (staves[0][0] - 3 * (staves[0][1] - staves[0][0]) / 4 - cfg.band[0]).toFixed(1) + '" fill="#fff"/></svg>');   // the brace of the part above, left of the music
-    if (cfg.onlyPiano) svg = svg.replace(/(<svg[^>]*>)/, (m0) => m0 + '<style>' + [0,1, 2, 3, 4, 6, 7, 8, 9, 10, 11].filter(p => p !== PART).map(p => '.sys-p' + p).join(',') + '{display:none}</style>');
+    if (cfg.onlyPiano && !opts.real) svg = svg.replace(/<\/svg>\s*$/, () => '<rect x="0" y="' + cfg.band[0] + '" width="' + (x0 - 3).toFixed(1) + '" height="' + (staves[0][0] - 3 * (staves[0][1] - staves[0][0]) / 4 - cfg.band[0]).toFixed(1) + '" fill="#fff"/></svg>');   // the brace of the part above, left of the music
+    if (cfg.onlyPiano && !opts.real) svg = svg.replace(/(<svg[^>]*>)/, (m0) => m0 + '<style>' + [0,1, 2, 3, 4, 6, 7, 8, 9, 10, 11].filter(p => p !== PART).map(p => '.sys-p' + p).join(',') + '{display:none}</style>');
     delete require.cache[require.resolve('./gravity_furniture.js')]; delete require.cache[require.resolve('./chord_changes.js')];
     const CC = require('./chord_changes.js'), FUR = require('./gravity_furniture.js'), preset = (e.C.animated && e.C.animated.gc && e.C.animated.gc.preset) || e.Gc.DEFAULT_PRESET, look = e.Gc.LOOK;
     // a gesture that began before the page's left edge is cut at the music's start, as the staff's own notes are (not drawn over the clef)
     svg = svg.replace(/<\/svg>\s*$/, () => '<defs><clipPath id="wkclip"><rect x="' + (x0 - 2).toFixed(1) + '" y="0" width="' + (w - x0 + 2).toFixed(1) + '" height="2000"/></clipPath></defs></svg>');
-    const flush = add => { svg = svg.replace(/<\/svg>\s*$/, () => '<g clip-path="url(#wkclip)">' + add + '</g></svg>'); };
-    if (cfg.coverFrom != null) flush('<rect x="0" y="' + cfg.coverFrom + '" width="' + w + '" height="' + (cfg.band[0] + cfg.band[1] - cfg.coverFrom) + '" fill="#fff"/>');
+    adds = [];
+    const flush = add => { adds.push(add); svg = svg.replace(/<\/svg>\s*$/, () => '<g clip-path="url(#wkclip)">' + add + '</g></svg>'); };
+    if (cfg.coverFrom != null && !opts.real) flush('<rect x="0" y="' + cfg.coverFrom + '" width="' + w + '" height="' + (cfg.band[0] + cfg.band[1] - cfg.coverFrom) + '" fill="#fff"/>');
     const sets = {}, sym = { R: [], L: [] }; for (const h of ['R', 'L']) sets[h] = CC.persistent(WK.hands[h], WK.sets).filter(s => !s.brief);
     for (const g of cfg.gestures) {
       // a gesture wholly off the page is not drawn (the film's rasterizer fails on a clipped group with nothing left in it — §313)
@@ -374,7 +379,7 @@ function viewOf(page, t0, span, w, opts) {
     band = [e.band[0], e.band[1] + f.extraH]; protoOut.shapes = f.shapes; protoOut.flags = f.flags; protoOut.arcY = f.arcY; protoOut.ribbon = f.ribbon;
   }
   svg = svg.replace(/^<svg([^>]*?) width="[\d.]+" height="[\d.]+" viewBox="[^"]*"/, '<svg$1 viewBox="0 ' + band[0] + ' ' + w + ' ' + band[1] + '" preserveAspectRatio="xMinYMin meet"');
-  return { svg, staves, x0, pps: (view.xOfSeconds(t0 + span) - x0) / span, band, proto: protoOut, protos: protos.length ? protos : undefined, strikes: strikes.length ? strikes : undefined, chords: chordsOut, strike, w, window: [t0, t0 + span], srcWindow: e.ir.source.window };
+  return { adds: adds || undefined, svg, staves, x0, pps: (view.xOfSeconds(t0 + span) - x0) / span, band, proto: protoOut, protos: protos.length ? protos : undefined, strikes: strikes.length ? strikes : undefined, chords: chordsOut, strike, w, window: [t0, t0 + span], srcWindow: e.ir.source.window };
 }
 
 // ---------------------------------------------------------------- the sound: one cut, made once
@@ -469,7 +474,8 @@ async function makeClip(q) {
 }
 
 // ---------------------------------------------------------------- the server
-http.createServer((req, res) => {
+// [§361] required as a module (the score server's /api/notation/furniture · tools/solo_to_score.js) it starts no server of its own
+const serverOf = () => http.createServer((req, res) => {
   const u = new URL(req.url, 'http://localhost'), q = Object.fromEntries(u.searchParams);
   try {
     if (u.pathname === '/' || u.pathname === '/index.html') return send(res, 200, fs.readFileSync(path.join(DIR, 'index.html')), 'text/html; charset=utf-8');
@@ -490,3 +496,5 @@ http.createServer((req, res) => {
     send(res, 404, '{"error":"not found"}');
   } catch (e) { send(res, 500, JSON.stringify({ error: String(e.message || e) })); }
 }).listen(PORT, () => console.log('the notation workshop → http://localhost:' + PORT + '/'));
+if (require.main === module) serverOf();
+module.exports = { viewOf, engine };

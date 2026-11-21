@@ -130,6 +130,8 @@ Built by `node tools/notate_section.js … --glissGestures all`. The crotales' d
 - Room on one side only, or on neither: NO RULE YET — put it to him when a figure meets it.
 - Figure 6 is the first case: room both sides; the high C (on ledger lines) between the two chords. Its hand `at` goes when the rule is built.
 
+**IN THE REAL SCORE (§361 · §362):** the page `s2-piano-solo-final` of the notation app. Its standard figures are a page like any other (written by `node tools/solo_to_score.js` from the working version: the replaced notes left out, `layoutPolicy.noOttava`); the signs of the other kinds and their motion are the workshop's own drawing, asked of the score server for each window (`layoutPolicy.furniture: "work"` → `/api/notation/furniture`). So the workshop stays the ONE place the kinds are drawn, and the score shows exactly what it shows. Video and zoom views; print and the exported film are not built.
+
 ## 2b · Section 2 — the counterpoint (200 → 253 s) — OPENED 2026-11-21 (§360)
 
 **The page:** `s2-ctpt-heads` (in the notation app's picker: "Section 2 - the counterpoint, 200 to 253 s: note heads at their played times"). Seven parts — flute · clarinet · alto sax · percussion · vibraphone · piano · violin; the cello rests. 296 notes. Every note is a head AT THE TIME IT IS PLAYED (`--timeSpacing`, `--alone 199-254`: no pulse is read into it), with its accidental. What the standing rules already draw for a technique (a gestural curve on a staccato, a duration bar, a technique's word) is left in, at his word. NOTHING IS DECIDED HERE YET: the rhythm first (his), then the articulations.

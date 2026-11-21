@@ -76,6 +76,12 @@
       "above"
      ]
     },
+    "noOttava": {
+     "type": "boolean"
+    },
+    "furniture": {
+     "type": "string"
+    },
     "fitMark": {
      "type": "boolean"
     },

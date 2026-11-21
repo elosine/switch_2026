@@ -1,0 +1,7514 @@
+{
+ "irVersion": "0.1",
+ "id": "s2-piano-solo-final",
+ "source": {
+  "score": "piece-FirstDraft-Final-B-noFadeAt96",
+  "window": [
+   146,
+   199
+  ],
+  "parts": [
+   5
+  ]
+ },
+ "provenance": {
+  "createdBy": "tools/notate_section.js (profile trance)",
+  "date": "2026-11-21",
+  "tool": "tools/notate_section.js (profile trance)",
+  "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only.",
+  "build": "tools/solo_to_score.js — from the workshop's working version (bank/piano_solo_work.json over s2-piano-solo); not a notate_section build, so the app's refresh leaves it alone"
+ },
+ "events": [
+  {
+   "id": "ev-wc-1678",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1678"
+   },
+   "onset": 148.204,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 75,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 99
+  },
+  {
+   "id": "ev-wc-1679",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1679"
+   },
+   "onset": 148.228,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 69,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 107
+  },
+  {
+   "id": "ev-wc-1681",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1681"
+   },
+   "onset": 148.23,
+   "duration": 0.06499999999999773,
+   "pitch": {
+    "midi": 71,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 114
+  },
+  {
+   "id": "ev-wc-1680",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1680"
+   },
+   "onset": 148.233,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 70,
+    "spelled": {
+     "step": "A",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 122
+  },
+  {
+   "id": "ev-wc-1682",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1682"
+   },
+   "onset": 148.613,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 83,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 119
+  },
+  {
+   "id": "ev-wc-1684",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1684"
+   },
+   "onset": 148.708,
+   "duration": 0.10900000000000887,
+   "pitch": {
+    "midi": 64,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 103
+  },
+  {
+   "id": "ev-wc-1683",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1683"
+   },
+   "onset": 148.714,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 69,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 85
+  },
+  {
+   "id": "ev-wc-1687",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1687"
+   },
+   "onset": 149.089,
+   "duration": 0.056000000000011596,
+   "pitch": {
+    "midi": 69,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 110
+  },
+  {
+   "id": "ev-wc-1685",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1685"
+   },
+   "onset": 149.091,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 78,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 97
+  },
+  {
+   "id": "ev-wc-1686",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1686"
+   },
+   "onset": 149.092,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 77,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 127
+  },
+  {
+   "id": "ev-wc-1688",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1688"
+   },
+   "onset": 149.095,
+   "duration": 0.33199999999999363,
+   "pitch": {
+    "midi": 67,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 101
+  },
+  {
+   "id": "ev-wc-1691",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1691"
+   },
+   "onset": 149.982,
+   "duration": 0.06399999999999295,
+   "pitch": {
+    "midi": 79,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 123
+  },
+  {
+   "id": "ev-wc-1690",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1690"
+   },
+   "onset": 149.99,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 82,
+    "spelled": {
+     "step": "A",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 122
+  },
+  {
+   "id": "ev-wc-1689",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1689"
+   },
+   "onset": 149.999,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 78,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 97
+  },
+  {
+   "id": "ev-wc-1694",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1694"
+   },
+   "onset": 151.038,
+   "duration": 0.0549999999999784,
+   "pitch": {
+    "midi": 78,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 111
+  },
+  {
+   "id": "ev-wc-1695",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1695"
+   },
+   "onset": 151.04,
+   "duration": 0.060000000000002274,
+   "pitch": {
+    "midi": 79,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 107
+  },
+  {
+   "id": "ev-wc-1692",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1692"
+   },
+   "onset": 151.044,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 81,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 114
+  },
+  {
+   "id": "ev-wc-1693",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1693"
+   },
+   "onset": 151.056,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 74,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 125
+  },
+  {
+   "id": "ev-wc-1696",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1696"
+   },
+   "onset": 151.057,
+   "duration": 0.06700000000000728,
+   "pitch": {
+    "midi": 72,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 127
+  },
+  {
+   "id": "ev-wc-1697",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1697"
+   },
+   "onset": 151.166,
+   "duration": 0.21700000000001296,
+   "pitch": {
+    "midi": 72,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 74
+  },
+  {
+   "id": "ev-wc-1716",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1716"
+   },
+   "onset": 152.537,
+   "duration": 0.11299999999999955,
+   "pitch": {
+    "midi": 79,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 66
+  },
+  {
+   "id": "ev-wc-1717",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1717"
+   },
+   "onset": 152.651,
+   "duration": 0.05099999999998772,
+   "pitch": {
+    "midi": 63,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 109
+  },
+  {
+   "id": "ev-wc-1718",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1718"
+   },
+   "onset": 152.731,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 78,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 100
+  },
+  {
+   "id": "ev-wc-1766",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1766"
+   },
+   "onset": 155.646,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 81,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 125
+  },
+  {
+   "id": "ev-wc-1765",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1765"
+   },
+   "onset": 155.65,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 83,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 123
+  },
+  {
+   "id": "ev-wc-1767",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1767"
+   },
+   "onset": 155.661,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 84,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 127
+  },
+  {
+   "id": "ev-wc-1771",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1771"
+   },
+   "onset": 155.663,
+   "duration": 0.06699999999997885,
+   "pitch": {
+    "midi": 86,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 127
+  },
+  {
+   "id": "ev-wc-1770",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1770"
+   },
+   "onset": 155.666,
+   "duration": 0.054000000000002046,
+   "pitch": {
+    "midi": 89,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 127
+  },
+  {
+   "id": "ev-wc-1768",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1768"
+   },
+   "onset": 155.681,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 72,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 62
+  },
+  {
+   "id": "ev-wc-1774",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1774"
+   },
+   "onset": 155.688,
+   "duration": 0.07099999999999795,
+   "pitch": {
+    "midi": 66,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 111
+  },
+  {
+   "id": "ev-wc-1773",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1773"
+   },
+   "onset": 155.69,
+   "duration": 0.06399999999999295,
+   "pitch": {
+    "midi": 69,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 123
+  },
+  {
+   "id": "ev-wc-1772",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1772"
+   },
+   "onset": 155.692,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 71,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 123
+  },
+  {
+   "id": "ev-wc-1769",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1769"
+   },
+   "onset": 155.695,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 68,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 95
+  },
+  {
+   "id": "ev-wc-1777",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1777"
+   },
+   "onset": 156.409,
+   "duration": 0.11600000000001387,
+   "pitch": {
+    "midi": 55,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 3
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 112
+  },
+  {
+   "id": "ev-wc-1776",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1776"
+   },
+   "onset": 156.447,
+   "duration": 0.0589999999999975,
+   "pitch": {
+    "midi": 81,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 94
+  },
+  {
+   "id": "ev-wc-1775",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1775"
+   },
+   "onset": 156.46,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 88,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 108
+  },
+  {
+   "id": "ev-wc-1778",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1778"
+   },
+   "onset": 156.471,
+   "duration": 0.055999999999983174,
+   "pitch": {
+    "midi": 64,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 83
+  },
+  {
+   "id": "ev-wc-1779",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1779"
+   },
+   "onset": 156.471,
+   "duration": 0.1529999999999916,
+   "pitch": {
+    "midi": 62,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 81
+  },
+  {
+   "id": "ev-wc-1917",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1917"
+   },
+   "onset": 164.34,
+   "duration": 0.05500000000000682,
+   "pitch": {
+    "midi": 88,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 114
+  },
+  {
+   "id": "ev-wc-1923",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1923"
+   },
+   "onset": 164.353,
+   "duration": 0.07699999999999818,
+   "pitch": {
+    "midi": 67,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 127
+  },
+  {
+   "id": "ev-wc-1916",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1916"
+   },
+   "onset": 164.354,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 90,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 102
+  },
+  {
+   "id": "ev-wc-1918",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1918"
+   },
+   "onset": 164.354,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 95,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 123
+  },
+  {
+   "id": "ev-wc-1922",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1922"
+   },
+   "onset": 164.355,
+   "duration": 0.07400000000001228,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 98
+  },
+  {
+   "id": "ev-wc-1919",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1919"
+   },
+   "onset": 164.356,
+   "duration": 0.05700000000001637,
+   "pitch": {
+    "midi": 93,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 123
+  },
+  {
+   "id": "ev-wc-1915",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1915"
+   },
+   "onset": 164.359,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 92,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 94
+  },
+  {
+   "id": "ev-wc-1921",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1921"
+   },
+   "onset": 164.363,
+   "duration": 0.06499999999999773,
+   "pitch": {
+    "midi": 91,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 112
+  },
+  {
+   "id": "ev-wc-1920",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-1920"
+   },
+   "onset": 164.38,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 66,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 109
+  },
+  {
+   "id": "ev-wc-2087",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2087"
+   },
+   "onset": 169.752,
+   "duration": 0.0519999999999925,
+   "pitch": {
+    "midi": 82,
+    "spelled": {
+     "step": "A",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 100
+  },
+  {
+   "id": "ev-wc-2088",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2088"
+   },
+   "onset": 169.752,
+   "duration": 0.08400000000000318,
+   "pitch": {
+    "midi": 81,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 121
+  },
+  {
+   "id": "ev-wc-2086",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2086"
+   },
+   "onset": 169.757,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 83,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 101
+  },
+  {
+   "id": "ev-wc-2091",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2091"
+   },
+   "onset": 169.93,
+   "duration": 0.08599999999998431,
+   "pitch": {
+    "midi": 67,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 127
+  },
+  {
+   "id": "ev-wc-2092",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2092"
+   },
+   "onset": 169.935,
+   "duration": 0.08699999999998909,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 127
+  },
+  {
+   "id": "ev-wc-2090",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2090"
+   },
+   "onset": 169.94,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 66,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 114
+  },
+  {
+   "id": "ev-wc-2089",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2089"
+   },
+   "onset": 169.947,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 63,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 104
+  },
+  {
+   "id": "ev-wc-2150",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2150"
+   },
+   "onset": 173.694,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 78,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 114
+  },
+  {
+   "id": "ev-wc-2151",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2151"
+   },
+   "onset": 173.696,
+   "duration": 0.056000000000011596,
+   "pitch": {
+    "midi": 79,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 121
+  },
+  {
+   "id": "ev-wc-2149",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2149"
+   },
+   "onset": 173.702,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 80,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 99
+  },
+  {
+   "id": "ev-wc-2154",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2154"
+   },
+   "onset": 173.73,
+   "duration": 0.14799999999999613,
+   "pitch": {
+    "midi": 69,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 117
+  },
+  {
+   "id": "ev-wc-2153",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2153"
+   },
+   "onset": 173.732,
+   "duration": 0.13599999999999568,
+   "pitch": {
+    "midi": 67,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 123
+  },
+  {
+   "id": "ev-wc-2152",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2152"
+   },
+   "onset": 173.735,
+   "duration": 0.10199999999997544,
+   "pitch": {
+    "midi": 68,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 114
+  },
+  {
+   "id": "ev-wc-2157",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2157"
+   },
+   "onset": 173.848,
+   "duration": 0.1629999999999825,
+   "pitch": {
+    "midi": 74,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 44
+  },
+  {
+   "id": "ev-wc-2155",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2155"
+   },
+   "onset": 173.877,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 66,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 80
+  },
+  {
+   "id": "ev-wc-2156",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2156"
+   },
+   "onset": 173.902,
+   "duration": 0.06900000000001683,
+   "pitch": {
+    "midi": 71,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 65
+  },
+  {
+   "id": "ev-wc-2158",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2158"
+   },
+   "onset": 173.95,
+   "duration": 0.14700000000001978,
+   "pitch": {
+    "midi": 79,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 72
+  },
+  {
+   "id": "ev-wc-2159",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2159"
+   },
+   "onset": 174.096,
+   "duration": 0.06499999999999773,
+   "pitch": {
+    "midi": 77,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 88
+  },
+  {
+   "id": "ev-wc-2237",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2237"
+   },
+   "onset": 178.808,
+   "duration": 0.07400000000001228,
+   "pitch": {
+    "midi": 75,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 111
+  },
+  {
+   "id": "ev-wc-2236",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2236"
+   },
+   "onset": 178.811,
+   "duration": 0.06799999999998363,
+   "pitch": {
+    "midi": 77,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 107
+  },
+  {
+   "id": "ev-wc-2238",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2238"
+   },
+   "onset": 178.836,
+   "duration": 0.08199999999999363,
+   "pitch": {
+    "midi": 69,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 119
+  },
+  {
+   "id": "ev-wc-2235",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2235"
+   },
+   "onset": 178.837,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 70,
+    "spelled": {
+     "step": "A",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 122
+  },
+  {
+   "id": "ev-wc-2239",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2239"
+   },
+   "onset": 178.842,
+   "duration": 0.1799999999999784,
+   "pitch": {
+    "midi": 67,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 112
+  },
+  {
+   "id": "ev-wc-2283",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2283"
+   },
+   "onset": 180.722,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 83,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 103
+  },
+  {
+   "id": "ev-wc-2285",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2285"
+   },
+   "onset": 180.722,
+   "duration": 0.05099999999998772,
+   "pitch": {
+    "midi": 82,
+    "spelled": {
+     "step": "A",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 111
+  },
+  {
+   "id": "ev-wc-2284",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2284"
+   },
+   "onset": 180.724,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 84,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 110
+  },
+  {
+   "id": "ev-wc-2286",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2286"
+   },
+   "onset": 180.731,
+   "duration": 0.05500000000000682,
+   "pitch": {
+    "midi": 72,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 121
+  },
+  {
+   "id": "ev-wc-2282",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2282"
+   },
+   "onset": 180.737,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 91,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 114
+  },
+  {
+   "id": "ev-wc-2287",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2287"
+   },
+   "onset": 180.739,
+   "duration": 0.06499999999999773,
+   "pitch": {
+    "midi": 76,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 127
+  },
+  {
+   "id": "ev-wc-2280",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2280"
+   },
+   "onset": 180.742,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 75,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 93
+  },
+  {
+   "id": "ev-wc-2281",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2281"
+   },
+   "onset": 180.744,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 73,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 109
+  },
+  {
+   "id": "ev-wc-2288",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2288"
+   },
+   "onset": 181.386,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 79,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 99
+  },
+  {
+   "id": "ev-wc-2290",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2290"
+   },
+   "onset": 181.39,
+   "duration": 0.07100000000002638,
+   "pitch": {
+    "midi": 77,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 63
+  },
+  {
+   "id": "ev-wc-2289",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2289"
+   },
+   "onset": 181.442,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 78,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 67
+  },
+  {
+   "id": "ev-wc-2291",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2291"
+   },
+   "onset": 181.497,
+   "duration": 0.06799999999998363,
+   "pitch": {
+    "midi": 75,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 52
+  },
+  {
+   "id": "ev-wc-2305",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2305"
+   },
+   "onset": 182.086,
+   "duration": 0.0689999999999884,
+   "pitch": {
+    "midi": 84,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 98
+  },
+  {
+   "id": "ev-wc-2303",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2303"
+   },
+   "onset": 182.088,
+   "duration": 0.05500000000000682,
+   "pitch": {
+    "midi": 83,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 96
+  },
+  {
+   "id": "ev-wc-2302",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2302"
+   },
+   "onset": 182.094,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 82,
+    "spelled": {
+     "step": "A",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 102
+  },
+  {
+   "id": "ev-wc-2304",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2304"
+   },
+   "onset": 182.102,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 80,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 106
+  },
+  {
+   "id": "ev-wc-2306",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2306"
+   },
+   "onset": 182.11,
+   "duration": 0.06099999999997863,
+   "pitch": {
+    "midi": 79,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 84
+  },
+  {
+   "id": "ev-wc-2307",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2307"
+   },
+   "onset": 182.207,
+   "duration": 0.06200000000001182,
+   "pitch": {
+    "midi": 80,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 102
+  },
+  {
+   "id": "ev-wc-2309",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2309"
+   },
+   "onset": 182.219,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 86,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 110
+  },
+  {
+   "id": "ev-wc-2311",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2311"
+   },
+   "onset": 182.219,
+   "duration": 0.10400000000001342,
+   "pitch": {
+    "midi": 91,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 112
+  },
+  {
+   "id": "ev-wc-2308",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2308"
+   },
+   "onset": 182.222,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 93,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 114
+  },
+  {
+   "id": "ev-wc-2310",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2310"
+   },
+   "onset": 182.232,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 84,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 84
+  },
+  {
+   "id": "ev-wc-2312",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2312"
+   },
+   "onset": 182.327,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 78,
+    "spelled": {
+     "step": "F",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 57
+  },
+  {
+   "id": "ev-wc-2316",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2316"
+   },
+   "onset": 182.345,
+   "duration": 0.12600000000000477,
+   "pitch": {
+    "midi": 81,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 77
+  },
+  {
+   "id": "ev-wc-2342",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2342"
+   },
+   "onset": 183.803,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 84,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 119
+  },
+  {
+   "id": "ev-wc-2343",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2343"
+   },
+   "onset": 183.81,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 83,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 123
+  },
+  {
+   "id": "ev-wc-2344",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2344"
+   },
+   "onset": 183.817,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 81,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 114
+  },
+  {
+   "id": "ev-wc-2345",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2345"
+   },
+   "onset": 183.826,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 79,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 121
+  },
+  {
+   "id": "ev-wc-2346",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2346"
+   },
+   "onset": 183.842,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 77,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 103
+  },
+  {
+   "id": "ev-wc-2348",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2348"
+   },
+   "onset": 183.85,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 91,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 127
+  },
+  {
+   "id": "ev-wc-2347",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2347"
+   },
+   "onset": 183.87,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 76,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 105
+  },
+  {
+   "id": "ev-wc-2349",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2349"
+   },
+   "onset": 183.995,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 71,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 112
+  },
+  {
+   "id": "ev-wc-2350",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2350"
+   },
+   "onset": 184,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 74,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 105
+  },
+  {
+   "id": "ev-wc-2351",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2351"
+   },
+   "onset": 184.007,
+   "duration": 0.054000000000002046,
+   "pitch": {
+    "midi": 77,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 127
+  },
+  {
+   "id": "ev-wc-2352",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2352"
+   },
+   "onset": 184.015,
+   "duration": 0.08500000000000796,
+   "pitch": {
+    "midi": 76,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 119
+  },
+  {
+   "id": "ev-wc-2357",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2357"
+   },
+   "onset": 184.504,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 75,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 126
+  },
+  {
+   "id": "ev-wc-2359",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2359"
+   },
+   "onset": 184.511,
+   "duration": 0.056000000000011596,
+   "pitch": {
+    "midi": 74,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 127
+  },
+  {
+   "id": "ev-wc-2358",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2358"
+   },
+   "onset": 184.516,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 73,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 114
+  },
+  {
+   "id": "ev-wc-2360",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2360"
+   },
+   "onset": 184.563,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 72,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 91
+  },
+  {
+   "id": "ev-wc-2361",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2361"
+   },
+   "onset": 184.569,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 71,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 101
+  },
+  {
+   "id": "ev-wc-2363",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2363"
+   },
+   "onset": 184.607,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 89,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 105
+  },
+  {
+   "id": "ev-wc-2367",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2367"
+   },
+   "onset": 184.609,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 96,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 7
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 123
+  },
+  {
+   "id": "ev-wc-2364",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2364"
+   },
+   "onset": 184.618,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 67,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 108
+  },
+  {
+   "id": "ev-wc-2362",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2362"
+   },
+   "onset": 184.62,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 69,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 96
+  },
+  {
+   "id": "ev-wc-2365",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2365"
+   },
+   "onset": 184.621,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 91,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 71
+  },
+  {
+   "id": "ev-wc-2366",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2366"
+   },
+   "onset": 184.63,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 97,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 7
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 82
+  },
+  {
+   "id": "ev-wc-2371",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2371"
+   },
+   "onset": 185.13,
+   "duration": 0.08199999999999363,
+   "pitch": {
+    "midi": 91,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 125
+  },
+  {
+   "id": "ev-wc-2369",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2369"
+   },
+   "onset": 185.132,
+   "duration": 0.0619999999999834,
+   "pitch": {
+    "midi": 86,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 114
+  },
+  {
+   "id": "ev-wc-2373",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2373"
+   },
+   "onset": 185.153,
+   "duration": 0.10900000000000887,
+   "pitch": {
+    "midi": 64,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 117
+  },
+  {
+   "id": "ev-wc-2372",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2372"
+   },
+   "onset": 185.17,
+   "duration": 0.0800000000000125,
+   "pitch": {
+    "midi": 62,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 69
+  },
+  {
+   "id": "ev-wc-2370",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2370"
+   },
+   "onset": 185.172,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 65,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 93
+  },
+  {
+   "id": "ev-wc-2557",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2557"
+   },
+   "onset": 192.41,
+   "duration": 0.23500000000001364,
+   "pitch": {
+    "midi": 71,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 76
+  },
+  {
+   "id": "ev-wc-2555",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2555"
+   },
+   "onset": 192.432,
+   "duration": 0.16800000000000637,
+   "pitch": {
+    "midi": 72,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 98
+  },
+  {
+   "id": "ev-wc-2553",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2553"
+   },
+   "onset": 192.447,
+   "duration": 0.0619999999999834,
+   "pitch": {
+    "midi": 74,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 67
+  },
+  {
+   "id": "ev-wc-2586",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2586"
+   },
+   "onset": 193.682,
+   "duration": 0.15200000000001523,
+   "pitch": {
+    "midi": 86,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 117
+  },
+  {
+   "id": "ev-wc-2587",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2587"
+   },
+   "onset": 193.682,
+   "duration": 0.15800000000001546,
+   "pitch": {
+    "midi": 84,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 117
+  },
+  {
+   "id": "ev-wc-2585",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2585"
+   },
+   "onset": 193.683,
+   "duration": 0.07099999999999795,
+   "pitch": {
+    "midi": 82,
+    "spelled": {
+     "step": "A",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 109
+  },
+  {
+   "id": "ev-wc-2588",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2588"
+   },
+   "onset": 193.687,
+   "duration": 0.17599999999998772,
+   "pitch": {
+    "midi": 87,
+    "spelled": {
+     "step": "D",
+     "alter": 1,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 95
+  },
+  {
+   "id": "ev-wc-2582",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2582"
+   },
+   "onset": 193.688,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 85,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 109
+  },
+  {
+   "id": "ev-wc-2583",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2583"
+   },
+   "onset": 193.689,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 81,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 101
+  },
+  {
+   "id": "ev-wc-2581",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2581"
+   },
+   "onset": 193.696,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 83,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 96
+  },
+  {
+   "id": "ev-wc-2584",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2584"
+   },
+   "onset": 193.702,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 89,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 66
+  },
+  {
+   "id": "ev-wc-2589",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2589"
+   },
+   "onset": 193.883,
+   "duration": 0.05699999999998795,
+   "pitch": {
+    "midi": 88,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 72
+  },
+  {
+   "id": "ev-wc-2591",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2591"
+   },
+   "onset": 193.951,
+   "duration": 0.056000000000011596,
+   "pitch": {
+    "midi": 76,
+    "spelled": {
+     "step": "E",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 127
+  },
+  {
+   "id": "ev-wc-2590",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2590"
+   },
+   "onset": 193.953,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 77,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 125
+  },
+  {
+   "id": "ev-wc-2592",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2592"
+   },
+   "onset": 193.954,
+   "duration": 0.08599999999998431,
+   "pitch": {
+    "midi": 74,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 123
+  },
+  {
+   "id": "ev-wc-2593",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2593"
+   },
+   "onset": 193.967,
+   "duration": 0.1279999999999859,
+   "pitch": {
+    "midi": 72,
+    "spelled": {
+     "step": "C",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 90
+  },
+  {
+   "id": "ev-wc-2595",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2595"
+   },
+   "onset": 194.008,
+   "duration": 0.17099999999999227,
+   "pitch": {
+    "midi": 71,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 63
+  },
+  {
+   "id": "ev-wc-2594",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2594"
+   },
+   "onset": 194.078,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 68,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 75
+  },
+  {
+   "id": "ev-wc-2598",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2598"
+   },
+   "onset": 194.092,
+   "duration": 0.15399999999999636,
+   "pitch": {
+    "midi": 69,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 77
+  },
+  {
+   "id": "ev-wc-2600",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2600"
+   },
+   "onset": 194.105,
+   "duration": 0.17000000000001592,
+   "pitch": {
+    "midi": 67,
+    "spelled": {
+     "step": "G",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 98
+  },
+  {
+   "id": "ev-wc-2602",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2602"
+   },
+   "onset": 194.204,
+   "duration": 0.07399999999998386,
+   "pitch": {
+    "midi": 81,
+    "spelled": {
+     "step": "A",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 125
+  },
+  {
+   "id": "ev-wc-2601",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2601"
+   },
+   "onset": 194.207,
+   "duration": 0.06999999999999318,
+   "pitch": {
+    "midi": 83,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 125
+  },
+  {
+   "id": "ev-wc-2597",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2597"
+   },
+   "onset": 194.215,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 80,
+    "spelled": {
+     "step": "G",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 111
+  },
+  {
+   "id": "ev-wc-2596",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2596"
+   },
+   "onset": 194.225,
+   "duration": 0.05000000000001137,
+   "pitch": {
+    "midi": 82,
+    "spelled": {
+     "step": "A",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 100
+  },
+  {
+   "id": "ev-wc-2599",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2599"
+   },
+   "onset": 194.239,
+   "duration": 0.04999999999998295,
+   "pitch": {
+    "midi": 89,
+    "spelled": {
+     "step": "F",
+     "alter": 0,
+     "octave": 6
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 83
+  },
+  {
+   "id": "ev-wc-2603",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2603"
+   },
+   "onset": 194.36,
+   "duration": 0.07099999999999795,
+   "pitch": {
+    "midi": 71,
+    "spelled": {
+     "step": "B",
+     "alter": 0,
+     "octave": 4
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 85
+  },
+  {
+   "id": "ev-wc-2604",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2604"
+   },
+   "onset": 194.378,
+   "duration": 0.09700000000000841,
+   "pitch": {
+    "midi": 74,
+    "spelled": {
+     "step": "D",
+     "alter": 0,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 108
+  },
+  {
+   "id": "ev-wc-2605",
+   "source": {
+    "score": "piece-FirstDraft-Final-B-noFadeAt96",
+    "objectId": "wc-2605"
+   },
+   "onset": 194.442,
+   "duration": 0.0619999999999834,
+   "pitch": {
+    "midi": 73,
+    "spelled": {
+     "step": "C",
+     "alter": 1,
+     "octave": 5
+    }
+   },
+   "technique": "main",
+   "provenance": "derived",
+   "mode": "plain",
+   "vel": 95
+  }
+ ],
+ "chunks": [
+  {
+   "id": "ch-5-wc-1678",
+   "part": 5,
+   "span": [
+    148.204,
+    148.613
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-1678",
+    "ev-wc-1679",
+    "ev-wc-1681",
+    "ev-wc-1680"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-1682",
+   "part": 5,
+   "span": [
+    148.613,
+    148.708
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-1682"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-1684",
+   "part": 5,
+   "span": [
+    148.708,
+    149.089
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-1684",
+    "ev-wc-1683"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-1687",
+   "part": 5,
+   "span": [
+    149.089,
+    149.982
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-1687",
+    "ev-wc-1685",
+    "ev-wc-1686",
+    "ev-wc-1688"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-1691",
+   "part": 5,
+   "span": [
+    149.982,
+    151.038
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-1691",
+    "ev-wc-1690",
+    "ev-wc-1689"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-1694",
+   "part": 5,
+   "span": [
+    151.038,
+    151.166
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-1694",
+    "ev-wc-1695",
+    "ev-wc-1692",
+    "ev-wc-1693",
+    "ev-wc-1696"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-1697",
+   "part": 5,
+   "span": [
+    151.166,
+    151.405
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-1697"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-1716",
+   "part": 5,
+   "span": [
+    152.537,
+    152.651
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-1716"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-1717",
+   "part": 5,
+   "span": [
+    152.651,
+    152.731
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-1717"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-1718",
+   "part": 5,
+   "span": [
+    152.731,
+    152.839
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-1718"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-1766",
+   "part": 5,
+   "span": [
+    155.646,
+    155.688
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-1766",
+    "ev-wc-1765",
+    "ev-wc-1767",
+    "ev-wc-1771",
+    "ev-wc-1770",
+    "ev-wc-1768"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-1774",
+   "part": 5,
+   "span": [
+    155.688,
+    156.409
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-1774",
+    "ev-wc-1773",
+    "ev-wc-1772",
+    "ev-wc-1769"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-1777",
+   "part": 5,
+   "span": [
+    156.409,
+    156.46
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-1777",
+    "ev-wc-1776"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-1775",
+   "part": 5,
+   "span": [
+    156.46,
+    157.683
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-1775",
+    "ev-wc-1778",
+    "ev-wc-1779"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-1917",
+   "part": 5,
+   "span": [
+    164.34,
+    164.781
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-1917",
+    "ev-wc-1923",
+    "ev-wc-1916",
+    "ev-wc-1918",
+    "ev-wc-1922",
+    "ev-wc-1919",
+    "ev-wc-1915",
+    "ev-wc-1921",
+    "ev-wc-1920"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2087",
+   "part": 5,
+   "span": [
+    169.752,
+    169.93
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2087",
+    "ev-wc-2088",
+    "ev-wc-2086"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2091",
+   "part": 5,
+   "span": [
+    169.93,
+    170.042
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2091",
+    "ev-wc-2092",
+    "ev-wc-2090",
+    "ev-wc-2089"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2150",
+   "part": 5,
+   "span": [
+    173.694,
+    173.735
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2150",
+    "ev-wc-2151",
+    "ev-wc-2149",
+    "ev-wc-2154",
+    "ev-wc-2153"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2152",
+   "part": 5,
+   "span": [
+    173.735,
+    173.848
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2152"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2157",
+   "part": 5,
+   "span": [
+    173.848,
+    173.902
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2157",
+    "ev-wc-2155"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2156",
+   "part": 5,
+   "span": [
+    173.902,
+    173.95
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2156"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2158",
+   "part": 5,
+   "span": [
+    173.95,
+    174.096
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2158"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2159",
+   "part": 5,
+   "span": [
+    174.096,
+    174.243
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2159"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2237",
+   "part": 5,
+   "span": [
+    178.808,
+    178.912
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2237",
+    "ev-wc-2236",
+    "ev-wc-2238",
+    "ev-wc-2235",
+    "ev-wc-2239"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2283",
+   "part": 5,
+   "span": [
+    180.722,
+    181.386
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2283",
+    "ev-wc-2285",
+    "ev-wc-2284",
+    "ev-wc-2286",
+    "ev-wc-2282",
+    "ev-wc-2287",
+    "ev-wc-2280",
+    "ev-wc-2281"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2288",
+   "part": 5,
+   "span": [
+    181.386,
+    181.442
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2288",
+    "ev-wc-2290"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2289",
+   "part": 5,
+   "span": [
+    181.442,
+    181.497
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2289"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2291",
+   "part": 5,
+   "span": [
+    181.497,
+    181.589
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2291"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2305",
+   "part": 5,
+   "span": [
+    182.086,
+    182.207
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2305",
+    "ev-wc-2303",
+    "ev-wc-2302",
+    "ev-wc-2304",
+    "ev-wc-2306"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2307",
+   "part": 5,
+   "span": [
+    182.207,
+    182.327
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2307",
+    "ev-wc-2309",
+    "ev-wc-2311",
+    "ev-wc-2308",
+    "ev-wc-2310"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2312",
+   "part": 5,
+   "span": [
+    182.327,
+    182.401
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2312",
+    "ev-wc-2316"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2342",
+   "part": 5,
+   "span": [
+    183.803,
+    183.85
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2342",
+    "ev-wc-2343",
+    "ev-wc-2344",
+    "ev-wc-2345",
+    "ev-wc-2346"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2348",
+   "part": 5,
+   "span": [
+    183.85,
+    183.995
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2348",
+    "ev-wc-2347"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2349",
+   "part": 5,
+   "span": [
+    183.995,
+    184.107
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2349",
+    "ev-wc-2350",
+    "ev-wc-2351",
+    "ev-wc-2352"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2357",
+   "part": 5,
+   "span": [
+    184.504,
+    184.563
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2357",
+    "ev-wc-2359",
+    "ev-wc-2358"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2360",
+   "part": 5,
+   "span": [
+    184.563,
+    184.607
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2360",
+    "ev-wc-2361"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2363",
+   "part": 5,
+   "span": [
+    184.607,
+    184.664
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2363",
+    "ev-wc-2367",
+    "ev-wc-2364",
+    "ev-wc-2362",
+    "ev-wc-2365",
+    "ev-wc-2366"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2371",
+   "part": 5,
+   "span": [
+    185.13,
+    185.172
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2371",
+    "ev-wc-2369",
+    "ev-wc-2373",
+    "ev-wc-2372"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2370",
+   "part": 5,
+   "span": [
+    185.172,
+    185.31
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2370"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2557",
+   "part": 5,
+   "span": [
+    192.41,
+    192.572
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2557",
+    "ev-wc-2555",
+    "ev-wc-2553"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2586",
+   "part": 5,
+   "span": [
+    193.682,
+    193.883
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2586",
+    "ev-wc-2587",
+    "ev-wc-2585",
+    "ev-wc-2588",
+    "ev-wc-2582",
+    "ev-wc-2583",
+    "ev-wc-2581",
+    "ev-wc-2584"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2589",
+   "part": 5,
+   "span": [
+    193.883,
+    193.951
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2589"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2591",
+   "part": 5,
+   "span": [
+    193.951,
+    194.008
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2591",
+    "ev-wc-2590",
+    "ev-wc-2592",
+    "ev-wc-2593"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2595",
+   "part": 5,
+   "span": [
+    194.008,
+    194.078
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2595"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2594",
+   "part": 5,
+   "span": [
+    194.078,
+    194.204
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2594",
+    "ev-wc-2598",
+    "ev-wc-2600"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2602",
+   "part": 5,
+   "span": [
+    194.204,
+    194.36
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2602",
+    "ev-wc-2601",
+    "ev-wc-2597",
+    "ev-wc-2596",
+    "ev-wc-2599"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2603",
+   "part": 5,
+   "span": [
+    194.36,
+    194.442
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2603",
+    "ev-wc-2604"
+   ],
+   "provenance": "derived"
+  },
+  {
+   "id": "ch-5-wc-2605",
+   "part": 5,
+   "span": [
+    194.442,
+    194.622
+   ],
+   "class": "ord-sustained",
+   "strategy": "unresolved",
+   "events": [
+    "ev-wc-2605"
+   ],
+   "provenance": "derived"
+  }
+ ],
+ "overlays": [
+  {
+   "id": "ov-hand-wc-1679",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1679"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1678",
+     "puStem": "down",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1680",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1680"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1678",
+     "puStem": "down",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1681",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1681"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1678",
+     "puStem": "down",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1678",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1678"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1678",
+     "puStem": "down",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1682",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1682"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1682",
+     "puStem": "up",
+     "puBeam": "u2",
+     "puArtic": "accent"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1684",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1684"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1684",
+     "puStem": "up",
+     "puBeam": "u2"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1683",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1683"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1684",
+     "puStem": "up",
+     "puBeam": "u2"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1688",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1688"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1687",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1687",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1687"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1687",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1686",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1686"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1687",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1685",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1685"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1687",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1689",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1689"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1691",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1691",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1691"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1691",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1690",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1690"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1691",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1696",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1696"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1694",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1693",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1693"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1694",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1694",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1694"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1694",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1695",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1695"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1694",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1692",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1692"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1694",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1697",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1697"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1694",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1716",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1716"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1716",
+     "puStem": "up",
+     "puBeam": "u9"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1717",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1717"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1717",
+     "puStem": "up",
+     "puBeam": "u9"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1718",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1718"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1718",
+     "puStem": "up",
+     "puBeam": "u9"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1774",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1774"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1766",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1769",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1769"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1766",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1773",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1773"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1766",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1772",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1772"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1766",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1768",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1768"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1766",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1766",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1766"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1766",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1765",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1765"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1766",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1767",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1767"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1766",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1771",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1771"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1766",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1770",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1770"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1766",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1777",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1777"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1777",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1779",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1779"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1777",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1778",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1778"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1777",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1776",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1776"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1777",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1775",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1775"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1777",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1922",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1922"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1917",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1920",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1920"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1917",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1923",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1923"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1917",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1917",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1917"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1917",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1916",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1916"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1917",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1921",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1921"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1917",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1915",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1915"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1917",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1919",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1919"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1917",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-1918",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-1918"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-1917",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2088",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2088"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2087",
+     "puStem": "up",
+     "puBeam": "u13"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2087",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2087"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2087",
+     "puStem": "up",
+     "puBeam": "u13"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2086",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2086"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2087",
+     "puStem": "up",
+     "puBeam": "u13"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2089",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2089"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2091",
+     "puStem": "up",
+     "puBeam": "u13"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2092",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2092"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2091",
+     "puStem": "up",
+     "puBeam": "u13"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2090",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2090"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2091",
+     "puStem": "up",
+     "puBeam": "u13"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2091",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2091"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2091",
+     "puStem": "up",
+     "puBeam": "u13"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2153",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2153"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2150",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2152",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2152"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2150",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2154",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2154"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2150",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2150",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2150"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2150",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2151",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2151"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2150",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2149",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2149"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2150",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true,
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2155",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2155"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2157",
+     "puStem": "up",
+     "puBeam": "u16",
+     "puSpread": "both"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2156",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2156"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2157",
+     "puStem": "up",
+     "puBeam": "u16",
+     "puSpread": "both"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2157",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2157"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2157",
+     "puStem": "up",
+     "puBeam": "u16",
+     "puSpread": "both"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2158",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2158"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2158",
+     "puStem": "up",
+     "puBeam": "u16",
+     "puSpread": "both"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2159",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2159"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2159",
+     "puStem": "up",
+     "puBeam": "u16",
+     "puSpread": "both"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2239",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2239"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2237",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2238",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2238"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2237",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2235",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2235"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2237",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2237",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2237"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2237",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2236",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2236"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2237",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2286",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2286"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2283",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2281",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2281"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2283",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2280",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2280"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2283",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2287",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2287"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2283",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2285",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2285"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2283",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2283",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2283"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2283",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2284",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2284"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2283",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2282",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2282"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2283",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2290",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2290"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2288",
+     "puStem": "up",
+     "puBeam": "u19",
+     "grace": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2289",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2289"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2289",
+     "puStem": "up",
+     "puBeam": "u19",
+     "grace": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2288",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2288"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2288",
+     "puStem": "up",
+     "puBeam": "u19",
+     "grace": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2291",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2291"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2291",
+     "puStem": "up",
+     "puBeam": "u19",
+     "grace": true
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2306",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2306"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2305",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2304",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2304"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2305",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2302",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2302"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2305",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2303",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2303"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2305",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2305",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2305"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2305",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2307",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2307"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2307",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2310",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2310"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2307",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2309",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2309"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2307",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2311",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2311"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2307",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2308",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2308"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2307",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2312",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2312"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2312",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2316",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2316"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2312",
+     "puStem": "up",
+     "puBeam": "u20",
+     "puSpread": "both"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2347",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2347"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2342",
+     "puStem": "up",
+     "puBeam": "u21"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2346",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2346"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2342",
+     "puStem": "up",
+     "puBeam": "u21"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2345",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2345"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2342",
+     "puStem": "up",
+     "puBeam": "u21"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2344",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2344"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2342",
+     "puStem": "up",
+     "puBeam": "u21"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2343",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2343"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2342",
+     "puStem": "up",
+     "puBeam": "u21"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2342",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2342"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2342",
+     "puStem": "up",
+     "puBeam": "u21"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2348",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2348"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2342",
+     "puStem": "up",
+     "puBeam": "u21"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2349",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2349"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2349",
+     "puStem": "up",
+     "puBeam": "u21"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2350",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2350"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2349",
+     "puStem": "up",
+     "puBeam": "u21"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2352",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2352"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2349",
+     "puStem": "up",
+     "puBeam": "u21"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2351",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2351"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2349",
+     "puStem": "up",
+     "puBeam": "u21"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2361",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2361"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2357",
+     "puStem": "up",
+     "puBeam": "u22"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2360",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2360"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2357",
+     "puStem": "up",
+     "puBeam": "u22"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2358",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2358"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2357",
+     "puStem": "up",
+     "puBeam": "u22"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2359",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2359"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2357",
+     "puStem": "up",
+     "puBeam": "u22"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2357",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2357"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2357",
+     "puStem": "up",
+     "puBeam": "u22"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2364",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2364"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2363",
+     "puStem": "up",
+     "puBeam": "u22"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2362",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2362"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2363",
+     "puStem": "up",
+     "puBeam": "u22"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2363",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2363"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2363",
+     "puStem": "up",
+     "puBeam": "u22"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2365",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2365"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2363",
+     "puStem": "up",
+     "puBeam": "u22"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2367",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2367"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2363",
+     "puStem": "up",
+     "puBeam": "u22"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2366",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2366"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2363",
+     "puStem": "up",
+     "puBeam": "u22"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2372",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2372"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2371",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2373",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2373"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2371",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2370",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2370"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2371",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2369",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2369"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2371",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2371",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2371"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2371",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2557",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2557"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2557",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2555",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2555"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2557",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2553",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2553"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2557",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2583",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2583"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2586",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2585",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2585"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2586",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2581",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2581"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2586",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2587",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2587"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2586",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2582",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2582"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2586",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2586",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2586"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2586",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2588",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2588"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2586",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2584",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2584"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2586",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArtic": "marcato"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2592",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2592"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2591",
+     "puStem": "up",
+     "puBeam": "u25",
+     "puT": 193.951
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2591",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2591"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2591",
+     "puStem": "up",
+     "puBeam": "u25",
+     "puT": 193.951
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2590",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2590"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2591",
+     "puStem": "up",
+     "puBeam": "u25",
+     "puT": 193.951
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2589",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2589"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2591",
+     "puStem": "up",
+     "puBeam": "u25",
+     "puT": 193.951
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2595",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2595"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2594",
+     "puStem": "up",
+     "puBeam": "u25",
+     "puT": 194.078
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2593",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2593"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2591",
+     "puStem": "up",
+     "puBeam": "u25",
+     "puT": 193.951
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2600",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2600"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2594",
+     "puStem": "up",
+     "puBeam": "u25",
+     "puT": 194.078
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2594",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2594"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2594",
+     "puStem": "up",
+     "puBeam": "u25",
+     "puT": 194.078
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2598",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2598"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2594",
+     "puStem": "up",
+     "puBeam": "u25",
+     "puT": 194.078
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2597",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2597"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2602",
+     "puStem": "up",
+     "puBeam": "u25"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2602",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2602"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2602",
+     "puStem": "up",
+     "puBeam": "u25"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2596",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2596"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2602",
+     "puStem": "up",
+     "puBeam": "u25"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2601",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2601"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2602",
+     "puStem": "up",
+     "puBeam": "u25"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2599",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2599"
+   },
+   "value": {
+    "staff": 0,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2602",
+     "puStem": "up",
+     "puBeam": "u25"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2603",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2603"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2603",
+     "puStem": "up",
+     "puBeam": "u25"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2604",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2604"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2603",
+     "puStem": "up",
+     "puBeam": "u25"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-wc-2605",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2605"
+   },
+   "value": {
+    "staff": 1,
+    "device": {
+     "nhHead": "filled",
+     "nhStem": false,
+     "dynMark": false,
+     "letRing": false,
+     "ringBar": false,
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2605",
+     "puStem": "up",
+     "puBeam": "u25"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-staffclef-5-1",
+   "kind": "staffClef",
+   "target": {
+    "part": 5
+   },
+   "value": {
+    "staff": 1,
+    "clef": "treble"
+   },
+   "provenance": "authored"
+  }
+ ],
+ "layoutPolicy": {
+  "fitMark": false,
+  "noOttava": true,
+  "furniture": "work"
+ }
+}

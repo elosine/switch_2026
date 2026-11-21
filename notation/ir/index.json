@@ -86,6 +86,16 @@
    ],
    "profile": "trance",
    "exp": true
+  },
+  {
+   "id": "s2-piano-solo-final",
+   "label": "Section 2 - THE PIANO SOLO, final draft (148 to 196 s)",
+   "score": "piece-FirstDraft-Final-B-noFadeAt96",
+   "window": [
+    146,
+    199
+   ],
+   "profile": "trance"
   }
  ]
 }

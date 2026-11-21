@@ -297,6 +297,7 @@
     // registry does not impose globally — approved files stay byte-identical.
     // notate_section --bracketsAbove writes { bracketSide: 'above' }.
     const POL = ir.layoutPolicy || {};
+    if (POL.noOttava) o.ottavaLedgerThreshold = 1e6;   // [§361] a page written at pitch, with its ledger lines (the piano solo's working version, §309)
     const TS = Object.assign({ dynamic: 0.9, instruction: 0.75, tempo: 0.75, technique: 0.7 }, o.textSizes || {});   // RULES MIRROR (rules.json objects.*.size)
     // [LGMF 2e.1, §448] the colours a layout item names come from rules.json `colours` (compiled into engraving.layout.colours) —
     // never a literal at the push; the defaults below mirror the table for a caller without the registry (gate 3, check_rules)

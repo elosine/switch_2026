@@ -5493,3 +5493,24 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **NOT DONE, put to him:** "push it to the notation score". The solo's kinds are drawn by the workshop over the engine's page, and moved by the workshop's page; the notation app knows none of them. Putting them in the real score is a build: (1) the signs as items of the page (the ribbon's shape, the curtain, the repeat's marks, the chord symbols, the ff, hairpin and slur; the replaced notes hidden); (2) the motion — the ball on the ribbon and the pebbles' throw — in the app's player, and in print and video. Step 1 alone gives him the solo standing in the real score, still. His go is asked before it starts.
 **Checked once:** the new page opened in the notation app on the AI's throwaway server (5601) — seven staves, the heads in time.
 **A correction to the counts above:** the final draft holds 40 gestures and 49 figures (not 57 and 54), and 14 notes are hidden (not thirteen) — counted from the two files.
+
+## §361 · 2026-11-21 · THE PIANO SOLO IN THE REAL SCORE, part one: the signs, standing
+
+**His words:** "Okay, let's go ahead and implement … the piano solo into the real score. And yes, two parts is fine. But is there one I can look at for the next section? Just the note heads. Is that done yet? If not, let's get that done."
+**The note-heads page** was done in §360 (`s2-ctpt-heads`); he is pointed to it again.
+**THE DESIGN — one decision, the AI's (the sorting is the AI's):** the kinds are NOT rebuilt inside the engine. The workshop already draws them in the notation app's own frame (the same 1920 × 1080 frame, the same lanes, §269), so the real score ASKS THE WORKSHOP'S CODE for them. One drawing, two places; a gesture he changes in the working version changes in the score with no second build. What it costs: the signs are not items of the layout (no collision rules see them, the layout shield does not cover them), and print and the exported film do not have them yet.
+**Built:**
+- `tools/notation_workshop.js` is also a module now (`viewOf` · `engine`; it starts its server only when run itself). `viewOf(…, { real: true })` gives back `adds` — every piece it draws over the engine's page, in order — and draws nothing that hides the other parts (the working page's "only the piano" and its white cover are the workshop's own).
+- `score/server.js`: GET `/api/notation/furniture?page=work&t0=&span=&w=` → the signs for that window, with the ribbons' arcs and the pebbles' throws for the motion.
+- `notation/app/notation.html` (the video and zoom views): a page whose `layoutPolicy.furniture` is set asks for its signs after the page is drawn and puts them in the picture. THE ZOOM: the zoom view is the video frame scaled by Z with a shorter window, so the app asks for a frame W / Z wide and scales the answer by Z — the same numbers, no second geometry.
+- `notation/lib/layout.js`: `layoutPolicy.noOttava` (the working version is written at pitch, §309 — on this page only; the question whether that becomes the score's rule is still his). The schema takes the two keys.
+- `tools/solo_to_score.js` writes the page `s2-piano-solo-final`: the workshop's own filtered page (149 notes drawn; 862 replaced by a gesture or hidden), cut at 199 s.
+**A slip, caught:** the route first matched nothing — the server strips the query from the address before its routes. Fixed.
+**Checked once:** the page opened in the notation app on the AI's throwaway (5601): the video view, 154 → 166 s — the curtains, the repeats, the chord symbols, the ribbons in the piano's lane between the percussion and the violin; and the zoom view, 154 → 159.5 s, the same at twice the size, in place.
+
+## §362 · 2026-11-21 · THE PIANO SOLO IN THE REAL SCORE, part two: the motion
+
+**Built:** `furnitureFrameSvg` in `notation/app/notation.html`, called from the app's own frame drawing: the ball on every ribbon (the gestural curve's fall and rebound, or a wave's cosine; its radius the ribbon's half width where it rides) and the pebbles of every drop (the thrown parabola, one small bounce). The formulas are the workshop page's, copied — TWO COPIES of the motion now (`workshop/notation/index.html` and the app); a change to one is to be made in both.
+**Checked once, and only so far:** on the throwaway, one frame asked for by hand at 151.95 s — one ball, at a plausible place on the first ribbon, its radius 11.8; 34 pebbles lying at the first curtain's foot. NOT SEEN MOVING: the AI's browser pane does not run the clock. His to see when he plays the page.
+**Not built:** the plain window view · print · `tools/export_video.js` (the film). The film is the one that matters for the submission's video score — a step of its own.
+**For the paper:** the research notation reached the score not as new engraving but as a second drawing laid over the engraved page by the tool it was invented in — the kinds are still "furniture".
