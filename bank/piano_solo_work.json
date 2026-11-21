@@ -162,15 +162,14 @@
    "_his": "a ribbon with like a multi-bounce … the first bounce is at 162.46. It starts at the partial there at 161.79. Another bounce at 163.09. And the final bounce at 163.71 with just a small tail up",
    "_note": "on the partials played: the start 161.789; the bounces on the heaviest moment near each of his times — 162.513 (seven notes; the five of 162.409 just before it), 163.040 (ten notes), 163.596 (seventeen notes, to 163.67); a short tail to 163.95",
    "hideTo": 163.95,
-   "_tail": "§320 — his word: \"the first two bounces, that velocity is pretty good. And that third bounce could … be closer to the first two bounces\". The first two rise to the full height in 0.26 and 0.28 s by the GC's own rise (power 2). The third's tail now uses the SAME rise curve, to 85 % of the height in 0.30 s — about three quarters of their speed off the bounce (it was about half). (§319's 0.529 s at 67 % is replaced.)",
-   "tailStiffness": 50
+   "_tail": "§320 — his word: \"the first two bounces, that velocity is pretty good. And that third bounce could … be closer to the first two bounces\". The first two rise to the full height in 0.26 and 0.28 s by the GC's own rise (power 2). The third's tail now uses the SAME rise curve, to 85 % of the height in 0.30 s — about three quarters of their speed off the bounce (it was about half). (§319's 0.529 s at 67 % is replaced.)"
   },
   {
    "kind": "ribbon",
    "t0": 164.781,
    "bounce": 165.833,
-   "t1": 166.293,
-   "tailPct": 58,
+   "t1": 166.133,
+   "tailPct": 85,
    "flow": {
     "ribbonMaxPx": 34,
     "profile": {
@@ -220,8 +219,8 @@
    "kind": "ribbon",
    "t0": 167.555,
    "bounce": 168.509,
-   "t1": 168.969,
-   "tailPct": 58,
+   "t1": 168.809,
+   "tailPct": 85,
    "flow": {
     "ribbonMaxPx": 34,
     "profile": {
@@ -247,8 +246,8 @@
    "kind": "ribbon",
    "t0": 168.83,
    "bounce": 169.415,
-   "t1": 169.875,
-   "tailPct": 58,
+   "t1": 169.715,
+   "tailPct": 85,
    "flow": {
     "ribbonMaxPx": 34,
     "profile": {
@@ -297,8 +296,8 @@
   "wc-2093"
  ],
  "_omitNote": "§314 — his word: \"you can just eat that extra F. Just forget about that extra F at 170\" — the left hand's F4 at 170.042 is left out",
- "shortTailS": 0.46,
- "_shortTailNote": "§316 — his word: the short tails about 30 % longer, \"even longer than\" the one at 163.6 (which was 0.354 s, the longest): every short tail now lasts 0.46 s after its impact, and may run into the space of what follows; hideTo keeps the span of played notes it replaces where it was",
- "tailStiffness": 110,
- "_tailNote": "§318 — his word: the longer tails felt slower; \"they should be coming off those bounces at a higher velocity … a stronger bounce\". Every short tail now rises to 58 % of the fall (was 30 %) and leaves by a steeper curve (tailStiffness 110: the rise's power 3.2, was 2). Its speed off the bounce is about three times what it was after §316."
+ "shortTailS": 0.3,
+ "tailStiffness": 50,
+ "_tailNote": "§321 — ONE TAIL FOR EVERY RIBBON, the three-bounce ribbon's (the one whose motion he found right, §320): the GC's own rise curve (stiffness 50, power 2), to 85 % of the fall, in 0.30 s after the impact. §316's 0.46 s and §318's 58 % / steeper curve are replaced.",
+ "tailPct": 85
 }
