@@ -4827,3 +4827,22 @@ So the rule is applied; 0.38 ss is simply a small gap (2.8 px on this page).
 - What it sits beside: the scattered grace of §263 (stems, beams, the wavy slash — the notes exact and in order), the arrowed arpeggio (too orderly: it promises bottom to top), several small GC balls landing a hair apart (precise, likely overdone).
 - The GC stays for the WHEN, as in his ensemble writing; the new sign says the HOW.
 **The recommendation:** the fan — plain heads, exact pitches, thin lines from one point under them — with the heads' leap as its animation, and one GC ball for the moment; to try on the burst at 160.19 s that is on the ribbon page now.
+
+## §293 · 2026-11-20 · the rethink (SW-88) — the chord changes of both hands, three alternatives to look at
+
+**His words:** SW-88 (the sketch pad): the action gesture for both hands together "in the middle, sort of", his playing "a sort of guideline"; the chord changes "in the different hands"; "give me a couple alternatives of what the [chord] changes would look like … how often I want them to be. Does it make sense to have them? … maybe just for these 3 parts."
+
+**The passage read: 157.6 → 160.7 s, both hands** (the flow, the stutter, the burst).
+- THE RIGHT HAND keeps one small place for most of it: A5 · B5 · C6 with one F6 (157.68 … 158.69), then B5 and A#5 struck over and over (159.04 … 160.28, the stutter) — and changes only in the burst: A#5 · B5 · F6 · G6 (160.40), F5 · C#6 · D6 (160.50), F5 · G5 (160.66).
+- THE LEFT HAND covers B3 … G4 through the whole flow (the half-step shifts of §275 inside it), then climbs in the burst: A#3 + F4 (160.19), F#4 + G4 (160.28), the cluster C5 … E5 (160.43).
+- So the shape changes are RARE through the flow and the stutter (about 2.5 s on one place per hand) and CROWDED in the burst (three changes per hand in 0.4 s).
+
+**The alternatives' one knob (`tools/chord_changes.js`, `bank/chord_changes.json`):** SPAN — how many semitones a hand may reach before its shape is written again. Each hand's events are read in order (notes within 45 ms are one event, never split); an event joins the current shape while the shape stays within the span; the first that would stretch it further begins a new shape, written at its own moment. Drawn as Shape Action Notation draws a shape (the cluster bar for four pitches or more a whole step apart at most; otherwise all the notes; accidentals; the thin box); a box that would run into the one before it stands just after it.
+- **FEW (an octave, 12):** right 2 shapes (157.68: six notes A5 … G6 · 160.50) — left 2 (157.71: the bar A#3 … G4 · 160.43: the bar C5 … E5).
+- **SOME (8):** right 4 (157.68 · 160.40 · 160.50 · 160.66) — left 4 (157.71: the bar B3 … G4 · 160.19 · 160.28 · 160.43).
+- **MANY (6):** right 6 (157.68 · 158.69: the single F6 · 159.04 · 160.40 · 160.50 · 160.66) — left 6 (157.71 · 158.33 · 159.28 · 160.19 · 160.28 · 160.43).
+Tried and not kept as alternatives: 14 (one shape for the whole right hand — it says nothing), 9 and 7 (between the three).
+
+**Seen on the three pages:** in FEW the right hand's first shape is six notes that are not a cluster (A5 · A#5 · B5 · C6 with F6 and G6 far above) — a wide box that reads as a chord, which it never was; in SOME and MANY the burst's boxes crowd so that three of them had to be pushed right of their moments; MANY's extra changes in the flow (158.33, 159.28 in the left hand) are the half-step shifts he asked NOT to mark near the impact.
+**The pages:** "chords: few / some / many" in the workshop — the played notes kept faint (30 %) under the boxes, both staves. **A known flaw of the reference:** the engine folds the right hand's high notes under an 8va, the shapes are written at pitch with ledger lines — the faint heads and the boxes sit an octave apart on the upper staff.
+**Not done:** the one gesture in the middle; looking wider than this passage.
