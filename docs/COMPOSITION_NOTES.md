@@ -1595,3 +1595,9 @@ staff carried from piece 6 has eight lines, of which only the coil's and the Chi
 And, while that was being built: "The widening of the ribbon at 195.12, let's exaggerate that a little bit, not necessarily too much. And then let's have the final tail there thin out a little more. So like gradually thin out a little bit more, look more like a tapered."
 
 **The AI's reading:** (1) a RULE for every notated chord: where its notes are a real cluster, write the cluster sign (SW-84's bar with a note head at each end), not every note. (2) The chord at the ribbon's impact (193.68): check it against that rule; give it a GO LINE — this lineage's vertical line at the moment of attack — because the chord stands far from the impact point; and a longer stem. (3) A second RULE, for the stem: more than the standing 2 ss — at least 4 ss between the top of the top note and the bottom of the flag. (4) The ribbon of 194.62: its swelling at 195.12 a little more; its tail a taper.
+
+### SW-115 · 2026-11-21 · the piano solo begins ff
+
+**His words (verbatim):** "Let's have the initial dynamic be FF."
+
+**The AI's reading:** the piano solo's opening dynamic is ff — read as the dynamic at the solo's first figure (148.2 s), the first dynamic written into this notation. (If he meant the dynamic of the ribbon then in hand, it moves.)

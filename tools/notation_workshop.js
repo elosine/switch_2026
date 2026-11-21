@@ -256,7 +256,11 @@ function viewOf(page, t0, span, w, opts) {
           // a ribbon strikes (1 = the standing curve). It scales the GC's own two powers together: the fall hangs longer at the top and comes
           // down faster into the impact (ictus), and the tail leaves the impact faster (stiffness).
           const hit = g.hits && g.hits[i] != null ? g.hits[i] : g.hit;   // hits: one per turn of a many-turn ribbon (§335)
-          const hitOf = q => hit != null && hit !== 1 ? Object.assign({}, q, { ictus: (q.ictus != null ? q.ictus : 90) * hit, stiffness: ((q.stiffness != null ? q.stiffness : 62) + 50) * hit - 50 }) : q;
+          // [§346 — his "I think it's too steep down … a little less steep"] falls: one per turn — the FALL alone made gentler (< 1) or steeper (> 1);
+          // the rise is untouched. 1 + ictus / 50 is the fall's power, so the factor works on that power.
+          const fall = g.falls && g.falls[i] != null ? g.falls[i] : 1;
+          const hitOf0 = q => hit != null && hit !== 1 ? Object.assign({}, q, { ictus: (q.ictus != null ? q.ictus : 90) * hit, stiffness: ((q.stiffness != null ? q.stiffness : 62) + 50) * hit - 50 }) : q;
+          const hitOf = q => { const r = hitOf0(q); return fall !== 1 ? Object.assign({}, r, { ictus: ((1 + (r.ictus != null ? r.ictus : 90) / 50) * fall - 1) * 50 }) : r; };
           const pre = hitOf(bs.length > 1 ? Object.assign({}, preset, last ? tailOf() : { damping: 100 }) : g.tailPct != null ? Object.assign({}, preset, tailOf()) : preset);   // tailPct on a one-bounce ribbon too: a short tail up (§313)
           const f = FUR({ proto: P, ir: { events: src }, glyphs: e.glyphs, ChordColumn: e.ChordColumn, Gc: e.Gc, xOf, staff: staves[staves.length - 1], w, preset: pre, look, gaps: e.gaps });
           flush(f.svg); protos.push({ arc: P.arc, preset: pre, look, flow: P.flow, arcY: f.arcY, ribbon: f.ribbon, wave: !!P.wave, sharp: P.waveSharp || 1 });
@@ -283,6 +287,15 @@ function viewOf(page, t0, span, w, opts) {
       } else if (g.kind === 'strike') { // [§309 — his "so there's … just a sliver between all four of those"] a curtain ends a sliver (sliverSs) before the next gesture begins
         const nx = cfg.gestures.filter(x => x.t0 > g.t0 + 1e-6 && x.kind !== 'ribbon').sort((p, q) => p.t0 - q.t0)[0], KC = Object.assign({}, cfg.curtain, g.curtain), ssw = (staves[0][1] - staves[0][0]) / 4, sl = (cfg.sliverSs != null ? cfg.sliverSs : 0.5) * ssw;
         const s2 = strikeOf(g.t0, g.t1, Object.assign(KC, { impact: g.impact }, nx ? { maxX: xOf(nx.t0) - (nx.kind === 'strike' ? (KC.padSs != null ? KC.padSs : 0.8) * ssw : 0) - sl } : {})); if (s2) strikes.push(s2); }
+      else if (g.kind === 'dyn') {
+        // [§347 — his "Let's have the initial dynamic be FF"] a DYNAMIC on the working version: LilyPond's own glyph (glyphs.json dynamic.*), at the
+        // engine's size (objects.dynamic.size 1), its left edge on the figure's time, centered BETWEEN the two staves — the piano's place for a
+        // dynamic that holds for both hands. Drawn here in the workshop; the engine's own dynamic row is for a one-staff part.
+        const G = e.glyphs.dynamic && e.glyphs.dynamic[g.mark]; if (!G || staves.length < 2) continue;
+        const sq = (staves[0][1] - staves[0][0]) / 4, yMid = (staves[0][1] + staves[staves.length - 1][0]) / 2;
+        flush('<path d="' + G.path + '" transform="translate(' + (xOf(g.t0) - (g.dxSs || 0) * sq).toFixed(1) + ' ' + (yMid - (G.hSs || 1) * sq / 2).toFixed(1) + ') scale(' + sq.toFixed(3) + ')" fill="#111"/>');
+        continue;
+      }
       else if (g.kind === 'slur') {
         // [§338 — his "I don't know if we can make it seem like a pickup. Maybe like a, let me try a slur into the pebble drop. I don't know how that
         // would look"] A TRY, drawn here in the workshop and by no engraving rule yet: a slur from a notated chord (at t0) to the edge of the

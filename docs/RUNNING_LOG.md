@@ -5353,3 +5353,19 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **The rule (row `objects.handUnit.clusterBarToStem`, the scheme's table):** where a notated cluster has a stem, and stands in the stem's column, its bar keeps its far edge and reaches to the stem's outer edge. Bar and stem are one solid shape. A cluster with no stem (the chord symbols) keeps its centered bar, half a head wide.
 **Built** in `notation/lib/layout.js` (the cluster bar's pass): the bar's width and middle are computed from the two edges; with an up stem the right edge goes to the stem's right edge, with a down stem the left edge to the stem's left.
 **Checked once:** a close-up of 193.4 … 194.3 s rendered to an image.
+
+## §346 · 2026-11-21 · the ribbon into the chord of 183.81: a gentler fall and a small tail, so that it HITS there
+
+**His words:** "the curve at 183.43. I think it's too steep down … It seems to like fall down quickly and kind of sit at the bottom. So maybe it needs a bit of a tail. What I want it to feel like is that it hits at that first partial of those two. Like the impact is there. So maybe it needs a little bit of a tail, maybe a little bit less steep."
+**The AI's reading:** §327 ended this ribbon AT its impact, on the first of the two beamed chords (183.81), with no tail, at his word. Without a rebound the eye reads an arrival and a stop, not a strike: the line comes down and "sits". A strike is read from what follows it.
+**Done:** (1) the last fall gentler — NEW `falls`, one factor per turn on the fall's power alone (here 0.65: 2.8 → 1.8), the rise untouched; (2) a small tail: up 45 % of the height by 183.97, thinning to almost nothing, ending just before the second chord (184.0). The impact stays on 183.81; the wave of §330 · §332 is untouched.
+**For the paper:** a ribbon's IMPACT is legible only through its rebound — the no-tail form (§327) reads as a landing.
+**Checked once:** the page rendered to an image, 181.0 → 185.0 s.
+
+## §347 · 2026-11-21 · the first dynamic of the piano solo: ff at 148.2
+
+**His words:** SW-115 (the sketch pad): "Let's have the initial dynamic be FF."
+**Read as** the solo's opening dynamic. (The played velocities agree: the first figure is 99 … 122, and the solo's clusters run to 127.)
+**Built on the working version:** a gesture kind `dyn` (`tools/notation_workshop.js`): LilyPond's glyph (`glyphs.json` dynamic.ff), at the engine's size, its left edge on the first figure's time, centered between the two staves.
+**The rule it stands on, and where there is none:** the glyph and its size are the standing ones (`objects.dynamic`). ITS PLACE is not: the engine's dynamic row belongs to a one-staff part; between the staves is the piano's convention, taken here without a row. To settle with him when dynamics are written through the solo.
+**Checked once:** the page rendered to an image, 147.6 → 151.0 s.
