@@ -5216,3 +5216,9 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 - unit 23, a struck chord at 185.13: G6 · D6 over F4 · E4 · D4 (185.130 … .172), one stem up, a 16th flag.
 - the ribbon 185.310 (the B4) → the impact 185.75 → 186.0. His 185.77 lies between two partials: E5 · D5 at 185.746 (velocities 103 · 112, the loudest of the passage) and the four notes of 185.811 … .857. The impact stands on the first. The tail runs to 186.0 ("maybe a little bit more" than 185.97) and takes the notes of 185.811 … .913 with it. The standing line: thin while level, growing with the drop.
 **Checked once:** the page rendered to an image, 183.4 → 187.0 s.
+
+## §329 · 2026-11-21 · the pebble drop of 184.18 lands at 184.30
+
+**His words:** "Okay, now the pebble strike is too early. Maybe somewhere 184.3, maybe, or 31. Give that a try. Let's see how that looks."
+**Done:** the landing (`impact`) from 184.21 (§327, too early) to 184.30. The record of the three tries: the curtain's middle 184.26 (late, he said — though the fall was judged by eye against the sound) · 184.21 (too early) · 184.30 (a try). The two notes it stands for are played at 184.255 and 184.280.
+**Not checked:** it shows only when the page plays; his to see.
