@@ -5303,3 +5303,10 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **How "interpolate a rhythmic position" was read:** the figures stand where they are played, as the pole of §307 (units 9a … c); a note taken into a chord from just before it (the E6, the B4) is drawn on the chord's own place (`at`).
 **Checked once:** the page rendered to an image, 192.7 → 195.3 s.
 **Seen, for his eye:** the beam runs level over all five; the third figure's accidentals reach back toward the second's stem.
+
+## §340 · 2026-11-21 · the notated chord drawn in AT a ribbon's impact (193.68)
+
+**His words:** "At the point of impact at 193.68, can you draw in the notated chord that's there? If you can't figure it out, just show me the notes again, and I'll select."
+**Done:** unit 26, the eight notes of 193.682 … .702 (A5 · A#5 · B5 · C6 · C#6 · D6 · D#6 · F6, all in the upper staff), one stem up, a 16th flag. The ribbon of 193.364 keeps its impact and its tail; it now hides its notes only up to 193.6, so the chord shows.
+**What it is:** the second form of a ribbon WITH a standard figure at its impact. §327's ribbon falls into a chord and ends there; this one strikes, shows what is struck, and rebounds. The chord stands above the impact point (it is high; the impact is at the band's floor), a little right of it.
+**Checked once:** the page rendered to an image, 192.7 → 195.3 s.

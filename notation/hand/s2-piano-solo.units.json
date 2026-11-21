@@ -663,6 +663,25 @@
    "played": [
     194.442
    ]
+  },
+  {
+   "_n": "26 · 193.68 s — the eight notes at the ribbon's impact (A5 · A#5 · B5 · C6 · C#6 · D6 · D#6 · F6), a notated chord drawn AT the impact (his word, §340)",
+   "ids": [
+    "wc-2586",
+    "wc-2587",
+    "wc-2585",
+    "wc-2588",
+    "wc-2582",
+    "wc-2583",
+    "wc-2581",
+    "wc-2584"
+   ],
+   "stem": "up",
+   "flag": 16,
+   "played": [
+    193.682,
+    193.702
+   ]
   }
  ]
 }
