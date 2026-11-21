@@ -5208,3 +5208,11 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **A fault met and fixed:** with the ribbon's notes hidden up to 183.79, the chord's first two notes (183.803 · .810) vanished — the hiding has 20 ms of grace for his clicked times. The hiding now stops at 183.7.
 **What is new in the notation:** a ribbon's impact can BE a standard figure. Until now a ribbon replaced the notes at its impact.
 **Checked once:** the page rendered to an image, 181.0 → 185.0 s.
+
+## §328 · 2026-11-21 · the working version to 186.0 s — a struck chord at 185.13, a ribbon 185.31 → 185.75 → 186.0
+
+**His words:** SW-108 (the sketch pad): "The notes around 185.15 are a notated chord, struct chord. ribbon impact at 185.77, starting at 185.31, tail up to about 185.97, maybe a little bit more."
+**Set on the played partials:**
+- unit 23, a struck chord at 185.13: G6 · D6 over F4 · E4 · D4 (185.130 … .172), one stem up, a 16th flag.
+- the ribbon 185.310 (the B4) → the impact 185.75 → 186.0. His 185.77 lies between two partials: E5 · D5 at 185.746 (velocities 103 · 112, the loudest of the passage) and the four notes of 185.811 … .857. The impact stands on the first. The tail runs to 186.0 ("maybe a little bit more" than 185.97) and takes the notes of 185.811 … .913 with it. The standing line: thin while level, growing with the drop.
+**Checked once:** the page rendered to an image, 183.4 → 187.0 s.

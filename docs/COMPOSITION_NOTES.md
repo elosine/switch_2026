@@ -1551,3 +1551,9 @@ staff carried from piece 6 has eight lines, of which only the coil's and the Chi
 **His words (verbatim):** "Okay, the hit, the strike at 183.64. Let's make it at the strike point of 183.81, or whatever the time of that chord is, and no tail. And then can you beam the two figures? And then can you make the strike of the, or like the main sort of fall of the pebbles? They're a little late, so make them mostly down by 184.21."
 
 **The AI's reading:** three corrections to SW-106. The ribbon's impact moves from the three notes of 183.64 onto the notated chord of 183.81, and the ribbon ends there, with no tail — the ribbon FALLS INTO a notated chord, the first time a ribbon's impact is a standard figure. The chords of 183.81 and 184.00 go on one beam. The pebble drop's landing comes earlier, at 184.21.
+
+### SW-108 · 2026-11-21 · a struck chord at 185.15, a ribbon to 185.77
+
+**His words (verbatim):** "The notes around 185.15 are a notated chord, struct chord. ribbon impact at 185.77, starting at 185.31, tail up to about 185.97, maybe a little bit more."
+
+**The AI's reading:** two placements. The notes about 185.15 as a struck chord in standard notation; a ribbon from 185.31, its impact at 185.77, its tail up to a little past 185.97.
