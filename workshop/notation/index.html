@@ -141,11 +141,11 @@
     // about the impact (the cursor at the curtain's middle), then one small bounce, then still
     const out = [], e = K.bounce;
     for (const p of K.rocks) {
-      const tl = K.impact - K.flightS + p.dly, u = (t - tl) / p.T; let x, y, air;
+      const tl = p.tl != null ? p.tl : K.impact - K.flightS + p.dly, u = (t - tl) / p.T, yl = p.yl || 0; let x, y, air;   // tl · yl: a hill's pebble has its own moment and lands back on its pile (§317)
       if (u < 0) { x = p.xh; y = K.floor - p.yh; air = 0; }
-      else if (u <= 1) { x = p.xh + (p.xl - p.xh) * u; y = K.floor - p.H * 4 * u * (1 - u); air = t - tl; }
+      else if (u <= 1) { x = p.xh + (p.xl - p.xh) * u; y = K.floor - yl - p.H * 4 * u * (1 - u); air = t - tl; }
       else { const tb = t - tl - p.T, Tb = p.T * e, ub = tb / Tb, dx = (p.xl - p.xh) * e * 0.5;
-        if (ub < 1) { x = p.xl + dx * ub; y = K.floor - p.H * e * e * 4 * ub * (1 - ub); air = p.T + tb; } else { x = p.xl + dx; y = K.floor; air = p.T + Tb; } }
+        if (ub < 1) { x = p.xl + dx * ub; y = K.floor - yl - p.H * e * e * 4 * ub * (1 - ub); air = p.T + tb; } else { x = p.xl + dx; y = K.floor - yl; air = p.T + Tb; } }
       const c = 'rgb(' + p.gray + ',' + p.gray + ',' + p.gray + ')';
       out.push('<path d="' + p.d + '" transform="translate(' + (x * S.size).toFixed(1) + ' ' + yPx(y - p.r * 0.6).toFixed(1) + ') rotate(' + (p.spin * air).toFixed(0) + ') scale(' + S.size + ')" ' + (K.stroked ? 'fill="none" stroke="' + c + '" stroke-width="0.6"' : 'fill="' + c + '"') + '/>');
     }

@@ -2,8 +2,8 @@
  "_doc": "THE WORKING VERSION of the piano solo (SW-96; RUNNING_LOG §307 — his word: 'can we get like a working version that we work in and that keeps all our changes'). The workshop's page 'working version' = the page `base` (the standard figures taken one by one, notation/hand/<base>.units.json) with the GESTURES below drawn over it, and nothing else. A gesture hides the played notes inside its span. kind ribbon = Shape Action Notation's arc: t0 its start, bounce its impact (the 'hit'), t1 its end; flow.profile = its designed width (§296). kind strike = the scattered strike: a curtain from t0 to t1 with the thrown pebbles. A chord symbol (each hand's pitch set, bank/chord_changes.json `sets`) stands at the start of every ribbon and strike. His times are 'thereabouts' — he clicks them with the mouse. A POLE (a fixed structure in standard notation) is not here: it is a figure in the units file.",
  "base": "s2-piano-solo",
  "view": [
-  166.2,
-  170.6
+  168.4,
+  171.6
  ],
  "band": [
   470,
@@ -267,6 +267,20 @@
    "_his": "ribbon from 168.83 impact at 169.46 short tail again",
    "_note": "the impact on the ten-note cluster of 169.354 … 169.451, at its loudness-weighted middle, 169.415; the tail to 169.62 (it takes the single B4 of 169.608 with it)",
    "hideTo": 169.62
+  },
+  {
+   "kind": "strike",
+   "t0": 170.31,
+   "t1": 170.93,
+   "curtain": {
+    "shape": "hill",
+    "density": 75,
+    "hillPower": 2.6,
+    "flightS": 0.6,
+    "minSs": 3
+   },
+   "_his": "something from 170.3 to 170.93 with the back half being fairly bit more dense … a substrate that kind of like starts thin and grows like a crescendo, you know, like a hill of pebbles. So it's thicker and denser towards the right",
+   "_note": "a pebble drop as a HILL: 46 pebbles, few at the left, crowding and piling to the right; each lands as the cursor reaches it"
   }
  ],
  "noOttava": true,

@@ -144,4 +144,6 @@ Built by `node tools/notate_section.js … --glissGestures all`. The crotales' d
 | the boxes' place | each begins at its moment and stays inside the arc's span | his |
 | played notes | none drawn | his |
 
+**HIS NOTE TO COME BACK TO (SW-102, 2026-11-20):** refine the pebble drops' DENSITIES — so they reflect the playing a little, and so there is variety among the drops (today every drop but the hill at 170.3 has the same 26 pebbles).
+
 **OPEN (his method's steps, SW-83's third word):** which notes stand on which side of the impact (the first reading puts the impact on the hand's heaviest moment) · how the arc's physics and shape are decided (today the GC's fixed curve, stretched in time) · the other hand · how it meets the standard figures beside it.

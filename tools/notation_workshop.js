@@ -193,13 +193,25 @@ function viewOf(page, t0, span, w, opts) {
     const SUB = require('./substrate.js'), species = SUB.species.includes(opts.sub) ? opts.sub : (K.species || 'boulders'), nR = Math.max(3, Math.min(400, Math.round(opts.n || K.density || 16)));
     const R = SUB.rng(23), gauss = () => { let u = 0; while (u === 0) u = R(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * R()); };
     const floor = yB - 5, H = (floor - yT) - 10, xm = (xa + xb) / 2, T = K.flightS != null ? K.flightS : 1.0, sp = K.flightSpread != null ? K.flightSpread : 0.05, rocks = [];
+    // [§317 — his "a substrate that kind of like starts thin and grows like a crescendo, you know, like a hill of pebbles. So it's thicker and
+    // denser towards the right"] shape "hill": the pebbles lie as a HILL along the curtain's floor — few at the left, more and more toward the
+    // right, piled on one another where they crowd (hillPower: how steeply the crowding grows). Each is thrown straight up from where it lies
+    // and lands there again AS THE CURSOR REACHES IT — so the landings come thin at first and thick at the end: a crescendo of impacts.
+    if (K.shape === 'hill') {
+      const W2 = xb - xa - 12, hp = K.hillPower != null ? K.hillPower : 2.2, Th = K.flightS != null ? K.flightS : 0.6, pile = [];
+      const xsr = []; for (let i = 0; i < nR; i++) xsr.push(xa + 6 + W2 * Math.pow((i + 0.5 + (R() - 0.5) * 0.8) / nR, 1 / hp));
+      xsr.sort((p, q) => p - q);
+      xsr.forEach((x, i) => { const r = (K.sizePx != null ? K.sizePx : 2.6) * (0.7 + R() * 0.75), k = Math.max(0.8, 1 + gauss() * sp), lvl = pile.filter(p => Math.abs(p.x - x) < (p.r + r) * 0.8).length, yh = lvl * r * 1.25 + R() * 1.5, land = t0 + (x - x0) / pps;
+        pile.push({ x, r });
+        rocks.push({ d: SUB.shape(species, r, 5000 + i), r: +r.toFixed(2), T: +(Th * k).toFixed(3), H: +((H - yh) * (0.45 + 0.5 * R())).toFixed(1), tl: +(land - Th * k).toFixed(3), xh: +x.toFixed(1), yh: +yh.toFixed(1), yl: +yh.toFixed(1), xl: +(x + (R() - 0.5) * 3).toFixed(1), spin: +((R() - 0.5) * 700).toFixed(0), gray: Math.round(17 + R() * 50) }); });
+    } else
     for (let i = 0; i < nR; i++) {
       const k = Math.max(0.8, 1 + gauss() * sp), r = (K.sizePx != null ? K.sizePx : 2.6) * (0.7 + R() * 0.75);
       rocks.push({ d: SUB.shape(species, r, 3000 + i), r: +r.toFixed(2), T: +(T * k).toFixed(3), H: +(H * Math.min(1, k * k * 0.9)).toFixed(1), dly: +((R() - 0.5) * 0.03).toFixed(3),
         xh: +Math.max(xa + 5, Math.min(xb - 5, xm + gauss() * (xb - xa) * (K.pileSpread != null ? K.pileSpread : 0.1))).toFixed(1),   /* [§302] the handful at rest: spread along the floor, not one clump */ yh: +(R() * 6).toFixed(1), xl: +Math.max(xa + 5, Math.min(xb - 5, xm + gauss() * (xb - xa) * (K.landSpread != null ? K.landSpread : 0.17))).toFixed(1),
         spin: +((R() - 0.5) * 900).toFixed(0), gray: Math.round(17 + R() * 50) });
     }
-    return { t0: a, t1: b, xa, xb, yT, yB, floor, species, stroked: !!SUB.stroked[species], impact: +(K.impact != null ? K.impact : t0 + (xm - x0) / pps).toFixed(3)   /* [§309] impact: set by hand for one strike, else the curtain's middle */, flightS: T, bounce: K.bounce != null ? K.bounce : 0.28, rocks, all: SUB.species };
+    return { t0: a, t1: b, xa, xb, yT, yB, floor, species, stroked: !!SUB.stroked[species], impact: +(K.impact != null ? K.impact : t0 + (xm - x0) / pps).toFixed(3)   /* [§309] impact: set by hand for one strike, else the curtain's middle */, flightS: T, bounce: K.bounce != null ? K.bounce : 0.28, shape: K.shape || 'throw', rocks, all: SUB.species };
   };
   const strikes = [], protos = [];
   if ((page === 'burst' || (e.proto && e.proto.curtain)) && e.strikeSpan) { const s1 = strikeOf(e.strikeSpan[0], e.strikeSpan[1], (page === 'burst' ? rd(EXCERPTS.burst) : e.proto).curtain); if (s1) { strike = s1; strikes.push(s1); } }

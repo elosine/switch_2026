@@ -1515,3 +1515,9 @@ staff carried from piece 6 has eight lines, of which only the coil's and the Chi
 **His words (verbatim):** "From 166.52 to the one at 166.82, that's a pebble drop. 167.02 to 167.33, that's another pebble drop. from 167.56 to 168.59. That's a ribbon. Again, an accelerating. It goes from thin into thick and short uptail. the two figures at 169.7 and then 169.93. Let's make that a poll, notated, just two notated chords there. And you can just eat that extra F. Just forget about that extra F at 170. ribbon from 168.83 impact at 169.46 short tail again."
 
 **The AI's reading:** two more pebble drops (166.52 … 166.82; 167.02 … 167.33); a ribbon 167.56 … 168.59, accelerating — thin into thick — with a short tail up; a ribbon from 168.83 with its impact at 169.46 and a short tail; the figures at 169.7 and 169.93 as a POLE ("poll"), two notated chords; and the stray F at about 170 LEFT OUT of the piece ("eat that extra F") — the first played note he removes.
+
+### SW-102 · 2026-11-20 · a pebble drop that grows — a hill of pebbles; and a note to himself: vary the pebble drops' densities
+
+**His words (verbatim):** "We'll have to refine the pebble density, but let's try something from 170.3 to 170.93 with the back half being fairly bit more dense. I don't know if you can make a substrate that kind of like starts thin and grows like a crescendo, you know, like a hill of pebbles. So it's thicker and denser towards the right. And then just make a note, I want to go back and refine some of the densities so they reflect a little bit, or there's a variety in the pebble drops."
+
+**The AI's reading:** a new form of the pebble drop for 170.3 … 170.93: its substrate THIN at the left and growing to the right, "like a crescendo", "a hill of pebbles", the back half clearly denser. **HIS NOTE, to come back to:** refine the pebble drops' densities so that they reflect the playing a little and so that the drops are not all alike — variety among them.
