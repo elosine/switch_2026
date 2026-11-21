@@ -464,8 +464,13 @@
       // don't need to be in front of anything"] THE ELECTRONICS' LAYER — the pane, the return bricks, the electronics' badges, a computer player's
       // wedge — is drawn FIRST, under every mark of the players' (the trill's curve, a GC, a mic opening pass over it): the pane lowest, then
       // the bricks and the wedge, then the badge.
+      // [the Switch~ piece §383 — HIS RULE 2026-11-21: "the GC, let's go with the recommendation. Curve behind notation, ball stays on top"]
+      // rules.json objects.gc.layer → engraving.render.gcLayer: "behind" = the still curve is drawn UNDER the notation (after the electronics'
+      // layer, before every mark and the staff), so no word, dynamic or head is struck through; "top" = piece 6's DEC-181 (the curve last).
+      // The moving ball is the animation's own layer, over the page either way.
+      const GC_TOP = ((opts && opts.engraving) || {}).gcLayer === 'top';   // RULES MIRROR (objects.gc.layer "behind")
       const ELEC_LAYER = it => (it.k === 'elecwin' ? -3 : (it.k === 'elecret' || (it.k === 'wedge' && it.row === 'elec')) ? -2 : (it.k === 'badge' && it.row === 'elec') ? -1 : null);
-      const LAYER = it => { const e = ELEC_LAYER(it); return e != null ? e : it.k === 'envcurve' ? 1 : it.k === 'goline' ? 2 : it.k === 'gc' ? 3 : 0; };   // [decibel §411, DEC-181 — his "on everywhere in the score, let's put the GCs on top"] the GC is drawn LAST, over every other mark of its lane
+      const LAYER = it => { const e = ELEC_LAYER(it); return e != null ? e : it.k === 'envcurve' ? 1 : it.k === 'goline' ? 2 : it.k === 'gc' ? (GC_TOP ? 3 : -0.5) : 0; };   // [decibel §411, DEC-181 — his "on everywhere in the score, let's put the GCs on top"] the GC is drawn LAST, over every other mark of its lane
       const itemsInLayers = [...sysModel.items, ...addGo].sort((a, b) => LAYER(a) - LAYER(b));
       for (const it of itemsInLayers) {
         // [2c.3] a cut kind's ink goes inside the page's clip — wrapped in `finally`, so every branch's `continue` is honoured

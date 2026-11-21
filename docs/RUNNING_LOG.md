@@ -5726,3 +5726,10 @@ Each with the first time and the count. It changes nothing.
 - VIOLIN (47): three techniques with no look and no word (pizzicato behind the bridge · overpressure · col legno gettato) · one same-instant pair · three unbeamed pairs.
 **What this is, for the paper:** the list turns "the AI should have asked" into a thing the build does. On the flute, after a day of his proofreading, one question is left; on the parts not yet taken, the list is the agenda.
 **Written where a future AI finds it:** `CLAUDE.md` § THE ENGRAVING RULES (the two machines) · `docs/NOTATION_SCHEME.md` § 2b, the recipe's step 0.
+
+## §383 · 2026-11-21 · HIS RULE: the gestural curve behind the notation, the ball on top
+
+**His words:** "Okay, and then the GC, let's go with the recommendation. Curve behind notation, ball stays on top. That's fine."
+**The row:** `rules.json` objects.gc.layer "behind" → `engraving.render.gcLayer`. `render.js` draws the still curve after the electronics' layer and before every mark and the staff; "top" restores piece 6's DEC-181. The moving ball is the animation's own layer (`animobj.js` draws only balls) and is over the page either way.
+**Why it was safe to reverse DEC-181 here:** what that decision guarded against in *Approaching* were its filled boxes (the sine boxes, the mic openings) hiding the curve; the counterpoint has none, and the electronics' own layer is still drawn under the curve.
+**Checked once:** on the AI's throwaway, the counterpoint's page — in the page's drawing order the first curve is the 7th of 319 elements (it was among the last), and the flute's "jet whistle" at 200.19 reads over the curve.
