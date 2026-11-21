@@ -252,7 +252,12 @@ function viewOf(page, t0, span, w, opts) {
           // over its time, times the rise's power: tailPct = how high it goes (of the fall), tailStiffness = the GC's stiffness for the tail
           // alone (the rise's power = 1 + stiffness / 50: higher = off the bounce faster, levelling sooner)
           const tailOf = () => ({ damping: g.tailPct != null ? g.tailPct : (cfg.tailPct != null ? cfg.tailPct : 30), stiffness: g.tailStiffness != null ? g.tailStiffness : (cfg.tailStiffness != null ? cfg.tailStiffness : preset.stiffness) });
-          const pre = bs.length > 1 ? Object.assign({}, preset, last ? tailOf() : { damping: 100 }) : g.tailPct != null ? Object.assign({}, preset, tailOf()) : preset;   // tailPct on a one-bounce ribbon too: a short tail up (§313)
+          // [§334 — his "it can just hit harder … a harder descent and a quicker ascent, whatever that works out to be"] hit: ONE word for how hard
+          // a ribbon strikes (1 = the standing curve). It scales the GC's own two powers together: the fall hangs longer at the top and comes
+          // down faster into the impact (ictus), and the tail leaves the impact faster (stiffness).
+          const hit = g.hits && g.hits[i] != null ? g.hits[i] : g.hit;   // hits: one per turn of a many-turn ribbon (§335)
+          const hitOf = q => hit != null && hit !== 1 ? Object.assign({}, q, { ictus: (q.ictus != null ? q.ictus : 90) * hit, stiffness: ((q.stiffness != null ? q.stiffness : 62) + 50) * hit - 50 }) : q;
+          const pre = hitOf(bs.length > 1 ? Object.assign({}, preset, last ? tailOf() : { damping: 100 }) : g.tailPct != null ? Object.assign({}, preset, tailOf()) : preset);   // tailPct on a one-bounce ribbon too: a short tail up (§313)
           const f = FUR({ proto: P, ir: { events: src }, glyphs: e.glyphs, ChordColumn: e.ChordColumn, Gc: e.Gc, xOf, staff: staves[staves.length - 1], w, preset: pre, look, gaps: e.gaps });
           flush(f.svg); protos.push({ arc: P.arc, preset: pre, look, flow: P.flow, arcY: f.arcY, ribbon: f.ribbon, wave: !!P.wave, sharp: P.waveSharp || 1 });
           segs.push([a0, a1]);

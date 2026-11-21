@@ -1563,3 +1563,9 @@ staff carried from piece 6 has eight lines, of which only the coil's and the Chi
 **His words (verbatim):** "Impact at 188.21. The ribbon starts at 186.8. And the tail till 188.67. A new ribbon starts at 188.76. impact at 189.38 All right, let's make that 189.38. Let's have it go back up to peak at or top at 189.56. undulate to 189.99. up by 190.57 impact again at 191.24. and then tail to 191.46."
 
 **The AI's reading:** two ribbons, back to back, the longest so far. The first is plain: 186.8, impact 188.21, a tail to 188.67. The second he draws POINT BY POINT, tops as well as turns: start 188.76 · impact 189.38 · top 189.56 · an undulation (a wave, no strike) at 189.99 · top 190.57 · impact 191.24 · tail to 191.46. He is now giving the ribbon's whole line, not only where it strikes.
+
+### SW-110 · 2026-11-21 · "it can just hit harder" — one word for a ribbon's strike
+
+**His words (verbatim):** "The one at 188.21, it could hit harder, and I guess instead of me saying like ascent, descend, and ascent, it can just hit harder. So I guess it would be a harder descent and a quicker ascent, whatever that works out to be."
+
+**The AI's reading:** a correction to the ribbon of 186.8 (a harder strike at 188.2), and a way of speaking: he would rather say HOW HARD a ribbon hits, one word, than give its fall and its rise apart. So "hit harder" is to be a single setting of a ribbon.

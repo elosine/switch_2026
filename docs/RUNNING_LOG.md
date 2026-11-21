@@ -5251,3 +5251,26 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **The wave's depth (60 %) is the AI's**, the standing value; he said only "undulate".
 **Checked once:** the page rendered to an image, 186.4 → 191.8 s.
 **For the paper:** the passage 186.8 … 191.5 is the densest of the solo so far (some 140 notes in 4.7 s) and he gives it to two ribbons only, no chord, no pebbles.
+
+## §334 · 2026-11-21 · "hit harder" — one setting for a ribbon's strike
+
+**His words:** SW-110 (the sketch pad): "The one at 188.21, it could hit harder, and I guess instead of me saying like ascent, descend, and ascent, it can just hit harder. So I guess it would be a harder descent and a quicker ascent, whatever that works out to be."
+**Built:** `hit` on a ribbon gesture (`tools/notation_workshop.js`), 1 = the standing curve. It scales the gestural curve's own two powers together (`notation/lib/gc.js`: the fall is 1 − u^descentPower, the rise 1 − (1 − u)^ascentPower): both powers are multiplied by `hit`. A higher fall power keeps the ribbon near its top longer and brings it down faster into the impact; a higher rise power takes it off the impact faster and levels it sooner. The page's ball follows the same curve.
+**The ribbon of 186.8:** hit 1.8 — the fall's power 2.8 → 5.0, the tail's 2.0 → 3.6. The times are unchanged (186.792 · 188.20 · 188.67).
+**Why one word:** it is his way of speaking, and it keeps the fall and the rise in one character. The wave's steepness (§330 · §332) stays a separate setting; a wave does not strike.
+**Checked once:** the page rendered to an image, 186.3 → 191.9 s.
+
+## §335 · 2026-11-21 · the two long ribbons joined into one, 186.8 → 191.46
+
+**His words:** "And then let's connect those two curves around 188.7. Let's just make them all one curve."
+**Done:** the two ribbons of §333 are ONE gesture of four turns: the impact 188.20 → the top 188.7 → the impact 189.38 → the top 189.56 → a wave at 189.985 → the top 190.57 → the impact 191.235 → the tail to 191.46. Where the first ribbon's tail stopped at 85 % (188.67) and the second began level (188.757), the line now rises to the full top at 188.7 and falls again.
+**What follows from it:** the harder hit of §334 belongs to the first impact only, so `hits` gives one value per turn (1.8 · 1 · 1 · 1). The width is now the playing's over the whole length, on one scale (the first part was the plain designed line). The chord symbols stand at the start of a gesture, so the pair at 188.76 is gone with the join.
+**Checked once:** the page rendered to an image, 186.3 → 191.9 s. The longest ribbon so far: 4.7 s, some 140 notes.
+
+## §336 · 2026-11-21 · the first impact of the long ribbon moved onto the loud pair, 188.134
+
+**His words:** "The hit at 188.2 is a tiny bit late. See if you can hear where it should hit. It's probably just a slight bit before that."
+**Read from the played notes (the AI cannot hear; it reads the velocities):** just before 188.2 stand F5 · G5 at 188.132 … .136, velocities 119 · 121 — the loudest notes of that second. The partial the impact stood on, F5 at 188.193, is softer (98), with a D#4 of 33 after it. So the accent he hears is the pair at 188.134, 66 ms earlier.
+**Done:** the first impact 188.20 → 188.134. Nothing else moved.
+**For the next placements:** where his clicked time lies near two partials, the LOUDER one is the likelier impact.
+**Checked once:** the page rendered to an image, 186.3 → 191.9 s.

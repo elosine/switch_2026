@@ -452,28 +452,27 @@
   {
    "kind": "ribbon",
    "t0": 186.792,
-   "bounce": 188.2,
-   "t1": 188.67,
-   "hideTo": 188.67,
-   "tailPct": 85,
-   "_his": "Impact at 188.21. The ribbon starts at 186.8. And the tail till 188.67",
-   "_note": "the start on the two notes of 186.792 … .796; the impact on the partial of 188.193 … .211; the tail to 188.67 as he said (0.47 s — a long one), taking the notes to 188.640 with it"
-  },
-  {
-   "kind": "ribbon",
-   "t0": 188.757,
    "bounces": [
+    188.134,
     189.38,
     189.985,
     191.235
    ],
    "tops": [
+    188.7,
     189.56,
     190.57
    ],
    "depths": [
     1,
+    1,
     0.6,
+    1
+   ],
+   "hits": [
+    1.8,
+    1,
+    1,
     1
    ],
    "t1": 191.46,
@@ -484,8 +483,8 @@
     "power": 1.3,
     "ribbonMaxPx": 34
    },
-   "_his": "A new ribbon starts at 188.76. impact at 189.38 All right, let's make that 189.38. Let's have it go back up to peak at or top at 189.56. undulate to 189.99. up by 190.57 impact again at 191.24. and then tail to 191.46",
-   "_note": "the start on the partial of 188.757; the first impact at his 189.38 (the end of the seven notes 189.329 … .383 — he said the time twice); the top at 189.56; a WAVE to 60 % at 189.985 (F4 · F#4); the top again at 190.57; the second impact on the six notes of 191.219 … .254; the tail to 191.46. The width from the playing, as the other many-turn ribbons"
+   "_his": "Impact at 188.21. The ribbon starts at 186.8. And the tail till 188.67 · A new ribbon starts at 188.76. impact at 189.38 All right, let's make that 189.38. Let's have it go back up to peak at or top at 189.56. undulate to 189.99. up by 190.57 impact again at 191.24. and then tail to 191.46 · (§334) \"The one at 188.21, it could hit harder\" · (§335) \"let's connect those two curves around 188.7. Let's just make them all one curve\"",
+   "_note": "ONE ribbon of four turns: the impact 188.20 (hit 1.8) · the top 188.7, where the two ribbons met · the impact 189.38 · the top 189.56 · a wave to 60 % at 189.985 · the top 190.57 · the impact 191.235 · the tail to 191.46. The width from the playing, on one scale over the whole · §336, his \"The hit at 188.2 is a tiny bit late … probably just a slight bit before that\": the first impact on F5 · G5 of 188.132 … .136 (velocities 119 · 121, the loudest notes there), not the softer F5 of 188.193"
   }
  ],
  "noOttava": true,
