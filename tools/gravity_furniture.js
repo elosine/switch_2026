@@ -43,7 +43,11 @@ module.exports = function furniture(o) {
   // half width; and what stands under the piano (coverFrom down) is covered in white, so the picture may run lower than the piano's lane
   if (P.coverFrom != null && !strip && yBot > P.coverFrom) out.push('<rect x="0" y="' + P.coverFrom + '" width="' + w + '" height="' + (yBot - P.coverFrom) + '" fill="#fff"/>');
   const RW = style === 'ribbon' ? (F.ribbonMaxPx != null ? F.ribbonMaxPx : 13) : 0;
-  const imp = yBot - 6 - Math.max(look.impactRadiusPx, RW / 2), apex = band[0] + 6 + RW / 2, gy = s => imp - Gc.heightFrac(GP, s - A.bounce) * (imp - apex);
+  // [§323 — his "a two-wave ribbon, but the first one doesn't go all the way down … like a 60% down"] depth: this arc turns at that share of
+  // the full drop; wave: it is a WAVE, not a bounce — it turns smoothly (a cosine, level at the bottom of the dip) and has no impact ring
+  const impFull = yBot - 6 - Math.max(look.impactRadiusPx, RW / 2), apex = band[0] + 6 + RW / 2, imp = apex + (impFull - apex) * (P.depth != null ? P.depth : 1), rbW = (preset.damping != null ? preset.damping : 100) / 100;
+  const hFrac = s => { if (!P.wave) return Gc.heightFrac(GP, s - A.bounce); if (s <= A.bounce) { const u = Math.max(0, Math.min(1, (s - A.t0) / ((A.bounce - A.t0) || 1))); return (1 + Math.cos(Math.PI * u)) / 2; } const v = Math.max(0, Math.min(1, (s - A.bounce) / ((A.t1 - A.bounce) || 1))); return rbW * (1 - Math.cos(Math.PI * v)) / 2; };
+  const gy = s => imp - hFrac(s) * (imp - apex);
   const P2 = S.map(p => ({ s: p[0], x: xOf(p[0]), y: gy(p[0]), e: ex(p[1]) }));
   // [§296 — HIS WORD: the playing is "just kind of a guideline"; the ribbon has "its own dynamic"] A DESIGNED PROFILE (flow.profile) replaces the
   // measured busyness: on the FALL the width follows the DROP itself — a hair while the arc is almost level, growing all the way down
@@ -71,7 +75,7 @@ module.exports = function furniture(o) {
       out.push('<polygon points="' + L.concat(Rr.reverse()).join(' ') + '" fill="' + look.color + '" stroke="none"/>');
     }
   } else out.push('<polyline points="' + P2.map(p => r1(p.x) + ',' + r1(p.y)).join(' ') + '" fill="none" stroke="' + look.color + '" stroke-width="' + look.arcStrokePx + '"/>');
-  out.push('<circle cx="' + r1(xOf(A.bounce)) + '" cy="' + r1(imp) + '" r="' + look.impactRadiusPx + '" fill="' + (style === 'ribbon' ? '#fff' : 'none') + '" stroke="' + look.color + '" stroke-width="' + look.arcStrokePx + '"/>');
+  if (!P.wave) out.push('<circle cx="' + r1(xOf(A.bounce)) + '" cy="' + r1(imp) + '" r="' + look.impactRadiusPx + '" fill="' + (style === 'ribbon' ? '#fff' : 'none') + '" stroke="' + look.color + '" stroke-width="' + look.arcStrokePx + '"/>');
 
   // 2 · the inner movement's other two forms
   if (style === 'strobe') {

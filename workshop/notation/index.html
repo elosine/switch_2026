@@ -114,6 +114,7 @@
   // ---- THE PROTOTYPE (bank/gravity_proto.json): ONE arc, the lineage's GC — the fall 1 - u^p into the impact, the rebound to damping %
   function gcFrac(p, s) {
     const a = p.arc, pr = p.preset, dp = 1 + (pr.ictus / 1000) * 20, ap = 1 + pr.stiffness / 50, rb = pr.damping / 100, cl = u => Math.max(0, Math.min(1, u));
+    if (p.wave) { if (s <= a.bounce) { const d = a.bounce - a.t0; return (1 + Math.cos(Math.PI * cl(d > 0 ? (s - a.t0) / d : 1))) / 2; } const d2 = a.t1 - a.bounce; return rb * (1 - Math.cos(Math.PI * cl(d2 > 0 ? (s - a.bounce) / d2 : 1))) / 2; }   // a wave turns smoothly (§323)
     if (s <= a.bounce) { const d = a.bounce - a.t0; return 1 - Math.pow(cl(d > 0 ? (s - a.t0) / d : 1), dp); }
     const d = a.t1 - a.bounce; return rb * (1 - Math.pow(1 - cl(d > 0 ? (s - a.bounce) / d : 1), ap));
   }

@@ -244,13 +244,14 @@ function viewOf(page, t0, span, w, opts) {
           const last = i === bs.length - 1, a0 = i === 0 ? g.t0 : (bs[i - 1] + b) / 2, a1 = last ? g.t1 : (b + bs[i + 1]) / 2;
           const P = { band: cfg.band, arcBand: cfg.arcBand || cfg.band, arc: { t0: a0, bounce: b, t1: a1 }, noShapes: true, flow: Object.assign({ style: 'ribbon' }, cfg.flow, g.flow) };
           if (g.fromPlaying) { P.in = src.map(p => p.id.replace(/^ev-/, '')); P.flow = Object.assign({}, P.flow, { profile: null }, g.flow); P.normSpan = [g.t0, g.t1]; }
+          if (g.depths && g.depths[i] != null && g.depths[i] < 1) { P.depth = g.depths[i]; P.wave = true; }   // [§323] a wave: this turn goes only part of the way down
           // [§318 — his "They should be coming off those bounces at a higher velocity … a stronger bounce"] a tail's LEAVING SPEED is its height
           // over its time, times the rise's power: tailPct = how high it goes (of the fall), tailStiffness = the GC's stiffness for the tail
           // alone (the rise's power = 1 + stiffness / 50: higher = off the bounce faster, levelling sooner)
           const tailOf = () => ({ damping: g.tailPct != null ? g.tailPct : (cfg.tailPct != null ? cfg.tailPct : 30), stiffness: g.tailStiffness != null ? g.tailStiffness : (cfg.tailStiffness != null ? cfg.tailStiffness : preset.stiffness) });
           const pre = bs.length > 1 ? Object.assign({}, preset, last ? tailOf() : { damping: 100 }) : g.tailPct != null ? Object.assign({}, preset, tailOf()) : preset;   // tailPct on a one-bounce ribbon too: a short tail up (§313)
           const f = FUR({ proto: P, ir: { events: src }, glyphs: e.glyphs, ChordColumn: e.ChordColumn, Gc: e.Gc, xOf, staff: staves[staves.length - 1], w, preset: pre, look, gaps: e.gaps });
-          flush(f.svg); protos.push({ arc: P.arc, preset: pre, look, flow: P.flow, arcY: f.arcY, ribbon: f.ribbon });
+          flush(f.svg); protos.push({ arc: P.arc, preset: pre, look, flow: P.flow, arcY: f.arcY, ribbon: f.ribbon, wave: !!P.wave });
           segs.push([a0, a1]);
         });
       } else if (g.kind === 'stutter') {

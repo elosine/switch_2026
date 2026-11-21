@@ -5149,3 +5149,16 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **The AI's mistake in §317:** "grows like a crescendo" was read as a crescendo in TIME — each pebble landing as the cursor reached it, a wave. He meant the SUBSTRATE: where the pebbles lie, thin to dense. The timing was never to change.
 **Changed:** the hill is thrown as one handful like every pebble drop — all leave together, fly about one second (each a few per cent different), and land together at the moment the cursor reaches the curtain's middle; each falls back onto its own place in the hill. What is left of "hill" is the layout only: few pebbles at the left, crowding and piled to the right.
 **Checked:** the server's answer for the page — 75 pebbles, none with a moment of its own; the landings fall within about ± 0.1 s of the one impact. Not seen moving.
+
+## §323 · 2026-11-21 · the working version, 171.7 → 175.7 s — a ribbon with a WAVE that stops at 60 %, an arpeggiated chord, three beamed figures, a falling ribbon
+
+**His words:** SW-103 (the sketch pad): "a two-wave ribbon, but the first one doesn't go all the way down … like a 60% down … 172.2. And then the ending is 172.79. and one of those short tails that we refined earlier. the cluster … around 173.71 … an arpeggiated chord. The ones in the left hand, three of them at around 173.88, just its own struck chord, and beam those together with the partial on 173.97 and 174.1 … evenly space those three … 16th … 174.23 … 175.52, just a ribbon going down, impacting at 175.52 and a short tail up."
+
+**A new form — THE WAVE (`depths` on a ribbon's `bounces`):** a turn that goes only part of the way down is not a bounce: it turns SMOOTHLY (a cosine — level at the bottom of the dip, where a bounce has its corner) and carries no impact ring. After it the line rises to the full height and the next stretch falls as a ribbon does. The ball rides the same curve.
+**Written into the working version:**
+- THE TWO-WAVE RIBBON 171.741 → a wave to 60 % at 172.2 → the impact 172.755 → the refined tail (85 % in 0.30 s). Its width from the playing (as the three-bounce ribbon's). His 172.2 is KEPT as given: it lies between the partials of 172.104 and 172.305 and no partial stands on it — a wave's low point is not a struck moment.
+- UNIT 15 — the six notes of both hands at 173.694 … .735: a chord with the arpeggio sign, stem up, a 16th flag.
+- UNITS 16a · 16b · 16c — the left hand's D5 · F#4 · B4 (173.848 … .902) as one chord, then G5 (173.950) and F5 (174.096) on the upper staff: one 16th beam, stems up, the three at equal distances (`spread` "both": the least equal distance, centered on the span they were played in — §262's rule).
+- THE RIBBON 174.243 → the impact 175.44 → the refined tail. The designed line of §296 (a hair while level, growing with the drop). His 175.52 is the END of the seven-note cluster 175.393 … 175.503; the impact stands at its loudness-weighted middle (§314's choice, still unanswered by him).
+**Checked once:** the page rendered to an image, 171.2 → 176.1 s.
+**Seen, for his eye:** the three beamed figures stand very close (equal, but only about 2.3 ss apart, right after the arpeggio's wavy line); the falling ribbon's first chord symbols stand under its level start.

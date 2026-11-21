@@ -39032,9 +39032,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2150",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true
     }
    },
    "provenance": "authored"
@@ -39053,9 +39056,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2150",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true
     }
    },
    "provenance": "authored"
@@ -39074,9 +39080,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2150",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true
     }
    },
    "provenance": "authored"
@@ -39095,9 +39104,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2150",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true
     }
    },
    "provenance": "authored"
@@ -39116,9 +39128,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2150",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true
     }
    },
    "provenance": "authored"
@@ -39137,9 +39152,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2150",
+     "puStem": "up",
+     "puFlag": "16",
+     "puArp": true
     }
    },
    "provenance": "authored"
@@ -39158,9 +39176,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2157",
+     "puStem": "up",
+     "puBeam": "u16",
+     "puSpread": "both"
     }
    },
    "provenance": "authored"
@@ -39179,9 +39200,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2157",
+     "puStem": "up",
+     "puBeam": "u16",
+     "puSpread": "both"
     }
    },
    "provenance": "authored"
@@ -39200,9 +39224,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2157",
+     "puStem": "up",
+     "puBeam": "u16",
+     "puSpread": "both"
     }
    },
    "provenance": "authored"
@@ -39221,9 +39248,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2158",
+     "puStem": "up",
+     "puBeam": "u16",
+     "puSpread": "both"
     }
    },
    "provenance": "authored"
@@ -39242,9 +39272,12 @@
      "dynMark": false,
      "letRing": false,
      "ringBar": false,
-     "nhHeadScale": 0.5,
-     "nhAccScale": 0.5,
-     "chordRules": false
+     "nhHeadScale": 1,
+     "nhAccScale": 1,
+     "puId": "wc-2159",
+     "puStem": "up",
+     "puBeam": "u16",
+     "puSpread": "both"
     }
    },
    "provenance": "authored"

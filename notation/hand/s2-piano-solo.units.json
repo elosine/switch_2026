@@ -326,6 +326,63 @@
     169.947
    ],
    "beam": "u13"
+  },
+  {
+   "_n": "15 · 173.69 s — the six notes of both hands, an arpeggiated chord (his word, §323)",
+   "ids": [
+    "wc-2150",
+    "wc-2151",
+    "wc-2149",
+    "wc-2154",
+    "wc-2153",
+    "wc-2152"
+   ],
+   "stem": "up",
+   "flag": 16,
+   "arp": true,
+   "played": [
+    173.694,
+    173.735
+   ]
+  },
+  {
+   "_n": "16a · 173.85 s — the left hand's three (D5 · F#4 · B4), a struck chord; beamed with the next two, the three evenly spaced, a 16th beam",
+   "ids": [
+    "wc-2157",
+    "wc-2155",
+    "wc-2156"
+   ],
+   "stem": "up",
+   "beam": "u16",
+   "spread": "both",
+   "played": [
+    173.848,
+    173.902
+   ]
+  },
+  {
+   "_n": "16b · G5 (upper staff)",
+   "ids": [
+    "wc-2158"
+   ],
+   "stem": "up",
+   "beam": "u16",
+   "spread": "both",
+   "played": [
+    173.95
+   ]
+  },
+  {
+   "_n": "16c · F5 (upper staff)",
+   "ids": [
+    "wc-2159"
+   ],
+   "stem": "up",
+   "beam": "u16",
+   "spread": "both",
+   "played": [
+    174.096
+   ]
   }
  ]
 }
