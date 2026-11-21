@@ -76,7 +76,7 @@ function engine(page) {
     const staff = new Map(); for (const o of ir.overlays || []) if (o.kind === 'engraving' && o.target && o.target.event && o.value) staff.set(o.target.event, o.value.staff || 0);
     work = { cfg: wk, sets: cc.sets, hands: { R: [], L: [] } };
     for (const ev of ir.events) if (ev.pitch && ev.pitch.midi != null) work.hands[(staff.get(ev.id) || 0) === 1 ? 'L' : 'R'].push({ t: ev.onset, midi: ev.pitch.midi, sp: ev.pitch.spelled });
-    const hidden = ev => wk.gestures.some(g => g.hide !== false && (g.kind === 'ribbon' || g.kind === 'strike' || (g.kind === 'stutter' && g.hand === ((staff.get(ev.id) || 0) === 1 ? 'L' : 'R'))) && ev.onset >= g.t0 - 1e-9 && ev.onset <= g.t1 + 1e-9);   // a repeat hides its own hand's notes
+    const hidden = ev => wk.gestures.some(g => g.hide !== false && (g.kind === 'ribbon' || g.kind === 'strike' || (g.kind === 'stutter' && g.hand === ((staff.get(ev.id) || 0) === 1 ? 'L' : 'R'))) && ev.onset >= (g.from != null ? g.from : g.t0) - 1e-9 && ev.onset <= g.t1 + 1e-9);   // (from: where its notes begin, when the sign is drawn later) a repeat hides its own hand's notes
     const keep = new Set(ir.events.filter(ev => !hidden(ev)).map(ev => ev.id));
     ir.events = ir.events.filter(ev => keep.has(ev.id));
     ir.overlays = (ir.overlays || []).filter(o => !(o.target && o.target.event) || keep.has(o.target.event));
@@ -108,7 +108,7 @@ function engine(page) {
   const ensPart = p => (ENS && ENS.parts.find(q => q.part === p)) || null;
   const PARTS = ENS ? ENS.parts.map(p => p.part) : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   const model = Layout.layoutSection(ir, glyphs, Object.assign({ m4AttackLines: false, frameParts: PARTS, ensemble: ENS, techniques: T, fitBoxes: Fit.boxesFor(C, ENS, PARTS) }, (C.engraving && C.engraving.layout) || {},
-    chords ? { ottavaLedgerThreshold: 1e6 } : {}));   // [§294] the chord pages: no 8va folding — the faint heads at pitch, as the shapes are
+    (chords || (work && work.cfg.noOttava)) ? { ottavaLedgerThreshold: 1e6 } : {}));   // [§309] and the working version, at his word: no 8va, the notes at pitch with their ledger lines   // [§294] the chord pages: no 8va folding — the faint heads at pitch, as the shapes are
   const rz = (C.realizations || {})['video-jury'] || {}, H = (C.frame && C.frame.heightPx) || 1080;
   const FRAME = Coords.ensembleFrame(PARTS, { heightPx: H, lanes: rz.lanes || { padTopPx: 8, padBotPx: 8, gapPx: 4 }, staffHeightPx: (C.staff && C.staff.staffHeightPx) || 31.6,
     grandStaff: ((C.engraving || {}).layout || {}).grandStaff, weightOf: ENS ? (p => (ensPart(p) && ensPart(p).weight) || 1) : undefined,
@@ -180,7 +180,7 @@ function viewOf(page, t0, span, w, opts) {
   const strikeOf = (a, b, K0) => { if (!staves.length) return null;   // [§297] also on the prototype page: the curtain over its third part, the burst's notes
     const K = Object.assign({ minSs: 6, padSs: 0.8, overSs: 3, pebbles: 11, prepS: 0.605, fallS: 0.38 }, K0 || {});
     const pps = (view.xOfSeconds(t0 + span) - x0) / span, xOf = s => x0 + (s - t0) * pps, ss = (staves[0][1] - staves[0][0]) / 4;
-    const xa = xOf(a) - K.padSs * ss, xb = Math.max(xOf(b) + (K.padSs + 1.1) * ss, xa + K.minSs * ss), yT = staves[0][0] - K.overSs * ss, yB = staves[staves.length - 1][1] + K.overSs * ss;
+    const xa = xOf(a) - K.padSs * ss, xb = Math.max(xa + 2 * ss, Math.min(K.maxX != null ? K.maxX : Infinity, Math.max(xOf(b) + (K.padSs + 1.1) * ss, xa + K.minSs * ss)))   /* [§309] maxX: never past what follows it */, yT = staves[0][0] - K.overSs * ss, yB = staves[staves.length - 1][1] + K.overSs * ss;
     svg = svg.replace(/<\/svg>\s*$/, '<rect x="' + xa.toFixed(1) + '" y="' + yT.toFixed(1) + '" width="' + (xb - xa).toFixed(1) + '" height="' + (yB - yT).toFixed(1) + '" fill="' + (K.fill || '#5b7fa6') + '" fill-opacity="' + (K.opacity != null ? K.opacity : 0.13) + '" stroke="' + (K.fill || '#5b7fa6') + '" stroke-opacity="0.45" stroke-width="0.6"/></svg>');
     // [§299 — HIS WORD: "nail the physics of exactly as I described, throwing a handful of pebbles into the air … they sort of hang … there's a
     // clear impact point, but it'll be a little bit scattered"] THE THROW IS A REAL ONE: each pebble flies a PARABOLA (what gravity alone
@@ -199,7 +199,7 @@ function viewOf(page, t0, span, w, opts) {
         xh: +Math.max(xa + 5, Math.min(xb - 5, xm + gauss() * (xb - xa) * (K.pileSpread != null ? K.pileSpread : 0.1))).toFixed(1),   /* [§302] the handful at rest: spread along the floor, not one clump */ yh: +(R() * 6).toFixed(1), xl: +Math.max(xa + 5, Math.min(xb - 5, xm + gauss() * (xb - xa) * (K.landSpread != null ? K.landSpread : 0.17))).toFixed(1),
         spin: +((R() - 0.5) * 900).toFixed(0), gray: Math.round(17 + R() * 50) });
     }
-    return { t0: a, t1: b, xa, xb, yT, yB, floor, species, stroked: !!SUB.stroked[species], impact: +(t0 + (xm - x0) / pps).toFixed(3), flightS: T, bounce: K.bounce != null ? K.bounce : 0.28, rocks, all: SUB.species };
+    return { t0: a, t1: b, xa, xb, yT, yB, floor, species, stroked: !!SUB.stroked[species], impact: +(K.impact != null ? K.impact : t0 + (xm - x0) / pps).toFixed(3)   /* [§309] impact: set by hand for one strike, else the curtain's middle */, flightS: T, bounce: K.bounce != null ? K.bounce : 0.28, rocks, all: SUB.species };
   };
   const strikes = [], protos = [];
   if ((page === 'burst' || (e.proto && e.proto.curtain)) && e.strikeSpan) { const s1 = strikeOf(e.strikeSpan[0], e.strikeSpan[1], (page === 'burst' ? rd(EXCERPTS.burst) : e.proto).curtain); if (s1) { strike = s1; strikes.push(s1); } }
@@ -207,6 +207,10 @@ function viewOf(page, t0, span, w, opts) {
   // its pebbles), and at the start of each the chord symbol of each hand (its pitch set through that gesture, §294 · §306)
   if (e.work && staves.length) {
     const WK = e.work, cfg = WK.cfg, pps = (view.xOfSeconds(t0 + span) - x0) / span, xOf = s => x0 + (s - t0) * pps;
+    // [§309 — his "give me more room … maybe all the way to what would have been the next staff up"] onlyPiano: the other parts' staves are not
+    // drawn, so the picture may reach up into the space of the staff above (cfg.band)
+    if (cfg.onlyPiano) svg = svg.replace(/<\/svg>\s*$/, () => '<rect x="0" y="' + cfg.band[0] + '" width="' + (x0 - 3).toFixed(1) + '" height="' + (staves[0][0] - 3 * (staves[0][1] - staves[0][0]) / 4 - cfg.band[0]).toFixed(1) + '" fill="#fff"/></svg>');   // the brace of the part above, left of the music
+    if (cfg.onlyPiano) svg = svg.replace(/(<svg[^>]*>)/, (m0) => m0 + '<style>' + [0,1, 2, 3, 4, 6, 7, 8, 9, 10, 11].filter(p => p !== PART).map(p => '.sys-p' + p).join(',') + '{display:none}</style>');
     delete require.cache[require.resolve('./gravity_furniture.js')]; delete require.cache[require.resolve('./chord_changes.js')];
     const CC = require('./chord_changes.js'), FUR = require('./gravity_furniture.js'), preset = (e.C.animated && e.C.animated.gc && e.C.animated.gc.preset) || e.Gc.DEFAULT_PRESET, look = e.Gc.LOOK;
     const flush = add => { svg = svg.replace(/<\/svg>\s*$/, () => add + '</svg>'); };
@@ -222,17 +226,20 @@ function viewOf(page, t0, span, w, opts) {
         // running shake marks of the catalog (§303 · §305): sign 29 GROWING (each mark taller and heavier) · 28 its opposite, fading ·
         // 30 GATHERING (the marks crowd toward the end) · 31 its opposite, spreading
         const st = g.hand === 'L' ? staves[staves.length - 1] : staves[0], sq = (st[1] - st[0]) / 4;
-        const keys = [...new Map(WK.hands[g.hand].filter(n => n.t >= g.t0 - 1e-9 && n.t <= g.t1 + 1e-9).map(n => [n.midi, n])).values()].sort((p, q) => p.midi - q.midi), shp = [{ at: g.t0, set: keys }];
+        const keys = [...new Map(WK.hands[g.hand].filter(n => n.t >= (g.from != null ? g.from : g.t0) - 1e-9 && n.t <= g.t1 + 1e-9).map(n => [n.midi, n])).values()].sort((p, q) => p.midi - q.midi), shp = [{ at: g.t0, set: keys }];
         if (keys.length) {
           let m = CC.draw({ shapes: shp, xOf, staff: st, glyphs: e.glyphs, ChordColumn: e.ChordColumn, gaps: e.gaps });
           const xA = shp[0].x1 + 0.7 * sq, xB = xOf(g.t1), yM = shp[0].yMid, marks = [], sign = g.sign || 29;
           if (sign === 30 || sign === 31) { let x = xA, gap = 2.3 * sq; const xs = []; while (x < xB) { xs.push(x); gap = Math.max(0.45 * sq, gap * 0.8); x += gap; } for (const x1 of xs) marks.push([sign === 30 ? x1 : xA + xB - x1, 1.3, 1.3]); }
           else { const n = Math.max(2, Math.floor((xB - xA) / (0.95 * sq)) + 1); for (let i = 0; i < n; i++) { const k0 = i / (n - 1), k = sign === 28 ? 1 - k0 : k0; marks.push([xA + (xB - xA) * k0, 0.6 + 1.5 * k, 0.6 + 1.4 * k]); } }
-          for (const [x, hf, wd] of marks) m += '<path d="M' + (x - 0.55 * sq).toFixed(1) + ' ' + (yM - hf * sq).toFixed(1) + ' Q' + (x + 0.45 * sq).toFixed(1) + ' ' + yM.toFixed(1) + ' ' + (x - 0.55 * sq).toFixed(1) + ' ' + (yM + hf * sq).toFixed(1) + '" fill="none" stroke="#111" stroke-width="' + wd.toFixed(2) + '" stroke-linecap="round"/>';
+          // [§309] dropStart · dropEnd: so many marks left off the repeat's beginning or end (his "take out a few of the ending ones … a few of the beginning ones")
+          for (const [x, hf, wd] of marks.slice(g.dropStart || 0, marks.length - (g.dropEnd || 0))) m += '<path d="M' + (x - 0.55 * sq).toFixed(1) + ' ' + (yM - hf * sq).toFixed(1) + ' Q' + (x + 0.45 * sq).toFixed(1) + ' ' + yM.toFixed(1) + ' ' + (x - 0.55 * sq).toFixed(1) + ' ' + (yM + hf * sq).toFixed(1) + '" fill="none" stroke="#111" stroke-width="' + wd.toFixed(2) + '" stroke-linecap="round"/>';
           flush(m);
         }
         continue;
-      } else if (g.kind === 'strike') { const s2 = strikeOf(g.t0, g.t1, Object.assign({}, cfg.curtain, g.curtain)); if (s2) strikes.push(s2); }
+      } else if (g.kind === 'strike') { // [§309 — his "so there's … just a sliver between all four of those"] a curtain ends a sliver (sliverSs) before the next gesture begins
+        const nx = cfg.gestures.filter(x => x.t0 > g.t0 + 1e-6 && x.kind !== 'ribbon').sort((p, q) => p.t0 - q.t0)[0], KC = Object.assign({}, cfg.curtain, g.curtain), ssw = (staves[0][1] - staves[0][0]) / 4, sl = (cfg.sliverSs != null ? cfg.sliverSs : 0.5) * ssw;
+        const s2 = strikeOf(g.t0, g.t1, Object.assign(KC, { impact: g.impact }, nx ? { maxX: xOf(nx.t0) - (nx.kind === 'strike' ? (KC.padSs != null ? KC.padSs : 0.8) * ssw : 0) - sl } : {})); if (s2) strikes.push(s2); }
       else continue;
       for (const h of ['R', 'L']) { const s3 = sets[h].filter(x => x.at <= g.t1).pop() || sets[h][0]; if (s3 && (g.hands || 'RL').includes(h)) sym[h].push(Object.assign({}, s3, { at: g.t0 })); }
     }

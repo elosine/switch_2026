@@ -6,8 +6,8 @@
   156.4
  ],
  "band": [
-  546,
-  234
+  470,
+  310
  ],
  "arcBand": [
   546,
@@ -36,7 +36,7 @@
   }
  },
  "curtain": {
-  "minSs": 6,
+  "minSs": 3,
   "padSs": 0.8,
   "overSs": 3,
   "opacity": 0.07,
@@ -69,7 +69,9 @@
    "t0": 153.7,
    "t1": 154.1,
    "_his": "starting at 153.7, there's two notes. That's one drop cluster",
-   "_note": "the chord of 153.853 … .887 and the note at 154.024"
+   "_note": "the chord of 153.853 … .887 and the note at 154.024",
+   "impact": 153.86,
+   "_impact": "§309 — his ear: \"the second pebbles is late … I hear like a stripe towards the beginning of that container … Let's make it a little earlier\" — the four-note chord struck at 153.853 … .887 (loudness 116, the heaviest thing in the container); no principle made of it, this strike only"
   },
   {
    "kind": "strike",
@@ -89,18 +91,25 @@
    "kind": "stutter",
    "hand": "R",
    "sign": 30,
-   "t0": 155,
+   "t0": 155.08,
    "t1": 155.6,
    "_his": "two different repeats starting at 155 all the way through to just before that notated bit … whatever clusters in the left and the right hand",
-   "_note": "the right hand: sign 30, the marks gathering"
+   "_note": "the right hand: sign 30, the marks gathering",
+   "dropEnd": 1,
+   "from": 155
   },
   {
    "kind": "stutter",
    "hand": "L",
    "sign": 29,
-   "t0": 155,
+   "t0": 155.08,
    "t1": 155.6,
-   "_note": "the left hand: sign 29, the marks growing"
+   "_note": "the left hand: sign 29, the marks growing",
+   "dropStart": 3,
+   "from": 155
   }
- ]
+ ],
+ "noOttava": true,
+ "onlyPiano": true,
+ "sliverSs": 0.5
 }
