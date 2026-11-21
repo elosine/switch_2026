@@ -5389,3 +5389,9 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **His words:** SW-116 (3) "two more waves or parentheses at 176.75 … whatever spacing you have there, just continue it for two more" · (4) "at 177.74, a slightly longer tail, and … just a little bit milder descent. It's just a tiny bit quick there."
 **Done:** `more: 2` on both hands' sparse repeat — four marks, the spacing unchanged (2.6 ss). The ribbon of 177.729: the tail to 178.32 (it was 178.2), the fall's power × 0.8 (`falls`, §346).
 **Checked once (§348 … §350 together):** the page rendered to images — 155.0 → 158.0 · 159.7 → 164.2 · 163.4 → 165.2 · 172.9 → 178.7 s.
+
+## §351 · 2026-11-21 · a marcato at 178.81; the D#5 after it hidden
+
+**His words:** "Marcato at 178.83, and just to the right of it, there's a D sharp. Can you just hide that? There's like leftover small notehead."
+**Done:** unit 17 (the struck chord of 178.81) takes `artic: marcato` (§348's rule); the D#5 of 178.912 (wc-2241), left outside the chord in §325, is hidden on the working version (`omit`).
+**Checked once:** the page rendered to an image, 177.2 → 181.2 s.
