@@ -198,7 +198,7 @@
 
   // ---- the controls
   function show() {
-    $('page').value = S.page; $('t0').value = +S.t0.toFixed(2); $('span').value = S.span; $('spanO').textContent = (+S.span).toFixed(1) + ' s';
+    $('page').value = S.page; $('t0').value = +S.t0.toFixed(2); $('span').value = S.span; $('spanO').textContent = (+S.span).toFixed(1) + ' s · score pace ' + (1768 * S.span / Math.max(1, stageW() / S.size - 152)).toFixed(1) + ' s/page';   // [§365] the same spacing in the notation score: its page is 1920 wide with 1768 px of music, so its seconds per page = 1768 / (this picture's px per second)
     $('size').value = S.size; $('sizeO').textContent = (+S.size).toFixed(2) + '×'; $('rate').value = S.rate; $('rateO').textContent = Math.round(S.rate * 100) + ' %';
     $('a').value = +S.a.toFixed(2); $('b').value = +S.b.toFixed(2); $('loopOn').checked = !!S.loopOn; $('marksOn').checked = !!S.marksOn; $('gap').value = S.gap; $('loops').value = S.loops;
   }
