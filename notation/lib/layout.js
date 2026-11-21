@@ -4311,8 +4311,19 @@
       // accent row's own two distances (rules.json objects.handUnit.articGapSs · articStaffSs = LilyPond's Script padding · staff-padding, the
       // seeds of objects.accent): articGapSs from what it stands over, and never nearer the staff than articStaffSs.
       for (const b of built) { const U = b.U, A = U.d.puArtic && (glyphs.articulation || {})[U.d.puArtic], sysA = b.sysT || systems.find(s => s.part === U.part && (s.staff || 0) === 0); if (!A || !sysA) continue;
-        const hiA = U.m.reduce((p, q) => (q.yT > p.yT ? q : p)), over = (!b.none && b.dir === 'up') ? b.yTip : hiA.yT + hiA.h / 2, gapA = HU.articGapSs > 0 ? HU.articGapSs : 0.2, stA = HU.articStaffSs > 0 ? HU.articStaffSs : 0.25;
-        sysA.items.push({ k: 'glyph', g: 'artic-' + U.d.puArtic, t: U.t, dxSs: U.base, ySs: Math.max(over + gapA, 2 - hiA.st * c2cU + stA   /* the staff of the head it stands over (a lower-staff chord: the lower staff) */) + (A.hSs || 0.8) / 2, align: 'center', unit: U.d.puId }); }
+        // [§356 — HIS RULE 2026-11-21, "[Marcato] always above … is fine"] THE SIDE: a MARCATO always ABOVE, whatever the stem. An ACCENT or TENUTO by the
+        // standing rule (NOTATION_STANDARDS; the accent chain): a beamed group's on the BEAM side, a lone unit's on the HEAD side (below a stem-up
+        // unit, above a stem-down one). THE GAP: the house stack gap (articGapSs 0.45) from the unit's TRUE ink on that side — heads, ledgers,
+        // accidentals, the arpeggio's line (piece 2 § 5c.B · D), the stem's tip or the beam — and never inside the staff (articStaffSs past its edge).
+        const gapA = HU.articGapSs > 0 ? HU.articGapSs : 0.45, stA = HU.articStaffSs >= 0 ? HU.articStaffSs : 0, hA = A.hSs || 0.8;
+        const hiA = U.m.reduce((p, q) => (q.yT > p.yT ? q : p)), loA = U.m.reduce((p, q) => (q.yT < p.yT ? q : p));
+        let inkTop = Math.max(...U.ink.map(k => k.y1)), inkBot = Math.min(...U.ink.map(k => k.y0));
+        if (U.d.puArp && glyphs.arpeggio) { const AUa = glyphs.arpeggio.unit, nA = Math.max(2, Math.ceil((hiA.yT - loA.yT) / AUa.strideSs) + 1), tallA = (nA - 1) * AUa.strideSs + AUa.hSs, midA = (hiA.yT + loA.yT) / 2; inkTop = Math.max(inkTop, midA + tallA / 2); inkBot = Math.min(inkBot, midA - tallA / 2); }
+        const stemUp = !b.none && b.dir === 'up', stemDn = !b.none && b.dir === 'down';
+        if (stemUp) inkTop = Math.max(inkTop, b.yTip); if (stemDn) inkBot = Math.min(inkBot, b.yTip);
+        const aboveA = U.d.puArtic === 'marcato' ? true : b.beamed ? b.bdir !== 'down' : !stemUp;
+        const yA = aboveA ? Math.max(inkTop + gapA, 2 - hiA.st * c2cU + stA) + hA / 2 : Math.min(inkBot - gapA, -2 - loA.st * c2cU - stA) - hA / 2;
+        sysA.items.push({ k: 'glyph', g: 'artic-' + U.d.puArtic, t: U.t, dxSs: U.base, ySs: yA, align: 'center', unit: U.d.puId }); }
       // [§343] THE CLUSTER BAR: from the lowest head's middle to the highest's, in their column, clusterBarW of a head wide (the stem item, thick)
       for (const b of built) { const U = b.U, sysC = b.sysT || systems.find(s => s.part === U.part && (s.staff || 0) === 0); if (!sysC) continue;
         for (const c of U.clusters || []) {

@@ -5428,3 +5428,15 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **THE CORRECTION TO §348:** its "FIND" read only the accent row's LilyPond seeds and missed the accent chain. What it built — every sign above, 0.2 ss over the stem's tip — follows NO rule of ours: it is common practice for a marcato (above the staff whatever the stem; LilyPond's default), with LilyPond's gap instead of the house 0.45. For the ACCENT at 148.61 the side happens to agree with the rule (a beamed group: the beam side) but the gap does not.
 **The other signs of today, the same question:** the go line — the engine's own item, by rule · the hairpin's SHAPE — by its row; its PLACE between the staves — no rule · the ff's glyph and size — by rule; its PLACE between the staves — no rule · the slur into the pebble drop — no rule (said so in §338).
 **Put to him, nothing changed until he says:** the AI's one recommendation — a marcato always ABOVE (the stem's tip when the stem goes up), at the house gap 0.45 from the highest ink; an accent by its standing rule; the gap of all of them the house gap.
+
+## §356 · 2026-11-21 · HIS RULES: the marcato always above; every single struck chord and arpeggiated chord carries one — and the signs now placed by the standing rules
+
+**His words:** SW-117 (the sketch pad): "[Marcato] always above for is fine. And … any of the single sort of struck chords or arpeggios, let's give them all a [marcato]."
+**The rule, written** (`rules.json` objects.handUnit `articGapSs` 0.45 · `articStaffSs` 0 with its note; the scheme's table; `docs/ENGRAVING_RULES.md` regenerated):
+- a MARCATO always above, whatever the stem (his);
+- an ACCENT or TENUTO by the standing rule: a beamed group's on the beam side, a lone figure's on the head side;
+- the gap = the house stack gap, 0.45 ss, from the figure's TRUE ink on that side (heads, ledger lines, accidentals, the arpeggio's line, the stem's tip or the beam); never inside the staff.
+**Built** in `layout.js` (the hand unit's sign pass). §348's 0.2 · 0.25 (LilyPond's paddings) are gone.
+**Every single struck chord and arpeggio:** the units with a flag or an arpeggio that are not beamed and not grace. They are 1 · 3 · 4 · 5 · 10 · 11 · 12 · 15 · 17 · 18 · 23 · 24 · 26 — thirteen. New with this entry: 18 (180.72) · 23 (185.13) · 24 (192.41, the pickup into the pebble drop) · 26 (193.68, the cluster at the ribbon's impact).
+**Checked once:** the page rendered to images, 147.6 → 151.6 · 155.0 → 158.0 · 192.7 → 196.5 s.
+**And the go line at 193.68 is taken out** — his "And then let's take out the Go line at 193.68": unit 26 no longer says `go`. (The way to give a unit a go line, §343, stays.)

@@ -427,7 +427,8 @@
    "played": [
     180.722,
     180.744
-   ]
+   ],
+   "artic": "marcato"
   },
   {
    "_n": "19a · 181.39 s — G5 · F5, a grace figure of three partials, beamed, evenly spaced (his word, §326)",
@@ -585,7 +586,8 @@
    "played": [
     185.13,
     185.172
-   ]
+   ],
+   "artic": "marcato"
   },
   {
    "_n": "24 · 192.41 s — B4 · C5 · D5, a struck chord, notated; a pickup into the pebble drop of 192.57 (his word, §338)",
@@ -599,7 +601,8 @@
    "played": [
     192.41,
     192.447
-   ]
+   ],
+   "artic": "marcato"
   },
   {
    "_n": "25a · 193.95 s — E5 · F5 · D5 · C5 with the high E6 just before it (193.883): the first of FIVE figures on one beam, each at its played place (his word, §339)",
@@ -692,7 +695,7 @@
     193.682,
     193.702
    ],
-   "go": true
+   "artic": "marcato"
   }
  ]
 }

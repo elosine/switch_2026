@@ -1611,3 +1611,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 4. "at 177.74, a slightly longer tail, and a little bit, just a little bit milder descent. It's just a tiny bit quick there."
 
 **The AI's reading:** he is now going back over the working version and DRESSING it — the first articulation signs (three marcatos, on the three big struck and arpeggiated chords) and the first hairpin, on standard figures. With it, corrections: five stray notes hidden; a strike he hears about 161.9, to be found by loudness and given a quick down and up at the head of the three-bounce ribbon (a try, to be undone if it does not serve); the sparse repeat at 176.75 longer by two marks; the ribbon at 177.7 a touch gentler with a longer tail.
+
+### SW-117 · 2026-11-21 · the marcato always above; every single struck chord and arpeggio takes one
+
+**His words (verbatim, as dictated):** "And let's okay, Mercado always above for is fine. And let's any of the single sort of struck chords or arpeggios, let's give them all a Mercado."
+
+**The AI's reading:** "Mercado" is marcato. Two decisions. (1) The rule asked in §355: a marcato stands always above. (2) A rule of the NOTATION OF THIS SOLO: every single struck chord and every arpeggiated chord — the standard-notation "poles" that stand alone, not the beamed groups, not the grace figures — carries a marcato.
