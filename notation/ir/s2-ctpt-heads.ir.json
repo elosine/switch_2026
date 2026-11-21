@@ -2420,27 +2420,6 @@
    "vel": 100
   },
   {
-   "id": "ev-wc-2705",
-   "source": {
-    "score": "piece-FirstDraft-Final-B-noFadeAt96",
-    "objectId": "wc-2705"
-   },
-   "onset": 221.337,
-   "duration": 0.05000000000001137,
-   "pitch": {
-    "midi": 73,
-    "spelled": {
-     "step": "C",
-     "alter": 1,
-     "octave": 5
-    }
-   },
-   "technique": "jet_whistle",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 127
-  },
-  {
    "id": "ev-wc-2946",
    "source": {
     "score": "piece-FirstDraft-Final-B-noFadeAt96",
@@ -6435,8 +6414,7 @@
    "class": "fixed-oneshot",
    "strategy": "unresolved",
    "events": [
-    "ev-wc-2706",
-    "ev-wc-2705"
+    "ev-wc-2706"
    ],
    "provenance": "derived"
   },

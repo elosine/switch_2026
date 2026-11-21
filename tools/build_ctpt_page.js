@@ -39,3 +39,5 @@ for (const [g, m] of GRACES) args.push('--hand', g + ':' + JSON.stringify({ grac
 
 const r = spawnSync('node', args, { cwd: ROOT, encoding: 'utf8' });
 console.log((r.stdout + r.stderr).split('\n').filter(l => /READY|FAILED|INVALID|Error|beam bm|--hand|usage|not an event/i.test(l)).join('\n').slice(0, 4000));
+// [§382] WHAT ON THE PAGE HAS NO RULE YET — printed by the build itself, before anyone looks at the picture (tools/no_rule_list.js)
+console.log(spawnSync('node', ['tools/no_rule_list.js', 's2-ctpt-heads'], { cwd: ROOT, encoding: 'utf8' }).stdout);

@@ -5706,3 +5706,23 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 3. NO RULE AT ALL, AND THE AI DREW ANYWAY (the flutter-tongue's look, the word's place, "jet wh."). Stopped only by the AI's own discipline, so it is made mechanical: the page builder is to LIST, before the page is shown, (a) every technique drawn by the provisional family look, (b) every mark placed by a number that is not a row — and those go to him as questions, not as pictures.
 **Proposed to him as the next build (not built):** that list — "what on this page has no rule" — printed by the build itself.
 
+## §382 · 2026-11-21 · "NO RULE YET" — the list the build prints before a page is shown; the tongue ram kept at 221.3
+
+**His words:** "yes, build the no-rule list, and keep the tongue ram"
+**THE MUSIC:** the jet whistle C♯5 of 221.337 (wc-2705) is out of the save the notation reads; the tongue ram C♯5 of 221.336 stays. 293 notes in the counterpoint.
+**BUILT: `tools/no_rule_list.js <page> [--parts …]`**, run by the counterpoint's builder at the end of every build. It reads the page and the rules and lists, per part:
+1. a playing technique with NO LOOK of its own (it was drawn by the provisional family look — a plain black or white head and its bar);
+2. a technique with NO WORD and no sign that says it;
+3. two notes of one part at ONE INSTANT (under 0.01 s);
+4. a note JUST BEFORE another (to 0.06 s) that is not a grace note;
+5. a pair within the beaming measure (0.33 s) that is not beamed, and a pair a little wider (to 0.5 s) that is not.
+Each with the first time and the count. It changes nothing.
+**ITS FIRST RUN — 46 questions on the counterpoint's page:**
+- FLUTE (41 notes): ONE — the flutter-tongue has no look of its own (9 notes, first at 208.13).
+- CLARINET (42): the flutter-tongue (17 notes, first at 200.68) · two notes at one instant at 251.68 · three pairs a little wider than the measure (217.70 · 243.78 · 250.29).
+- ALTO SAX (54): four techniques with no look (slap exploding · slap pitched · flutter-tongue · double tonguing), three of them with no word · four same-instant pairs · eight unbeamed pairs.
+- PERCUSSION (54 + the glockenspiel's 8): seven instruments' strokes with no look and no word · one same-instant pair · eleven unbeamed pairs.
+- PIANO (47): three ways of playing with no word (the keys · plucked · muted), one with no look · seven unbeamed pairs.
+- VIOLIN (47): three techniques with no look and no word (pizzicato behind the bridge · overpressure · col legno gettato) · one same-instant pair · three unbeamed pairs.
+**What this is, for the paper:** the list turns "the AI should have asked" into a thing the build does. On the flute, after a day of his proofreading, one question is left; on the parts not yet taken, the list is the agenda.
+**Written where a future AI finds it:** `CLAUDE.md` § THE ENGRAVING RULES (the two machines) · `docs/NOTATION_SCHEME.md` § 2b, the recipe's step 0.

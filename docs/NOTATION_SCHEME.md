@@ -162,6 +162,7 @@ Worked out on the FLUTE (and the first of the clarinet). A new part is taken by 
 6. **Two notes at the same instant** (under 0.01 s) are LISTED for him: on a wind, one player cannot play both (the flute's 221.34 and 233.97); and where both are the SAME pitch only one sounds (the flute's D5 at 206.00).
 7. **The curves stay**, one per note or per beamed group, for now.
 8. **The technique's word** stands ON EVERY NOTE of that technique — a TRY of his (§378: "the techniques are changing quite a bit"); the standing rule is the change rule (once, and at each change). The flute's: T. R. · jet whistle · flz.
+0. **BEFORE ANYTHING IS SHOWN, THE BUILD PRINTS "NO RULE YET"** (`tools/no_rule_list.js`, run by `tools/build_ctpt_page.js`; §382): every technique drawn without a look or a word of its own, every pair of notes at one instant, every note just before another that is not yet a grace note, every pair near the beaming measure that is not beamed. THOSE GO TO HIM AS QUESTIONS; nothing on that list is to be settled by the AI.
 9. **After every build the AI runs `node tools/check_rules.js`** and says what is red. Its part (10) MEASURES the page: every flag's clearance from the staff, every ottava bracket's gap before a go line, every staccato dot's clearance from a line (§376).
 10. **Then:** dynamics (next), articulations.
 

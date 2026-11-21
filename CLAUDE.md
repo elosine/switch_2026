@@ -177,6 +177,7 @@ The rule, for every notation build — not optional, never asked for:
    two lines, with ONE recommendation. He decides; the decision is written as a row and into the scheme's table the same turn. Nothing is
    invented and shown to him as if it were settled.
 4. **SAY WHICH RULE.** When a figure is shown, one line names the rules it was built from.
+   **AND RUN THE TWO MACHINES (2026-11-21, RUNNING_LOG §376 … §382 — his "we should get to a point where I don't have to proofread every single one"):** before a page is shown, `node tools/no_rule_list.js <page>` lists what on it has NO RULE YET — those are QUESTIONS for him, never the AI's to settle; after every build, `node tools/check_rules.js` — its part (10) MEASURES the drawn pages (flags · ottava hooks · dots · words against go lines · collisions). A NEW RULE IS NOT IN UNTIL A GATE THERE MEASURES IT.
 5. **MEASURE A CLAIM.** "The rule is applied" is said only after measuring the page (the stems against the staff lines in the page's own boxes).
 
 What exists already, so it is never rebuilt: the chord column and the accidentals' packing (`chord_column.js`, piece 2's) · the cluster's respelling
