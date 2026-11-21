@@ -5095,3 +5095,7 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 
 **WHERE AN IMPACT STANDS IN A CLUSTER — a pattern seen, and the AI's choice:** three times now his impact time is the END of a cluster that is struck over a tenth of a second or more: 165.9 (the cluster runs 165.785 … 165.89) · "to 168.59" (168.425 … 168.606) · 169.46 (169.354 … 169.451). He clicks on what he sees, and the last heads of a cluster stand at its right. The impact is put at the cluster's LOUDNESS-WEIGHTED MIDDLE — the mean of its notes' times, each weighted by its loudness: 165.833 · 168.509 · 169.415 (§313's 165.785, the cluster's beginning, is moved to 165.833). Between his reading and the first note; his to overrule.
 **Checked once:** the page rendered to an image, 166.0 → 170.6 s.
+
+## §315 · 2026-11-20 · the pole's two chords beamed
+
+**His words:** "Beam those last two clusters together, please." Units 13 and 14 (169.752 · 169.930) lose their flags and share one 16th beam (`u13`), stems up, across the two staves — the beam at the standing height above the upper staff, the second chord's stem running up from the lower staff. By the hand unit's standing rules; the pages rebuilt. **Checked once:** the spot rendered to an image.
