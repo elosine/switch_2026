@@ -5317,3 +5317,9 @@ What the variations vary: how the repeat is shown (copy · mark · both), and wh
 **Set on the played partials:** the start 194.622 · the impact 195.83, on the eleven notes of 195.822 … .868 (the low cluster E4 … E5, velocities to 127) · the tail to 196.26 (0.43 s). The standing line: thin while level, growing with the drop.
 **Seen, for his eye:** the tail passes over a second loud cluster, the ten notes of 196.098 … .115 (G5 … F6, velocities 122 … 127) — as loud as the impact. It is inside the tail now and shows no strike of its own.
 **Checked once:** the page rendered to an image, 194.2 → 197.0 s.
+
+## §342 · 2026-11-21 · an undulation at 195.58 in the ribbon of 194.62
+
+**His words:** "And then let's have an undulation to 195.58."
+**Done:** the ribbon of §341 has two turns: a WAVE to 60 % at 195.585 — the ten high notes of 195.576 … .593 (G#5 … F6) — then up (the top halfway, 195.71) and down into the impact at 195.83, the tail to 196.26 as before. The depth is the standing 60 %; he gave none. The width is now the playing's (power 1.3), as for every many-turn ribbon.
+**Checked once:** the page rendered to an image, 194.2 → 197.0 s.
