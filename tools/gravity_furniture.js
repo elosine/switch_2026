@@ -69,6 +69,11 @@ module.exports = function furniture(o) {
     const overAt = s => { if (s <= ov[0][0]) return ov[0][1]; for (let i = 1; i < ov.length; i++) if (s <= ov[i][0]) { const a2 = ov[i - 1], b2 = ov[i], v = (s - a2[0]) / ((b2[0] - a2[0]) || 1), c = (1 - Math.cos(Math.PI * v)) / 2; return a2[1] + (b2[1] - a2[1]) * c; } return ov[ov.length - 1][1]; };
     for (const p of P2) p.e = ov ? overAt(p.s) : p.s <= A.bounce ? Math.pow(Math.max(0, PR.in === 'time' ? (p.s - A.t0) / ((A.bounce - A.t0) || 1) : 1 - Gc.heightFrac(GP, p.s - A.bounce)), PR.inPower != null ? PR.inPower : 1) : outAt((p.s - A.bounce) / ((A.t1 - A.bounce) || 1));
   }
+  // [§343 — his "The widening of the ribbon at 195.12, let's exaggerate that a little bit … have the final tail there thin out a little more …
+  // look more like a tapered"] gain: keyframes [time, factor], eased between — the width, whatever it came from, multiplied along the ribbon
+  if (F.gain && F.gain.length) { const gk = F.gain.slice().sort((p, q) => p[0] - q[0]);
+    const gAt = s => { if (s <= gk[0][0]) return gk[0][1]; for (let i = 1; i < gk.length; i++) if (s <= gk[i][0]) { const a2 = gk[i - 1], b2 = gk[i], v = (s - a2[0]) / ((b2[0] - a2[0]) || 1), c = (1 - Math.cos(Math.PI * v)) / 2; return a2[1] + (b2[1] - a2[1]) * c; } return gk[gk.length - 1][1]; };
+    for (const p of P2) p.e *= gAt(p.s); }
   const normalAt = i => { const p = P2[Math.max(0, i - 1)], q = P2[Math.min(P2.length - 1, i + 1)], dx = q.x - p.x, dy = q.y - p.y, L = Math.hypot(dx, dy) || 1; return { nx: -dy / L, ny: dx / L }; };
   if (style === 'ribbon') {
     // the fall and the rebound are two ribbons that meet at the impact (the corner there is the arc's own)

@@ -1587,3 +1587,11 @@ staff carried from piece 6 has eight lines, of which only the coil's and the Chi
 **His words (verbatim):** "a ribbon to impact around 195.83 starts at 194.62 and ends, goes up to 196.26."
 
 **The AI's reading:** one plain ribbon: start 194.62, impact about 195.83, its tail up to 196.26.
+
+### SW-114 · 2026-11-21 · clusters in the notated chords as CLUSTER notation; a go line and a long stem for the chord at the impact; the ribbon's bulge and taper
+
+**His words (verbatim):** "And just could you do a check throughout if there are actual clusters in any of the notated out chords? Just notate them as clusters. We had talked about that. And then for that cluster that hits at the impact, the notated one, just draw a go line. And in this case, since it's so offset, well, first just check and see if it's actually meant to be a cluster notation. And then the stem can be quite a bit longer. So it seems like, let's just try to remember the engraving rules there. In that case, even more than 2 staff spaces. So let's give something like 4 staff spaces at least between the top of the top note and the bottom of the flag."
+
+And, while that was being built: "The widening of the ribbon at 195.12, let's exaggerate that a little bit, not necessarily too much. And then let's have the final tail there thin out a little more. So like gradually thin out a little bit more, look more like a tapered."
+
+**The AI's reading:** (1) a RULE for every notated chord: where its notes are a real cluster, write the cluster sign (SW-84's bar with a note head at each end), not every note. (2) The chord at the ribbon's impact (193.68): check it against that rule; give it a GO LINE — this lineage's vertical line at the moment of attack — because the chord stands far from the impact point; and a longer stem. (3) A second RULE, for the stem: more than the standing 2 ss — at least 4 ss between the top of the top note and the bottom of the flag. (4) The ribbon of 194.62: its swelling at 195.12 a little more; its tail a taper.

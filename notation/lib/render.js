@@ -556,10 +556,10 @@
           }
         } else if (it.k === 'stem') {
           if (!owns(it.t)) continue;
-          const x = X(it.t, it.dxSs) - (stds.stem.thickness * ssPx) / 2;
+          const sTh = it.thickSs > 0 ? it.thickSs : stds.stem.thickness, x = X(it.t, it.dxSs) - (sTh * ssPx) / 2;   // [§343] thickSs: a cluster's bar
           const YB = it.sysB ? sysYOf(it.sysB) : Y;   // [§495] the cross-staff stem's far end
           const yTop = Math.min(Y(it.yA), YB(it.yB)), h = Math.abs(Y(it.yA) - YB(it.yB));
-          parts.push('<rect x="' + x.toFixed(2) + '" y="' + yTop.toFixed(2) + '" width="' + (stds.stem.thickness * ssPx).toFixed(2) + '" height="' + h.toFixed(2) + '"/>');
+          parts.push('<rect x="' + x.toFixed(2) + '" y="' + yTop.toFixed(2) + '" width="' + (sTh * ssPx).toFixed(2) + '" height="' + h.toFixed(2) + '"/>');
         } else if (it.k === 'dot') {
           if (!owns(it.t)) continue;
           parts.push('<circle cx="' + X(it.t, it.dxSs).toFixed(2) + '" cy="' + Y(it.ySs).toFixed(2) + '" r="' + (glyphs.standards.staccatoDot.diameter / 2 * ssPx).toFixed(2) + '"/>');

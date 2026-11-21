@@ -1,5 +1,5 @@
 {
- "_doc": "THE PIANO SOLO'S UNITS, taken one by one at his word (RUNNING_LOG §255 on). A unit = the notes on ONE stem. stem up|down · flag 16 · arp true = the arpeggio line · beam <name> = beamed (16th) to the other units of that name. · at <seconds> = the unit is drawn at that time instead of its own. · sg <name> = a SCATTERED GRACE (§263): the units of that name are one figure in two hands, drawn at even distances across its span; played = the unit's played time(s), the record of its rhythm. · spread right|both = a beamed group at equal distances for fit (§262 · §265): right = the first unit stays on its played place.",
+ "_doc": "THE PIANO SOLO'S UNITS, taken one by one at his word (RUNNING_LOG §255 on). A unit = the notes on ONE stem. stem up|down · flag 16 · arp true = the arpeggio line · beam <name> = beamed (16th) to the other units of that name. · at <seconds> = the unit is drawn at that time instead of its own. · sg <name> = a SCATTERED GRACE (§263): the units of that name are one figure in two hands, drawn at even distances across its span; played = the unit's played time(s), the record of its rhythm. · spread right|both = a beamed group at equal distances for fit (§262 · §265): right = the first unit stays on its played place. · go true = the unit takes a go line (§343). · A CLUSTER (four or more notes in one staff, each within a whole step of the next) is drawn by rule as its two ends and a bar (rules.json objects.handUnit.cluster*, §343) — nothing to write here.",
  "units": [
   {
    "_n": "1 · 148.20 s",
@@ -681,7 +681,8 @@
    "played": [
     193.682,
     193.702
-   ]
+   ],
+   "go": true
   }
  ]
 }

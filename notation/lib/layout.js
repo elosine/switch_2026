@@ -777,15 +777,31 @@
             respell.set(x.e.id, nx); x.sp = nx;
           }
         }
-        const m = evsU.map(e => {
+        const m0 = evsU.map(e => {
           const dev = deviceOf(e), g = glyphs.notehead[dev.nhHead === 'filled' ? 'filled' : 'open'], k = dev.grace ? GRu.headScale : dev.nhHeadScale > 0 ? dev.nhHeadScale : 1, ka = dev.grace ? GRu.headScale : dev.nhAccScale > 0 ? dev.nhAccScale : 1;   // [§258] a grace unit at the grace's size
           const sp = spelledOf(e), st = staffOfEv(e);
           let y = posOfEv(e); while (y > thU) y -= 3.5; while (y < -thU) y += 3.5;
           const L = ledgersForStd(y);
           return { e, dev, sp, st, y, yT: y - st * c2cU, L, k, ka, w: g.wSs * k, h: g.hSs * k, lext: L.length ? g.wSs * k * lfU : 0 };
         });
+        // [§343 — HIS RULE 2026-11-21, "if there are actual clusters in any of the notated out chords … Just notate them as clusters. We had talked
+        // about that"; SW-84's "clusters as a bar with noteheads on top and bottom"] THE CLUSTER (rules.json objects.handUnit.cluster): within one
+        // staff, a run of clusterMinNotes or more notes, each no more than clusterMaxGap semitones from the next, is written as its LOWEST and
+        // HIGHEST note with a bar between them (piece 2's cluster bar; the chord symbol's rule, NOTATION_SCHEME § 3). The inner notes are not drawn.
+        const clustersU = [];
+        if (HU.clusterMinNotes > 0) {
+          for (const stK of new Set(m0.map(x => x.st))) {
+            const g = m0.filter(x => x.st === stK).sort((a, b) => a.e.pitch.midi - b.e.pitch.midi); let run = [];
+            const close = () => { if (run.length >= HU.clusterMinNotes) { run.slice(1, -1).forEach(x => { x.clIn = true; }); clustersU.push({ lo: run[0], hi: run[run.length - 1] }); } };
+            for (const x of g) { if (run.length && x.e.pitch.midi - run[run.length - 1].e.pitch.midi > (HU.clusterMaxGap > 0 ? HU.clusterMaxGap : 2)) { close(); run = []; } run.push(x); }
+            close();
+          }
+        }
+        for (const x of m0) if (x.clIn) unitCG.set(x.e.id, { t: tU0, hide: true });
+        const m = m0.filter(x => !x.clIn);
         const W = Math.max(...m.map(x => x.w));
         const col = ChordColumn.noteColumn(m.map(x => ({ ySs: x.yT })), dir, W, CCu.displaceThresholdSteps);
+        for (const c of clustersU) for (const x of [c.lo, c.hi]) col[m.indexOf(x)] = { side: 'default', xOffsetSs: 0 };   // a cluster's two ends stand in ONE column, the bar between them
         // [§260 — HIS RULE 2026-11-20, "the 1 and 2 rules is good … Let's implement those"] THE THIRD COLUMN (rules.json objects.handUnit.thirdColumn):
         // the two-column walk puts a note back in the column of the note two before it; when those two are a step or less apart (three notes
         // a half step apart — A · A♯ · B) they overlapped (piece #2's measured LilyPond, its chord 9). Such a note takes a THIRD column: one
@@ -815,7 +831,7 @@
         withAcc.forEach((x, i) => accDx.set(x.e.id, packed[i].rightEdge - (accs[i].w0 - accs[i].ax0) - x.headDx));
         const top = m.reduce((a, b) => (b.yT > a.yT ? b : a));
         for (const x of m) unitCG.set(x.e.id, { t: tU0, headDx: x.headDx, accDxRel: accDx.has(x.e.id) ? accDx.get(x.e.id) : null, accKey: accKeyOf(x), top: x === top });
-        handUnits.push({ d: d0, dir, t: tU0, part: partOfEv.get(evsU[0].id), m, base, W,   /* base = the DEFAULT column's head center: the stem's column */
+        handUnits.push({ d: d0, dir, t: tU0, part: partOfEv.get(evsU[0].id), m, base, W, clusters: clustersU,   /* base = the DEFAULT column's head center: the stem's column */
           left: Math.min(...m.map(x => x.headDx - x.w / 2), ...packed.map(p => p.leftEdge)), right: Math.max(...m.map(x => x.headDx + x.w / 2 + x.lext)),
           // [§262] the unit's INK as boxes (heads · ledger lines · accidentals; y up, the part's top staff) — for the grace group's spacing
           ink: [].concat(...m.map(x => [{ x0: x.headDx - x.w / 2, x1: x.headDx + x.w / 2, y0: x.yT - x.h / 2, y1: x.yT + x.h / 2 }].concat(x.L.map(Ly => ({ x0: x.headDx - x.w / 2 - x.lext, x1: x.headDx + x.w / 2 + x.lext, y0: Ly - x.st * c2cU - 0.05, y1: Ly - x.st * c2cU + 0.05 })))),
@@ -1450,6 +1466,7 @@
           };
           for (const e of evs) {
             xFlush();
+            if ((unitCG.get(e.id) || {}).hide) continue;   // [§343] a cluster's inner note: the bar stands for it
             const XO = crossOf.get(e.id);
             if (XO && XO.yOff) xPend = { i0: items.length, yOff: XO.yOff, tip: null };
             const posOf = XO ? (sp => staffPos(sp, clefOf(pcOfEv(e), XO.staff))) : posOfSys;
@@ -1501,7 +1518,7 @@
             // [2f.4] goLineTopAsGc: the go line keeps the length a GC-bearing note's has in this part (§401h) — the
             // trill carries no GC, and its go line must still match the section's strikes (TRILL_NOTATION_SPEC §4)
             // [decibel §406] goLine 'sineBox': the go line is drawn by the sine's box, inside it — no lane-high line here
-            if (dev.goLine && dev.goLine !== 'sineBox') items.push(Object.assign({ k: 'goline', t: tU, ev: e.id }, dev.goLineTopAsGc ? { topAsGc: true } : {}));
+            if (dev.goLine && dev.goLine !== 'sineBox' && (!unitCG.has(e.id) || CG.top)   /* [§343] a hand unit's go line once, with its top note */) items.push(Object.assign({ k: 'goline', t: tU, ev: e.id }, dev.goLineTopAsGc ? { topAsGc: true } : {}));
             // THE ONSET HEAD (day 35, the morph section): a small black
             // notehead LEFT-ALIGNED to the go line — the same rule the
             // clusters use, "every partial's notehead left edge sits on its
@@ -4260,6 +4277,11 @@
         const fl = U.d.puFlag ? glyphs.flag[dir + U.d.puFlag] : null, kG = U.d.grace ? GRu.headScale : 1;   // [§550] a grace's stem and flag at the grace scale
         let L = ((dir === 'up' ? tipH.y < 0 : tipH.y > 0) ? stemLenFor(tipH.y, baseLU) : baseLU) * kG;
         if (fl && !U.d.puBeam) { const need = dir === 'up' ? (EDGE + clrU + fl.hSs * kG) - yS : yS - (-EDGE - clrU - fl.hSs * kG); if (!(HU.flagClearMaxSs > 0) || need <= HU.flagClearMaxSs) L = Math.max(L, need); }
+        // [§343 — HIS RULE 2026-11-21, "the stem can be quite a bit longer … In that case, even more than 2 staff spaces. So let's give something like 4
+        // staff spaces at least between the top of the top note and the bottom of the flag"] (rules.json objects.handUnit.flagHeadClearSs) where the
+        // tip-side head lies OUTSIDE the staff the staff-clear law gives nothing, and the flag hung on the head: there the flag's near end stands
+        // flagHeadClearSs from the head's far edge.
+        if (fl && !U.d.puBeam && !U.d.grace && HU.flagHeadClearSs > 0 && (dir === 'up' ? tipH.y > EDGE : tipH.y < -EDGE)) L = Math.max(L, tipH.h / 2 + HU.flagHeadClearSs + fl.hSs * kG);
         built.push({ U, sysT, dir, stemDx, yHead, yTip: (dir === 'up' ? yS + L : yS - L) + off, yS: yS + off, hi, lo, fl, tipH, kG });
       }
       const byB = new Map();
@@ -4284,6 +4306,9 @@
         else if (U.d.grace && b.fl && !b.beamed) { const flS = b.dir === 'down' ? -1 : 1, yc = b.yTip - flS * (1 - GRu.slashAt) * baseLU * b.kG, r = GRu.slashReachSs;
           it.push({ k: 'slash', t: U.t, dx0Ss: b.stemDx - r, y0Ss: yc - flS * r, dx1Ss: b.stemDx + r, y1Ss: yc + flS * r, thickSs: GRu.slashThickSs, unit: U.d.puId }); }
       }
+      // [§343] THE CLUSTER BAR: from the lowest head's middle to the highest's, in their column, clusterBarW of a head wide (the stem item, thick)
+      for (const b of built) { const U = b.U, sysC = b.sysT || systems.find(s => s.part === U.part && (s.staff || 0) === 0); if (!sysC) continue;
+        for (const c of U.clusters || []) sysC.items.push({ k: 'stem', t: U.t, dxSs: c.lo.headDx, yA: c.lo.yT, yB: c.hi.yT, thickSs: U.W * (HU.clusterBarW > 0 ? HU.clusterBarW : 0.5), cluster: true, unit: U.d.puId }); }
       for (const b of built) {
         const U = b.U; if (!U.d.puArp || !b.sysT || !glyphs.arpeggio) continue;
         const AU = glyphs.arpeggio.unit, hiY = Math.max(...U.m.map(x => x.yT)), loY = Math.min(...U.m.map(x => x.yT)), span = hiY - loY;
