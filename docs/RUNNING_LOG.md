@@ -6260,3 +6260,22 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **DECIDED:** a tempo change shorter than 2 beats takes the new tempo mark alone (`objects.tempoSpan.minBeats` 2 is now his) · the violin's and the cello's notes of Section 3 carry the staccato dot; the glockenspiel's do not. The piano's were not named and stay without.
 **BUILT:** `tools/build_s3_page.js` DOT_PARTS (the violin and the cello) — a hand `nhDot` with the staccato unit's own gap on each of their notes; the page rebuilt. Not looked at by the AI.
 **STILL WAITING ON HIM (§436):** the vertical order above the staff · bar lines or the accidental that holds for its group.
+
+## §438 · 2026-11-22 · Section 3: the tuplets' numbers, one ottava bracket over a run, the accidental that holds for its group, the tempo row on top, the dynamics on a curve's two ends — BUILT
+
+**His words (verbatim), in the order given:** to §436's question — "yes on the order, no bar lines, accidentals per group" · "piano yes stacatto dot" · "f at the beginning and fff at the end fo the curves centered on the start/end time".
+**DECIDED BY HIM:** above the staff, outward — the beam · the tuplet's number · the ottava bracket · the tempo row on top of everything, one height for the lane; below — the dynamics · NO BAR LINES · an accidental holds for its beamed group and is written again in the next · the piano's notes carry the staccato dot · each crescendo curve has f centered on its start and fff centered on its end.
+**BUILT — the engine (each a small addition to what stands):**
+- THE NUMBER WITHOUT A BRACKET (`rules.json objects.tuplet.look.bracket` false): the group pass sets the number's foot the house gap (0.45 ss) past the beam; the renderer leaves the bracket out and centers the number from the group's first head to its last.
+- A GROUP WITH NO BEAM (a hand `groupNoBeam`): three quarters over two beats — the stems and the number, no beam.
+- ONE OTTAVA BRACKET OVER A RUN: the notes of a group that stand next to each other with the same sign on the same side share one bracket — the first note's sign, the last note's hook, at the height of the one furthest from the staff. On the beam side the bracket now clears the group's number too.
+- THE ACCIDENTAL A HAND MAY DROP OR FORCE (`noAcc` · `accForce: natural`).
+- THE TEMPO ROW AT A PAGE'S OWN HEIGHT (`layoutPolicy.tempoRowSs`; `objects.tempoSpan.rowSs` 6.6 — the AI's number) for the tempo mark and accel. / decel. with its line.
+- A DYNAMIC CENTERED ON A TIME (the overlay `dynAt`), on the house dynamic row.
+**BUILT — the page (`tools/build_s3_page.js`):** each group is now a CLUSTER of its own (piece 4's figure, the one that carries a tuplet) on a grid of sixteenths, 4 to the beat or 8 over two beats. The number: plain inside a beat (3 · 5 · 6 · 7), the ratio over two beats (3:2 · 5:4 · 7:4 · 9:8 · 11:8); 2, 4 and 8 to the beat take none. THE WRITTEN VALUES (the AI's, from ordinary practice, his to move): 2 or 3 to the beat eighths · 4 to 7 sixteenths · 8 thirty-seconds (three beams) · over two beats: 3 quarters, 5 and 7 eighths, 9 and 11 sixteenths. 988 groups, 658 with a number. Accidentals: 569 left out (the sign already in the group), 25 naturals written (a note taking a sign back inside its group).
+**SEEN (stills on the throwaway 5601 at 291 · 296 · 320 · 325 s):** the numbers stand alone, on the beam side; the single ottava bracket over a run; f centered on the curve's start; the tempo row above the stacks.
+**WHAT STILL COLLIDES — put to him, none settled by the AI:**
+1. A BEAM THAT STANDS HIGH meets the tempo row (the clarinet at 325.2, the sax at 325.2: "= 83.3" and "= 75" on a beam). The row is at 6.6 ss; a stems-up group whose top note is high puts its beam there. No rule says the stem shortens for it; his "you'll have to make the stem shorter" names the direction, the measure is not set.
+2. A DYNAMIC CENTERED ON A CURVE'S START lands on a low note's 8vb sign (the clarinet at 291.8; `check_rules` (10) names one: part 1 at 372.94).
+3. INSIDE ONE GROUP some notes take 8va and a higher neighbour does not (the flute at 292: two brackets with a note at pitch between). The ottava is decided per note today.
+**`check_rules`:** 3 red of 41 — the two old ones and the dynamic × ottava clash of point 2.

@@ -25,11 +25,10 @@ const MARK_OFF_SS = 6;       // accel. / decel. on a beat that also carries a te
 const CRESC_SAMPLES = 101;   // the lineage's least (a curve never fewer than 101 points)
 // A BEAT'S WRITTEN VALUE (no rule of his yet — the tuplet notation of Section 3 is open): 2 or 3 to the beat = eighths (one beam);
 // 4 and more = sixteenths (two beams — the lineage's 'nothing shorter than a 16th', #5 §528). Three over two beats = quarters, no beam.
-const beamValue = step => step < 2 ? null : (step < 4 ? 8 : 16);
 
-// THE STACCATO DOT (his word 2026-11-22, §437: 'yes on strings no on glock'): the violin's and the cello's notes carry the dot, as the winds' staccato
-// does by its own row; the glockenspiel's and the piano's do not. The gap is the staccato unit's own.
-const DOT_PARTS = new Set([6, 7]), DOT_GAP = (((require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT).engraving || {}).layout || {}).devices || {}).byTechnique.staccato.nhDotGapSs;
+// THE STACCATO DOT (his words 2026-11-22, §437 'yes on strings no on glock' · §438 'piano yes stacatto dot'): the violin's, the cello's and the piano's notes carry
+// the dot, as the winds' staccato does by its own row; the glockenspiel's do not. The gap is the staccato unit's own.
+const DOT_PARTS = new Set([5, 6, 7]), DOT_GAP = (((require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT).engraving || {}).layout || {}).devices || {}).byTechnique.staccato.nhDotGapSs;
 
 // ---- THE NOTES, per part
 const notes = save.objects.filter(o => o.type === 'waveCurve' && o.properties && o.properties.phaseForm && o.sonifyNote != null && o.startSeconds >= W0 && o.startSeconds < W1)
@@ -89,19 +88,25 @@ const dynNote = new Set(); let nCresc = 0;
 for (const m of DYN.marks) for (const p of PARTS) {
   if (/</.test(m.text)) { const n = CRESC_SAMPLES; overlays.push({ id: 'ov-s3-cresc-p' + p + '-' + Math.round(m.t * 1000), kind: 'cresc', target: { part: p, span: [m.t, m.to] },
     value: { samples: Array.from({ length: n }, (_, i) => +(i / (n - 1)).toFixed(4)), fullHeight: true, fit: m.text + ' — ' + (m.why || '') }, provenance: 'authored' }); nCresc++; continue; }
+  if (m.text === 'fff') continue;   // the held fff stands at its curve's end already (below)
   const o = byPart.get(p).find(x => x.startSeconds >= m.t - EPS); if (o) dynNote.add(o.id);
 }
+// [his word 2026-11-22, §438: 'f at the beginning and fff at the end of the curves centered on the start/end time'] each curve's two dynamics, CENTERED on its start and its end
+for (const m of DYN.marks) if (/</.test(m.text)) { const [a, b] = m.text.split('<').map(x => x.trim()); for (const p of PARTS) for (const [t, mark] of [[m.t, a], [m.to, b]])
+  overlays.push({ id: 'ov-s3-dyn-p' + p + '-' + Math.round(t * 1000), kind: 'dynAt', target: { part: p, t }, value: { mark }, provenance: 'authored' }); }
 
-// ---- THE BEAMS: the notes of one hit (one beat, or a group over two beats) on one beam
+// ---- THE GROUPS: the notes of one hit (one beat, or a group over two beats)
 const args = [], groups = new Map();
 for (const o of notes) { const f = o.properties.phaseForm, k = o.layer + ':' + f.hit; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(o); }
-let nBeam = 0; const census = {};
-for (const g of groups.values()) { const f = g[0].properties.phaseForm, v = beamValue(f.step); census[f.step] = (census[f.step] || 0) + 1;
-  if (g.length < 2 || !v || new Set(g.map(o => o.startSeconds.toFixed(3))).size < 2) continue;
-  args.push('--beam', (g[0].startSeconds - 0.004).toFixed(3) + '-' + (g[g.length - 1].startSeconds + 0.004).toFixed(3) + '@' + g[0].layer + ':' + v); nBeam++; }
-// ---- A HAND ON EVERY NOTE: its dynamic (the mark's notes alone write one) · no gestural curve of its own (the ball on the beat is the cue) ·
-// the head's LEFT EDGE on its moment and no go line (the beamed group's regime, the lineage's D43 · D49 — the plain note's own already)
-for (const o of notes) args.push('--hand', o.id + ':' + JSON.stringify(Object.assign({ dynMark: dynNote.has(o.id) ? 'band' : false, gc: false, goLine: false, nhAnchor: 'leftEdge' }, DOT_PARTS.has(o.layer) ? { nhDot: true, nhDotGapSs: DOT_GAP } : {})));
+const census = {}, grouped = new Set(), GROUPS = [];
+for (const [k, g] of groups) { const f = g[0].properties.phaseForm; census[f.step] = (census[f.step] || 0) + 1;
+  if (g.length < 2 || new Set(g.map(o => o.startSeconds.toFixed(3))).size < g.length) continue;
+  GROUPS.push({ key: k.replace(':', '-'), notes: g, step: f.step }); for (const o of g) grouped.add(o.id); }
+const nBeam = GROUPS.length;
+const dotOf = o => DOT_PARTS.has(o.layer) ? { nhDot: true, nhDotGapSs: DOT_GAP } : {};
+// ---- A HAND ON EVERY SINGLE NOTE: its dynamic (the mark's notes alone write one) · no gestural curve of its own (the ball on the beat is the cue) ·
+// the head's LEFT EDGE on its moment and no go line (the plain note's own already)
+for (const o of notes) if (!grouped.has(o.id)) args.push('--hand', o.id + ':' + JSON.stringify(Object.assign({ dynMark: dynNote.has(o.id) ? 'band' : false, gc: false, goLine: false, nhAnchor: 'leftEdge' }, dotOf(o))));
 const argsFile = path.join(require('os').tmpdir(), ID + '.args.json');   // generated on every run — not the record
 fs.writeFileSync(argsFile, JSON.stringify(args));
 
@@ -117,6 +122,27 @@ if (r.status !== 0) { console.log(outp.slice(-12).join('\n')); process.exit(r.st
 // ---- THE OVERLAYS, into the page the extractor wrote
 const irPath = path.join(ROOT, 'notation', 'ir', ID + '.ir.json'), ir = JSON.parse(fs.readFileSync(irPath, 'utf8'));
 ir.overlays = ir.overlays.filter(o => !/^ov-s3-/.test(o.id)).concat(overlays);
+ir.layoutPolicy = Object.assign(ir.layoutPolicy || {}, { tempoRowSs: TS.rowSs });   // the tempo row on top of everything, one height (§438)
+// THE GROUPS AS CLUSTERS (#4 day 23, figures.cluster — the one figure that carries a tuplet). Each group its own cluster on a grid of sixteenths:
+// 4 to the beat, or 8 over two beats. HIS RULES (SW-164, §436): a group inside one beat takes the PLAIN number (5); a group over two beats the RATIO
+// (3:2 · 5:4 · 7:4 · 9:8 · 11:8); no bracket, the number centered over the group (rules.json objects.tuplet.look.bracket). 2, 4 and 8 to the beat take none.
+// THE ACCIDENTAL HOLDS FOR ITS GROUP (his 'accidentals per group', §438): a note whose sign already stands in its group writes none; a note that
+// takes the sign back writes a natural.
+{ const evOf = new Map(ir.events.map(e => [e.source.objectId, e])); let nNum = 0, nAccOut = 0, nNat = 0;
+  for (const G of GROUPS) { const g = G.notes, two = G.step % 1 !== 0, N = Math.round(two ? G.step * 2 : G.step), U = two ? 8 : 4;
+    const unit = +((g[1].startSeconds - g[0].startSeconds) * N / U).toFixed(6), plain = !two && (N === 2 || N === 4 || N === 8);
+    const beams = two ? (N <= 3 ? 0 : N <= 7 ? 1 : 2) : (N <= 3 ? 1 : N <= 7 ? 2 : 3), text = two ? N + ':' + (N <= 3 ? 2 : N <= 7 ? 4 : 8) : String(N);
+    if (!plain) nNum++; const seen = new Map();
+    for (const o of g) { const e = evOf.get(o.id); if (!e) continue; const k = o.properties.phaseForm.k, sp = (e.pitch || {}).spelled || {}, pk = sp.step + sp.octave, acc = {};
+      if (seen.has(pk)) { if (seen.get(pk) === (sp.alter || 0)) { if (sp.alter) { acc.noAcc = true; nAccOut++; } } else if (!sp.alter) { acc.accForce = 'natural'; nNat++; } }
+      seen.set(pk, sp.alter || 0);
+      const dev = Object.assign({ goLine: false, gc: false, dynMark: dynNote.has(o.id) ? 'band' : false, nhUnit: true, nhStem: 'beam', nhAnchor: 'leftEdge', nhHead: 'filled', nhHeadScale: 1, ringBar: false,
+        nhDot: false, beamGroup: 's3-' + G.key + 'a', clusterId: 's3-' + G.key, beamUnit: unit, beamPos: +(k * U / N).toFixed(4), beamLevels: Math.max(1, beams), beamSubdivision: 4 },
+        o.technique === 'staccato' ? { nhDot: true, nhDotGapSs: DOT_GAP } : {}, dotOf(o), acc,
+        plain ? { noteUnits: U / N, noteBeams: beams } : { tupletGroup: 's3-' + G.key + '-tp', tupletNum: N, tupletDen: U, tupletStartPos: 0, tupletSlot: k, tupletText: text, tupletValue: beams === 0 ? 4 : beams === 1 ? 8 : 16, noteBeams: Math.max(1, beams), beamHasTuplet: true },
+        beams === 0 ? { groupNoBeam: true } : {});
+      ir.overlays.push({ id: 'ov-s3-cl-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: dev }, provenance: 'authored' }); } }
+  console.log('groups ' + GROUPS.length + ' · with a number ' + nNum + ' · accidentals left out (already in the group) ' + nAccOut + ' · naturals written ' + nNat); }
 // THE TICKS and THE BALLS, the tubas' way (#3 day 36): each beat a `gc` device on the chunk that holds its moment (else the last one before it)
 { const chOf = new Map(); for (const c of ir.chunks) { c.devices = (c.devices || []).filter(d => !/^dev-s3-beat-/.test(d.id)); if (!chOf.has(c.part)) chOf.set(c.part, []); chOf.get(c.part).push(c); }
   for (const list of chOf.values()) list.sort((a, b) => a.span[0] - b.span[0]);

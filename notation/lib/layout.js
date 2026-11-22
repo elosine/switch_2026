@@ -361,6 +361,7 @@
     const elecRets = [];         // [decibel §335] {part, span, count, all} — the electronics' return bricks (the `elecReturn` overlay; the presentation view's layer)
     const elecWins = [];         // [decibel §336] {part, span, badgeLeft} — the electronics' window over a lane's stretch (the `elecWindow` overlay)
     const stateWedges = [];      // [decibel §355] {part, span, segs} — a method's line wedge, one a lane through the section (the `stateWedge` overlay)
+    const dynAts = [];           // [the Switch~ piece §438] {part, t, mark} — a dynamic centered on a time (the `dynAt` overlay)
     const tempoSpans = [];       // [the Switch~ piece §433] {part, span, word} — accel. / decel. with its dashed line (the `tempoSpan` overlay)
     const beatGrids = [];        // [§564] {part, span, unit, beatEvery, phase} — the shown beat's grid (the `beatGrid` overlay), ticks on the tick row
     const sequences = [];        // [LGMF 2d.2] {part, span, v} — one part's line of a sequence (the `sequence` overlay, IR amendment 10)
@@ -389,6 +390,7 @@
       if (ov.kind === 'elecReturn' && tgt.part !== undefined && tgt.span) { elecRets.push({ part: tgt.part, span: tgt.span, count: (ov.value && ov.value.count) || 1, all: !!(ov.value && ov.value.all) }); continue; }
       if (ov.kind === 'elecWindow' && tgt.part !== undefined && tgt.span) { elecWins.push({ part: tgt.part, span: tgt.span, badgeLeft: !!(ov.value && ov.value.badgeLeft) }); continue; }
       if (ov.kind === 'rest' && tgt.part !== undefined && tgt.t !== undefined && ov.value && ov.value.dur) { freeRests.push({ part: tgt.part, t: tgt.t, dur: ov.value.dur }); continue; }
+      if (ov.kind === 'dynAt' && tgt.part !== undefined && tgt.t !== undefined && ov.value && ov.value.mark) { dynAts.push({ part: tgt.part, t: tgt.t, mark: ov.value.mark }); continue; }
       if (ov.kind === 'tempoSpan' && tgt.part !== undefined && tgt.span && ov.value && ov.value.word) { tempoSpans.push({ part: tgt.part, span: tgt.span, word: ov.value.word, dx0Ss: ov.value.dx0Ss || 0 }); continue; }
       if (ov.kind === 'beatGrid' && tgt.part !== undefined && tgt.span && ov.value && ov.value.unit > 0) { beatGrids.push(Object.assign({ part: tgt.part, span: tgt.span }, ov.value)); continue; }
       if (ov.kind === 'staff' && ov.value === 'off' && tgt.part !== undefined && tgt.span) {
@@ -1069,9 +1071,10 @@
           : -(o.gapMediumSs || 0.3);
         items.push({ k: 'barline', t: tp.t, dxSs: dx, autoClear: auto });
         if (first && (auto || part === (o.frameParts || ir.source.parts)[0]))
-          items.push({ k: 'tempotext', t: tp.t, dxSs: dx, bpm: tp.bpm, autoClear: auto });
+          items.push(Object.assign({ k: 'tempotext', t: tp.t, dxSs: dx, bpm: tp.bpm, autoClear: auto }, POL.tempoRowSs > 0 ? { ySs: POL.tempoRowSs } : {}));   // [§438] the tempo row on top of everything, one height
       }
-      for (const ts of tempoSpans) if (ts.part === part && first) items.push({ k: 'tempospan', t0: ts.span[0], t1: ts.span[1], word: ts.word, dx0Ss: ts.dx0Ss });   // [§433] accel. / decel.
+      for (const ts of tempoSpans) if (ts.part === part && first) items.push(Object.assign({ k: 'tempospan', t0: ts.span[0], t1: ts.span[1], word: ts.word, dx0Ss: ts.dx0Ss }, POL.tempoRowSs > 0 ? { ySs: POL.tempoRowSs } : {}));
+      for (const dm of dynAts) if (dm.part === part && first) items.push({ k: 'glyph', g: 'dyn-' + dm.mark, t: dm.t, dxSs: 0, ySs: o.dynY, align: 'center', seq: 'dynAt' });   // [§438] a dynamic CENTERED on a time (a curve's start and end)   // [§433] accel. / decel.
       for (const h of headers) if (h.part === part && first) {
         // THE SECTION FIGURE (day 35, composer): niente circle · arrow · fff,
         // sitting UNDER the staff where any other dynamic goes, and ENDING
@@ -1882,7 +1885,8 @@
                 // which is what centering on the go line requires.
                 // [2h.7, §479] an unaltered head in a chord column takes the column's ♮ (chordGeometry accKey) — the same letter and
                 // octave altered beside it
-                const accKind = spN.alter ? ({ '1': 'sharp', '-1': 'flat', '2': 'sharp', '-2': 'flat',
+                // [the Switch~ piece §438 — his 'accidentals per group'] a hand may drop a note's accidental (noAcc: the sign already stands in its beamed group) or ask for a natural (accForce)
+                const accKind = dev.noAcc ? null : dev.accForce === 'natural' && !spN.alter ? 'natural' : spN.alter ? ({ '1': 'sharp', '-1': 'flat', '2': 'sharp', '-2': 'flat',
                   '0.5': 'quarterSharp', '-0.5': 'quarterFlat',
                   '1.5': 'threeQuarterSharp', '-1.5': 'threeQuarterFlat' })[String(spN.alter)] : (CG && CG.accKey === 'natural' ? 'natural' : null);
                 const acc = accKind ? glyphs.accidental[accKind] : null;
@@ -2360,6 +2364,7 @@
                     if (dev.bracketSide) grp.bracketSide = dev.bracketSide;   // day 31, dictated
                     if (dev.articSide) grp.articSide = dev.articSide;
                     if (dev.clusterId) grp.clusterId = dev.clusterId;
+                    if (dev.groupNoBeam) grp.noBeam = true;   // [§438] quarters: the group's stems and its number, no beam
                     // THE GRID DOMAIN, which is not always the cluster (8g,
                     // day 27): --figures gives each figure its OWN unit, so
                     // rests and tuplet brackets are computed per FIGURE. A
@@ -3103,7 +3108,8 @@
               // line at padding + hook above whatever is below it; the numeral's
               // cap rises capAbove past the line
               const capAbove = TPg.numeralSizeSs * TPg.numeralCapFactor - TPg.numeralBaselineBelowSs;
-              st.bracketLine = h + TPg.paddingSs + TPg.hookLengthSs; h = st.bracketLine + capAbove;
+              // [§438 — his 'dispense with the brackets and just have the numbers centered over the group'] objects.tuplet.look.bracket false: the number's foot the house gap past what is under it
+              st.bracketLine = h + (TPg.bracket === false ? gapD + TPg.numeralBaselineBelowSs : TPg.paddingSs + TPg.hookLengthSs); h = st.bracketLine + capAbove;
             }
             // THE DYN ROW SIDE (day 31, the vertical budget): on a stem-DOWN
             // group the beam-side column cannot hold head + stem + accents +
@@ -3459,7 +3465,7 @@
             tips: [{ t: t.t, dxSs: t.dxSs, ySs: t.ySs }, { t: t.t, dxSs: t.dxSs + stubLen, ySs: t.ySs }] });
         } else {
           const tipsP = (overLTip ? [overLTip] : []).concat(g.tips).concat(overTip ? [overTip] : []);
-          items.push({ k: 'beam', dir: g.dir, ...(g.scale ? { scale: g.scale } : {}), tips: tipsP, group: key, over: overTip ? true : undefined, overLeft: overLTip ? true : undefined });
+          if (!g.noBeam) items.push({ k: 'beam', dir: g.dir, ...(g.scale ? { scale: g.scale } : {}), tips: tipsP, group: key, over: overTip ? true : undefined, overLeft: overLTip ? true : undefined });
         }
         // SECONDARY BEAMS (day 23): the cluster's tempo fit says what the
         // notes ARE — at a 16th grid every note is a 16th, so a second beam
@@ -3593,7 +3599,23 @@
             const yD = S.dynY != null ? S.dynY : (S.dynCentre != null ? beamY + S.dynCentre : null);
             if (yD != null && past(yD)) ext = far(ext, up ? yD + dH / 2 : yD - dH / 2);
           }
+          if (g.hasTuplet && S.bracketLine != null && S.bracketY == null) {   // [§438] the group's number, where no repair set its line
+            const TPn = Object.assign({ numeralSizeSs: 1.2348, numeralBaselineBelowSs: 0.41, numeralCapFactor: 0.7 }, o.tuplet || {});
+            const capN = TPn.numeralSizeSs * TPn.numeralCapFactor - TPn.numeralBaselineBelowSs;
+            ext = far(ext, up ? beamY + S.bracketLine + capN : beamY - S.bracketLine - capN);
+          }
           for (const tp of g.ottBeam) tp.ottava.ySs = up ? ext + stdB + hookB : ext - stdB - hookB;
+        }
+        // [the Switch~ piece §438 — his 'the Ottava can be one bracket over all the ones that have Ottava'] ONE BRACKET OVER A RUN: the notes of a
+        // group that stand next to each other with the same sign on the same side share one bracket — the first note's sign, the last note's hook,
+        // at the height of the one furthest from the staff (objects.ottava.groupRun)
+        if (o.ottavaGroupRun !== false) {
+          const tipsT = g.tips.filter(tp => !tp.phantom).slice().sort((a, b) => a.t - b.t); let run = [];
+          const closeRun = () => { if (run.length >= 2) { const a = run[0].ottava, z = run[run.length - 1].ottava, ab = a.dir === 'above';
+              a.ySs = ab ? Math.max(...run.map(x => x.ottava.ySs)) : Math.min(...run.map(x => x.ottava.ySs)); a.t1 = z.t; a.dx1Ss = z.dx1Ss;
+              for (const x of run.slice(1)) { const ix = items.indexOf(x.ottava); if (ix >= 0) items.splice(ix, 1); x.ottava = a; } } run = []; };
+          for (const tp of tipsT) { if (tp.ottava && run.length && (run[0].ottava.label !== tp.ottava.label || run[0].ottava.dir !== tp.ottava.dir)) closeRun(); if (tp.ottava) run.push(tp); else closeRun(); }
+          closeRun();
         }
       }
       // RESTS (day 23, composer: "let's put in any rests that are necessary...
@@ -3661,7 +3683,8 @@
           const yB = rep ? own.stack.bracketY
             : (tp.dir === 'up' ? beamTop + lineOff : -(Math.abs(beamTop) + lineOff));
           const dDraw = rep ? own.stack.bracketDirDraw : tp.dir;
-          items.push({ k: 'tuplet', t0, t1: tEnd, dx1Ss: dx1 != null ? dx1 : undefined, ySs: yB, dir: dDraw, text: tp.text || (tp.num + ':' + tp.den), group: tk });
+          items.push(Object.assign({ k: 'tuplet', t0, t1: tEnd, dx1Ss: dx1 != null ? dx1 : undefined, ySs: yB, dir: dDraw, text: tp.text || (tp.num + ':' + tp.den), group: tk },
+            (o.tuplet || {}).bracket === false && tp.slots.size ? { noBracket: true, tLast: Math.max(...tp.slots.values()) } : {}));   // [§438] the number alone, centered over the group's notes
           for (let sIdx = 0; sIdx < tp.num; sIdx++) {
             if (tp.slots.has(sIdx)) continue;
             const t = t0 + sIdx * tp.slotUnits * cl.unit;

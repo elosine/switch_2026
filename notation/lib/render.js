@@ -691,7 +691,7 @@
           // from the glyph set, so a typed character would be the odd one out.
           if (!owns(it.t)) continue;
           const BL = E.barLine;
-          const tx = X(it.t, it.dxSs), ty = Y(BL.tempoYSs);
+          const tx = X(it.t, it.dxSs), ty = Y(it.ySs != null ? it.ySs : BL.tempoYSs);
           const ns = ssPx * BL.tempoHeadScale;
           const nhq = glyphs.notehead.filled;
           parts.push(Stamps.toSvg(Stamps.scaled(S.notehead(), BL.tempoHeadScale, BL.tempoHeadScale),
@@ -713,7 +713,7 @@
           // page it crosses, the word on the page that owns its start
           if (!crosses(it.t0, it.t1)) continue;
           const BL = E.barLine, TSP = E.tempoSpan || {};
-          const ty = Y(BL.tempoYSs), fs = BL.tempoSizeSs * ssPx;
+          const ty = Y(it.ySs != null ? it.ySs : BL.tempoYSs), fs = BL.tempoSizeSs * ssPx;
           let xl = X(it.t0, it.dx0Ss || 0);   // dx0Ss: the word stood off to the right of a tempo mark on the same beat
           if (owns(it.t0)) {
             parts.push('<text x="' + xl.toFixed(2) + '" y="' + ty.toFixed(2) + '" font-size="' + fs.toFixed(2) + '" font-family="' + E.fontFamily +
@@ -934,9 +934,11 @@
             '" width="' + Math.abs(b - a).toFixed(2) + '" height="' + th.toFixed(2) + '"/>';
           const vert = x => '<rect x="' + (x - th / 2).toFixed(2) + '" y="' + (dir > 0 ? yL : yL - hook).toFixed(2) +
             '" width="' + th.toFixed(2) + '" height="' + hook.toFixed(2) + '"/>';
-          parts.push(seg(x0, gA), seg(gB, x1), vert(x0), vert(x1));
+          if (!it.noBracket) parts.push(seg(x0, gA), seg(gB, x1), vert(x0), vert(x1));
+          // [§438] the number alone: centered over the group's notes — the first head's left edge to the last head's right edge
+          const nMid = it.noBracket ? (view.xOfSeconds(it.t0) + shiftOf(it.t0) + view.xOfSeconds(it.tLast) + shiftOf(it.tLast) + glyphs.notehead.filled.wSs * ssPx) / 2 : gMid;
           const baseY = yL + (TP.numeralBaselineBelowSs || 0.41) * ssPx;
-          parts.push('<text x="' + gMid.toFixed(1) + '" y="' + baseY.toFixed(1) + '" font-size="' + size.toFixed(1) +
+          parts.push('<text x="' + nMid.toFixed(1) + '" y="' + baseY.toFixed(1) + '" font-size="' + size.toFixed(1) +
             '" text-anchor="middle" font-style="italic"' + fontAttr + ' fill="' + o.ink + '">' + esc(it.text || '3:2') + '</text>');
         } else if (it.k === 'ottava') {
           // piece #2 session-57 bracket over the NOTEHEAD ONLY (round 2):
@@ -948,7 +950,7 @@
           const lg = glyphs.ottavaText && glyphs.ottavaText[it.label];
           const yLine = Y(it.ySs);
           let xLabel = X(it.t, it.dx0Ss || 0);
-          const xHook = X(it.t, it.dx1Ss || 0);
+          const xHook = X(it.t1 != null ? it.t1 : it.t, it.dx1Ss || 0);   // [§438] t1: one bracket over a run of a group's notes
           // a too-narrow unit widens the bracket leftward to its minimum span
           const minSpan = (O.minBracketSpanSs || 1.37) * ssPx;
           const lgW = lg ? (lg.wSs + (O.textGapBeforeLineSs || 0.1)) * ssPx : 0;
