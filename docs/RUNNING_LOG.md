@@ -6320,3 +6320,8 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 - THE NUMBER CENTERED ON THE FULL TUPLET: to the tuplet's last place, its rests included.
 **SEEN (stills on the throwaway 5601 at 350.5 · 365 · 371 · 303.5 s):** the 9:8 under its beam; one 8va over the flute's three groups at 366; the accel. line above the f at 372.5; the beams over the rests and the numbers centered over notes and rests.
 **NOT DONE, said to him:** a bracket that runs past a page's edge is drawn on the page that owns its start only — the edge rule for a long ottava is not built · his "tight bounding box" clearance is applied against the ticks; the bracket against its own notes keeps the standing rule (the hook's end the house gap above the note's ink).
+
+## §443 · 2026-11-22 · his word on the ottava at 456.1 — two notes of different pitch share one bracket
+
+**His words (given while §442 was being built):** "The two partials starting at 456.1, they can just share one ottava, even though it's a different pitch."
+**THE AI's READING:** §442's run already joins neighbours with the SAME sign whatever their pitch; his page showed the build before it. Looked once at 455 … 460 s on the throwaway: the same-sign neighbours share a bracket. WHAT IS STILL NOT JOINED: a note under 8va next to a note under 15ma (the cello and the piano at 455.3 … 456) — two different signs; one bracket there means writing one of the two notes in another octave. Put to him; nothing built.
