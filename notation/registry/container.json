@@ -788,6 +788,7 @@
       "brick": false,
       "dynMark": "band",
       "instrText": "rim",
+      "beaterText": "rute",
       "instrAlign": "middle",
       "_rimNote": "§428 (2026-11-22, his word: 'you can do rim on the ones that are on the rim') — the bass drum struck ON ITS RIM (the sample: a rute on the rim); the beater is not named ('We'll leave the mallets out')"
      },
@@ -952,6 +953,7 @@
    "ottavaHookIsInk": "@objects.ottava.hookIsInk",
    "dotLineClearSs": "@objects.staccatoDot.lineClearSs",
    "instrGoLineClearSs": "@objects.instruction.goLineClearSs",
+   "beaterAboveHeadSs": "@objects.beaterWord.aboveHeadSs",
    "instrWidthEm": "@objects.instruction.widthEm",
    "glissOnStaffLine": "@objects.glissLine.onStaffLine",
    "_ottavaEndNote": "§401m (2026-09-11, the composer): the bracket's hook ends at the rightmost ink of the note (the head, or the ledger line's overhang) plus THE SMALLEST GAP — the staccato-dot gap (tightGapSs 0.15; medium 0.3; standard 0.45). LilyPond's OttavaBracket runs 0.6 ss past the last note; Gould: 'a little beyond'. The left end sits at the accidental's left edge already.",

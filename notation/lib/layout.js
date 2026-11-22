@@ -2701,6 +2701,11 @@
                     wI.ySs = +(rBot - stackGap - instrEm * 0.8).toFixed(4); }   // ALWAYS under the row, so one word stands at one height along the staff (some had cleared the row from above, most had not)
                   recChrome(items[items.length - 1], chainAbove ? 'above' : 'below', instrEm * 0.8, -instrEm * 0.2);
                 }
+                // [the Switch~ piece §430 — HIS WORD 2026-11-22: 'yes, rute above and rim below'] THE BEATER'S WORD over the note head (a device's beaterText;
+                // rules.json objects.beaterWord — piece 2's slot for what the player strikes with): italic, the word's size, centred on the head, its baseline the
+                // house gap above the head. It is its own kind (seq beaterText), so the lined staff's one word row under the dynamics is not its row.
+                if (dev.beaterText) { const gB = o.beaterAboveHeadSs > 0 ? o.beaterAboveHeadSs : 0.45;   // RULES MIRROR (objects.beaterWord.aboveHeadSs)
+                  items.push(Object.assign({ k: 'text', t: tU, dxSs: headDx, ySs: yDraw + nhO.hSs / 2 + gB + TS.instruction * (o.textEmScale != null ? o.textEmScale : 1.3) * 0.2, text: String(dev.beaterText), anchor: 'middle', seq: 'beaterText', ev: e.id }, WORD)); }
                 // [the Switch~ piece §397 — HIS WORD 2026-11-22: 'we should have a way to say which string … Just notate it on the open string note'] THE STRING'S
                 // ROMAN NUMERAL above a note whose device names the strings by their open pitch (stringNumerals — rules.json objects.stringNumeral): upright, the
                 // word's size, centred on the head; THE STACK ABOVE A NOTE stands it clear of the staff and of whatever is under it.
