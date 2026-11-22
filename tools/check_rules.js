@@ -109,7 +109,7 @@ const ens = rd('notation/registry/ensemble.json'), T = rd('notation/registry/tec
 const ENS = Layout.ensembleFor(ens, ((C || raw).realizations || {})['video-jury']);
 const irFiles = fs.readdirSync(path.join(ROOT, 'notation', 'ir')).filter(f => f.endsWith('.ir.json')).sort();
 const sigs = new Map();         // signature → first place seen
-const M10 = { widthEm: ((R.objects || {}).instruction || {}).widthEm || {}, slashes: 0, badSlashes: [], seenT: new Set(), moments: 0, clashes: [], words: 0, badWords: [], wordEm: (((R.objects || {}).instruction || {}).size || 0.75) * 1.3, flags: 0, badFlags: [], hooks: 0, badHooks: [], dots: 0, badDots: [], flagClear: ((R.objects || {}).flag || {}).staff || 0.38, flagMax: ((R.objects || {}).flag || {}).clearMaxSs || 10.5, hookGap: ((R.objects || {}).ottava || {}).stack || 0.45,
+const M10 = { graceFlags: 0, badGraceFlags: [], graceGap: (((R.objects || {}).graceHead || {}).flagHeadGapSs) || 0.45, widthEm: ((R.objects || {}).instruction || {}).widthEm || {}, slashes: 0, badSlashes: [], seenT: new Set(), moments: 0, clashes: [], words: 0, badWords: [], wordEm: (((R.objects || {}).instruction || {}).size || 0.75) * 1.3, flags: 0, badFlags: [], hooks: 0, badHooks: [], dots: 0, badDots: [], flagClear: ((R.objects || {}).flag || {}).staff || 0.38, flagMax: ((R.objects || {}).flag || {}).clearMaxSs || 10.5, hookGap: ((R.objects || {}).ottava || {}).stack || 0.45,
   dotClear: ((R.objects || {}).staccatoDot || {}).lineClearSs || 0, dotR: (((R.objects || {}).staccatoDot || {}).diameterSs || 0.4) / 2 };
 const kindsSeen = new Set();
 for (const f of irFiles) {
@@ -141,6 +141,9 @@ for (const f of irFiles) {
         M10.moments++;
         for (let a = 0; a < boxes.length; a++) for (let b = a + 1; b < boxes.length; b++) { const A = boxes[a], B = boxes[b]; if (A.n === B.n) continue;
           if (Math.min(A.x1, B.x1) - Math.max(A.x0, B.x0) > 0.05 && Math.min(A.y1, B.y1) - Math.max(A.y0, B.y0) > 0.05) M10.clashes.push(pg + ' p' + s.part + '@' + it.t.toFixed(2) + ' ' + A.n + ' × ' + B.n); } }
+      // [§404] A GRACE NOTE'S FLAG ENDS CLEAR OF ITS HEAD: the stem at least the head's half height + objects.graceHead.flagHeadGapSs (at the grace's scale) + the flag
+      if (it.k === 'glyph' && /^flag-(up|down)[0-9]+$/.test(it.g || '') && it.scale < 1) { const G = glyphs.flag[it.g.replace('flag-', '')], st = its.find(x => x.k === 'stem' && Math.abs(x.t - it.t) < 1e-9 && Math.abs(x.dxSs - it.dxSs) < 1e-6);
+        if (st) { M10.graceFlags++; const need = glyphs.notehead.filled.hSs * it.scale / 2 + M10.graceGap * it.scale + G.hSs * it.scale * (it.scaleY || 1); if (Math.abs(st.yB - st.yA) < need - 0.02) M10.badGraceFlags.push(pg + ' p' + s.part + '@' + it.t.toFixed(2) + ' ' + Math.abs(st.yB - st.yA).toFixed(2) + ' < ' + need.toFixed(2)); } }
       // [§393] THE SLASHES PAST THE LEDGER LINES: a tremolo slash of a note outside the staff lies wholly inside the staff's outer lines
       if (it.k === 'slash' && it.seq === 'tremolo') { const hd = its.find(x => x.k === 'glyph' && /^notehead/.test(x.g || '') && Math.abs(x.t - it.t) < 1e-9 && !(x.scale < 1)); if (hd && Math.abs(hd.ySs) > 2.5) { M10.slashes++;
         const lo = Math.min(it.y0Ss, it.y1Ss) - it.thickSs / 2, hi = Math.max(it.y0Ss, it.y1Ss) + it.thickSs / 2; if (hd.ySs < 0 ? lo < -2.01 : hi > 2.01) M10.badSlashes.push(pg + ' p' + s.part + '@' + it.t.toFixed(2)); } }
@@ -356,6 +359,7 @@ console.log('(10) MEASURED ON EVERY PAGE — the flag · the ottava\'s hook · t
 ok(!M10.badFlags.length, '(10) every flag clears its staff\'s outer line by objects.flag.staff ' + M10.flagClear + ' ss, or its stem has reached clearMaxSs (' + M10.flags + ' flags)' + (M10.badFlags.length ? ' — not: ' + M10.badFlags.slice(0, 8).join(' · ') : ''));
 ok(!M10.badHooks.length, '(10) every ottava bracket beside a go line ends the spacer ' + M10.hookGap + ' ss or more before it — the hook is ink (' + M10.hooks + ' brackets)' + (M10.badHooks.length ? ' — not: ' + M10.badHooks.slice(0, 8).join(' · ') : ''));
 ok(!M10.badDots.length, '(10) every staccato dot keeps objects.staccatoDot.lineClearSs ' + M10.dotClear + ' ss from a line (' + M10.dots + ' dots)' + (M10.badDots.length ? ' — not: ' + M10.badDots.slice(0, 8).join(' · ') : ''));
+ok(!M10.badGraceFlags.length, '(10) every flagged grace note has its flag clear of its head — objects.graceHead.flagHeadGapSs ' + M10.graceGap + ' ss at its scale (' + M10.graceFlags + ' grace flags)' + (M10.badGraceFlags.length ? ' — not: ' + M10.badGraceFlags.slice(0, 8).join(' · ') : ''));
 ok(!M10.badSlashes.length, '(10) no tremolo slash sits among ledger lines — objects.tremoloSlash.pastLedgers (' + M10.slashes + ' slashes on notes outside the staff)' + (M10.badSlashes.length ? ' — among them: ' + [...new Set(M10.badSlashes)].slice(0, 8).join(' · ') : ''));
 ok(!M10.badWords.length, '(10) no technique word stands across its own go line (' + M10.words + ' words beside a go line)' + (M10.badWords.length ? ' — across: ' + M10.badWords.slice(0, 8).join(' · ') : ''));
 ok(!M10.clashes.length, '(10) at no moment do a dynamic, an ottava bracket and a technique\'s word share ink (' + M10.moments + ' moments)' + (M10.clashes.length ? ' — ' + M10.clashes.length + ' clash(es): ' + M10.clashes.slice(0, 10).join(' · ') : ''));

@@ -2416,6 +2416,11 @@
                   items.push({ k: 'stem', t: tU, dxSs: headDx + att.dx, yA: yStart, yB: yEnd, attach: stemDir, ev: e.id });
                   if (nhAt.has(e.id)) Object.assign(nhAt.get(e.id), { stemDir, stemX: headDx + att.dx, stemItem: items[items.length - 1] });   // [§550 · §555] for the slur: the side, the tip read from the item after the beams level
                   if (beamTip) beamTip.stem = items[items.length - 1];
+                  // [the Switch~ piece §404 — HIS EYE 2026-11-22, the grace at 224.99: 'the flags dip down into the note head … make sure it gets applied to the
+                  // non-slashed ones as well'] EVERY FLAGGED GRACE's stem is long enough that its flag ends clear of the head (rules.json
+                  // objects.graceHead.flagHeadGapSs, at the grace's scale): the head's half height + the gap + the flag's height.
+                  if (dev.grace && flagG && !beamTip) { const gpF = (GR.flagHeadGapSs > 0 ? GR.flagHeadGapSs : 0.45) * GR.headScale, needF = nhO.hSs / 2 + gpF + flagG.hSs * GR.headScale * (flagKy || 1);   // RULES MIRROR (objects.graceHead.flagHeadGapSs)
+                    if (Math.abs(yEnd - yStart) < needF) { yEnd = yStart + (stemDir === 'up' ? 1 : -1) * needF; const stF = items[items.length - 1]; if (stF && stF.k === 'stem') stF.yB = yEnd; } }
                   // [§385 · §386 — HIS RULE 2026-11-21: "three slashes on the stem with flz." · then "those aren't the right slashes … these were worked
                   // on for quite a while … Please find the established slashes"] THE TREMOLO SLASHES of a device that asks for them (nhTremolo: how
                   // many) are PIECE 2's `slashOnStem` (its engine/slash.js; ND-10: a slash IS a beam-shape parallelogram, placed differently):

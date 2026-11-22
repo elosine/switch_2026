@@ -32,10 +32,11 @@ const GRACES = [];         // [the grace note, its main note]
 const HANDS = {
   // §392 (2026-11-22), the alto sax at 206.48, a double-tongued F5 0.07 s long: 'Let's change that double-tongued note to a grace note, black note head,
   // just your typical grace note that we've been using, but you can keep the slashes and the … DT' — at its own time (the next note is 0.26 s on)
-  'wc-2762': { grace: true, graceTremolo: true, nhHead: 'filled', nhStem: 'flag16', nhStemRule: 'flagClear' },
+  'wc-2762': { grace: true, graceTremolo: true, nhHead: 'filled', nhStem: 'flag16', nhStemRule: 'flagClear', pickupTo: 'wc-2765', nhAnchor: 'leftEdge', goLine: false },
+  'wc-2765': { nhAnchor: 'leftEdge', goLine: false },   // §404: its main note — the figure's regime (below)
   // §394 (2026-11-22), the alto sax at 224.99 → 225.27, a staccato and a slap the rule had beamed: 'can we make that first staccato a grace note? And the GC
   // correspond with the slap? And can we make a no-go line? Just line the GC up with the left edge of that slap'
-  'wc-2782': { grace: true, goLine: false, dynMark: false, noGc: true },
+  'wc-2782': { grace: true, goLine: false, dynMark: false, noGc: true, pickupTo: 'wc-2783', nhAnchor: 'leftEdge' },
   'wc-2783': { nhAnchor: 'leftEdge', goLine: false },
   // §400: the second note of his beam at 234.44 → 234.79 — no gestural curve of its own (one curve, on the first)
   'wc-2794': { noGc: true },
@@ -82,7 +83,11 @@ for (const o of save.objects) if (o.type === 'waveCurve' && o.startSeconds >= W0
   args.push('--hand', o.id + ':' + JSON.stringify({ dynMark: false }));
 // THE GRACE-NOTE PICKUPS (his, §369 · §371 · §374): its own flag and stroke, stood off to the left, no slur, no beam, its stem down to the main
 // note's; no go line, dynamic or gestural curve of its own (one curve, on the main note)
-for (const [g, m] of GRACES) args.push('--hand', g + ':' + JSON.stringify({ grace: true, pickupTo: m, goLine: false, dynMark: false }), '--noGc', g);
+// [§404 — HIS RULE 2026-11-22: 'no go line if there's other notes involved, but keep the go line for the single ones … no go line, and left note head of the
+// … main figure … for ones that have multiple notes, whether it be grace notes or beamed notes'] A FIGURE OF SEVERAL NOTES (a beamed group · a grace note and
+// its main note · a tied attack) has NO go line and its main note's head stands with its LEFT EDGE on the moment; a single note keeps its go line.
+// So a grace pickup's MAIN note takes the regime too, and the grace is placed from it (rules.json objects.graceHead.pickupLeadSs — this piece's one distance).
+for (const [g, m] of GRACES) args.push('--hand', g + ':' + JSON.stringify({ grace: true, pickupTo: m, goLine: false, dynMark: false, nhAnchor: 'leftEdge' }), '--noGc', g, '--hand', m + ':' + JSON.stringify({ nhAnchor: 'leftEdge', goLine: false }));
 
 for (const [id, h0] of Object.entries(HANDS)) { const h = Object.assign({}, h0), noGc = h.noGc; delete h.noGc; args.push('--hand', id + ':' + JSON.stringify(h)); if (noGc) args.push('--noGc', id); }
 
