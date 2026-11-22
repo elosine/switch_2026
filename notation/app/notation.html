@@ -61,7 +61,7 @@
                      font: 13px/1 monospace; color: #ddd; background: #111c;
                      padding: 5px 9px; border-radius: 4px; pointer-events: none; }
   body.cmode #bar.shown ~ #tnow, body.cmode #bar:hover ~ #tnow { display: none; }
-  #tbar { font: 13px/1 monospace; opacity: 0.9; display: none; }
+  #tbar { font: 600 15px/1 monospace; color: #fff; background: #111; padding: 4px 8px; border-radius: 4px; min-width: 9ch; display: none; }
   body.cmode #stale { position: fixed; left: 8px; bottom: 34px; z-index: 10;
                       background: #fff8; border-radius: 4px; padding: 4px 8px; }
   /* [PLAN 2d.4] choices that did not draw as chosen: the count in the bar (absent at zero; a click or O opens the list) and
@@ -679,7 +679,7 @@
       $('play').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
       $('audWrap').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
       $('midiWrap').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
-      $('tbar').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
+      $('tbar').style.display = (vv === 'video' || vv === 'zoom') ? 'inline-block' : 'none';   // [the Switch~ piece §422] it was '' — which fell back to the stylesheet's display:none, so the bar NEVER showed the time (his 'I have to close it every time I want to see what time I'm at')
       $('tshowWrap').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
       $('gotoWrap').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';
       $('home').style.display = (vv === 'video' || vv === 'zoom') ? '' : 'none';

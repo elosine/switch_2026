@@ -1854,3 +1854,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim):** "Okay, I think you missed the ordinarios. The regular piano notes are also meant to be the black note heads, I think, right? So the only ones that get the white note heads are the pizzicato. Everything else gets a flag, and everything else just like the other staccato notes. And then also let's give the staccato dot. So all the ordinary notes and the muted notes, they all resemble the notation in the other instruments for single hits with the GC and everything. It's only the pizzicato that gets the long and the longer, the open note and the lettering slur."
 
 **The AI's reading:** §420's reading of "the mute and short notes" was too narrow. In this section the piano's ORDINARY notes and its MUTED notes are single hits, written as the other instruments' — a black head, a flag, a staccato dot, the go line, the gestural curve. Only the plucked note is open, with its let-ring slur.
+
+### SW-157 · 2026-11-22 · the time on the bar; an exception at the piano's 203.4
+
+**His words (verbatim):** "Can you show me cursor time on the bar? I have to close it every time I want to see what time I'm at. And then exceptionally, the figure at 203.4. Let's get rid of the go line, line up the PIT's note head with the go time, the left side. So the two notes don't collide there, but you can leave the rest as is."
+
+**The AI's reading:** (1) the notation app's bar should show the playhead's time. (2) one exception: at the piano's plucked note and the ordinary note 0.2 s after it, the note that has a go line (the ordinary one) loses it and stands with its head's left edge on its moment, so the two heads stand apart. ("PIT's" is dictation; the note with a go line there is the ordinary one.)

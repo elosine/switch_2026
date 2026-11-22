@@ -6111,3 +6111,10 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 - THE PLUCKED NOTE: unchanged — the open head, pizz., Ped., the let-ring slur. Read from the drawn items: 15 let-ring slurs in the piano, the plucked notes' own.
 - THE RULE'S BEAMING now counts the ordinary notes as short: the piano has 2 beamed groups at the 0.33 s measure (it had none, §420). `no_rule_list.js` reads a hand that makes a note short.
 **MEASURED:** "no rule yet" — no technique without a look or a word on the six parts. `fit_list` 3 (the violin's). `check_rules.js` part (10) green; the old two reds. **NOT LOOKED AT as a picture.**
+
+## §422 · 2026-11-22 · the notation app's bar shows the time (a bug since the bar was built); his exception at the piano's 203.47
+
+**His words:** SW-157 (the sketch pad).
+**THE TIME ON THE BAR:** the bar HAS a readout (`#tbar`, "playhead time") and the pill at the bottom right is hidden while the bar is up "because the bar carries the same number" — but the bar never showed it: the view switch set its `style.display` to the empty string, which falls back to the stylesheet's `display: none`. Now `inline-block`; and made easy to see (white on black, 15 px, a fixed width). PROVEN ONCE on the throwaway, zoom view: computed display block, text "t 0.00 s", inside the bar.
+**THE EXCEPTION (`build_ctpt_page.js` HANDS, `wc-2814`, with his words):** the piano's ordinary B2 at 203.470 — `nhAnchor: leftEdge` · `goLine: false`: its head's left edge on its moment, its gestural curve kept, no go line. The plucked G♯2 at 203.271 is as it was (its head on its own moment, its let-ring slur). Read from the drawn items: the two heads 0.2 s apart, each on its moment. Nothing else of the figure changed.
+**MEASURED:** `check_rules.js` — the old two reds. **NOT LOOKED AT as a picture** (the figure).

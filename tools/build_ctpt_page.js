@@ -45,6 +45,9 @@ const HANDS = {
   // down and put the markings above, but above the staff' (by rule its stem went up into the part above and the fit threw its marks under the staff)
   'wc-9862': { nhStemDir: 'down', chainSide: 'above' },
   // §419 (2026-11-22), the violin's two overpressure notes whose columns left the lane (223.35 G3 · 242.63 E4) — his 'yes, same for the violin's two': stem down, the marks over the staff
+  // §422 (2026-11-22), the piano at 203.27 → 203.47, a plucked G♯2 and an ordinary B2 0.2 s after it — HIS EXCEPTION: 'exceptionally, the figure at 203.4. Let's get
+  // rid of the go line, line up the [ordinary] note head with the go time, the left side. So the two notes don't collide there, but you can leave the rest as is'
+  'wc-2814': { nhAnchor: 'leftEdge', goLine: false },
   'wc-2878': { nhStemDir: 'down', chainSide: 'above' },
   'wc-2897': { nhStemDir: 'down', chainSide: 'above' },
   // §408 (2026-11-22), the clarinet at 217.70 → 218.08, a triple-tongued G4 and a staccato G4: 'the inverse' of the tied attack — 'the tonguing is on the
