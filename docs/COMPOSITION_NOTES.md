@@ -1806,3 +1806,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim), on a picture of the violin at 205.86 … 208:** "So the file in there, that first node is at 206.9, or sorry, 205.84. I think in the downbow should go above the node head when possible with the same sort of movement rules. If it collides, then we'll move them somewhere else. And then just move the other articulations below for those two. And even with the stem up, do the same thing."
 
 **The AI's reading:** his re-evaluation of §393's figure. The three down-bows stand ABOVE the note whichever way the stem goes; the marcato and the dynamic go below; the fit's rules move things when they collide.
+
+### SW-149 · 2026-11-22 · the violin's double at 239.8 is the Bartók pizzicato; the MIDI blockage; the cello
+
+**His words (verbatim):** "there's some sort of doubling at 239.2. Looks like it's a Bartok Pitts and a Coligno Battuto. Let's keep the Bartok Pitts there. And then I'm experiencing that MIDI blockage or whatever, so it's not playing sound. But occasionally I see hear a click. We experienced this yesterday, I believe. I'm not sure what the solution was for that. I think I restarted the whole computer, but if there's a different way, let me know." · "Then otherwise, the violin looks good once we get rid of that double. And can you notate the cello, please?"
+
+**The AI's reading:** the last duplicate decided; a fault report with a wish for a lighter cure than a restart; the violin approved; the cello asked for — but it has no notes in this section.
