@@ -58,6 +58,9 @@ const HANDS = {
   // as the grace note one, and then just the standard played G for the second one.' The plucked note as a grace: the small black head, the flag, the stroke, its pizz.
   'wc-2824': { grace: true, pickupTo: 'wc-2826', nhAnchor: 'leftEdge', goLine: false, dynMark: false, nhHead: 'filled', nhStem: 'flag16', nhStemRule: 'flagClear', letRing: false, pedalMark: false, chordRules: false },
   'wc-2826': { nhAnchor: 'leftEdge', goLine: false },
+  // §425 (2026-11-22), the piano at 225.65 → 225.83, a plucked G2 and an ordinary G2: 'Same with the 225.8, plucked Grace into the … main note'
+  'wc-2834': { grace: true, pickupTo: 'wc-2835', nhAnchor: 'leftEdge', goLine: false, dynMark: false, nhHead: 'filled', nhStem: 'flag16', nhStemRule: 'flagClear', letRing: false, pedalMark: false, chordRules: false },
+  'wc-2835': { nhAnchor: 'leftEdge', goLine: false },
   'wc-2878': { nhStemDir: 'down', chainSide: 'above' },
   'wc-2897': { nhStemDir: 'down', chainSide: 'above' },
   // §408 (2026-11-22), the clarinet at 217.70 → 218.08, a triple-tongued G4 and a staccato G4: 'the inverse' of the tied attack — 'the tonguing is on the

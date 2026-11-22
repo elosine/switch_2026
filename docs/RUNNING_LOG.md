@@ -6131,3 +6131,8 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **DONE:** the G♯2 is out of the notation's copy of the save (as it was: `…D-ctptCello.before-424.json`) — the AI's reading of "there's a duplicate … keep the plucked one as the grace note one, and then just the standard played G for the second one"; said to him. The plucked G2 is a grace note (`build_ctpt_page.js` HANDS, `wc-2824`): the small black head, the flag, LilyPond's stroke, its "pizz."; no go line, no dynamic, no let-ring slur, no Ped. — drawn at the main note's moment, the piece's grace distance to its left (heads at −2.23 and 0.52), its stem reaching the main note's stem tip (§374). The ordinary G2 (`wc-2826`): its head's left edge on its moment, the curve on it, no go line, its dot and its f.
 **FOR HIM TO SEE (his "let me look at it"):** the grace is a PLUCKED note written as a flagged grace — its "pizz." stands over the long stem's tip.
 **MEASURED:** `check_rules.js` — the old two reds. **NOT LOOKED AT as a picture.**
+
+## §425 · 2026-11-22 · his word — the piano's 225.65 a plucked grace note into the G2 at 225.83
+
+**His words:** "Same with the 225.8, plucked Grace into the muted main node, I guess. Yeah."
+**BUILT (`build_ctpt_page.js` HANDS, `wc-2834` · `wc-2835`, §424's figure):** the plucked G2 (225.647) a grace note — small black head, flag, stroke, "pizz." — at the piece's grace distance left of the G2 at 225.825, whose head's left edge is on its moment, no go line, the curve on it. THE MAIN NOTE IS AN ORDINARY NOTE in the save, not a muted one (his "muted … I guess"); it is drawn as what it is, and said to him. `check_rules.js`: the old two reds. **NOT LOOKED AT as a picture.**
