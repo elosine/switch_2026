@@ -155,7 +155,7 @@ Every page of the score may say its own pace — how many seconds stand across o
 Worked out on the FLUTE (and the first of the clarinet). A new part is taken by these steps, in this order; where a step meets something it has no answer for, the AI lists it for him and does not guess.
 
 1. **Every note is a head at the time it is played**, with its accidental. Black for a short note, white for a held one. All at the standard size.
-2. **Each playing technique has ONE look.** Settled: staccato = the flagged staccato (black, dot, flag, go line, curve) · tongue ram = the same · jet whistle = the same without the dot. A technique with no look yet is LISTED for him with an example time — he says what it is (the flute's flutter-tongue is still a white head and a bar).
+2. **Each playing technique has ONE look.** Settled: staccato = the flagged staccato (black, dot, flag, go line, curve) · tongue ram = the same · jet whistle = the same without the dot. flutter-tongue = a white head, a stem with three slashes, flz. (§385). A technique with no look yet is LISTED for him with an example time — he says what it is.
 3. **Beams.** Two notes of the part 0.33 s apart or less go on one beam (the clarinet's pair at 217.37 is the measure). Pairs a little wider (to about 0.5 s) are LISTED for him; he beams by eye past the measure (the flute's 220.33 and 248.95).
 4. **A beamed group's regime.** The left edge of each head is its moment; the first one stands on the curve's go time; no go line.
 5. **A note just before another** (0.05 s or less, not the same instant) is a GRACE-NOTE PICKUP to it: small, its own flag and stroke, a little to the left, no slur, never on the beam, its stem down to the main note's flag or beam; no go line, dynamic or curve of its own.
@@ -187,6 +187,7 @@ Everything decided is a line in `tools/build_ctpt_page.js` (the beams, the picku
 | a FLAG and its staff | the flag's near end stands 2 ss clear of the staff's outer line, in the whole score (his, §378; it was 0.38); a beam stands at that height | `objects.flag.staff` |
 | a staccato DOT beside a line | it keeps from a staff or ledger line the tight gap it keeps from its head (0.15 ss); nearer, it goes to the middle of the next space (his eye, §376) | `objects.staccatoDot.lineClearSs` |
 | an OTTAVA bracket beside a go line | the bracket's end is the unit's ink: it — not the head — keeps the unit's gap before the go line (the standing "hook is ink", now on every unit; his eye, §376) | `objects.ottava.hookIsInk` |
+| a FLUTTER-TONGUE | a white head (a held note), a stem with THREE SLASHES, "flz.", its dynamic; the bar for its length stays; no go line, no gestural curve — the head's left edge is its moment (his, §385). The slashes are piece 2's measured LilyPond: 0.4 ss thick, 0.81 apart, 1.42 long, rising 14.8°; the stem 1.5 × the base. Where the stack stands on the stem (centred between head and tip) is the AI's | `container.json` devices.byTechnique.flz; `objects.tremoloSlash` |
 | a JET WHISTLE (short here) | a black note with its flag, go line and gestural curve — the staccato unit's look without the dot (§372) | `container.json` devices.byTechnique.jet_whistle |
 
 **Its pace:** the registry's 12 seconds a page (no pace of its own yet).

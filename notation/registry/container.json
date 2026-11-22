@@ -110,6 +110,7 @@
    "floorTier": "@column.floorTiers.inside",
    "ladder": { "on": "@ladder.built", "sizeStep": "@ladder.sizeStep", "compressStack": "@ladder.compressStack", "flipClearsStaff": "@ladder.flipClearsStaff", "leaves": { "instruction": "@objects.instruction.leaves", "techSymbol": "@objects.techSymbol.leaves", "number": "@objects.number.leaves" } },
    "stemLen": "@objects.stem.lengthSs", "stemLenLinedSs": "@objects.stem.lengthLinedSs",
+   "tremoloSlash": { "thickSs": "@objects.tremoloSlash.thickSs", "stackStepSs": "@objects.tremoloSlash.stackStepSs", "lengthSs": "@objects.tremoloSlash.lengthSs", "slantDeg": "@objects.tremoloSlash.slantDeg" },
    "grace": { "headScale": "@objects.graceHead.size", "pickupLeadSs": "@objects.graceHead.pickupLeadSs", "pickupAccSs": "@objects.graceHead.pickupAccSs", "pickupStemToMain": "@objects.graceHead.pickupStemToMain", "slashReachSs": "@objects.graceSlash.reachSs", "slashAt": "@objects.graceSlash.at", "slashBeamInsetSs": "@objects.graceSlash.beamInsetSs", "slashCutSs": "@objects.graceSlash.cutSs", "slashJutSs": "@objects.graceSlash.jutSs", "slashThickSs": "@objects.graceSlash.thickSs", "_note": "§550 — the grace note's look; a hand (engraving { grace: true }) on the note, never a device row" },
    "slur": { "heightRatio": "@objects.slur.heightRatio", "heightMaxSs": "@objects.slur.heightMaxSs", "thickSs": "@objects.slur.thickSs", "endThickSs": "@objects.slur.endThickSs", "freeHeadSs": "@objects.slur.freeHeadSs", "freeSlurSs": "@objects.slur.freeSlurSs", "maxSlope": "@objects.slur.maxSlope", "minHeightSs": "@objects.slur.minHeightSs", "_note": "§555 — the slur standard (LilyPond's Slur + Gould's ends); a hand (engraving { slurTo: event }) on the first note names the last" },
    "groupStub": { "protrudeSs": "@objects.groupStub.protrudeSs", "squiggleHand": "@objects.groupStub.squiggleHand", "squiggleFalls": "@objects.groupStub.squiggleFalls", "squiggleInsetSs": "@objects.groupStub.squiggleInsetSs", "squiggleReachSs": "@objects.groupStub.squiggleReachSs", "squiggleAmpSs": "@objects.groupStub.squiggleAmpSs", "squiggleWaves": "@objects.groupStub.squiggleWaves", "thickSs": "@objects.groupStub.thickSs", "_note": "§557 — his uneven-group sign; a hand (engraving { beamStub: true }) on each member of a --beam group" },
@@ -512,6 +513,21 @@
       "dynMark": "band"
      },
      "_ordNote": "day 24, PROVISIONAL: plain (non-surge) sustained ord had no entry, so the ten-part octaves-Bb blast at 48.05 (wc-1611..wc-1620, 4.41 s, vel 112, one per part) drew as ten bare parachute bricks. Minimum honest reading: go line + nh-unit + one band dynamic. NO gc (the surge precedent: a sustained entry is not a point-in-time impact, and byEnv.surge carries no gc) and NO ring bar (ord duration is the real drawn duration per D9, and the brick already shows it; the ring bar exists to show a FIXED one-shot ringing past its written value). Surges are unaffected: byEnv.surge now carries dynMark false, which cancels this band mark on top of the technique entry, so the settled surge look (curve + cut + go line + nh-unit + dynPair) is byte-identical to day 23.",
+     "flz": {
+      "sheet": "the Switch~ piece §385 (2026-11-21, his word to the build's first 'no rule yet' question — 'yes, three slashes on the stem with flz.'): THE FLUTTER-TONGUE — a white head (a held note), a stem with three tremolo slashes, its word, its dynamic; the bar for its length stays. No go line and no gestural curve: its head's left edge is its moment (a held note's regime)",
+      "anchorRow": "A",
+      "memberRows": ["head","ledger","accidental","ottava","stem","tremoloSlash","dynamic","instruction","brick"],
+      "goLine": false,
+      "gc": false,
+      "nhUnit": true,
+      "nhAnchor": "leftEdge",
+      "nhHead": "open",
+      "nhStem": "plain",
+      "stemLenSs": "@objects.tremoloSlash.stemLenSs",
+      "nhTremolo": "@objects.tremoloSlash.count",
+      "dynMark": "band",
+      "instrText": "flz."
+     },
      "tongue_ram": {
       "sheet": "the Switch~ piece §373 (2026-11-21, his word on the counterpoint's page: 'The tongue rams should be the flag staccato [too], for example, 201.56') — the staccato unit's look whole, dot and all",
       "anchorRow": "C",

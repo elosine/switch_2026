@@ -2413,6 +2413,16 @@
                   items.push({ k: 'stem', t: tU, dxSs: headDx + att.dx, yA: yStart, yB: yEnd, attach: stemDir, ev: e.id });
                   if (nhAt.has(e.id)) Object.assign(nhAt.get(e.id), { stemDir, stemX: headDx + att.dx, stemItem: items[items.length - 1] });   // [§550 · §555] for the slur: the side, the tip read from the item after the beams level
                   if (beamTip) beamTip.stem = items[items.length - 1];
+                  // [§385 — HIS RULE 2026-11-21: "yes, three slashes on the stem with flz."] THE TREMOLO SLASHES of a device that asks for them
+                  // (nhTremolo: how many). PIECE 2's MEASURED LilyPond (dimensions_table.json slash, its probe slash_basic.js, b'4:32):
+                  // thickness 0.4 ss · the stack step 0.81 · the slash 1.42 long, rising 14.8° to the right — rules.json objects.tremoloSlash.
+                  // The stack is centred on the stem between the head's far edge and the tip (the stem itself is the longer one, 1.5 × the
+                  // base — piece 2's tremolo exception, so the slashes crowd neither the head nor the tip).
+                  if (dev.nhTremolo > 0 && !dev.grace) { const TR = Object.assign({ thickSs: 0.4, stackStepSs: 0.81, lengthSs: 1.42, slantDeg: 14.8 }, o.tremoloSlash || {});   // RULES MIRROR (objects.tremoloSlash)
+                    const up = stemDir === 'up', sxT = headDx + att.dx, yEdge = up ? yDraw + nhO.hSs * headK / 2 : yDraw - nhO.hSs * headK / 2, midT = (yEdge + yEnd) / 2;
+                    const hx = TR.lengthSs * Math.cos(TR.slantDeg * Math.PI / 180) / 2, hy = TR.lengthSs * Math.sin(TR.slantDeg * Math.PI / 180) / 2;
+                    for (let i = 0; i < dev.nhTremolo; i++) { const yc = midT + (i - (dev.nhTremolo - 1) / 2) * TR.stackStepSs;
+                      items.push({ k: 'slash', seq: 'tremolo', t: tU, dx0Ss: sxT - hx, y0Ss: yc - hy, dx1Ss: sxT + hx, y1Ss: yc + hy, thickSs: TR.thickSs, ev: e.id }); } }
                   if (flagG) items.push(Object.assign({ k: 'glyph', g: 'flag-' + (stemDir === 'up' ? 'up' : 'down') + flagDur, t: tU, dxSs: headDx + att.dx, ySs: yEnd, align: 'stemTip' },
                     flagKy !== 1 ? { scaleY: flagKy } : {}, dev.grace ? { scale: GR.headScale } : {}));
                   if (dev.grace && dev.slash !== false) {   // [§591] a hand `slash: false` — a beamed grace group carries the stroke on its FIRST stem only · [§550] the acciaccatura's stroke: one line rising to the right through the stem, at `slashAt` of its length
