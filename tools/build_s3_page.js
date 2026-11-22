@@ -16,6 +16,7 @@ const LABEL = 'Section 3 - THE PHASE SECTION, first build (254 to 482 s)';
 const save = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', SCORE + '.json'), 'utf8'));
 const FORM = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'phase_form.json'), 'utf8'));
 const DYN = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'tuplet_chunks.json'), 'utf8')).dynamics;
+const BALL = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'rules.json'), 'utf8')).objects.gcBall.beatPreset;   // the tubas' motion (§435)
 const TS = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'rules.json'), 'utf8')).objects.tempoSpan;
 
 // ---- THE NUMBERS (the AI's for this first build — his to move)
@@ -116,7 +117,7 @@ ir.overlays = ir.overlays.filter(o => !/^ov-s3-/.test(o.id)).concat(overlays);
 { const chOf = new Map(); for (const c of ir.chunks) { c.devices = (c.devices || []).filter(d => !/^dev-s3-beat-/.test(d.id)); if (!chOf.has(c.part)) chOf.set(c.part, []); chOf.get(c.part).push(c); }
   for (const list of chOf.values()) list.sort((a, b) => a.span[0] - b.span[0]);
   for (const b of beatDevs) { const list = chOf.get(b.part) || []; let c = list.find(x => b.at >= x.span[0] - 1e-6 && b.at < x.span[1] + 1e-6); if (!c) for (const x of list) if (x.span[0] <= b.at + 1e-6) c = x; if (!c) c = list[0];
-    if (c) c.devices.push({ id: 'dev-s3-beat-p' + b.part + '-' + Math.round(b.at * 1000), kind: 'gc', mode: 'landing', at: b.at, preset: { duration: b.unit }, provenance: 'derived' }); } }
+    if (c) c.devices.push({ id: 'dev-s3-beat-p' + b.part + '-' + Math.round(b.at * 1000), kind: 'gc', mode: 'landing', at: b.at, preset: Object.assign({}, BALL, { duration: b.unit }), provenance: 'derived' }); } }
 fs.writeFileSync(irPath, JSON.stringify(ir));   // compact: 4600 notes and 2200 overlays
 
 console.log('parts ' + PARTS.join(' · ') + ' · notes ' + notes.length + ' · beats ' + nBeat + ' · tempo marks ' + nTempo + ' · accel. / decel. ' + nSpan + ' · crescendo curves ' + nCresc + ' · dynamics written ' + dynNote.size + ' · beamed groups ' + nBeam);

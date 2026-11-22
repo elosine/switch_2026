@@ -260,7 +260,7 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
 
 - **cursor** — colour **cursor #FF15A0** · wPx **3** → `animated.cursor.wPx` · *composer* · #4 D48 (provisional, judged live)
   - draws `anim:cursor`
-- **gcBall** — colour **gc rgb(255, 21, 160)** · *composer* · #4 day 23 (piece #1's ball, one copy with the arc)
+- **gcBall** — beatPreset **{stiffness: 62, damping: 100, ictus: 90, descentRatio: 60}** · beatPresetRef **the Switch~ piece §435 (2026-11-22, his "the ball has some strange jagged upswing. Let's try to get the same sort of motion from the tuba piece"): THE BEAT BALL'S MOTION IS THE TUBAS' — for_seven_tubas notation/registry/container.json animated.gc.preset (piece #1's Short: stiffness 62 · damping 100 · ictus 90 · descentRatio 60), the duration each beat's own. Read by tools/build_s3_page.js for the ball on a beat; the gestural curve of a note keeps this piece's preset (objects.gc)** · colour **gc rgb(255, 21, 160)** · *composer* · #4 day 23 (piece #1's ball, one copy with the arc)
   - draws `anim:gc`
 - **meter** — colour **the env curve's own (the trills' blue — decibel §406) · limeGreen (cresc) · brightOrange (gliss)** · wPx **8** · gapPx **3** · *composer* · #4 D48 · D42's colours · the level tube is MOTION, not a measure — no ticks, refused at §376 and again at §521 (his "a": the tube as built)
   - draws `anim:curveMeter` `anim:crescMeter` `anim:glissMeter`
