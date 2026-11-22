@@ -117,7 +117,7 @@ for (const part of AUTO_PARTS) {
 for (const [a, b, part] of BEAMS) for (const o of save.objects) if (OP_LOCAL.has(o.id) && o.layer === part && o.startSeconds >= a - 1e-9 && o.startSeconds <= b + 1e-9) { delete HANDS[o.id].nhStemDir; delete HANDS[o.id].chainSide; }
 
 const args = ['tools/notate_section.js', '--score', SCORE, '--w0', String(W0), '--w1', String(W1), '--parts', '0-7', '--alone', W0 + '-' + W1, '--exp', '--noFitMark', '--timeSpacing',
-  '--id', 's2-ctpt-heads', '--label', 'Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)'];
+  '--partName', '4:Glock', '--id', 's2-ctpt-heads', '--label', 'Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)'];
 const graceIds = new Set(GRACES.map(g => g[0]));
 for (const [a, b, part] of BEAMS) {
   args.push('--beam', a + '-' + b + '@' + part);
@@ -142,9 +142,9 @@ for (const [id, h0] of Object.entries(HANDS)) { const h = Object.assign({}, h0),
 
 const r = spawnSync('node', args, { cwd: ROOT, encoding: 'utf8' });
 const outp = (r.stdout + r.stderr).split('\n');
-console.log(outp.filter(l => /READY|FAILED|INVALID|Error|usage|not an event/i.test(l)).join('\n').slice(0, 3000));
+console.log(outp.filter(l => /READY|FAILED|INVALID|Error|usage|not an event|finding|GEOMETRY|!!/i.test(l)).join('\n').slice(0, 3000));
 console.log('beamed groups: ' + [0].concat(AUTO_PARTS).map(p => 'part ' + p + ' ' + BEAMS.filter(b => b[2] === p).length).join(' · ') + ' · tied attacks: ' + tiedPairs.length + ' · grace pickups: ' + GRACES.length + (GRACES.length ? ' (' + GRACES.map(g => g[0]).join(' · ') + ')' : ''));
 // [§382] WHAT ON THE PAGE HAS NO RULE YET — printed by the build itself, before anyone looks at the picture (tools/no_rule_list.js)
-console.log(spawnSync('node', ['tools/no_rule_list.js', 's2-ctpt-heads', '--parts', '0,1,2,5,6,7'], { cwd: ROOT, encoding: 'utf8' }).stdout);
+console.log(spawnSync('node', ['tools/no_rule_list.js', 's2-ctpt-heads', '--parts', '0,1,2,3,4,5,6,7'], { cwd: ROOT, encoding: 'utf8' }).stdout);
 // [§401] WHAT DOES NOT FIT ITS LANE and was left where it stood (the fit ladder's rung 8) — this working page hides the red mark, so it is printed here (tools/fit_list.js)
-console.log(spawnSync('node', ['tools/fit_list.js', 's2-ctpt-heads', '--parts', '0,1,2,5,6,7'], { cwd: ROOT, encoding: 'utf8' }).stdout);
+console.log(spawnSync('node', ['tools/fit_list.js', 's2-ctpt-heads', '--parts', '0,1,2,3,4,5,6,7'], { cwd: ROOT, encoding: 'utf8' }).stdout);

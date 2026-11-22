@@ -1872,3 +1872,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim):** "at 217.1. Let's do that grace note thing again. The main note being the second one, you know, take away the go line and line it up. Standard spacing of the GC lever, everything else, and let me look at it. And then there's a duplicate, so we'll keep the plucked one as the grace note one, and then just the standard played G for the second one."
 
 **The AI's reading:** three notes stood there — a plucked G2, an ordinary G♯2, an ordinary G2. The middle one is the "duplicate" and leaves; the plucked G is the grace note, the ordinary G the main note.
+
+### SW-160 · 2026-11-22 · the percussion of the counterpoint
+
+**His words (verbatim):** "Okay, most of the single strikes in percussion will get just the black note heads. Let's give them all individual dynamics, the same shuffle. And then the two break drums on 202.3. I'm sorry, the bass drums. What's going on there? I can't tell exactly what the articulations are there. And then for this section, is it just one pitch percussion? Like, is it just glockenspiel? Or is there several? If it's just one, then for this section, change the header where it says perk to whatever it is, like glock. If it's more than one, then we have to announce it at each change. And we'll just leave it perk. And then at 204.3, the scrape China symbol, let's research what that notation should look like. In piece number 2, I believe I just say scrape. At least let's make it a white note. So the longer ones like rolls and scrapes will be white note. And give me some, you know, if there's a consensus about how to notate a scraped symbol."
+
+**The AI's reading:** single strikes are plain black heads with a dynamic each; long sounds (the scrape, rolls) are white heads; the pitched staff is named for its one instrument if it has only one; the scraped cymbal's notation is to be looked up, starting from his own "scrape".

@@ -79,6 +79,9 @@
     "pageSeconds": {
      "type": "number"
     },
+    "partNames": {
+     "type": "object"
+    },
     "noOttava": {
      "type": "boolean"
     },

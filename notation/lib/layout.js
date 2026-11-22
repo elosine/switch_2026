@@ -4637,6 +4637,7 @@
         }
       }
     }
+    if (POL.partNames) for (const s of systems) if (POL.partNames[s.part] != null) s.partName = String(POL.partNames[s.part]);   // [§427] this page's own name for a staff
     return Object.assign({ systems, window: [w0, w1], warnings, hideMarkers: !!ir.hideMarkers }, LAD.on && o.fitBoxes ? { fit: FIT } : {});
   }
 

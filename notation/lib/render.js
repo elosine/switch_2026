@@ -448,7 +448,7 @@
           ly = lane.yMidPx + (E.partLabel.baselineBelowEm != null ? E.partLabel.baselineBelowEm : 0.32) * E.partLabel.sizeSs * ssPx;
         }
         parts.push('<text x="' + (ML + E.partLabel.xPx) + '" y="' + ly.toFixed(1) + '" font-size="' + (E.partLabel.sizeSs * ssPx).toFixed(1) +
-          '"' + fontAttr + ' fill="' + o.muted + '">' + (pcfg ? esc(pcfg.name || pcfg.short) : 'T' + (sysModel.part + 1)) + '</text>');
+          '"' + fontAttr + ' fill="' + o.muted + '">' + (sysModel.partName ? esc(sysModel.partName) : pcfg ? esc(pcfg.name || pcfg.short) : 'T' + (sysModel.part + 1)) + '</text>');   // [§427] sysModel.partName: the page's own name for this staff
       }
       // page-edge rule: a chunk continuing across the cut re-shows its tempo
       // label at the page start (splice.js planPages -> page.reshow)

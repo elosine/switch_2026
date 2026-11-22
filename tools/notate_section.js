@@ -327,6 +327,9 @@ if (flag('bracketsAbove')) doc.layoutPolicy = { bracketSide: 'above' };
 // [§264] --noFitMark: the page leaves the red "fit?" mark out · --timeSpacing: grace figures keep their PLAYED spacing (the experiments copy)
 if (flag('noFitMark')) doc.layoutPolicy = Object.assign(doc.layoutPolicy || {}, { fitMark: false });
 if (flag('timeSpacing')) doc.layoutPolicy = Object.assign(doc.layoutPolicy || {}, { timeSpacing: true });
+// [the Switch~ piece §427 — his 'for this section, change the header where it says perc to whatever it is, like glock'] --partName P:Name (repeatable): THIS PAGE's name
+// for a staff (ir.layoutPolicy.partNames; the layout hands it to each system, the renderer draws it in place of the ensemble's)
+{ const pn = {}; for (let i = 0; i < process.argv.length; i++) if (process.argv[i] === '--partName' && process.argv[i + 1]) { const m = String(process.argv[i + 1]).match(/^([0-9]+):(.+)$/); if (m) pn[+m[1]] = m[2]; } if (Object.keys(pn).length) doc.layoutPolicy = Object.assign(doc.layoutPolicy || {}, { partNames: pn }); }
 // [§366 — his 'each section its own pace'] --pageSeconds N: this page's own pace in the score — N seconds across one page (the app and the film read layoutPolicy.pageSeconds; absent = the registry's 12)
 { const ps = +arg('pageSeconds', 0); if (ps > 0) doc.layoutPolicy = Object.assign(doc.layoutPolicy || {}, { pageSeconds: ps }); }
 // --bricks (day 23, the composer's working loop — "bricks and the midi sound
