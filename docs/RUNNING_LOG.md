@@ -6123,3 +6123,11 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 
 **His words:** SW-158 (the sketch pad).
 **BUILT (`build_ctpt_page.js` HANDS, `wc-2817` · `wc-2818`, by §404's three rules — nothing new made):** the muted B5 (208.545) is a grace note: the small head, the flag, LilyPond's stroke, its dot, its "+" and "(mute)"; no go line, no gestural curve, and no dynamic of its own (as the alto sax's staccato grace; the figure's dynamic is the main note's fff). It is drawn at its main note's moment, the piece's grace distance to its left (the heads at −2.23 and 0.52). The ordinary B5 (208.726): its head's left edge on its moment, the curve on it, no go line. `check_rules.js`: part (10) green — 4 grace flags, each clear of its head; the old two reds. **NOT LOOKED AT as a picture.**
+
+## §424 · 2026-11-22 · his word — the piano's 217.08 a plucked grace note into the ordinary G2 at 217.44; the G♯2 between them out
+
+**His words:** SW-159 (the sketch pad).
+**WHAT STOOD THERE:** a plucked G2 (217.080) · an ordinary G♯2 (217.207, `wc-2825`) · an ordinary G2 (217.444).
+**DONE:** the G♯2 is out of the notation's copy of the save (as it was: `…D-ctptCello.before-424.json`) — the AI's reading of "there's a duplicate … keep the plucked one as the grace note one, and then just the standard played G for the second one"; said to him. The plucked G2 is a grace note (`build_ctpt_page.js` HANDS, `wc-2824`): the small black head, the flag, LilyPond's stroke, its "pizz."; no go line, no dynamic, no let-ring slur, no Ped. — drawn at the main note's moment, the piece's grace distance to its left (heads at −2.23 and 0.52), its stem reaching the main note's stem tip (§374). The ordinary G2 (`wc-2826`): its head's left edge on its moment, the curve on it, no go line, its dot and its f.
+**FOR HIM TO SEE (his "let me look at it"):** the grace is a PLUCKED note written as a flagged grace — its "pizz." stands over the long stem's tip.
+**MEASURED:** `check_rules.js` — the old two reds. **NOT LOOKED AT as a picture.**

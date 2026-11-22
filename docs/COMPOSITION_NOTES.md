@@ -1866,3 +1866,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim):** "The figure at 208.5 will be like the, I guess in the other instruments, like the saxophone or whatnot, it'll be like that grace note figure. So the first one will be a grace note, but you know, keep the mute and all that. And let's get the standard spacing. So, and then the second will be no go line. You know, move the left side of the note head there to the go time. And then the standard horizontal spacing between the grace note and the actual impact note."
 
 **The AI's reading:** the muted B5 becomes a grace note into the ordinary B5 that follows it, by the rules of §404 — the main note's left edge on its moment, no go line, the piece's one grace distance; the grace keeps its "+" and "(mute)".
+
+### SW-159 · 2026-11-22 · the piano at 217.1, the grace-note figure; a note out
+
+**His words (verbatim):** "at 217.1. Let's do that grace note thing again. The main note being the second one, you know, take away the go line and line it up. Standard spacing of the GC lever, everything else, and let me look at it. And then there's a duplicate, so we'll keep the plucked one as the grace note one, and then just the standard played G for the second one."
+
+**The AI's reading:** three notes stood there — a plucked G2, an ordinary G♯2, an ordinary G2. The middle one is the "duplicate" and leaves; the plucked G is the grace note, the ordinary G the main note.

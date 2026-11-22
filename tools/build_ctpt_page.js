@@ -53,6 +53,11 @@ const HANDS = {
   // head there to the go time. And then the standard horizontal spacing between the grace note and the actual impact note'
   'wc-2817': { grace: true, pickupTo: 'wc-2818', nhAnchor: 'leftEdge', goLine: false, dynMark: false, noGc: true },
   'wc-2818': { nhAnchor: 'leftEdge', goLine: false },
+  // §424 (2026-11-22), the piano at 217.08 → 217.44: a plucked G2, [an ordinary G♯2 at 217.21 — out of the save by his word, 'there's a duplicate'], an ordinary G2 —
+  // 'Let's do that grace note thing again. The main note being the second one … take away the go line and line it up. Standard spacing … we'll keep the plucked one
+  // as the grace note one, and then just the standard played G for the second one.' The plucked note as a grace: the small black head, the flag, the stroke, its pizz.
+  'wc-2824': { grace: true, pickupTo: 'wc-2826', nhAnchor: 'leftEdge', goLine: false, dynMark: false, nhHead: 'filled', nhStem: 'flag16', nhStemRule: 'flagClear', letRing: false, pedalMark: false, chordRules: false },
+  'wc-2826': { nhAnchor: 'leftEdge', goLine: false },
   'wc-2878': { nhStemDir: 'down', chainSide: 'above' },
   'wc-2897': { nhStemDir: 'down', chainSide: 'above' },
   // §408 (2026-11-22), the clarinet at 217.70 → 218.08, a triple-tongued G4 and a staccato G4: 'the inverse' of the tied attack — 'the tonguing is on the
