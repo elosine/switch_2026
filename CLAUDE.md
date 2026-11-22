@@ -171,6 +171,7 @@ The rule, for every notation build — not optional, never asked for:
    `docs/ENGRAVING_RULES.md` (every row of `notation/registry/rules.json`, generated) → `docs/NOTATION_STANDARDS.md` → how `notation/lib/layout.js`
    already applies them → and for chords, clusters, spelling and LilyPond glyphs, piece 2: `composition_for_two_pianos_and_two_percussion/docs/CHORD_SPACING_RULES.md`
    and `tools/notation_studio/engine/` (glyphs · `dimensions_table.json`).
+   **A SIGN NEW TO THIS ENGINE IS RARELY NEW TO HIM (2026-11-21, RUNNING_LOG §386 — the tremolo slashes):** look it up in piece 2's `docs/GLYPH_REGISTRY.md` (the index of every established sign) and take its PRIMITIVE — the engine file that draws it (`engine/slash.js` · `beam.js` · `hairpin.js` · `idioms/*.js`) gives the SHAPE and the PLACE; the dimensions table gives only the sizes. `docs/NOTATION_SCHEME.md` "WHAT IS ALREADY ESTABLISHED" lists what is there.
 2. **APPLY.** Build from those rules and call the engine's own functions. Glyphs are LilyPond bakes (`notation/lib/glyphs.json`, else piece 2's),
    never a drawn stand-in. A new number is a ROW in `rules.json` with his words as its `ref`, never a literal in the code.
 3. **DISCUSS.** Where no rule exists, or the standing rule gives a poor figure, or the AI is not sure: STOP. Say what the rule gives, in one or

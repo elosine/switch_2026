@@ -829,6 +829,11 @@
         } else if (it.k === 'slash') {
           // [§550] the acciaccatura's stroke — one line through the grace's stem and flag (rules.json objects.graceSlash)
           if (!owns(it.t)) continue;
+          // [§386] A TREMOLO SLASH (seq 'tremolo') IS A BEAM-SHAPE PARALLELOGRAM — vertical ends, thickSs the height of each end (piece 2's
+          // ND-10: LilyPond draws StemTremolo as the same four-point polygon as a Beam). (y0, y1) are the centre line's ends.
+          if (it.seq === 'tremolo') { const hT = (it.thickSs || 0.4) * ssPx / 2, xa = X(it.t, it.dx0Ss), xb = X(it.t, it.dx1Ss), ya = Y(it.y0Ss), yb = Y(it.y1Ss);   // RULES MIRROR
+            parts.push('<polygon points="' + xa.toFixed(2) + ',' + (ya - hT).toFixed(2) + ' ' + xb.toFixed(2) + ',' + (yb - hT).toFixed(2) + ' ' + xb.toFixed(2) + ',' + (yb + hT).toFixed(2) + ' ' + xa.toFixed(2) + ',' + (ya + hT).toFixed(2) + '" fill="' + o.ink + '"/>');
+            continue; }
           const thick = (it.thickSs || 0.13) * ssPx;   // RULES MIRROR
           parts.push('<line x1="' + X(it.t, it.dx0Ss).toFixed(2) + '" y1="' + Y(it.y0Ss).toFixed(2) + '" x2="' + X(it.t, it.dx1Ss).toFixed(2) + '" y2="' + Y(it.y1Ss).toFixed(2) +
             '" stroke="' + o.ink + '" stroke-width="' + thick.toFixed(2) + '" stroke-linecap="round"/>');

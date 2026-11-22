@@ -2413,14 +2413,20 @@
                   items.push({ k: 'stem', t: tU, dxSs: headDx + att.dx, yA: yStart, yB: yEnd, attach: stemDir, ev: e.id });
                   if (nhAt.has(e.id)) Object.assign(nhAt.get(e.id), { stemDir, stemX: headDx + att.dx, stemItem: items[items.length - 1] });   // [§550 · §555] for the slur: the side, the tip read from the item after the beams level
                   if (beamTip) beamTip.stem = items[items.length - 1];
-                  // [§385 — HIS RULE 2026-11-21: "yes, three slashes on the stem with flz."] THE TREMOLO SLASHES of a device that asks for them
-                  // (nhTremolo: how many). PIECE 2's MEASURED LilyPond (dimensions_table.json slash, its probe slash_basic.js, b'4:32):
-                  // thickness 0.4 ss · the stack step 0.81 · the slash 1.42 long, rising 14.8° to the right — rules.json objects.tremoloSlash.
-                  // The stack is centred on the stem between the head's far edge and the tip (the stem itself is the longer one, 1.5 × the
-                  // base — piece 2's tremolo exception, so the slashes crowd neither the head nor the tip).
-                  if (dev.nhTremolo > 0 && !dev.grace) { const TR = Object.assign({ thickSs: 0.4, stackStepSs: 0.81, lengthSs: 1.42, slantDeg: 14.8 }, o.tremoloSlash || {});   // RULES MIRROR (objects.tremoloSlash)
-                    const up = stemDir === 'up', sxT = headDx + att.dx, yEdge = up ? yDraw + nhO.hSs * headK / 2 : yDraw - nhO.hSs * headK / 2, midT = (yEdge + yEnd) / 2;
+                  // [§385 · §386 — HIS RULE 2026-11-21: "three slashes on the stem with flz." · then "those aren't the right slashes … these were worked
+                  // on for quite a while … Please find the established slashes"] THE TREMOLO SLASHES of a device that asks for them (nhTremolo: how
+                  // many) are PIECE 2's `slashOnStem` (its engine/slash.js; ND-10: a slash IS a beam-shape parallelogram, placed differently):
+                  //   · the shape — a parallelogram with VERTICAL ends, the beam's own (render.js draws it so; never a stroked line);
+                  //   · the size — slash.thickness 0.4 (the vertical edge) · slash.onNoteLength 1.42 · slash.onNoteSlantDeg 14.8, rising to the
+                  //     right · slash.stackStep 0.81 (LilyPond, its probe slash_basic.js on b'4:32) — rules.json objects.tremoloSlash;
+                  //   · the place — the stack CENTRED ON THE STEM'S MIDPOINT, the stem taken at its full length;
+                  //   · the stem — the full length is 1.5 × the base (its tremoloException, session 65), and the VISIBLE stem is drawn
+                  //     stemShortenSs (1 ss) shorter at its free end, "so the slashes ride midway between notehead and the visible stem tip
+                  //     without crowding the tip" (its percussionCellMotive, the composer's session-65 rule).
+                  if (dev.nhTremolo > 0 && !dev.grace) { const TR = Object.assign({ thickSs: 0.4, stackStepSs: 0.81, lengthSs: 1.42, slantDeg: 14.8, stemShortenSs: 1 }, o.tremoloSlash || {});   // RULES MIRROR (objects.tremoloSlash)
+                    const stIt = items[items.length - 1], up = stemDir === 'up', sxT = headDx + att.dx, midT = (yStart + yEnd) / 2;
                     const hx = TR.lengthSs * Math.cos(TR.slantDeg * Math.PI / 180) / 2, hy = TR.lengthSs * Math.sin(TR.slantDeg * Math.PI / 180) / 2;
+                    if (stIt && stIt.k === 'stem' && !beamTip && TR.stemShortenSs > 0) stIt.yB = up ? yEnd - TR.stemShortenSs : yEnd + TR.stemShortenSs;
                     for (let i = 0; i < dev.nhTremolo; i++) { const yc = midT + (i - (dev.nhTremolo - 1) / 2) * TR.stackStepSs;
                       items.push({ k: 'slash', seq: 'tremolo', t: tU, dx0Ss: sxT - hx, y0Ss: yc - hy, dx1Ss: sxT + hx, y1Ss: yc + hy, thickSs: TR.thickSs, ev: e.id }); } }
                   if (flagG) items.push(Object.assign({ k: 'glyph', g: 'flag-' + (stemDir === 'up' ? 'up' : 'down') + flagDur, t: tU, dxSs: headDx + att.dx, ySs: yEnd, align: 'stemTip' },

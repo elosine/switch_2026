@@ -150,6 +150,18 @@ Every page of the score may say its own pace — how many seconds stand across o
 
 **THE PAGE IS NOW BUILT BY ONE FILE, `node tools/build_ctpt_page.js`** (§369) — the command above plus every decision taken on the page; a decision is a line added there.
 
+### WHAT IS ALREADY ESTABLISHED — LOOK HERE BEFORE DRAWING ANY SIGN (kept at his word, §386: "these were worked on for quite a while … let's get it into the standards so that these types of mistakes don't continue to happen. We don't keep missing things we worked on already")
+
+Piece 2 (`composition_for_two_pianos_and_two_percussion`) is where most signs were worked out, measured against LilyPond and LOCKED. A sign that is new to THIS engine is very likely not new to him. **The index is `composition_for_two_pianos_and_two_percussion/docs/GLYPH_REGISTRY.md`** — every glyph, every procedural shape, every locked dimension and every composite figure, with its status and its source. The steps:
+
+1. Look the sign up in `GLYPH_REGISTRY.md` (and `docs/STANDARDS.md` there for which file holds what).
+2. Take its PRIMITIVE, not only its numbers — the code that draws it (`tools/notation_studio/engine/`: `slash.js` · `beam.js` · `hairpin.js` · `glyphs/library.js` · `idioms/*.js`) says its SHAPE and its PLACE; `engine/dimensions_table.json` says its sizes, each with its provenance.
+3. Only if it is in neither: it is on the "no rule yet" list and goes to him.
+
+What is there (so far as this piece has needed to know): the SLASH in its three placements (on a stem · over or under a stemless head · between two stems) and the stems that carry them · the BEAM · the two-hand and same-staff piano TREMOLO · the HAIRPIN · the ARPEGGIO and its arrow · the PEDAL · LET RING · the OTTAVA bracket · the percussion BEATER glyphs and the percussion staff's schema (`docs/PERCUSSION_STAFF_SCHEMA.md`) · the feathered ACCEL / DECEL beam · the script signs (stopped +, flageolet o, snap pizzicato, trill) · the clefs, accidentals, note heads, flags, dynamics · the chord column and its spacing (`docs/CHORD_SPACING_RULES.md`).
+
+**The lesson of §385 → §386:** the flutter-tongue's slashes were first drawn from piece 2's NUMBERS with this engine's nearest drawing (the grace note's stroked line, round ends), and their place on the stem was called "no rule". Both were wrong: the shape (a parallelogram) and the place (the stem's midpoint) were in piece 2's `slash.js`, one file away from the numbers.
+
 ### THE RECIPE FOR A PART OF THE COUNTERPOINT (kept at his word, §375: "keep track of … the process and the decisions, because then we'll repeat … something similar with the other parts")
 
 Worked out on the FLUTE (and the first of the clarinet). A new part is taken by these steps, in this order; where a step meets something it has no answer for, the AI lists it for him and does not guess.
@@ -187,7 +199,7 @@ Everything decided is a line in `tools/build_ctpt_page.js` (the beams, the picku
 | a FLAG and its staff | the flag's near end stands 2 ss clear of the staff's outer line, in the whole score (his, §378; it was 0.38); a beam stands at that height | `objects.flag.staff` |
 | a staccato DOT beside a line | it keeps from a staff or ledger line the tight gap it keeps from its head (0.15 ss); nearer, it goes to the middle of the next space (his eye, §376) | `objects.staccatoDot.lineClearSs` |
 | an OTTAVA bracket beside a go line | the bracket's end is the unit's ink: it — not the head — keeps the unit's gap before the go line (the standing "hook is ink", now on every unit; his eye, §376) | `objects.ottava.hookIsInk` |
-| a FLUTTER-TONGUE | a white head (a held note), a stem with THREE SLASHES, "flz.", its dynamic; the bar for its length stays; no go line, no gestural curve — the head's left edge is its moment (his, §385). The slashes are piece 2's measured LilyPond: 0.4 ss thick, 0.81 apart, 1.42 long, rising 14.8°; the stem 1.5 × the base. Where the stack stands on the stem (centred between head and tip) is the AI's | `container.json` devices.byTechnique.flz; `objects.tremoloSlash` |
+| a FLUTTER-TONGUE | a white head (a held note), a stem with THREE SLASHES, "flz.", its dynamic; the bar for its length stays; no go line, no gestural curve — the head's left edge is its moment (his, §385). The slashes are PIECE 2's `slashOnStem` (§386): beam-shape PARALLELOGRAMS with vertical ends, 0.4 ss thick, 0.81 apart, 1.42 long, rising 14.8°; the stack on the stem's MIDPOINT; the stem 1.5 × the base, drawn 1 ss shorter at its free end | `container.json` devices.byTechnique.flz; `objects.tremoloSlash` |
 | a JET WHISTLE (short here) | a black note with its flag, go line and gestural curve — the staccato unit's look without the dot (§372) | `container.json` devices.byTechnique.jet_whistle |
 
 **Its pace:** the registry's 12 seconds a page (no pace of its own yet).
