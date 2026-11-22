@@ -6136,3 +6136,11 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 
 **His words:** "Same with the 225.8, plucked Grace into the muted main node, I guess. Yeah."
 **BUILT (`build_ctpt_page.js` HANDS, `wc-2834` · `wc-2835`, §424's figure):** the plucked G2 (225.647) a grace note — small black head, flag, stroke, "pizz." — at the piece's grace distance left of the G2 at 225.825, whose head's left edge is on its moment, no go line, the curve on it. THE MAIN NOTE IS AN ORDINARY NOTE in the save, not a muted one (his "muted … I guess"); it is drawn as what it is, and said to him. `check_rules.js`: the old two reds. **NOT LOOKED AT as a picture.**
+
+## §426 · 2026-11-22 · his word — the piano's 235.98 an ordinary grace note into the plucked E4 at 236.12, which takes the curve
+
+**His words:** "At 235.89 about. Let's make the first one a grace note, and then, you know, move the GC to the second one, get rid of the go line, etc."
+**WHAT STOOD THERE:** an ordinary E4 (235.984, a staccato unit here, §421) and a plucked E4 (236.122).
+**BUILT (`build_ctpt_page.js` HANDS, `wc-2844` · `wc-2845`):** the ordinary E4 is a grace note — small black head, flag, stroke, its dot; no go line, no dynamic, no curve — at the piece's grace distance left of the plucked E4. THE PLUCKED NOTE IS THE MAIN NOTE and keeps its own look (the open head on its moment, pizz., Ped., the let-ring slur); by his word it takes the GESTURAL CURVE, which the plucked note's row does not have (a hand, `gc: true`) — the one plucked note on the page with a curve.
+**A SLIP CAUGHT IN THE DRAWN ITEMS:** the grace kept its curve at first — its hand carried the staccato row's own `gc`; the builder now switches it off wherever a hand says `noGc`.
+**MEASURED:** `check_rules.js` — the old two reds. **NOT LOOKED AT as a picture.**

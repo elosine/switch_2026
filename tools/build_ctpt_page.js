@@ -61,6 +61,10 @@ const HANDS = {
   // §425 (2026-11-22), the piano at 225.65 → 225.83, a plucked G2 and an ordinary G2: 'Same with the 225.8, plucked Grace into the … main note'
   'wc-2834': { grace: true, pickupTo: 'wc-2835', nhAnchor: 'leftEdge', goLine: false, dynMark: false, nhHead: 'filled', nhStem: 'flag16', nhStemRule: 'flagClear', letRing: false, pedalMark: false, chordRules: false },
   'wc-2835': { nhAnchor: 'leftEdge', goLine: false },
+  // §426 (2026-11-22), the piano at 235.98 → 236.12, an ordinary E4 and a plucked E4: 'Let's make the first one a grace note, and then … move the GC to the second
+  // one, get rid of the go line, etc.' The ordinary note a grace; the plucked note the main note — it takes the gestural curve its row does not have
+  'wc-2844': { grace: true, pickupTo: 'wc-2845', nhAnchor: 'leftEdge', goLine: false, dynMark: false, noGc: true },
+  'wc-2845': { gc: true },
   'wc-2878': { nhStemDir: 'down', chainSide: 'above' },
   'wc-2897': { nhStemDir: 'down', chainSide: 'above' },
   // §408 (2026-11-22), the clarinet at 217.70 → 218.08, a triple-tongued G4 and a staccato G4: 'the inverse' of the tied attack — 'the tonguing is on the
@@ -134,7 +138,7 @@ for (const o of save.objects) if (o.type === 'waveCurve' && o.startSeconds >= W0
 // So a grace pickup's MAIN note takes the regime too, and the grace is placed from it (rules.json objects.graceHead.pickupLeadSs — this piece's one distance).
 for (const [g, m] of GRACES) args.push('--hand', g + ':' + JSON.stringify({ grace: true, pickupTo: m, goLine: false, dynMark: false, nhAnchor: 'leftEdge' }), '--noGc', g, '--hand', m + ':' + JSON.stringify({ nhAnchor: 'leftEdge', goLine: false }));
 
-for (const [id, h0] of Object.entries(HANDS)) { const h = Object.assign({}, h0), noGc = h.noGc; delete h.noGc; args.push('--hand', id + ':' + JSON.stringify(h)); if (noGc) args.push('--noGc', id); }
+for (const [id, h0] of Object.entries(HANDS)) { const h = Object.assign({}, h0), noGc = h.noGc; delete h.noGc; if (noGc) h.gc = false;   /* §426: a hand that carries a row's own gc (the piano's ordinary note as a staccato unit) must not bring the curve back */ args.push('--hand', id + ':' + JSON.stringify(h)); if (noGc) args.push('--noGc', id); }
 
 const r = spawnSync('node', args, { cwd: ROOT, encoding: 'utf8' });
 const outp = (r.stdout + r.stderr).split('\n');
