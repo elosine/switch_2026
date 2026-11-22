@@ -1800,3 +1800,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim):** "sorry where are we with the slap?" · "first slap at 204 still not sounding. Is there any way we could just get a routing in there? So I guess first, if you need me to take a picture of the keyboard, I can for the bass clarinet. And then if we can just simply route the octave somehow. So if right now that first slap in this clarinet is, you know, played the B flat playing at C sharp high, I guess that's C sharp 6. So if we can't just transpose it, not in the notation, but in the playing, and then play it through the bass clarinet slap, and just do that for all the subsequent notes. Is there any way we can just automate that?"
 
 **The AI's reading:** the octave move must not depend on the page. He asks for it as a routing, automatic, for every slap.
+
+### SW-148 · 2026-11-22 · bow overpressure re-evaluated: the down-bows above the note, the other marks below
+
+**His words (verbatim), on a picture of the violin at 205.86 … 208:** "So the file in there, that first node is at 206.9, or sorry, 205.84. I think in the downbow should go above the node head when possible with the same sort of movement rules. If it collides, then we'll move them somewhere else. And then just move the other articulations below for those two. And even with the stem up, do the same thing."
+
+**The AI's reading:** his re-evaluation of §393's figure. The three down-bows stand ABOVE the note whichever way the stem goes; the marcato and the dynamic go below; the fit's rules move things when they collide.

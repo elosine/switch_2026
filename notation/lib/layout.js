@@ -2461,8 +2461,14 @@
                   // [§393 — HIS WORD 2026-11-22: 'bow overpressure, 3 down bows in the square notehead is fine'] THE SIGNS STACKED BEYOND THE STEM'S TIP
                   // (a device's tipSigns: which glyph, how many — rules.json objects.bowStack; his string quartet's figure, BowOverpressureAccent_*.ly):
                   // centred on the head's column, the first one the house gap past the tip, each a step further out.
-                  if (dev.tipSigns && glyphs.articulation && glyphs.articulation[dev.tipSigns]) { const BS = Object.assign({ count: 3, scale: 0.63, stepSs: 1, gapSs: 0.45 }, o.bowStack || {}), gB = glyphs.articulation[dev.tipSigns], sg = stemDir === 'up' ? 1 : -1;   // RULES MIRROR (objects.bowStack)
-                    for (let i = 0; i < BS.count; i++) items.push({ k: 'glyph', g: 'artic-' + dev.tipSigns, t: tU, dxSs: headDx, ySs: yEnd + sg * (BS.gapSs + gB.hSs * BS.scale / 2 + i * BS.stepSs), align: 'center', scale: BS.scale, seq: 'tipSign', ev: e.id }); }
+                  // [§410 — HIS WORD 2026-11-22, on the page: 'the downbow should go above the note head when possible with the same sort of movement rules. If it
+                  // collides, then we'll move them somewhere else. And then just move the other articulations below … And even with the stem up, do the same
+                  // thing'] tipSignsSide 'above': the stack stands ABOVE THE NOTE whichever way its stem goes — over the head when the stem goes down, over
+                  // the stem's tip when it goes up — and the note's other marks go below (the row's chainSide 'below'). The fit ladder moves it if it must.
+                  if (dev.tipSigns && glyphs.articulation && glyphs.articulation[dev.tipSigns]) { const BS = Object.assign({ count: 3, scale: 0.63, stepSs: 1, gapSs: 0.45 }, o.bowStack || {}), gB = glyphs.articulation[dev.tipSigns];   // RULES MIRROR (objects.bowStack)
+                    const above = dev.tipSignsSide === 'above', sg = above ? 1 : (stemDir === 'up' ? 1 : -1), from = above ? (stemDir === 'up' ? yEnd : yDraw + nhO.hSs / 2) : yEnd;
+                    for (let i = 0; i < BS.count; i++) items.push({ k: 'glyph', g: 'artic-' + dev.tipSigns, t: tU, dxSs: headDx, ySs: from + sg * (BS.gapSs + gB.hSs * BS.scale / 2 + i * BS.stepSs), align: 'center', scale: BS.scale, seq: 'tipSign', ev: e.id });
+                    if (sg > 0) inkTopY = Math.max(inkTopY, from + BS.gapSs + gB.hSs * BS.scale + (BS.count - 1) * BS.stepSs); else inkBotY = Math.min(inkBotY, from - BS.gapSs - gB.hSs * BS.scale - (BS.count - 1) * BS.stepSs); }
                   if (flagG) items.push(Object.assign({ k: 'glyph', g: 'flag-' + (stemDir === 'up' ? 'up' : 'down') + flagDur, t: tU, dxSs: headDx + att.dx, ySs: yEnd, align: 'stemTip' },
                     flagKy !== 1 ? { scaleY: flagKy } : {}, dev.grace ? { scale: GR.headScale } : {}));
                   if (dev.grace && dev.slash !== false) {   // [§591] a hand `slash: false` — a beamed grace group carries the stroke on its FIRST stem only · [§550] the acciaccatura's stroke: one line rising to the right through the stem, at `slashAt` of its length
@@ -4576,25 +4582,32 @@
             const stems = u.items.filter(it => it.k === 'stem'), heads = u.items.filter(it => it.k === 'glyph' && /^notehead/.test(it.g || ''));
             if (stems.length === 1 && heads.length === 1) {
               const st = stems[0], hd = heads[0], up = st.attach === 'up', tip = st.yB, emB = TS.instruction * ts;
-              const onHeadSide = it => up ? it.ySs < hd.ySs : it.ySs > hd.ySs;
+              // [§410] the marks of the side that SPILLS, whether that is the head's side or the stem tip's (the overpressure's marcato and dynamic hang past the tip)
+              const onHeadSide = it => spillBot ? it.ySs < hd.ySs : it.ySs > hd.ySs;
               const dynI = u.items.find(it => it.k === 'glyph' && /^dyn-/.test(it.g || '') && onHeadSide(it)), wordI = u.items.find(it => it.k === 'text' && it.seq === 'techText' && it.italic !== false && it.yAt !== 'top' && onHeadSide(it));
+              // [§410] when the side that spills is the STEM TIP's (the overpressure: its marcato and dynamic hang past the tip), the articulation moves too —
+              // nearest the staff, then the dynamic, then the word; on the head's side the articulation stays with the head, as before
+              const tipSide = up ? spillTop && !spillBot : spillBot && !spillTop;
+              const articI = tipSide ? u.items.find(it => it.k === 'glyph' && /^artic-/.test(it.g || '') && it.seq !== 'tipSign' && onHeadSide(it)) : null;
+              const aG = articI ? (glyphs.articulation || {})[articI.g.slice(6)] : null, ah = aG ? aG.hSs * (articI.scale || 1) : 0, aw = aG ? aG.wSs * (articI.scale || 1) : 0;
               const dG = dynI ? (glyphs.dynamic || {})[dynI.g.slice(4)] : null, dh = dG ? dG.hSs * (dynI.scale || 1) : 0, dw = dG ? dG.wSs * (dynI.scale || 1) : 0;
               const lo = up ? Math.max(2 + BSD.staffClearSs, hd.ySs + BSD.headClearSs) : tip, hi = up ? tip : Math.min(-2 - BSD.staffClearSs, hd.ySs - BSD.headClearSs);   // RULES MIRROR (the five-line staff's outer lines)
-              const need = dh + (wordI ? emB : 0) + (dynI && wordI ? BSD.rowGapSs : 0);
-              if ((dynI || wordI) && (up ? spillBot : spillTop) && hi - lo >= need - 1e-9) {
+              const need = ah + (articI && (dynI || wordI) ? BSD.rowGapSs : 0) + dh + (wordI ? emB : 0) + (dynI && wordI ? BSD.rowGapSs : 0);
+              if ((dynI || wordI || articI) && (spillBot || spillTop) && hi - lo >= need - 1e-9) {
                 const snap = u.items.map(it => [it, JSON.stringify(it)]), putBack = () => { for (const [it, js] of snap) { for (const k of Object.keys(it)) delete it[k]; Object.assign(it, JSON.parse(js)); } };
                 // the block they leave in the column, and what stands beyond it
-                const edges = []; if (dynI) edges.push(dynI.ySs - dh / 2, dynI.ySs + dh / 2); if (wordI) edges.push(wordI.ySs - 0.2 * emB, wordI.ySs + 0.8 * emB);
+                const edges = []; if (articI) edges.push(articI.ySs - ah / 2, articI.ySs + ah / 2); if (dynI) edges.push(dynI.ySs - dh / 2, dynI.ySs + dh / 2); if (wordI) edges.push(wordI.ySs - 0.2 * emB, wordI.ySs + 0.8 * emB);
                 const bLo = Math.min(...edges), bHi = Math.max(...edges), close = bHi - bLo;
-                for (const it of u.items) { if (it === dynI || it === wordI || it.ySs == null || !(FitM.isMark(it) || it.k === 'ottava')) continue; if (up ? it.ySs < bLo : it.ySs > bHi) it.ySs = +(it.ySs + (up ? close : -close)).toFixed(4); }
+                for (const it of u.items) { if (it === dynI || it === wordI || it === articI || it.ySs == null || !(FitM.isMark(it) || it.k === 'ottava')) continue; if (spillBot ? it.ySs < bLo : it.ySs > bHi) it.ySs = +(it.ySs + (spillBot ? close : -close)).toFixed(4); }
                 const xR = st.dxSs - (((glyphs.standards || {}).stem || {}).thickness || 0.13) / 2 - BSD.stemGapSs; let cur = up ? lo : hi;
+                if (articI) { articI.ySs = +(up ? cur + ah / 2 : cur - ah / 2).toFixed(4); articI.dxSs = +(xR - aw / 2).toFixed(4); cur += (up ? 1 : -1) * (ah + BSD.rowGapSs); }
                 if (dynI) { dynI.ySs = +(up ? cur + dh / 2 : cur - dh / 2).toFixed(4); dynI.dxSs = +(xR - dw / 2).toFixed(4); cur += (up ? 1 : -1) * (dh + BSD.rowGapSs); }
                 if (wordI) { wordI.ySs = +(up ? cur + 0.2 * emB : cur - 0.8 * emB).toFixed(4); wordI.dxSs = +xR.toFixed(4); wordI.anchor = 'end'; }
                 const ink2 = FitM.unitInk(u.items, glyphs, ts);
-                if (ink2 && ctx.ok(key, u, ink2)) { for (const it of [dynI, wordI]) if (it) it.fit = { rung: 'beside', by: 'beside the stem' }; res = { rung: 'beside', by: 'the dynamic and the word beside the stem', tried: [{ rung: 'beside', result: 'fits' }], side: up ? 'bot' : 'top' }; }
+                if (ink2 && ctx.ok(key, u, ink2)) { for (const it of [articI, dynI, wordI]) if (it) it.fit = { rung: 'beside', by: 'beside the stem' }; res = { rung: 'beside', by: 'the dynamic and the word beside the stem', tried: [{ rung: 'beside', result: 'fits' }], side: up ? 'bot' : 'top' }; }
                 else {   // not enough alone: the column that is left may still be CLOSED UP (the ladder's own rung 1) — kept only if that is all it takes
-                  const r1 = FitM.ladder(u.items, box, x => ctx.ok(key, u, x), glyphs, LAD);
-                  if (r1.rung === 1) { for (const it of [dynI, wordI]) if (it) it.fit = { rung: 'beside', by: 'beside the stem' }; res = { rung: 'beside+1', by: 'the dynamic and the word beside the stem, the rest closed up', tried: [{ rung: 'beside', result: 'not enough alone' }].concat(r1.tried), side: r1.side }; }
+                  const r1 = FitM.ladder(u.items.filter(it => it !== dynI && it !== wordI && it !== articI), box, x => ctx.ok(key, u, x), glyphs, LAD);   // [§410] WITHOUT the two that moved: closing up must never drag a mark toward them, along the stem
+                  if (r1.rung === 1) { for (const it of [articI, dynI, wordI]) if (it) it.fit = { rung: 'beside', by: 'beside the stem' }; res = { rung: 'beside+1', by: 'the dynamic and the word beside the stem, the rest closed up', tried: [{ rung: 'beside', result: 'not enough alone' }].concat(r1.tried), side: r1.side }; }
                   else putBack();
                 }
               }

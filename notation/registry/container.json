@@ -690,6 +690,8 @@
       "nhStemRule": "flagClear",
       "nhArtic": "marcato",
       "tipSigns": "downbow",
+      "tipSignsSide": "above",
+      "chainSide": "below",
       "dynMark": "band"
      },
      "bartok_vel": {
