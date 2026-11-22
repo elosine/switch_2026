@@ -260,7 +260,7 @@ Rules made the same days: a tremolo stack never sits among ledger lines (`object
 | the thing | as built | from |
 |---|---|---|
 | a note | a PLAIN NOTE: a black head with a plain stem, its left edge on its moment, no go line, no gestural curve; a staccato keeps its dot | *Recombination* §547 (`devices.byEnv.plainNote`) |
-| a beat | ONE line of the beat frame through the staff, the olive, and a ball in flight for exactly that beat | `objects.tick` · `objects.beatBall`; the cue line's mechanism (#5 §651), the olive his "for when there's an actual tempo" (#5 §653) |
+| a beat | THE TUBAS' WAY (his word, §434): a small black tick above the staff, the notation drawn over it, and the gestural curve's own ball — magenta, 5 px — in flight for exactly that beat | `objects.tick` · `objects.gcBall`; the tubas' per-part ball (a `gc` device per beat) |
 | a tempo | a bar line and ♩ = N in the part's own lane, where the part's tempo is new; N measured from the beats, one decimal | the tubas' per-part tempo mark (`tempoText`) |
 | a changing tempo | accel. or decel. in italics on the tempo mark's row, a dashed line (a dash 0.6 ss every 3 ss), then the new tempo mark | `objects.tempoSpan` — LilyPond's TextSpanner, verified §433; his SW-163 |
 | the dynamics | f at the start · each crescendo a green curve the whole lane · the dynamic written again on the first note after a curve · fff where it is held (442.2) | `bank/tuplet_chunks.json` dynamics.marks (his, 2026-11-19); `objects.crescCurve` |

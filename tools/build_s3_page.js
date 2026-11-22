@@ -22,7 +22,6 @@ const TS = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'r
 const EPS = 0.02;            // a beat this close before a step's start belongs to the step
 const MARK_OFF_SS = 6;       // accel. / decel. on a beat that also carries a tempo mark stands this far to its right
 const CRESC_SAMPLES = 101;   // the lineage's least (a curve never fewer than 101 points)
-const BEAT_COLOUR = 1;       // rules.json objects.tick.gridColours: the olive — his 'olive for when there's an actual tempo' (#5 §653)
 // A BEAT'S WRITTEN VALUE (no rule of his yet — the tuplet notation of Section 3 is open): 2 or 3 to the beat = eighths (one beam);
 // 4 and more = sixteenths (two beams — the lineage's 'nothing shorter than a 16th', #5 §528). Three over two beats = quarters, no beam.
 const beamValue = step => step < 2 ? null : (step < 4 ? 8 : 16);
@@ -70,11 +69,13 @@ for (const p of PARTS) {
   });
 }
 
-// ---- THE BEAT LINES and THE BALLS: one line of the beat frame's look on every beat, its ball in flight for exactly that beat
-let nBeat = 0;
+// ---- THE TICKS and THE BALLS — THE TUBAS' WAY (his word 2026-11-22, §434: 'let's use the Tuba's way. Small black ticks … the magenta ball, same size as
+// the tuba piece'): on every beat a small black tick above the staff (objects.tick) and the gestural curve's own ball (magenta, 5 px), in flight
+// for exactly that beat — the tubas' per-part ball (#3 day 36: a `gc` device on the part's chunk, its duration the beat)
+let nBeat = 0; const beatDevs = [];
 for (const p of PARTS) { const bs = beatsOf.get(p);
   bs.forEach((t, i) => { const unit = +(i + 1 < bs.length ? bs[i + 1] - t : t - bs[i - 1]).toFixed(4);
-    overlays.push({ id: 'ov-s3-beat-p' + p + '-' + Math.round(t * 1000), kind: 'beatGrid', target: { part: p, span: [+(t - 0.001).toFixed(4), +(t + 0.001).toFixed(4)] }, value: { unit, beatEvery: 1, phase: t, colourIx: BEAT_COLOUR }, provenance: 'authored' }); nBeat++; }); }
+    beatDevs.push({ part: p, at: t, unit }); nBeat++; }); }
 
 // ---- THE DYNAMICS (his marks, bank/tuplet_chunks.json): f at the start · each 'f < fff' a CURVE (the green, the full lane) · the dynamic
 // written again on the first note after a curve's end ('sub. f' in the data; his SW-163: 'just end the curve and put 1F in the next spot') ·
@@ -111,6 +112,11 @@ if (r.status !== 0) { console.log(outp.slice(-12).join('\n')); process.exit(r.st
 // ---- THE OVERLAYS, into the page the extractor wrote
 const irPath = path.join(ROOT, 'notation', 'ir', ID + '.ir.json'), ir = JSON.parse(fs.readFileSync(irPath, 'utf8'));
 ir.overlays = ir.overlays.filter(o => !/^ov-s3-/.test(o.id)).concat(overlays);
+// THE TICKS and THE BALLS, the tubas' way (#3 day 36): each beat a `gc` device on the chunk that holds its moment (else the last one before it)
+{ const chOf = new Map(); for (const c of ir.chunks) { c.devices = (c.devices || []).filter(d => !/^dev-s3-beat-/.test(d.id)); if (!chOf.has(c.part)) chOf.set(c.part, []); chOf.get(c.part).push(c); }
+  for (const list of chOf.values()) list.sort((a, b) => a.span[0] - b.span[0]);
+  for (const b of beatDevs) { const list = chOf.get(b.part) || []; let c = list.find(x => b.at >= x.span[0] - 1e-6 && b.at < x.span[1] + 1e-6); if (!c) for (const x of list) if (x.span[0] <= b.at + 1e-6) c = x; if (!c) c = list[0];
+    if (c) c.devices.push({ id: 'dev-s3-beat-p' + b.part + '-' + Math.round(b.at * 1000), kind: 'gc', mode: 'landing', at: b.at, preset: { duration: b.unit }, provenance: 'derived' }); } }
 fs.writeFileSync(irPath, JSON.stringify(ir));   // compact: 4600 notes and 2200 overlays
 
 console.log('parts ' + PARTS.join(' · ') + ' · notes ' + notes.length + ' · beats ' + nBeat + ' · tempo marks ' + nTempo + ' · accel. / decel. ' + nSpan + ' · crescendo curves ' + nCresc + ' · dynamics written ' + dynNote.size + ' · beamed groups ' + nBeam);
