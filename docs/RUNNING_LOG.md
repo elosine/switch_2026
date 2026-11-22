@@ -6057,3 +6057,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **NOT DONE, and why:** the thinning of an over-used pitch (§153 … §155) was his ear's, one pitch at a time — none asked. The section's loudness parity (§152) is the AI's, still to run with the cello in.
 **THE NOTATION (`build_ctpt_page.js`: the save's name; AUTO_PARTS now 1 · 2 · 6 · 7):** the cello's 47 notes by the rules settled today — 2 beamed groups, 1 grace pickup, every technique with its look and word. "No rule yet": ONE duplicate, 212.08 s — a jeté F3 and a col legno gettato F3 at one instant (his to say which stays). `fit_list`: 10 columns do not fit — the violin's 4 and the cello's 6 (204.31 · 208.84 · 215.91 · 226.56 · 235.35 · 241.27), all spilling ABOVE: the string's numeral over a long stem, the open question of §397. `check_rules.js`: part (10) green; the old two reds.
 **NOT LOOKED AT as a picture; not heard.**
+
+## §415 · 2026-11-22 · his word — the cello's 212.08 is the jeté
+
+**His words:** "keep the jeté at 212.08". The col legno gettato F3 of the pair is out of the notation's copy (`piece-FirstDraft-Final-D-ctptCello`; as it was: `…before-415.json`); the jeté stays. The cello has 46 notes; no duplicate is left on the five parts. `check_rules.js`: the old two reds.
