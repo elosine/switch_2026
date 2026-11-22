@@ -55,6 +55,10 @@ const HANDS = {
 // one instant are one figure. The short note: its head's left edge on the moment, no go line, the figure's dynamic, a curve to the held note.
 // The held note: its column shiftSs to the right, no dynamic of its own.
 const TIED = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'rules.json'), 'utf8')).objects.tiedAttack, tiedPairs = [];
+// §418 (2026-11-22) — HIS LOCAL RULE FOR THIS SECTION'S CELLO, not one for other pieces ('maybe not a rule that propagates throughout … but for these ones'): EVERY BOW-OVERPRESSURE
+// NOTE OF THE CELLO has its stem DOWN and its marks ABOVE THE STAFF — 'it's okay if it goes into the electronic lane … but I don't want it to conflict with the violin lane.'
+const OP_LOCAL = new Set();
+for (const o of save.objects) if (o.type === 'waveCurve' && o.layer === 7 && o.technique === 'bow_op_vel' && o.startSeconds >= W0 && o.startSeconds < W1) { OP_LOCAL.add(o.id); HANDS[o.id] = Object.assign({ nhStemDir: 'down', chainSide: 'above' }, HANDS[o.id] || {}); }
 const HAND_GRACE = new Set(Object.keys(HANDS).filter(k => HANDS[k].grace));
 
 // ---- THE OTHER PARTS, by the rules (§387): clarinet · alto sax · violin. (The piano and the percussion are taken separately — his word.)
@@ -76,6 +80,9 @@ for (const part of AUTO_PARTS) {
     close(); if (isShort(o.technique)) run = [o]; }
   close();
 }
+
+// §418: a BEAMED overpressure note keeps the beam's stem and §416's figure (the down-bows over the beam, the marcato under the head) — the local rule is for the lone ones
+for (const [a, b, part] of BEAMS) for (const o of save.objects) if (OP_LOCAL.has(o.id) && o.layer === part && o.startSeconds >= a - 1e-9 && o.startSeconds <= b + 1e-9) { delete HANDS[o.id].nhStemDir; delete HANDS[o.id].chainSide; }
 
 const args = ['tools/notate_section.js', '--score', SCORE, '--w0', String(W0), '--w1', String(W1), '--parts', '0-7', '--alone', W0 + '-' + W1, '--exp', '--noFitMark', '--timeSpacing',
   '--id', 's2-ctpt-heads', '--label', 'Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)'];

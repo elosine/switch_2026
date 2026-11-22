@@ -1836,3 +1836,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim), on a picture of that note (a square head in the staff, its stem up, a marcato, an f and three down-bows hanging under the staff):** "223.3, let's find a way to do a carve out for this one, an exception, and do stem down and put the markings above, but above the staff."
 
 **The AI's reading:** one note, by his word, against the rule: its stem down, and all its marks over the staff.
+
+### SW-154 · 2026-11-22 · the cello's overpressure notes, a local rule: stems down, marks above the staff
+
+**His words (verbatim), on a picture of the cello to 226.5:** "to 26.5. This case is slightly different, but let's at least locally, maybe not a rule that propagates throughout, you know, into the future, but for these ones, just because it's okay if it goes into the electronic lane, that's okay, but I don't want it to conflict with the violin lane. So let's put stems down on all of the bow pressure ones, and then the markings on top above the staff."
+
+**The AI's reading:** for THIS section's cello, every bow-overpressure note has its stem down and its marks over the staff; a long stem may run down into the electronics' lane, never up into the violin's. Not a rule for other pieces.

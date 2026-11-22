@@ -6077,3 +6077,10 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **ONE THING MADE STANDARD BY IT (`layout.js`, the stack's placing):** a stack over a head that stands INSIDE the staff begins the house gap over the staff's TOP LINE, never among its lines — his "above, but above the staff".
 **NOT TOUCHED:** the violin's overpressure 30 ms later (223.35, a G3 under its staff) — still on the list of columns that do not fit; said to him.
 **MEASURED:** `fit_list` 9 (the violin's 4, the cello's 5) · `check_rules.js` part (10) green; the old two reds. **NOT LOOKED AT as a picture.**
+
+## §418 · 2026-11-22 · his LOCAL rule — the cello's bow-overpressure notes in this section: stems down, the marks over the staff
+
+**His words:** SW-154 (the sketch pad).
+**BUILT (`build_ctpt_page.js`, by a loop with his words — no note written out, and nothing in the rules' tables: it is this section's cello only):** every bow-overpressure note of the cello between 199 and 254 s takes `nhStemDir: down` · `chainSide: above`. 9 notes; 8 of them lone — stem down to −7.0 (into the electronics' lane where the head is low, which he allows), the three down-bows over the staff's top line (2.87 · 3.87 · 4.87), the marcato, then the dynamic above them. The ninth (215.91) is BEAMED with a Bartók pizzicato: it keeps the beam's stem and §416's figure (the down-bows over the beam, the marcato under the head) — with the rule applied to it the marcato went back onto the down-bows; caught in the drawn items and excluded.
+**A CORRECTION to §414 · §416 · §417:** the cello's columns that did not fit were NOT the string's numerals — they were these overpressure notes, their stems up and their stacks above the lane. With the stems down the cello has NO column out of its lane. `fit_list`: 4 remain, all the violin's (211.29 · 247.64 behind the bridge; 223.35 · 242.63 overpressure).
+**MEASURED:** `check_rules.js` — part (10) green; the old two reds. **NOT LOOKED AT as a picture.**
