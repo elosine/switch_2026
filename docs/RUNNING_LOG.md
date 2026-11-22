@@ -6279,3 +6279,10 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 2. A DYNAMIC CENTERED ON A CURVE'S START lands on a low note's 8vb sign (the clarinet at 291.8; `check_rules` (10) names one: part 1 at 372.94).
 3. INSIDE ONE GROUP some notes take 8va and a higher neighbour does not (the flute at 292: two brackets with a note at pitch between). The ottava is decided per note today.
 **`check_rules`:** 3 red of 41 — the two old ones and the dynamic × ottava clash of point 2.
+
+## §439 · 2026-11-22 · the rests at 300 s on the Section 3 page — what they are
+
+**His question:** "At 300, second 300, there's a bunch of rests. Can you tell me what those rests are? Is that something just because I changed tempos or something at that point?"
+**READ FROM THE SAVE:** 185 of the section's 1049 groups are INCOMPLETE — a group's `step` says how many notes go to the beat, and the save holds fewer. At 300.5 … 300.9 s: the glockenspiel 4 of 8 · the clarinet 4 of 7 · the flute 2 of 6 · the piano 2 of 8 · the cello 1 of 6. It is where the first tuplet stretch ends (the drift ends at 301.66): the tuplet render stopped each player's last group at the stretch's end time, in mid-beat. By 20 s: 280 → 4 · 300 → 26 · 320 → 35 · 340 → 8 · 360 → 23 · 380 → 17 · 400 → 15 · 420 → 40 · 440 → 12 · 460 → 5.
+**WHY RESTS:** §438 made each group a cluster (piece 4's figure). That figure writes a rest in every empty place of its grid — its standing rule (#4 day 23 · D62). So an incomplete group shows its missing notes as rests inside the tuplet. Not a tempo matter; the rests say what sounds: a few fast notes, then silence to the next beat.
+**NOT CHANGED.** Put to him: keep them (true to the sound), or leave them out and let the next beat's tick say where the beat is.
