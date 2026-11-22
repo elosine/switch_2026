@@ -2090,7 +2090,7 @@
                 // the dynamic, at the technique size, left-justified with the
                 // head like the cuivré mark.
                 // [§657] on a LINED staff a beam member's accent is its OWN (drawn by its head, below) — the group's accent row is the five-line staff's
-                const articG = dev.nhArtic && (stemKind !== 'beam' || (spec.staffInfo && spec.staffInfo.lined)) ? (glyphs.articulation && glyphs.articulation[dev.nhArtic]) || null : null;
+                const articG = dev.nhArtic && (stemKind !== 'beam' || (spec.staffInfo && spec.staffInfo.lined) || dev.chainSide === 'below') ? (glyphs.articulation && glyphs.articulation[dev.nhArtic]) || null : null;   // [§416] a beamed note whose row sends its marks BELOW (the overpressure) keeps its articulation in its own column
                 if (dev.nhArtic && stemKind !== 'beam' && !articG) warnings.push('nh-unit ' + e.id + ': articulation glyph "' + dev.nhArtic + '" missing — not drawn');
                 const instrIsFirst = !!(dev.instrFirst && instrShown.has(e.id));
                 // [§612, his "move the ord into the notehead column … use the standard alignment that should be in our system"] a device
@@ -2351,7 +2351,7 @@
                     grp.tips.push(Object.assign({ t: e.onset, dxSs: headDx + att.dx, ySs: yEnd }, dev.grace ? { grace: true } : {}));   // [§592] a grace member — a group of graces takes its beam at the heads' scale
                     // the cluster's metric facts, carried on the overlay by
                     // notate_section --cluster (which runs the tempo fit)
-                    if (dev.nhArtic && !(spec.staffInfo && spec.staffInfo.lined)) (grp.artics = grp.artics || []).push({ t: e.onset, dxSs: headDx, kind: dev.nhArtic });   // [§657] not on a lined staff — the note draws its own
+                    if (dev.nhArtic && !(spec.staffInfo && spec.staffInfo.lined) && dev.chainSide !== 'below') (grp.artics = grp.artics || []).push({ t: e.onset, dxSs: headDx, kind: dev.nhArtic });   // [§657] not on a lined staff — the note draws its own
                     if (markToGroup) (grp.dyns = grp.dyns || []).push({ t: e.onset, dxSs: headDx, key: markKey, hSs: markG.hSs });
                     if (dev.tupletGroup) grp.hasTuplet = true;
                     if (dev.bracketSide) grp.bracketSide = dev.bracketSide;   // day 31, dictated
@@ -4064,6 +4064,15 @@
         //   instruction's own distance (objects.instruction.aboveNoteSs) above whatever is under it and never nearer the staff than
         //   staffClearSs (§561 — until now the family look's word used the tubas' medium gap from the head and no more).
         // Nothing is moved that already stands clear.
+        // [the Switch~ piece §416 — HIS EYE 2026-11-22, the cello at 215.9: 'downbows too high, also fix standard'] THE STACK OVER A STEM IS PLACED FROM THE
+        // STEM'S TIP AS IT STANDS — in a beam the tip is the beam's, and the beam is levelled after the notes are drawn (the stack had been set from the
+        // note's own long stem, 4.8 ss too high). Here, with the beams level: each note's stack over an up stem is re-set to the house gap over its tip.
+        { const BS2 = Object.assign({ count: 3, scale: 0.63, stepSs: 1, gapSs: 0.45 }, o.bowStack || {}), byEv = new Map();   // RULES MIRROR (objects.bowStack)
+          for (const it of items) if (it.seq === 'tipSign' && it.ev) { if (!byEv.has(it.ev)) byEv.set(it.ev, []); byEv.get(it.ev).push(it); }
+          for (const [ev, list] of byEv) { const u = nhAt.get(ev); if (!u || !u.stemItem || u.stemItem.attach !== 'up') continue;
+            const gT = (glyphs.articulation || {})[String(list[0].g).replace('artic-', '')]; if (!gT) continue; list.sort((p, q) => p.ySs - q.ySs);
+            if (list[0].ySs < u.stemItem.yB) continue;   // a stack on the other side of the note is not this rule's
+            list.forEach((it, i) => { it.ySs = +(u.stemItem.yB + BS2.gapSs + gT.hSs * BS2.scale / 2 + i * BS2.stepSs).toFixed(4); }); } }
         if (o.stackAbove !== false) {
           const SA = Object.assign({ gapSs: 0.45, staffClearSs: 1 }, o.instructionAbove || {}), OS = (glyphs.standards || {}).ottava || {}, gapS = OS.standardGapSs || 0.45, hookS = OS.hookLengthSs || 0.8;
           const emW = TS.instruction * (o.textEmScale != null ? o.textEmScale : 1.3), byT = new Map();

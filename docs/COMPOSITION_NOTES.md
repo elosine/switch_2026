@@ -1824,3 +1824,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim):** "Okay, let me play the cello part then in. And then I don't recall all the steps now, but let's go ahead and, once I do that, deal with all the steps. I guess I forgot exactly what was done, but it's like converting them to different articulations. And then I don't know if there was any other steps there as well. Tell me what to do in the composer score, how to start with what we have now, save it if I need to, and then I guess make a new name before I start playing in." · "Okay, it's in."
 
 **The AI's reading:** a seventh part for the section, played by him today into a new save; the AI brings it through every step the other parts had and notates it.
+
+### SW-152 · 2026-11-22 · the cello's 212.08 is the jeté; the down-bows too high over a beam
+
+**His words (verbatim):** "keep the jeté at 212.08" · on a picture of the cello's beamed pair at 215.6 → 215.9: "215.67 downbows too high, also fix standard"
+
+**The AI's reading:** the stack of down-bows over a BEAMED overpressure note stands far above the beam; the rule itself is to be mended, not this one note.

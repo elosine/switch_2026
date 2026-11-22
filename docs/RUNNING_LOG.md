@@ -6061,3 +6061,11 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 ## §415 · 2026-11-22 · his word — the cello's 212.08 is the jeté
 
 **His words:** "keep the jeté at 212.08". The col legno gettato F3 of the pair is out of the notation's copy (`piece-FirstDraft-Final-D-ctptCello`; as it was: `…before-415.json`); the jeté stays. The cello has 46 notes; no duplicate is left on the five parts. `check_rules.js`: the old two reds.
+
+## §416 · 2026-11-22 · his eye — the down-bows too high over a beam: the stack is placed from the stem's tip AS IT STANDS (the standard mended)
+
+**His words:** SW-152 (the sketch pad). His picture: the cello's Bartók pizzicato and overpressure beamed at 215.62 → 215.91; over the second, a marcato on the beam, then a wide gap, then the three down-bows, then the p.
+**THE CAUSE, measured:** the stack was set when the note was drawn, from the note's OWN stem — this score's long flag-clear stem, its tip at 7.5 ss. In a beam the tip is the beam's, and the beams are levelled afterwards: the tip came down to 3.54 and the stack stayed at 8.38 … 10.38 — 4.8 ss too high. And the marcato of a beamed note went to the group's row over the beam, which is where the down-bows belong.
+**THE STANDARD NOW (`layout.js`, a pass after the beams are level; `objects.bowStack` unchanged):** a stack over an up stem is re-set to the house gap (0.45 ss) over the stem's tip as it stands — the beam's outer edge in a beam. A beamed note whose row sends its marks BELOW (the overpressure's `chainSide: below`, §410) keeps its articulation in its own column under the head, not in the group's row. At 215.91, read from the drawn items: the down-bows at 4.67 · 5.67 · 6.67 over the tip at 3.80; the marcato at −5.4 under the head.
+**LEFT AS THE GROUP'S RULE, said to him:** the dynamic of a beamed note in this section stands over the beam (the p is above the down-bows, as the f is above the first note's accent).
+**MEASURED:** `fit_list` — that column now fits (9 do not: the numerals over long stems, §397). `check_rules.js`: part (10) green; the old two reds. **NOT LOOKED AT as a picture.**
