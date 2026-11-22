@@ -22,7 +22,7 @@
   "date": "2026-11-22",
   "tool": "tools/notate_section.js (profile trance)",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only.",
-  "build": "node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 199 --w1 254 --parts 0-6 --alone 199-254 --exp --noFitMark --timeSpacing --id s2-ctpt-heads --label \"Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)\" --beam 205.99-206.29@0 --hand \"wc-2691:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2693:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 209.8-210.45@0 --hand \"wc-2695:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2696:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2697:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 220.3-220.73@0 --hand \"wc-2703:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2704:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 233.97-234.15@0 --hand \"wc-2714:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2907:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 248.93-249.46@0 --hand \"wc-2919:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2920:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 206.4-206.7@1 --hand \"wc-2721:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2722:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 217.36-217.71@1 --hand \"wc-2730:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2731:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 223.39-223.74@1 --hand \"wc-2736:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2737:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2907:{\\\"dynMark\\\":false}\" --hand \"wc-2742:{\\\"grace\\\":true,\\\"pickupTo\\\":\\\"wc-2743\\\",\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --noGc wc-2742"
+  "build": "node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 199 --w1 254 --parts 0-6 --alone 199-254 --exp --noFitMark --timeSpacing --id s2-ctpt-heads --label \"Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)\" --beam 205.99-206.29@0 --hand \"wc-2691:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2693:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 209.8-210.45@0 --hand \"wc-2695:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2696:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2697:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 220.3-220.73@0 --hand \"wc-2703:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2704:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 233.97-234.15@0 --hand \"wc-2714:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2907:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 248.93-249.46@0 --hand \"wc-2919:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2920:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 217.366-217.703@1 --hand \"wc-2730:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2731:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 223.398-223.733@1 --hand \"wc-2736:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2737:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 251.672-251.684@1 --hand \"wc-2757:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2756:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 208.539-208.682@2 --hand \"wc-2763:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2766:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 211.806-211.816@2 --hand \"wc-2769:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2768:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 224.989-225.272@2 --hand \"wc-2782:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2783:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 242.675-242.923@2 --hand \"wc-2800:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2801:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 245.039-245.299@2 --hand \"wc-2803:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2804:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 221.984-222.226@6 --hand \"wc-2876:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2877:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 239.757-239.773@6 --hand \"wc-2895:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2894:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2766:{\\\"dynMark\\\":false}\" --hand \"wc-2764:{\\\"dynMark\\\":false}\" --hand \"wc-2768:{\\\"dynMark\\\":false}\" --hand \"wc-2771:{\\\"dynMark\\\":false}\" --hand \"wc-2774:{\\\"dynMark\\\":false}\" --hand \"wc-2743:{\\\"dynMark\\\":false}\" --hand \"wc-2791:{\\\"dynMark\\\":false}\" --hand \"wc-2907:{\\\"dynMark\\\":false}\" --hand \"wc-2894:{\\\"dynMark\\\":false}\" --hand \"wc-2808:{\\\"dynMark\\\":false}\" --hand \"wc-2756:{\\\"dynMark\\\":false}\" --hand \"wc-2742:{\\\"grace\\\":true,\\\"pickupTo\\\":\\\"wc-2743\\\",\\\"goLine\\\":false,\\\"dynMark\\\":false}\" --noGc wc-2742"
  },
  "events": [
   {
@@ -65,7 +65,7 @@
    "technique": "bartok_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2716",
@@ -86,7 +86,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2758",
@@ -107,7 +107,7 @@
    "technique": "slap_exploding",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2924",
@@ -191,7 +191,7 @@
    "technique": "gettato_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2717",
@@ -212,7 +212,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2759",
@@ -233,7 +233,7 @@
    "technique": "slap_pitched",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2925",
@@ -296,7 +296,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2862",
@@ -317,7 +317,7 @@
    "technique": "pizz_behind_bridge_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 109
   },
   {
    "id": "ev-wc-2813",
@@ -359,7 +359,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2814",
@@ -443,7 +443,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2815",
@@ -506,7 +506,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2720",
@@ -527,7 +527,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2929",
@@ -674,7 +674,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2762",
@@ -695,7 +695,7 @@
    "technique": "double_tonguing",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2864",
@@ -716,7 +716,7 @@
    "technique": "col_legno_gett_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2722",
@@ -758,7 +758,7 @@
    "technique": "slap_pitched",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2931",
@@ -842,7 +842,7 @@
    "technique": "bow_op_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2723",
@@ -884,7 +884,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2817",
@@ -968,7 +968,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2933",
@@ -1010,7 +1010,7 @@
    "technique": "col_legno_gett_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2724",
@@ -1031,7 +1031,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 109
   },
   {
    "id": "ev-wc-2695",
@@ -1073,7 +1073,7 @@
    "technique": "double_tonguing",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2867",
@@ -1094,7 +1094,7 @@
    "technique": "bartok_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2696",
@@ -1178,7 +1178,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2819",
@@ -1220,7 +1220,7 @@
    "technique": "pizz_behind_bridge_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2935",
@@ -1262,7 +1262,7 @@
    "technique": "slap_exploding",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2768",
@@ -1283,7 +1283,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 109
   },
   {
    "id": "ev-wc-2820",
@@ -1325,7 +1325,7 @@
    "technique": "gettato_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2726",
@@ -1346,7 +1346,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2698",
@@ -1451,7 +1451,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 109
   },
   {
    "id": "ev-wc-2870",
@@ -1472,7 +1472,7 @@
    "technique": "col_legno_gett_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2699",
@@ -1535,7 +1535,7 @@
    "technique": "double_tonguing",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2771",
@@ -1556,7 +1556,7 @@
    "technique": "slap_pitched",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 109
   },
   {
    "id": "ev-wc-2728",
@@ -1577,7 +1577,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2822",
@@ -1640,7 +1640,7 @@
    "technique": "gettato_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2773",
@@ -1682,7 +1682,7 @@
    "technique": "double_tonguing",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2700",
@@ -1745,7 +1745,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2939",
@@ -1808,7 +1808,7 @@
    "technique": "bartok_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 109
   },
   {
    "id": "ev-wc-2775",
@@ -1829,7 +1829,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2873",
@@ -1955,7 +1955,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2826",
@@ -1997,7 +1997,7 @@
    "technique": "slap_exploding",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2731",
@@ -2018,7 +2018,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2702",
@@ -2102,7 +2102,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2827",
@@ -2144,7 +2144,7 @@
    "technique": "slap_pitched",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2943",
@@ -2186,7 +2186,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2828",
@@ -2270,7 +2270,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 109
   },
   {
    "id": "ev-wc-2704",
@@ -2333,7 +2333,7 @@
    "technique": "slap_exploding",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2875",
@@ -2354,7 +2354,7 @@
    "technique": "bartok_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2829",
@@ -2396,7 +2396,7 @@
    "technique": "slap_pitched",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2706",
@@ -2459,7 +2459,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2830",
@@ -2501,7 +2501,7 @@
    "technique": "gettato_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2780",
@@ -2522,7 +2522,7 @@
    "technique": "double_tonguing",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2877",
@@ -2543,7 +2543,7 @@
    "technique": "pizz_behind_bridge_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2707",
@@ -2627,7 +2627,7 @@
    "technique": "bow_op_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2832",
@@ -2669,7 +2669,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2737",
@@ -2690,7 +2690,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2781",
@@ -2711,7 +2711,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2879",
@@ -2732,7 +2732,7 @@
    "technique": "col_legno_gett_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2708",
@@ -2837,7 +2837,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2880",
@@ -2858,7 +2858,7 @@
    "technique": "bartok_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2782",
@@ -2879,7 +2879,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2783",
@@ -3005,7 +3005,7 @@
    "technique": "gettato_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 109
   },
   {
    "id": "ev-wc-2784",
@@ -3068,7 +3068,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2710",
@@ -3131,7 +3131,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2785",
@@ -3152,7 +3152,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 109
   },
   {
    "id": "ev-wc-2953",
@@ -3299,7 +3299,7 @@
    "technique": "slap_pitched",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2838",
@@ -3341,7 +3341,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2711",
@@ -3404,7 +3404,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2839",
@@ -3488,7 +3488,7 @@
    "technique": "gettato_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2712",
@@ -3551,7 +3551,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2840",
@@ -3614,7 +3614,7 @@
    "technique": "bow_op_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2788",
@@ -3635,7 +3635,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2958",
@@ -3677,7 +3677,7 @@
    "technique": "slap_exploding",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2841",
@@ -3740,7 +3740,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2887",
@@ -3761,7 +3761,7 @@
    "technique": "col_legno_gett_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2790",
@@ -3782,7 +3782,7 @@
    "technique": "double_tonguing",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2791",
@@ -3803,7 +3803,7 @@
    "technique": "slap_pitched",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2959",
@@ -3866,7 +3866,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2960",
@@ -3908,7 +3908,7 @@
    "technique": "bartok_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2714",
@@ -3971,7 +3971,7 @@
    "technique": "pizz_behind_bridge_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2745",
@@ -3992,7 +3992,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2961",
@@ -4097,7 +4097,7 @@
    "technique": "gettato_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2962",
@@ -4160,7 +4160,7 @@
    "technique": "double_tonguing",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2963",
@@ -4307,7 +4307,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2746",
@@ -4328,7 +4328,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2846",
@@ -4391,7 +4391,7 @@
    "technique": "bow_op_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2910",
@@ -4433,7 +4433,7 @@
    "technique": "slap_exploding",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2847",
@@ -4517,7 +4517,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 109
   },
   {
    "id": "ev-wc-2848",
@@ -4580,7 +4580,7 @@
    "technique": "col_legno_gett_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2894",
@@ -4601,7 +4601,7 @@
    "technique": "bartok_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 109
   },
   {
    "id": "ev-wc-2911",
@@ -4685,7 +4685,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2849",
@@ -4832,7 +4832,7 @@
    "technique": "bow_op_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 109
   },
   {
    "id": "ev-wc-2800",
@@ -4853,7 +4853,7 @@
    "technique": "slap_exploding",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2969",
@@ -4895,7 +4895,7 @@
    "technique": "slap_pitched",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2898",
@@ -4958,7 +4958,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2970",
@@ -5021,7 +5021,7 @@
    "technique": "double_tonguing",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2750",
@@ -5042,7 +5042,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 127
   },
   {
    "id": "ev-wc-2899",
@@ -5063,7 +5063,7 @@
    "technique": "gettato_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 83
   },
   {
    "id": "ev-wc-2971",
@@ -5147,7 +5147,7 @@
    "technique": "slap_pitched",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2900",
@@ -5189,7 +5189,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2804",
@@ -5294,7 +5294,7 @@
    "technique": "bow_op_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2916",
@@ -5357,7 +5357,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2854",
@@ -5441,7 +5441,7 @@
    "technique": "double_tonguing",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2903",
@@ -5546,7 +5546,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2975",
@@ -5588,7 +5588,7 @@
    "technique": "gettato_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2976",
@@ -5651,7 +5651,7 @@
    "technique": "slap_pitched",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2856",
@@ -5735,7 +5735,7 @@
    "technique": "bow_op_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2977",
@@ -5798,7 +5798,7 @@
    "technique": "double_tonguing",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 83
+   "vel": 109
   },
   {
    "id": "ev-wc-2754",
@@ -5819,7 +5819,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2979",
@@ -5966,7 +5966,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2982",
@@ -6029,7 +6029,7 @@
    "technique": "col_legno_gett_vel",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 83
   },
   {
    "id": "ev-wc-2757",
@@ -6050,7 +6050,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 127
+   "vel": 109
   },
   {
    "id": "ev-wc-2756",
@@ -6071,7 +6071,7 @@
    "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 109
   },
   {
    "id": "ev-wc-2811",
@@ -6092,7 +6092,7 @@
    "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
-   "vel": 100
+   "vel": 127
   },
   {
    "id": "ev-wc-2922",
@@ -10426,49 +10426,7 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-bm-6-ev-wc-2721",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-2721"
-   },
-   "value": {
-    "device": {
-     "nhStem": "beam",
-     "beamGroup": "bm-6",
-     "noteBeams": 2,
-     "beamPos": 0,
-     "noteUnits": 1,
-     "goLine": false,
-     "gc": true,
-     "dynAboveBeam": true,
-     "nhAnchor": "leftEdge"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
-   "id": "ov-bm-6-ev-wc-2722",
-   "kind": "engraving",
-   "target": {
-    "event": "ev-wc-2722"
-   },
-   "value": {
-    "device": {
-     "nhStem": "beam",
-     "beamGroup": "bm-6",
-     "noteBeams": 2,
-     "beamPos": 1,
-     "noteUnits": 1,
-     "goLine": false,
-     "gc": false,
-     "dynAboveBeam": true,
-     "nhAnchor": "leftEdge"
-    }
-   },
-   "provenance": "authored"
-  },
-  {
-   "id": "ov-bm-7-ev-wc-2730",
+   "id": "ov-bm-6-ev-wc-2730",
    "kind": "engraving",
    "target": {
     "event": "ev-wc-2730"
@@ -10476,7 +10434,7 @@
    "value": {
     "device": {
      "nhStem": "beam",
-     "beamGroup": "bm-7",
+     "beamGroup": "bm-6",
      "noteBeams": 2,
      "beamPos": 0,
      "noteUnits": 1,
@@ -10489,7 +10447,7 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-bm-7-ev-wc-2731",
+   "id": "ov-bm-6-ev-wc-2731",
    "kind": "engraving",
    "target": {
     "event": "ev-wc-2731"
@@ -10497,6 +10455,48 @@
    "value": {
     "device": {
      "nhStem": "beam",
+     "beamGroup": "bm-6",
+     "noteBeams": 2,
+     "beamPos": 1,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": false,
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-7-ev-wc-2736",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2736"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-7",
+     "noteBeams": 2,
+     "beamPos": 0,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": true,
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-7-ev-wc-2737",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2737"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
      "beamGroup": "bm-7",
      "noteBeams": 2,
      "beamPos": 1,
@@ -10510,10 +10510,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-bm-8-ev-wc-2736",
+   "id": "ov-bm-8-ev-wc-2757",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-2736"
+    "event": "ev-wc-2757"
    },
    "value": {
     "device": {
@@ -10531,10 +10531,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-bm-8-ev-wc-2737",
+   "id": "ov-bm-8-ev-wc-2756",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-2737"
+    "event": "ev-wc-2756"
    },
    "value": {
     "device": {
@@ -10546,7 +10546,305 @@
      "goLine": false,
      "gc": false,
      "dynAboveBeam": true,
+     "nhAnchor": "leftEdge",
+     "dynMark": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-9-ev-wc-2763",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2763"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-9",
+     "noteBeams": 2,
+     "beamPos": 0,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": true,
+     "dynAboveBeam": true,
      "nhAnchor": "leftEdge"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-9-ev-wc-2766",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2766"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-9",
+     "noteBeams": 2,
+     "beamPos": 1,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": false,
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge",
+     "dynMark": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-10-ev-wc-2769",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2769"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-10",
+     "noteBeams": 2,
+     "beamPos": 0,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": true,
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-10-ev-wc-2768",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2768"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-10",
+     "noteBeams": 2,
+     "beamPos": 1,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": false,
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge",
+     "dynMark": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-11-ev-wc-2782",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2782"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-11",
+     "noteBeams": 2,
+     "beamPos": 0,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": true,
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-11-ev-wc-2783",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2783"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-11",
+     "noteBeams": 2,
+     "beamPos": 1,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": false,
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-12-ev-wc-2800",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2800"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-12",
+     "noteBeams": 2,
+     "beamPos": 0,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": true,
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-12-ev-wc-2801",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2801"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-12",
+     "noteBeams": 2,
+     "beamPos": 1,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": false,
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-13-ev-wc-2803",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2803"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-13",
+     "noteBeams": 2,
+     "beamPos": 0,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": true,
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-13-ev-wc-2804",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2804"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-13",
+     "noteBeams": 2,
+     "beamPos": 1,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": false,
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-14-ev-wc-2876",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2876"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-14",
+     "noteBeams": 2,
+     "beamPos": 0,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": true,
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-14-ev-wc-2877",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2877"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-14",
+     "noteBeams": 2,
+     "beamPos": 1,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": false,
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-15-ev-wc-2895",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2895"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-15",
+     "noteBeams": 2,
+     "beamPos": 0,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": true,
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge"
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-bm-15-ev-wc-2894",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2894"
+   },
+   "value": {
+    "device": {
+     "nhStem": "beam",
+     "beamGroup": "bm-15",
+     "noteBeams": 2,
+     "beamPos": 1,
+     "noteUnits": 1,
+     "goLine": false,
+     "gc": false,
+     "dynAboveBeam": true,
+     "nhAnchor": "leftEdge",
+     "dynMark": false
     }
    },
    "provenance": "authored"
@@ -10563,6 +10861,84 @@
      "grace": true,
      "pickupTo": "ev-wc-2743",
      "goLine": false,
+     "dynMark": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-ev-wc-2764",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2764"
+   },
+   "value": {
+    "device": {
+     "dynMark": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-ev-wc-2771",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2771"
+   },
+   "value": {
+    "device": {
+     "dynMark": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-ev-wc-2774",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2774"
+   },
+   "value": {
+    "device": {
+     "dynMark": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-ev-wc-2743",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2743"
+   },
+   "value": {
+    "device": {
+     "dynMark": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-ev-wc-2791",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2791"
+   },
+   "value": {
+    "device": {
+     "dynMark": false
+    }
+   },
+   "provenance": "authored"
+  },
+  {
+   "id": "ov-hand-ev-wc-2808",
+   "kind": "engraving",
+   "target": {
+    "event": "ev-wc-2808"
+   },
+   "value": {
+    "device": {
      "dynMark": false
     }
    },

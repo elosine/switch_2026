@@ -1674,3 +1674,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim):** "Okay, those aren't the right slashes. Again, these were worked on for quite a while there. Maybe piece two, the two piano, two percussion anyways. Could you find those? There's a whole set of standards about the way I do it. Different types of slash is definitely not the round corners. Please find the established slashes, and let's, again, same thing. Let's get it into the standards so that these types of mistakes don't continue to happen. We don't keep missing things we worked on already."
 
 **The AI's reading:** the tremolo slash is an established sign of his, with its own standards (several types), made in the two-pianos piece; the first drawing here was not it. Find it, use it, and write down where such things live so they are not missed again.
+
+### SW-127 · 2026-11-22 · the flute's process named in layers; the other parts to be made from it
+
+**His words (verbatim):** "Okay, good. So just take a moment to collect up, look through the process, and collect up the principles from the flute. Make sure everything's written in the rules and you understand the sort of layers we did. For example, getting the spacing right, but then adding the articulations, and then, you know, shuffling the dynamics, and then getting rid of duplicates. If there's any like repeated notes or duplicates, just flag those up for me in the various parts. So for example, like if one was a jet whistle versus a flutter tongue, so I can decide which one to keep. And then, yeah, if you could do all the other parts except for piano and percussion, we'll handle those separately."
+
+**The AI's reading:** he names the method as four layers — the spacing, the articulations, the dynamics, the duplicates — and hands the clarinet, the alto sax and the violin to the rules. Duplicates are his to decide, one by one. The piano and the percussion wait.

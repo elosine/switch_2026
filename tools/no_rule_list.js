@@ -26,6 +26,10 @@ const partOf = new Map(); for (const c of ir.chunks || []) for (const e of c.eve
 const hand = new Map(); for (const o of ir.overlays || []) if (o.target && o.target.event && o.value && o.value.device) hand.set(o.target.event, Object.assign(hand.get(o.target.event) || {}, o.value.device));
 const byPart = new Map(); for (const e of ir.events) { const p = partOf.get(e.id); if (p == null || (only && !only.has(p))) continue; if (!byPart.has(p)) byPart.set(p, []); byPart.get(p).push(e); }
 const t2 = x => x.toFixed(2), out = [];
+const pn = e => { const s = e.pitch && e.pitch.spelled; return s ? s.step + (s.alter === 1 ? '♯' : s.alter === -1 ? '♭' : '') + s.octave : '?'; };
+const lab = e => (((T.techniques || {})[e.technique] || {}).label || e.technique) + ' ' + pn(e);
+// a SHORT note takes a flag (its look says so) or, with no look yet, is a one-shot; a HELD note is never beamed by rule (build_ctpt_page.js)
+const isShort = tech => { const d = DEV[tech]; return d ? /^flag/.test(String(d.nhStem || '')) : ((T.techniques || {})[tech] || {}).family === 'oneshot'; };
 const group = (rows, key) => { const m = new Map(); for (const r of rows) { const k = key(r); if (!m.has(k)) m.set(k, []); m.get(k).push(r); } return m; };
 for (const [p, evs0] of [...byPart.entries()].sort((a, b) => a[0] - b[0])) {
   const evs = evs0.slice().sort((a, b) => a.onset - b.onset), P = nameOf(p), lines = [];
@@ -38,13 +42,15 @@ for (const [p, evs0] of [...byPart.entries()].sort((a, b) => a[0] - b[0])) {
     if (!word && !sign) lines.push('2  NO WORD AND NO SIGN: "' + (tt.label || tech) + '" — ' + list.length + ' note(s), first at ' + t2(list[0].onset) + ' s');
   }
   // 3 · 4 · 5 — the pairs
-  const same = [], near = [], wide = [];
+  const same = [], near = [], wide = [], held = [];
   for (let i = 1; i < evs.length; i++) { const a = evs[i - 1], b = evs[i], g = b.onset - a.onset, ha = hand.get(a.id) || {}, hb = hand.get(b.id) || {};
-    if (g < SAME_S) same.push(a.onset);
+    if (g < SAME_S) same.push(t2(a.onset) + ' s: ' + lab(a) + '  |  ' + lab(b) + (a.pitch && b.pitch && a.pitch.midi === b.pitch.midi ? (a.technique === b.technique ? '   (the same note twice — only one is heard)' : '   (the same pitch, two ways of playing it — one player cannot do both)') : '   (two pitches — one player cannot play both)'));
+    else if (g > GRACE_S && g <= BEAM_S && !(ha.beamGroup && ha.beamGroup === hb.beamGroup) && !ha.grace && !(isShort(a.technique) && isShort(b.technique))) held.push(t2(a.onset) + ' (' + g.toFixed(2) + ' s: ' + lab(a) + ' → ' + lab(b) + ')');
     else if (g <= GRACE_S) { if (!ha.grace) near.push(a.onset); }
     else if (g > BEAM_S && g <= WIDE_S && !(ha.beamGroup && ha.beamGroup === hb.beamGroup)) wide.push([a.onset, g]);
     else if (g <= BEAM_S && !(ha.beamGroup && ha.beamGroup === hb.beamGroup) && !ha.grace) wide.push([a.onset, g, true]); }
-  if (same.length) lines.push('3  TWO NOTES AT ONE INSTANT: ' + same.length + ' — at ' + same.map(t2).join(' · ') + ' s');
+  for (const x of same) lines.push('3  TWO NOTES AT ONE INSTANT — which stays? ' + x);
+  if (held.length) lines.push('5c WITHIN THE MEASURE, ONE OF THEM A HELD NOTE (not beamed by rule): ' + held.length + ' — ' + held.join(' · '));
   if (near.length) lines.push('4  A NOTE JUST BEFORE ANOTHER, NOT A GRACE NOTE: ' + near.length + ' — at ' + near.map(t2).join(' · ') + ' s');
   const under = wide.filter(w => w[2]), over = wide.filter(w => !w[2]);
   if (under.length) lines.push('5a WITHIN THE BEAMING MEASURE (' + BEAM_S + ' s) AND NOT BEAMED: ' + under.length + ' — ' + under.map(w => t2(w[0]) + ' (' + w[1].toFixed(2) + ')').join(' · '));

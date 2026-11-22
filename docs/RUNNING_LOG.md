@@ -5764,3 +5764,23 @@ Each with the first time and the count. It changes nothing.
 **SO THAT IT IS NOT MISSED AGAIN:** `docs/NOTATION_SCHEME.md` has a section "WHAT IS ALREADY ESTABLISHED — look here before drawing any sign": piece 2's `GLYPH_REGISTRY.md` is the index; take the PRIMITIVE (the file that draws), not only the numbers; the list of what is there. `CLAUDE.md` § THE ENGRAVING RULES, step 1, carries the same pointer.
 **Checked once:** the page in the notation app on the AI's throwaway, zoom view at 206.9 s — the flute's and the clarinet's flutter-tongue with three square-ended slanted slashes at the stem's middle. `check_rules.js`: every measured gate green (the old two reds elsewhere).
 **For the paper:** the same fault three times in one day (the ottava's hook, the word of the flutter-tongue, the slash): a standard taken HALF — its number without its shape, or its rule without its scope. The remedy each time was to read the thing that draws, not the table beside it.
+
+## §387 · 2026-11-22 · the flute's principles gathered as FOUR LAYERS; the clarinet, the alto sax and the violin built from them by rule; the duplicates listed
+
+**His words:** SW-127 (the sketch pad).
+**THE PRINCIPLES, GATHERED (`docs/NOTATION_SCHEME.md` § 2b, now opening with "THE FOUR LAYERS"):** 1 the spacing — the rhythm (heads in time; the beaming measure; the grace pickup; the beamed group's regime) · 2 the articulations (one look and one word per technique; none drawn by guess) · 3 the dynamics (p · f · fff, seeded; close notes share one) · 4 the duplicates (his to decide). Each layer names its rule and the place it is done. Checked against the day's entries (§369 … §386): every decision of his on the flute is a row of the rules, a line of the recipe, or a group in the builder.
+**ONE RULE MADE EXPLICIT BY THE GATHERING:** the beaming measure joins SHORT notes only. The flute's groups were all short notes; the clarinet's first automatic beam (§369) had joined a staccato to a held flutter-tongue and looked wrong (§385). A short note is one whose look takes a flag, or — with no look yet — a one-shot. A short note running into a held one within the measure is LISTED, not beamed.
+**THE THREE PARTS, BY RULE (`tools/build_ctpt_page.js`: AUTO_PARTS 1 · 2 · 6):** nothing of theirs is written out by hand — the builder reads the save and applies the measure, the grace rule and the group's regime. Beamed groups: clarinet 3 · alto sax 5 · violin 2 (the flute's 5 are his own). Grace pickups: 1 (the clarinet's, 230.37). The clarinet's old hand-written groups are gone; its 206.41 → 206.70 is no longer beamed.
+**THE DYNAMICS:** `dyn_deal.js --levels p,f,fff --seed 1121 --lanes clarinet,alto_sax,violin --tie 0.2` — clarinet f 15 · fff 13 · p 14; alto sax fff 17 · p 19 · f 18; violin fff 15 · p 16 · f 16 (143 notes). The sound re-leveled per voice along its own parity (`tools/port/scratch/relevel.js`: velocity for the winds and two of the violin's voices, CC7 for the violin's Kontakt voices), the rack untouched. The save as it was: `…before-387.json`.
+**THE DUPLICATES, LISTED FOR HIM (two notes of one part at one instant — "no rule yet", line 3):**
+- clarinet 251.68: staccato E3 twice (the same note; one is heard)
+- alto sax 211.81: slap exploding D♯5 | staccato D♯5
+- alto sax 213.96: double tonguing C♯4 | slap pitched C♯4
+- alto sax 232.35: double tonguing D4 | slap pitched D4
+- alto sax 248.67: double tonguing E5 | slap pitched E5
+- violin 239.76: col legno gettato A4 | Bartók pizzicato A4
+Each pair is the same pitch in two ways of playing: one player cannot do both.
+**THE REST OF THE LIST for the three parts (23 questions):** the alto sax's slap exploding · slap pitched · double tonguing and the violin's pizzicato behind the bridge · overpressure · col legno gettato have NO LOOK AND NO WORD yet (drawn as plain heads with their bars — placeholders, said as such) · short notes into held ones within the measure: clarinet 206.41, alto sax 206.48 · 208.68 · 215.00 · pairs a little wider than the measure: clarinet 217.70 · 243.78 · 250.29, alto sax 234.44, violin 223.35 · 246.21.
+**MEASURED:** `check_rules.js` — every gate of part (10) green on the rebuilt page; the old two reds.
+**Checked once:** the page in the notation app on the AI's throwaway, zoom view at 215.6 s.
+

@@ -1,31 +1,48 @@
 #!/usr/bin/env node
 // build_ctpt_page.js — THE COUNTERPOINT'S PAGE (s2-ctpt-heads), built with every decision taken on it so far (the Switch~ piece RUNNING_LOG §369 on).
 //   node tools/build_ctpt_page.js      (run from the repo root)
-// A decision of his on this page is a line added here; the page is then built again by this one file.
+// THE RECIPE is docs/NOTATION_SCHEME.md § 2b. The FLUTE was worked by him note by note (its groups are written out below); the parts in
+// AUTO_PARTS are built BY THE RULES he settled on the flute (§387) — nothing of theirs is written out here, so a rule that changes rebuilds them.
 'use strict';
 const fs = require('fs'), path = require('path'), { spawnSync } = require('child_process');
-const ROOT = path.join(__dirname, '..'), SCORE = 'piece-FirstDraft-Final-B-noFadeAt96';
+const ROOT = path.join(__dirname, '..'), SCORE = 'piece-FirstDraft-Final-B-noFadeAt96', W0 = 199, W1 = 254;
 const save = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', SCORE + '.json'), 'utf8'));
+const T = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'techniques.json'), 'utf8'));
+const DEV = (((require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT).engraving || {}).layout || {}).devices || {}).byTechnique || {};
 
-// THE BEAMED GROUPS [from, to, part] — THE BEAMING THRESHOLD (his, §369): two notes of a part no farther apart than the clarinet's pair at
-// 217.37 → 217.70 (0.329 s) are beamed; and the pairs he has since named one by one (§374).
+// ---- THE RULES' NUMBERS (his, on the flute)
+const BEAM_S = 0.33;    // THE BEAMING MEASURE: the clarinet's pair at 217.37 → 217.70 (§369)
+const GRACE_S = 0.06;   // a note this close before another is its GRACE-NOTE PICKUP (§369 · §371; his two cases: 0.049 s and less)
+const SAME_S = 0.01;    // under this, two notes are at ONE INSTANT — never a rhythm; listed for him (tools/no_rule_list.js)
+
+// ---- THE FLUTE, by his word, group by group
 const BEAMS = [
-  [205.99, 206.29, 0],     // flute: the two 16ths (the D5 doubled before them is out of the save, §376)
-  [209.80, 210.45, 0],     // flute: three
-  [220.30, 220.73, 0],     // flute: a tongue ram and a staccato, 0.39 s apart — his word, §374 ("You can beam the 2 starting at 220.27")
-  [233.97, 234.15, 0],     // flute: the staccato and the jet whistle a fast 16th after it (the first jet whistle is out of the save, §376)
-  [248.93, 249.46, 0],     // flute: a tongue ram and a staccato, 0.49 s apart — his word, §374 ("The 2 at 248.8 can be beamed")
-  [206.40, 206.70, 1],     // clarinet
-  [217.36, 217.71, 1],     // clarinet: THE PAIR HE NAMED
-  [223.39, 223.74, 1],     // clarinet
+  [205.99, 206.29, 0],     // the two 16ths (the D5 doubled before them is out of the save, §376)
+  [209.80, 210.45, 0],     // three
+  [220.30, 220.73, 0],     // a tongue ram and a staccato, 0.39 s apart — his word, §374 ("You can beam the 2 starting at 220.27")
+  [233.97, 234.15, 0],     // the staccato and the jet whistle a fast 16th after it (the first jet whistle is out of the save, §376)
+  [248.93, 249.46, 0],     // a tongue ram and a staccato, 0.49 s apart — his word, §374 ("The 2 at 248.8 can be beamed")
 ];
-// THE GRACE-NOTE PICKUPS [the grace note, its main note] (his, §369 · §371): its own flag and stroke, stood off to the left, no slur, no beam;
-// no go line, dynamic or gestural curve of its own (one curve, on the main note)
-const GRACES = [
-  ['wc-2742', 'wc-2743'],   // the clarinet, 230.37 → 230.42
-];
+const GRACES = [];         // [the grace note, its main note]
 
-const args = ['tools/notate_section.js', '--score', SCORE, '--w0', '199', '--w1', '254', '--parts', '0-6', '--alone', '199-254', '--exp', '--noFitMark', '--timeSpacing',
+// ---- THE OTHER PARTS, by the rules (§387): clarinet · alto sax · violin. (The piano and the percussion are taken separately — his word.)
+const AUTO_PARTS = [1, 2, 6];
+// a SHORT note is one that takes a flag (its technique's look says so) or, with no look yet, a one-shot; a HELD note (a white head) is never
+// beamed by rule — a short note running into a held one is LISTED for him, not beamed (§387: the clarinet's 206.41 → 206.70 looked wrong)
+const isShort = tech => { const d = DEV[tech]; return d ? /^flag/.test(String(d.nhStem || '')) : ((T.techniques || {})[tech] || {}).family === 'oneshot'; };
+for (const part of AUTO_PARTS) {
+  const ns = save.objects.filter(o => o.type === 'waveCurve' && o.layer === part && o.sonifyNote != null && o.startSeconds >= W0 && o.startSeconds < W1).sort((a, b) => a.startSeconds - b.startSeconds);
+  const graceOf = new Set(); let run = [];
+  const close = () => { const times = [...new Set(run.map(o => o.startSeconds.toFixed(3)))]; if (times.length >= 2) BEAMS.push([+(run[0].startSeconds - 0.004).toFixed(3), +(run[run.length - 1].startSeconds + 0.004).toFixed(3), part]); run = []; };
+  for (let i = 0; i < ns.length; i++) { const o = ns[i], p = ns[i - 1], g = p ? o.startSeconds - p.startSeconds : Infinity;
+    if (g < SAME_S) { if (run.length) run.push(o); continue; }                                      // one instant: with its twin, whatever that is in
+    if (g <= GRACE_S) { GRACES.push([p.id, o.id]); graceOf.add(p.id); if (run.length && run[run.length - 1] === p) run.pop(); close(); if (isShort(o.technique)) run = [o]; continue; }
+    if (g <= BEAM_S && isShort(p.technique) && isShort(o.technique) && !graceOf.has(p.id)) { if (!run.length) run = [p]; run.push(o); continue; }
+    close(); if (isShort(o.technique)) run = [o]; }
+  close();
+}
+
+const args = ['tools/notate_section.js', '--score', SCORE, '--w0', String(W0), '--w1', String(W1), '--parts', '0-6', '--alone', W0 + '-' + W1, '--exp', '--noFitMark', '--timeSpacing',
   '--id', 's2-ctpt-heads', '--label', 'Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)'];
 const graceIds = new Set(GRACES.map(g => g[0]));
 for (const [a, b, part] of BEAMS) {
@@ -37,11 +54,15 @@ for (const [a, b, part] of BEAMS) {
 }
 // THE DYNAMICS (his, §384): every note its own mark, except a note that follows the one before within 0.2 s — it shares that note's mark
 // (the save says which: properties.dyn.tied, written by tools/dyn_deal.js --tie)
-for (const o of save.objects) if (o.type === 'waveCurve' && o.startSeconds >= 199 && o.startSeconds < 254 && o.properties && o.properties.dyn && o.properties.dyn.tied && !graceIds.has(o.id))
+for (const o of save.objects) if (o.type === 'waveCurve' && o.startSeconds >= W0 && o.startSeconds < W1 && o.properties && o.properties.dyn && o.properties.dyn.tied && !graceIds.has(o.id))
   args.push('--hand', o.id + ':' + JSON.stringify({ dynMark: false }));
+// THE GRACE-NOTE PICKUPS (his, §369 · §371 · §374): its own flag and stroke, stood off to the left, no slur, no beam, its stem down to the main
+// note's; no go line, dynamic or gestural curve of its own (one curve, on the main note)
 for (const [g, m] of GRACES) args.push('--hand', g + ':' + JSON.stringify({ grace: true, pickupTo: m, goLine: false, dynMark: false }), '--noGc', g);
 
 const r = spawnSync('node', args, { cwd: ROOT, encoding: 'utf8' });
-console.log((r.stdout + r.stderr).split('\n').filter(l => /READY|FAILED|INVALID|Error|beam bm|--hand|usage|not an event/i.test(l)).join('\n').slice(0, 4000));
+const outp = (r.stdout + r.stderr).split('\n');
+console.log(outp.filter(l => /READY|FAILED|INVALID|Error|usage|not an event/i.test(l)).join('\n').slice(0, 3000));
+console.log('beamed groups: ' + [0].concat(AUTO_PARTS).map(p => 'part ' + p + ' ' + BEAMS.filter(b => b[2] === p).length).join(' · ') + ' · grace pickups: ' + GRACES.length + (GRACES.length ? ' (' + GRACES.map(g => g[0]).join(' · ') + ')' : ''));
 // [§382] WHAT ON THE PAGE HAS NO RULE YET — printed by the build itself, before anyone looks at the picture (tools/no_rule_list.js)
-console.log(spawnSync('node', ['tools/no_rule_list.js', 's2-ctpt-heads'], { cwd: ROOT, encoding: 'utf8' }).stdout);
+console.log(spawnSync('node', ['tools/no_rule_list.js', 's2-ctpt-heads', '--parts', '0,1,2,6'], { cwd: ROOT, encoding: 'utf8' }).stdout);

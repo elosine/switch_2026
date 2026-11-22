@@ -164,7 +164,18 @@ What is there (so far as this piece has needed to know): the SLASH in its three 
 
 ### THE RECIPE FOR A PART OF THE COUNTERPOINT (kept at his word, §375: "keep track of … the process and the decisions, because then we'll repeat … something similar with the other parts")
 
-Worked out on the FLUTE (and the first of the clarinet). A new part is taken by these steps, in this order; where a step meets something it has no answer for, the AI lists it for him and does not guess.
+Worked out on the FLUTE, note by note, by him (§369 … §386); THE CLARINET, THE ALTO SAX AND THE VIOLIN ARE BUILT FROM IT BY RULE (§387; `tools/build_ctpt_page.js` AUTO_PARTS). The piano and the percussion are taken separately — his word. Where a step meets something it has no answer for, the AI lists it for him and does not guess.
+
+**THE FOUR LAYERS, in the order he worked them (his own summary, §387: "getting the spacing right, but then adding the articulations, and then … shuffling the dynamics, and then getting rid of duplicates"):**
+
+| layer | what it settles | the rule | where it is done |
+|---|---|---|---|
+| 1 · THE SPACING — the rhythm | every head at its played time · which notes are one beamed group · which is a grace-note pickup | the beaming measure 0.33 s, between SHORT notes only (a held note is never beamed by rule) · a note 0.06 s or less before another is its grace pickup · a beamed group's head stands on its moment, no go line | the builder (steps 1 · 3 · 4 · 5 below) |
+| 2 · THE ARTICULATIONS — what each note IS | one look and one word per playing technique | settled: staccato · tongue ram · jet whistle · flutter-tongue. A technique with no look is a QUESTION, never drawn by guess | the rules' devices (step 2 · 8) |
+| 3 · THE DYNAMICS | p · f · fff, a seeded draw per part, even and never the same twice running · notes within 0.2 s share one | `tools/dyn_deal.js --levels p,f,fff --tie 0.2`, in the save; the sound re-leveled, the rack untouched | step 10 |
+| 4 · THE DUPLICATES | two notes of one part at one instant | never settled by the AI: listed with both notes' pitch and technique, he says which stays; the other leaves the SAVE | "no rule yet", line 3 (step 6) |
+
+Under all four run the two machines: "no rule yet" before a page is shown (step 0), the measured checks after every build (step 9).
 
 1. **Every note is a head at the time it is played**, with its accidental. Black for a short note, white for a held one. All at the standard size.
 2. **Each playing technique has ONE look.** Settled: staccato = the flagged staccato (black, dot, flag, go line, curve) · tongue ram = the same · jet whistle = the same without the dot. flutter-tongue = a white head, a stem with three slashes, flz. (§385). A technique with no look yet is LISTED for him with an example time — he says what it is.
