@@ -6039,3 +6039,8 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 4. THE DYNAMIC: *Recombination* took the piano's dynamic from the ensemble (D50); here the four parts done were dealt p · f · fff per note, the piano not yet.
 5. THE BEAMING MEASURE: the piano's standing pair rule is 0.25 s; this section's is 0.33 s.
 **NOTHING DRAWN.** The AI's one recommendation per point is in the chat; the piano is notated on his word.
+
+## §413 · 2026-11-22 · verified — the cello was never played into the counterpoint; nothing was erased
+
+**His words:** "Sorry, when you say there's no cello part, I didn't play one in into the composer score. Can you look back to see if ever there was one? Maybe it got erased. Basically, at some point when I made this section, I played each part. And then we went through a series of changes where you added the articulations, etc. So just verify that I never played the part and it got erased."
+**CHECKED:** every save in `scores/` that holds notes between 195 and 256 s — 40 files of the section, from the first (`piece-Section02-a-pnoSolo-01a`, 2026-11-10 03:43) through each of his takes (`…B-ctpt-01` → `01a` the flute → `01b` the clarinet → `01c` the alto sax → `01d` the violin; then the second pass `…B-01-flA` … `B-06` the bowed vibraphone), every articulation and scatter save, to `piece-FirstDraft-Final` and its copies — counted by instrument. The parts he played in: piano · flute · clarinet · alto sax · violin · bowed vibraphone (part of it later moved to the percussion by the deal). **The cello has no note there in any of the 40.** The deal's own record of 2026-11-10 says the same (`bank/artic_deal.json`: "The cello has no notes in the section as saved; its deck waits"). Nothing was erased.
