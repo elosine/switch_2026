@@ -70,6 +70,15 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 - **THE NEXT STEP — THE FINAL SECTION (Section 3, 277.8 … 480 s), his brief SW-163:** the tubas' multi-tempo notation — each part's tempo mark, the beat ticks, the tempo-change marks, a bouncing ball in each part — plus accel. / decel. (the word, a dashed line, the new tempo; VERIFY in LilyPond / Gould first); f throughout, each crescendo a curve (the green, the full lane), f marked again after it. A FIRST BUILD for him to review. The ground: RUNNING_LOG §432 (seven parts, about 650 short notes each; the crescendos are ramps of velocity 110 … 127, no crescendo object; the tempo form is `bank/phase_form.json`; the engine has tempoText · tick · beatBall and `--beatGrid` · `--cueLines`, but no changing tempo).
 - **Resume reads (for THAT step):** `docs/NOTATION_SCHEME.md` · `docs/PHASE_TOOL.md` · `bank/phase_form.json` · the tubas' multi-tempo rows in `docs/NOTATION_STANDARDS.md` (grep "tempo" · "beat frame" · "ball") · `tools/notate_section.js` lines 8 … 110 (its options) · RUNNING_LOG §432.
 - **MODEL · CLEAR:** clear before the final section (this session ran the whole counterpoint). Fable for the first build's design and its rules; `/postclear go` starts it.
+- **(mid-session checkpoint, written by `/checkpoint` 2026-11-22)** — the task is NOT finished: the final section's notation has not begun. **The first action after the clear:** read the Resume reads above, verify the accel. / decel. convention, then write `tools/build_s3_page.js` (the tempo form → each part's tempo marks, ticks and balls; the velocity ramps → crescendo curves) and show him a first page.
+- **DELIBERATELY UNCOMMITTED (`git status`, 2026-11-22) — leave every one alone:**
+  - `scores/` (82 files, untracked) — HIS saves and the AI's working copies and backups (`…-D-ctptCello` and its `.before-NNN` copies among them); saves are never committed.
+  - `reaper/switch_rack.rpp` · `reaper/icy_lab.rpp` (modified) — HIS racks, saved by him; never committed.
+  - `bank/panel_snapshots.json` · `bank/sequences.json` (modified) — his page's own state.
+  - `.gitignore` · `docs/VERIFICATION_RECIPE.md` (modified) — standing uncommitted edits from before this session; not this session's.
+  - `bank/set/2025-04-08c/{slow,stretch,stutter,tremolo,tuplets}/` · `midi/` · `notation/audio/` · `notation/video/` — sound and film material, large, local.
+  - `probes/` (loose logs and the folders artic_probe · ctpt · key_sweep · part_meter · rack_alive · solo_in_score) — probe outputs; `probes/quartet_signs/sheet.png` alone is committed.
+  - `reaper/place_piece-Section03-H-addTuplets_midi.lua` · `tools/port/batt-old/` · `tools/port/scratch/{bisect.js, measure_flags.js, probe/, remap_new.json, shot.js, still298.js, strike_film.js}` — scratch from earlier sessions.
 
 ### CHECKPOINT 2026-11-21 — THE PIANO SOLO DONE AS A FINAL DRAFT (148.2 → 196.3 s); THE COUNTERPOINT OPENED AS NOTE HEADS *(mid-session checkpoint)*
 
