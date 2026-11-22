@@ -109,7 +109,7 @@ const ens = rd('notation/registry/ensemble.json'), T = rd('notation/registry/tec
 const ENS = Layout.ensembleFor(ens, ((C || raw).realizations || {})['video-jury']);
 const irFiles = fs.readdirSync(path.join(ROOT, 'notation', 'ir')).filter(f => f.endsWith('.ir.json')).sort();
 const sigs = new Map();         // signature → first place seen
-const M10 = { graceFlags: 0, badGraceFlags: [], graceGap: (((R.objects || {}).graceHead || {}).flagHeadGapSs) || 0.45, widthEm: ((R.objects || {}).instruction || {}).widthEm || {}, slashes: 0, badSlashes: [], seenT: new Set(), moments: 0, clashes: [], words: 0, badWords: [], wordEm: (((R.objects || {}).instruction || {}).size || 0.75) * 1.3, flags: 0, badFlags: [], hooks: 0, badHooks: [], dots: 0, badDots: [], flagClear: ((R.objects || {}).flag || {}).staff || 0.38, flagMax: ((R.objects || {}).flag || {}).clearMaxSs || 10.5, hookGap: ((R.objects || {}).ottava || {}).stack || 0.45,
+const M10 = { stemMarks: 0, acrossStem: [], graceFlags: 0, badGraceFlags: [], graceGap: (((R.objects || {}).graceHead || {}).flagHeadGapSs) || 0.45, widthEm: ((R.objects || {}).instruction || {}).widthEm || {}, slashes: 0, badSlashes: [], seenT: new Set(), moments: 0, clashes: [], words: 0, badWords: [], wordEm: (((R.objects || {}).instruction || {}).size || 0.75) * 1.3, flags: 0, badFlags: [], hooks: 0, badHooks: [], dots: 0, badDots: [], flagClear: ((R.objects || {}).flag || {}).staff || 0.38, flagMax: ((R.objects || {}).flag || {}).clearMaxSs || 10.5, hookGap: ((R.objects || {}).ottava || {}).stack || 0.45,
   dotClear: ((R.objects || {}).staccatoDot || {}).lineClearSs || 0, dotR: (((R.objects || {}).staccatoDot || {}).diameterSs || 0.4) / 2 };
 const kindsSeen = new Set();
 for (const f of irFiles) {
@@ -141,6 +141,13 @@ for (const f of irFiles) {
         M10.moments++;
         for (let a = 0; a < boxes.length; a++) for (let b = a + 1; b < boxes.length; b++) { const A = boxes[a], B = boxes[b]; if (A.n === B.n) continue;
           if (Math.min(A.x1, B.x1) - Math.max(A.x0, B.x0) > 0.05 && Math.min(A.y1, B.y1) - Math.max(A.y0, B.y0) > 0.05) M10.clashes.push(pg + ' p' + s.part + '@' + it.t.toFixed(2) + ' ' + A.n + ' × ' + B.n); } }
+      // [§406] NOTHING IS WRITTEN ACROSS A STEM (his rule: "I don't think anything should be written over the stem"): a technique's word or a dynamic
+      // whose height lies within its own note's stem never spans that stem sideways
+      if ((it.k === 'text' && it.seq === 'techText' && typeof it.text === 'string' && it.ySs != null && it.yAt !== 'top') || (it.k === 'glyph' && /^dyn-/.test(it.g || ''))) {
+        let x0, x1, y0, y1; if (it.k === 'text') { const w = (M10.widthEm[it.text] > 0 ? M10.widthEm[it.text] : it.text.length * 0.5) * M10.wordEm; x1 = it.anchor === 'end' ? it.dxSs : it.anchor === 'middle' ? it.dxSs + w / 2 : it.dxSs + w; x0 = x1 - w; y0 = it.ySs - 0.2 * M10.wordEm; y1 = it.ySs + 0.8 * M10.wordEm; }
+        else { const g = glyphs.dynamic[it.g.slice(4)] || {}, w = (g.wSs || 1) * (it.scale || 1), h = (g.hSs || 1) * (it.scale || 1); x0 = it.dxSs - w / 2; x1 = it.dxSs + w / 2; y0 = it.ySs - h / 2; y1 = it.ySs + h / 2; }
+        M10.stemMarks++;
+        for (const st of its) if (st.k === 'stem' && Math.abs(st.t - it.t) < 1e-9 && x0 < st.dxSs - 0.07 && x1 > st.dxSs + 0.07 && Math.min(y1, Math.max(st.yA, st.yB)) - Math.max(y0, Math.min(st.yA, st.yB)) > 0.05) { M10.acrossStem.push(pg + ' p' + s.part + '@' + it.t.toFixed(2) + ' ' + (it.text ? '"' + it.text + '"' : it.g.slice(4))); break; } }
       // [§404] A GRACE NOTE'S FLAG ENDS CLEAR OF ITS HEAD: the stem at least the head's half height + objects.graceHead.flagHeadGapSs (at the grace's scale) + the flag
       if (it.k === 'glyph' && /^flag-(up|down)[0-9]+$/.test(it.g || '') && it.scale < 1) { const G = glyphs.flag[it.g.replace('flag-', '')], st = its.find(x => x.k === 'stem' && Math.abs(x.t - it.t) < 1e-9 && Math.abs(x.dxSs - it.dxSs) < 1e-6);
         if (st) { M10.graceFlags++; const need = glyphs.notehead.filled.hSs * it.scale / 2 + M10.graceGap * it.scale + G.hSs * it.scale * (it.scaleY || 1); if (Math.abs(st.yB - st.yA) < need - 0.02) M10.badGraceFlags.push(pg + ' p' + s.part + '@' + it.t.toFixed(2) + ' ' + Math.abs(st.yB - st.yA).toFixed(2) + ' < ' + need.toFixed(2)); } }
@@ -359,6 +366,7 @@ console.log('(10) MEASURED ON EVERY PAGE — the flag · the ottava\'s hook · t
 ok(!M10.badFlags.length, '(10) every flag clears its staff\'s outer line by objects.flag.staff ' + M10.flagClear + ' ss, or its stem has reached clearMaxSs (' + M10.flags + ' flags)' + (M10.badFlags.length ? ' — not: ' + M10.badFlags.slice(0, 8).join(' · ') : ''));
 ok(!M10.badHooks.length, '(10) every ottava bracket beside a go line ends the spacer ' + M10.hookGap + ' ss or more before it — the hook is ink (' + M10.hooks + ' brackets)' + (M10.badHooks.length ? ' — not: ' + M10.badHooks.slice(0, 8).join(' · ') : ''));
 ok(!M10.badDots.length, '(10) every staccato dot keeps objects.staccatoDot.lineClearSs ' + M10.dotClear + ' ss from a line (' + M10.dots + ' dots)' + (M10.badDots.length ? ' — not: ' + M10.badDots.slice(0, 8).join(' · ') : ''));
+ok(!M10.acrossStem.length, '(10) nothing is written across a stem — no word and no dynamic spans its own note\u2019s stem (' + M10.stemMarks + ' marks)' + (M10.acrossStem.length ? ' — across: ' + [...new Set(M10.acrossStem)].slice(0, 10).join(' · ') : ''));
 ok(!M10.badGraceFlags.length, '(10) every flagged grace note has its flag clear of its head — objects.graceHead.flagHeadGapSs ' + M10.graceGap + ' ss at its scale (' + M10.graceFlags + ' grace flags)' + (M10.badGraceFlags.length ? ' — not: ' + M10.badGraceFlags.slice(0, 8).join(' · ') : ''));
 ok(!M10.badSlashes.length, '(10) no tremolo slash sits among ledger lines — objects.tremoloSlash.pastLedgers (' + M10.slashes + ' slashes on notes outside the staff)' + (M10.badSlashes.length ? ' — among them: ' + [...new Set(M10.badSlashes)].slice(0, 8).join(' · ') : ''));
 ok(!M10.badWords.length, '(10) no technique word stands across its own go line (' + M10.words + ' words beside a go line)' + (M10.badWords.length ? ' — across: ' + M10.badWords.slice(0, 8).join(' · ') : ''));

@@ -4559,9 +4559,16 @@
           // (rules.json ladder.besideStem): the dynamic, then the word, leave the head's column for the room BESIDE THE STEM — on the stem's side, outside
           // the staff, their right edge beside the stem's left (the flag is on its right); what stood beyond them in the column (the ottava) closes up.
           // Kept only when it alone brings the column inside its lane; else everything is put back and the older rungs run.
-          let res = null;
-          const BSD = LAD.besideStem;
-          if (BSD && BSD.on !== false) {
+          // [§406 — HIS CORRECTION 2026-11-22: 'the order of using the beside the stem rule is wrong. The column stack is good as it was until it extends into
+          // another lane. And then we adjust it to be beside the stem … the beside the stem rule … should be … the fallback'] THE ORDER: (1) the column as
+          // the rules stack it; (2) the ladder's own column steps — closed up, flipped to the other side of the note, a size smaller; (3) ONLY WHEN NONE OF
+          // THAT FITS, beside the stem — and only the marks of the side that spills. (§402 had it first: it took a dynamic from a column that the flip
+          // alone would have mended, and the closing-up then dragged the word across the stem — the flute's 206.28 · 209.81 · 210.44 · 220.33 · 248.95.)
+          const snap0 = u.items.map(it => [it, JSON.stringify(it)]), putBack0 = () => { for (const [it, js] of snap0) { for (const k of Object.keys(it)) delete it[k]; Object.assign(it, JSON.parse(js)); } };
+          let res = FitM.ladder(u.items, box, x => ctx.ok(key, u, x), glyphs, LAD);
+          const BSD = LAD.besideStem, spillBot = failed.some(r => /^bot/.test(r)), spillTop = failed.some(r => /^top/.test(r));
+          if (res.rung === 8 && BSD && BSD.on !== false) {
+            putBack0(); const res0 = res; res = null;
             const stems = u.items.filter(it => it.k === 'stem'), heads = u.items.filter(it => it.k === 'glyph' && /^notehead/.test(it.g || ''));
             if (stems.length === 1 && heads.length === 1) {
               const st = stems[0], hd = heads[0], up = st.attach === 'up', tip = st.yB, emB = TS.instruction * ts;
@@ -4570,7 +4577,7 @@
               const dG = dynI ? (glyphs.dynamic || {})[dynI.g.slice(4)] : null, dh = dG ? dG.hSs * (dynI.scale || 1) : 0, dw = dG ? dG.wSs * (dynI.scale || 1) : 0;
               const lo = up ? Math.max(2 + BSD.staffClearSs, hd.ySs + BSD.headClearSs) : tip, hi = up ? tip : Math.min(-2 - BSD.staffClearSs, hd.ySs - BSD.headClearSs);   // RULES MIRROR (the five-line staff's outer lines)
               const need = dh + (wordI ? emB : 0) + (dynI && wordI ? BSD.rowGapSs : 0);
-              if ((dynI || wordI) && hi - lo >= need - 1e-9) {
+              if ((dynI || wordI) && (up ? spillBot : spillTop) && hi - lo >= need - 1e-9) {
                 const snap = u.items.map(it => [it, JSON.stringify(it)]), putBack = () => { for (const [it, js] of snap) { for (const k of Object.keys(it)) delete it[k]; Object.assign(it, JSON.parse(js)); } };
                 // the block they leave in the column, and what stands beyond it
                 const edges = []; if (dynI) edges.push(dynI.ySs - dh / 2, dynI.ySs + dh / 2); if (wordI) edges.push(wordI.ySs - 0.2 * emB, wordI.ySs + 0.8 * emB);
@@ -4588,8 +4595,8 @@
                 }
               }
             }
+            if (!res) res = res0;
           }
-          if (!res) res = FitM.ladder(u.items, box, x => ctx.ok(key, u, x), glyphs, LAD);
           const evs = evAt.get(s.part + '|' + Math.round(u.t * 1e6)) || [];
           const ov = evs.map(id => engOf(id)).find(v => v && v.rung === 8) || null;
           if (res.rung === 8 && ov) {
