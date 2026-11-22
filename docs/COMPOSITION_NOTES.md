@@ -1728,3 +1728,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim):** "the figure at 232.35. What I'd like to do is line the slap up with the GC. So the GC will be, stays where it is, but just move the slap note over, and then move the double tongue note over as well, and tie it. So you can keep the distance, it's fine. So I guess move the entire figure, both note heads and their columns, over to the GC so that it lands on the slab, but it's tied to the double tongue. And can you move the F dynamic under the slap note instead?" · "The word slab at 242.72, if you can center that, please. And then figure out what needs to be updated in the rules, because that one doesn't actually have a GC, I mean, a Go line."
 
 **The AI's reading:** he has DECIDED the duplicate at 232.35 — both notes stay, as one figure: a slap that rings on as a double-tongued note, tied. And a rule: where there is no go line, the word is centred.
+
+### SW-136 · 2026-11-22 · the tied attack becomes a standard
+
+**His words (verbatim):** "Same with the one at 245.03. And the figure at 248.67, can we make it like the previous one? And keep the same distance as the previous one, the horizontal distance. So scooch everything over so that the GC lands on the slab, move the dynamic over to the slab one, scoot the double tongue node over even more so that it has the same horizontal distance as the previous similar figure, and tie them and get rid of the go line, etc. And see if you can extrapolate that figure into the standard somehow."
+
+**The AI's reading:** "same with 245.03" = that slap's word centred (it has no go line). The figure of 232.35 is to be the standing answer wherever a slap and a held note of one pitch fall at one instant.

@@ -4139,7 +4139,7 @@
             // pass; its hook would otherwise land in a lifted dynamic) and the section's word above the note
             if (delta) for (const it of items) {
               if (typeof it.t !== 'number' || Math.abs(it.t - u.t) >= 1e-9) continue;
-              if ((it.k === 'ottava' && it.dir === (below ? 'below' : 'above')) || (it.k === 'text' && it.seq === 'instruction' && (below ? it.ySs < u.y : it.ySs > u.y))) it.ySs = +(it.ySs + delta).toFixed(4);
+              if ((it.k === 'ottava' && it.dir === (below ? 'below' : 'above')) || (it.k === 'text' && (it.seq === 'instruction' || it.seq === 'techText') && (below ? it.ySs < u.y : it.ySs > u.y))) it.ySs = +(it.ySs + delta).toFixed(4);   // [the Switch~ piece §396] a technique's own word rides too (the tied attack's '(slap)' was left behind, under its lifted dynamic)
             }
           }
         }

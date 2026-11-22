@@ -35,13 +35,11 @@ const HANDS = {
   // correspond with the slap? And can we make a no-go line? Just line the GC up with the left edge of that slap'
   'wc-2782': { grace: true, goLine: false, dynMark: false, noGc: true },
   'wc-2783': { nhAnchor: 'leftEdge', goLine: false },
-  // §395 (2026-11-22), the alto sax at 232.35, a slap and a double-tongued D4 at one instant: 'line the slap up with the GC … move the slap note over, and
-  // then move the double tongue note over as well, and tie it. So you can keep the distance … And can you move the F dynamic under the slap note instead?'
-  // — the slap's left edge on the moment (no go line, the curve stays), the double-tongued note the same distance to its right as it stood (2.43 ss
-  // between the two heads' centres, measured before the move), a curve from the slap to it, the f under the slap and none under the other
-  'wc-2791': { nhAnchor: 'leftEdge', goLine: false, dynMark: 'band', slurTo: 'wc-2790' },
-  'wc-2790': { nhShiftSs: 2.4, dynMark: false },
 };
+// ---- THE TIED ATTACK (his figure, §395; the rule, §396 — rules.json objects.tiedAttack): a SHORT note and a HELD note of one part on one pitch at
+// one instant are one figure. The short note: its head's left edge on the moment, no go line, the figure's dynamic, a curve to the held note.
+// The held note: its column shiftSs to the right, no dynamic of its own.
+const TIED = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'rules.json'), 'utf8')).objects.tiedAttack, tiedPairs = [];
 const HAND_GRACE = new Set(Object.keys(HANDS).filter(k => HANDS[k].grace));
 
 // ---- THE OTHER PARTS, by the rules (§387): clarinet · alto sax · violin. (The piano and the percussion are taken separately — his word.)
@@ -51,6 +49,9 @@ const AUTO_PARTS = [1, 2, 6];
 const isShort = tech => { const d = DEV[tech]; return d ? /^flag/.test(String(d.nhStem || '')) : ((T.techniques || {})[tech] || {}).family === 'oneshot'; };
 for (const part of AUTO_PARTS) {
   const ns = save.objects.filter(o => o.type === 'waveCurve' && o.layer === part && o.sonifyNote != null && !HAND_GRACE.has(o.id) && o.startSeconds >= W0 && o.startSeconds < W1).sort((a, b) => a.startSeconds - b.startSeconds);
+  for (let i = 1; i < ns.length; i++) { const a = ns[i - 1], b = ns[i]; if (b.startSeconds - a.startSeconds >= SAME_S || a.sonifyNote !== b.sonifyNote || isShort(a.technique) === isShort(b.technique)) continue;
+    const sh = isShort(a.technique) ? a : b, held = sh === a ? b : a; tiedPairs.push([sh.id, held.id]);
+    HANDS[sh.id] = Object.assign({ nhAnchor: 'leftEdge', goLine: false, dynMark: 'band', slurTo: held.id }, HANDS[sh.id] || {}); HANDS[held.id] = Object.assign({ nhShiftSs: TIED.shiftSs, dynMark: false }, HANDS[held.id] || {}); }
   const graceOf = new Set(); let run = [];
   const close = () => { const times = [...new Set(run.map(o => o.startSeconds.toFixed(3)))]; if (times.length >= 2) BEAMS.push([+(run[0].startSeconds - 0.004).toFixed(3), +(run[run.length - 1].startSeconds + 0.004).toFixed(3), part]); run = []; };
   for (let i = 0; i < ns.length; i++) { const o = ns[i], p = ns[i - 1], g = p ? o.startSeconds - p.startSeconds : Infinity;
@@ -84,6 +85,6 @@ for (const [id, h0] of Object.entries(HANDS)) { const h = Object.assign({}, h0),
 const r = spawnSync('node', args, { cwd: ROOT, encoding: 'utf8' });
 const outp = (r.stdout + r.stderr).split('\n');
 console.log(outp.filter(l => /READY|FAILED|INVALID|Error|usage|not an event/i.test(l)).join('\n').slice(0, 3000));
-console.log('beamed groups: ' + [0].concat(AUTO_PARTS).map(p => 'part ' + p + ' ' + BEAMS.filter(b => b[2] === p).length).join(' · ') + ' · grace pickups: ' + GRACES.length + (GRACES.length ? ' (' + GRACES.map(g => g[0]).join(' · ') + ')' : ''));
+console.log('beamed groups: ' + [0].concat(AUTO_PARTS).map(p => 'part ' + p + ' ' + BEAMS.filter(b => b[2] === p).length).join(' · ') + ' · tied attacks: ' + tiedPairs.length + ' · grace pickups: ' + GRACES.length + (GRACES.length ? ' (' + GRACES.map(g => g[0]).join(' · ') + ')' : ''));
 // [§382] WHAT ON THE PAGE HAS NO RULE YET — printed by the build itself, before anyone looks at the picture (tools/no_rule_list.js)
 console.log(spawnSync('node', ['tools/no_rule_list.js', 's2-ctpt-heads', '--parts', '0,1,2,6'], { cwd: ROOT, encoding: 'utf8' }).stdout);
