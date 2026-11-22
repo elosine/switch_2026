@@ -1,0 +1,20 @@
+desc: Octave fold - a note outside the range is moved by octaves into it (the Switch~ piece, RUNNING_LOG 409)
+// THE CLARINET'S SLAP IS PLAYED BY THE BASS CLARINET'S SAMPLE (his word, 2026-11-22): this sits BEFORE the Kontakt on the
+// track "Bass Clarinet XS" and moves every note-on and note-off by whole octaves into the range the sample has. The written
+// note and the notation are untouched: only what the sampler receives is moved. A note already inside the range passes as it is.
+slider1:34<0,127,1>lowest note the sample has
+slider2:65<0,127,1>highest note the sample has
+in_pin:none
+out_pin:none
+@block
+while (midirecv(offset, msg1, msg2, msg3)) (
+  st = msg1 & 0xF0;
+  (st == 0x90 || st == 0x80) ? (
+    n = msg2;
+    while (n > slider2) ( n -= 12; );
+    while (n < slider1) ( n += 12; );
+    midisend(offset, msg1, n, msg3);
+  ) : (
+    midisend(offset, msg1, msg2, msg3);
+  );
+);

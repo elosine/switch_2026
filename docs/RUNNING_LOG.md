@@ -5996,3 +5996,11 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 - **WHAT HIS REPORT MATCHES:** "230.46 sounds, the next doesn't" is exactly a page that sends the slaps UNFOLDED — 72 sounds, 86 does not. So the page he listened on was running without the fold. (Also seen: at 230.37 a staccato grace of the old clarinet sounds 50 ms before that slap.)
 - NOT FOUND: why. Reaper's recent-input list held nothing from the port when asked. Put to him in one question — which page he plays from.
 **MEASURED:** `check_rules.js` — part (10) green; the old two reds. **NOT LOOKED AT as a picture.**
+
+## §409 · 2026-11-22 · the octave move now lives IN THE RACK — a small effect before the bass clarinet's Kontakt; the silent slap sounds
+
+**His words:** SW-147 (the sketch pad). The clarinet's first slap is at 200.68, a C♯6 (MIDI 85); from his page it was silent after his reload too — so the page was still sending it unmoved, for a reason not found (§408).
+**THE ANSWER TO "can we just get a routing in there":** yes, and it no longer depends on any page. `reaper/jsfx/switch_octave_fold.jsfx` (a copy in Reaper's Effects folder), inserted through the bridge as the FIRST effect on "Bass Clarinet XS", before its Kontakt: every note-on and note-off outside 34 … 65 is moved by whole octaves into it; a note inside passes as it is; nothing else is touched. The save and the notation never see it.
+**PROVEN ONCE, through the real port, the notes sent UNMOVED as his page sends them (`artic_probe.js`, SWFluteb channel 12, CC0 5):** 85 → −15.1 dB · 86 → −16.6 (it was −62, silent, §408) · 89 → −15.3 · 50 → −14.2. Every slap of the clarinet sounds whatever the page does.
+**THE PAGE'S OWN FOLD (§407) stays** — where it runs, the note arrives already inside the range and the effect passes it. Why his page did not run it is still not known; it no longer matters for the sound.
+**NOT SAVED:** the effect is in the open rack; the rack is saved by him.
