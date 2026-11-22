@@ -4550,7 +4550,41 @@
           const ink = FitM.unitInk(u.items, glyphs, ts);
           if (!ink || ctx.ok(key, u, ink)) continue;
           const failed = ctx.why(key, u, ink);
-          const res = FitM.ladder(u.items, box, x => ctx.ok(key, u, x), glyphs, LAD);
+          // [the Switch~ piece §402 — HIS WORD 2026-11-22: 'the beside the stem rule is fine. Let's go ahead and build that'] THE LADDER'S FIRST STEP
+          // (rules.json ladder.besideStem): the dynamic, then the word, leave the head's column for the room BESIDE THE STEM — on the stem's side, outside
+          // the staff, their right edge beside the stem's left (the flag is on its right); what stood beyond them in the column (the ottava) closes up.
+          // Kept only when it alone brings the column inside its lane; else everything is put back and the older rungs run.
+          let res = null;
+          const BSD = LAD.besideStem;
+          if (BSD && BSD.on !== false) {
+            const stems = u.items.filter(it => it.k === 'stem'), heads = u.items.filter(it => it.k === 'glyph' && /^notehead/.test(it.g || ''));
+            if (stems.length === 1 && heads.length === 1) {
+              const st = stems[0], hd = heads[0], up = st.attach === 'up', tip = st.yB, emB = TS.instruction * ts;
+              const onHeadSide = it => up ? it.ySs < hd.ySs : it.ySs > hd.ySs;
+              const dynI = u.items.find(it => it.k === 'glyph' && /^dyn-/.test(it.g || '') && onHeadSide(it)), wordI = u.items.find(it => it.k === 'text' && it.seq === 'techText' && it.italic !== false && it.yAt !== 'top' && onHeadSide(it));
+              const dG = dynI ? (glyphs.dynamic || {})[dynI.g.slice(4)] : null, dh = dG ? dG.hSs * (dynI.scale || 1) : 0, dw = dG ? dG.wSs * (dynI.scale || 1) : 0;
+              const lo = up ? Math.max(2 + BSD.staffClearSs, hd.ySs + BSD.headClearSs) : tip, hi = up ? tip : Math.min(-2 - BSD.staffClearSs, hd.ySs - BSD.headClearSs);   // RULES MIRROR (the five-line staff's outer lines)
+              const need = dh + (wordI ? emB : 0) + (dynI && wordI ? BSD.rowGapSs : 0);
+              if ((dynI || wordI) && hi - lo >= need - 1e-9) {
+                const snap = u.items.map(it => [it, JSON.stringify(it)]), putBack = () => { for (const [it, js] of snap) { for (const k of Object.keys(it)) delete it[k]; Object.assign(it, JSON.parse(js)); } };
+                // the block they leave in the column, and what stands beyond it
+                const edges = []; if (dynI) edges.push(dynI.ySs - dh / 2, dynI.ySs + dh / 2); if (wordI) edges.push(wordI.ySs - 0.2 * emB, wordI.ySs + 0.8 * emB);
+                const bLo = Math.min(...edges), bHi = Math.max(...edges), close = bHi - bLo;
+                for (const it of u.items) { if (it === dynI || it === wordI || it.ySs == null || !(FitM.isMark(it) || it.k === 'ottava')) continue; if (up ? it.ySs < bLo : it.ySs > bHi) it.ySs = +(it.ySs + (up ? close : -close)).toFixed(4); }
+                const xR = st.dxSs - (((glyphs.standards || {}).stem || {}).thickness || 0.13) / 2 - BSD.stemGapSs; let cur = up ? lo : hi;
+                if (dynI) { dynI.ySs = +(up ? cur + dh / 2 : cur - dh / 2).toFixed(4); dynI.dxSs = +(xR - dw / 2).toFixed(4); cur += (up ? 1 : -1) * (dh + BSD.rowGapSs); }
+                if (wordI) { wordI.ySs = +(up ? cur + 0.2 * emB : cur - 0.8 * emB).toFixed(4); wordI.dxSs = +xR.toFixed(4); wordI.anchor = 'end'; }
+                const ink2 = FitM.unitInk(u.items, glyphs, ts);
+                if (ink2 && ctx.ok(key, u, ink2)) { for (const it of [dynI, wordI]) if (it) it.fit = { rung: 'beside', by: 'beside the stem' }; res = { rung: 'beside', by: 'the dynamic and the word beside the stem', tried: [{ rung: 'beside', result: 'fits' }], side: up ? 'bot' : 'top' }; }
+                else {   // not enough alone: the column that is left may still be CLOSED UP (the ladder's own rung 1) — kept only if that is all it takes
+                  const r1 = FitM.ladder(u.items, box, x => ctx.ok(key, u, x), glyphs, LAD);
+                  if (r1.rung === 1) { for (const it of [dynI, wordI]) if (it) it.fit = { rung: 'beside', by: 'beside the stem' }; res = { rung: 'beside+1', by: 'the dynamic and the word beside the stem, the rest closed up', tried: [{ rung: 'beside', result: 'not enough alone' }].concat(r1.tried), side: r1.side }; }
+                  else putBack();
+                }
+              }
+            }
+          }
+          if (!res) res = FitM.ladder(u.items, box, x => ctx.ok(key, u, x), glyphs, LAD);
           const evs = evAt.get(s.part + '|' + Math.round(u.t * 1e6)) || [];
           const ov = evs.map(id => engOf(id)).find(v => v && v.rung === 8) || null;
           if (res.rung === 8 && ov) {

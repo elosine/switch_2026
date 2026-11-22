@@ -1764,3 +1764,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim):** "And we work out the figure in 238.24, the vertical, and work out the rules. I believe we have some standards there. If not, we should devise them. So what I mean to say is the ottava on that one drops into the percussion staff. I think there was some thing where we moved some of the things above the stem or to the other side, and some things we leave below. If we haven't figured it out, let's figure it out. But I believe that's there somewhere."
 
 **The AI's reading:** he remembers the fit ladder of *Recombination* (marks flipped to the other side when a column leaves its lane). He wants it found, and applied or completed.
+
+### SW-142 · 2026-11-22 · the beside-the-stem rule agreed; the new clarinet library is installed
+
+**His words (verbatim):** "Okay, the Clarinet is installed now. So let's set that up in the Reaper rack. It should be something similar to the base Clarinet. And let me know when you need me to do whatever steps. And then the beside the stem rule is fine. Let's go ahead and build that and let's see how that looks."
+
+**The AI's reading:** two jobs — the ladder's new first step, built and shown; the clarinet moved to the new library in the rack ("base Clarinet" = the bass clarinet, his Xsample one), his hand steps named when they come.

@@ -108,7 +108,7 @@
    "destPartial": "@objects.number.destPartial",
    "centsZero": "@objects.number.centsZero",
    "floorTier": "@column.floorTiers.inside",
-   "ladder": { "on": "@ladder.built", "sizeStep": "@ladder.sizeStep", "compressStack": "@ladder.compressStack", "flipClearsStaff": "@ladder.flipClearsStaff", "leaves": { "instruction": "@objects.instruction.leaves", "techSymbol": "@objects.techSymbol.leaves", "number": "@objects.number.leaves" } },
+   "ladder": { "on": "@ladder.built", "sizeStep": "@ladder.sizeStep", "compressStack": "@ladder.compressStack", "flipClearsStaff": "@ladder.flipClearsStaff", "besideStem": "@ladder.besideStem", "leaves": { "instruction": "@objects.instruction.leaves", "techSymbol": "@objects.techSymbol.leaves", "number": "@objects.number.leaves" } },
    "stemLen": "@objects.stem.lengthSs", "stemLenLinedSs": "@objects.stem.lengthLinedSs",
    "bowStack": { "count": "@objects.bowStack.count", "scale": "@objects.bowStack.scale", "stepSs": "@objects.bowStack.stepSs", "gapSs": "@objects.bowStack.gapSs" },
    "tremoloSlash": { "pastLedgers": "@objects.tremoloSlash.pastLedgers", "thickSs": "@objects.tremoloSlash.thickSs", "stackStepSs": "@objects.tremoloSlash.stackStepSs", "lengthSs": "@objects.tremoloSlash.lengthSs", "slantDeg": "@objects.tremoloSlash.slantDeg", "stemShortenSs": "@objects.tremoloSlash.stemShortenSs" },

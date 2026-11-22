@@ -4,7 +4,7 @@
 > (with its basis and its §), regenerate, commit both. `node tools/check_rules.js` fails when the page and the tables disagree.
 > The rules for a NEW notation begin with a DEVICE SHEET (`docs/PLANNING_METHOD.md`); `docs/NOTATION_STANDARDS.md` is the history.
 
-LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 402 registry pointers compile from these tables.
+LGMF PLAN § `2e` (RUNNING_LOG §408 … §447 the design · §448 … the build). 403 registry pointers compile from these tables.
 
 **How to read a row:** the value · `→` the registry key(s) it is compiled into (what the layout and the renderer read) · the basis
 (`lilypond` · `gould` · `composer` · `AI` · `census` = what drew when the tables were built) · the ref (the § or the day). A field
