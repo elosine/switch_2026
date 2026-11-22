@@ -27,6 +27,10 @@ const CRESC_SAMPLES = 101;   // the lineage's least (a curve never fewer than 10
 // 4 and more = sixteenths (two beams — the lineage's 'nothing shorter than a 16th', #5 §528). Three over two beats = quarters, no beam.
 const beamValue = step => step < 2 ? null : (step < 4 ? 8 : 16);
 
+// THE STACCATO DOT (his word 2026-11-22, §437: 'yes on strings no on glock'): the violin's and the cello's notes carry the dot, as the winds' staccato
+// does by its own row; the glockenspiel's and the piano's do not. The gap is the staccato unit's own.
+const DOT_PARTS = new Set([6, 7]), DOT_GAP = (((require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT).engraving || {}).layout || {}).devices || {}).byTechnique.staccato.nhDotGapSs;
+
 // ---- THE NOTES, per part
 const notes = save.objects.filter(o => o.type === 'waveCurve' && o.properties && o.properties.phaseForm && o.sonifyNote != null && o.startSeconds >= W0 && o.startSeconds < W1)
   .sort((a, b) => a.startSeconds - b.startSeconds);
@@ -97,7 +101,7 @@ for (const g of groups.values()) { const f = g[0].properties.phaseForm, v = beam
   args.push('--beam', (g[0].startSeconds - 0.004).toFixed(3) + '-' + (g[g.length - 1].startSeconds + 0.004).toFixed(3) + '@' + g[0].layer + ':' + v); nBeam++; }
 // ---- A HAND ON EVERY NOTE: its dynamic (the mark's notes alone write one) · no gestural curve of its own (the ball on the beat is the cue) ·
 // the head's LEFT EDGE on its moment and no go line (the beamed group's regime, the lineage's D43 · D49 — the plain note's own already)
-for (const o of notes) args.push('--hand', o.id + ':' + JSON.stringify({ dynMark: dynNote.has(o.id) ? 'band' : false, gc: false, goLine: false, nhAnchor: 'leftEdge' }));
+for (const o of notes) args.push('--hand', o.id + ':' + JSON.stringify(Object.assign({ dynMark: dynNote.has(o.id) ? 'band' : false, gc: false, goLine: false, nhAnchor: 'leftEdge' }, DOT_PARTS.has(o.layer) ? { nhDot: true, nhDotGapSs: DOT_GAP } : {})));
 const argsFile = path.join(require('os').tmpdir(), ID + '.args.json');   // generated on every run — not the record
 fs.writeFileSync(argsFile, JSON.stringify(args));
 

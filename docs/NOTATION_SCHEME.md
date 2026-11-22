@@ -266,4 +266,6 @@ Rules made the same days: a tremolo stack never sits among ledger lines (`object
 | the dynamics | f at the start · each crescendo a green curve the whole lane · the dynamic written again on the first note after a curve · fff where it is held (442.2) | `bank/tuplet_chunks.json` dynamics.marks (his, 2026-11-19); `objects.crescCurve` |
 | the notes of one beat | on one beam: 2 or 3 to the beat one beam, 4 and more two beams; three over two beats unbeamed | THE AI's, no rule of his yet |
 
-**OPEN — his:** the tuplet's number and bracket (none drawn) · the ottava sign on every high note, also inside a beam · the dashed line where it meets a beam · the staccato dot on the strings' and the glockenspiel's notes (their techniques have no look of their own; the winds' staccato carries its dot) · the pace (12 s a page now).
+**OPEN — his:** the tuplet's number and bracket (none drawn) · the ottava sign on every high note, also inside a beam · the dashed line where it meets a beam · the pace (12 s a page now).
+
+**DECIDED 2026-11-22 (§436 · §437, his):** the staccato dot on the strings' notes, none on the glockenspiel's · a tempo change shorter than 2 beats takes the new tempo mark alone, no word · THE TUPLET'S NUMBER: plain for a group inside one beat (5), the ratio for a group over two beats (3:2 · 5:4 · 7:4), no bracket, the number centered over the group (to build) · one ottava bracket over the notes of a group that take it (to build).
