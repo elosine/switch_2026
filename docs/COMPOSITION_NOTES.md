@@ -1680,3 +1680,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim):** "Okay, good. So just take a moment to collect up, look through the process, and collect up the principles from the flute. Make sure everything's written in the rules and you understand the sort of layers we did. For example, getting the spacing right, but then adding the articulations, and then, you know, shuffling the dynamics, and then getting rid of duplicates. If there's any like repeated notes or duplicates, just flag those up for me in the various parts. So for example, like if one was a jet whistle versus a flutter tongue, so I can decide which one to keep. And then, yeah, if you could do all the other parts except for piano and percussion, we'll handle those separately."
 
 **The AI's reading:** he names the method as four layers — the spacing, the articulations, the dynamics, the duplicates — and hands the clarinet, the alto sax and the violin to the rules. Duplicates are his to decide, one by one. The piano and the percussion wait.
+
+### SW-128 · 2026-11-22 · the clarinet gets the tongue slap; a new clarinet library is bought
+
+**His words (verbatim):** "In the clarinet, is there no like tongue slap or any other techniques? All I see is flutter tongue." · "Okay, I purchased the Clarinet library, but it may take a little while to actually get it and then install it. So maybe for now, can you re-roll including tongue slap? And just for now, keep it in the library it's in for now. I guess maybe just whatever's most expedient now. Change the notation maybe or something, and then we'll have to convert it all to the new sample library. You can advise what to do now or just leave it for now, whatever's best."
+
+**The AI's reading:** the clarinet's part should have the slap among its techniques now, in the writing; the sound can wait for the library. He leaves the way to the AI.

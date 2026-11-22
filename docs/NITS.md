@@ -145,3 +145,5 @@
   recipe's `plucked` is unplaced until then.
 - *(2026-11-10, §143)* The call's **opera gong** has no Abbey Road Orchestra instrument (the catalog's nearest: wind gong, tam-tams); the
   rack's tam-tam will stand in until he names a library.
+
+- **2026-11-22 · the clarinet's slap is a STAND-IN (RUNNING_LOG §388):** it sounds as the staccato until the clarinet library he bought is installed; the five conversion steps are in §388. Also there: `tools/artic_deal.js --undo` ignores `--lanes` and restores every lane — to be fixed before it is used again.

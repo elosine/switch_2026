@@ -404,7 +404,7 @@ files the picker lists. A rung-8 override carries five fields (the object · the
 - `s2-piano-solo` — 1058 override(s): staff ×1058 · device ×1058
 - `s2-piano-solo-played` — 1058 override(s): staff ×1058 · device ×1058
 - `s2-piano-solo-heads` — 1058 override(s): staff ×1058 · device ×1058
-- `s2-ctpt-heads` — 38 override(s): device ×38
+- `s2-ctpt-heads` — 36 override(s): device ×36
 - `s2-piano-solo-final` — 149 override(s): staff ×149 · device ×149
 
 ---

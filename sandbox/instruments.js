@@ -122,6 +122,11 @@ const INSTRUMENTS = {
       { key: "ord_1q", label: "Ordinario quarter-tone", preset: "Clarinet Quartertones Ordinario", channel: 10, kind: "pitched", loud: "vel" },
       { key: "sforzando", label: "Sforzando", preset: "Clarinet Sforzando", channel: 11, kind: "pitched", loud: "vel" },
       { key: "staccato", label: "Staccato", preset: "Clarinet Staccato", channel: 12, kind: "pitched", loud: "vel" },
+      // 2026-11-22 (RUNNING_LOG §388, his word: "re-roll including tongue slap … keep it in the library it's in for now … then we'll have to convert it all
+      // to the new sample library"): A STAND-IN. The IRCAM clarinet has no slap tongue; the clarinet library he has bought (not installed yet) does. Until it
+      // is in, a note dealt `slap` SOUNDS as the staccato (the same preset and part) and is WRITTEN as a slap. When the library is in: this entry takes its
+      // own preset and part, its level is measured, and nothing else changes.
+      { key: "slap", label: "Slap Tongue (STAND-IN — sounds as the staccato until the new clarinet library is in)", preset: "Clarinet Staccato", channel: 12, kind: "pitched", loud: "vel", standIn: "staccato" },
       { key: "trill_m2", label: "Trill minor 2nd", preset: "Clarinet Trills KS", channel: 13, kind: "pitched", loud: "vel", ks: 36 },
       { key: "trill_M2", label: "Trill major 2nd", preset: "Clarinet Trills KS", channel: 13, kind: "pitched", loud: "vel", ks: 37 },
     ],
