@@ -35,6 +35,12 @@ const HANDS = {
   // correspond with the slap? And can we make a no-go line? Just line the GC up with the left edge of that slap'
   'wc-2782': { grace: true, goLine: false, dynMark: false, noGc: true },
   'wc-2783': { nhAnchor: 'leftEdge', goLine: false },
+  // §395 (2026-11-22), the alto sax at 232.35, a slap and a double-tongued D4 at one instant: 'line the slap up with the GC … move the slap note over, and
+  // then move the double tongue note over as well, and tie it. So you can keep the distance … And can you move the F dynamic under the slap note instead?'
+  // — the slap's left edge on the moment (no go line, the curve stays), the double-tongued note the same distance to its right as it stood (2.43 ss
+  // between the two heads' centres, measured before the move), a curve from the slap to it, the f under the slap and none under the other
+  'wc-2791': { nhAnchor: 'leftEdge', goLine: false, dynMark: 'band', slurTo: 'wc-2790' },
+  'wc-2790': { nhShiftSs: 2.4, dynMark: false },
 };
 const HAND_GRACE = new Set(Object.keys(HANDS).filter(k => HANDS[k].grace));
 

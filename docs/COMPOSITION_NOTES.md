@@ -1722,3 +1722,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim):** "The figure at 225.02, can we make that first staccato a grace note? And the GC correspond with the slap? And can we make a no-go line? Just line the GC up with the left edge of that slap."
 
 **The AI's reading:** the two notes the rule had beamed (a staccato at 224.99, a slap at 225.27) become a grace note and its main note; one gestural curve, on the slap, whose head's left edge is the moment; no go line.
+
+### SW-135 · 2026-11-22 · the alto sax at 232.35: the slap on the curve, tied to the double-tongued note; a word with no go line is centred
+
+**His words (verbatim):** "the figure at 232.35. What I'd like to do is line the slap up with the GC. So the GC will be, stays where it is, but just move the slap note over, and then move the double tongue note over as well, and tie it. So you can keep the distance, it's fine. So I guess move the entire figure, both note heads and their columns, over to the GC so that it lands on the slab, but it's tied to the double tongue. And can you move the F dynamic under the slap note instead?" · "The word slab at 242.72, if you can center that, please. And then figure out what needs to be updated in the rules, because that one doesn't actually have a GC, I mean, a Go line."
+
+**The AI's reading:** he has DECIDED the duplicate at 232.35 — both notes stay, as one figure: a slap that rings on as a double-tongued note, tied. And a rule: where there is no go line, the word is centred.

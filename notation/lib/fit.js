@@ -99,7 +99,18 @@
       if (!u.has(k)) u.set(k, []);
       u.get(k).push(it);
     }
-    return u;
+    // [the Switch~ piece §395] TWO COLUMNS AT ONE MOMENT ARE TWO UNITS: when a moment holds two heads standing well apart sideways (a hand's
+    // shifted column — the alto sax's slap and its tied double-tongued note at 232.35), each item goes with the head it stands nearest,
+    // and each column takes the ladder alone. (One stack squeezed out of two columns' marks laid a dynamic over a word.)
+    const out = new Map();
+    for (const [k, list] of u) {
+      const xs = [...new Set(list.filter(it => it.k === 'glyph' && /^notehead/.test(it.g || '')).map(it => +it.dxSs.toFixed(2)))].sort((a, b) => a - b);
+      const cols = xs.filter((x, i) => i === 0 || x - xs[i - 1] > 1.5);   // RULES MIRROR (wider than a chord's own seconds: a column of its own)
+      if (cols.length < 2) { out.set(k, list); continue; }
+      for (const it of list) { const x = it.dxSs != null ? it.dxSs : it.dx0Ss != null ? (it.dx0Ss + (it.dx1Ss != null ? it.dx1Ss : it.dx0Ss)) / 2 : 0; let b = 0; for (let i = 1; i < cols.length; i++) if (Math.abs(x - cols[i]) < Math.abs(x - cols[b])) b = i;
+        const kk = k + '|' + b; if (!out.has(kk)) out.set(kk, []); out.get(kk).push(it); }
+    }
+    return out;
   }
   // a unit's ink: { lo, hi, l, r, core: {lo, hi} }
   function unitInk(items, glyphs, ts) {

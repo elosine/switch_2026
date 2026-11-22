@@ -1966,6 +1966,9 @@
                 // unit no longer carries, is gone with it.)
                 // [§371] the grace pickup's distance (rules.json objects.graceHead.pickupLeadSs, and pickupAccSs more where the main note has an accidental)
                 if (pkM) headDx -= (GR.pickupLeadSs > 0 ? GR.pickupLeadSs : 2.2) + (spelledOf(pkM).alter ? (GR.pickupAccSs > 0 ? GR.pickupAccSs : 1.2) : 0);
+                // [the Switch~ piece §395 — HIS WORD 2026-11-22, the alto sax at 232.35: 'move the entire figure, both note heads and their columns, over'] a HAND
+                // moves one note's whole column sideways (nhShiftSs, staff spaces, + = right): the head and everything that hangs on it
+                if (dev.nhShiftSs) headDx += dev.nhShiftSs;
                 const chromeDx = g => dev.nhAnchor === 'leftEdge' ? headDx - nhO.wSs / 2 + g.wSs / 2 : headDx;
                 // [§494 — the running order's step 1, his "demonstrate the color head"] a bow's head carries its SEAT; render.js fills it in
                 // the seat's hue when rules.json vibMarks.headColour is 'seat' (ink otherwise)
@@ -2670,7 +2673,10 @@
                     // [§392 — HIS EYE 2026-11-22: 'the dynamic and the DT aren't centered properly … I think it probably looks better centered'] (b) is for a head the
                     // gestural curve lands on. A HELD note's head (no go line, no curve: the flutter-tongue, double tonguing) has nothing at its moment to keep
                     // clear of, so its word is CENTRED ON THE HEAD like every other word of the column (§401h) when its row asks for the middle.
-                    if (dev.nhAnchor === 'leftEdge') al = (alRaw === 'middle' && dev.gc === false && dev.goLine === false) ? 'middle' : 'start';
+                    // [§395 — HIS WORD 2026-11-22, the alto sax's slap at 242.72: 'if you can center that, please. And then figure out what needs to be updated in the
+                    // rules, because that one doesn't actually have a … Go line'] THE RULE IS NOW ONE LINE: a word is right-justified ONLY beside a drawn go line it
+                    // would come too near; a note with NO go line (a beamed note, a held note, a note whose head is on its moment) has its word CENTRED on its head.
+                    if (dev.nhAnchor === 'leftEdge') al = alRaw === 'middle' ? 'middle' : 'start';
                     else if (dev.goLine && al === 'middle' && headDx + wT / 2 > -clearG) al = 'end'; }
                   const dxT = al === 'end' ? headDx + nhO.wSs / 2 : al === 'middle' ? headDx : headDx - nhO.wSs / 2;
                   items.push(Object.assign({ k: 'text', t: tU, dxSs: dxT, ySs: yT - instrEm / 2 + instrEm * 0.2, text: instrTxt, anchor: al, seq: 'techText' }, WORD));
