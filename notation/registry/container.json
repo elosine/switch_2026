@@ -526,7 +526,8 @@
       "stemLenSs": "@objects.tremoloSlash.stemLenSs",
       "nhTremolo": "@objects.tremoloSlash.count",
       "dynMark": "band",
-      "instrText": "flz."
+      "instrText": "flz.",
+      "instrAlign": "middle"
      },
      "double_tonguing": {
       "sheet": "the Switch~ piece §390 (2026-11-22, his word: 'yes, let's go ahead and … use your recommendations for the double tonguing'): DOUBLE TONGUING — the flutter-tongue's figure with TWO slashes and the word d.t. (slashes on a stem = the note repeated, the standing convention; the word says how). Looked up the same day: a standard sign exists too, two dots side by side over the note (SMuFL doubleTongueAbove, MusicXML double-tongue) — put to him, not used: it reads as two staccato dots on this page",
@@ -541,7 +542,8 @@
       "stemLenSs": "@objects.tremoloSlash.stemLenSs",
       "nhTremolo": "@objects.tremoloSlash.countDouble",
       "dynMark": "band",
-      "instrText": "d.t."
+      "instrText": "d.t.",
+      "instrAlign": "middle"
      },
      "tongue_ram": {
       "sheet": "the Switch~ piece §373 (2026-11-21, his word on the counterpoint's page: 'The tongue rams should be the flag staccato [too], for example, 201.56') — the staccato unit's look whole, dot and all",

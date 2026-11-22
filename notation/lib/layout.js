@@ -2423,7 +2423,10 @@
                   //   · the stem — the full length is 1.5 × the base (its tremoloException, session 65), and the VISIBLE stem is drawn
                   //     stemShortenSs (1 ss) shorter at its free end, "so the slashes ride midway between notehead and the visible stem tip
                   //     without crowding the tip" (its percussionCellMotive, the composer's session-65 rule).
-                  if (dev.nhTremolo > 0 && !dev.grace) { const TR = Object.assign({ thickSs: 0.4, stackStepSs: 0.81, lengthSs: 1.42, slantDeg: 14.8, stemShortenSs: 1 }, o.tremoloSlash || {});   // RULES MIRROR (objects.tremoloSlash)
+                  if (dev.nhTremolo > 0 && (!dev.grace || dev.graceTremolo)) { const TR = Object.assign({ thickSs: 0.4, stackStepSs: 0.81, lengthSs: 1.42, slantDeg: 14.8, stemShortenSs: 1 }, o.tremoloSlash || {});
+                    // [the Switch~ piece §392 — HIS WORD 2026-11-22, the alto sax at 206.48: 'change that double-tongued note to a grace note … but you can keep the
+                    // slashes and the … DT'] a GRACE that keeps its slashes (a hand's graceTremolo): the slashes at the grace's scale, on its stem as it stands
+                    if (dev.grace) { TR.thickSs *= GR.headScale; TR.stackStepSs *= GR.headScale; TR.lengthSs *= GR.headScale; TR.stemShortenSs = 0; }   // RULES MIRROR (objects.tremoloSlash)
                     const stIt = items[items.length - 1], up = stemDir === 'up', sxT = headDx + att.dx, midT = (yStart + yEnd) / 2;
                     const hx = TR.lengthSs * Math.cos(TR.slantDeg * Math.PI / 180) / 2, hy = TR.lengthSs * Math.sin(TR.slantDeg * Math.PI / 180) / 2;
                     if (stIt && stIt.k === 'stem' && !beamTip && TR.stemShortenSs > 0) stIt.yB = up ? yEnd - TR.stemShortenSs : yEnd + TR.stemShortenSs;
@@ -2640,7 +2643,10 @@
                   // moment (a beamed group's, D49) — the word BEGINS at that edge (Gould: a technique's word starts at its note), to the right of
                   // the moment, where the gestural curve has already landed.
                   { const clearG = o.instrGoLineClearSs >= 0 ? o.instrGoLineClearSs : 0.45, wT = String(instrTxt).length * 0.5 * instrEm;
-                    if (dev.nhAnchor === 'leftEdge') al = 'start';
+                    // [§392 — HIS EYE 2026-11-22: 'the dynamic and the DT aren't centered properly … I think it probably looks better centered'] (b) is for a head the
+                    // gestural curve lands on. A HELD note's head (no go line, no curve: the flutter-tongue, double tonguing) has nothing at its moment to keep
+                    // clear of, so its word is CENTRED ON THE HEAD like every other word of the column (§401h) when its row asks for the middle.
+                    if (dev.nhAnchor === 'leftEdge') al = (alRaw === 'middle' && dev.gc === false && dev.goLine === false) ? 'middle' : 'start';
                     else if (dev.goLine && al === 'middle' && headDx + wT / 2 > -clearG) al = 'end'; }
                   const dxT = al === 'end' ? headDx + nhO.wSs / 2 : al === 'middle' ? headDx : headDx - nhO.wSs / 2;
                   items.push(Object.assign({ k: 'text', t: tU, dxSs: dxT, ySs: yT - instrEm / 2 + instrEm * 0.2, text: instrTxt, anchor: al, seq: 'techText' }, WORD));

@@ -60,6 +60,14 @@ for (const o of save.objects) if (o.type === 'waveCurve' && o.startSeconds >= W0
 // note's; no go line, dynamic or gestural curve of its own (one curve, on the main note)
 for (const [g, m] of GRACES) args.push('--hand', g + ':' + JSON.stringify({ grace: true, pickupTo: m, goLine: false, dynMark: false }), '--noGc', g);
 
+// ---- HIS OWN WORD ON SINGLE NOTES of the parts built by rule (each with its entry)
+const HANDS = {
+  // §392 (2026-11-22), the alto sax at 206.48, a double-tongued F5 0.07 s long: 'Let's change that double-tongued note to a grace note, black note head,
+  // just your typical grace note that we've been using, but you can keep the slashes and the … DT' — at its own time (the next note is 0.26 s on)
+  'wc-2762': { grace: true, graceTremolo: true, nhHead: 'filled', nhStem: 'flag16', nhStemRule: 'flagClear' },
+};
+for (const [id, h] of Object.entries(HANDS)) args.push('--hand', id + ':' + JSON.stringify(h));
+
 const r = spawnSync('node', args, { cwd: ROOT, encoding: 'utf8' });
 const outp = (r.stdout + r.stderr).split('\n');
 console.log(outp.filter(l => /READY|FAILED|INVALID|Error|usage|not an event/i.test(l)).join('\n').slice(0, 3000));
