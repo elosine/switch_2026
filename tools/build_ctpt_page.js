@@ -62,25 +62,34 @@ const TIED = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 
 // NOTE OF THE CELLO has its stem DOWN and its marks ABOVE THE STAFF — 'it's okay if it goes into the electronic lane … but I don't want it to conflict with the violin lane.'
 const OP_LOCAL = new Set();
 for (const o of save.objects) if (o.type === 'waveCurve' && o.layer === 7 && o.technique === 'bow_op_vel' && o.startSeconds >= W0 && o.startSeconds < W1) { OP_LOCAL.add(o.id); HANDS[o.id] = Object.assign({ nhStemDir: 'down', chainSide: 'above' }, HANDS[o.id] || {}); }
+// §421 (2026-11-22) — HIS WORD ON THIS SECTION'S PIANO: 'The regular piano notes are also meant to be the black note heads … the only ones that get the white note
+// heads are the pizzicato. Everything else gets a flag, and everything else just like the other staccato notes. And then also let's give the staccato dot. So all the
+// ordinary notes and the muted notes … resemble the notation in the other instruments for single hits with the GC and everything.' The ordinary note's row (`main`)
+// is the whole piece's (the open ringing head of the other sections), so HERE each ordinary note takes THE STACCATO UNIT's look as a hand — the row itself, read
+// from the rules, with the piano row's own ringing-note keys switched off. The plucked note alone stays open, with its let-ring slur.
+const STAC = Object.assign({}, DEV.staccato); delete STAC.sheet; delete STAC.anchorRow; delete STAC.memberRows;
+const PIANO_SHORT = new Set();
+for (const o of save.objects) if (o.type === 'waveCurve' && o.layer === 5 && o.technique === 'main' && o.sonifyNote != null && o.startSeconds >= W0 && o.startSeconds < W1) { PIANO_SHORT.add(o.id); HANDS[o.id] = Object.assign({}, STAC, { nhAnchor: null, letRing: false, chordRules: false, brick: false }, HANDS[o.id] || {}); }
 const HAND_GRACE = new Set(Object.keys(HANDS).filter(k => HANDS[k].grace));
 
 // ---- THE OTHER PARTS, by the rules (§387): clarinet · alto sax · violin. (The piano and the percussion are taken separately — his word.)
 const AUTO_PARTS = [1, 2, 5, 6, 7];   // §420: the piano (its muted notes are this section's short notes; the ordinary and the plucked note keep the piano's own look)   // §414: the cello, played in 2026-11-22
 // a SHORT note is one that takes a flag (its technique's look says so) or, with no look yet, a one-shot; a HELD note (a white head) is never
 // beamed by rule — a short note running into a held one is LISTED for him, not beamed (§387: the clarinet's 206.41 → 206.70 looked wrong)
-const isShort = tech => { const d = DEV[tech]; return d ? /^flag/.test(String(d.nhStem || '')) : ((T.techniques || {})[tech] || {}).family === 'oneshot'; };
+const isShortTech = tech => { const d = DEV[tech]; return d ? /^flag/.test(String(d.nhStem || '')) : ((T.techniques || {})[tech] || {}).family === 'oneshot'; };
+const isShort = (tech, o) => (o && PIANO_SHORT.has(o.id)) || isShortTech(tech);   // §421: this section's ordinary piano notes are short notes
 for (const part of AUTO_PARTS) {
   const ns = save.objects.filter(o => o.type === 'waveCurve' && o.layer === part && o.sonifyNote != null && !HAND_GRACE.has(o.id) && o.startSeconds >= W0 && o.startSeconds < W1).sort((a, b) => a.startSeconds - b.startSeconds);
-  for (let i = 1; i < ns.length; i++) { const a = ns[i - 1], b = ns[i]; if (b.startSeconds - a.startSeconds >= SAME_S || a.sonifyNote !== b.sonifyNote || isShort(a.technique) === isShort(b.technique)) continue;
-    const sh = isShort(a.technique) ? a : b, held = sh === a ? b : a; tiedPairs.push([sh.id, held.id]);
+  for (let i = 1; i < ns.length; i++) { const a = ns[i - 1], b = ns[i]; if (b.startSeconds - a.startSeconds >= SAME_S || a.sonifyNote !== b.sonifyNote || isShort(a.technique, a) === isShort(b.technique, b)) continue;
+    const sh = isShort(a.technique, a) ? a : b, held = sh === a ? b : a; tiedPairs.push([sh.id, held.id]);
     HANDS[sh.id] = Object.assign({ nhAnchor: 'leftEdge', goLine: false, dynMark: 'band', slurTo: held.id }, HANDS[sh.id] || {}); HANDS[held.id] = Object.assign({ nhShiftSs: TIED.shiftSs, dynMark: false }, HANDS[held.id] || {}); }
   const graceOf = new Set(); let run = [];
   const close = () => { const times = [...new Set(run.map(o => o.startSeconds.toFixed(3)))]; if (times.length >= 2) BEAMS.push([+(run[0].startSeconds - 0.004).toFixed(3), +(run[run.length - 1].startSeconds + 0.004).toFixed(3), part]); run = []; };
   for (let i = 0; i < ns.length; i++) { const o = ns[i], p = ns[i - 1], g = p ? o.startSeconds - p.startSeconds : Infinity;
     if (g < SAME_S) { if (run.length) run.push(o); continue; }                                      // one instant: with its twin, whatever that is in
-    if (g <= GRACE_S) { GRACES.push([p.id, o.id]); graceOf.add(p.id); if (run.length && run[run.length - 1] === p) run.pop(); close(); if (isShort(o.technique)) run = [o]; continue; }
-    if (g <= BEAM_S && isShort(p.technique) && isShort(o.technique) && !graceOf.has(p.id)) { if (!run.length) run = [p]; run.push(o); continue; }
-    close(); if (isShort(o.technique)) run = [o]; }
+    if (g <= GRACE_S) { GRACES.push([p.id, o.id]); graceOf.add(p.id); if (run.length && run[run.length - 1] === p) run.pop(); close(); if (isShort(o.technique, o)) run = [o]; continue; }
+    if (g <= BEAM_S && isShort(p.technique, p) && isShort(o.technique, o) && !graceOf.has(p.id)) { if (!run.length) run = [p]; run.push(o); continue; }
+    close(); if (isShort(o.technique, o)) run = [o]; }
   close();
 }
 

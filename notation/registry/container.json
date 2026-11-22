@@ -741,9 +741,9 @@
       "instrAlign": "middle"
      },
      "muted": {
-      "sheet": "the Switch~ piece §420 (2026-11-22, his word on the piano's muted strings: 'The recommended plus for the mute. But for the mute and short notes, let's adopt the other players with the GC, the flagged, the two flags … the mutes will be a little bit like the slap tone, but just with a plus and [the word]') — the short-note unit of this section (a filled head, a 16th flag, the go line, the gestural curve) with the + sign (piece 2's registered sign for the stopped / muted string) and the word (mute); no staccato dot and no accent",
+      "sheet": "the Switch~ piece §420 (2026-11-22, his word on the piano's muted strings: 'The recommended plus for the mute. But for the mute and short notes, let's adopt the other players with the GC, the flagged, the two flags … the mutes will be a little bit like the slap tone, but just with a plus and [the word]') — the short-note unit of this section (a filled head, a 16th flag, the go line, the gestural curve) with the + sign (piece 2's registered sign for the stopped / muted string) and the word (mute); no accent. §421, his word the same day: 'let's give the staccato dot … all the ordinary notes and the muted notes, they all resemble the notation in the other instruments for single hits' — the staccato dot is in",
       "anchorRow": "C",
-      "memberRows": ["cueHead","ledger","accidental","stem","flag","dynamic","ottava","goLine","gc","techSymbol","instruction"],
+      "memberRows": ["cueHead","ledger","accidental","stem","flag","staccatoDot","dynamic","ottava","goLine","gc","techSymbol","instruction"],
       "goLine": true,
       "gc": true,
       "nhUnit": true,
@@ -753,6 +753,8 @@
       "nhHeadScale": "@objects.cueHead.size",
       "nhStem": "flag16",
       "nhStemRule": "flagClear",
+      "nhDot": true,
+      "nhDotGapSs": "@objects.staccatoDot.parent",
       "nhGapSs": "@anchors.C.gapSs",
       "dynMark": "band",
       "dynBesideStem": true,

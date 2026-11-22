@@ -29,7 +29,8 @@ const t2 = x => x.toFixed(2), out = [];
 const pn = e => { const s = e.pitch && e.pitch.spelled; return s ? s.step + (s.alter === 1 ? '♯' : s.alter === -1 ? '♭' : '') + s.octave : '?'; };
 const lab = e => (((T.techniques || {})[e.technique] || {}).label || e.technique) + ' ' + pn(e);
 // a SHORT note takes a flag (its look says so) or, with no look yet, is a one-shot; a HELD note is never beamed by rule (build_ctpt_page.js)
-const isShort = tech => { const d = DEV[tech]; return d ? /^flag/.test(String(d.nhStem || '')) : ((T.techniques || {})[tech] || {}).family === 'oneshot'; };
+const isShortTech = tech => { const d = DEV[tech]; return d ? /^flag/.test(String(d.nhStem || '')) : ((T.techniques || {})[tech] || {}).family === 'oneshot'; };
+const isShortEv = e => /^flag/.test(String((hand.get(e.id) || {}).nhStem || '')) || isShortTech(e.technique);   // a hand may make a note a short one (the piano's ordinary notes in the counterpoint, §421)
 const group = (rows, key) => { const m = new Map(); for (const r of rows) { const k = key(r); if (!m.has(k)) m.set(k, []); m.get(k).push(r); } return m; };
 for (const [p, evs0] of [...byPart.entries()].sort((a, b) => a[0] - b[0])) {
   const evs = evs0.slice().sort((a, b) => a.onset - b.onset), P = nameOf(p), lines = [];
@@ -44,9 +45,9 @@ for (const [p, evs0] of [...byPart.entries()].sort((a, b) => a[0] - b[0])) {
   // 3 · 4 · 5 — the pairs
   const same = [], near = [], wide = [], held = [];
   for (let i = 1; i < evs.length; i++) { const a = evs[i - 1], b = evs[i], g = b.onset - a.onset, ha = hand.get(a.id) || {}, hb = hand.get(b.id) || {};
-    if (g < SAME_S && a.pitch && b.pitch && a.pitch.midi === b.pitch.midi && isShort(a.technique) !== isShort(b.technique)) continue;   // [§396] a short note and a held note on one pitch at one instant: THE TIED ATTACK (rules.json objects.tiedAttack) — a figure, not a duplicate
+    if (g < SAME_S && a.pitch && b.pitch && a.pitch.midi === b.pitch.midi && isShortEv(a) !== isShortEv(b)) continue;   // [§396] a short note and a held note on one pitch at one instant: THE TIED ATTACK (rules.json objects.tiedAttack) — a figure, not a duplicate
     if (g < SAME_S) same.push(t2(a.onset) + ' s: ' + lab(a) + '  |  ' + lab(b) + (a.pitch && b.pitch && a.pitch.midi === b.pitch.midi ? (a.technique === b.technique ? '   (the same note twice — only one is heard)' : '   (the same pitch, two ways of playing it — one player cannot do both)') : '   (two pitches — one player cannot play both)'));
-    else if (g > GRACE_S && g <= BEAM_S && !(ha.beamGroup && ha.beamGroup === hb.beamGroup) && !ha.grace && !(isShort(a.technique) && isShort(b.technique))) held.push(t2(a.onset) + ' (' + g.toFixed(2) + ' s: ' + lab(a) + ' → ' + lab(b) + ')');
+    else if (g > GRACE_S && g <= BEAM_S && !(ha.beamGroup && ha.beamGroup === hb.beamGroup) && !ha.grace && !(isShortEv(a) && isShortEv(b))) held.push(t2(a.onset) + ' (' + g.toFixed(2) + ' s: ' + lab(a) + ' → ' + lab(b) + ')');
     else if (g <= GRACE_S) { if (!ha.grace) near.push(a.onset); }
     else if (g > BEAM_S && g <= WIDE_S && !(ha.beamGroup && ha.beamGroup === hb.beamGroup)) wide.push([a.onset, g]);
     else if (g <= BEAM_S && !(ha.beamGroup && ha.beamGroup === hb.beamGroup) && !ha.grace) wide.push([a.onset, g, true]); }

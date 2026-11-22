@@ -6101,3 +6101,13 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **5 · THE 0.33 s BEAMING:** the piano joins the parts built by rule (AUTO_PARTS 1 · 2 · 5 · 6 · 7). The rule beams SHORT notes only, and the piano's only short notes are the 12 muted ones: NO two of them lie within 0.33 s, so the piano has NO beamed group. What it does have, listed for him: 6 pairs within the measure where one of the two is a ringing note (203.27 · 208.54 · 217.08 · 217.21 · 225.65 · 235.98) and one pair a little wider (227.21, 0.39 s).
 **`no_rule_list.js` taught two things:** the piano's ordinary voice (`main`) needs no word; a baked word over the note (`textAbove`, the plucked note's pizz.) is a word.
 **MEASURED:** "no rule yet" on the six parts — no technique without a look or a word, no duplicate; the lines left are the near pairs. `fit_list` 3 (the violin's, §419). `check_rules.js` part (10) green; the old two reds. The save as it was: `…D-ctptCello.before-420.json`. **NOT LOOKED AT as a picture; not heard.** The percussion is the one part of the section not yet notated by rule.
+
+## §421 · 2026-11-22 · his correction — the piano's ordinary notes in the counterpoint are single hits (the staccato unit); the mutes take the dot; only the pluck rings
+
+**His words:** SW-156 (the sketch pad). §420 had kept the ordinary note open and ringing; he had meant it among "the mute and short notes".
+**BUILT:**
+- THE ORDINARY NOTE, IN THIS SECTION (`build_ctpt_page.js`, by a loop with his words — NOT the row: `main` is the whole piece's open ringing head, the other sections' and *Recombination*'s): each of the piano's 20 ordinary notes between 199 and 254 s takes THE STACCATO UNIT's look as a hand — the row `devices.byTechnique.staccato` itself, read from the rules (a filled head, a 16th flag on the flag-clear stem, the staccato dot, the go line, the gestural curve, the dynamic), with the ringing note's own keys switched off (no let-ring slur, no chord rule, its head no longer on the moment).
+- THE MUTED NOTE (`devices.byTechnique.muted`): the staccato dot added — the staccato unit with "+" and "(mute)"; still no accent.
+- THE PLUCKED NOTE: unchanged — the open head, pizz., Ped., the let-ring slur. Read from the drawn items: 15 let-ring slurs in the piano, the plucked notes' own.
+- THE RULE'S BEAMING now counts the ordinary notes as short: the piano has 2 beamed groups at the 0.33 s measure (it had none, §420). `no_rule_list.js` reads a hand that makes a note short.
+**MEASURED:** "no rule yet" — no technique without a look or a word on the six parts. `fit_list` 3 (the violin's). `check_rules.js` part (10) green; the old two reds. **NOT LOOKED AT as a picture.**
