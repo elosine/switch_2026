@@ -48,6 +48,11 @@ const HANDS = {
   // §422 (2026-11-22), the piano at 203.27 → 203.47, a plucked G♯2 and an ordinary B2 0.2 s after it — HIS EXCEPTION: 'exceptionally, the figure at 203.4. Let's get
   // rid of the go line, line up the [ordinary] note head with the go time, the left side. So the two notes don't collide there, but you can leave the rest as is'
   'wc-2814': { nhAnchor: 'leftEdge', goLine: false },
+  // §423 (2026-11-22), the piano at 208.55 → 208.73, a muted B5 and an ordinary B5 0.18 s after it: 'like … the saxophone … that grace note figure. So the first
+  // one will be a grace note, but … keep the mute and all that. And let's get the standard spacing … the second will be no go line … move the left side of the note
+  // head there to the go time. And then the standard horizontal spacing between the grace note and the actual impact note'
+  'wc-2817': { grace: true, pickupTo: 'wc-2818', nhAnchor: 'leftEdge', goLine: false, dynMark: false, noGc: true },
+  'wc-2818': { nhAnchor: 'leftEdge', goLine: false },
   'wc-2878': { nhStemDir: 'down', chainSide: 'above' },
   'wc-2897': { nhStemDir: 'down', chainSide: 'above' },
   // §408 (2026-11-22), the clarinet at 217.70 → 218.08, a triple-tongued G4 and a staccato G4: 'the inverse' of the tied attack — 'the tonguing is on the

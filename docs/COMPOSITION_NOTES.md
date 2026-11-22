@@ -1860,3 +1860,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim):** "Can you show me cursor time on the bar? I have to close it every time I want to see what time I'm at. And then exceptionally, the figure at 203.4. Let's get rid of the go line, line up the PIT's note head with the go time, the left side. So the two notes don't collide there, but you can leave the rest as is."
 
 **The AI's reading:** (1) the notation app's bar should show the playhead's time. (2) one exception: at the piano's plucked note and the ordinary note 0.2 s after it, the note that has a go line (the ordinary one) loses it and stands with its head's left edge on its moment, so the two heads stand apart. ("PIT's" is dictation; the note with a go line there is the ordinary one.)
+
+### SW-158 · 2026-11-22 · the piano at 208.5, the grace-note figure
+
+**His words (verbatim):** "The figure at 208.5 will be like the, I guess in the other instruments, like the saxophone or whatnot, it'll be like that grace note figure. So the first one will be a grace note, but you know, keep the mute and all that. And let's get the standard spacing. So, and then the second will be no go line. You know, move the left side of the note head there to the go time. And then the standard horizontal spacing between the grace note and the actual impact note."
+
+**The AI's reading:** the muted B5 becomes a grace note into the ordinary B5 that follows it, by the rules of §404 — the main note's left edge on its moment, no go line, the piece's one grace distance; the grace keeps its "+" and "(mute)".
