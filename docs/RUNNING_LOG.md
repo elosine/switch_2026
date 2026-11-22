@@ -6020,3 +6020,22 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **THE MIDI BLOCKAGE — measured, then cured:** Reaper and loopMIDI were both running. A note sent straight to each port (`tools/artic_probe.js`) read SILENT (−150 dB) on the old clarinet, the flute, the alto sax and both new clarinet tracks; only the violin sounded — and those tracks had sounded minutes before. So the block was in the rack's MIDI inputs, not in his page. `node tools/reaper_job.js run reaper/bridge/jobs/midi_reinit.lua` (the job of §19: Reaper closes and re-opens every MIDI device) — then the same notes: clarinet −8.7 dB · flute −6.5 · alto sax −6.3 · bass clarinet slap −16.3 (sent as the high C♯6, moved by the rack's octave effect, §409) · the Xsample clarinet −19.9 · violin −16.7. All sound. NO RESTART of the computer, of Reaper or of loopMIDI. Kept as a memory note for the next time.
 **A THOUGHT ON §408 · §409, not proven:** some of the "silent slap" reports may have been this blockage and not the octave; the rack-side octave move stands either way.
 **THE CELLO:** it has NO notes between 199 and 254 s in the save (646 in the whole piece: a few up to 140 s, then from 260 s on). There is nothing to notate here; its staff on the page is empty. Put to him: is that a rest, or is a cello part wanted in this section.
+
+## §412 · 2026-11-22 · THE PIANO'S NOTATION SCANNED across the lineage, before any of it is drawn — what stands, and five discrepancies for him
+
+**His words:** SW-150 (the sketch pad).
+**WHAT THE PIANO PLAYS IN THE COUNTERPOINT (199 … 254 s, 47 notes):** the ordinary note (`main`) 20 · plucked 15 · muted 12.
+**WHERE IT WAS LOOKED FOR:** this piece's rows (`devices.byTechnique`) and `docs/NOTATION_STANDARDS.md` (the rows *Recombination* settled, §485 … §504 there) · piece 2: `docs/GLYPH_REGISTRY.md`, `engine/idioms/pluckedPianoChord.js` · `pluckedPianoCluster` · `pluckedPianoHarmonic` · `pluckedPianoHarmonicChord` · `pianoSingleNoteRoll` · `pianoAccelDecel`.
+**WHAT STANDS:**
+- THE ORDINARY NOTE (*Recombination* D49 · §486): an open head, its left edge on the moment; no stem, no go line, no gestural curve, no bar for its length; its dynamic; an l.v. slur (piece 2's LilyPond crescent). In force here (`main`).
+- THE CHORD (§488): one dynamic under the lowest note; an l.v. slur on every note; no stems.
+- THE PLUCKED NOTE, *Recombination*'s (§490): the ordinary note's look plus "pizz." above the top note (piece 2's baked text) and "Ped." under it; no release sign. In force here (`plucked`). Two plucked notes under 0.25 s: filled heads, two beamed 8ths, stems up, pizz. on both, Ped. on the first.
+- THE PLUCKED NOTE, piece 2's (`pluckedPianoChord`, its session 49): a FILLED head with a stem DOWN and an 8th flag, "pizz." above, the dynamic and "Ped." below the stem's tip. Also there: the plucked cluster · the plucked harmonic (a diamond head) · the harmonic chord.
+- THE MUTED NOTE: NO LOOK in this piece's rows (drawn today as a plain black head and its bar — a placeholder). Piece 2's registry holds the "+" sign as "stopped / muted" and names it for the muted piano; no figure was ever built with it.
+**THE DISCREPANCIES, for him:**
+1. THE PLUCKED NOTE HAS TWO LOOKS — piece 2's flagged black note, *Recombination*'s open ringing head. The later one is in force.
+2. THE MUTED NOTE HAS NONE — and its one registered sign, "+", is already the SLAP's sign in this score's winds.
+3. THE REGIME: in this section every other part's short note is a flagged note with a gestural curve and (alone) a go line; the piano's standing regime has none of the three. The plucked and the muted notes are short notes.
+4. THE DYNAMIC: *Recombination* took the piano's dynamic from the ensemble (D50); here the four parts done were dealt p · f · fff per note, the piano not yet.
+5. THE BEAMING MEASURE: the piano's standing pair rule is 0.25 s; this section's is 0.33 s.
+**NOTHING DRAWN.** The AI's one recommendation per point is in the chat; the piano is notated on his word.

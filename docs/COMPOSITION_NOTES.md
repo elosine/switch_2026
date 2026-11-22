@@ -1812,3 +1812,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim):** "there's some sort of doubling at 239.2. Looks like it's a Bartok Pitts and a Coligno Battuto. Let's keep the Bartok Pitts there. And then I'm experiencing that MIDI blockage or whatever, so it's not playing sound. But occasionally I see hear a click. We experienced this yesterday, I believe. I'm not sure what the solution was for that. I think I restarted the whole computer, but if there's a different way, let me know." · "Then otherwise, the violin looks good once we get rid of that double. And can you notate the cello, please?"
 
 **The AI's reading:** the last duplicate decided; a fault report with a wish for a lighter cure than a restart; the violin approved; the cello asked for — but it has no notes in this section.
+
+### SW-150 · 2026-11-22 · a scan of the piano's notation across the pieces, before the piano is notated
+
+**His words (verbatim):** "And then can you do a scan of the piano notation? There's the piece number 2 piano, 2 percussion. And then subsequent pieces, just do a full scan to see the proper notation. And any discrepancies alert to me. And then we'll notate the piano part. I think it's pretty straightforward. But just making sure that I have the pluck notation and everything else standardized."
+
+**The AI's reading:** FIND before drawing. The scan and its discrepancies come first; the piano is notated after he has seen them.
