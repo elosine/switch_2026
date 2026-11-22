@@ -5896,3 +5896,10 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **DONE IN THE NOTATION'S COPY OF THE SAVE (as it was: `…before-398.json`):** the staccato (`wc-2763`) is out; the slap (`wc-2766`) starts at 208.543, its length kept; the flutter-tongue (`wc-2764`) starts at 208.543 and ends where it ended. Each moved note keeps its old times under properties.moved. So "keep the GC where it is" is literal: the moment is the same 208.543. THE SOUND MOVES WITH IT — the slap 0.135 s earlier, the flutter-tongue's start 0.24 s earlier; not heard.
 **THE FIGURE IS MADE BY THE RULE, nothing by hand:** a short and a held note on one pitch at one instant = the tied attack (§396) — the builder now counts 3. Read from the drawn items: the slap's head on the moment with its flag, the curve, no go line, the p and "(slap)" under it; the flutter-tongue's head 2.43 ss to the right with "flz.", no dynamic; a curve between the heads. The alto sax has 2 beamed groups (the staccato and the slap had been one).
 **MEASURED:** `check_rules.js` — part (10) green; the old two reds. **NOT LOOKED AT as a picture.**
+
+## §399 · 2026-11-22 · his word — the alto sax's 215.00 a tied attack: a staccato tied into the double-tongued note
+
+**His words:** SW-139 (the sketch pad).
+**WHAT WAS THERE:** a staccato E5 at 214.995 and a double-tongued E5 at 215.191 (0.2 s on), each its own figure.
+**DONE in the notation's copy of the save:** the double-tongued note (`wc-2774`) starts at 214.995 with the staccato and ends where it ended (215.521); its old start under properties.moved. Nothing removed. Its sound starts 0.2 s earlier; not heard.
+**THE FIGURE by the rule (§396):** the builder counts 4 tied attacks. Read from the drawn items: the staccato's head on the moment with the curve, no go line, the fff; the double-tongued head 2.43 ss to the right with "d.t.", no dynamic; a curve between them. `check_rules.js`: part (10) green; the old two reds. **NOT LOOKED AT as a picture.**
