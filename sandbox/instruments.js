@@ -122,11 +122,16 @@ const INSTRUMENTS = {
       { key: "ord_1q", label: "Ordinario quarter-tone", preset: "Clarinet Quartertones Ordinario", channel: 10, kind: "pitched", loud: "vel" },
       { key: "sforzando", label: "Sforzando", preset: "Clarinet Sforzando", channel: 11, kind: "pitched", loud: "vel" },
       { key: "staccato", label: "Staccato", preset: "Clarinet Staccato", channel: 12, kind: "pitched", loud: "vel" },
-      // 2026-11-22 (RUNNING_LOG §388, his word: "re-roll including tongue slap … keep it in the library it's in for now … then we'll have to convert it all
-      // to the new sample library"): A STAND-IN. The IRCAM clarinet has no slap tongue; the clarinet library he has bought (not installed yet) does. Until it
-      // is in, a note dealt `slap` SOUNDS as the staccato (the same preset and part) and is WRITTEN as a slap. When the library is in: this entry takes its
-      // own preset and part, its level is measured, and nothing else changes.
-      { key: "slap", label: "Slap Tongue (STAND-IN — sounds as the staccato until the new clarinet library is in)", preset: "Clarinet Staccato", channel: 12, kind: "pitched", loud: "vel", standIn: "staccato" },
+      // 2026-11-22 (RUNNING_LOG §407, his word: the new Xsample clarinet has no slap — "let's use the tongue slap from the bass clarinet just for the playback … if …
+      // the bass clarinet doesn't have the range, just pick the nearest octave equivalent … the notation doesn't change at all" · "let's use triple tongue"):
+      // TWO VOICES THAT ARE NOT THE OLD CLARINET'S, each on a FREE CHANNEL OF THE SECOND FLUTE's PORT (SWFluteb uses 1 … 6 and 10), where its own
+      // track listens and Reaper maps that one channel to its Kontakt's channel 1 (reaper/bridge/jobs/clarinet_xs_route.lua):
+      //   slap           — the Xsample BASS CLARINET's "Slap Tongue Velocity" (preset 6, CC0 5), track "Bass Clarinet XS", channel 12; its range is
+      //                    34 … 65, so the note is FOLDED BY OCTAVES for the sound only (playFold — score/public/composer.html · sonify_core.js)
+      //   triple_tongue  — the Xsample CLARINET (Bb)'s "Triple Tongue 16T" (preset 18, CC0 17), track "Clarinet XS", channel 11
+      // The staccato, the flutter-tongue and the ordinary voice stay on the old clarinet (675 staccatos elsewhere in the piece are leveled on it).
+      { key: "slap", label: "Slap Tongue — the BASS CLARINET's sample, for the playback", preset: "Xsample Bass Clarinet #6 Slap Tongue Velocity", port: "SWFluteb", channel: 12, cc0: 5, kind: "pitched", loud: "vel", rangeLow: 34, rangeHigh: 65, playFold: true },
+      { key: "triple_tongue", label: "Triple Tongue 16T — the Xsample Clarinet", preset: "Xsample Clarinet Bb #18 Triple Tongue 16T", port: "SWFluteb", channel: 11, cc0: 17, kind: "pitched", loud: "vel" },
       { key: "trill_m2", label: "Trill minor 2nd", preset: "Clarinet Trills KS", channel: 13, kind: "pitched", loud: "vel", ks: 36 },
       { key: "trill_M2", label: "Trill major 2nd", preset: "Clarinet Trills KS", channel: 13, kind: "pitched", loud: "vel", ks: 37 },
     ],

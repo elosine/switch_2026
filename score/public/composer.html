@@ -11493,16 +11493,18 @@ const Composer = {
             // slot under the trill's tail (RUNNING_LOG §112); the eaten notes never reach here
             const lateSwitch = this.trillSoundingOnSlot(portKey, ch, wc.startSeconds - PREARM_S, wc.startSeconds);
             preArm(Math.max(nowPerf, onAt - (lateSwitch ? TRILL_SWITCH_LEAD_MS : PREARM_S * 1000)));
-            output.send([0x90 | ch, wc.sonifyNote,
+            // [the Switch~ piece §407 — HIS WORD 2026-11-22: the clarinet's slap is played by the bass clarinet's sample 'just for the playback … if … the bass clarinet doesn't have the range, just pick the nearest octave equivalent … the notation doesn't change at all'] a technique marked playFold SOUNDS its note folded by octaves into its own range; the note in the save, and so the notation, is untouched
+            const nOut = (tech && tech.playFold && tech.rangeLow != null && tech.rangeHigh != null) ? ((n, lo, hi) => { while (n > hi) n -= 12; while (n < lo) n += 12; return n; })(wc.sonifyNote, tech.rangeLow, tech.rangeHigh) : wc.sonifyNote;
+            output.send([0x90 | ch, nOut,
                 wc.velAbs != null ? wc.velAbs : ((wc.sonifyMode === 'plain' && wc.recVel != null) ? wc.recVel : (ksMode ? 100 : this.heldVel(wc)))], onAt);   // 1g item 5: the velocity for the curve's top — §349: `velAbs` pins it (a swell sends the velocity its audition sent)
             // `ccNext` is where the queue has been filled to, in score seconds; `lastCC` starts at what the pre-arm just sent, so the
             // first streamed value is only sent if it actually differs
-            const rec = { note: wc.sonifyNote, onAt, lastCC: ksMode ? null : this.heldCc7(wc, this.evalWaveCurve(wc, 0)),
+            const rec = { note: nOut, onAt, lastCC: ksMode ? null : this.heldCc7(wc, this.evalWaveCurve(wc, 0)),
                 ccNext: null, lastSend: nowPerf, offScheduled: false,
                 lastBend: (wc.morphBend && wc.morphBend.length) ? Math.round(this.morphBendAt(wc.morphBend, 0)) : undefined };   // [2j.7] pre-armed above
             if (wc.endSeconds - wc.startSeconds <= OFF_HORIZON_S) {
                 this.seccoCut(wc, output, ch, portKey, perfAt(wc.endSeconds));   // PLAN 1l step 5
-                output.send([0x80 | ch, wc.sonifyNote, 0], Math.max(onAt + 1, perfAt(wc.endSeconds)));
+                output.send([0x80 | ch, nOut, 0], Math.max(onAt + 1, perfAt(wc.endSeconds)));
                 centreBend(Math.max(onAt + 1, perfAt(wc.endSeconds)) + 2);   // [2j.8] the residue cure
                 rec.offScheduled = true;
             }

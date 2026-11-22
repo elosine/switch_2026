@@ -147,3 +147,5 @@
   rack's tam-tam will stand in until he names a library.
 
 - **2026-11-22 · the clarinet's slap is a STAND-IN (RUNNING_LOG §388):** it sounds as the staccato until the clarinet library he bought is installed; the five conversion steps are in §388. Also there: `tools/artic_deal.js --undo` ignores `--lanes` and restores every lane — to be fixed before it is used again.
+
+- **2026-11-22 · the clarinet's two new voices are not leveled (RUNNING_LOG §407):** the slap (the bass clarinet's sample, "Bass Clarinet XS") and the triple tongue ("Clarinet XS") are sent by the old staccato's and flutter-tongue's maps; at velocity 100 the slap meters about 8 dB under the triple tongue. To be measured with `section_card.js`; `rack_alive.js` wants a row for each of the two tracks (SWFluteb 11 · 12). The whole clarinet's move to the Xsample library (the 675 staccatos of Section 3 included) is not begun.

@@ -3,10 +3,10 @@
  "containerS": { "min": 1.5, "max": 6.0 },
  "longMinS": 0.5,
  "longRoomShare": 0.6,
- "long": ["flz", "bow_op_vel"],
+ "long": ["flz", "bow_op_vel", "triple_tongue"],
  "decks": {
   "flute": ["flz", "staccato", "jet_whistle", "tongue_ram"],
-  "clarinet": ["flz", "staccato", "slap"],
+  "clarinet": ["flz", "staccato", "slap", "triple_tongue"],
   "alto_sax": ["double_tonguing", "flz", "slap_pitched", "slap_exploding", "staccato"],
   "piano": ["main", "plucked", "muted"],
   "violin": ["gettato_vel", "bow_op_vel", "bartok_vel", "pizz_behind_bridge_vel", "col_legno_gett_vel"],

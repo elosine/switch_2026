@@ -236,8 +236,10 @@
 
             // the note
             const vel = wc.velAbs != null ? wc.velAbs : ((wc.sonifyMode === 'plain' && wc.recVel != null) ? wc.recVel : 100);   // §349
-            ev.push({ t: t0, port, ch, kind: 'on', bytes: [0x90 | ch, wc.sonifyNote, vel] });
-            ev.push({ t: t1, port, ch, kind: 'off', bytes: [0x80 | ch, wc.sonifyNote, 0] });
+            // [the Switch~ piece §407 — HIS WORD 2026-11-22: the clarinet's slap is played by the bass clarinet's sample 'just for the playback … if … the bass clarinet doesn't have the range, just pick the nearest octave equivalent … the notation doesn't change at all'] a technique marked playFold SOUNDS its note folded by octaves into its own range; the note in the save, and so the notation, is untouched
+            const nOut = (tech && tech.playFold && tech.rangeLow != null && tech.rangeHigh != null) ? ((n, lo, hi) => { while (n > hi) n -= 12; while (n < lo) n += 12; return n; })(wc.sonifyNote, tech.rangeLow, tech.rangeHigh) : wc.sonifyNote;
+            ev.push({ t: t0, port, ch, kind: 'on', bytes: [0x90 | ch, nOut, vel] });
+            ev.push({ t: t1, port, ch, kind: 'off', bytes: [0x80 | ch, nOut, 0] });
             stats.notes++;
 
             // CC7 stream tracing the curve (curve mode only), >= 25 ms, on change

@@ -23,7 +23,7 @@
   "date": "2026-11-22",
   "tool": "tools/notate_section.js (profile trance)",
   "notes": "Derived extraction (B1). Segmentation: DB-6 greedy IOI runs, TOL 0.015 s. Regenerable; authored content belongs in overlays only.",
-  "build": "node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 199 --w1 254 --parts 0-7 --alone 199-254 --exp --noFitMark --timeSpacing --id s2-ctpt-heads --label \"Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)\" --beam 205.99-206.29@0 --hand \"wc-2691:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2693:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 209.8-210.45@0 --hand \"wc-2695:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2696:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2697:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 220.3-220.73@0 --hand \"wc-2703:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2704:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 233.97-234.15@0 --hand \"wc-2714:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2907:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 248.93-249.46@0 --hand \"wc-2919:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2920:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 234.435-234.795@2 --hand \"wc-2793:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2794:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 217.366-217.703@1 --hand \"wc-2730:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2731:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 223.398-223.733@1 --hand \"wc-2736:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2737:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 242.675-242.923@2 --hand \"wc-2800:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2801:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 245.039-245.299@2 --hand \"wc-2803:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2804:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 221.984-222.226@6 --hand \"wc-2876:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2877:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 239.757-239.773@6 --hand \"wc-2895:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2894:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2764:{\\\"dynMark\\\":false}\" --hand \"wc-2771:{\\\"dynMark\\\":false}\" --hand \"wc-2774:{\\\"dynMark\\\":false}\" --hand \"wc-2743:{\\\"dynMark\\\":false}\" --hand \"wc-2791:{\\\"dynMark\\\":false}\" --hand \"wc-2907:{\\\"dynMark\\\":false}\" --hand \"wc-2894:{\\\"dynMark\\\":false}\" --hand \"wc-2808:{\\\"dynMark\\\":false}\" --hand \"wc-2742:{\\\"grace\\\":true,\\\"pickupTo\\\":\\\"wc-2743\\\",\\\"goLine\\\":false,\\\"dynMark\\\":false,\\\"nhAnchor\\\":\\\"leftEdge\\\"}\" --noGc wc-2742 --hand \"wc-2743:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2762:{\\\"grace\\\":true,\\\"graceTremolo\\\":true,\\\"nhHead\\\":\\\"filled\\\",\\\"nhStem\\\":\\\"flag16\\\",\\\"nhStemRule\\\":\\\"flagClear\\\",\\\"pickupTo\\\":\\\"wc-2765\\\",\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2765:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2782:{\\\"grace\\\":true,\\\"goLine\\\":false,\\\"dynMark\\\":false,\\\"pickupTo\\\":\\\"wc-2783\\\",\\\"nhAnchor\\\":\\\"leftEdge\\\"}\" --noGc wc-2782 --hand \"wc-2783:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand wc-2794:{} --noGc wc-2794 --hand \"wc-2766:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false,\\\"dynMark\\\":\\\"band\\\",\\\"slurTo\\\":\\\"wc-2764\\\"}\" --hand \"wc-2764:{\\\"nhShiftSs\\\":2.4,\\\"dynMark\\\":false}\" --hand \"wc-2773:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false,\\\"dynMark\\\":\\\"band\\\",\\\"slurTo\\\":\\\"wc-2774\\\"}\" --hand \"wc-2774:{\\\"nhShiftSs\\\":2.4,\\\"dynMark\\\":false}\" --hand \"wc-2791:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false,\\\"dynMark\\\":\\\"band\\\",\\\"slurTo\\\":\\\"wc-2790\\\"}\" --hand \"wc-2790:{\\\"nhShiftSs\\\":2.4,\\\"dynMark\\\":false}\" --hand \"wc-2808:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false,\\\"dynMark\\\":\\\"band\\\",\\\"slurTo\\\":\\\"wc-2807\\\"}\" --hand \"wc-2807:{\\\"nhShiftSs\\\":2.4,\\\"dynMark\\\":false}\""
+  "build": "node tools/notate_section.js --score piece-FirstDraft-Final-B-noFadeAt96 --w0 199 --w1 254 --parts 0-7 --alone 199-254 --exp --noFitMark --timeSpacing --id s2-ctpt-heads --label \"Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)\" --beam 205.99-206.29@0 --hand \"wc-2691:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2693:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 209.8-210.45@0 --hand \"wc-2695:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2696:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2697:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 220.3-220.73@0 --hand \"wc-2703:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2704:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 233.97-234.15@0 --hand \"wc-2714:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2907:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 248.93-249.46@0 --hand \"wc-2919:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2920:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 234.435-234.795@2 --hand \"wc-2793:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2794:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 206.406-206.699@1 --hand \"wc-2721:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2722:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 223.398-223.733@1 --hand \"wc-2736:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2737:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 242.675-242.923@2 --hand \"wc-2800:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2801:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 245.039-245.299@2 --hand \"wc-2803:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2804:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 221.984-222.226@6 --hand \"wc-2876:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2877:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --beam 239.757-239.773@6 --hand \"wc-2895:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2894:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2764:{\\\"dynMark\\\":false}\" --hand \"wc-2771:{\\\"dynMark\\\":false}\" --hand \"wc-2774:{\\\"dynMark\\\":false}\" --hand \"wc-2743:{\\\"dynMark\\\":false}\" --hand \"wc-2791:{\\\"dynMark\\\":false}\" --hand \"wc-2907:{\\\"dynMark\\\":false}\" --hand \"wc-2894:{\\\"dynMark\\\":false}\" --hand \"wc-2808:{\\\"dynMark\\\":false}\" --hand \"wc-2742:{\\\"grace\\\":true,\\\"pickupTo\\\":\\\"wc-2743\\\",\\\"goLine\\\":false,\\\"dynMark\\\":false,\\\"nhAnchor\\\":\\\"leftEdge\\\"}\" --noGc wc-2742 --hand \"wc-2743:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2762:{\\\"grace\\\":true,\\\"graceTremolo\\\":true,\\\"nhHead\\\":\\\"filled\\\",\\\"nhStem\\\":\\\"flag16\\\",\\\"nhStemRule\\\":\\\"flagClear\\\",\\\"pickupTo\\\":\\\"wc-2765\\\",\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2765:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand \"wc-2782:{\\\"grace\\\":true,\\\"goLine\\\":false,\\\"dynMark\\\":false,\\\"pickupTo\\\":\\\"wc-2783\\\",\\\"nhAnchor\\\":\\\"leftEdge\\\"}\" --noGc wc-2782 --hand \"wc-2783:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false}\" --hand wc-2794:{} --noGc wc-2794 --hand \"wc-2766:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false,\\\"dynMark\\\":\\\"band\\\",\\\"slurTo\\\":\\\"wc-2764\\\"}\" --hand \"wc-2764:{\\\"nhShiftSs\\\":2.4,\\\"dynMark\\\":false}\" --hand \"wc-2773:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false,\\\"dynMark\\\":\\\"band\\\",\\\"slurTo\\\":\\\"wc-2774\\\"}\" --hand \"wc-2774:{\\\"nhShiftSs\\\":2.4,\\\"dynMark\\\":false}\" --hand \"wc-2791:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false,\\\"dynMark\\\":\\\"band\\\",\\\"slurTo\\\":\\\"wc-2790\\\"}\" --hand \"wc-2790:{\\\"nhShiftSs\\\":2.4,\\\"dynMark\\\":false}\" --hand \"wc-2808:{\\\"nhAnchor\\\":\\\"leftEdge\\\",\\\"goLine\\\":false,\\\"dynMark\\\":\\\"band\\\",\\\"slurTo\\\":\\\"wc-2807\\\"}\" --hand \"wc-2807:{\\\"nhShiftSs\\\":2.4,\\\"dynMark\\\":false}\""
  },
  "events": [
   {
@@ -75,7 +75,7 @@
     "objectId": "wc-2716"
    },
    "onset": 200.683,
-   "duration": 0.5,
+   "duration": 0.18700000000001182,
    "pitch": {
     "midi": 85,
     "spelled": {
@@ -84,7 +84,7 @@
      "octave": 6
     }
    },
-   "technique": "flz",
+   "technique": "slap",
    "provenance": "derived",
    "mode": "plain",
    "vel": 109
@@ -201,7 +201,7 @@
     "objectId": "wc-2717"
    },
    "onset": 201.876,
-   "duration": 0.06799999999998363,
+   "duration": 0.5,
    "pitch": {
     "midi": 71,
     "spelled": {
@@ -210,7 +210,7 @@
      "octave": 4
     }
    },
-   "technique": "slap",
+   "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
    "vel": 127
@@ -285,7 +285,7 @@
     "objectId": "wc-2718"
    },
    "onset": 202.87,
-   "duration": 0.26200000000000045,
+   "duration": 0.5,
    "pitch": {
     "midi": 53,
     "spelled": {
@@ -294,7 +294,7 @@
      "octave": 3
     }
    },
-   "technique": "staccato",
+   "technique": "triple_tongue",
    "provenance": "derived",
    "mode": "plain",
    "vel": 83
@@ -432,7 +432,7 @@
     "objectId": "wc-2719"
    },
    "onset": 204.006,
-   "duration": 0.5,
+   "duration": 0.09600000000000364,
    "pitch": {
     "midi": 86,
     "spelled": {
@@ -441,7 +441,7 @@
      "octave": 6
     }
    },
-   "technique": "flz",
+   "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
    "vel": 127
@@ -516,7 +516,7 @@
     "objectId": "wc-2720"
    },
    "onset": 204.545,
-   "duration": 0.26700000000002433,
+   "duration": 0.5,
    "pitch": {
     "midi": 86,
     "spelled": {
@@ -525,7 +525,7 @@
      "octave": 6
     }
    },
-   "technique": "staccato",
+   "technique": "triple_tongue",
    "provenance": "derived",
    "mode": "plain",
    "vel": 83
@@ -672,7 +672,7 @@
      "octave": 6
     }
    },
-   "technique": "slap",
+   "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
    "vel": 109
@@ -726,7 +726,7 @@
     "objectId": "wc-2722"
    },
    "onset": 206.695,
-   "duration": 0.5,
+   "duration": 0.06900000000001683,
    "pitch": {
     "midi": 89,
     "spelled": {
@@ -735,7 +735,7 @@
      "octave": 6
     }
    },
-   "technique": "flz",
+   "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
    "vel": 83
@@ -861,7 +861,7 @@
      "octave": 5
     }
    },
-   "technique": "staccato",
+   "technique": "slap",
    "provenance": "derived",
    "mode": "plain",
    "vel": 127
@@ -1008,7 +1008,7 @@
      "octave": 4
     }
    },
-   "technique": "slap",
+   "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
    "vel": 109
@@ -1155,7 +1155,7 @@
      "octave": 3
     }
    },
-   "technique": "flz",
+   "technique": "triple_tongue",
    "provenance": "derived",
    "mode": "plain",
    "vel": 127
@@ -1293,7 +1293,7 @@
     "objectId": "wc-2726"
    },
    "onset": 212.455,
-   "duration": 0.07399999999998386,
+   "duration": 0.5,
    "pitch": {
     "midi": 89,
     "spelled": {
@@ -1302,7 +1302,7 @@
      "octave": 6
     }
    },
-   "technique": "slap",
+   "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
    "vel": 83
@@ -1407,7 +1407,7 @@
      "octave": 6
     }
    },
-   "technique": "staccato",
+   "technique": "slap",
    "provenance": "derived",
    "mode": "plain",
    "vel": 109
@@ -1512,7 +1512,7 @@
      "octave": 6
     }
    },
-   "technique": "slap",
+   "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
    "vel": 83
@@ -1671,7 +1671,7 @@
     "objectId": "wc-2729"
    },
    "onset": 215.862,
-   "duration": 0.24899999999999523,
+   "duration": 0.5,
    "pitch": {
     "midi": 89,
     "spelled": {
@@ -1680,7 +1680,7 @@
      "octave": 6
     }
    },
-   "technique": "staccato",
+   "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
    "vel": 127
@@ -1890,7 +1890,7 @@
      "octave": 6
     }
    },
-   "technique": "staccato",
+   "technique": "slap",
    "provenance": "derived",
    "mode": "plain",
    "vel": 109
@@ -1944,7 +1944,7 @@
     "objectId": "wc-2731"
    },
    "onset": 217.699,
-   "duration": 0.27899999999999636,
+   "duration": 0.34699999999998,
    "pitch": {
     "midi": 67,
     "spelled": {
@@ -1953,7 +1953,7 @@
      "octave": 4
     }
    },
-   "technique": "slap",
+   "technique": "triple_tongue",
    "provenance": "derived",
    "mode": "plain",
    "vel": 83
@@ -2385,7 +2385,7 @@
     "objectId": "wc-2735"
    },
    "onset": 221.722,
-   "duration": 0.09799999999998477,
+   "duration": 0.5,
    "pitch": {
     "midi": 89,
     "spelled": {
@@ -2394,7 +2394,7 @@
      "octave": 6
     }
    },
-   "technique": "staccato",
+   "technique": "triple_tongue",
    "provenance": "derived",
    "mode": "plain",
    "vel": 83
@@ -2763,7 +2763,7 @@
     "objectId": "wc-2738"
    },
    "onset": 224.664,
-   "duration": 0.15900000000002024,
+   "duration": 0.5,
    "pitch": {
     "midi": 76,
     "spelled": {
@@ -2772,7 +2772,7 @@
      "octave": 5
     }
    },
-   "technique": "slap",
+   "technique": "triple_tongue",
    "provenance": "derived",
    "mode": "plain",
    "vel": 127
@@ -2994,7 +2994,7 @@
     "objectId": "wc-2739"
    },
    "onset": 226.149,
-   "duration": 0.5,
+   "duration": 0.2189999999999941,
    "pitch": {
     "midi": 89,
     "spelled": {
@@ -3003,7 +3003,7 @@
      "octave": 6
     }
    },
-   "technique": "flz",
+   "technique": "slap",
    "provenance": "derived",
    "mode": "plain",
    "vel": 109
@@ -3057,7 +3057,7 @@
     "objectId": "wc-2740"
    },
    "onset": 226.721,
-   "duration": 0.132000000000005,
+   "duration": 0.5,
    "pitch": {
     "midi": 89,
     "spelled": {
@@ -3066,7 +3066,7 @@
      "octave": 6
     }
    },
-   "technique": "slap",
+   "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
    "vel": 127
@@ -3267,7 +3267,7 @@
     "objectId": "wc-2741"
    },
    "onset": 228.55,
-   "duration": 0.5,
+   "duration": 0.18500000000000227,
    "pitch": {
     "midi": 53,
     "spelled": {
@@ -3276,7 +3276,7 @@
      "octave": 3
     }
    },
-   "technique": "flz",
+   "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
    "vel": 109
@@ -3675,7 +3675,7 @@
      "octave": 3
     }
    },
-   "technique": "flz",
+   "technique": "triple_tongue",
    "provenance": "derived",
    "mode": "plain",
    "vel": 109
@@ -3918,7 +3918,7 @@
     "objectId": "wc-2745"
    },
    "onset": 234.285,
-   "duration": 0.1740000000000066,
+   "duration": 0.5,
    "pitch": {
     "midi": 71,
     "spelled": {
@@ -3927,7 +3927,7 @@
      "octave": 4
     }
    },
-   "technique": "staccato",
+   "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
    "vel": 83
@@ -4263,7 +4263,7 @@
      "octave": 5
     }
    },
-   "technique": "slap",
+   "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
    "vel": 127
@@ -4443,7 +4443,7 @@
     "objectId": "wc-2747"
    },
    "onset": 239.348,
-   "duration": 0.5,
+   "duration": 0.17599999999998772,
    "pitch": {
     "midi": 86,
     "spelled": {
@@ -4452,7 +4452,7 @@
      "octave": 6
     }
    },
-   "technique": "flz",
+   "technique": "slap",
    "provenance": "derived",
    "mode": "plain",
    "vel": 109
@@ -4590,7 +4590,7 @@
     "objectId": "wc-2748"
    },
    "onset": 241.294,
-   "duration": 0.18299999999999272,
+   "duration": 0.5,
    "pitch": {
     "midi": 89,
     "spelled": {
@@ -4599,7 +4599,7 @@
      "octave": 6
     }
    },
-   "technique": "staccato",
+   "technique": "triple_tongue",
    "provenance": "derived",
    "mode": "plain",
    "vel": 127
@@ -4884,7 +4884,7 @@
     "objectId": "wc-2749"
    },
    "onset": 243.785,
-   "duration": 0.3640000000000043,
+   "duration": 0.09100000000000819,
    "pitch": {
     "midi": 89,
     "spelled": {
@@ -4893,7 +4893,7 @@
      "octave": 6
     }
    },
-   "technique": "flz",
+   "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
    "vel": 83
@@ -4968,7 +4968,7 @@
     "objectId": "wc-2750"
    },
    "onset": 244.179,
-   "duration": 0.09499999999999886,
+   "duration": 0.5,
    "pitch": {
     "midi": 50,
     "spelled": {
@@ -4977,7 +4977,7 @@
      "octave": 3
     }
    },
-   "technique": "slap",
+   "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
    "vel": 127
@@ -5124,7 +5124,7 @@
      "octave": 5
     }
    },
-   "technique": "staccato",
+   "technique": "slap",
    "provenance": "derived",
    "mode": "plain",
    "vel": 109
@@ -5271,7 +5271,7 @@
      "octave": 6
     }
    },
-   "technique": "flz",
+   "technique": "triple_tongue",
    "provenance": "derived",
    "mode": "plain",
    "vel": 83
@@ -5472,7 +5472,7 @@
     "objectId": "wc-2753"
    },
    "onset": 248.422,
-   "duration": 0.16900000000001114,
+   "duration": 0.5,
    "pitch": {
     "midi": 72,
     "spelled": {
@@ -5481,7 +5481,7 @@
      "octave": 5
     }
    },
-   "technique": "slap",
+   "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
    "vel": 109
@@ -5754,7 +5754,7 @@
      "octave": 3
     }
    },
-   "technique": "staccato",
+   "technique": "slap",
    "provenance": "derived",
    "mode": "plain",
    "vel": 127
@@ -5829,7 +5829,7 @@
     "objectId": "wc-2755"
    },
    "onset": 250.763,
-   "duration": 0.5,
+   "duration": 0.07900000000000773,
    "pitch": {
     "midi": 50,
     "spelled": {
@@ -5838,7 +5838,7 @@
      "octave": 3
     }
    },
-   "technique": "flz",
+   "technique": "staccato",
    "provenance": "derived",
    "mode": "plain",
    "vel": 83
@@ -5976,7 +5976,7 @@
     "objectId": "wc-2757"
    },
    "onset": 251.676,
-   "duration": 0.15000000000000568,
+   "duration": 0.5,
    "pitch": {
     "midi": 52,
     "spelled": {
@@ -5985,7 +5985,7 @@
      "octave": 3
     }
    },
-   "technique": "slap",
+   "technique": "flz",
    "provenance": "derived",
    "mode": "plain",
    "vel": 109
@@ -6678,7 +6678,7 @@
     200.683,
     201.876
    ],
-   "class": "ord-sustained",
+   "class": "fixed-oneshot",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2716"
@@ -6692,7 +6692,7 @@
     201.876,
     202.87
    ],
-   "class": "fixed-oneshot",
+   "class": "ord-sustained",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2717"
@@ -6706,7 +6706,7 @@
     202.87,
     204.006
    ],
-   "class": "fixed-oneshot",
+   "class": "ord-sustained",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2718"
@@ -6720,7 +6720,7 @@
     204.006,
     204.545
    ],
-   "class": "ord-sustained",
+   "class": "fixed-oneshot",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2719"
@@ -6734,7 +6734,7 @@
     204.545,
     206.41
    ],
-   "class": "fixed-oneshot",
+   "class": "ord-sustained",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2720"
@@ -6762,7 +6762,7 @@
     206.695,
     208.48
    ],
-   "class": "ord-sustained",
+   "class": "fixed-oneshot",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2722"
@@ -6818,7 +6818,7 @@
     212.455,
     213.307
    ],
-   "class": "fixed-oneshot",
+   "class": "ord-sustained",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2726"
@@ -6860,7 +6860,7 @@
     215.862,
     217.37
    ],
-   "class": "fixed-oneshot",
+   "class": "ord-sustained",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2729"
@@ -6888,7 +6888,7 @@
     217.699,
     218.076
    ],
-   "class": "fixed-oneshot",
+   "class": "ord-sustained",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2731"
@@ -6944,7 +6944,7 @@
     221.722,
     223.402
    ],
-   "class": "fixed-oneshot",
+   "class": "ord-sustained",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2735"
@@ -6986,7 +6986,7 @@
     224.664,
     226.149
    ],
-   "class": "fixed-oneshot",
+   "class": "ord-sustained",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2738"
@@ -7000,7 +7000,7 @@
     226.149,
     226.721
    ],
-   "class": "ord-sustained",
+   "class": "fixed-oneshot",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2739"
@@ -7014,7 +7014,7 @@
     226.721,
     228.55
    ],
-   "class": "fixed-oneshot",
+   "class": "ord-sustained",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2740"
@@ -7028,7 +7028,7 @@
     228.55,
     230.369
    ],
-   "class": "ord-sustained",
+   "class": "fixed-oneshot",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2741"
@@ -7084,7 +7084,7 @@
     234.285,
     237.503
    ],
-   "class": "fixed-oneshot",
+   "class": "ord-sustained",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2745"
@@ -7112,7 +7112,7 @@
     239.348,
     241.294
    ],
-   "class": "ord-sustained",
+   "class": "fixed-oneshot",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2747"
@@ -7126,7 +7126,7 @@
     241.294,
     243.785
    ],
-   "class": "fixed-oneshot",
+   "class": "ord-sustained",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2748"
@@ -7140,7 +7140,7 @@
     243.785,
     244.179
    ],
-   "class": "ord-sustained",
+   "class": "fixed-oneshot",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2749"
@@ -7154,7 +7154,7 @@
     244.179,
     245.293
    ],
-   "class": "fixed-oneshot",
+   "class": "ord-sustained",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2750"
@@ -7196,7 +7196,7 @@
     248.422,
     250.288
    ],
-   "class": "fixed-oneshot",
+   "class": "ord-sustained",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2753"
@@ -7224,7 +7224,7 @@
     250.763,
     251.676
    ],
-   "class": "ord-sustained",
+   "class": "fixed-oneshot",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2755"
@@ -7238,7 +7238,7 @@
     251.676,
     254
    ],
-   "class": "fixed-oneshot",
+   "class": "ord-sustained",
    "strategy": "unresolved",
    "events": [
     "ev-wc-2757"
@@ -10342,10 +10342,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-bm-7-ev-wc-2730",
+   "id": "ov-bm-7-ev-wc-2721",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-2730"
+    "event": "ev-wc-2721"
    },
    "value": {
     "device": {
@@ -10363,10 +10363,10 @@
    "provenance": "authored"
   },
   {
-   "id": "ov-bm-7-ev-wc-2731",
+   "id": "ov-bm-7-ev-wc-2722",
    "kind": "engraving",
    "target": {
-    "event": "ev-wc-2731"
+    "event": "ev-wc-2722"
    },
    "value": {
     "device": {

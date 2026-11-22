@@ -546,6 +546,22 @@
       "instrText": "d.t.",
       "instrAlign": "middle"
      },
+     "triple_tongue": {
+      "sheet": "the Switch~ piece §407 (2026-11-22, his word: 'for the clarinet … let's use triple tongue instead of double tongue. And we'll just notate it similar to the alto sax, except with … TT … and then 3 slashes') — the double-tonguing figure with THREE slashes and the word t.t.",
+      "anchorRow": "A",
+      "memberRows": ["head","ledger","accidental","ottava","stem","tremoloSlash","dynamic","instruction","brick"],
+      "goLine": false,
+      "gc": false,
+      "nhUnit": true,
+      "nhAnchor": "leftEdge",
+      "nhHead": "open",
+      "nhStem": "plain",
+      "stemLenSs": "@objects.tremoloSlash.stemLenSs",
+      "nhTremolo": "@objects.tremoloSlash.count",
+      "dynMark": "band",
+      "instrText": "t.t.",
+      "instrAlign": "middle"
+     },
      "tongue_ram": {
       "sheet": "the Switch~ piece §373 (2026-11-21, his word on the counterpoint's page: 'The tongue rams should be the flag staccato [too], for example, 201.56') — the staccato unit's look whole, dot and all",
       "anchorRow": "C",

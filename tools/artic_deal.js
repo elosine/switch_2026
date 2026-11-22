@@ -45,7 +45,9 @@ if (has('undo')) {
 const rnd = Roll.mulberry32(seed);
 const shuffle = (a) => { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
 const techOf = (instKey, key) => (INSTRUMENTS[instKey] || { techniques: [] }).techniques.find((q) => q.key === key);
-const rangeOf = (instKey, q) => { const I = INSTRUMENTS[instKey]; return [q.rangeLow != null ? q.rangeLow : I.rangeLow, q.rangeHigh != null ? q.rangeHigh : I.rangeHigh]; };
+// [§407] a voice that FOLDS ITS NOTE FOR THE SOUND ONLY (playFold: the clarinet's slap on the bass clarinet's sample) is dealt in the INSTRUMENT's range —
+// its own narrow range is the sender's business, never the written note's
+const rangeOf = (instKey, q) => { const I = INSTRUMENTS[instKey]; if (q.playFold) return [I.rangeLow, I.rangeHigh]; return [q.rangeLow != null ? q.rangeLow : I.rangeLow, q.rangeHigh != null ? q.rangeHigh : I.rangeHigh]; };
 const fold = (p, lo, hi) => { let x = p; while (x < lo) x += 12; while (x > hi) x -= 12; return x >= lo && x <= hi ? x : null; };
 // the keys of a by-key voice, whatever shape the recipe gives them: [{midi, label}] (a strike's table), [60, 62 …], or {midi: label} / {label: midi}
 // a by-key voice whose keys are still "pending" (a string) has NO key table: its pitch is folded into the range instead

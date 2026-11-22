@@ -2230,6 +2230,14 @@
     "alto_sax"
    ]
   },
+  "triple_tongue": {
+   "family": "sustained",
+   "notate": null,
+   "label": "Triple Tongue",
+   "players": [
+    "clarinet"
+   ]
+  },
   "gran_cassa_rute_on_rim": {
    "family": "oneshot",
    "notate": null,
