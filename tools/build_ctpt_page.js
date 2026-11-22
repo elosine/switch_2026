@@ -120,7 +120,7 @@ for (const part of AUTO_PARTS) {
 for (const [a, b, part] of BEAMS) for (const o of save.objects) if (OP_LOCAL.has(o.id) && o.layer === part && o.startSeconds >= a - 1e-9 && o.startSeconds <= b + 1e-9) { delete HANDS[o.id].nhStemDir; delete HANDS[o.id].chainSide; }
 
 const args = ['tools/notate_section.js', '--score', SCORE, '--w0', String(W0), '--w1', String(W1), '--parts', '0-7', '--alone', W0 + '-' + W1, '--exp', '--noFitMark', '--timeSpacing',
-  '--partName', '4:Glock', '--id', 's2-ctpt-heads', '--label', 'Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)'];
+  '--partName', '4:Glock', '--id', 's2-ctpt-heads', '--label', 'Section 2 - THE COUNTERPOINT, draft (200 to 253 s)'];
 const graceIds = new Set(GRACES.map(g => g[0]));
 for (const [a, b, part] of BEAMS) {
   args.push('--beam', a + '-' + b + '@' + part);
