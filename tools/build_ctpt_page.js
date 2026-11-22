@@ -41,6 +41,9 @@ const HANDS = {
   'wc-2783': { nhAnchor: 'leftEdge', goLine: false },
   // §400: the second note of his beam at 234.44 → 234.79 — no gestural curve of its own (one curve, on the first)
   'wc-2794': { noGc: true },
+  // §417 (2026-11-22), the cello's overpressure C3 at 223.33 — HIS EXCEPTION: 'let's find a way to do a carve out for this one, an exception, and do stem
+  // down and put the markings above, but above the staff' (by rule its stem went up into the part above and the fit threw its marks under the staff)
+  'wc-9862': { nhStemDir: 'down', chainSide: 'above' },
   // §408 (2026-11-22), the clarinet at 217.70 → 218.08, a triple-tongued G4 and a staccato G4: 'the inverse' of the tied attack — 'the tonguing is on the
   // left instead of the right side, and it should be tied, but that horizontal space should be standardized … The GC can stay where it is … if we got rid
   // of the go line, then we have to move everything over'. The staccato: its head's left edge on its moment, the curve where it was, no go line. The

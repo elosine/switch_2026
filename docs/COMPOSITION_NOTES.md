@@ -1830,3 +1830,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim):** "keep the jeté at 212.08" · on a picture of the cello's beamed pair at 215.6 → 215.9: "215.67 downbows too high, also fix standard"
 
 **The AI's reading:** the stack of down-bows over a BEAMED overpressure note stands far above the beam; the rule itself is to be mended, not this one note.
+
+### SW-153 · 2026-11-22 · an exception at the cello's 223.3
+
+**His words (verbatim), on a picture of that note (a square head in the staff, its stem up, a marcato, an f and three down-bows hanging under the staff):** "223.3, let's find a way to do a carve out for this one, an exception, and do stem down and put the markings above, but above the staff."
+
+**The AI's reading:** one note, by his word, against the rule: its stem down, and all its marks over the staff.

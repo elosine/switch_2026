@@ -6069,3 +6069,11 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **THE STANDARD NOW (`layout.js`, a pass after the beams are level; `objects.bowStack` unchanged):** a stack over an up stem is re-set to the house gap (0.45 ss) over the stem's tip as it stands — the beam's outer edge in a beam. A beamed note whose row sends its marks BELOW (the overpressure's `chainSide: below`, §410) keeps its articulation in its own column under the head, not in the group's row. At 215.91, read from the drawn items: the down-bows at 4.67 · 5.67 · 6.67 over the tip at 3.80; the marcato at −5.4 under the head.
 **LEFT AS THE GROUP'S RULE, said to him:** the dynamic of a beamed note in this section stands over the beam (the p is above the down-bows, as the f is above the first note's accent).
 **MEASURED:** `fit_list` — that column now fits (9 do not: the numerals over long stems, §397). `check_rules.js`: part (10) green; the old two reds. **NOT LOOKED AT as a picture.**
+
+## §417 · 2026-11-22 · his exception — the cello's overpressure at 223.33: stem down, every mark over the staff
+
+**His words:** SW-153 (the sketch pad). What his picture showed: the C3 sits in the staff; by rule its stem went UP, long, into the part above; the stack over its tip could not fit and the fit threw the marcato, the f and the down-bows under the staff.
+**THE EXCEPTION (`build_ctpt_page.js` HANDS, `wc-9862`, with his words):** `nhStemDir: down` · `chainSide: above`. Read from the drawn items: the stem down to −7.0; the down-bows at 2.87 · 3.87 · 4.87; the marcato at 6.29; the f at 7.77 — all over the staff, in the cello's own lane; the column fits.
+**ONE THING MADE STANDARD BY IT (`layout.js`, the stack's placing):** a stack over a head that stands INSIDE the staff begins the house gap over the staff's TOP LINE, never among its lines — his "above, but above the staff".
+**NOT TOUCHED:** the violin's overpressure 30 ms later (223.35, a G3 under its staff) — still on the list of columns that do not fit; said to him.
+**MEASURED:** `fit_list` 9 (the violin's 4, the cello's 5) · `check_rules.js` part (10) green; the old two reds. **NOT LOOKED AT as a picture.**
