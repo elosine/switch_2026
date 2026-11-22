@@ -2682,6 +2682,11 @@
                   items.push(Object.assign({ k: 'text', t: tU, dxSs: dxT, ySs: yT - instrEm / 2 + instrEm * 0.2, text: instrTxt, anchor: al, seq: 'techText' }, WORD));
                   recChrome(items[items.length - 1], chainAbove ? 'above' : 'below', instrEm * 0.8, -instrEm * 0.2);
                 }
+                // [the Switch~ piece §397 — HIS WORD 2026-11-22: 'we should have a way to say which string … Just notate it on the open string note'] THE STRING'S
+                // ROMAN NUMERAL above a note whose device names the strings by their open pitch (stringNumerals — rules.json objects.stringNumeral): upright, the
+                // word's size, centred on the head; THE STACK ABOVE A NOTE stands it clear of the staff and of whatever is under it.
+                { const numS = dev.stringNumerals && e.pitch && dev.stringNumerals[e.pitch.midi];
+                  if (numS) items.push(Object.assign({ k: 'text', t: tU, dxSs: headDx, ySs: Math.max(yDraw, 0) + 1, text: numS, anchor: 'middle', seq: 'techText', ev: e.id }, WORD, { italic: false })); }
                 // [PLAN 2i.8, RUNNING_LOG §530, D54 — the composer's (b)] "sempre secco" ONCE PER PART, on the part's FIRST
                 // secco swell (the crescendo run, 526.8–559.4 s): the strings damp at the cut, the winds take the word for the
                 // shape; the instructions page carries the rest. [PLAN 2j.2, §539–§540 — his eye, 2026-09-16: "move sempre secco

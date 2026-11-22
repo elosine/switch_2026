@@ -1734,3 +1734,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim):** "Same with the one at 245.03. And the figure at 248.67, can we make it like the previous one? And keep the same distance as the previous one, the horizontal distance. So scooch everything over so that the GC lands on the slab, move the dynamic over to the slab one, scoot the double tongue node over even more so that it has the same horizontal distance as the previous similar figure, and tie them and get rid of the go line, etc. And see if you can extrapolate that figure into the standard somehow."
 
 **The AI's reading:** "same with 245.03" = that slap's word centred (it has no go line). The figure of 232.35 is to be the standing answer wherever a slap and a held note of one pitch fall at one instant.
+
+### SW-137 · 2026-11-22 · the alto sax's 211.81 is the slap; behind the bridge as recommended
+
+**His words (verbatim):** "Alto Sax 211, let's just do the slap, please. And let's go with your recommendation for Behind the Bridge."
+
+**The AI's reading:** the staccato of the pair at 211.81 leaves; pizzicato behind the bridge is "pizz. b.b.", a cross head on the open string's note, the string's Roman numeral, each note moved to the nearest open string.

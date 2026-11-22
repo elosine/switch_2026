@@ -641,6 +641,26 @@
       "instrText": "c.l.b. jeté",
       "instrAlign": "middle"
      },
+     "pizz_behind_bridge_vel": {
+      "sheet": "the Switch~ piece §397 (2026-11-22, his word: 'let's go with your recommendation for Behind the Bridge') — the short-note unit with a CROSS head on the open string's note, the words pizz. b.b., and the string's Roman numeral above (objects.stringNumeral); his quartet wrote it only inside the two-handed clusters (rows f.b. / b.b., cross heads)",
+      "anchorRow": "C",
+      "memberRows": ["cueHead","ledger","accidental","stem","flag","dynamic","ottava","goLine","gc","instruction"],
+      "goLine": true,
+      "gc": true,
+      "nhUnit": true,
+      "nhHead": "cross",
+      "chainSide": "headSide",
+      "brick": false,
+      "nhHeadScale": "@objects.cueHead.size",
+      "nhStem": "flag16",
+      "nhStemRule": "flagClear",
+      "nhGapSs": "@anchors.C.gapSs",
+      "dynMark": "band",
+      "dynBesideStem": true,
+      "instrText": "pizz. b.b.",
+      "stringNumerals": "@objects.stringNumeral.byMidi",
+      "instrAlign": "middle"
+     },
      "bow_op_vel": {
       "sheet": "the Switch~ piece §393 (2026-11-22, his word: 'bow overpressure, 3 down bows in the square notehead is fine. I guess we can include the marcato as well. Let's see how it looks in the actual score') — his string quartet's figure (BowOverpressureAccent_*.ly): a black SQUARE head, a flagged stem, THREE DOWN-BOW signs past the stem's tip, a marcato at the head; here a held note, so its bar for its length stays and its head's left edge is its moment. TO BE RE-EVALUATED BY HIM ON THE PAGE",
       "anchorRow": "A",
