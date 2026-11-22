@@ -2518,6 +2518,7 @@ if (MORPH_SEQ.length) {
     const e = findEv(id);
     if (!e) { console.error('--hand ' + id + ': no such event in this window'); process.exit(2); }
     if (dev.pickupTo) { const t = findEv(dev.pickupTo); if (!t) { console.error('--hand ' + id + ': pickupTo ' + dev.pickupTo + ' is not an event in this window'); process.exit(2); } dev.pickupTo = t.id; }   // [§371] the note a grace pickup leads to
+    if (dev.drawAt) { const t = findEv(dev.drawAt); if (!t) { console.error('--hand ' + id + ': drawAt ' + dev.drawAt + ' is not an event in this window'); process.exit(2); } dev.drawAt = t.id; }   // [§408] the note at whose moment this one is drawn
     if (dev.slurTo) { const t = findEv(dev.slurTo); if (!t) { console.error('--hand ' + id + ': slurTo ' + dev.slurTo + ' is not an event in this window'); process.exit(2); } dev.slurTo = t.id; }
     // [RUNNING_LOG §643 — his "bass drum downward stem. And the rest up stems": the six drew by the house rule] A HAND'S stemDir IS THE
     // OVERLAY'S OWN FIELD: layout reads a note's direction override from the engraving overlay's value (engOf → engS.stemDir, the per-note

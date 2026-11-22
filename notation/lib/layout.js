@@ -1480,7 +1480,11 @@
             // note it leads to) is drawn AT ITS MAIN NOTE'S TIME and stood off to the left by a fixed distance (below) — so the two keep one
             // spacing whatever the page's pace, and however few milliseconds lie between them in the playing
             const pkM = !CG ? (d0 => (d0.grace && d0.pickupTo ? evById.get(d0.pickupTo) : null))(deviceOf(e)) : null;
-            const tU = CG ? CG.t : pkM ? pkM.onset : e.onset;
+            // [the Switch~ piece §408 — HIS WORD 2026-11-22, the clarinet at 217.7: 'it's like the inverse. The tonguing is on the left instead of the right side,
+            // and it should be tied, but that horizontal space should be standardized'] a hand's drawAt: a note drawn AT ANOTHER NOTE'S MOMENT (stood off from it
+            // by its own nhShiftSs) — the held note of a figure whose short note comes second
+            const atM = (!CG && !pkM) ? (d0 => (d0.drawAt ? evById.get(d0.drawAt) : null))(deviceOf(e)) : null;
+            const tU = CG ? CG.t : pkM ? pkM.onset : atM ? atM.onset : e.onset;
             const ySs = posOf(spelledOf(e));
             // hover identity (day 22): what this un-notated material IS —
             // pitch · technique · envelope · mode · span · class/strategy ·

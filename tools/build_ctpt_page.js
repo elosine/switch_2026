@@ -29,6 +29,7 @@ const GRACES = [];         // [the grace note, its main note]
 
 // ---- HIS OWN WORD ON SINGLE NOTES of the parts built by rule (each with its entry). A note made a GRACE here is out of the rule's beaming;
 // `noGc` takes its gestural curve away (one curve, on the note it leads to).
+const TIED_SHIFT = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'rules.json'), 'utf8')).objects.tiedAttack.shiftSs;   // the tied figure's one distance (rules.json objects.tiedAttack)
 const HANDS = {
   // §392 (2026-11-22), the alto sax at 206.48, a double-tongued F5 0.07 s long: 'Let's change that double-tongued note to a grace note, black note head,
   // just your typical grace note that we've been using, but you can keep the slashes and the … DT' — at its own time (the next note is 0.26 s on)
@@ -40,6 +41,12 @@ const HANDS = {
   'wc-2783': { nhAnchor: 'leftEdge', goLine: false },
   // §400: the second note of his beam at 234.44 → 234.79 — no gestural curve of its own (one curve, on the first)
   'wc-2794': { noGc: true },
+  // §408 (2026-11-22), the clarinet at 217.70 → 218.08, a triple-tongued G4 and a staccato G4: 'the inverse' of the tied attack — 'the tonguing is on the
+  // left instead of the right side, and it should be tied, but that horizontal space should be standardized … The GC can stay where it is … if we got rid
+  // of the go line, then we have to move everything over'. The staccato: its head's left edge on its moment, the curve where it was, no go line. The
+  // held note: drawn at the staccato's moment, the tied attack's distance to its LEFT (the heads 2.43 ss apart), the figure's one dynamic, a curve to the staccato.
+  'wc-2732': { nhAnchor: 'leftEdge', goLine: false, dynMark: false },
+  'wc-2731': { drawAt: 'wc-2732', nhShiftSs: -(TIED_SHIFT + 0.06), slurTo: 'wc-2732', dynMark: 'band' },
 };
 // ---- THE TIED ATTACK (his figure, §395; the rule, §396 — rules.json objects.tiedAttack): a SHORT note and a HELD note of one part on one pitch at
 // one instant are one figure. The short note: its head's left edge on the moment, no go line, the figure's dynamic, a curve to the held note.
