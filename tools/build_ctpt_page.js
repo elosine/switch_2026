@@ -25,13 +25,26 @@ const BEAMS = [
 ];
 const GRACES = [];         // [the grace note, its main note]
 
+// ---- HIS OWN WORD ON SINGLE NOTES of the parts built by rule (each with its entry). A note made a GRACE here is out of the rule's beaming;
+// `noGc` takes its gestural curve away (one curve, on the note it leads to).
+const HANDS = {
+  // §392 (2026-11-22), the alto sax at 206.48, a double-tongued F5 0.07 s long: 'Let's change that double-tongued note to a grace note, black note head,
+  // just your typical grace note that we've been using, but you can keep the slashes and the … DT' — at its own time (the next note is 0.26 s on)
+  'wc-2762': { grace: true, graceTremolo: true, nhHead: 'filled', nhStem: 'flag16', nhStemRule: 'flagClear' },
+  // §394 (2026-11-22), the alto sax at 224.99 → 225.27, a staccato and a slap the rule had beamed: 'can we make that first staccato a grace note? And the GC
+  // correspond with the slap? And can we make a no-go line? Just line the GC up with the left edge of that slap'
+  'wc-2782': { grace: true, goLine: false, dynMark: false, noGc: true },
+  'wc-2783': { nhAnchor: 'leftEdge', goLine: false },
+};
+const HAND_GRACE = new Set(Object.keys(HANDS).filter(k => HANDS[k].grace));
+
 // ---- THE OTHER PARTS, by the rules (§387): clarinet · alto sax · violin. (The piano and the percussion are taken separately — his word.)
 const AUTO_PARTS = [1, 2, 6];
 // a SHORT note is one that takes a flag (its technique's look says so) or, with no look yet, a one-shot; a HELD note (a white head) is never
 // beamed by rule — a short note running into a held one is LISTED for him, not beamed (§387: the clarinet's 206.41 → 206.70 looked wrong)
 const isShort = tech => { const d = DEV[tech]; return d ? /^flag/.test(String(d.nhStem || '')) : ((T.techniques || {})[tech] || {}).family === 'oneshot'; };
 for (const part of AUTO_PARTS) {
-  const ns = save.objects.filter(o => o.type === 'waveCurve' && o.layer === part && o.sonifyNote != null && o.startSeconds >= W0 && o.startSeconds < W1).sort((a, b) => a.startSeconds - b.startSeconds);
+  const ns = save.objects.filter(o => o.type === 'waveCurve' && o.layer === part && o.sonifyNote != null && !HAND_GRACE.has(o.id) && o.startSeconds >= W0 && o.startSeconds < W1).sort((a, b) => a.startSeconds - b.startSeconds);
   const graceOf = new Set(); let run = [];
   const close = () => { const times = [...new Set(run.map(o => o.startSeconds.toFixed(3)))]; if (times.length >= 2) BEAMS.push([+(run[0].startSeconds - 0.004).toFixed(3), +(run[run.length - 1].startSeconds + 0.004).toFixed(3), part]); run = []; };
   for (let i = 0; i < ns.length; i++) { const o = ns[i], p = ns[i - 1], g = p ? o.startSeconds - p.startSeconds : Infinity;
@@ -60,13 +73,7 @@ for (const o of save.objects) if (o.type === 'waveCurve' && o.startSeconds >= W0
 // note's; no go line, dynamic or gestural curve of its own (one curve, on the main note)
 for (const [g, m] of GRACES) args.push('--hand', g + ':' + JSON.stringify({ grace: true, pickupTo: m, goLine: false, dynMark: false }), '--noGc', g);
 
-// ---- HIS OWN WORD ON SINGLE NOTES of the parts built by rule (each with its entry)
-const HANDS = {
-  // §392 (2026-11-22), the alto sax at 206.48, a double-tongued F5 0.07 s long: 'Let's change that double-tongued note to a grace note, black note head,
-  // just your typical grace note that we've been using, but you can keep the slashes and the … DT' — at its own time (the next note is 0.26 s on)
-  'wc-2762': { grace: true, graceTremolo: true, nhHead: 'filled', nhStem: 'flag16', nhStemRule: 'flagClear' },
-};
-for (const [id, h] of Object.entries(HANDS)) args.push('--hand', id + ':' + JSON.stringify(h));
+for (const [id, h0] of Object.entries(HANDS)) { const h = Object.assign({}, h0), noGc = h.noGc; delete h.noGc; args.push('--hand', id + ':' + JSON.stringify(h)); if (noGc) args.push('--noGc', id); }
 
 const r = spawnSync('node', args, { cwd: ROOT, encoding: 'utf8' });
 const outp = (r.stdout + r.stderr).split('\n');
