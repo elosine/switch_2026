@@ -252,3 +252,18 @@ Everything decided is a line in `tools/build_ctpt_page.js` (the beams, the picku
 Rules made the same days: a tremolo stack never sits among ledger lines (`objects.tremoloSlash.pastLedgers`, gated) · a word's place against its go line is judged by its MEASURED width (`objects.instruction.widthEm`; a new word is measured with `python tools/word_widths.py`) · a held note's word is centred on its head · a single grace note's stroke is LilyPond's glyph, and a grace that keeps slashes orders head · slashes · flag (`objects.graceHead.slashGapSs`). A NEW GLYPH is baked from LilyPond's font by `tools/glyph_scripts.py`, never drawn. The string quartet's own figures: `string_quartet_no1-composer/lilypond_code/` (seen together on `probes/quartet_signs/sheet.png`).
 
 **THE TIED ATTACK (2026-11-22, RUNNING_LOG §395 · §396; `rules.json objects.tiedAttack`):** a short note and a held note of one part on one pitch at one instant — e.g. a slap that rings on as a double-tongued note — are one figure: the short note's head on the moment (no go line, the curve on it, the one dynamic), the held note's column 2.4 ss to its right, a curve between the heads. The builder makes it wherever it finds the pair. Two SHORT notes at one instant remain a question for him.
+
+## 4 · Section 3 — the phase section (277.8 → 480 s) — A FIRST BUILD, 2026-11-22 (RUNNING_LOG §433)
+
+**The page:** `s3-phase`, built by ONE file, `node tools/build_s3_page.js` — a decision on the page is a line added there. His brief: SW-163.
+
+| the thing | as built | from |
+|---|---|---|
+| a note | a PLAIN NOTE: a black head with a plain stem, its left edge on its moment, no go line, no gestural curve; a staccato keeps its dot | *Recombination* §547 (`devices.byEnv.plainNote`) |
+| a beat | ONE line of the beat frame through the staff, the olive, and a ball in flight for exactly that beat | `objects.tick` · `objects.beatBall`; the cue line's mechanism (#5 §651), the olive his "for when there's an actual tempo" (#5 §653) |
+| a tempo | a bar line and ♩ = N in the part's own lane, where the part's tempo is new; N measured from the beats, one decimal | the tubas' per-part tempo mark (`tempoText`) |
+| a changing tempo | accel. or decel. in italics on the tempo mark's row, a dashed line (a dash 0.6 ss every 3 ss), then the new tempo mark | `objects.tempoSpan` — LilyPond's TextSpanner, verified §433; his SW-163 |
+| the dynamics | f at the start · each crescendo a green curve the whole lane · the dynamic written again on the first note after a curve · fff where it is held (442.2) | `bank/tuplet_chunks.json` dynamics.marks (his, 2026-11-19); `objects.crescCurve` |
+| the notes of one beat | on one beam: 2 or 3 to the beat one beam, 4 and more two beams; three over two beats unbeamed | THE AI's, no rule of his yet |
+
+**OPEN — his:** the tuplet's number and bracket (none drawn) · the ottava sign on every high note, also inside a beam · the dashed line where it meets a beam · the staccato dot on the strings' and the glockenspiel's notes (their techniques have no look of their own; the winds' staccato carries its dot) · the pace (12 s a page now).

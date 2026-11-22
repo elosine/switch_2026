@@ -133,6 +133,9 @@ const path = require('path');
 const { execFileSync } = require('child_process');
 const ROOT = path.join(__dirname, '..');
 const Extract = require(path.join(ROOT, 'notation', 'lib', 'extract_core.js'));
+// [the Switch~ piece §433] --argsFile <file.json>: MORE ARGUMENTS FROM A FILE — a JSON array of strings, read in where the flag stands. A page
+// with thousands of beams and hands (Section 3: 4600 notes) does not fit a Windows command line (32 KB).
+{ const i = process.argv.indexOf('--argsFile'); if (i >= 0 && process.argv[i + 1]) process.argv.splice(i, 2, ...JSON.parse(fs.readFileSync(path.resolve(process.argv[i + 1]), 'utf8')).map(String)); }
 
 function arg(name, def) {
   const i = process.argv.indexOf('--' + name);

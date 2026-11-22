@@ -166,6 +166,8 @@ LAYER 3 — THE OBJECTS (§421 · §422 · §427 · §428): one row per drawn ob
   - draws `text[cents]` `text[partial]`
 - **tempoText** — face **text** · size **0.75** → `layout.textSizes.tempo` · italic **false** · colour **ink #111** → `layout.colours.tempoText` · *composer* · #4 day 35 (the trance bar line + tempo mark) · textSizes.tempo · §427 (the label black)
   - draws `tempotext` `text[tempo]`
+- **tempoSpan** — face **text** · italic **true** · colour **ink #111** · dashSs **0.6** · periodSs **3** · thickSs **0.1** · padSs **0.25** · endDxSs **-2** · minBeats **2** · widthEm **{accel.: 1.96, decel.: 1.989}** · *lilypond* · the Switch~ piece SW-163 · §433 (his 'I think it's just the word accel or decel and then a dotted line. And then the new tempo marking … verify that either in LilyPond or look it up') — VERIFIED in LilyPond 2.24.4 scm/define-grobs.scm TextSpanner: font-shape italic · style dashed-line · dash-fraction 0.2 × dash-period 3.0 (a dash 0.6 ss long every 3 ss) · bound padding 0.25 · above the staff · the line on the word's baseline; the line's thickness LilyPond's line-thickness 0.1. endDxSs (the line stops this far before the new tempo's moment) and minBeats (a change shorter than this many beats takes the new tempo mark alone) are the AI's, his to move. widthEm measured by tools/word_widths.py
+  - draws `tempospan` · in: render.js engravingDefaults().tempoSpan (the word on the tempo mark's row, at its size — barLine.tempoYSs · tempoSizeSs)
 - **readThrough** — face **text** · size **0.75** · italic **false** · colour **muted #8a8a8a** → `layout.colours.readThrough` · *composer* · #4 V0.10 (render.js's header: "the parachute bricks and read-through labels use muted color so mixed fidelity is visible at a glance") — a working marker on an UN-notated event, not a music mark; the technique size 0.7 → 0.75 with the rest (§427)
   - draws `text[readThrough]`
 - **alertText** — face **text** · size **0.75** · italic **false** · colour **alert #c00** → `layout.colours.alert` · *composer* · #5 §400 (the red "out of range" idiom — a warning, never a music mark)
@@ -358,6 +360,7 @@ Every drawn kind names what happens at a page edge: on SCREEN `cut` (clipped lik
 | `niente` | clamp | whole |
 | `dynarrow` | clamp | whole |
 | `hairpin` | clamp | whole |
+| `tempospan` | cut | stub |
 | `hairpin-timed` | cut | stub |
 | `ottava` | clamp | whole |
 | `lvslur` | clamp | whole |
@@ -431,6 +434,7 @@ files the picker lists. A rung-8 override carries five fields (the object · the
 - `s2-piano-solo-heads` — 1058 override(s): staff ×1058 · device ×1058
 - `s2-ctpt-heads` — 85 override(s): device ×85
 - `s2-piano-solo-final` — 149 override(s): staff ×149 · device ×149
+- `s3-phase` — 4606 override(s): device ×4606
 
 ---
 

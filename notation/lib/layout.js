@@ -361,6 +361,7 @@
     const elecRets = [];         // [decibel §335] {part, span, count, all} — the electronics' return bricks (the `elecReturn` overlay; the presentation view's layer)
     const elecWins = [];         // [decibel §336] {part, span, badgeLeft} — the electronics' window over a lane's stretch (the `elecWindow` overlay)
     const stateWedges = [];      // [decibel §355] {part, span, segs} — a method's line wedge, one a lane through the section (the `stateWedge` overlay)
+    const tempoSpans = [];       // [the Switch~ piece §433] {part, span, word} — accel. / decel. with its dashed line (the `tempoSpan` overlay)
     const beatGrids = [];        // [§564] {part, span, unit, beatEvery, phase} — the shown beat's grid (the `beatGrid` overlay), ticks on the tick row
     const sequences = [];        // [LGMF 2d.2] {part, span, v} — one part's line of a sequence (the `sequence` overlay, IR amendment 10)
     const vibBowOf = new Map();  // [LGMF 2g.3] event id → its bow of a `vibBows` overlay {chain, voice, t0, t1, midi, marks, …, part}
@@ -388,6 +389,7 @@
       if (ov.kind === 'elecReturn' && tgt.part !== undefined && tgt.span) { elecRets.push({ part: tgt.part, span: tgt.span, count: (ov.value && ov.value.count) || 1, all: !!(ov.value && ov.value.all) }); continue; }
       if (ov.kind === 'elecWindow' && tgt.part !== undefined && tgt.span) { elecWins.push({ part: tgt.part, span: tgt.span, badgeLeft: !!(ov.value && ov.value.badgeLeft) }); continue; }
       if (ov.kind === 'rest' && tgt.part !== undefined && tgt.t !== undefined && ov.value && ov.value.dur) { freeRests.push({ part: tgt.part, t: tgt.t, dur: ov.value.dur }); continue; }
+      if (ov.kind === 'tempoSpan' && tgt.part !== undefined && tgt.span && ov.value && ov.value.word) { tempoSpans.push({ part: tgt.part, span: tgt.span, word: ov.value.word, dx0Ss: ov.value.dx0Ss || 0 }); continue; }
       if (ov.kind === 'beatGrid' && tgt.part !== undefined && tgt.span && ov.value && ov.value.unit > 0) { beatGrids.push(Object.assign({ part: tgt.part, span: tgt.span }, ov.value)); continue; }
       if (ov.kind === 'staff' && ov.value === 'off' && tgt.part !== undefined && tgt.span) {
         staffOff.push({ part: tgt.part, span: tgt.span }); continue;
@@ -1069,6 +1071,7 @@
         if (first && (auto || part === (o.frameParts || ir.source.parts)[0]))
           items.push({ k: 'tempotext', t: tp.t, dxSs: dx, bpm: tp.bpm, autoClear: auto });
       }
+      for (const ts of tempoSpans) if (ts.part === part && first) items.push({ k: 'tempospan', t0: ts.span[0], t1: ts.span[1], word: ts.word, dx0Ss: ts.dx0Ss });   // [§433] accel. / decel.
       for (const h of headers) if (h.part === part && first) {
         // THE SECTION FIGURE (day 35, composer): niente circle · arrow · fff,
         // sitting UNDER the staff where any other dynamic goes, and ENDING

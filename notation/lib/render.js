@@ -45,6 +45,8 @@
       glissCurve: { strokeWPx: 0, strokeOpacity: 0, fillOpacity: 0.22, color: '#F04B00' },   // RULES MIRROR
       // the trance bar line + tempo mark (day 35)
       barLine: { thickSs: 0.13, tempoYSs: 4.4, tempoSizeSs: 1.0, tempoHeadScale: 0.7, tempoStemSs: 2.1, tempoGapSs: 0.85 },
+      // [the Switch~ piece §433] accel. / decel. — the word and its dashed line (LilyPond's TextSpanner)   RULES MIRROR (rules.json objects.tempoSpan)
+      tempoSpan: { dashSs: 0.6, periodSs: 3.0, thickSs: 0.1, padSs: 0.25, endDxSs: -2.0, widthEm: { 'accel.': 1.96, 'decel.': 1.989 } },
       // the crescendo: the glissando's twin in the bottom half, limeGreen
       // (#99FF00 — piece #1's crescendo colour, and p2's staff-1 green)
       crescCurve: { strokeWPx: 0, strokeOpacity: 0, fillOpacity: 0.22, color: '#99FF00' },   // RULES MIRROR
@@ -704,6 +706,25 @@
             // "150.0" states a precision the number does not have.
             '" font-style="italic">= ' + esc(Math.abs(it.bpm - Math.round(it.bpm)) < 0.05
               ? String(Math.round(it.bpm)) : it.bpm.toFixed(1)) + '</text>');
+        } else if (it.k === 'tempospan') {
+          // [the Switch~ piece §433 — SW-163, his "the word accel or decel and then a dotted line. And then the new tempo marking"] A CHANGING
+          // TEMPO: the word in italics on the tempo mark's row, at its size, then LilyPond's dashed line (TextSpanner: a dash dashSs long every
+          // periodSs, on the word's baseline, padSs after the word) to just before the new tempo's moment. A spanning graphic: drawn on every
+          // page it crosses, the word on the page that owns its start
+          if (!crosses(it.t0, it.t1)) continue;
+          const BL = E.barLine, TSP = E.tempoSpan || {};
+          const ty = Y(BL.tempoYSs), fs = BL.tempoSizeSs * ssPx;
+          let xl = X(it.t0, it.dx0Ss || 0);   // dx0Ss: the word stood off to the right of a tempo mark on the same beat
+          if (owns(it.t0)) {
+            parts.push('<text x="' + xl.toFixed(2) + '" y="' + ty.toFixed(2) + '" font-size="' + fs.toFixed(2) + '" font-family="' + E.fontFamily +
+              '" font-style="italic" fill="' + o.ink + '">' + esc(it.word) + '</text>');
+            xl += (((TSP.widthEm || {})[it.word] > 0 ? TSP.widthEm[it.word] : String(it.word).length * 0.35) * fs) + (TSP.padSs || 0.25) * ssPx;
+          }
+          const ca = Math.max(xl, view.xOfSeconds(w0)), cb = Math.min(X(it.t1, TSP.endDxSs != null ? TSP.endDxSs : -2), view.xOfSeconds(wInk));
+          const dash = (TSP.dashSs || 0.6) * ssPx, period = (TSP.periodSs || 3) * ssPx;
+          if (cb - ca >= dash)
+            parts.push('<path d="M' + ca.toFixed(2) + ',' + ty.toFixed(2) + ' L' + cb.toFixed(2) + ',' + ty.toFixed(2) + '" fill="none" stroke="' + o.ink +
+              '" stroke-width="' + ((TSP.thickSs || 0.1) * ssPx).toFixed(2) + '" stroke-dasharray="' + dash.toFixed(2) + ',' + (period - dash).toFixed(2) + '"/>');
         } else if (it.k === 'glissline') {
           // the gliss line between the section's two pitches (day 35): a plain
           // rule at stem thickness, its length the diameter of TWO regular
@@ -1431,7 +1452,7 @@
   // keeping a second list that could quietly disagree with the loop above.
   const POINT_KINDS = ['glyph', 'rest', 'stem', 'dot', 'ledger', 'beam', 'text', 'attackline', 'tick',
     'barline', 'tempotext', 'glissline', 'niente', 'dynarrow', 'hairpin', 'ottava', 'lvslur', 'goline', 'gc', 'slash', 'squiggle', 'badge', 'finalbar'];   // [§550] the grace's stroke · [§557] the uneven group's
-  const LONG_KINDS = ['envcurve', 'cresccurve', 'glisscurve', 'ringbar', 'brick', 'hairpin-timed', 'slur', 'mic', 'elecret', 'elecwin', 'wedge', 'sinebox', 'sineline'];   // [§335] the electronics' return brick spans its region · [§336] the window spans the lane's stretch   // [2g.4] the timed hairpin spans time · [§555] the slur spans its notes
+  const LONG_KINDS = ['envcurve', 'cresccurve', 'glisscurve', 'ringbar', 'brick', 'hairpin-timed', 'slur', 'mic', 'elecret', 'elecwin', 'wedge', 'sinebox', 'sineline', 'tempospan'];   // [§335] the electronics' return brick spans its region · [§336] the window spans the lane's stretch   // [2g.4] the timed hairpin spans time · [§555] the slur spans its notes
   const FURNITURE_KINDS = ['staff', 'clef'];
   // 'tuplet' is neither: it has no window gate at all, because a tuplet bracket
   // belongs to a beam group and the splicer is stamp-atomic — no cut severs a
