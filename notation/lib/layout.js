@@ -3109,7 +3109,7 @@
               // cap rises capAbove past the line
               const capAbove = TPg.numeralSizeSs * TPg.numeralCapFactor - TPg.numeralBaselineBelowSs;
               // [§438 — his 'dispense with the brackets and just have the numbers centered over the group'] objects.tuplet.look.bracket false: the number's foot the house gap past what is under it
-              st.bracketLine = h + (TPg.bracket === false ? gapD + TPg.numeralBaselineBelowSs : TPg.paddingSs + TPg.hookLengthSs); h = st.bracketLine + capAbove;
+              st.bracketLine = h + (TPg.bracket === false && !g.noBeam ? gapD + TPg.numeralBaselineBelowSs : TPg.paddingSs + TPg.hookLengthSs); h = st.bracketLine + capAbove;
             }
             // THE DYN ROW SIDE (day 31, the vertical budget): on a stem-DOWN
             // group the beam-side column cannot hold head + stem + accents +
@@ -3684,7 +3684,7 @@
             : (tp.dir === 'up' ? beamTop + lineOff : -(Math.abs(beamTop) + lineOff));
           const dDraw = rep ? own.stack.bracketDirDraw : tp.dir;
           items.push(Object.assign({ k: 'tuplet', t0, t1: tEnd, dx1Ss: dx1 != null ? dx1 : undefined, ySs: yB, dir: dDraw, text: tp.text || (tp.num + ':' + tp.den), group: tk },
-            (o.tuplet || {}).bracket === false && tp.slots.size ? { noBracket: true, tLast: Math.max(...tp.slots.values()) } : {}));   // [§438] the number alone, centered over the group's notes
+            (o.tuplet || {}).bracket === false && !(own && own.noBeam) && tp.slots.size ? { noBracket: true, tLast: Math.max(...tp.slots.values()) } : {}));   // [§438] the number alone, centered over the group's notes
           for (let sIdx = 0; sIdx < tp.num; sIdx++) {
             if (tp.slots.has(sIdx)) continue;
             const t = t0 + sIdx * tp.slotUnits * cl.unit;
