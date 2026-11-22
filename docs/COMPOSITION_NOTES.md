@@ -1740,3 +1740,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim):** "Alto Sax 211, let's just do the slap, please. And let's go with your recommendation for Behind the Bridge."
 
 **The AI's reading:** the staccato of the pair at 211.81 leaves; pizzicato behind the bridge is "pizz. b.b.", a cross head on the open string's note, the string's Roman numeral, each note moved to the nearest open string.
+
+### SW-138 · 2026-11-22 · the alto sax at 208.5: a slap tied into the flutter-tongue
+
+**His words (verbatim):** "The alto sax figure at 208.48. Can we take out the first A pizzicato or a staccato? Keep the GC where it is and move over the slap and flutter tongue and make it like that double tonguing figure. The flagged 16th on the slap with all the, all the rest. No go line tied to the flutter tongue and with the proper horizontal distance as well."
+
+**The AI's reading:** three A4s in a row (a staccato, a slap, a flutter-tongue) become the tied attack: the staccato leaves, the slap takes its moment, the flutter-tongue is tied to it.
