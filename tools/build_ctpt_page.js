@@ -5,7 +5,7 @@
 // AUTO_PARTS are built BY THE RULES he settled on the flute (§387) — nothing of theirs is written out here, so a rule that changes rebuilds them.
 'use strict';
 const fs = require('fs'), path = require('path'), { spawnSync } = require('child_process');
-const ROOT = path.join(__dirname, '..'), SCORE = 'piece-FirstDraft-Final-B-noFadeAt96', W0 = 199, W1 = 254;
+const ROOT = path.join(__dirname, '..'), SCORE = 'piece-FirstDraft-Final-D-ctptCello'   /* §414: his cello take (…-C-cello) brought through the section's steps; before it …-B-noFadeAt96 */, W0 = 199, W1 = 254;
 const save = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', SCORE + '.json'), 'utf8'));
 const T = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'techniques.json'), 'utf8'));
 const DEV = (((require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT).engraving || {}).layout || {}).devices || {}).byTechnique || {};
@@ -55,7 +55,7 @@ const TIED = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 
 const HAND_GRACE = new Set(Object.keys(HANDS).filter(k => HANDS[k].grace));
 
 // ---- THE OTHER PARTS, by the rules (§387): clarinet · alto sax · violin. (The piano and the percussion are taken separately — his word.)
-const AUTO_PARTS = [1, 2, 6];
+const AUTO_PARTS = [1, 2, 6, 7];   // §414: the cello, played in 2026-11-22
 // a SHORT note is one that takes a flag (its technique's look says so) or, with no look yet, a one-shot; a HELD note (a white head) is never
 // beamed by rule — a short note running into a held one is LISTED for him, not beamed (§387: the clarinet's 206.41 → 206.70 looked wrong)
 const isShort = tech => { const d = DEV[tech]; return d ? /^flag/.test(String(d.nhStem || '')) : ((T.techniques || {})[tech] || {}).family === 'oneshot'; };
@@ -103,6 +103,6 @@ const outp = (r.stdout + r.stderr).split('\n');
 console.log(outp.filter(l => /READY|FAILED|INVALID|Error|usage|not an event/i.test(l)).join('\n').slice(0, 3000));
 console.log('beamed groups: ' + [0].concat(AUTO_PARTS).map(p => 'part ' + p + ' ' + BEAMS.filter(b => b[2] === p).length).join(' · ') + ' · tied attacks: ' + tiedPairs.length + ' · grace pickups: ' + GRACES.length + (GRACES.length ? ' (' + GRACES.map(g => g[0]).join(' · ') + ')' : ''));
 // [§382] WHAT ON THE PAGE HAS NO RULE YET — printed by the build itself, before anyone looks at the picture (tools/no_rule_list.js)
-console.log(spawnSync('node', ['tools/no_rule_list.js', 's2-ctpt-heads', '--parts', '0,1,2,6'], { cwd: ROOT, encoding: 'utf8' }).stdout);
+console.log(spawnSync('node', ['tools/no_rule_list.js', 's2-ctpt-heads', '--parts', '0,1,2,6,7'], { cwd: ROOT, encoding: 'utf8' }).stdout);
 // [§401] WHAT DOES NOT FIT ITS LANE and was left where it stood (the fit ladder's rung 8) — this working page hides the red mark, so it is printed here (tools/fit_list.js)
-console.log(spawnSync('node', ['tools/fit_list.js', 's2-ctpt-heads', '--parts', '0,1,2,6'], { cwd: ROOT, encoding: 'utf8' }).stdout);
+console.log(spawnSync('node', ['tools/fit_list.js', 's2-ctpt-heads', '--parts', '0,1,2,6,7'], { cwd: ROOT, encoding: 'utf8' }).stdout);

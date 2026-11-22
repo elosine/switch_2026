@@ -1818,3 +1818,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim):** "And then can you do a scan of the piano notation? There's the piece number 2 piano, 2 percussion. And then subsequent pieces, just do a full scan to see the proper notation. And any discrepancies alert to me. And then we'll notate the piano part. I think it's pretty straightforward. But just making sure that I have the pluck notation and everything else standardized."
 
 **The AI's reading:** FIND before drawing. The scan and its discrepancies come first; the piano is notated after he has seen them.
+
+### SW-151 · 2026-11-22 · the cello played into the counterpoint
+
+**His words (verbatim):** "Okay, let me play the cello part then in. And then I don't recall all the steps now, but let's go ahead and, once I do that, deal with all the steps. I guess I forgot exactly what was done, but it's like converting them to different articulations. And then I don't know if there was any other steps there as well. Tell me what to do in the composer score, how to start with what we have now, save it if I need to, and then I guess make a new name before I start playing in." · "Okay, it's in."
+
+**The AI's reading:** a seventh part for the section, played by him today into a new save; the AI brings it through every step the other parts had and notates it.
