@@ -140,7 +140,10 @@ ir.layoutPolicy = Object.assign(ir.layoutPolicy || {}, { tempoRowSs: TS.rowSs })
         nhDot: false, beamGroup: 's3-' + G.key + 'a', clusterId: 's3-' + G.key, beamUnit: unit, beamPos: +(k * U / N).toFixed(4), beamLevels: Math.max(1, beams), beamSubdivision: 4 },
         o.technique === 'staccato' ? { nhDot: true, nhDotGapSs: DOT_GAP } : {}, dotOf(o), acc,
         plain ? { noteUnits: U / N, noteBeams: beams } : { tupletGroup: 's3-' + G.key + '-tp', tupletNum: N, tupletDen: U, tupletStartPos: 0, tupletSlot: k, tupletText: text, tupletValue: beams === 0 ? 4 : beams === 1 ? 8 : 16, noteBeams: Math.max(1, beams), beamHasTuplet: true },
-        beams === 0 ? { groupNoBeam: true } : {});
+        beams === 0 ? { groupNoBeam: true } : {},
+        // [§440 — his 'keep the rests'; the flute at 304.97, three of four sixteenths with nothing after them] A PLAIN GROUP THAT STOPS EARLY writes its
+        // missing end as a rest too (the cluster's own trailing rest, #5 §458 `restAfter`); a tuplet's empty places are rests by the figure's rule already
+        plain && o === g[g.length - 1] && k < N - 1 ? { restAfter: +(U - 1 - k * U / N).toFixed(4) } : {});
       ir.overlays.push({ id: 'ov-s3-cl-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: dev }, provenance: 'authored' }); } }
   console.log('groups ' + GROUPS.length + ' · with a number ' + nNum + ' · accidentals left out (already in the group) ' + nAccOut + ' · naturals written ' + nNat); }
 // THE TICKS and THE BALLS, the tubas' way (#3 day 36): each beat a `gc` device on the chunk that holds its moment (else the last one before it)

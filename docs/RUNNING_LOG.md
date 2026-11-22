@@ -6286,3 +6286,11 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **READ FROM THE SAVE:** 185 of the section's 1049 groups are INCOMPLETE — a group's `step` says how many notes go to the beat, and the save holds fewer. At 300.5 … 300.9 s: the glockenspiel 4 of 8 · the clarinet 4 of 7 · the flute 2 of 6 · the piano 2 of 8 · the cello 1 of 6. It is where the first tuplet stretch ends (the drift ends at 301.66): the tuplet render stopped each player's last group at the stretch's end time, in mid-beat. By 20 s: 280 → 4 · 300 → 26 · 320 → 35 · 340 → 8 · 360 → 23 · 380 → 17 · 400 → 15 · 420 → 40 · 440 → 12 · 460 → 5.
 **WHY RESTS:** §438 made each group a cluster (piece 4's figure). That figure writes a rest in every empty place of its grid — its standing rule (#4 day 23 · D62). So an incomplete group shows its missing notes as rests inside the tuplet. Not a tempo matter; the rests say what sounds: a few fast notes, then silence to the next beat.
 **NOT CHANGED.** Put to him: keep them (true to the sound), or leave them out and let the next beat's tick say where the beat is.
+
+## §440 · 2026-11-22 · "keep the rests" — his; the flute at 304.97: a plain group that stops early had no closing rest — mended
+
+**His words:** "keep the rests Then explain to me in the flute at 304.97, there's three partials, but no either rests or tuplet."
+**DECIDED:** the rests of an incomplete group stay (§439).
+**THE FLUTE AT 304.97, READ FROM THE SAVE:** a group of FOUR to the beat (four sixteenths — no number, by his rule: 2, 4 and 8 take none) that holds THREE notes (304.969 · 305.174 · 305.379); the fourth is not in the save. So no tuplet is right. The missing rest was the AI's fault in §438: the cluster figure writes rests BETWEEN its notes by itself, and a tuplet's empty places too, but a plain group's empty END only when told (`restAfter`, #5 §458) — and the builder did not tell it.
+**MENDED (`tools/build_s3_page.js`):** a plain group that stops early carries `restAfter` on its last note — the rest of the beat written as a rest. 27 groups. Seen once on the throwaway: the flute's three sixteenths at 304.97 end in a sixteenth rest.
+**NOT TOUCHED, said to him:** a group of which ONE note is left (the cello at 300.89, 1 of 6) is drawn as a single note with no rest.
