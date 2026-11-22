@@ -90,6 +90,9 @@ for (const o of save.objects) if (o.type === 'waveCurve' && o.layer === 7 && o.t
 const STAC = Object.assign({}, DEV.staccato); delete STAC.sheet; delete STAC.anchorRow; delete STAC.memberRows;
 const PIANO_SHORT = new Set();
 for (const o of save.objects) if (o.type === 'waveCurve' && o.layer === 5 && o.technique === 'main' && o.sonifyNote != null && o.startSeconds >= W0 && o.startSeconds < W1) { PIANO_SHORT.add(o.id); HANDS[o.id] = Object.assign({}, STAC, { nhAnchor: null, letRing: false, chordRules: false, brick: false }, HANDS[o.id] || {}); }
+// §428 (2026-11-22): THE SPRING COIL HAS TWO SOUNDS ON ONE TECHNIQUE — a hit (the sample's key 63, 'Muted Hit') and a slow RAKE along the coil (key 68, 'Muted Rake Slow').
+// By his rule ('the longer ones like rolls and scrapes will be white note') the rake is a white head with the word scrape and its bar; the hit stays the row's black head.
+for (const o of save.objects) if (o.type === 'waveCurve' && o.layer === 3 && o.technique === 'small_metals_spring_coil' && o.sonifyNote === 68 && o.startSeconds >= W0 && o.startSeconds < W1) HANDS[o.id] = Object.assign({ nhHead: 'open', instrText: 'scrape', instrAlign: 'middle', brick: true }, HANDS[o.id] || {});
 const HAND_GRACE = new Set(Object.keys(HANDS).filter(k => HANDS[k].grace));
 
 // ---- THE OTHER PARTS, by the rules (§387): clarinet · alto sax · violin. (The piano and the percussion are taken separately — his word.)

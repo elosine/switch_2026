@@ -773,19 +773,23 @@
       "nhAnchor": "leftEdge",
       "nhHead": "filled",
       "brick": false,
-      "dynMark": "band"
+      "dynMark": "band",
+      "noWord": "§428 (2026-11-22, his word: 'We'll leave the mallets out') — no word for the beater; the line names the instrument"
      },
      "gran_cassa_rute_on_rim": {
       "sheet": "the Switch~ piece §427 (2026-11-22, his word on the counterpoint's percussion: 'most of the single strikes in percussion will get just the black note heads. Let's give them all individual dynamics' · 'at least let's make it a white note. So the longer ones like rolls and scrapes will be white note') — A SINGLE STRIKE: a black head, its left edge on its moment, its dynamic; no stem, no go line, no gestural curve, no bar",
       "anchorRow": "A",
-      "memberRows": ["head","ledger","accidental","ottava","dynamic"],
+      "memberRows": ["head","ledger","accidental","ottava","dynamic","instruction"],
       "goLine": false,
       "gc": false,
       "nhUnit": true,
       "nhAnchor": "leftEdge",
       "nhHead": "filled",
       "brick": false,
-      "dynMark": "band"
+      "dynMark": "band",
+      "instrText": "rim",
+      "instrAlign": "middle",
+      "_rimNote": "§428 (2026-11-22, his word: 'you can do rim on the ones that are on the rim') — the bass drum struck ON ITS RIM (the sample: a rute on the rim); the beater is not named ('We'll leave the mallets out')"
      },
      "gran_cassa_medium_felt": {
       "sheet": "the Switch~ piece §427 (2026-11-22, his word on the counterpoint's percussion: 'most of the single strikes in percussion will get just the black note heads. Let's give them all individual dynamics' · 'at least let's make it a white note. So the longer ones like rolls and scrapes will be white note') — A SINGLE STRIKE: a black head, its left edge on its moment, its dynamic; no stem, no go line, no gestural curve, no bar",
@@ -797,7 +801,8 @@
       "nhAnchor": "leftEdge",
       "nhHead": "filled",
       "brick": false,
-      "dynMark": "band"
+      "dynMark": "band",
+      "noWord": "§428 (2026-11-22, his word: 'We'll leave the mallets out') — no word for the beater; the line names the instrument"
      },
      "brake_drums_poly_beater": {
       "sheet": "the Switch~ piece §427 (2026-11-22, his word on the counterpoint's percussion: 'most of the single strikes in percussion will get just the black note heads. Let's give them all individual dynamics' · 'at least let's make it a white note. So the longer ones like rolls and scrapes will be white note') — A SINGLE STRIKE: a black head, its left edge on its moment, its dynamic; no stem, no go line, no gestural curve, no bar",
@@ -809,7 +814,8 @@
       "nhAnchor": "leftEdge",
       "nhHead": "filled",
       "brick": false,
-      "dynMark": "band"
+      "dynMark": "band",
+      "noWord": "§428 (2026-11-22, his word: 'We'll leave the mallets out') — no word for the beater; the line names the instrument"
      },
      "brake_drums_rubber_mallets": {
       "sheet": "the Switch~ piece §427 (2026-11-22, his word on the counterpoint's percussion: 'most of the single strikes in percussion will get just the black note heads. Let's give them all individual dynamics' · 'at least let's make it a white note. So the longer ones like rolls and scrapes will be white note') — A SINGLE STRIKE: a black head, its left edge on its moment, its dynamic; no stem, no go line, no gestural curve, no bar",
@@ -821,7 +827,8 @@
       "nhAnchor": "leftEdge",
       "nhHead": "filled",
       "brick": false,
-      "dynMark": "band"
+      "dynMark": "band",
+      "noWord": "§428 (2026-11-22, his word: 'We'll leave the mallets out') — no word for the beater; the line names the instrument"
      },
      "glock_main_hard": {
       "sheet": "the Switch~ piece §427 (2026-11-22, his word on the counterpoint's percussion: 'most of the single strikes in percussion will get just the black note heads. Let's give them all individual dynamics' · 'at least let's make it a white note. So the longer ones like rolls and scrapes will be white note') — A SINGLE STRIKE: a black head, its left edge on its moment, its dynamic; no stem, no go line, no gestural curve, no bar",
@@ -833,7 +840,8 @@
       "nhAnchor": "leftEdge",
       "nhHead": "filled",
       "brick": false,
-      "dynMark": "band"
+      "dynMark": "band",
+      "noWord": "§428 (2026-11-22, his word: 'We'll leave the mallets out') — no word for the beater; the line names the instrument"
      },
      "china_cymbals_scrape": {
       "sheet": "the Switch~ piece §427 (2026-11-22, his word on the counterpoint's percussion: 'most of the single strikes in percussion will get just the black note heads. Let's give them all individual dynamics' · 'at least let's make it a white note. So the longer ones like rolls and scrapes will be white note') — A LONG SOUND (a scrape, a roll): a WHITE head, its left edge on its moment, the word scrape (his memory of piece 2: 'I believe I just say scrape'), its dynamic, its bar for its length. No sign: none is established in his pieces and the lookup of the same day found no standard one",

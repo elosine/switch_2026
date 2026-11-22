@@ -40,7 +40,7 @@ for (const [p, evs0] of [...byPart.entries()].sort((a, b) => a[0] - b[0])) {
     const d = DEV[tech], tt = (T.techniques || {})[tech] || {};
     if (!d) lines.push('1  NO LOOK OF ITS OWN: "' + (tt.label || tech) + '" — ' + list.length + ' note(s), first at ' + t2(list[0].onset) + ' s; drawn as a plain ' + (tt.family === 'oneshot' ? 'black' : 'white') + ' head and its bar');
     const word = (d && (d.instrText || d.instrFirst || d.techText || d.textAbove)) || tt.notate   /* textAbove: a baked word over the note (the plucked piano's pizz.) */, sign = d && (d.nhDot || d.techSymbol || d.nhArtic);
-    if (!word && !sign) lines.push('2  NO WORD AND NO SIGN: "' + (tt.label || tech) + '" — ' + list.length + ' note(s), first at ' + t2(list[0].onset) + ' s');
+    if (!word && !sign && !(d && d.noWord)) lines.push(   /* noWord: he has said this sound takes no word (its row quotes him) */'2  NO WORD AND NO SIGN: "' + (tt.label || tech) + '" — ' + list.length + ' note(s), first at ' + t2(list[0].onset) + ' s');
   }
   // 3 · 4 · 5 — the pairs
   const same = [], near = [], wide = [], held = [];

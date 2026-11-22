@@ -2695,6 +2695,10 @@
                     else if (dev.goLine && al === 'middle' && headDx + wT / 2 > -clearG) al = 'end'; }
                   const dxT = al === 'end' ? headDx + nhO.wSs / 2 : al === 'middle' ? headDx : headDx - nhO.wSs / 2;
                   items.push(Object.assign({ k: 'text', t: tU, dxSs: dxT, ySs: yT - instrEm / 2 + instrEm * 0.2, text: instrTxt, anchor: al, seq: 'techText' }, WORD));
+                  // [the Switch~ piece §428] ON A LINED STAFF the dynamics keep ONE ROW under the staff (§657) — a note's word never stands IN that row: a word that
+                  // would meet it is set the stack gap UNDER the row (the bass drum's 'rim', whose line is the staff's lowest)
+                  if (linedRowY != null && dev.dynSide !== 'above') { const wI = items[items.length - 1], hD = Math.max(...Object.keys(glyphs.dynamic || {}).map(k => (glyphs.dynamic[k] && glyphs.dynamic[k].hSs) || 0)), rBot = linedRowY - hD / 2;
+                    wI.ySs = +(rBot - stackGap - instrEm * 0.8).toFixed(4); }   // ALWAYS under the row, so one word stands at one height along the staff (some had cleared the row from above, most had not)
                   recChrome(items[items.length - 1], chainAbove ? 'above' : 'below', instrEm * 0.8, -instrEm * 0.2);
                 }
                 // [the Switch~ piece §397 — HIS WORD 2026-11-22: 'we should have a way to say which string … Just notate it on the open string note'] THE STRING'S
