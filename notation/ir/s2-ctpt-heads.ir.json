@@ -1062,7 +1062,7 @@
     "objectId": "wc-2767"
    },
    "onset": 209.875,
-   "duration": 0.23900000000000432,
+   "duration": 0.3300000000000125,
    "pitch": {
     "midi": 70,
     "spelled": {
@@ -1377,7 +1377,7 @@
     "objectId": "wc-2770"
    },
    "onset": 212.889,
-   "duration": 0.3289999999999793,
+   "duration": 0.3299999999999841,
    "pitch": {
     "midi": 55,
     "spelled": {
@@ -1518,27 +1518,6 @@
    "vel": 100
   },
   {
-   "id": "ev-wc-2772",
-   "source": {
-    "score": "piece-FirstDraft-Final-B-noFadeAt96",
-    "objectId": "wc-2772"
-   },
-   "onset": 213.961,
-   "duration": 0.11699999999999022,
-   "pitch": {
-    "midi": 61,
-    "spelled": {
-     "step": "C",
-     "alter": 1,
-     "octave": 4
-    }
-   },
-   "technique": "double_tonguing",
-   "provenance": "derived",
-   "mode": "plain",
-   "vel": 109
-  },
-  {
    "id": "ev-wc-2771",
    "source": {
     "score": "piece-FirstDraft-Final-B-noFadeAt96",
@@ -1671,7 +1650,7 @@
     "objectId": "wc-2774"
    },
    "onset": 215.191,
-   "duration": 0.10699999999999932,
+   "duration": 0.3299999999999841,
    "pitch": {
     "midi": 76,
     "spelled": {
@@ -2511,7 +2490,7 @@
     "objectId": "wc-2780"
    },
    "onset": 222.205,
-   "duration": 0.3149999999999977,
+   "duration": 0.3299999999999841,
    "pitch": {
     "midi": 61,
     "spelled": {
@@ -3015,7 +2994,7 @@
     "objectId": "wc-2784"
    },
    "onset": 226.012,
-   "duration": 0.24699999999998568,
+   "duration": 0.3300000000000125,
    "pitch": {
     "midi": 67,
     "spelled": {
@@ -3771,7 +3750,7 @@
     "objectId": "wc-2790"
    },
    "onset": 232.348,
-   "duration": 0.3109999999999786,
+   "duration": 0.3299999999999841,
    "pitch": {
     "midi": 62,
     "spelled": {
@@ -4149,7 +4128,7 @@
     "objectId": "wc-2795"
    },
    "onset": 235.694,
-   "duration": 0.16100000000000136,
+   "duration": 0.3300000000000125,
    "pitch": {
     "midi": 69,
     "spelled": {
@@ -5010,7 +4989,7 @@
     "objectId": "wc-2802"
    },
    "onset": 244.075,
-   "duration": 0.23900000000000432,
+   "duration": 0.3300000000000125,
    "pitch": {
     "midi": 67,
     "spelled": {
@@ -5430,7 +5409,7 @@
     "objectId": "wc-2806"
    },
    "onset": 247.555,
-   "duration": 0.10800000000000409,
+   "duration": 0.3299999999999841,
    "pitch": {
     "midi": 69,
     "spelled": {
@@ -5619,7 +5598,7 @@
     "objectId": "wc-2807"
    },
    "onset": 248.672,
-   "duration": 0.13599999999999568,
+   "duration": 0.3300000000000125,
    "pitch": {
     "midi": 76,
     "spelled": {
@@ -5787,7 +5766,7 @@
     "objectId": "wc-2809"
    },
    "onset": 250.193,
-   "duration": 0.12699999999998113,
+   "duration": 0.3299999999999841,
    "pitch": {
     "midi": 75,
     "spelled": {
@@ -7468,7 +7447,7 @@
    "part": 2,
    "span": [
     212.889,
-    213.961
+    213.967
    ],
    "class": "ord-sustained",
    "strategy": "unresolved",
@@ -7478,16 +7457,15 @@
    "provenance": "derived"
   },
   {
-   "id": "ch-2-wc-2772",
+   "id": "ch-2-wc-2771",
    "part": 2,
    "span": [
-    213.961,
+    213.967,
     214.995
    ],
-   "class": "ord-sustained",
+   "class": "fixed-oneshot",
    "strategy": "unresolved",
    "events": [
-    "ev-wc-2772",
     "ev-wc-2771"
    ],
    "provenance": "derived"

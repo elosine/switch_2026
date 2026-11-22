@@ -238,3 +238,15 @@ Everything decided is a line in `tools/build_ctpt_page.js` (the beams, the picku
 **HIS NOTE TO COME BACK TO (SW-102, 2026-11-20):** refine the pebble drops' DENSITIES — so they reflect the playing a little, and so there is variety among the drops (today every drop but the hill at 170.3 has the same 26 pebbles).
 
 **OPEN (his method's steps, SW-83's third word):** which notes stand on which side of the impact (the first reading puts the impact on the hand's heaviest moment) · how the arc's physics and shape are decided (today the GC's fixed curve, stretched in time) · the other hand · how it meets the standard figures beside it.
+
+### ADDED 2026-11-22 (RUNNING_LOG §388 … §393) — the looks settled for the counterpoint's winds and strings, and where each lives
+
+| technique | the look | its row | from |
+|---|---|---|---|
+| slap (clarinet · alto sax pitched and exploding) | the staccato unit, an accent, "+", "(slap)" | `devices.byTechnique.slap · slap_pitched · slap_exploding` | *Recombination* §400; his word §389 |
+| double tonguing | a white head, TWO slashes, "d.t." | `double_tonguing` · `objects.tremoloSlash.countDouble` | his word §390 |
+| bow overpressure | a black square head, a flagged stem, three down-bows past the tip, a marcato — TO BE RE-EVALUATED BY HIM | `bow_op_vel` · `objects.bowStack` · `objects.squareHead` | his string quartet; §393 |
+| col legno gettato | a cross head, "c.l.b. jeté" | `col_legno_gett_vel` · `objects.crossHead` | his string quartet; §393 |
+| pizzicato behind the bridge | OPEN — "pizz. b.b." agreed; how the string is named is his | — | §393 |
+
+Rules made the same days: a tremolo stack never sits among ledger lines (`objects.tremoloSlash.pastLedgers`, gated) · a word's place against its go line is judged by its MEASURED width (`objects.instruction.widthEm`; a new word is measured with `python tools/word_widths.py`) · a held note's word is centred on its head · a single grace note's stroke is LilyPond's glyph, and a grace that keeps slashes orders head · slashes · flag (`objects.graceHead.slashGapSs`). A NEW GLYPH is baked from LilyPond's font by `tools/glyph_scripts.py`, never drawn. The string quartet's own figures: `string_quartet_no1-composer/lilypond_code/` (seen together on `probes/quartet_signs/sheet.png`).

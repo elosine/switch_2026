@@ -27,6 +27,16 @@
     }
 
     // day 22 (nh-unit): the OPEN head (piece #2 halfNote), used stemless
+    // [the Switch~ piece §393] a head of any other kind the glyph table holds (cross · square)
+    function noteheadKind(kind) {
+      const g = G.notehead[kind]; if (!g) throw new Error('stamps: no notehead "' + kind + '"');
+      return box('notehead-' + kind, g.wSs, g.hSs, g.anchors, [pathPrim(g.path)]);
+    }
+    // [§393] LilyPond's own stroke of a single grace note (flags.ugrace · flags.dgrace), anchored on the stem's tip
+    function flagGrace(dir) {
+      const g = G.flag[dir === 'down' ? 'graceDown' : 'graceUp']; if (!g) throw new Error('stamps: no grace stroke glyph');
+      return box('flag-grace', g.wSs, g.hSs, g.anchors, [pathPrim(g.path)]);
+    }
     function noteheadOpen() {
       const g = G.notehead.open;
       return box('noteheadOpen', g.wSs, g.hSs, g.anchors, [pathPrim(g.path)]);
@@ -172,7 +182,7 @@
       ]);
     }
 
-    return { notehead, noteheadOpen, ottavaText, dynamic, stem, flag8, flagN, rest, articulation, text, pedal, clefBass, clef, bracketTip, brace, accidental, staccatoDot, staffLines, ledgerLine, beamSeg };
+    return { notehead, noteheadOpen, noteheadKind, flagGrace, ottavaText, dynamic, stem, flag8, flagN, rest, articulation, text, pedal, clefBass, clef, bracketTip, brace, accidental, staccatoDot, staffLines, ledgerLine, beamSeg };
   }
 
   // Render one placed box to an SVG fragment. Placement: the box's LOCAL

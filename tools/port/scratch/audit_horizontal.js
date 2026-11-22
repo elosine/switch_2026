@@ -7,7 +7,7 @@ const lib = n => require(path.join(ROOT, 'notation', 'lib', n));
 const Layout = lib('layout.js'), Rules = lib('rules.js'), Fit = lib('fit.js');
 const rd = p => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
 const C = Rules.loadContainer(ROOT), glyphs = rd('notation/lib/glyphs.json'), ens = rd('notation/registry/ensemble.json'), T = rd('notation/registry/techniques.json');
-const id = process.argv[2], only = new Set((process.argv[3] || '0,1,2,6').split(',').map(Number)), ir = rd('notation/ir/' + id + '.ir.json');
+const DBG = process.env.DBG; const id = process.argv[2], only = new Set((process.argv[3] || '0,1,2,6').split(',').map(Number)), ir = rd('notation/ir/' + id + '.ir.json');
 const ENS = Layout.ensembleFor(ens, (C.realizations || {})['video-jury']), PARTS = ENS.parts.map(p => p.part);
 const m = Layout.layoutSection(ir, glyphs, Object.assign({ m4AttackLines: false, frameParts: PARTS, ensemble: ENS, techniques: T, fitBoxes: Fit.boxesFor(C, ENS, PARTS) }, (C.engraving && C.engraving.layout) || {}));
 const evById = new Map(ir.events.map(e => [e.id, e]));
@@ -23,6 +23,7 @@ for (const s of m.systems) { if (!only.has(s.part)) continue; const its = s.item
     const ev = evById.get(h.ev) || ir.events.find(e => Math.abs(e.onset - h.t) < 1e-3 && (ir.chunks.find(c => (c.events || []).includes(e.id)) || {}).part === s.part);
     const hd = ev ? hand.get(ev.id) || {} : {}, tech = (ev ? ev.technique : '?') + (hd.grace ? ' (grace)' : hd.nhAnchor === 'leftEdge' ? ' (in a beam)' : '');
     const add = (what, off) => { const key = tech + ' | ' + what; (tally[key] = tally[key] || {})[r2(off)] = ((tally[key] || {})[r2(off)] || 0) + 1; };
+    if (DBG && Math.abs(h.t - +DBG) < 0.05) for (const it of group) console.log(JSON.stringify(it).slice(0, 200));
     for (const it of group) {
       if (it.k === 'glyph' && /^dyn-/.test(it.g)) add('dynamic', it.dxSs - hc);
       else if (it.k === 'glyph' && /^artic-/.test(it.g)) add(it.g.replace('artic-', 'sign '), it.dxSs - hc);

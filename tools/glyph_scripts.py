@@ -35,6 +35,14 @@ SCRIPTS = {           # glyphs.json articulation key -> Emmentaler glyph name
     # PLAN 2f.2 (2026-09-13, RUNNING_LOG §436): the trill sign, stored at STOCK size; the device scales it
     # (registry devices.byEnv.trill.trillSignScale 0.70 — GLYPH_SIZING §2 Ornaments, the pedal's factor)
     'trill': 'scripts.trill',
+    # the Switch~ piece §393 (2026-11-22): the DOWN-BOW sign — three of them stacked are his string quartet's bow overpressure
+    # (string_quartet_no1-composer/lilypond_code/BowOverpressureAccent_*.ly: musicglyph "scripts.downbow" at fontsize -4)
+    'downbow': 'scripts.downbow',
+}
+# the Switch~ piece §393: the CROSS HEAD — his quartet's col legno battuto (clb_template_*.ly). Stored in the NOTEHEAD group with the
+# stem's two attachment points, read from the outline: the right edge's upper corner for an up stem, the left edge's lower for a down stem
+NOTEHEADS = {
+    'cross': 'noteheads.s2cross',
 }
 # PLAN 2f.2: the parentheses round the trill's neighbour head — glyphs.json ACCIDENTAL group, stock size; the device
 # scales them (trillPitch.parenScale 0.63 = LilyPond's TrillPitchParentheses font-size -4, probe trill.ly, §435)
@@ -107,6 +115,19 @@ def put(group, key, name, k=1.0):
 
 for key, name in SCRIPTS.items():
     put('articulation', key, name)
+for key, name in NOTEHEADS.items():
+    put('notehead', key, name, 0.794)   # the house heads' size: LilyPond font-size -2 (magstep -2), his quartet's NoteHead.font-size too
+    e = g['notehead'][key]
+    if 'stemAttachUp' not in e['anchors']:
+        e['anchors']['stemAttachUp'] = {'x': round(e['wSs'] - 0.065, 3), 'y': round(e['hSs'] * 0.12, 3)}
+        e['anchors']['stemAttachDown'] = {'x': 0.065, 'y': round(e['hSs'] * 0.88, 3)}
+# the Switch~ piece §393 (2026-11-22, his word: 'the Grace note slash looks improvised a little bit … let's see if we can't get a standard …
+# for the single Grace note slash'): THE SINGLE GRACE NOTE'S STROKE IS LILYPOND'S OWN GLYPH — flags.ugrace (an up stem) and flags.dgrace
+# (a down stem), stored in the FLAG group with the stem's tip as its anchor (the font's origin), drawn where the flag is drawn
+for key, name in {'graceUp': 'flags.ugrace', 'graceDown': 'flags.dgrace'}.items():
+    put('flag', key, name)
+    e = g['flag'][key]
+    e['anchors']['stemTip'] = dict(e['anchors']['origin'])
 for key, name in ACCIDENTALS.items():
     put('accidental', key, name, 0.5 if 'Arrow' in key else 1.0)   # the arrowed ones at the house set's size (grab's note)
 

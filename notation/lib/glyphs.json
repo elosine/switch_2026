@@ -51,6 +51,42 @@
     "ported": "2026-08-22",
     "by": "tools/port_glyphs.js"
    }
+  },
+  "square": {
+   "path": "M0 0H0.8V0.8H0Z",
+   "wSs": 0.8,
+   "hSs": 0.8,
+   "anchors": { "center": { "x": 0.4, "y": 0.4 }, "stemAttachUp": { "x": 0.735, "y": 0.4 }, "stemAttachDown": { "x": 0.065, "y": 0.4 } },
+   "_provenance": { "source": "string_quartet_no1-composer/lilypond_code/m6_vln1_bowOverpressureAccent_C3_final.svg — the filled box of BowOverpressureAccent_*.ly (\\filled-box -0.4 … 0.4), measured in the drawing: 0.8 x 0.8 ss", "ported": "2026-11-22", "by": "hand (the Switch~ piece RUNNING_LOG §393)" }
+  },
+  "cross": {
+   "path": "M0.518 0.318 0.14 0.01C0.13 0.003 0.121 0 0.111 0C0.102 0 0.089 0.003 0.079 0.01L0.016 0.06C0.006 0.07 0 0.086 0 0.098C0 0.111 0.006 0.127 0.016 0.137L0.381 0.432L0.016 0.727C0.006 0.737 0 0.753 0 0.765C0 0.778 0.006 0.794 0.016 0.804L0.079 0.854C0.089 0.861 0.102 0.864 0.111 0.864C0.121 0.864 0.13 0.861 0.14 0.854L0.518 0.546L0.896 0.854C0.905 0.861 0.915 0.864 0.924 0.864C0.934 0.864 0.946 0.861 0.956 0.854L1.019 0.804C1.029 0.794 1.035 0.778 1.035 0.765C1.035 0.753 1.029 0.737 1.019 0.727L0.654 0.432L1.019 0.137C1.029 0.127 1.035 0.111 1.035 0.098C1.035 0.086 1.029 0.07 1.019 0.06L0.956 0.01C0.946 0.003 0.934 0 0.924 0C0.915 0 0.905 0.003 0.896 0.01Z",
+   "wSs": 1.035,
+   "hSs": 0.864,
+   "anchors": {
+    "origin": {
+     "x": 0.0,
+     "y": 0.432
+    },
+    "center": {
+     "x": 0.518,
+     "y": 0.432
+    },
+    "stemAttachUp": {
+     "x": 0.97,
+     "y": 0.104
+    },
+    "stemAttachDown": {
+     "x": 0.065,
+     "y": 0.76
+    }
+   },
+   "_provenance": {
+    "source": "LilyPond 2.24.4 emmentaler-20.otf noteheads.s2cross",
+    "ported": "2026-11-22",
+    "by": "tools/glyph_scripts.py",
+    "scale": 0.794
+   }
   }
  },
  "dynamic": {
@@ -266,6 +302,26 @@
     "ported": "2026-09-13",
     "by": "tools/glyph_scripts.py"
    }
+  },
+  "downbow": {
+   "path": "M0.04 0C0.016 0 0 0.016 0 0.04V1.272C0 1.304 0.032 1.332 0.064 1.332C0.096 1.332 0.124 1.304 0.124 1.272V0.532H1.38V1.272C1.38 1.304 1.412 1.332 1.444 1.332C1.476 1.332 1.504 1.304 1.504 1.272V0.04C1.504 0.016 1.488 0 1.464 0Z",
+   "wSs": 1.504,
+   "hSs": 1.332,
+   "anchors": {
+    "origin": {
+     "x": 0.752,
+     "y": 1.332
+    },
+    "center": {
+     "x": 0.752,
+     "y": 0.666
+    }
+   },
+   "_provenance": {
+    "source": "LilyPond 2.24.4 emmentaler-20.otf scripts.downbow",
+    "ported": "2026-11-22",
+    "by": "tools/glyph_scripts.py"
+   }
   }
  },
  "rest": {
@@ -423,6 +479,54 @@
     "source": "composition_for_two_pianos_and_two_percussion/tools/notation_studio/engine/glyphs/flag_paths.json 16down",
     "ported": "2026-08-22",
     "by": "tools/port_glyphs.js"
+   }
+  },
+  "graceUp": {
+   "path": "M0.037 1.182C-0.063 1.258 0.061 1.414 0.157 1.334L1.581 0.174C1.681 0.098 1.557 -0.058 1.461 0.022Z",
+   "wSs": 1.618,
+   "hSs": 1.356,
+   "anchors": {
+    "origin": {
+     "x": 0.693,
+     "y": -0.902
+    },
+    "center": {
+     "x": 0.809,
+     "y": 0.678
+    },
+    "stemTip": {
+     "x": 0.693,
+     "y": -0.902
+    }
+   },
+   "_provenance": {
+    "source": "LilyPond 2.24.4 emmentaler-20.otf flags.ugrace",
+    "ported": "2026-11-22",
+    "by": "tools/glyph_scripts.py"
+   }
+  },
+  "graceDown": {
+   "path": "M0.047 0.182 1.883 1.246C1.991 1.31 2.087 1.134 1.979 1.074L0.143 0.014C0.035 -0.05 -0.061 0.122 0.047 0.182Z",
+   "wSs": 2.027,
+   "hSs": 1.26,
+   "anchors": {
+    "origin": {
+     "x": 0.863,
+     "y": 2.15
+    },
+    "center": {
+     "x": 1.013,
+     "y": 0.63
+    },
+    "stemTip": {
+     "x": 0.863,
+     "y": 2.15
+    }
+   },
+   "_provenance": {
+    "source": "LilyPond 2.24.4 emmentaler-20.otf flags.dgrace",
+    "ported": "2026-11-22",
+    "by": "tools/glyph_scripts.py"
    }
   }
  },

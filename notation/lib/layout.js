@@ -1726,7 +1726,7 @@
               {
                 // head kind is device data (wc-29, day 23): 'open' (the
                 // surge / fp unit) or 'filled' (the staccato unit)
-                const headKind = dev.nhHead === 'filled' ? 'filled' : 'open';
+                const headKind = dev.nhHead === 'filled' ? 'filled' : (dev.nhHead && dev.nhHead !== 'open' && glyphs.notehead[dev.nhHead]) ? dev.nhHead : 'open';   // [§393] a head of another kind the table holds (cross · square)
                 // HEAD SCALE (day 23, composer: "make the note head smaller —
                 // there was already a formulation for a small note head"):
                 // piece #2's notehead.cellMotive.scaleFactor 0.844, a uniform
@@ -1741,7 +1741,7 @@
                   wSs: g.wSs * headK, hSs: g.hSs * headK,
                   anchors: Object.fromEntries(Object.keys(g.anchors).map(n => [n, { x: g.anchors[n].x * headK, y: g.anchors[n].y * headK }])),
                 })(glyphs.notehead[headKind]);
-                const headGlyph = headKind === 'filled' ? 'notehead' : 'notehead-open';
+                const headGlyph = headKind === 'filled' ? 'notehead' : headKind === 'open' ? 'notehead-open' : 'notehead-' + headKind;
                 // the gap before go is device data too (day 23, option B for the
                 // GC unit: 0.6 ss so the head clears the impact marker's left
                 // edge, r 0.51 ss); the registry default (0.25) serves the rest
@@ -2426,12 +2426,31 @@
                   if (dev.nhTremolo > 0 && (!dev.grace || dev.graceTremolo)) { const TR = Object.assign({ thickSs: 0.4, stackStepSs: 0.81, lengthSs: 1.42, slantDeg: 14.8, stemShortenSs: 1 }, o.tremoloSlash || {});
                     // [the Switch~ piece §392 — HIS WORD 2026-11-22, the alto sax at 206.48: 'change that double-tongued note to a grace note … but you can keep the
                     // slashes and the … DT'] a GRACE that keeps its slashes (a hand's graceTremolo): the slashes at the grace's scale, on its stem as it stands
-                    if (dev.grace) { TR.thickSs *= GR.headScale; TR.stackStepSs *= GR.headScale; TR.lengthSs *= GR.headScale; TR.stemShortenSs = 0; }   // RULES MIRROR (objects.tremoloSlash)
-                    const stIt = items[items.length - 1], up = stemDir === 'up', sxT = headDx + att.dx, midT = (yStart + yEnd) / 2;
+                    if (dev.grace) { TR.thickSs *= GR.headScale; TR.stackStepSs *= GR.headScale; TR.lengthSs *= GR.headScale; TR.stemShortenSs = 0; }
+                    // [§393 — HIS EYE, the same note: 'the stem's not long enough, so the flags don't clear the slashes'] ON A GRACE THE ORDER ALONG THE STEM IS
+                    // head · the slashes · the flag (with its stroke): each the grace's gap (the house 0.45 at the grace's scale) from the next, and THE STEM IS
+                    // AS LONG AS THAT NEEDS (rules.json objects.graceHead.slashGapSs)
+                    let graceMid = null;
+                    if (dev.grace) { const gp = (GR.slashGapSs > 0 ? GR.slashGapSs : 0.45) * GR.headScale, hyG = TR.lengthSs * Math.sin(TR.slantDeg * Math.PI / 180) / 2, ext = (dev.nhTremolo - 1) * TR.stackStepSs + 2 * hyG + TR.thickSs,   // RULES MIRROR (objects.graceHead.slashGapSs)
+                        fH = flagG ? flagG.hSs * GR.headScale * (flagKy || 1) : 0, need = nhO.hSs / 2 + gp + ext + gp + fH, sgn = stemDir === 'up' ? 1 : -1;
+                      if (Math.abs(yEnd - yStart) < need) { yEnd = yStart + sgn * need; const stG = items[items.length - 1]; if (stG && stG.k === 'stem') stG.yB = yEnd; }
+                      graceMid = yStart + sgn * (nhO.hSs / 2 + gp + ext / 2); }   // RULES MIRROR (objects.tremoloSlash)
+                    const stIt = items[items.length - 1], up = stemDir === 'up', sxT = headDx + att.dx; let midT = graceMid != null ? graceMid : (yStart + yEnd) / 2, extT = 0;
                     const hx = TR.lengthSs * Math.cos(TR.slantDeg * Math.PI / 180) / 2, hy = TR.lengthSs * Math.sin(TR.slantDeg * Math.PI / 180) / 2;
-                    if (stIt && stIt.k === 'stem' && !beamTip && TR.stemShortenSs > 0) stIt.yB = up ? yEnd - TR.stemShortenSs : yEnd + TR.stemShortenSs;
+                    // [§393 — HIS RULE 2026-11-22: 'on 216.8 in the alto sax, the slashes look a little close to the ledger lines … let's figure out what the
+                    // standard should be' · to the recommendation: 'for the slashes and ledger line rule, that's fine. Let's go with that'] THE SLASHES NEVER SIT
+                    // AMONG LEDGER LINES (rules.json objects.tremoloSlash.pastLedgers): on a note outside the staff the whole stack stands past the
+                    // staff's outer line, inside the staff, and THE STEM GROWS by as much as the stack moved.
+                    if (TR.pastLedgers !== false && !dev.grace) { const reach = (dev.nhTremolo - 1) / 2 * TR.stackStepSs + hy + TR.thickSs / 2, edge = up ? midT - reach : midT + reach, lim = up ? -2 : 2;   // RULES MIRROR (the five-line staff's outer lines)
+                      if (up ? (yStart < -2.5 && edge < lim) : (yStart > 2.5 && edge > lim)) { extT = Math.abs(lim - edge); midT += up ? extT : -extT; } }
+                    if (stIt && stIt.k === 'stem' && !beamTip) stIt.yB = up ? yEnd + extT - TR.stemShortenSs : yEnd - extT + TR.stemShortenSs;
                     for (let i = 0; i < dev.nhTremolo; i++) { const yc = midT + (i - (dev.nhTremolo - 1) / 2) * TR.stackStepSs;
                       items.push({ k: 'slash', seq: 'tremolo', t: tU, dx0Ss: sxT - hx, y0Ss: yc - hy, dx1Ss: sxT + hx, y1Ss: yc + hy, thickSs: TR.thickSs, ev: e.id }); } }
+                  // [§393 — HIS WORD 2026-11-22: 'bow overpressure, 3 down bows in the square notehead is fine'] THE SIGNS STACKED BEYOND THE STEM'S TIP
+                  // (a device's tipSigns: which glyph, how many — rules.json objects.bowStack; his string quartet's figure, BowOverpressureAccent_*.ly):
+                  // centred on the head's column, the first one the house gap past the tip, each a step further out.
+                  if (dev.tipSigns && glyphs.articulation && glyphs.articulation[dev.tipSigns]) { const BS = Object.assign({ count: 3, scale: 0.63, stepSs: 1, gapSs: 0.45 }, o.bowStack || {}), gB = glyphs.articulation[dev.tipSigns], sg = stemDir === 'up' ? 1 : -1;   // RULES MIRROR (objects.bowStack)
+                    for (let i = 0; i < BS.count; i++) items.push({ k: 'glyph', g: 'artic-' + dev.tipSigns, t: tU, dxSs: headDx, ySs: yEnd + sg * (BS.gapSs + gB.hSs * BS.scale / 2 + i * BS.stepSs), align: 'center', scale: BS.scale, seq: 'tipSign', ev: e.id }); }
                   if (flagG) items.push(Object.assign({ k: 'glyph', g: 'flag-' + (stemDir === 'up' ? 'up' : 'down') + flagDur, t: tU, dxSs: headDx + att.dx, ySs: yEnd, align: 'stemTip' },
                     flagKy !== 1 ? { scaleY: flagKy } : {}, dev.grace ? { scale: GR.headScale } : {}));
                   if (dev.grace && dev.slash !== false) {   // [§591] a hand `slash: false` — a beamed grace group carries the stroke on its FIRST stem only · [§550] the acciaccatura's stroke: one line rising to the right through the stem, at `slashAt` of its length
@@ -2443,7 +2462,12 @@
                     // so on a stem lengthened to clear a staff it still crosses the flag; on a standard stem it is where it always was
                     const LstdG = (dev.stemLenSs > 0 ? dev.stemLenSs : o.stemLen) * GR.headScale, flS = stemDir === 'down' ? -1 : 1;
                     const sx = headDx + att.dx, yc = yEnd - flS * (1 - GR.slashAt) * LstdG, r = GR.slashReachSs;
-                    items.push({ k: 'slash', t: tU, dx0Ss: sx - r, y0Ss: yc - flS * r, dx1Ss: sx + r, y1Ss: yc + flS * r, thickSs: GR.slashThickSs, ev: e.id });
+                    // [§393 — HIS WORD: 'the Grace note slash looks improvised a little bit … get a standard … for the single Grace note slash'] A SINGLE FLAGGED
+                    // GRACE's stroke is LILYPOND'S OWN GLYPH (flags.ugrace · flags.dgrace, glyphs.json flag.graceUp · graceDown), at the stem's tip like
+                    // the flag, at the grace's scale — never a drawn line. (A beamed grace group keeps its corner rule, §262; a grace with no flag, the line.)
+                    const gStroke = flagG && glyphs.flag[stemDir === 'up' ? 'graceUp' : 'graceDown'];
+                    if (gStroke) items.push({ k: 'glyph', g: 'flag-grace' + (stemDir === 'up' ? 'Up' : 'Down'), t: tU, dxSs: sx, ySs: yEnd, align: 'stemTip', scale: GR.headScale, seq: 'graceStroke', ev: e.id });
+                    else items.push({ k: 'slash', t: tU, dx0Ss: sx - r, y0Ss: yc - flS * r, dx1Ss: sx + r, y1Ss: yc + flS * r, thickSs: GR.slashThickSs, ev: e.id });
                   }
                   // the stem tip is the unit's outer ink on its side (a flag
                   // hangs back toward the head, never past the tip)
@@ -2642,7 +2666,7 @@
                   // "tongue ram"), so it ends at the head's right edge, the unit's gap before the line; (b) a unit whose head's LEFT EDGE is the
                   // moment (a beamed group's, D49) — the word BEGINS at that edge (Gould: a technique's word starts at its note), to the right of
                   // the moment, where the gestural curve has already landed.
-                  { const clearG = o.instrGoLineClearSs >= 0 ? o.instrGoLineClearSs : 0.45, wT = String(instrTxt).length * 0.5 * instrEm;
+                  { const clearG = o.instrGoLineClearSs >= 0 ? o.instrGoLineClearSs : 0.45, wT = ((o.instrWidthEm && o.instrWidthEm[instrTxt] > 0) ? o.instrWidthEm[instrTxt] : String(instrTxt).length * 0.5) * instrEm;   // [§393] the word's MEASURED width (rules.json objects.instruction.widthEm); half an em a character only for a word not yet measured
                     // [§392 — HIS EYE 2026-11-22: 'the dynamic and the DT aren't centered properly … I think it probably looks better centered'] (b) is for a head the
                     // gestural curve lands on. A HELD note's head (no go line, no curve: the flutter-tongue, double tonguing) has nothing at its moment to keep
                     // clear of, so its word is CENTRED ON THE HEAD like every other word of the column (§401h) when its row asks for the middle.
@@ -4311,6 +4335,7 @@
           const wOf = g => {
             if (g === 'notehead') return glyphs.notehead.filled.wSs;
             if (g === 'notehead-open') return glyphs.notehead.open.wSs;
+            if (g.startsWith('notehead-')) return (glyphs.notehead[g.slice(9)] || glyphs.notehead.open).wSs;
             if (g.startsWith('accidental-')) return ((glyphs.accidental || {})[g.slice(11)] || {}).wSs || 0;
             if (g.startsWith('dyn-')) return ((glyphs.dynamic || {})[g.slice(4)] || {}).wSs || 0;
             if (g.startsWith('artic-')) return ((glyphs.articulation || {})[g.slice(6)] || {}).wSs || 0;
