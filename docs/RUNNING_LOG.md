@@ -5903,3 +5903,8 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **WHAT WAS THERE:** a staccato E5 at 214.995 and a double-tongued E5 at 215.191 (0.2 s on), each its own figure.
 **DONE in the notation's copy of the save:** the double-tongued note (`wc-2774`) starts at 214.995 with the staccato and ends where it ended (215.521); its old start under properties.moved. Nothing removed. Its sound starts 0.2 s earlier; not heard.
 **THE FIGURE by the rule (§396):** the builder counts 4 tied attacks. Read from the drawn items: the staccato's head on the moment with the curve, no go line, the fff; the double-tongued head 2.43 ss to the right with "d.t.", no dynamic; a curve between them. `check_rules.js`: part (10) green; the old two reds. **NOT LOOKED AT as a picture.**
+
+## §400 · 2026-11-22 · his word — the alto sax's slap and staccato at 234.44 → 234.79 beamed; one curve, on the first
+
+**His words:** SW-140 (the sketch pad).
+**BUILT (`build_ctpt_page.js`: his own beam, listed with its entry; the rule had left the pair apart, 0.35 s being wider than the 0.33 s measure — it was on the "a little wider than the measure" list since §387):** the two A4s are one beamed group — both heads' left edges on their moments, no go lines (the group's regime, §374); the second note's gestural curve is off (a hand, noGc), the first keeps its own. Read from the drawn items: one curve at 234.439, no go line at either, both heads at their left edge. The alto sax has 3 beamed groups. `check_rules.js`: part (10) green; the old two reds. **NOT LOOKED AT as a picture.**

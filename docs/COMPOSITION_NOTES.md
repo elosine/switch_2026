@@ -1752,3 +1752,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim):** "Let's make the figure at 215 that way as well."
 
 **The AI's reading:** the staccato E5 at 215.00 and the double-tongued E5 0.2 s after it become the tied attack.
+
+### SW-140 · 2026-11-22 · the alto sax at 234.4, beamed
+
+**His words (verbatim):** "And you, the ones at 234.39, can you beam those and take out the second GC and go line?"
+
+**The AI's reading:** the slap at 234.44 and the staccato at 234.79 (0.35 s apart, just wider than the beaming measure) are one beamed pair with one gestural curve, on the first.

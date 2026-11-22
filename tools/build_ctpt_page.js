@@ -23,6 +23,8 @@ const BEAMS = [
   [233.97, 234.15, 0],     // the staccato and the jet whistle a fast 16th after it (the first jet whistle is out of the save, §376)
   [248.93, 249.46, 0],     // a tongue ram and a staccato, 0.49 s apart — his word, §374 ("The 2 at 248.8 can be beamed")
 ];
+// ---- HIS OWN BEAMS in the parts built by rule (wider than the measure, by his word)
+BEAMS.push([234.435, 234.795, 2]);   // §400 (2026-11-22), the alto sax's slap and staccato 0.35 s apart: 'the ones at 234.39, can you beam those and take out the second GC and go line?'
 const GRACES = [];         // [the grace note, its main note]
 
 // ---- HIS OWN WORD ON SINGLE NOTES of the parts built by rule (each with its entry). A note made a GRACE here is out of the rule's beaming;
@@ -35,6 +37,8 @@ const HANDS = {
   // correspond with the slap? And can we make a no-go line? Just line the GC up with the left edge of that slap'
   'wc-2782': { grace: true, goLine: false, dynMark: false, noGc: true },
   'wc-2783': { nhAnchor: 'leftEdge', goLine: false },
+  // §400: the second note of his beam at 234.44 → 234.79 — no gestural curve of its own (one curve, on the first)
+  'wc-2794': { noGc: true },
 };
 // ---- THE TIED ATTACK (his figure, §395; the rule, §396 — rules.json objects.tiedAttack): a SHORT note and a HELD note of one part on one pitch at
 // one instant are one figure. The short note: its head's left edge on the moment, no go line, the figure's dynamic, a curve to the held note.
