@@ -42,7 +42,7 @@ for (const part of AUTO_PARTS) {
   close();
 }
 
-const args = ['tools/notate_section.js', '--score', SCORE, '--w0', String(W0), '--w1', String(W1), '--parts', '0-6', '--alone', W0 + '-' + W1, '--exp', '--noFitMark', '--timeSpacing',
+const args = ['tools/notate_section.js', '--score', SCORE, '--w0', String(W0), '--w1', String(W1), '--parts', '0-7', '--alone', W0 + '-' + W1, '--exp', '--noFitMark', '--timeSpacing',
   '--id', 's2-ctpt-heads', '--label', 'Section 2 - the counterpoint, 200 to 253 s: note heads at their played times (a working page)'];
 const graceIds = new Set(GRACES.map(g => g[0]));
 for (const [a, b, part] of BEAMS) {
