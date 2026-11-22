@@ -1758,3 +1758,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim):** "And you, the ones at 234.39, can you beam those and take out the second GC and go line?"
 
 **The AI's reading:** the slap at 234.44 and the staccato at 234.79 (0.35 s apart, just wider than the beaming measure) are one beamed pair with one gestural curve, on the first.
+
+### SW-141 · 2026-11-22 · the column at 238.24 that drops into the percussion's staff — the vertical rule
+
+**His words (verbatim):** "And we work out the figure in 238.24, the vertical, and work out the rules. I believe we have some standards there. If not, we should devise them. So what I mean to say is the ottava on that one drops into the percussion staff. I think there was some thing where we moved some of the things above the stem or to the other side, and some things we leave below. If we haven't figured it out, let's figure it out. But I believe that's there somewhere."
+
+**The AI's reading:** he remembers the fit ladder of *Recombination* (marks flipped to the other side when a column leaves its lane). He wants it found, and applied or completed.

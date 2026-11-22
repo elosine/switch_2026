@@ -92,3 +92,5 @@ console.log(outp.filter(l => /READY|FAILED|INVALID|Error|usage|not an event/i.te
 console.log('beamed groups: ' + [0].concat(AUTO_PARTS).map(p => 'part ' + p + ' ' + BEAMS.filter(b => b[2] === p).length).join(' · ') + ' · tied attacks: ' + tiedPairs.length + ' · grace pickups: ' + GRACES.length + (GRACES.length ? ' (' + GRACES.map(g => g[0]).join(' · ') + ')' : ''));
 // [§382] WHAT ON THE PAGE HAS NO RULE YET — printed by the build itself, before anyone looks at the picture (tools/no_rule_list.js)
 console.log(spawnSync('node', ['tools/no_rule_list.js', 's2-ctpt-heads', '--parts', '0,1,2,6'], { cwd: ROOT, encoding: 'utf8' }).stdout);
+// [§401] WHAT DOES NOT FIT ITS LANE and was left where it stood (the fit ladder's rung 8) — this working page hides the red mark, so it is printed here (tools/fit_list.js)
+console.log(spawnSync('node', ['tools/fit_list.js', 's2-ctpt-heads', '--parts', '0,1,2,6'], { cwd: ROOT, encoding: 'utf8' }).stdout);
