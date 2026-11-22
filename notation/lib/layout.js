@@ -3095,6 +3095,9 @@
           // offset is computed here once and read by every drawer below; the
           // beam is lowered so the whole stack fits inside the lane.
           {
+            // [the Switch~ piece §442 — his 'yes' to 'number always on the beam side, stems down to 2.5'] a page may say the tuplet's number never leaves
+            // the beam side (layoutPolicy.tupletBeamSide): the side is DICTATED, so the wide-register repair (#4 day 31) cannot flip it to the heads
+            if (POL.tupletBeamSide && g.hasTuplet && !g.bracketSide) g.bracketSide = g.dir === 'up' ? 'above' : 'below';
             const CSg = Object.assign({ laneHalfSs: 6.51 }, o.chainSide || {});
             const gapD = o.stackGapSs != null ? o.stackGapSs : 0.45;
             const TPg = Object.assign({ paddingSs: 0.5, hookLengthSs: 0.7, numeralSizeSs: 1.2348, numeralBaselineBelowSs: 0.41, numeralCapFactor: 0.7 }, o.tuplet || {});
@@ -3137,6 +3140,9 @@
             // floor wins and the stack overflows toward the lane edge —
             // protrusion is tier-3, staff invasion is not.
             if (h > 0) { const lim = CSg.laneHalfSs - h; yLevel = g.dir === 'up' ? Math.min(yLevel, lim) : Math.max(yLevel, -lim); }
+            // [§442] THE TEMPO ROW IS ON TOP: a beam above the staff, with its stack, stays the house gap under the page's tempo row (layoutPolicy.tempoRowSs);
+            // the stems shorten for it — to the repair's floor, beamStemSs 2.5, and no further
+            if (POL.tempoRowSs > 0 && g.dir === 'up') yLevel = Math.min(yLevel, POL.tempoRowSs - gapD - h);
             // ── THE WIDE-REGISTER REPAIR PASS (day 31, composer with the
             // screenshots: "there needs to be a set of rules that lets the
             // beams and the stems be long enough and is able to switch sides
@@ -3317,8 +3323,9 @@
                 }
               }
               if (g.hasTuplet && g.bracketSide) {
-                const base = put(g.bracketSide, TPd.paddingSs + TPd.hookLengthSs + capD);
-                st.bracketY = (g.bracketSide === 'above' ? 1 : -1) * (base + TPd.paddingSs + TPd.hookLengthSs);
+                const offD = TPd.bracket === false && !g.noBeam ? (o.stackGapSs != null ? o.stackGapSs : 0.45) + TPd.numeralBaselineBelowSs : TPd.paddingSs + TPd.hookLengthSs;   // [§438 · §442] the number alone: the house gap
+                const base = put(g.bracketSide, offD + capD);
+                st.bracketY = (g.bracketSide === 'above' ? 1 : -1) * (base + offD);
                 // hooks point toward the notes: down for an above bracket
                 // hooks turn TOWARD the notes. The draw flag is named for the
                 // STEM sense: 'up' = bracket above, hooks descend; 'down' =
@@ -3609,7 +3616,7 @@
         // [the Switch~ piece §438 — his 'the Ottava can be one bracket over all the ones that have Ottava'] ONE BRACKET OVER A RUN: the notes of a
         // group that stand next to each other with the same sign on the same side share one bracket — the first note's sign, the last note's hook,
         // at the height of the one furthest from the staff (objects.ottava.groupRun)
-        if (o.ottavaGroupRun !== false) {
+        if (o.ottavaGroupRun !== false && !POL.ottavaRuns) {
           const tipsT = g.tips.filter(tp => !tp.phantom).slice().sort((a, b) => a.t - b.t); let run = [];
           const closeRun = () => { if (run.length >= 2) { const a = run[0].ottava, z = run[run.length - 1].ottava, ab = a.dir === 'above';
               a.ySs = ab ? Math.max(...run.map(x => x.ottava.ySs)) : Math.min(...run.map(x => x.ottava.ySs)); a.t1 = z.t; a.dx1Ss = z.dx1Ss;
@@ -3618,6 +3625,31 @@
           closeRun();
         }
       }
+      // [the Switch~ piece §442 — his 'the last two partials there can be a single Ottava' · '366.33 single Ottava, please'] ONE BRACKET OVER A RUN OF THE
+      // PART'S NOTES (layoutPolicy.ottavaRuns): notes that follow each other in the part with the same sign on the same side share one bracket, whatever
+      // group each is in — the first note's sign, the last note's hook, the height of the one furthest from the staff. A run ends at a note without
+      // the sign, and at a silence longer than objects.ottava.runMaxGapS.
+      if (POL.ottavaRuns) {
+        const maxGap = o.ottavaRunMaxGapS > 0 ? o.ottavaRunMaxGapS : 1.5;   // RULES MIRROR (objects.ottava.runMaxGapS)
+        const ottOf = new Map(); for (const it of items) if (it.k === 'ottava' && it.ev && it.t1 == null) ottOf.set(it.ev, it);
+        const seq = []; const seenEv = new Set(); for (const it of items) if (it.k === 'stem' && it.ev && !seenEv.has(it.ev)) { seenEv.add(it.ev); seq.push(it); }
+        seq.sort((a, b) => a.t - b.t); let run = [];
+        const closeRun = () => { if (run.length >= 2) { const a = run[0], z = run[run.length - 1], ab = a.dir === 'above';
+            a.ySs = ab ? Math.max(...run.map(x => x.ySs)) : Math.min(...run.map(x => x.ySs)); a.t1 = z.t; a.dx1Ss = z.dx1Ss;
+            for (const x of run.slice(1)) { const ix = items.indexOf(x); if (ix >= 0) items.splice(ix, 1); } } run = []; };
+        let prevT = null;
+        for (const sIt of seq) { const ot = ottOf.get(sIt.ev);
+          if (run.length && (!ot || ot.label !== run[0].label || ot.dir !== run[0].dir || sIt.t - prevT > maxGap)) closeRun();
+          if (ot) run.push(ot); prevT = sIt.t; }
+        closeRun();
+      }
+      // [§442 — his 'we should include the dashes, the beat dashes, in the clearance regime … all should be raised up. And of course, this is when possible'] AN
+      // OTTAVA ABOVE THE STAFF CLEARS THE BEAT TICKS: on a part that carries ticks, the bracket's lowest ink (its hook's end, its sign's foot) stands the
+      // house gap above the ticks' top — the ticks are ink in the stack, between the notes and the ottava
+      { const tk = items.filter(i => i.k === 'tick' && !i.grid);
+        if (tk.length && o.ottavaClearTicks !== false) { const Ot = glyphs.standards.ottava || {}, tH = (o.tickLook && o.tickLook.hSs) || 0.8;   // RULES MIRROR (objects.tick.look.hSs)
+          const floor = Math.max(...tk.map(i => i.ySs)) + tH + (Ot.standardGapSs || 0.45) + (Ot.hookLengthSs || 0.8);   // RULES MIRROR (glyphs.json standards.ottava)
+          for (const it of items) if (it.k === 'ottava' && it.dir === 'above' && it.ySs < floor) it.ySs = floor; } }
       // RESTS (day 23, composer: "let's put in any rests that are necessary...
       // just have the longest rest you could fit in there, or a combination if
       // it needs to be"). Computed per CLUSTER over the whole grid, so the gap
@@ -3684,7 +3716,7 @@
             : (tp.dir === 'up' ? beamTop + lineOff : -(Math.abs(beamTop) + lineOff));
           const dDraw = rep ? own.stack.bracketDirDraw : tp.dir;
           items.push(Object.assign({ k: 'tuplet', t0, t1: tEnd, dx1Ss: dx1 != null ? dx1 : undefined, ySs: yB, dir: dDraw, text: tp.text || (tp.num + ':' + tp.den), group: tk },
-            (o.tuplet || {}).bracket === false && !(own && own.noBeam) && tp.slots.size ? { noBracket: true, tLast: Math.max(...tp.slots.values()) } : {}));   // [§438] the number alone, centered over the group's notes
+            (o.tuplet || {}).bracket === false && !(own && own.noBeam) && tp.slots.size ? { noBracket: true, tLast: Math.max(Math.max(...tp.slots.values()), t0 + (tp.num - 1) * tp.slotUnits * cl.unit) } : {}));   // [§438] the number alone, centered over the group's notes · [§442, his 'centered on the full tuplet'] its rests too: to the tuplet's last place
           for (let sIdx = 0; sIdx < tp.num; sIdx++) {
             if (tp.slots.has(sIdx)) continue;
             const t = t0 + sIdx * tp.slotUnits * cl.unit;
