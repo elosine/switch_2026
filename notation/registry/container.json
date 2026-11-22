@@ -740,6 +740,27 @@
       "instrText": "(slap)",
       "instrAlign": "middle"
      },
+     "muted": {
+      "sheet": "the Switch~ piece §420 (2026-11-22, his word on the piano's muted strings: 'The recommended plus for the mute. But for the mute and short notes, let's adopt the other players with the GC, the flagged, the two flags … the mutes will be a little bit like the slap tone, but just with a plus and [the word]') — the short-note unit of this section (a filled head, a 16th flag, the go line, the gestural curve) with the + sign (piece 2's registered sign for the stopped / muted string) and the word (mute); no staccato dot and no accent",
+      "anchorRow": "C",
+      "memberRows": ["cueHead","ledger","accidental","stem","flag","dynamic","ottava","goLine","gc","techSymbol","instruction"],
+      "goLine": true,
+      "gc": true,
+      "nhUnit": true,
+      "nhHead": "filled",
+      "chainSide": "headSide",
+      "brick": false,
+      "nhHeadScale": "@objects.cueHead.size",
+      "nhStem": "flag16",
+      "nhStemRule": "flagClear",
+      "nhGapSs": "@anchors.C.gapSs",
+      "dynMark": "band",
+      "dynBesideStem": true,
+      "techSymbol": "plus",
+      "techSymbolScale": "@objects.techSymbol.size",
+      "instrText": "(mute)",
+      "instrAlign": "middle"
+     },
      "slap_pitched": {
       "sheet": "the Switch~ piece §389 (2026-11-22, his word: the alto sax's pitched slap is 'the same as tongue slap … the one we're using for everything … let's just use the same notation for the saxophone') — the slap's look whole (#5 §400 · §401b)",
       "anchorRow": "C",

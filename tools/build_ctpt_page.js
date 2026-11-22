@@ -65,7 +65,7 @@ for (const o of save.objects) if (o.type === 'waveCurve' && o.layer === 7 && o.t
 const HAND_GRACE = new Set(Object.keys(HANDS).filter(k => HANDS[k].grace));
 
 // ---- THE OTHER PARTS, by the rules (§387): clarinet · alto sax · violin. (The piano and the percussion are taken separately — his word.)
-const AUTO_PARTS = [1, 2, 6, 7];   // §414: the cello, played in 2026-11-22
+const AUTO_PARTS = [1, 2, 5, 6, 7];   // §420: the piano (its muted notes are this section's short notes; the ordinary and the plucked note keep the piano's own look)   // §414: the cello, played in 2026-11-22
 // a SHORT note is one that takes a flag (its technique's look says so) or, with no look yet, a one-shot; a HELD note (a white head) is never
 // beamed by rule — a short note running into a held one is LISTED for him, not beamed (§387: the clarinet's 206.41 → 206.70 looked wrong)
 const isShort = tech => { const d = DEV[tech]; return d ? /^flag/.test(String(d.nhStem || '')) : ((T.techniques || {})[tech] || {}).family === 'oneshot'; };
@@ -116,6 +116,6 @@ const outp = (r.stdout + r.stderr).split('\n');
 console.log(outp.filter(l => /READY|FAILED|INVALID|Error|usage|not an event/i.test(l)).join('\n').slice(0, 3000));
 console.log('beamed groups: ' + [0].concat(AUTO_PARTS).map(p => 'part ' + p + ' ' + BEAMS.filter(b => b[2] === p).length).join(' · ') + ' · tied attacks: ' + tiedPairs.length + ' · grace pickups: ' + GRACES.length + (GRACES.length ? ' (' + GRACES.map(g => g[0]).join(' · ') + ')' : ''));
 // [§382] WHAT ON THE PAGE HAS NO RULE YET — printed by the build itself, before anyone looks at the picture (tools/no_rule_list.js)
-console.log(spawnSync('node', ['tools/no_rule_list.js', 's2-ctpt-heads', '--parts', '0,1,2,6,7'], { cwd: ROOT, encoding: 'utf8' }).stdout);
+console.log(spawnSync('node', ['tools/no_rule_list.js', 's2-ctpt-heads', '--parts', '0,1,2,5,6,7'], { cwd: ROOT, encoding: 'utf8' }).stdout);
 // [§401] WHAT DOES NOT FIT ITS LANE and was left where it stood (the fit ladder's rung 8) — this working page hides the red mark, so it is printed here (tools/fit_list.js)
-console.log(spawnSync('node', ['tools/fit_list.js', 's2-ctpt-heads', '--parts', '0,1,2,6,7'], { cwd: ROOT, encoding: 'utf8' }).stdout);
+console.log(spawnSync('node', ['tools/fit_list.js', 's2-ctpt-heads', '--parts', '0,1,2,5,6,7'], { cwd: ROOT, encoding: 'utf8' }).stdout);

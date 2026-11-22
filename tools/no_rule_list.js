@@ -35,10 +35,10 @@ for (const [p, evs0] of [...byPart.entries()].sort((a, b) => a[0] - b[0])) {
   const evs = evs0.slice().sort((a, b) => a.onset - b.onset), P = nameOf(p), lines = [];
   // 1 · 2 — the techniques
   for (const [tech, list] of group(evs, e => e.technique)) {
-    if (tech === 'ord' || tech == null) continue;
+    if (tech === 'ord' || tech === 'main' || tech == null) continue;   // the ordinary voice (the piano's is 'main') needs no word
     const d = DEV[tech], tt = (T.techniques || {})[tech] || {};
     if (!d) lines.push('1  NO LOOK OF ITS OWN: "' + (tt.label || tech) + '" — ' + list.length + ' note(s), first at ' + t2(list[0].onset) + ' s; drawn as a plain ' + (tt.family === 'oneshot' ? 'black' : 'white') + ' head and its bar');
-    const word = (d && (d.instrText || d.instrFirst || d.techText)) || tt.notate, sign = d && (d.nhDot || d.techSymbol || d.nhArtic);
+    const word = (d && (d.instrText || d.instrFirst || d.techText || d.textAbove)) || tt.notate   /* textAbove: a baked word over the note (the plucked piano's pizz.) */, sign = d && (d.nhDot || d.techSymbol || d.nhArtic);
     if (!word && !sign) lines.push('2  NO WORD AND NO SIGN: "' + (tt.label || tech) + '" — ' + list.length + ' note(s), first at ' + t2(list[0].onset) + ' s');
   }
   // 3 · 4 · 5 — the pairs

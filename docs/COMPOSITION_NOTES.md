@@ -1842,3 +1842,9 @@ And, while that was being built: "The widening of the ribbon at 195.12, let's ex
 **His words (verbatim), on a picture of the cello to 226.5:** "to 26.5. This case is slightly different, but let's at least locally, maybe not a rule that propagates throughout, you know, into the future, but for these ones, just because it's okay if it goes into the electronic lane, that's okay, but I don't want it to conflict with the violin lane. So let's put stems down on all of the bow pressure ones, and then the markings on top above the staff."
 
 **The AI's reading:** for THIS section's cello, every bow-overpressure note has its stem down and its marks over the staff; a long stem may run down into the electronics' lane, never up into the violin's. Not a rule for other pieces.
+
+### SW-155 · 2026-11-22 · the piano's five points decided
+
+**His words (verbatim):** "Okay, let's do the recombination plot. The recommended plus for the mute. But for the mute and short notes, let's adopt the other players with the GC, the flagged, the two flags, etc. So I guess it's going to be a little bit like the mutes will be a little bit like the slap tone, but just with a plus and pits. Yes, go ahead and distribute the dynamics in the same way you did with the other parts. And let's see what the 0.33 beaming looks like as well."
+
+**The AI's reading (the dictation "recombination plot" = *Recombination*'s pluck; "plus and pits" taken as the plus and its word):** 1 the plucked note is *Recombination*'s open ringing head with pizz. and Ped. · 2 the muted note takes the "+" · 3 AGAINST the AI's recommendation: the muted note is a short note like the other players' — the flag, the go line, the gestural curve — "a little bit like the slap", with only the plus and the word · 4 the dynamics dealt as the other parts' · 5 the 0.33 s beaming, to be looked at.

@@ -151,3 +151,5 @@
 - **2026-11-22 · the clarinet's two new voices are not leveled (RUNNING_LOG §407):** the slap (the bass clarinet's sample, "Bass Clarinet XS") and the triple tongue ("Clarinet XS") are sent by the old staccato's and flutter-tongue's maps; at velocity 100 the slap meters about 8 dB under the triple tongue. To be measured with `section_card.js`; `rack_alive.js` wants a row for each of the two tracks (SWFluteb 11 · 12). The whole clarinet's move to the Xsample library (the 675 staccatos of Section 3 included) is not begun.
 
 - **2026-11-22 · the cello's counterpoint is not leveled (RUNNING_LOG §414):** its 47 notes are sent by the violin's maps per technique; the section's parity (`section_card.js` → `section_parity.js`) is to be run with the cello in.
+
+- **2026-11-22 · the plucked piano's level map is flat or inverted across p · f · fff (RUNNING_LOG §420):** CC7 100 · 92 · 98. §152's parity levelled the written dynamics to one loudness on that voice; with dynamics now dealt p · f · fff the map wants re-measuring (the AI's).
