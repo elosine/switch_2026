@@ -6390,3 +6390,11 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **MEASURED:** 117 brackets over a run · 165 single-note brackets · 15 notes with the sign alone (those needing more than five ledger lines: piano 5 · violin 4 · cello 6) · about 50 crowded notes at pitch. Collisions between parts: 2 (298.09 piano / violin, two ottava brackets · 395.75 clarinet / sax, the dashed tempo line and a number).
 **SEEN:** one still at 405.6 s before the per-staff correction — the sign alone over and under piano notes, drawn as meant. Not looked at after it.
 **THE AI's NUMBERS, his to move:** the gap of the sign alone 0.3 ss · the slack in "no room" 0.3 ss.
+
+## §452 · 2026-11-22 · the demo recording — a plan drafted at his word (PLAN § 2r), his go pending
+
+**His words:** SW-165 (the sketch pad), whole.
+**WHAT STANDS ALREADY (read, not scanned):** `tools/export_midi.js` (the save as MIDI, a file per track, 60 BPM · 960 PPQ) and `tools/render_reaper.js` (a COPY of the rack opened in a new tab, each file on the track of its name, the render — the rack never written); the bridge (`tools/reaper_job.js`); the level tools of the composing (`part_meter.js` · `section_card.js` · `section_parity.js`). The rack holds several techniques of one instrument in ONE sampler (its parts on their own channels, no keyswitch — §143), so a technique has no track of its own there.
+**THE AI's ONE CHANGE TO HIS IDEA, and why:** STEMS. A technique per sampler track means rebuilding the rack by hand; playing each technique alone through the rack as it is and recording it gives the same tracks — one per technique, a bus per instrument — as AUDIO, with the rack untouched and the faders working on sound. A note that is off: its MIDI changed and that one stem rendered again.
+**THE PLAN:** seven steps, `docs/PLAN.md` § 2r — the MIDI per technique · the recording project · the stems · the electronics' four lanes · the first balance by measurement · his mix · the bounce.
+**NOT KNOWN, said to him:** the stems' render time · whether the sine tones can be recorded lane by lane without him.

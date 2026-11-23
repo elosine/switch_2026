@@ -300,6 +300,25 @@ any piece); this piece holds its USES — the set's files, the settings, the fou
 
 *To be laid out when we discuss it.* Piece 6's `docs/NOTATION_SCHEME.md` and its rules rows are the start (H6-37).
 
+## 2r. THE DEMO RECORDING — a good demo at good levels, quickly — `todo` (the top line; drafted by the AI 2026-11-22 at his word, RUNNING_LOG §452; HIS GO PENDING)
+
+**His brief (SW-165, verbatim in the sketch pad):** every technique on its own track in Reaper, the tracks of one instrument into one bus; the MIDI in Reaper so one note can be spotted in; each electronics lane its own track; a way to read each track's level; no endless fiddling with CC7 and velocity. "I'm open to other suggestions if there's even more expedient ways."
+
+**THE AI's ONE CHANGE TO HIS IDEA — STEMS:** in the rack one sampler holds several techniques of an instrument, so its techniques come out of ONE track as one sound. Giving each technique its own sampler track means rebuilding the rack by hand, plugin by plugin. Instead: each technique is PLAYED ALONE through the rack as it is and recorded to its own audio file (a stem). The mix is then made of audio — one stem per technique, one bus per instrument — and the rack is never touched. He gets exactly the tracks he described; the faders work on sound, not on CC7 or velocity.
+
+**THE TOP LINE:**
+
+1. **The MIDI out, one file per technique.** Result when done: the final save written as MIDI, a file for every technique of every part (`tools/export_midi.js`, split further).
+2. **The recording project.** Result when done: a NEW Reaper project (a copy of the rack — `tools/render_reaper.js`' way; the rack itself is never written): each technique's MIDI on its own track, folded under its instrument.
+3. **The stems.** Result when done: every technique rendered alone to an audio file, each on its own track under its instrument's bus — by one command through the bridge, no hand steps.
+4. **The electronics.** Result when done: each of the four electronics lanes as its own stem under an ELEC bus (the material bricks are audio files already; the sine tones are recorded from the engine).
+5. **The first balance, by measurement.** Result when done: every stem's loudness measured and every fader set by one rule (the instruments level with each other, each technique by its written dynamic — `tools/section_parity.js`' idea, on stems); a one-page card of what was set.
+6. **His mix.** Result when done: his ears and the faders — a technique, an instrument, the electronics. An outlier note: that note's MIDI is changed and ONLY its stem is rendered again (one command), or its audio is trimmed in place.
+7. **The bounce.** Result when done: the demo file from the master (the glue and the limiter of 1a.7), its peak and loudness stated, the file name anonymous.
+
+**What each step needs from him:** 1 … 5 nothing (Reaper open with the rack, loopMIDI first — the startup order) · 6 his ears · 7 his "that's it".
+**Uncertain, said plainly:** how long the stems take to render (about fifty techniques; not timed) · whether the sine tones can be recorded lane by lane without him (the engine plays live) — settled at step 4, one question if not.
+
 ## 3. The performance score — `todo`
 
 *To be laid out when we discuss it.* Waits on the Tempus septet's parts, his word 2026-10-20 (journal §7).
