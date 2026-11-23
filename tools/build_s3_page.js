@@ -130,10 +130,14 @@ const outp = (r.stdout + r.stderr).split('\n');
 console.log(outp.filter(l => /READY|FAILED|INVALID|Error|usage|not an event|needs |GEOMETRY|!!/i.test(l)).join('\n').slice(0, 3000));
 if (r.status !== 0) { console.log(outp.slice(-12).join('\n')); process.exit(r.status || 1); }
 
+// THE NOTES WHOSE OTTAVA STANDS ALONE (§451): written at pitch they met the part above or below — found by tools/collide_list.js on a first pass (the
+// builder's last lines), kept in notation/hand/s3-phase.bare.json so one run of the builder gives the same page
+const BARE_FILE = path.join(ROOT, 'notation', 'hand', ID + '.bare.json'), BARE = fs.existsSync(BARE_FILE) ? JSON.parse(fs.readFileSync(BARE_FILE, 'utf8')) : [];
+
 // ---- THE OVERLAYS, into the page the extractor wrote
 const irPath = path.join(ROOT, 'notation', 'ir', ID + '.ir.json'), ir = JSON.parse(fs.readFileSync(irPath, 'utf8'));
 ir.overlays = ir.overlays.filter(o => !/^ov-s3-/.test(o.id)).concat(overlays);
-ir.layoutPolicy = Object.assign(ir.layoutPolicy || {}, { tempoRowSs: TS.rowSs, tupletBeamSide: true, ottavaRuns: true, clefs: CLEFS, omitParts: OMIT_PARTS, ottavaAlways: [PIANO] });   // §449: the piano's ottava on every note past three ledger lines, no lone note at pitch   // §442: the number always on the beam side · one ottava bracket over a run of the part's notes   // the tempo row on top of everything, one height (§438)
+ir.layoutPolicy = Object.assign(ir.layoutPolicy || {}, { tempoRowSs: TS.rowSs, tupletBeamSide: true, ottavaRuns: true, clefs: CLEFS, omitParts: OMIT_PARTS, ottavaCrowd: true, ottavaBare: BARE });   // §451: the standard ottava on every part; only a sign with no room is treated   // §442: the number always on the beam side · one ottava bracket over a run of the part's notes   // the tempo row on top of everything, one height (§438)
 // THE GROUPS AS CLUSTERS (#4 day 23, figures.cluster — the one figure that carries a tuplet). Each group its own cluster on a grid of sixteenths:
 // 4 to the beat, or 8 over two beats. HIS RULES (SW-164, §436): a group inside one beat takes the PLAIN number (5); a group over two beats the RATIO
 // (3:2 · 5:4 · 7:4 · 9:8 · 11:8); no bracket, the number centered over the group (rules.json objects.tuplet.look.bracket). 2, 4 and 8 to the beat take none.
@@ -178,3 +182,12 @@ console.log('parts ' + PARTS.join(' · ') + ' · notes ' + notes.length + ' · b
 console.log('groups by notes-to-the-beat: ' + Object.keys(census).sort((a, b) => a - b).map(s => s + ' × ' + census[s]).join(' · '));
 for (const p of PARTS) console.log('  part ' + p + ': ' + overlays.filter(o => o.target.part === p && (o.kind === 'tempo' || o.kind === 'tempoSpan')).sort((a, b) => (a.target.t != null ? a.target.t : a.target.span[0]) - (b.target.t != null ? b.target.t : b.target.span[0]))
   .map(o => o.kind === 'tempo' ? o.target.t.toFixed(1) + ' = ' + o.value.bpm : o.target.span[0].toFixed(1) + ' ' + o.value.word + ' → ' + o.target.span[1].toFixed(1)).join(' | '));
+
+// ---- §451 · his 'apply this rule except where there's a vertical collision': a note written at pitch (past three ledger lines) that meets another part's ink
+// takes its ottava back as THE SIGN ALONE. The collision list names them; where it names a new one the page is built once more.
+if (!process.env.S3_NO_BARE_PASS) { const j = spawnSync('node', ['tools/collide_list.js', ID, '--json'], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28 });
+  let far = []; try { far = (JSON.parse(j.stdout).farHeads || []).map(k => { const [p, t] = k.split('@'); const o = notes.find(x => x.layer === +p && Math.abs(x.startSeconds - +t) < 0.003); return o ? 'ev-' + o.id : null; }).filter(Boolean); } catch (e) { console.log('collide_list --json: ' + String(j.stderr || e).slice(0, 200)); }
+  const add = far.filter(id => !BARE.includes(id));
+  if (add.length) { fs.writeFileSync(BARE_FILE, JSON.stringify(BARE.concat(add), null, 1)); console.log('at-pitch notes meeting another part: ' + add.length + ' — they take the sign alone; building once more');
+    const again = spawnSync('node', [__filename], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28, env: Object.assign({}, process.env, { S3_NO_BARE_PASS: '1' }) }); console.log(again.stdout.split('\n').filter(l => /^(groups |loose|Error)/.test(l)).join('\n')); }
+  else console.log('the sign alone on ' + BARE.length + ' notes (notation/hand/' + ID + '.bare.json); no at-pitch note meets another part'); }

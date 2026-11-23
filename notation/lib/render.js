@@ -955,6 +955,9 @@
           const minSpan = (O.minBracketSpanSs || 1.37) * ssPx;
           const lgW = lg ? (lg.wSs + (O.textGapBeforeLineSs || 0.1)) * ssPx : 0;
           if (xHook - (xLabel + lgW) < minSpan) xLabel = xHook - minSpan - lgW;
+          // [§451] THE SIGN ALONE (it.bare): centered on its note head, no dashes, no hook
+          if (it.bare && lg) { const tyB = yLine + (O.lineAttachAboveBaselineSs || 0.32) * ssPx - lg.hSs * ssPx;
+            parts.push('<g transform="translate(' + (X(it.t, it.cxSs || 0) - lg.wSs * ssPx / 2).toFixed(2) + ',' + tyB.toFixed(2) + ') scale(' + ssPx + ')"><path d="' + lg.path + '"/></g>'); continue; }
           let xDashStart = xLabel;
           if (lg) {
             // text baseline straddles the line (lineAttachAboveBaselineSs)

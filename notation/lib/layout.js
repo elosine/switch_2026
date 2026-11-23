@@ -1460,23 +1460,31 @@
       // RUN (layoutPolicy.ottavaRuns): where notes that follow each other in the part take DIFFERENT ottava signs on the same side (8va beside 15ma), all
       // of them are written under the LARGER one — so the run shares one bracket (the pass after the groups joins it). A run ends at a note written at
       // pitch, and at a silence longer than objects.ottava.runMaxGapS.
-      const octForce = new Map();
+      const octForce = new Map(), octBare = new Set();   // [§451] octBare: the notes whose sign stands alone, no bracket
       if (POL.ottavaRuns && !lined) {
         const thR = 2 + (oSys.ottavaLedgerThreshold != null ? oSys.ottavaLedgerThreshold : ((glyphs.standards.ottava && glyphs.standards.ottava.ledgerLineThreshold) || 3));   // RULES MIRROR (glyphs.json standards.ottava)
         const maxGapR = o.ottavaRunMaxGapS > 0 ? o.ottavaRunMaxGapS : 1.5, listR = [];   // RULES MIRROR (objects.ottava.runMaxGapS)
         for (const cR of chunks) for (const idR of cR.events || []) { const eR = evById.get(idR), spR = eR && eR.pitch ? spelledOf(eR) : null; if (!spR) continue;
-          const xoR = crossOf.get(eR.id); let yR = xoR ? staffPos(spR, clefOf(pcOfEv(eR), xoR.staff)) : posOf(spR), sR = 0; const y0R = yR;
+          const xoR = crossOf.get(eR.id); if (!xoR && nStavesOf(pcOfEv(eR)) > 1 && staffOfEv(eR) !== (spec.staff || 0)) continue;   /* [§451] a run is its own STAFF's: the piano's bass notes are neighbours though treble notes sound between them */ let yR = xoR ? staffPos(spR, clefOf(pcOfEv(eR), xoR.staff)) : posOf(spR), sR = 0; const y0R = yR;
           while (yR > thR) { yR -= 3.5; sR++; } while (yR < -thR) { yR += 3.5; sR--; }
-          listR.push({ e: eR, s: sR, y0: y0R }); }
+          listR.push({ e: eR, s: sR, y0: y0R, st: xoR ? xoR.staff : (spec.staff || 0) }); }
         listR.sort((a, b) => a.e.onset - b.e.onset); let runR = [];
-        // [§444 — his 'good' to: 'drop the ottava in those bunched cases and write the notes at pitch, with ledger lines'] A LONE NOTE INSIDE A BEAMED GROUP that would
-      // take the sign alone, its neighbours at pitch, is written AT PITCH with its ledger lines — unless it needs more than loneMaxLedgers of them
-      const loneMaxR = o.ottavaLoneMaxLedgers > 0 ? o.ottavaLoneMaxLedgers : 5;   // RULES MIRROR (objects.ottava.loneMaxLedgers)
-  const aloneOk = !(Array.isArray(POL.ottavaAlways) && POL.ottavaAlways.includes(spec.part));   // [§449 — his 'in the piano … let's try to always use them, whatever the standard rule is'] a part the page names takes the sign on EVERY note past the threshold
-  const closeR = () => { if (runR.length === 1 && aloneOk) { const x = runR[0], dR = deviceOf(x.e) || {}; if ((dR.clusterId || dR.beamGroup) && Math.floor(Math.abs(x.y0) + 1e-9) - 2 <= loneMaxR) octForce.set(x.e.id, 0); }
+        // [the Switch~ piece §451 — HIS RULE, replacing §444's too-wide one: 'go back to the standard rule … just address those problematic areas that are faster
+        // rhythms with alternating notes … where the horizontal space between notes isn't enough to accommodate the ottava symbol and the bracket'] THE STANDARD
+        // RULE ON EVERY NOTE; only a single-note sign with NO ROOM beside the note before it (layoutPolicy.ottavaCrowd) is treated: the note is written AT PITCH
+        // with its ledger lines where that takes no more than loneMaxLedgers — and, his word, 'except where there's a vertical collision' (the page names those
+        // notes, layoutPolicy.ottavaBare, found by tools/collide_list.js) — else THE SIGN ALONE: no bracket, centered on its head, close over it.
+        const loneMaxR = o.ottavaLoneMaxLedgers > 0 ? o.ottavaLoneMaxLedgers : 5;   // RULES MIRROR (objects.ottava.loneMaxLedgers)
+        const spsR = (o.fitBoxes && o.fitBoxes.ssPerSec) || 0, OtR = glyphs.standards.ottava || {}, lgR = glyphs.ottavaText && glyphs.ottavaText['8va'];
+        const needR = (OtR.minBracketSpanSs || 1.37) + (lgR ? lgR.wSs + (OtR.textGapBeforeLineSs || 0.1) : 1.6) - (o.ottavaCrowdSlackSs != null ? o.ottavaCrowdSlackSs : 0.3);   // RULES MIRROR (glyphs.json standards.ottava · objects.ottava.crowdSlackSs)
+        const bareR = new Set(Array.isArray(POL.ottavaBare) ? POL.ottavaBare : []);
+        // a run is its own STAFF's (a group on both piano staves is laid out in the top staff's pass; its bass notes are neighbours of each other)
+        for (const stR of [...new Set(listR.map(x => x.st))]) { const subR = listR.filter(x => x.st === stR); subR.forEach((x, i) => { x.i = i; }); runR = [];
+        const closeR = () => { if (runR.length === 1 && POL.ottavaCrowd && spsR > 0) { const x = runR[0], p = subR[x.i - 1];
+            if (p && (x.e.onset - p.e.onset) * spsR < needR) { if (Math.floor(Math.abs(x.y0) + 1e-9) - 2 <= loneMaxR && !bareR.has(x.e.id)) octForce.set(x.e.id, 0); else octBare.add(x.e.id); } }
     if (runR.length >= 2) { const mx = runR.reduce((m, x) => Math.abs(x.s) > Math.abs(m) ? x.s : m, 0); if (runR.some(x => x.s !== mx)) for (const x of runR) octForce.set(x.e.id, mx); } runR = []; };
-        for (const x of listR) { if (runR.length && (!x.s || Math.sign(x.s) !== Math.sign(runR[0].s) || x.e.onset - runR[runR.length - 1].e.onset > maxGapR)) closeR(); if (x.s) runR.push(x); }
-        closeR();
+        for (const x of subR) { if (runR.length && (!x.s || Math.sign(x.s) !== Math.sign(runR[0].s) || x.e.onset - runR[runR.length - 1].e.onset > maxGapR)) closeR(); if (x.s) runR.push(x); }
+        closeR(); }
       }
       for (const c of chunks) {
         const NOTATED = c.class === 'trance-stream' || c.class === 'density-cloud-note';
@@ -2872,7 +2880,9 @@
                     // plus the smallest gap — registry ottavaEndGapSs (the staccato-dot gap, 0.15); LilyPond's own
                     // OttavaBracket runs 0.6 ss past the last note (shorten-pair (-0.8 . -0.6))
                     dx1Ss: headDx + (TPG ? TPG.right : nhO.wSs / 2 + (ledgers.length ? ledgerExt : 0)) + (o.ottavaEndGapSs != null ? o.ottavaEndGapSs : ((O.endPadSs != null) ? O.endPadSs : 0)),   // [§445] a trill: the bracket runs over the neighbour group too (the ottava transposes it)
-                    ySs: lineY, dir: above ? 'above' : 'below', label, ev: e.id, noFlip: true,   // [§502] the sign's side is meaning — the ladder never flips it (the tuba goldens had 8vb flipped above the note, inside the staff)
+                    ySs: lineY, dir: above ? 'above' : 'below', label, ev: e.id, noFlip: true, ...(octBare.has(e.id) ? { bare: true, cxSs: headDx,
+                      ySs: above ? ref + (o.ottavaBareGapSs != null ? o.ottavaBareGapSs : 0.3) + (O.lineAttachAboveBaselineSs != null ? O.lineAttachAboveBaselineSs : 0.32)
+                        : ref - (o.ottavaBareGapSs != null ? o.ottavaBareGapSs : 0.3) + (O.lineAttachAboveBaselineSs != null ? O.lineAttachAboveBaselineSs : 0.32) - ((glyphs.ottavaText && glyphs.ottavaText[label]) ? glyphs.ottavaText[label].hSs : 0.9) } : {}),   // [§451] THE SIGN ALONE: its near edge ottavaBareGapSs from the note's ink — RULES MIRROR (objects.ottava.bareGapSs)   // [§502] the sign's side is meaning — the ladder never flips it (the tuba goldens had 8vb flipped above the note, inside the staff)
                   });
                   // [2i E1, §527] the bracket's ink about its line: the hook (toward the staff) and the label, whose baseline
                   // sits lineAttachAboveBaselineSs under the line (render.js)
@@ -3678,17 +3688,18 @@
       // the sign, and at a silence longer than objects.ottava.runMaxGapS.
       if (POL.ottavaRuns) {
         const maxGap = o.ottavaRunMaxGapS > 0 ? o.ottavaRunMaxGapS : 1.5;   // RULES MIRROR (objects.ottava.runMaxGapS)
-        const ottOf = new Map(); for (const it of items) if (it.k === 'ottava' && it.ev && it.t1 == null) ottOf.set(it.ev, it);
+        const ottOf = new Map(); for (const it of items) if (it.k === 'ottava' && it.ev && it.t1 == null && !it.bare) ottOf.set(it.ev, it);
         const seq = []; const seenEv = new Set(); for (const it of items) if (it.k === 'stem' && it.ev && !seenEv.has(it.ev)) { seenEv.add(it.ev); seq.push(it); }
         seq.sort((a, b) => a.t - b.t); let run = [];
+        const stOfS = it => { const xo = crossOf.get(it.ev); return xo ? xo.staff : (spec.staff || 0); };
         const closeRun = () => { if (run.length >= 2) { const a = run[0], z = run[run.length - 1], ab = a.dir === 'above';
             a.ySs = ab ? Math.max(...run.map(x => x.ySs)) : Math.min(...run.map(x => x.ySs)); a.t1 = z.t; a.dx1Ss = z.dx1Ss;
             for (const x of run.slice(1)) { const ix = items.indexOf(x); if (ix >= 0) items.splice(ix, 1); } } run = []; };
-        let prevT = null;
-        for (const sIt of seq) { const ot = ottOf.get(sIt.ev);
+        for (const stS of [...new Set(seq.map(stOfS))]) { let prevT = null; run = [];
+        for (const sIt of seq.filter(x => stOfS(x) === stS)) { const ot = ottOf.get(sIt.ev);
           if (run.length && (!ot || ot.label !== run[0].label || ot.dir !== run[0].dir || sIt.t - prevT > maxGap)) closeRun();
           if (ot) run.push(ot); prevT = sIt.t; }
-        closeRun();
+        closeRun(); }
       }
       // [§442 — his 'we should include the dashes, the beat dashes, in the clearance regime … all should be raised up. And of course, this is when possible'] AN
       // OTTAVA ABOVE THE STAFF CLEARS THE BEAT TICKS: on a part that carries ticks, the bracket's lowest ink (its hook's end, its sign's foot) stands the
@@ -3696,7 +3707,8 @@
       { const tk = items.filter(i => i.k === 'tick' && !i.grid);
         if (tk.length && o.ottavaClearTicks !== false) { const Ot = glyphs.standards.ottava || {}, tH = (o.tickLook && o.tickLook.hSs) || 0.8;   // RULES MIRROR (objects.tick.look.hSs)
           const floor = Math.max(...tk.map(i => i.ySs)) + tH + (Ot.standardGapSs || 0.45) + (Ot.hookLengthSs || 0.8);   // RULES MIRROR (glyphs.json standards.ottava)
-          for (const it of items) if (it.k === 'ottava' && it.dir === 'above' && it.ySs < floor) it.ySs = floor; } }
+          const floorB = Math.max(...tk.map(i => i.ySs)) + tH + (o.ottavaBareGapSs != null ? o.ottavaBareGapSs : 0.3) + (Ot.lineAttachAboveBaselineSs != null ? Ot.lineAttachAboveBaselineSs : 0.32);   // a bare sign: its foot over the ticks
+          for (const it of items) if (it.k === 'ottava' && it.dir === 'above') { const fl = it.bare ? floorB : floor; if (it.ySs < fl) it.ySs = fl; } } }
       // [the Switch~ piece §449 — his eye at 373.41, the piano's three quarters over two beats on BOTH staves: 'You can just have regular stems for the first two
       // partials, just normal size staying in the bass clef. And you can do stem down on the last partial and put an Ottava there. And that'll bring the brackets
       // down'] A BRACKET OVER NOTES THAT KEEP THEIR OWN STEMS (the `tupletMark` overlay): the notes are single notes, each with its own stem and its own ottava;

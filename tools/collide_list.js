@@ -39,13 +39,14 @@ const boxOf = it => {
 const all = [];
 for (const s of m.systems) { const y0 = mid.get(s.key); if (y0 == null) continue;
   for (const it of s.items || []) { if (SKIP.has(it.k)) continue; const b = boxOf(it); if (!b || !(b.r > b.l)) continue;
-    all.push({ part: s.part, k: it.k === 'glyph' ? String(it.g || 'glyph').replace(/-.*/, '') : it.k, t: it.t != null ? it.t : it.t0 != null ? it.t0 : b.l / K, l: b.l, r: b.r, top: y0 - b.hi, bot: y0 - b.lo }); } }
+    all.push({ part: s.part, ev: it.ev || null, far: (it.k === 'ledger' || (it.k === 'glyph' && /^notehead/.test(it.g || ''))) && Math.abs(it.ySs) > 5.2, k: it.k === 'glyph' ? String(it.g || 'glyph').replace(/-.*/, '') : it.k, t: it.t != null ? it.t : it.t0 != null ? it.t0 : b.l / K, l: b.l, r: b.r, top: y0 - b.hi, bot: y0 - b.lo }); } }
 all.sort((a, b) => a.l - b.l);
 const hits = []; let act = [];
 for (const a of all) { act = act.filter(b => b.r > a.l + MIN);
   for (const b of act) { if (b.part === a.part) continue; const ox = Math.min(a.r, b.r) - a.l, oy = Math.min(a.bot, b.bot) - Math.max(a.top, b.top);
-    if (ox > MIN && oy > MIN) hits.push({ t: Math.max(a.t, b.t), p: [b.part, a.part].sort((x, y) => x - y), k: [b.k, a.k].sort().join(' × '), oy }); }
+    if (ox > MIN && oy > MIN) hits.push({ evs: [a, b].filter(z => z.far).map(z => z.part + '@' + (+z.t).toFixed(3)), t: Math.max(a.t, b.t), p: [b.part, a.part].sort((x, y) => x - y), k: [b.k, a.k].sort().join(' × '), oy }); }
   act.push(a); }
+if (process.argv.includes('--json')) { console.log(JSON.stringify({ collisions: hits.length, farHeads: [...new Set(hits.flatMap(h => h.evs))] })); process.exit(0); }
 const name = p => { const pc = ENS.parts.find(x => x.part === p); return (pc && (pc.short || pc.name)) || ('part ' + p); };
 const tally = (f) => { const o = {}; for (const h of hits) { const k = f(h); o[k] = (o[k] || 0) + 1; } return Object.entries(o).sort((a, b) => b[1] - a[1]); };
 console.log(id + ' — ' + all.length + ' ink boxes · ' + hits.length + ' collisions between two parts (overlap over ' + MIN + ' ss both ways)');
