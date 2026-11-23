@@ -12,8 +12,8 @@
 //      (no plain velocity: the long shaped tones) is `shape`.
 //      THE TRACK of a stem = the rack track whose input takes that port and channel (the channel's own track if there is one, else the
 //      port's all-channel track).
-//      A stem's file holds ITS notes and EVERY non-note message of its port (the CC7s, the curves, the bends), so a stem alone sounds
-//      as it does in the whole.
+//      A stem's file holds ITS notes and EVERY non-note message its track hears live (the whole port; one channel of it where the
+//      track's input names a channel) — the CC7s, the curves, the bends — so a stem alone sounds as it does in the whole.
 // Out: midi/<save>/stems/NN <track> - <technique> - <dyn>.mid   (60 BPM / 960 PPQ, format 0 — one beat = one second)
 //      midi/<save>/stems.json                                    (track · port · channel · technique · dynamic · notes · first and last second)
 // Refuses to write if a note of the save has no note-on in the capture, or a note-on has no note of the save.
@@ -30,6 +30,8 @@ const rackFile = arg('rack', 'reaper/switch_rack.rpp');
 const DRY = process.argv.includes('--dry');
 const lc = s => String(s || '').toLowerCase();
 const TOL = 0.003;
+const CHANMAP_BASE = -1;   // the .rpp's MIDI_INPUT_CHANMAP n = channel n (Reaper's API: 1 … 16), so the status nibble is n - 1; both readings sounded in the try (the sampler is omni)
+
 
 const cap = JSON.parse(fs.readFileSync(path.join(ROOT, capFile), 'utf8'));
 const save = JSON.parse(fs.readFileSync(path.join(ROOT, 'scores', score + '.json'), 'utf8'));
@@ -99,7 +101,12 @@ const dir = path.join(ROOT, 'midi', score, 'stems');
 const safe = s => s.replace(/[\\/:*?"<>|]/g, '_');
 const rows = list.map((s, k) => {
   const name = String(k + 1).padStart(2, '0') + ' ' + safe(s.track.name) + ' - ' + safe(s.technique) + ' - ' + s.dyn;
-  const ev = s.ev.concat(other.get(lc(s.port)) || []).sort((a, b) => a.t - b.t || a.i - b.i).map(e => ({ t: e.t, kind: e.kind, bytes: e.b }));
+  // a track whose input names ONE channel hears only that channel live (export_midi.js' rule) — its stems carry only that channel's messages:
+  // the whole port on the clarinet's two Xsample tracks left them silent (another channel's CC7 at 0 — the first try, RUNNING_LOG §456)
+  const inCh = s.track.midi.channel;
+  // …and a track whose input MAPS its messages to one channel (the two Xsample clarinet tracks) gets them on that channel, as its sampler does live
+  const toCh = s.track.chanmap != null && s.track.chanmap >= 0 ? s.track.chanmap + CHANMAP_BASE : null;
+  const ev = s.ev.concat((other.get(lc(s.port)) || []).filter(e => !inCh || (e.b[0] & 15) === inCh - 1)).sort((a, b) => a.t - b.t || a.i - b.i).map(e => ({ t: e.t, kind: e.kind, bytes: toCh == null ? e.b : [(e.b[0] & 0xF0) | toCh].concat(e.b.slice(1)) }));
   return { n: k + 1, name, file: 'midi/' + score + '/stems/' + name + '.mid', track: s.track.name, trackN: s.track.n, port: s.port, channels: [...s.chs].sort((a, b) => a - b), technique: s.technique, dyn: s.dyn,
     writtenVelocities: [...s.vels].sort((a, b) => a - b), layers: [...s.layers].sort((a, b) => a - b), notes: s.notes, messages: ev.length, t0: +s.t0.toFixed(3), t1: +s.t1.toFixed(3), ev };
 });

@@ -25,6 +25,7 @@ function readRack(file) {
     if (l.startsWith('<')) depth++;
     if (cur && depth === at) {
       if (l.startsWith('NAME ')) cur.name = l.slice(5).replace(/^"(.*)"$/, '$1');
+      if (l.startsWith('MIDI_INPUT_CHANMAP ')) cur.chanmap = +l.split(/\s+/)[1];   // the track's input sends every message on to ONE channel (RUNNING_LOG §456)
       if (l.startsWith('REC ')) { const f = l.split(/\s+/).map(Number); cur.rec = { armed: f[1], input: f[2] }; }
     }
     if (l === '>') { depth--; if (cur && depth < at) cur = null; }
