@@ -268,10 +268,19 @@
     midiFlush();
     applySolo();
   }
+  // [the Switch~ piece §448] THE PAGE'S FRAME: a page may leave a part out (ir.layoutPolicy.omitParts — an empty staff of a joined lane); the ensemble
+  // every view reads is the page's, made from the whole one at each page's load (NotationLayout.ensembleForPage)
+  function applyPageFrame() {
+    if (!state.ens0 || !NotationLayout.ensembleForPage) return;
+    state.ensemble = NotationLayout.ensembleForPage(state.ens0, state.ir);
+    state.ensembleRz = NotationLayout.ensembleForPage(state.ensRz0 || state.ens0, state.ir);
+    FRAME_PARTS = state.ensemble.parts.map(p => p.part);
+  }
   async function loadIr(name) {
     const r = await fetch('/notation/ir/' + name + '.ir.json');
     if (!r.ok) throw new Error('IR fetch ' + name + ' ' + r.status);
     state.ir = await r.json();
+    applyPageFrame();
     await loadChoices();
     state.pages = null; state.pageIdx = 0; state.vPages = null; state.zoomT0 = undefined;
     try {
@@ -602,6 +611,7 @@
     state.ensembleRz = (ensemble && state.container && state.container.realizations && state.container.realizations['video-jury'] && NotationLayout.ensembleFor)
       ? NotationLayout.ensembleFor(ensemble, state.container.realizations['video-jury']) : ensemble;
     if (ensemble) FRAME_PARTS = ensemble.parts.map(p => p.part);
+    state.ens0 = state.ensemble; state.ensRz0 = state.ensembleRz;   // [§448] the whole ensemble, kept: a page may leave a part out of its frame (applyPageFrame)
     // V3: extracted sections register themselves in the manifest
     // (tools/notate_section.js) — merge into the picker, no duplicates.
     // Experiments (exp:true — the version files of the notation workflow)

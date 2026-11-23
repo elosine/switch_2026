@@ -15,8 +15,9 @@ const MIN = argN('min', 0.15), LIST = argN('list', 40);
 const Layout = require(path.join(ROOT, 'notation', 'lib', 'layout.js')), Fit = require(path.join(ROOT, 'notation', 'lib', 'fit.js'));
 const Rules = require(path.join(ROOT, 'notation', 'lib', 'rules.js')), C = Rules.loadContainer(ROOT);
 const glyphs = rd('notation/lib/glyphs.json'), ens = rd('notation/registry/ensemble.json'), T = rd('notation/registry/techniques.json');
-const ENS = Layout.ensembleFor(ens, (C.realizations || {})['video-jury']), LO = (C.engraving || {}).layout || {};
+const ENS0 = Layout.ensembleFor(ens, (C.realizations || {})['video-jury']), LO = (C.engraving || {}).layout || {};
 const ir = rd('notation/ir/' + id + '.ir.json');
+const ENS = Layout.ensembleForPage(ENS0, ir);   // the page's own frame (layoutPolicy.omitParts)
 const FRAME = ENS.parts.map(p => p.part);   // the app frames every part of the ensemble, whatever the page holds (seen §447)
 const boxes = Fit.boxesFor(C, ENS, FRAME);
 const m = Layout.layoutSection(ir, glyphs, Object.assign({ m4AttackLines: false, frameParts: FRAME, ensemble: ENS, techniques: T, fitBoxes: boxes }, LO));

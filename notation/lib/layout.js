@@ -84,6 +84,23 @@
   // of the ensemble before layout: the presentation score (print + the jury's video) shows the bass clarinet at sounding pitch on a
   // bass clef; the working page, the sectional and individual scores and any part keep the registry's default (B♭, treble, a major
   // ninth up). The IR is always sounding (D9); nothing but this copy changes. No override = the ensemble itself, untouched.
+  // [the Switch~ piece §448 — his 'yes, build the page without the empty percussion staff'] A PAGE MAY LEAVE A PART OUT OF ITS FRAME
+  // (ir.layoutPolicy.omitParts): the part is taken from the ensemble's parts and from its groups; a JOINED group left with one part is an
+  // ordinary lane again — the glockenspiel alone where the unpitched percussion staff has no note. Every reader of a page's frame calls this
+  // (the app at a page's load · tools/collide_list.js); a page that says nothing gets the ensemble back unchanged.
+  function ensembleForPage(ens, ir) {
+    const om = ir && ir.layoutPolicy && Array.isArray(ir.layoutPolicy.omitParts) ? ir.layoutPolicy.omitParts : null;
+    if (!ens || !om || !om.length) return ens;
+    return Object.assign({}, ens, {
+      parts: (ens.parts || []).filter(p => !om.includes(p.part)),
+      groups: (ens.groups || []).map(g => {
+        if (!Array.isArray(g.parts) || !g.parts.some(p => om.includes(p))) return g;
+        const ng = Object.assign({}, g, { parts: g.parts.filter(p => !om.includes(p)) });
+        if (ng.parts.length < 2) { delete ng.joined; delete ng.overlay; }
+        return ng;
+      }).filter(g => !Array.isArray(g.parts) || g.parts.length),
+    });
+  }
   function ensembleFor(ens, rz) {
     const ov = rz && rz.ensemble && rz.ensemble.parts;
     if (!ens || !ov) return ens;
@@ -4789,5 +4806,5 @@
     return smp;
   }
 
-  return { layoutSection, deviceResolver, drawnLevelSamples, staffPosBass, staffPos, spellMidi, positionResolver, staffExtentResolver, ensembleFor, ledgersFor, dotYFor, stemLenFor, justPicture, partialLabel };
+  return { layoutSection, deviceResolver, drawnLevelSamples, staffPosBass, staffPos, spellMidi, positionResolver, staffExtentResolver, ensembleFor, ensembleForPage, ledgersFor, dotYFor, stemLenFor, justPicture, partialLabel };
 });

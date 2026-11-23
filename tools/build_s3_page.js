@@ -34,6 +34,10 @@ const DOT_PARTS = new Set([5, 6, 7]), DOT_GAP = (((require(path.join(ROOT, 'nota
 // A page can still say a clef here (layoutPolicy.clefs), e.g. { 7: 'treble' }
 const CLEFS = {};
 
+// THE UNPITCHED PERCUSSION STAFF IS LEFT OFF THIS PAGE (his 'yes, build the page without the empty percussion staff', §448): it holds no note in the
+// section and shared one lane with the glockenspiel, which had 1.4 staff spaces under its staff (tools/collide_list.js: 86 collisions with the piano)
+const OMIT_PARTS = [3];
+
 // ---- THE NOTES, per part
 const notes = save.objects.filter(o => o.type === 'waveCurve' && o.properties && o.properties.phaseForm && o.sonifyNote != null && o.startSeconds >= W0 && o.startSeconds < W1)
   .sort((a, b) => a.startSeconds - b.startSeconds);
@@ -126,7 +130,7 @@ if (r.status !== 0) { console.log(outp.slice(-12).join('\n')); process.exit(r.st
 // ---- THE OVERLAYS, into the page the extractor wrote
 const irPath = path.join(ROOT, 'notation', 'ir', ID + '.ir.json'), ir = JSON.parse(fs.readFileSync(irPath, 'utf8'));
 ir.overlays = ir.overlays.filter(o => !/^ov-s3-/.test(o.id)).concat(overlays);
-ir.layoutPolicy = Object.assign(ir.layoutPolicy || {}, { tempoRowSs: TS.rowSs, tupletBeamSide: true, ottavaRuns: true, clefs: CLEFS });   // §442: the number always on the beam side · one ottava bracket over a run of the part's notes   // the tempo row on top of everything, one height (§438)
+ir.layoutPolicy = Object.assign(ir.layoutPolicy || {}, { tempoRowSs: TS.rowSs, tupletBeamSide: true, ottavaRuns: true, clefs: CLEFS, omitParts: OMIT_PARTS });   // §442: the number always on the beam side · one ottava bracket over a run of the part's notes   // the tempo row on top of everything, one height (§438)
 // THE GROUPS AS CLUSTERS (#4 day 23, figures.cluster — the one figure that carries a tuplet). Each group its own cluster on a grid of sixteenths:
 // 4 to the beat, or 8 over two beats. HIS RULES (SW-164, §436): a group inside one beat takes the PLAIN number (5); a group over two beats the RATIO
 // (3:2 · 5:4 · 7:4 · 9:8 · 11:8); no bracket, the number centered over the group (rules.json objects.tuplet.look.bracket). 2, 4 and 8 to the beat take none.
