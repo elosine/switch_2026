@@ -300,19 +300,25 @@ any piece); this piece holds its USES — the set's files, the settings, the fou
 
 *To be laid out when we discuss it.* Piece 6's `docs/NOTATION_SCHEME.md` and its rules rows are the start (H6-37).
 
-## 2r. THE DEMO RECORDING — a good demo at good levels, quickly — `todo` (the top line; drafted by the AI 2026-11-22 at his word, RUNNING_LOG §452; HIS GO PENDING)
+## 2r. THE DEMO RECORDING — a good demo at good levels, quickly — `doing` (the top line drafted by the AI 2026-11-22 at his word, RUNNING_LOG §452; HIS GO 2026-11-22 with one more requirement, §453)
 
 **His brief (SW-165, verbatim in the sketch pad):** every technique on its own track in Reaper, the tracks of one instrument into one bus; the MIDI in Reaper so one note can be spotted in; each electronics lane its own track; a way to read each track's level; no endless fiddling with CC7 and velocity. "I'm open to other suggestions if there's even more expedient ways."
 
 **THE AI's ONE CHANGE TO HIS IDEA — STEMS:** in the rack one sampler holds several techniques of an instrument, so its techniques come out of ONE track as one sound. Giving each technique its own sampler track means rebuilding the rack by hand, plugin by plugin. Instead: each technique is PLAYED ALONE through the rack as it is and recorded to its own audio file (a stem). The mix is then made of audio — one stem per technique, one bus per instrument — and the rack is never touched. He gets exactly the tracks he described; the faders work on sound, not on CC7 or velocity.
 
+**HIS ADDED REQUIREMENT (2026-11-22, SW-166):** parity by the dynamic mark — across the techniques p sounds about alike and f sounds about alike, approximately, within a reasonable margin, without nudging note by note. **HOW THE PLAN MEETS IT:** a stem is cut finer — ONE STEM PER TECHNIQUE PER WRITTEN DYNAMIC (flute staccato p · flute staccato f · …; a shaped long note, whose dynamic is a curve, is its own stem). Then parity is a FADER per stem, set by measurement. **THE MEASURE:** K-weighted loudness, the loudest 400 ms of each note, the stem's middle value — the measure he chose for the counterpoint (§152, `tools/section_parity.js`), which reads short notes and long ones alike; not RMS, not a whole-file LUFS (a stem is mostly silence). **THE TARGET:** for each written dynamic, the middle of all the stems at that dynamic; a stem within 1.5 dB of it is left alone.
+
 **THE TOP LINE:**
 
-1. **The MIDI out, one file per technique.** Result when done: the final save written as MIDI, a file for every technique of every part (`tools/export_midi.js`, split further).
+1. **The MIDI out, one file per technique per dynamic.** Result when done: the whole piece's playback captured (`tools/capture_composer_midi.js` — the composer's own ▶, message by message) and cut into one MIDI file for every technique at every written dynamic of every rack track; a list of the stems.
+   - the capture of `piece-FirstDraft-Final-D-ctptCello` → `midi/<score>.capture.json` (running at this checkpoint; `probes/capture_demo.log`)
+   - a new tool, `tools/stems_plan.js`: each note-on / note-off pair of the capture is given to its note of the save (the capture's own `expect.notes` carries the ids — `export_midi.js` checks by them); the key = the rack track (the port and channel the track's input takes, `export_midi.js`' layout) · the technique · the written dynamic's name (this piece's bands, `container.json` dynamicBands; a shaped note = `shape`)
+   - every stem's file holds ITS notes and ALL the other messages of its port (the CC7s, the curves, the bends), so a stem alone sounds as it does in the whole
+   - out: `midi/<score>/stems/NN <track> — <technique> — <dyn>.mid` and `midi/<score>/stems.json` (track · technique · dynamic · the count of notes · the first and last second)
 2. **The recording project.** Result when done: a NEW Reaper project (a copy of the rack — `tools/render_reaper.js`' way; the rack itself is never written): each technique's MIDI on its own track, folded under its instrument.
 3. **The stems.** Result when done: every technique rendered alone to an audio file, each on its own track under its instrument's bus — by one command through the bridge, no hand steps.
 4. **The electronics.** Result when done: each of the four electronics lanes as its own stem under an ELEC bus (the material bricks are audio files already; the sine tones are recorded from the engine).
-5. **The first balance, by measurement.** Result when done: every stem's loudness measured and every fader set by one rule (the instruments level with each other, each technique by its written dynamic — `tools/section_parity.js`' idea, on stems); a one-page card of what was set.
+5. **The first balance, by measurement — PARITY BY THE DYNAMIC MARK.** Result when done: every stem measured (the loudest 400 ms of each note, K-weighted; the stem's middle value) and every stem's fader set so each written dynamic sounds at ONE level across the techniques (the middle of the stems at that dynamic; within 1.5 dB left alone); a one-page card of what was measured and set.
 6. **His mix.** Result when done: his ears and the faders — a technique, an instrument, the electronics. An outlier note: that note's MIDI is changed and ONLY its stem is rendered again (one command), or its audio is trimmed in place.
 7. **The bounce.** Result when done: the demo file from the master (the glue and the limiter of 1a.7), its peak and loudness stated, the file name anonymous.
 
