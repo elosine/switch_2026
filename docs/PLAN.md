@@ -312,7 +312,7 @@ any piece); this piece holds its USES — the set's files, the settings, the fou
 
 **THE TOP LINE:**
 
-1. **The MIDI out, one file per technique per dynamic.** Result when done: the whole piece's playback captured (`tools/capture_composer_midi.js` — the composer's own ▶, message by message) and cut into one MIDI file for every technique at every written dynamic of every rack track; a list of the stems.
+1. **The MIDI out, one file per technique per dynamic.** — DONE 2026-11-22 (RUNNING_LOG §455: 120 stems · 6042 notes · 20 rack tracks; the key is the rack TRACK · the technique · the dynamic; the capture takes 72 minutes). Result when done: the whole piece's playback captured (`tools/capture_composer_midi.js` — the composer's own ▶, message by message) and cut into one MIDI file for every technique at every written dynamic of every rack track; a list of the stems.
    - the capture of `piece-FirstDraft-Final-D-ctptCello` → `midi/<score>.capture.json` (running at this checkpoint; `probes/capture_demo.log`)
    - a new tool, `tools/stems_plan.js`: each note-on / note-off pair of the capture is given to its note of the save (the capture's own `expect.notes` carries the ids — `export_midi.js` checks by them); the key = the rack track (the port and channel the track's input takes, `export_midi.js`' layout) · the technique · the written dynamic's name (this piece's bands, `container.json` dynamicBands; a shaped note = `shape`)
    - every stem's file holds ITS notes and ALL the other messages of its port (the CC7s, the curves, the bends), so a stem alone sounds as it does in the whole

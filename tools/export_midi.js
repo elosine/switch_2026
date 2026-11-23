@@ -30,51 +30,8 @@ const score = arg('score', 'piece-switch');
 const capFile = arg('capture', null);
 const rackFile = arg('rack', 'reaper/switch_rack.rpp');
 
-// the rack's track NAME → the loopMIDI port it plays (the names are his; a new or renamed track must be added here)
-// [2026-09-26, session 17, RUNNING_LOG §405 · §406] re-pointed at THIS rack (reaper/LGMF_rack.rpp) — piece #5's table replaced. The
-// two `high` horn tracks take their port whole and filter it themselves (a note-filter JS); `Percussion` · `Template` are his MUTED
-// all-channel ARO tracks (§221's triangle) — fed like their live input, silent in the render; every `… ARO` track is one LGPerc channel.
-const RACK_PORT = {   // THE SWITCH~ RACK (re-pointed 2026-11-14 at the first render here; the map is tools/rack_alive.js's PLAN)
-  'Flute SI2': 'SWFlute', 'Fluteb SI2': 'SWFluteb', 'Clarinet SI2': 'SWClar', 'Alto Sax SI2': 'SWSax', 'Alto Sax SI2 b': 'SWSaxb',
-  'Vibraphone XS': 'SWVibes', 'Crotales RM': 'SWCrotales', 'Glockenspiel RM': 'SWGlock', 'Xylophone RM': 'SWXylo', 'Marimba RM': 'SWMarimba',
-  'Piano Kontakt': 'SWPiano', 'PianoPlucked Kontakt': 'SWPiano', 'PianoHarm PP2': 'SWPiano', 'PianoMute PP2': 'SWPiano',
-  'Violin XS': 'SWViolin', 'Cello XS': 'SWCello',
-};
-const portOf = name => RACK_PORT[name] || (/ ARO$/.test(name) ? 'SWPerc' : null);   // every `… ARO` track is one SWPerc channel
-
-function readRack(file) {
-  const lines = fs.readFileSync(path.join(ROOT, file), 'utf8').split(/\r?\n/);
-  const tracks = []; let depth = 0, cur = null, at = 0;
-  for (const raw of lines) {
-    const l = raw.trim();
-    if (l.startsWith('<TRACK')) { cur = { name: '', rec: null }; tracks.push(cur); at = depth + 1; }
-    if (l.startsWith('<')) depth++;
-    if (cur && depth === at) {
-      if (l.startsWith('NAME ')) cur.name = l.slice(5).replace(/^"(.*)"$/, '$1');
-      if (l.startsWith('REC ')) { const f = l.split(/\s+/).map(Number); cur.rec = { armed: f[1], input: f[2] }; }
-    }
-    if (l === '>') { depth--; if (cur && depth < at) cur = null; }
-  }
-  // REC input: 4096 + device × 32 + channel (0 = all) for a MIDI input; anything below 4096 is audio
-  for (const t of tracks) {
-    const inp = t.rec ? t.rec.input : -1;
-    t.midi = inp >= 4096 ? { device: (inp - 4096) >> 5, channel: (inp - 4096) & 31 } : null;
-  }
-  return tracks;
-}
-
-// a format-0 file: one track holding the 60 BPM tempo, the name and the events (ranked off · cc · bend · on at a tick, as midi_out.js)
-function writeType0(abs, name, events) {
-  const vlq = n => { const o = [n & 0x7f]; n >>= 7; while (n > 0) { o.unshift((n & 0x7f) | 0x80); n >>= 7; } return o; };
-  const rank = k => (k === 'off' ? 0 : k === 'cc' ? 1 : k === 'bend' ? 2 : 3);
-  const ev = events.map(e => ({ tick: Math.round(e.t * PPQ), kind: e.kind, bytes: e.bytes })).sort((x, y) => x.tick - y.tick || rank(x.kind) - rank(y.kind));
-  const data = [0x00, 0xff, 0x51, 0x03, 0x0f, 0x42, 0x40, 0x00, 0xff, 0x03, ...vlq(name.length), ...Buffer.from(name, 'ascii')];
-  let last = 0;
-  for (const e of ev) { data.push(...vlq(Math.max(0, e.tick - last)), ...e.bytes); last = e.tick; }
-  data.push(0x00, 0xff, 0x2f, 0x00);
-  const u32 = n => [(n >>> 24) & 255, (n >>> 16) & 255, (n >>> 8) & 255, n & 255];
-  fs.writeFileSync(abs, Buffer.concat([Buffer.from('MThd'), Buffer.from([0, 0, 0, 6, 0, 0, 0, 1, (PPQ >> 8) & 255, PPQ & 255]), Buffer.from('MTrk'), Buffer.from(u32(data.length)), Buffer.from(data)]));
-}
+// the rack's layout (the track NAME → its port · the .rpp's tracks · the format-0 writer): ONE copy, tools/lib/rack_layout.js (2026-11-22, shared with tools/stems_plan.js)
+const { portOf, readRack, writeType0 } = require('./lib/rack_layout.js');
 
 (async () => {
   // 1. the capture
