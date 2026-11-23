@@ -1437,6 +1437,27 @@
 
       const chunks = ir.chunks.filter(c => c.part === part).sort((a, b) => a.span[0] - b.span[0]);
       let prevTempoLabel = null;
+      // [the Switch~ piece §444 — his 'put both under the 15ma, so the lower note moves down into the staff and no note gains ledger lines. ok'] ONE SIGN FOR A
+      // RUN (layoutPolicy.ottavaRuns): where notes that follow each other in the part take DIFFERENT ottava signs on the same side (8va beside 15ma), all
+      // of them are written under the LARGER one — so the run shares one bracket (the pass after the groups joins it). A run ends at a note written at
+      // pitch, and at a silence longer than objects.ottava.runMaxGapS.
+      const octForce = new Map();
+      if (POL.ottavaRuns && !lined) {
+        const thR = 2 + (oSys.ottavaLedgerThreshold != null ? oSys.ottavaLedgerThreshold : ((glyphs.standards.ottava && glyphs.standards.ottava.ledgerLineThreshold) || 3));   // RULES MIRROR (glyphs.json standards.ottava)
+        const maxGapR = o.ottavaRunMaxGapS > 0 ? o.ottavaRunMaxGapS : 1.5, listR = [];   // RULES MIRROR (objects.ottava.runMaxGapS)
+        for (const cR of chunks) for (const idR of cR.events || []) { const eR = evById.get(idR), spR = eR && eR.pitch ? spelledOf(eR) : null; if (!spR) continue;
+          const xoR = crossOf.get(eR.id); let yR = xoR ? staffPos(spR, clefOf(pcOfEv(eR), xoR.staff)) : posOf(spR), sR = 0; const y0R = yR;
+          while (yR > thR) { yR -= 3.5; sR++; } while (yR < -thR) { yR += 3.5; sR--; }
+          listR.push({ e: eR, s: sR, y0: y0R }); }
+        listR.sort((a, b) => a.e.onset - b.e.onset); let runR = [];
+        // [§444 — his 'good' to: 'drop the ottava in those bunched cases and write the notes at pitch, with ledger lines'] A LONE NOTE INSIDE A BEAMED GROUP that would
+      // take the sign alone, its neighbours at pitch, is written AT PITCH with its ledger lines — unless it needs more than loneMaxLedgers of them
+      const loneMaxR = o.ottavaLoneMaxLedgers > 0 ? o.ottavaLoneMaxLedgers : 5;   // RULES MIRROR (objects.ottava.loneMaxLedgers)
+  const closeR = () => { if (runR.length === 1) { const x = runR[0], dR = deviceOf(x.e) || {}; if ((dR.clusterId || dR.beamGroup) && Math.floor(Math.abs(x.y0) + 1e-9) - 2 <= loneMaxR) octForce.set(x.e.id, 0); }
+    if (runR.length >= 2) { const mx = runR.reduce((m, x) => Math.abs(x.s) > Math.abs(m) ? x.s : m, 0); if (runR.some(x => x.s !== mx)) for (const x of runR) octForce.set(x.e.id, mx); } runR = []; };
+        for (const x of listR) { if (runR.length && (!x.s || Math.sign(x.s) !== Math.sign(runR[0].s) || x.e.onset - runR[runR.length - 1].e.onset > maxGapR)) closeR(); if (x.s) runR.push(x); }
+        closeR();
+      }
       for (const c of chunks) {
         const NOTATED = c.class === 'trance-stream' || c.class === 'density-cloud-note';
         const isStream = NOTATED && c.strategy !== 'unresolved';
@@ -1642,8 +1663,10 @@
             }
             const th = 2 + (oSys.ottavaLedgerThreshold != null ? oSys.ottavaLedgerThreshold : ((stds.ottava && stds.ottava.ledgerLineThreshold) || 3));
             let octShift = 0;
-            while (yDraw > th) { yDraw -= 3.5; octShift++; }
-            while (yDraw < -th) { yDraw += 3.5; octShift--; }
+            const fzO = octForce.get(e.id);   // [§444] the run's one sign (the pre-pass above the chunks' loop)
+            if (fzO != null) { yDraw -= 3.5 * fzO; octShift = fzO; }
+            else { while (yDraw > th) { yDraw -= 3.5; octShift++; }
+            while (yDraw < -th) { yDraw += 3.5; octShift--; } }
             // [decibel PLAN 2.12, RUNNING_LOG §404 — DEC-173] THE SINE'S BOX (a device's sineBox): in the place of a duration line — a box in the
             // electronics' purple round the head, at the head's own height on the staff, from the event's time to its end. Pushed BEFORE the
             // head's own ink, so the head is drawn over it. Its room round the head is a row (rules.json objects.sineBox.padSs).
