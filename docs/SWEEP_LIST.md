@@ -24,3 +24,5 @@ at this start, never carried.)*
   the tab is not in front — notes then leave late and in bunches. Whether that WAS the cause is not known (was the tab in front? unasked /
   unanswered). The blips after the page and servers were closed are NOT explained by it. If it happens again: his screen first (the page's
   line under Play, Reaper's MIDI activity), before anything is closed.
+
+- **2026-11-22 · the notation, Section 3 (`s3-phase`), RUNNING_LOG §446:** a group with NO BEAM on both piano staves (three quarters over two beats) takes the cross-staff level — its stems run up to one height and its bracket stands over that. Where its top note is very high (373.4) the stems' ends and the bracket reach the glockenspiel's staff. To mend: an unbeamed group keeps each note's own stem (no leveling), and its bracket goes to the side with room. Seen by him at 373.4; the worst of it (stems stopping inside the treble staff, the bracket through the staff) is mended.

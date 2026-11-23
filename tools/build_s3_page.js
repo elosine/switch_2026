@@ -30,8 +30,9 @@ const CRESC_SAMPLES = 101;   // the lineage's least (a curve never fewer than 10
 // the dot, as the winds' staccato does by its own row; the glockenspiel's do not. The gap is the staccato unit's own.
 const DOT_PARTS = new Set([5, 6, 7]), DOT_GAP = (((require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT).engraving || {}).layout || {}).devices || {}).byTechnique.staccato.nhDotGapSs;
 
-// THE CELLO IN TREBLE CLEF — A TRY (his 'yes, try the cello in treble clef', §445): half its notes of this section lie above the bass staff's reach
-const CLEFS = { 7: 'treble' };
+// THE CELLO STAYS IN BASS CLEF (his word, §446: 'let's skip the clef. We'll just stay in the bass clef and use Ottava'); the treble try of §445 is undone.
+// A page can still say a clef here (layoutPolicy.clefs), e.g. { 7: 'treble' }
+const CLEFS = {};
 
 // ---- THE NOTES, per part
 const notes = save.objects.filter(o => o.type === 'waveCurve' && o.properties && o.properties.phaseForm && o.sonifyNote != null && o.startSeconds >= W0 && o.startSeconds < W1)

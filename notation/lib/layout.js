@@ -3104,6 +3104,10 @@
         {
           const ys = g.tips.map(t => t.ySs);
           let yLevel = g.dir === 'up' ? Math.max(...ys) : Math.min(...ys);
+          // [the Switch~ piece §446 — his eye at 373.4, the piano: a group on both staves whose stems stopped INSIDE the treble staff, its bracket
+          // through the staff] A GROUP ON BOTH STAVES STANDS ABOVE THE TOP STAFF (the lineage's rule, #5 §463 'beams at top above the treble'): its
+          // level — the beam, or the stems' ends of a group with no beam — clears the top staff by the flag's clearance, whatever its highest note
+          if (g.cross && g.dir === 'up') yLevel = Math.max(yLevel, 2 + (o.flagClearanceSs != null ? o.flagClearanceSs : 2));   // RULES MIRROR (objects.flag.staff)
           // ...and LOWER for the group's dynamics row (day 24): above the
           // beam the row needs stackGap + the tallest mark, inside the lane.
           // Same shape as the accent rule, applied at group level so the
