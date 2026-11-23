@@ -30,6 +30,9 @@ const CRESC_SAMPLES = 101;   // the lineage's least (a curve never fewer than 10
 // the dot, as the winds' staccato does by its own row; the glockenspiel's do not. The gap is the staccato unit's own.
 const DOT_PARTS = new Set([5, 6, 7]), DOT_GAP = (((require(path.join(ROOT, 'notation', 'lib', 'rules.js')).loadContainer(ROOT).engraving || {}).layout || {}).devices || {}).byTechnique.staccato.nhDotGapSs;
 
+// THE CELLO IN TREBLE CLEF — A TRY (his 'yes, try the cello in treble clef', §445): half its notes of this section lie above the bass staff's reach
+const CLEFS = { 7: 'treble' };
+
 // ---- THE NOTES, per part
 const notes = save.objects.filter(o => o.type === 'waveCurve' && o.properties && o.properties.phaseForm && o.sonifyNote != null && o.startSeconds >= W0 && o.startSeconds < W1)
   .sort((a, b) => a.startSeconds - b.startSeconds);
@@ -122,7 +125,7 @@ if (r.status !== 0) { console.log(outp.slice(-12).join('\n')); process.exit(r.st
 // ---- THE OVERLAYS, into the page the extractor wrote
 const irPath = path.join(ROOT, 'notation', 'ir', ID + '.ir.json'), ir = JSON.parse(fs.readFileSync(irPath, 'utf8'));
 ir.overlays = ir.overlays.filter(o => !/^ov-s3-/.test(o.id)).concat(overlays);
-ir.layoutPolicy = Object.assign(ir.layoutPolicy || {}, { tempoRowSs: TS.rowSs, tupletBeamSide: true, ottavaRuns: true });   // §442: the number always on the beam side · one ottava bracket over a run of the part's notes   // the tempo row on top of everything, one height (§438)
+ir.layoutPolicy = Object.assign(ir.layoutPolicy || {}, { tempoRowSs: TS.rowSs, tupletBeamSide: true, ottavaRuns: true, clefs: CLEFS });   // §442: the number always on the beam side · one ottava bracket over a run of the part's notes   // the tempo row on top of everything, one height (§438)
 // THE GROUPS AS CLUSTERS (#4 day 23, figures.cluster — the one figure that carries a tuplet). Each group its own cluster on a grid of sixteenths:
 // 4 to the beat, or 8 over two beats. HIS RULES (SW-164, §436): a group inside one beat takes the PLAIN number (5); a group over two beats the RATIO
 // (3:2 · 5:4 · 7:4 · 9:8 · 11:8); no bracket, the number centered over the group (rules.json objects.tuplet.look.bracket). 2, 4 and 8 to the beat take none.

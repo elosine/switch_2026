@@ -739,7 +739,7 @@
     const specs = [];
     for (const part of frame) {
       const pc = partCfgOf(ENS, part), n = nStavesOf(pc);
-      for (let i = 0; i < n; i++) specs.push({ part, staff: i, multi: n > 1, key: n > 1 ? part + ':' + i : part, clef: clefOf(pc, i), staffInfo: staffInfoOf(pc) });
+      for (let i = 0; i < n; i++) specs.push({ part, staff: i, multi: n > 1, key: n > 1 ? part + ':' + i : part, clef: (n === 1 && POL.clefs && POL.clefs[part]) || clefOf(pc, i), staffInfo: staffInfoOf(pc) });   // [the Switch~ piece §445] a page may write a one-staff part in another clef (layoutPolicy.clefs — the cello's high section in treble)
     }
     const nhAll = new Map();   // [the Switch~ piece §255] event id → its drawn head, with its system — for THE HAND UNIT, built once every staff is laid out
     // [the Switch~ piece RUNNING_LOG §255 · §256] THE HAND UNIT — notes that share device.puId are ONE figure on ONE stem, whatever staff each
