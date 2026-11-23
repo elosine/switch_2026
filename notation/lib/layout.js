@@ -378,6 +378,7 @@
     const elecRets = [];         // [decibel §335] {part, span, count, all} — the electronics' return bricks (the `elecReturn` overlay; the presentation view's layer)
     const elecWins = [];         // [decibel §336] {part, span, badgeLeft} — the electronics' window over a lane's stretch (the `elecWindow` overlay)
     const stateWedges = [];      // [decibel §355] {part, span, segs} — a method's line wedge, one a lane through the section (the `stateWedge` overlay)
+    const tupMarks = [];         // [the Switch~ piece §449] {part, span, text} — a tuplet's bracket over notes that keep their own stems (the `tupletMark` overlay)
     const dynAts = [];           // [the Switch~ piece §438] {part, t, mark} — a dynamic centered on a time (the `dynAt` overlay)
     const tempoSpans = [];       // [the Switch~ piece §433] {part, span, word} — accel. / decel. with its dashed line (the `tempoSpan` overlay)
     const beatGrids = [];        // [§564] {part, span, unit, beatEvery, phase} — the shown beat's grid (the `beatGrid` overlay), ticks on the tick row
@@ -407,6 +408,7 @@
       if (ov.kind === 'elecReturn' && tgt.part !== undefined && tgt.span) { elecRets.push({ part: tgt.part, span: tgt.span, count: (ov.value && ov.value.count) || 1, all: !!(ov.value && ov.value.all) }); continue; }
       if (ov.kind === 'elecWindow' && tgt.part !== undefined && tgt.span) { elecWins.push({ part: tgt.part, span: tgt.span, badgeLeft: !!(ov.value && ov.value.badgeLeft) }); continue; }
       if (ov.kind === 'rest' && tgt.part !== undefined && tgt.t !== undefined && ov.value && ov.value.dur) { freeRests.push({ part: tgt.part, t: tgt.t, dur: ov.value.dur }); continue; }
+      if (ov.kind === 'tupletMark' && tgt.part !== undefined && tgt.span && ov.value && ov.value.text) { tupMarks.push({ part: tgt.part, span: tgt.span, text: ov.value.text }); continue; }
       if (ov.kind === 'dynAt' && tgt.part !== undefined && tgt.t !== undefined && ov.value && ov.value.mark) { dynAts.push({ part: tgt.part, t: tgt.t, mark: ov.value.mark }); continue; }
       if (ov.kind === 'tempoSpan' && tgt.part !== undefined && tgt.span && ov.value && ov.value.word) { tempoSpans.push({ part: tgt.part, span: tgt.span, word: ov.value.word, dx0Ss: ov.value.dx0Ss || 0 }); continue; }
       if (ov.kind === 'beatGrid' && tgt.part !== undefined && tgt.span && ov.value && ov.value.unit > 0) { beatGrids.push(Object.assign({ part: tgt.part, span: tgt.span }, ov.value)); continue; }
@@ -1470,7 +1472,8 @@
         // [§444 — his 'good' to: 'drop the ottava in those bunched cases and write the notes at pitch, with ledger lines'] A LONE NOTE INSIDE A BEAMED GROUP that would
       // take the sign alone, its neighbours at pitch, is written AT PITCH with its ledger lines — unless it needs more than loneMaxLedgers of them
       const loneMaxR = o.ottavaLoneMaxLedgers > 0 ? o.ottavaLoneMaxLedgers : 5;   // RULES MIRROR (objects.ottava.loneMaxLedgers)
-  const closeR = () => { if (runR.length === 1) { const x = runR[0], dR = deviceOf(x.e) || {}; if ((dR.clusterId || dR.beamGroup) && Math.floor(Math.abs(x.y0) + 1e-9) - 2 <= loneMaxR) octForce.set(x.e.id, 0); }
+  const aloneOk = !(Array.isArray(POL.ottavaAlways) && POL.ottavaAlways.includes(spec.part));   // [§449 — his 'in the piano … let's try to always use them, whatever the standard rule is'] a part the page names takes the sign on EVERY note past the threshold
+  const closeR = () => { if (runR.length === 1 && aloneOk) { const x = runR[0], dR = deviceOf(x.e) || {}; if ((dR.clusterId || dR.beamGroup) && Math.floor(Math.abs(x.y0) + 1e-9) - 2 <= loneMaxR) octForce.set(x.e.id, 0); }
     if (runR.length >= 2) { const mx = runR.reduce((m, x) => Math.abs(x.s) > Math.abs(m) ? x.s : m, 0); if (runR.some(x => x.s !== mx)) for (const x of runR) octForce.set(x.e.id, mx); } runR = []; };
         for (const x of listR) { if (runR.length && (!x.s || Math.sign(x.s) !== Math.sign(runR[0].s) || x.e.onset - runR[runR.length - 1].e.onset > maxGapR)) closeR(); if (x.s) runR.push(x); }
         closeR();
@@ -3694,6 +3697,19 @@
         if (tk.length && o.ottavaClearTicks !== false) { const Ot = glyphs.standards.ottava || {}, tH = (o.tickLook && o.tickLook.hSs) || 0.8;   // RULES MIRROR (objects.tick.look.hSs)
           const floor = Math.max(...tk.map(i => i.ySs)) + tH + (Ot.standardGapSs || 0.45) + (Ot.hookLengthSs || 0.8);   // RULES MIRROR (glyphs.json standards.ottava)
           for (const it of items) if (it.k === 'ottava' && it.dir === 'above' && it.ySs < floor) it.ySs = floor; } }
+      // [the Switch~ piece §449 — his eye at 373.41, the piano's three quarters over two beats on BOTH staves: 'You can just have regular stems for the first two
+      // partials, just normal size staying in the bass clef. And you can do stem down on the last partial and put an Ottava there. And that'll bring the brackets
+      // down'] A BRACKET OVER NOTES THAT KEEP THEIR OWN STEMS (the `tupletMark` overlay): the notes are single notes, each with its own stem and its own ottava;
+      // the standard bracket stands over the part's TOP staff, its padding above the highest ink of that staff inside its span, never inside the staff
+      if ((spec.staff || 0) === 0) for (const tm of tupMarks) { if (tm.part !== part) continue;
+        const TPm = Object.assign({ paddingSs: 0.5, hookLengthSs: 0.7 }, o.tuplet || {}), FitM = FitIn || (rootIn && rootIn.NotationFit) || null; let ext = 2;
+        for (const it of items) { const tI = it.t != null ? it.t : null; if (tI == null || tI < tm.span[0] - 0.02 || tI > tm.span[1] + 0.02) continue;
+          if (it.k === 'tick' || it.k === 'gc' || it.k === 'goline' || it.k === 'tuplet' || it.k === 'ottava') continue; const eI = FitM ? FitM.inkOf(it, glyphs, 1.3) : null; if (eI && eI.hi > ext && eI.hi < 20) ext = eI.hi; }
+        items.push({ k: 'tuplet', t0: tm.span[0], t1: tm.span[1], dx1Ss: glyphs.notehead.filled.wSs + (TPm.hGapSs != null ? TPm.hGapSs : 0.35), ySs: ext + TPm.paddingSs + TPm.hookLengthSs, dir: 'up', text: tm.text, group: 'tm-' + Math.round(tm.span[0] * 1000) });
+        // the order above the staff (his, §436): the number, THEN the ottava — an ottava inside the bracket's span stands the house gap over the number's top
+        { const Om = glyphs.standards.ottava || {}, capM = (TPm.numeralSizeSs || 1.2348) * (TPm.numeralCapFactor || 0.7) - (TPm.numeralBaselineBelowSs || 0.41);
+          const flo = ext + TPm.paddingSs + TPm.hookLengthSs + capM + (Om.standardGapSs || 0.45) + (Om.hookLengthSs || 0.8);   // RULES MIRROR (objects.tuplet.look · glyphs.json standards.ottava)
+          for (const it of items) if (it.k === 'ottava' && it.dir === 'above' && it.t >= tm.span[0] - 0.02 && it.t <= tm.span[1] + 0.02 && it.ySs < flo) it.ySs = flo; } }
       // RESTS (day 23, composer: "let's put in any rests that are necessary...
       // just have the longest rest you could fit in there, or a combination if
       // it needs to be"). Computed per CLUSTER over the whole grid, so the gap

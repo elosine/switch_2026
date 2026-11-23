@@ -106,10 +106,13 @@ for (const m of DYN.marks) if (/</.test(m.text)) { const [a, b] = m.text.split('
 // ---- THE GROUPS: the notes of one hit (one beat, or a group over two beats)
 const args = [], groups = new Map();
 for (const o of notes) { const f = o.properties.phaseForm, k = o.layer + ':' + f.hit; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(o); }
-const census = {}, grouped = new Set(), GROUPS = [];
+const census = {}, grouped = new Set(), GROUPS = [], LOOSE = [], PIANO = 5, SPLIT = 60;   // SPLIT: the piano's staves part at middle C (ensemble.json splitMidi)
 for (const [k, g] of groups) { const f = g[0].properties.phaseForm; census[f.step] = (census[f.step] || 0) + 1;
   if (g.length < 2 || new Set(g.map(o => o.startSeconds.toFixed(3))).size < g.length) continue;
-  GROUPS.push({ key: k.replace(':', '-'), notes: g, step: f.step }); for (const o of g) grouped.add(o.id); }
+  // [his word at 373.41, §449] THE PIANO'S THREE QUARTERS OVER TWO BEATS ON BOTH STAVES are not one figure: each note keeps its own stem (and its own
+  // ottava), and the bracket stands over the top staff (the `tupletMark` overlay)
+  const loose = g[0].layer === PIANO && f.step === 1.5 && g.some(o => o.sonifyNote >= SPLIT) && g.some(o => o.sonifyNote < SPLIT);
+  (loose ? LOOSE : GROUPS).push({ key: k.replace(':', '-'), notes: g, step: f.step }); for (const o of g) grouped.add(o.id); }
 const nBeam = GROUPS.length;
 const dotOf = o => DOT_PARTS.has(o.layer) ? { nhDot: true, nhDotGapSs: DOT_GAP } : {};
 // ---- A HAND ON EVERY SINGLE NOTE: its dynamic (the mark's notes alone write one) · no gestural curve of its own (the ball on the beat is the cue) ·
@@ -130,7 +133,7 @@ if (r.status !== 0) { console.log(outp.slice(-12).join('\n')); process.exit(r.st
 // ---- THE OVERLAYS, into the page the extractor wrote
 const irPath = path.join(ROOT, 'notation', 'ir', ID + '.ir.json'), ir = JSON.parse(fs.readFileSync(irPath, 'utf8'));
 ir.overlays = ir.overlays.filter(o => !/^ov-s3-/.test(o.id)).concat(overlays);
-ir.layoutPolicy = Object.assign(ir.layoutPolicy || {}, { tempoRowSs: TS.rowSs, tupletBeamSide: true, ottavaRuns: true, clefs: CLEFS, omitParts: OMIT_PARTS });   // §442: the number always on the beam side · one ottava bracket over a run of the part's notes   // the tempo row on top of everything, one height (§438)
+ir.layoutPolicy = Object.assign(ir.layoutPolicy || {}, { tempoRowSs: TS.rowSs, tupletBeamSide: true, ottavaRuns: true, clefs: CLEFS, omitParts: OMIT_PARTS, ottavaAlways: [PIANO] });   // §449: the piano's ottava on every note past three ledger lines, no lone note at pitch   // §442: the number always on the beam side · one ottava bracket over a run of the part's notes   // the tempo row on top of everything, one height (§438)
 // THE GROUPS AS CLUSTERS (#4 day 23, figures.cluster — the one figure that carries a tuplet). Each group its own cluster on a grid of sixteenths:
 // 4 to the beat, or 8 over two beats. HIS RULES (SW-164, §436): a group inside one beat takes the PLAIN number (5); a group over two beats the RATIO
 // (3:2 · 5:4 · 7:4 · 9:8 · 11:8); no bracket, the number centered over the group (rules.json objects.tuplet.look.bracket). 2, 4 and 8 to the beat take none.
@@ -155,6 +158,14 @@ ir.layoutPolicy = Object.assign(ir.layoutPolicy || {}, { tempoRowSs: TS.rowSs, t
         // missing end as a rest too (the cluster's own trailing rest, #5 §458 `restAfter`); a tuplet's empty places are rests by the figure's rule already
         plain && o === g[g.length - 1] && k < N - 1 ? { restAfter: +(U - 1 - k * U / N).toFixed(4) } : {});
       ir.overlays.push({ id: 'ov-s3-cl-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: dev }, provenance: 'authored' }); } }
+  // the LOOSE groups: single notes (the hand of every single note) with the group's accidental rule, and the bracket over them
+  for (const G of LOOSE) { const g = G.notes, seen = new Map();
+    for (const o of g) { const e = evOf.get(o.id); if (!e) continue; const sp = (e.pitch || {}).spelled || {}, pk = sp.step + sp.octave, acc = {};
+      if (seen.has(pk)) { if (seen.get(pk) === (sp.alter || 0)) { if (sp.alter) acc.noAcc = true; } else if (!sp.alter) acc.accForce = 'natural'; }
+      seen.set(pk, sp.alter || 0);
+      ir.overlays.push({ id: 'ov-s3-cl-' + e.id, kind: 'engraving', target: { event: e.id }, value: { device: Object.assign({ dynMark: dynNote.has(o.id) ? 'band' : false, gc: false, goLine: false, nhAnchor: 'leftEdge' }, dotOf(o), acc) }, provenance: 'authored' }); }
+    ir.overlays.push({ id: 'ov-s3-tm-' + G.key, kind: 'tupletMark', target: { part: g[0].layer, span: [g[0].startSeconds, g[g.length - 1].startSeconds] }, value: { text: '3:2' }, provenance: 'authored' }); }
+  console.log('loose groups (the piano, both staves, own stems) ' + LOOSE.length);
   console.log('groups ' + GROUPS.length + ' · with a number ' + nNum + ' · accidentals left out (already in the group) ' + nAccOut + ' · naturals written ' + nNat); }
 // THE TICKS and THE BALLS, the tubas' way (#3 day 36): each beat a `gc` device on the chunk that holds its moment (else the last one before it)
 { const chOf = new Map(); for (const c of ir.chunks) { c.devices = (c.devices || []).filter(d => !/^dev-s3-beat-/.test(d.id)); if (!chOf.has(c.part)) chOf.set(c.part, []); chOf.get(c.part).push(c); }
