@@ -6407,3 +6407,14 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **WHAT STANDS FOR STEP 1 (read):** `tools/capture_composer_midi.js` plays the composer's own page headless under a virtual clock and records every MIDI message, with `expect.notes` (each note's id, port, channel, pitch, time); `tools/export_midi.js` lays a capture out by the rack's tracks and checks it by those ids. So a note-on can be given to its note of the save, and from the save come its technique and its written dynamic.
 **STARTED:** the capture of `piece-FirstDraft-Final-D-ctptCello` (the whole piece with his cello take and his removals of the day — WHICH SAVE IS THE RECORDING'S is put to him) → `midi/piece-FirstDraft-Final-D-ctptCello.capture.json`; the log `probes/capture_demo.log`.
 **THE PLAN:** `docs/PLAN.md` § 2r, step 1 written out.
+
+## §454 · 2026-11-22 · the demo recording — the players above the electronics, section by section: the AI's recommendation, in the plan
+
+**His words:** SW-167 (the sketch pad), whole.
+**THE RECOMMENDATION (he asked for it: "I'll take your recommendations on this"), written into PLAN § 2r step 5:** three layers, each one kind of control, so nothing is nudged note by note.
+- (a) THE STEM FADERS — parity by the written dynamic across the techniques, piece-wide, set once from the measurement (§453).
+- (b) ONE LEVEL LINE ON THE INSTRUMENTS' BUS — a step per section, moving all the players together: the section's LOWEST written dynamic 3 dB above the electronics' usual level in that section. "Usual" = the level the electronics are at or under three quarters of the time there (short-term loudness), NOT their peaks: at the top of a swell nothing soft stands above them, and the swells are composed (his crescendos were set against them, SW-66 … SW-67).
+- (c) THE MASTER FADER.
+**WHY THE PLAYERS MOVE AND NOT THE ELECTRONICS:** the electronics' own rises and falls are his; a step on the players' bus keeps every relation among the players (the parity of layer a) and every relation inside the electronics.
+**WHY SECTIONS AND NOT A CONTINUOUS FOLLOW:** a line that followed the electronics moment by moment would flatten the very swells the players' crescendos answer. A step per section — cut finer only where the measurement shows the electronics differing much inside one.
+**THE AI's NUMBERS, his to move:** the margin 3 dB · the three-quarters level. NOTHING BUILT of it yet; step 1 (the capture, then the cut into stems) is in hand.
