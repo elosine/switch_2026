@@ -6484,3 +6484,8 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **APPLIED AND READ BACK IN REAPER:** the project rebuilt (it had no unsaved change), reloaded: 94 faders moved (87 stems · the ELEC bus · six sines), the line's four values, the master, each as computed. The card: `docs/DEMO_MIX_CARD.md`.
 **NOT CHECKED:** nobody has listened. **THE RISK, plainly:** his 3 dB rule puts the players about 20 dB further above the electronics than the rack had them, because the electronics are mastered files and the softest written notes are far below them. The electronics may read as too quiet; the ELEC bus fader is the one control for it.
 **NEXT:** step 6, his ears.
+
+## §460 · 2026-11-23 · the demo recording — Realphones on for his listen
+
+**Prompted by:** *"Can you put the real phones on the, I forgot which bus it was, the output bus?"*
+**DONE:** the Realphones plugin was already in Reaper's Monitoring FX, bypassed since §17. Its bypass was taken off through the bridge. That chain is global and comes after the master, so it colors what he hears and never reaches a render or the bounce. The mix project is unchanged.
