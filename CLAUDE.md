@@ -1,6 +1,6 @@
 # switch_2026 — the Switch~ piece
 
-**Title: none yet** (his to give; the file names stay `switch`).
+**Title: *Multiplicity*** (his, 2026-11-24, RUNNING_LOG §470; the file names stay `switch`).
 
 **Composition 7** in the composer's custom-composition-system lineage — THE NUMBERS ARE HIS, since 2026-10-11 (piece 6's
 RUNNING_LOG §430, DEC-196), the number always WITH its name: **1** the string quartet `string_quartet_no1-composer` · **2** the two

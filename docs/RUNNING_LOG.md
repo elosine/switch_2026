@@ -6581,3 +6581,8 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 - every band fits the frame at x2.4 (the tallest is 445 px at x1, the winds of the phase section: 1068 of 1080).
 **THE FILE:** `…/film/switch-demo-film2.mp4` · 487.000 s · 14,610 frames, picture and sound equal and from 0 · 8.3 minutes to render. Twelve frames read back across the film.
 **NOT CHECKED:** the AI saw stills only. The hard cut at 186.5 (zoom in to zoom out) has no dip, because the two halves are separate renders.
+
+## §470 · 2026-11-24 · the title: *Multiplicity*
+
+**His words:** *"for the switch piece lets call it Multiplicity"*.
+**Recorded:** the piece is *Multiplicity*. The file and repo names stay `switch` (CLAUDE.md's standing rule). Q3 of the journal is answered. The title is not a name, so it may appear on the anonymous submission.

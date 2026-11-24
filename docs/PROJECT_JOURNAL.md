@@ -9,7 +9,7 @@
 ## §1 Quick-Start
 
 - **The piece:** for the [Switch~ Ensemble] — flute · clarinet · alto sax · piano · percussion · violin · cello, with live
-  electronics (D1) · no title yet · the 2026 Switch~ / Overdrive call, due December 1, 2026 (his date, `next.md`); the
+  electronics (D1) · the title *Multiplicity* (his, 2026-11-24) · the 2026 Switch~ / Overdrive call, due December 1, 2026 (his date, `next.md`); the
   submission ANONYMOUS
 - **Lineage:** composition 7 (his numbers, 2026-10-11). Follows 6 *Approaching* `decibel_TENOR_2026`.
 - **The profile** (the protocol's 2.1, v1 run by piece 6's deviations register): copy-forward from piece 6 · both layers · the
@@ -505,7 +505,7 @@ is none, discuss; never show him something made up. It cost this session several
 | — | The other lanes by SW-15's algorithm (`bank/beat_saw.json` to write; `beat_saw.js --roll`): clarinet F5 · flute F6 · vibraphone / glockenspiel F6–F7 (the sine moves) · violin F4 · cello F3 | Opus | yes |
 | — | 1a.7 step 6 the bounce, when he reaches it · the tuplets' keepers by seed | Opus | — |
 
-**Open questions:** Q3 — the title · Q4 — the percussion's selection, the music's (the call lists vibraphone and glockenspiel; marimba,
+**Open questions:** ~~Q3 — the title~~ answered 2026-11-24: *Multiplicity* · Q4 — the percussion's selection, the music's (the call lists vibraphone and glockenspiel; marimba,
 xylophone and crotales are not on it). *(Q1 · Q2 answered 2026-10-20 — D10.)*
 
 **Blockers:** none.
