@@ -61,6 +61,10 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+### 2026-11-23 — THE DEMO IS BOUNCED (PLAN § 2r step 7, RUNNING_LOG §467)
+
+- **The file:** `H:/switch_2026/audio/demo/piece-FirstDraft-Final-D-ctptCello/bounce/switch-demo-mix1.wav` · 24-bit, 48 kHz, no metadata · 487 s · peak -4.55 dB · -21.5 LUFS. A re-bounce: `node tools/bounce_mix.js --score piece-FirstDraft-Final-D-ctptCello --name <a new name>` (it refuses to overwrite). Reaper is open on the mix project.
+
 ### 2026-11-23 — HIS MIX IS UNDER WAY (PLAN § 2r step 6, RUNNING_LOG §460 · §461)
 
 - **§466 THE MASTER:** fader +7.47, with a line of 0 · -4 dB from 200 s · -6 dB from 277.8 s (net +7.47 · +3.47 · +1.47). This carries out his note of §465.

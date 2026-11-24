@@ -6543,3 +6543,12 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **READ:** the master fader stood at +4.00 dB (his move while listening). Put back to +7.47.
 **DONE:** a volume line on the master: 0 dB to 199 s, -4 dB from 200 s, -6 dB from 277.8 s, each step a one-second ramp before its section. So the master is +7.47 for the first two sections, +3.47 for the counterpoint, +1.47 for the phase section. Read back in Reaper; project saved.
 **NOTE:** the master's fader now moves the whole piece, the steps riding on it.
+
+## §467 · 2026-11-23 · the demo recording — step 7: THE BOUNCE
+
+**His word:** *"ok thats good to bounce"*.
+**BUILT:** `node tools/bounce_mix.js --score <save> --name switch-demo-mix1`: Reaper renders the open mix project's master to 32-bit float (the Monitoring FX, so Realphones, is not in a render), the tool measures it and writes a 24-bit, 48 kHz WAV with TPDF dither and a bare header, so the file holds no name, path, software or date. The file: `H:/switch_2026/audio/demo/piece-FirstDraft-Final-D-ctptCello/bounce/switch-demo-mix1.wav` (134 MB, outside the repo).
+**DECIDED:** NO glue and no limiter, though the plan's step 7 named them. He approved the mix as he heard it, and the peak needs neither. The file starts at the score's 0 s, so it stays aligned with the score.
+**MEASURED, the bounce:** 487.00 s · sample peak -4.55 dB at 177.91 s · no sample at or over 0 · integrated -21.5 LUFS · loudest 400 ms -14.0 LUFS · first sound 5.24 s · last 482.05 s.
+**WHAT WENT WRONG, at full weight:** the first render was PURE SILENCE with no error. Reaper had taken its media offline because it was not the active window (`Audio_IsRunning` 0, the source offline). Found by a six-second test and by reading a take directly. The tool now brings all media online (action 40101) in the same call as the render, and refuses to write a silent file. The silent file was confirmed silent and removed.
+**NOT CHECKED:** the AI has not heard the file. The numbers are read from the file itself.
