@@ -6609,3 +6609,9 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **His words:** *"tets try the outline but wait to redraw"* (after seeing the six styles again).
 **DONE:** `rules.json objects.elecWave.style` is now `outline` (his B: the peaks' shape, its edge only, 1.3 px, in the lane's gray); `notation/lib/elec_wave.js` draws it. Style F (peak and body) stays in the code, one word away. The notation app shows it at its next page load.
 **NOT DONE, AT HIS WORD:** the print book and the film are not made again yet.
+
+## §474 · 2026-11-24 · the film's piano solo zoomed out throughout (not yet rendered)
+
+**His words:** *"And actually, the whole piano solo can be the zoomed out version. We don't need to zoom in for the piano solo."*
+**DONE:** `tools/make_film.js` — the solo is one render, 146 … 199 s, at x1.4 with a 5.4 s screen (the V-SOLO-OUT frame of §469), the screens still anchored to open at 186.5 so the ribbon of 186.79 … 191.46 stays whole on one screen. The x2 close-up (V-SOLO) stays defined, unused. This also removes the hard cut at 186.5.
+**NOT DONE, AT HIS WORD ("wait to redraw"):** the film is not rendered again yet.

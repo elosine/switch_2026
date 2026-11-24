@@ -30,8 +30,8 @@ const SECTIONS = [
   { id: 'sines', ir: 's1-sines', from: 0, to: 146, z: 2.4, close: { n: 2, groups: ['V-TOP', 'V-BOT'], min: 20, max: 28, lead: 34, tail: 16, gap: 24 } },   // the piano does not play here: no V-MID
   // [§469 — his "zoom in all the way to that point and then zoom out so that you see the entire long, last long curve in frame"] the ribbon of 186.79 … 191.46 in one
   // screen: from 186.5 the solo at x1.4 with a 5.4 s screen (pace 7.56 s a page), the screens anchored to open at 186.5
-  { id: 'solo', ir: 's2-piano-solo-final', from: 146, to: 186.5, z: 2, whole: 'V-SOLO' },
-  { id: 'solo-out', ir: 's2-piano-solo-final', from: 186.5, to: 199, z: 1.4, pageSeconds: 7.56, zoomAnchor: 186.5, whole: 'V-SOLO-OUT' },
+  // [§474 — his "the whole piano solo can be the zoomed out version. We don't need to zoom in"] the solo at x1.4 throughout; the screens stay anchored at 186.5 so the long last curve is whole on one
+  { id: 'solo', ir: 's2-piano-solo-final', from: 146, to: 199, z: 1.4, pageSeconds: 7.56, zoomAnchor: 186.5, whole: 'V-SOLO-OUT' },
   { id: 'counterpoint', ir: 's2-ctpt-heads', from: 199, to: 254, z: 2.4, close: { n: 1, groups: ['V-MID', 'V-TOP', 'V-BOT'], min: 16, max: 20, lead: 16, tail: 12, gap: 0 } },
   { id: 'phase', ir: 's3-phase', from: 254, to: END, z: 2.4, close: { n: 3, groups: ['V-TOP', 'V-BOT', 'V-MID'], min: 20, max: 30, lead: 24, tail: 34, gap: 26 } },   // closes wide
 ];
