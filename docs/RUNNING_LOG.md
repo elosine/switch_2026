@@ -6528,3 +6528,11 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **HIS MOVES, KEPT:** he had taken the INSTRUMENTS fader to -6 dB, unsaved, while this was computed. It stayed, and is now saved. ELEC -13 · SINES +2 · the piano's solo line · the master +7.47 all as he left them.
 **PROVEN ONCE:** the lines read back in Reaper at all 5315 onsets of the 115 stems changed, against the computed gains (error under 0.001 dB). The project saved. The state before it: `…-mix.before-464.rpp` beside the project.
 **NOT CHECKED:** nobody has listened. The final section still carries §459's faders and so very likely the same fault.
+
+## §465 · 2026-11-23 · the demo recording — his levels for the first two sections, recorded
+
+**His words:** *"Okay, so the signs are +3. The electronics are at -13. And the piano in the piano solo is -2 dB. But then does it go back up? I don't know if I made the change right. I'd like it to go back up for the ensemble part. And that's those first two sections done. I believe for whatever reason, I think the whole volume needs to come down for the last two sections. But let's just record those for now."*
+**READ IN THE LIVE PROJECT:** SINES +3 · ELEC -13 · INSTRUMENTS fader back at 0 · the master +7.47. The piano's line stood at -2.2 dB for the solo and +1.8 dB from 200 s: his drag had moved the whole line up 1.8 dB, so it did come back up, but past where it was.
+**DONE:** the piano's line from 200 s set to 0 dB. The solo stays at his -2.2. Project saved.
+**SETTLED BY HIS WORD:** the sine-tone section and the piano solo are DONE for the demo.
+**HIS NOTE, NOT ACTED ON:** the whole volume needs to come down for the last two sections (the counterpoint, 200 ... 253 s, and the phase section, 277.8 ... 480 s).
