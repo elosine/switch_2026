@@ -27,6 +27,8 @@
     if (!lane) return '';
     const P = wave.peaks, R = wave.rate, F = wave.full;
     const peak = (a, b) => { let p = 0; for (let k = Math.max(0, Math.floor(a * R)), e = Math.min(P.length, Math.max(k + 1, Math.ceil(b * R))); k < e; k++) if (P[k] > p) p = P[k]; return p / F; };
+    // [§473 — his "lets try the outline"] style 'outline' (his B): the same shape, its edge only
+    if (rule.style === 'outline') return '<path class="elec-wave elec-wave-outline" d="' + shape(view, lane, rule, peak, 1) + '" fill="none" stroke="' + rule.color + '" stroke-width="' + rule.strokePx + '" stroke-linejoin="round"/>';
     if (rule.style !== 'peakBody') return '<path class="elec-wave" d="' + shape(view, lane, rule, peak, 1) + '" fill="' + rule.color + '" stroke="none"/>';
     const r = rule.bodySmoothS;
     const body = (a, b, t) => { let s = 0, n = 0; for (let k = Math.max(0, Math.floor((t - r) * R)), e = Math.min(P.length, Math.ceil((t + r) * R)); k < e; k++) { s += P[k]; n++; } return n ? s / n / F : 0; };

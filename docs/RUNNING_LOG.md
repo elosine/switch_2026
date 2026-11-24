@@ -6603,3 +6603,9 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **THE EDIT SHEET:** `docs/notation_instructions/` — Approaching's frame, stylesheet and edit switch (byte for byte, decibel @ e3ae3e6); the body THE AI's first draft from this piece's decisions (NOTATION_SCHEME, the tracker), each paragraph's source in a comment; no name; image places marked. At the bottom "Notes for Revision (delete before submission)": the tracker's open rows, the call's percussion check, and twelve lines collected from Approaching, Recombination, Scattered Substance and the tubas, verbatim where marked. The print book carries it as its front matter.
 **THE POSTING ORDER:** `docs/submission/POSTING.md` (local; the folder is gitignored) — Approaching's TENOR way: the proof · the instructions · the final anonymous files · YouTube unlisted on a second, neutral channel · OSF private with an anonymized view-only link · the link into the instructions · the call's form by December 1.
 **READ AS:** "the oc??" = OSF, the host Approaching used.
+
+## §473 · 2026-11-24 · the ELEC waveform as an outline (not yet drawn into the print or the film)
+
+**His words:** *"tets try the outline but wait to redraw"* (after seeing the six styles again).
+**DONE:** `rules.json objects.elecWave.style` is now `outline` (his B: the peaks' shape, its edge only, 1.3 px, in the lane's gray); `notation/lib/elec_wave.js` draws it. Style F (peak and body) stays in the code, one word away. The notation app shows it at its next page load.
+**NOT DONE, AT HIS WORD:** the print book and the film are not made again yet.
