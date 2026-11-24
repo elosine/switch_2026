@@ -6586,3 +6586,20 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 
 **His words:** *"for the switch piece lets call it Multiplicity"*.
 **Recorded:** the piece is *Multiplicity*. The file and repo names stay `switch` (CLAUDE.md's standing rule). Q3 of the journal is answered. The title is not a name, so it may appear on the anonymous submission.
+
+## §471 · 2026-11-24 · the print score of Multiplicity, 11 x 17, one book
+
+**His words:** *"could you prepare the print score we'll use the full 11x17, american ensemble … I'll proof from the print score so be prepared to make changes across the system and maybe reprint video and print"*.
+**READ AS:** Tabloid landscape, 17 x 11 in, the US sheet (the ensemble is American). The presentation score is in C (the registry's realization), as the film.
+**BUILT:** `node tools/print_book.js` — four runs of `tools/export_print.js` (one per page of the score: the sine tones · the piano solo · the counterpoint · the phase section), the page numbers running on (`--folio0`), joined into one PDF with pypdf, its properties cleared. Out: `print/score/Multiplicity-score.pdf` (gitignored).
+**WHAT PAPER LACKED, ADDED TO `export_print.js`:** the ELEC waveform (style F) · the piano solo's signs (the workshop's own drawing, carried onto the page by one uniform scale and a shift measured from both views, so a ribbon keeps its shape; the motion stays the film's) · a page's `omitParts` · a page's own pace setting its printed density (the solo at 4.8 s).
+**THE COVER:** `print/cover/cover.json` — Multiplicity, the instruments on three rows (on two the title shrank to 68.5 pt), NO NAME (anonymous; public repo).
+**THE BOOK:** 1 front page + 52 pages of music (the sine tones 12 · the solo 11 · the counterpoint 6 · the phase section 23), 1224 x 792 pt. One proof page per section looked at as an image.
+**NOT CHECKED:** the print gates of Approaching's build (`check_print_pdf` · `check_print_pages` · `check_print_edges`) were not run; his proof is the check asked for.
+
+## §472 · 2026-11-24 · the performance instructions' edit sheet, and the posting order
+
+**His words:** *"prep order and instructions for posting like we did with tenor, youtube + the oc?? for academic anoym posting … we still have to do the performance instructions, could you prep a html edit sheet like we did for previous instructions and collect pertinant instructions from other pieces and but it at the bottom as notes, but make the print scores anyway"*.
+**THE EDIT SHEET:** `docs/notation_instructions/` — Approaching's frame, stylesheet and edit switch (byte for byte, decibel @ e3ae3e6); the body THE AI's first draft from this piece's decisions (NOTATION_SCHEME, the tracker), each paragraph's source in a comment; no name; image places marked. At the bottom "Notes for Revision (delete before submission)": the tracker's open rows, the call's percussion check, and twelve lines collected from Approaching, Recombination, Scattered Substance and the tubas, verbatim where marked. The print book carries it as its front matter.
+**THE POSTING ORDER:** `docs/submission/POSTING.md` (local; the folder is gitignored) — Approaching's TENOR way: the proof · the instructions · the final anonymous files · YouTube unlisted on a second, neutral channel · OSF private with an anonymized view-only link · the link into the instructions · the call's form by December 1.
+**READ AS:** "the oc??" = OSF, the host Approaching used.

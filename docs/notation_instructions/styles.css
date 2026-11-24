@@ -1,0 +1,340 @@
+/* Notation Instructions — Screen + Print Styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Architects+Daughter&display=swap');
+
+/* ─── Base ─────────────────────────────────────────────────────────────────── */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.6;
+    color: #222;
+    background: #f5f5f0;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 30px;
+}
+
+/* ─── Typography ───────────────────────────────────────────────────────────── */
+
+h1 {
+    font-size: 2em;
+    font-weight: 700;
+    margin-bottom: 0.3em;
+    border-bottom: 2px solid #333;
+    padding-bottom: 0.2em;
+}
+
+h2 {
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid #aaa;
+    padding-bottom: 0.15em;
+}
+
+h3 {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-top: 1.5em;
+    margin-bottom: 0.15em;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+.subtitle {
+    font-style: italic;
+    color: #555;
+    margin-bottom: 2em;
+    font-size: 1.05em;
+}
+
+/* ─── Section: image above, text below ─────────────────────────────────────── */
+
+.notation-section {
+    margin: 0 0 2.5em 0;
+    page-break-inside: avoid;
+}
+
+.notation-section + .notation-section {
+    margin-top: -1.5em;
+}
+
+.notation-section + h4 {
+    margin-top: -1.5em;
+}
+
+.notation-section .caption {
+    font-size: 0.9em;
+    color: #666;
+    font-style: italic;
+    margin-top: 0.3em;
+    margin-bottom: 0.8em;
+}
+
+.notation-section img,
+.notation-section object {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background: white;
+    padding: 8px;
+}
+
+.notation-section .description {
+    margin-top: 0.8em;
+}
+
+.notation-section .description p {
+    margin-bottom: 0.4em;
+}
+
+/* ─── Section: side-by-side (image left, text right) ───────────────────────── */
+
+.notation-section.side-by-side {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.notation-section.side-by-side .image-col {
+    flex: 0 0 45%;
+    max-width: 45%;
+}
+
+.notation-section.side-by-side .image-col img {
+    width: 100%;
+}
+
+.notation-section.side-by-side .text-col {
+    flex: 1;
+}
+
+/* ─── Lists ────────────────────────────────────────────────────────────────── */
+
+ul, ol {
+    margin-left: 1.5em;
+    margin-bottom: 1em;
+}
+
+li {
+    margin-bottom: 0.3em;
+}
+
+/* ─── Separator ────────────────────────────────────────────────────────────── */
+
+hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 2.5em 0;
+}
+
+/* ─── Print Styles ─────────────────────────────────────────────────────────── */
+
+@media print {
+    body {
+        background: white;
+        font-size: 12pt;
+        max-width: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    h1 { font-size: 20pt; }
+    h2 { font-size: 16pt; margin-top: 18pt; }
+    h3 { font-size: 13pt; }
+
+    .notation-section {
+        page-break-inside: avoid;
+        margin: 14pt 0;
+    }
+
+    .notation-section img {
+        border: 0.5pt solid #ccc;
+        padding: 4pt;
+        max-width: 100%;
+    }
+
+    .notation-section.side-by-side {
+        gap: 12pt;
+    }
+
+    /* Avoid orphaned headings */
+    h2, h3 {
+        page-break-after: avoid;
+    }
+
+    /* Hide screen-only elements if any */
+    .screen-only {
+        display: none;
+    }
+}
+
+/* ─── BCB addition (day 40): two examples side by side ────────────────────── */
+.pair { display: flex; gap: 16px; align-items: flex-start; }
+.pair figure { flex: 1 1 0; min-width: 0; margin: 0; }
+.pair img { width: 100%; height: auto; display: block; }
+.pair figcaption { font-size: 0.85em; color: #555; margin-top: 4px; font-style: italic; }
+
+/* septet 2026-09-16: sub-headings inside a section (Gradient Curves: Crescendos / Trills) */
+h4 {
+    font-size: 1.05em;
+    font-weight: 600;
+    margin-top: 1.4em;
+    margin-bottom: 0.15em;
+}
+
+/* Recombination 2026-10-01 (RUNNING_LOG §704): THE SCORE IMAGES AT ONE SCALE — each is a crop of the ZOOMED
+   presentation score (Z 2 of the 1920-px frame; tools/capture_lane.js). The text column stands for the zoomed
+   frame's full width: an image's width is its crop width (--w, frame px) / --frame of the column. ONE KNOB:
+   raise --frame and every image shrinks together; lower it and they grow. */
+:root { --frame: 1920; }
+.notation-section img.zoomed {
+    width: calc(var(--w) / var(--frame) * 100%);
+    max-width: none;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    outline: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+.notation-section .description + img.zoomed { margin-top: 0.8em; }
+.notation-section .description + .zoomed-row { margin-top: 0.8em; }
+.zoomed-row { display: flex; gap: 2%; align-items: flex-start; }
+.zoomed-row img.zoomed { flex: none; }
+/* §706: the same image with a caption — the figure carries --w, its image fills it */
+figure.zoomed { width: calc(var(--w) / var(--frame) * 100%); margin: 0 0 10px 0; }
+.zoomed-row figure.zoomed { flex: none; }
+.notation-section figure.zoomed img {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    outline: 1px solid #ddd;
+}
+figure.zoomed figcaption { font-size: 0.85em; color: #555; margin-top: 4px; font-style: italic; }
+
+/* septet 2026-09-17: the demo video link, a little bigger (RUNNING_LOG §589) */
+.demo-link {
+    font-size: 1.3em;
+    margin-bottom: 1.2em;
+}
+
+/* Recombination 2026-10-02 (RUNNING_LOG §742): a two-column entry — a score image at the one scale, its name and text beside it */
+.entry-row { display: flex; gap: 3%; align-items: center; margin-top: 2.2em; }
+.entry-row img.zoomed { flex: none; margin-bottom: 0; }
+.entry-row .entry-text { flex: 1; min-width: 0; }
+.placeholder { color: #999; font-style: italic; }
+.entry-lead { margin-top: 2.2em; margin-bottom: 0.5em; }   /* §760: a bold lead in the body size, in place of a heading */
+
+/* Approaching 2026-10-11 (RUNNING_LOG §433): THE TITLE BLOCK, THE PIECE FIRST — the piece's name the largest thing on the
+   sheet, its instruments and its composer under it, then the document's name as a ruled second heading. Everything above
+   this block is piece 5's stylesheet, unchanged. */
+.piece-title { font-size: 2.6em; font-weight: 700; line-height: 1.1; }
+.piece-for { font-style: italic; color: #444; font-size: 1.08em; margin-top: 0.35em; }
+/* THE BLOCK'S VERTICAL GAPS (his word, RUNNING_LOG §434) — TWO SIZES, each measured from the BASELINE of the line above (or the
+   rule) to the TOP OF THE TALL LETTERS of the line below (or the rule), in the running page at a 17 px body:
+     the small gap, 22.7 px:  the title → the instruments  =  the instruments → the composer
+     the large gap, 32.9 px:  the composer → the rule      =  the rule → PERFORMANCE INSTRUCTIONS
+   (the large one is what stood between the instruments and the composer before). The three numbers below were SOLVED from those
+   measures; change one and its pair no longer matches — re-measure. */
+.piece-by { font-size: 1.08em; margin-top: 0.344em; }
+h1.doc-name {
+    font-size: 1.25em;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-top: 1.17em;
+    margin-bottom: 1.3em;
+    padding-top: 1.093em;
+    padding-bottom: 0;
+    border-top: 2px solid #333;
+    border-bottom: none;
+}
+
+/* Approaching 2026-10-11 (RUNNING_LOG §436): the demo video's link at the body's size (piece 5's rule above made it 1.3 ×) —
+   his word: "the link text itself in smaller font than was used previously". */
+.demo-link { font-size: 1em; }
+
+/* Approaching 2026-10-11 (RUNNING_LOG §438): THE THREE SPACES OF THE PAGE — his system. Each is measured as the eye sees it,
+   from the BASELINE of the line above to the TOP OF THE CAPITALS of the line below (the running page, a 17 px body):
+     the HEADING-ONE space, 32.9 px — the composer → the rule → PERFORMANCE INSTRUCTIONS (the title block's rules, above)
+     the SECTION space,     29.2 px — a heading → its text · a text → the next heading · PERFORMANCE INSTRUCTIONS → the first paragraph
+                                       (his reference: what stood between "Instrumentation" and its first line)
+     the PARAGRAPH space,   21.0 px — one paragraph → the next (his reference: what stood between the first two lines of Instrumentation)
+   The numbers below were SOLVED from those measures. Margins COLLAPSE (the larger of two that meet wins), so a block's bottom
+   margin must stay under the next heading's top margin — which is why piece 5's large margins under a section and under the link
+   are taken down here, and its two negative margins that made up for them with them. */
+p, .demo-link { margin-bottom: 0.4em; }
+h3 { margin-top: 0.639em; margin-bottom: 0.667em; }
+h1.doc-name { margin-bottom: 0.622em; }
+.notation-section { margin-bottom: 0; }
+.notation-section + .notation-section, .notation-section + h4 { margin-top: 0; }
+
+/* Approaching 2026-10-11 (RUNNING_LOG §439): one more gap on the three spaces, measured the same way.
+   · an entry that follows a row of images (the caption above it) starts a SECTION space below the caption. Text → an image under
+     it is already a paragraph space by piece 5's 0.8em, and is left.
+   (§443: the demo video is ONE LINE now — its heading became the line's bold lead — so the rule that set the link a paragraph
+   space under that heading, `h3 + .demo-link`, is gone with the heading. The line is a paragraph: a paragraph space under the
+   blurb, a section space above the next heading, by the system.) */
+.notation-section .zoomed-row + .description { margin-top: 0.36em; }
+
+/* Approaching 2026-10-11 (RUNNING_LOG §441): an image that ENDS a section stands a SECTION space above the next heading, its
+   bottom edge taken as its baseline (22.0 px before; 29.2 with this). */
+.notation-section > img.zoomed:last-child { margin-bottom: 1.19em; }
+
+/* Approaching 2026-10-11 (RUNNING_LOG §442): THE LANGUAGE TYPES IN TWO COLUMNS — a badge, its name beside it in bold. The badge
+   is an img.zoomed at the score images' one scale (--w 84), without the outline a score crop carries. The list stands a paragraph
+   space under the sentence above it (piece 5's 0.8em, as text → an image). */
+.badge-list { margin-top: 0.8em; }
+.badge-row { display: flex; align-items: center; gap: 1.1em; margin-top: 0.6em; }
+.badge-row:first-child { margin-top: 0; }
+.notation-section .badge-row img.zoomed { flex: none; margin: 0; outline: none; }
+.badge-row p { margin: 0; }
+
+/* Approaching 2026-10-11 (RUNNING_LOG §448): AN IMAGE BELONGS TO THE TEXT ABOVE IT — a paragraph space over it (piece 5's 0.8em,
+   left), a SECTION space under it before the next text; the list of badges the same. Measured from the image's (the list's)
+   bottom edge to the top of the capitals below: 20.6 px before, 29.2 with this. */
+.notation-section img.zoomed + .description,
+.notation-section .badge-list + .description { margin-top: 1.31em; }
+
+/* Approaching 2026-10-11 (RUNNING_LOG §454): THE WAYS A LANGUAGE TYPE IS NOTATED, IN TWO COLUMNS — his word: "the image on the
+   left and then the text on the right", except the whole-page image, which keeps the full width with its text under it.
+   EACH TEXT BEGINS ONE FIXED GAP AFTER ITS OWN IMAGE (his word, §455) — the gap that stood between the trill curve and its
+   paragraph, 38 px (4.5 % of the column): the text does not start at a common column any more, it follows its image.
+   An image keeps its own scale (--w / --frame of the text column) and is only made smaller if it would take more than
+   --left of the row (0.55; none does). The wrapper .way-img is `display: contents`, so the image itself is the row's first
+   item and its percentage width is read against the whole row. Rows stand a section space apart, edge to edge; a text is set
+   level with its image's top. */
+.ways { --left: 0.55; margin-top: 0.8em; }
+.way-row { display: flex; align-items: flex-start; column-gap: 4.5%; }
+.way-row, .way-wide { margin-top: 1.7em; }
+.ways > :first-child { margin-top: 0; }
+.way-img { display: contents; }
+.way-text { flex: 1; min-width: 0; }
+.notation-section .way-row img.zoomed { display: block; flex: none; margin: 0; width: min(calc(var(--left) * 100%), calc(var(--w) / var(--frame) * 100%)); }
+.notation-section .way-wide img.zoomed { display: block; margin: 0; }
+.way-wide p { margin: 0.8em 0 0 0; }
+.way-text p { margin: 0; }
+
+/* Approaching 2026-10-11 (RUNNING_LOG §458): a section that ends on the two-column rows stands a SECTION space above the next
+   heading, as one that ends on an image does (§441) — the last row's bottom edge taken as its baseline. */
+.notation-section > .ways:last-child { margin-bottom: 1.19em; }
+
+/* Approaching 2026-10-11 (RUNNING_LOG §459): two text blocks in a row inside a section (the Live Electronics' opening paragraph
+   and the first of its items) stand a SECTION space apart — 27.8 px by piece 5's 0.8em, 29.2 with this. */
+.notation-section .description + .description { margin-top: 0.88em; }
+
+/* Approaching 2026-10-11 (PLAN 2.16 step 4, RUNNING_LOG §479): FOR THE PRINT SCORE'S INSTRUCTION PAGES. On this page a score image
+   stands UNDER the text it illustrates (his rule of §448: "an image belongs to the text above it"). tools/export_print.js reads this
+   one word: `above` = on paper an image is never parted from the text above it, and the text after it may start a new column;
+   without the property an image is held to the text on both sides (piece 5's page, where a sentence under a figure explained it).
+   The page in the browser does not use it. */
+:root { --figure-belongs: above; }

@@ -140,7 +140,7 @@ if (!SCREEN_PLAN) {
 // [PLAN 2b.1.1 — 2026-09-17] THE FRAME'S PARTS COME FROM THE REALIZED ENSEMBLE, exactly as the video's do. They came from
 // `ir.source.parts` — the parts the IR happens to carry — which is why the print drew six systems and no piano: the grand
 // staff's systems are keyed '2:0' / '2:1' and no part number 2 was ever in the frame (RUNNING_LOG §552).
-const ENS = Layout.ensembleFor(ens, (C.realizations || {})['video-jury']);
+const ENS = Layout.ensembleForPage(Layout.ensembleFor(ens, (C.realizations || {})['video-jury']), ir);   // [the Switch~ piece §471] a page's omitParts, as the app and the film read them
 const ensPart = p => (ENS && ENS.parts.find(q => q.part === p)) || null;
 const FRAME_PARTS = ENS ? ENS.parts.map(p => p.part) : ir.source.parts.slice();
 // [2e.4] the ladder's fit: the frame's lane boxes in ss — the printed lane is the video lane scaled, so the same boxes
@@ -160,7 +160,8 @@ const lanes = rz.lanes || { padTopPx: 8, padBotPx: 8, gapPx: 4 };
 const VH = (C.frame && C.frame.heightPx) || 1080;
 const VW = (C.frame && C.frame.widthPx) || 1920;
 const staffHeightPx = (C.staff && C.staff.staffHeightPx) || 31.6;
-const videoPageSeconds = (C.timeScale && C.timeScale.defaults && C.timeScale.defaults.trance) || 12;
+// [the Switch~ piece §471] a page's OWN pace (layoutPolicy.pageSeconds — the solo's 4.8, §366) sets its printed density too
+const videoPageSeconds = (ir.layoutPolicy && ir.layoutPolicy.pageSeconds > 0 ? +ir.layoutPolicy.pageSeconds : 0) || (C.timeScale && C.timeScale.defaults && C.timeScale.defaults.trance) || 12;
 
 const pageW = FMT.w * PX, pageH = FMT.h * PX;
 const marginIn = marginArg != null ? parseFloat(marginArg) : ((C.print && C.print.marginIn > 0) ? C.print.marginIn : 0.5);
@@ -293,6 +294,36 @@ const pageT0Of = i => SCREEN_PLAN ? pages[i].t0 : OBJ ? pages[i].w0 : Math.max(i
 const ownedOf = i => [pages[i].t0, pages[i].t1];
 const inkEndOf = (i, view) => SCREEN_PLAN ? view.window[1] : Math.min(view.window[1], OBJ ? pages[i].inkEnd : pages[i].t1 + rightReserve);   // [2c.6] the system ends AT the cut
 
+// [the Switch~ piece §471 — the print score of Multiplicity, his "full 11x17"] THREE THINGS THE FILM DRAWS AND PAPER DID NOT:
+//   · the ELEC lane's waveform (notation/lib/elec_wave.js, bank/elec_wave.json, rules.json objects.elecWave — his style F, §469)
+//   · the piano solo's signs (layoutPolicy.furniture — ribbons, curtains, repeats, chord symbols, the dynamic, hairpin and slur), drawn by
+//     the workshop's own code in ITS frame and carried onto the page by ONE uniform scale (the print block's height over that frame's) and
+//     a shift, both measured from the two views' own time-to-x and the piano's staff, so a ribbon keeps its shape. Their motion (the ball,
+//     the pebbles in flight) is the film's; paper shows the signs at rest.
+//   · --folio0 N: the first page's number less one, so the four sections of the score number on through one book
+const FOLIO0 = +arg('folio0', 0) || 0;
+const ElecWave = require(path.join(ROOT, 'notation', 'lib', 'elec_wave.js'));
+const ELEC_WAVE = (() => { try { return { wave: JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'elec_wave.json'), 'utf8')), rule: JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'rules.json'), 'utf8')).objects.elecWave }; } catch (e) { return null; } })();
+const FURN = ir.layoutPolicy && ir.layoutPolicy.furniture;
+function furniturePrint(view) {
+  if (!FURN) return '';
+  const WS = require(path.join(ROOT, 'tools', 'notation_workshop.js')), e = WS.engine(FURN);
+  const t0 = view.window[0], span = view.window[1] - view.window[0];
+  const s = view.heightPx / e.H;                                       // one uniform scale: the print block over the workshop's frame
+  const target = (view.xOfSeconds(t0 + span) - view.xOfSeconds(t0)) / s;   // the music's width the workshop must draw at, in its own px
+  const mk = w => e.Coords.makeView(Object.assign({ widthPx: w, heightPx: e.H, window: [t0, t0 + span], systems: e.FRAME.systems, ssPerSystem: e.FRAME.ssPerSystem }, e.EDGES));
+  const v1 = mk(2000), m1 = v1.xOfSeconds(t0 + span) - v1.xOfSeconds(t0);
+  const w = Math.round((2000 + (target - m1)) * 100) / 100, wv = mk(w);
+  const pw = (wv.systems || []).find(q => String(q.part) === '5'), pp = (view.systems || []).find(q => String(q.part) === '5');
+  if (!pw || !pp) return '';
+  const tx = view.xOfSeconds(t0) - s * wv.xOfSeconds(t0), ty = pp.yMidPx - s * pw.yMidPx;
+  const v = WS.viewOf(FURN, t0, span, w, { real: true });
+  const clip = '<defs><clipPath id="wkclipP"><rect x="' + (v.x0 - 2).toFixed(1) + '" y="-200" width="' + (v.w - v.x0 + 2).toFixed(1) + '" height="4000"/></clipPath></defs>';
+  return '<g class="furniture" transform="translate(' + tx.toFixed(2) + ' ' + ty.toFixed(2) + ') scale(' + s.toFixed(5) + ')">' + clip + (v.adds || []).map(a => '<g clip-path="url(#wkclipP)">' + a + '</g>').join('') + '</g>';
+}
+function printAdds(view) {
+  return (ELEC_WAVE ? ElecWave.svg(view, ELEC_WAVE.wave, ELEC_WAVE.rule) : '') + furniturePrint(view);
+}
 function viewFor(i) {
   // THE LAST PAGE REACHES THE PIECE'S END. Measured day 37: with the default
   // density the last window ended at 752.92 against srcEnd 753, so the true
@@ -716,6 +747,7 @@ function buildHtml() {
     // is an SVG noise FILTER, and Chrome's print-to-pdf turns a filtered shape into a PICTURE — the delivered file must hold no raster
     // (check_print_pdf). So the print page drops the filter and its rectangles; the pane's fill and outline stay. The registry's row, the
     // screen and the film are untouched (the frame check's --plan screen page keeps the grain, as the film does). `--grain on` keeps it.
+    if (!SCREEN_PLAN) svg = svg.replace(/<\/svg>\s*$/, printAdds(view) + '</svg>');   // [§471] the ELEC waveform and the solo's signs
     if (!SCREEN_PLAN && !KEEP_GRAIN) svg = svg.replace(/<defs><filter id="elecGrain"[\s\S]*?<\/filter><\/defs>/g, '').replace(/<rect class="elec-grain"[^>]*\/>/g, '');
     // [2b.7.1] the folio reads what the page OWNS — with ownership that is exactly the music on it, reserves excluded.
     const t0 = ownedOf(i)[0], t1 = Math.min(ownedOf(i)[1], srcEnd);
@@ -723,7 +755,7 @@ function buildHtml() {
     if (headerPx) out.push('<div class="hdr">' + rulerSvg(view, inkEndOf(i, view)) + '</div>');
     out.push('<div class="mus">' + svg + '</div>');
     out.push('<div class="fol"><span>' + esc(clock(t0)) + ' – ' + esc(clock(t1)) + '</span>' +
-      '<span>' + (i + 1) + '</span></div>');
+      '<span>' + (i + 1 + FOLIO0) + '</span></div>');
     out.push('</div>');
   });
   return out.join('\n');
