@@ -92,7 +92,7 @@ const rz = (C.realizations || {})['video-jury'] || {};
 const lanes = rz.lanes || { padTopPx: 8, padBotPx: 8, gapPx: 4 };
 const W = (C.frame && C.frame.widthPx) || 1920;
 const H = (C.frame && C.frame.heightPx) || 1080;
-const pageSeconds = (ir.layoutPolicy && ir.layoutPolicy.pageSeconds > 0 ? +ir.layoutPolicy.pageSeconds : 0) || (C.timeScale && C.timeScale.defaults && C.timeScale.defaults.trance) || 12;   // [§366] a page's own pace (layoutPolicy.pageSeconds), else the registry's
+const pageSeconds = +arg('pageSeconds', 0) || (ir.layoutPolicy && ir.layoutPolicy.pageSeconds > 0 ? +ir.layoutPolicy.pageSeconds : 0) || (C.timeScale && C.timeScale.defaults && C.timeScale.defaults.trance) || 12;   // [§366] a page's own pace (layoutPolicy.pageSeconds), else the registry's
 // [2a.1 on the page] lanes WEIGHTED by the ensemble (the piano's grand staff = 2): lanePx is one weight unit, each lane's staff
 // scale follows its weight, and a multi-staff part's staves are placed at the registry's inter-staff gap.
 // [PLAN 2b.1.2 — 2026-09-17] those fifteen lines now live in Coords.ensembleFrame, which the PRINT exporter calls too (it had
@@ -235,15 +235,33 @@ function furnitureOf(view, zoomed) {
   furnCache.set(key, out);
   return out;
 }
-function staticSvg(i, list) {
+// [§469 — his "the bottom is cut here too … you're not getting the full image into the frame"] A GROUP'S CLOSE-UP DRAWS ONLY ITS OWN PARTS: the other systems (their staves,
+// clefs, notes and words) are left off its page and their motion off its overlay, so the frame can take all the room its own ink needs without a neighbor's in it.
+// The layout and every position are unchanged. Not used by the solo's framed close-up, which keeps every staff (his word: "keep the staff lines").
+const inKeep = (keep, key) => String(key).split(/[+:]/).some(x => keep.includes(parseInt(x, 10)));
+function keepOnly(svg, keep) {
+  if (!keep) return svg;
+  let out = svg, from = 0;
+  for (let guard = 0; guard < 1000; guard++) {
+    const re = /<g class="sys sys-p([^"]+)"/g; re.lastIndex = from; let m, cut = null;
+    while ((m = re.exec(out))) if (!inKeep(keep, m[1])) { cut = m.index; break; }
+    if (cut == null) break;
+    const tag = /<g[\s>]|<\/g>/g; tag.lastIndex = cut; let depth = 0, end = -1, x;
+    while ((x = tag.exec(out))) { depth += x[0] === '</g>' ? -1 : 1; if (depth === 0) { end = x.index + 4; break; } }
+    if (end < 0) break;
+    out = out.slice(0, cut) + out.slice(end); from = cut;
+  }
+  return out;
+}
+function staticSvg(i, list, keep) {
   const seg = (list || segments)[i], zoomed = (list || segments) === SEGS.zoom || (!list && viewMode === 'zoom'), F = furnitureOf(seg.view, zoomed);
   const wave = ELEC_WAVE ? ElecWave.svg(seg.view, ELEC_WAVE.wave, ELEC_WAVE.rule) : '';
-  return StaticPage.staticPageSvg({
+  return keepOnly(StaticPage.staticPageSvg({
     model, view: seg.view, glyphs, C, srcEnd,
     reshow: seg.reshow, ownsEnd: seg.ownsEnd, ensemble: ENS,   // [2i.10.1] the labels, brackets and brace
     screenEdges: seg.screenEdges,   // [2c.2] a tiled screen page's edge rules (undefined off the tile plan)
-    append: (wave + (F ? F.add : '')) || undefined,
-  });
+    append: ((keep && !keep.includes(8) ? '' : wave) + (F ? F.add : '')) || undefined,
+  }), keep);
 }
 // [§468] THE FURNITURE'S MOTION: the ball on the ribbons and the thrown pebbles — notation.html's furnitureFrameSvg, the same curves
 function furnitureFrameSvg(F, view, t) {
@@ -303,8 +321,8 @@ const animInstances = AnimObj.collect(ir, score, C.animated, {
   // one source) — the video stays pixel-congruent with the app by sharing it
   drawnOf: e => Layout.drawnLevelSamples(e, _dev(e) || {}),
 }).filter(i => i.part === undefined || FRAME_PARTS.includes(i.part));   // day 40: no instance may reference an undrawn lane
-function overlaySvg(view, t, furn) {
-  const inner = AnimObj.frameSvg(animInstances, view, t, C.animated, ANIM_EDGE ? { edge: ANIM_EDGE } : undefined) + (furn ? furnitureFrameSvg(furn, view, t) : '');
+function overlaySvg(view, t, furn, keep) {
+  const inner = AnimObj.frameSvg(keep ? animInstances.filter(a => a.part === undefined || inKeep(keep, a.part)) : animInstances, view, t, C.animated, ANIM_EDGE ? { edge: ANIM_EDGE } : undefined) + (furn ? furnitureFrameSvg(furn, view, t) : '');
   return '<svg xmlns="http://www.w3.org/2000/svg" width="' + view.widthPx + '" height="' + view.heightPx +
     '" viewBox="0 0 ' + view.widthPx + ' ' + view.heightPx + '">' + inner + '</svg>';
 }
@@ -352,19 +370,19 @@ function composite(base, over) {
 // 8.3 MB + 16.6 MB and make the 19 switches of a cut free.
 let pageRasters = 0;
 const CACHE = { video: { idx: -1, px: null }, zoom: { idx: -1, px: null } };
-function pageFor(i, mode) {
-  const c = CACHE[mode], list = segsOf(mode);
-  if (i !== c.idx) { c.px = raster(staticSvg(i, list), 'white').px; c.idx = i; pageRasters++; }
+function pageFor(i, mode, keep) {
+  const ck = mode + (keep ? ':' + keep.join(',') : ''), c = CACHE[ck] || (CACHE[ck] = { idx: -1, px: null }), list = segsOf(mode);
+  if (i !== c.idx) { c.px = raster(staticSvg(i, list, keep), 'white').px; c.idx = i; pageRasters++; }
   return { px: c.px, view: list[i].view };
 }
-function frameRGBA(tIn, mode) {
+function frameRGBA(tIn, mode, keep) {
   // [2i.10.5] past the material's end the picture HOLDS (the cursor at the end, as the page rests when its playback stops) while the
   // audio's tail rings: the septet render runs 5.1 s past the IR (624.0 last note · 625 material · 630.1 WAV) — render with --t1 <WAV length>
   const t = Math.min(tIn, srcEnd);
   const m = mode || viewMode;
   const list = segsOf(m);
-  const { px, view } = pageFor(segAtIn(list, t), m);
-  const ov = raster(overlaySvg(view, t, furnitureOf(view, m === 'zoom')), null);
+  const { px, view } = pageFor(segAtIn(list, t), m, keep);
+  const ov = raster(overlaySvg(view, t, furnitureOf(view, m === 'zoom'), keep), null);
   return composite(px, ov.px);
 }
 // take rows [y0, y0+h) out of a W-wide RGBA buffer — the zoom master's halves
@@ -393,23 +411,50 @@ const HALVES = (() => {
   // the frame; this piece's groups are the top three and the bottom three, the percussionist's lane in both. So a group's paper is set by
   // the LANES, not by the group before it: `lo` = the bottom of the lane just above the group (0 if none), `hi` = the group's own bottom
   // (the master's end if no lane lies below). For groups that partition the lanes — pieces #5 · #6 — this is the rule as it was.
+  // [the Switch~ piece §469 — his "the bottom is cut here too … you're not getting the full image into the frame"] A GROUP REACHES TO ITS NEIGHBORS' STAFF LINES, not to its own
+  // lane's box: what is written outside a staff (dynamics, words, the ball's curves, ledger notes) lies in the lane's margin and was cut there. Paper begins one staff space
+  // short of the nearest outer line of the staff above and of the staff below (the ELEC lane, which has no staff, by its lane). The frame is centred on that band; when the band
+  // is taller than the frame, on the group's own staves. --groupBands prints each band's height at x1, for the caller to choose a zoom that fits.
   const EPS = 0.5;
+  // the systems that carry staff lines: a grand staff's own staves ("5:0", "5:1"), not the lane that holds them ("5"); a joined lane's members, not the join ("3+4").
+  // A staff's half-height is its registry entry's (the percussion's four single lines 2 ss apart = 3 ss); the ELEC lane has none and counts by its box.
+  const keyOf = s => String(s.part), numOf = s => parseInt(keyOf(s), 10);
+  const staffSys = zv.systems.filter(s => !keyOf(s).includes('+') && !zv.systems.some(q => keyOf(q).startsWith(keyOf(s) + ':')));
+  const halfOf = s => (keyOf(s).includes(':') ? 2 : Coords.staffHalfSs(ensPart(numOf(s))));
+  const lines = s => (numOf(s) === 8 ? [s.yTopPx, s.yBotPx] : [s.yMidPx - halfOf(s) * s.ssPx, s.yMidPx + halfOf(s) * s.ssPx]);
   ext.forEach((e) => {
-    const above = zv.systems.filter(s => s.yBotPx <= e.top + EPS), below = zv.systems.some(s => s.yTopPx >= e.bot - EPS);
-    out[e.name] = { lo: above.length ? Math.ceil(Math.max(...above.map(s => s.yBotPx))) : 0, hi: below ? Math.ceil(e.bot) : MH,
-      y0: Math.round((e.top + e.bot) / 2 - H / 2), top: e.top, bot: e.bot };
+    const ps = hv[e.name], own = staffSys.filter(s => ps.includes(numOf(s))), oth = staffSys.filter(s => !ps.includes(numOf(s)));
+    const gTop = Math.min(...own.map(s => lines(s)[0])), gBot = Math.max(...own.map(s => lines(s)[1]));
+    const above = oth.filter(s => lines(s)[1] <= gTop + EPS), below = oth.filter(s => lines(s)[0] >= gBot - EPS);
+    const lo = above.length ? Math.ceil(Math.max(...above.map(s => lines(s)[1] + s.ssPx))) : 0;
+    const hi = below.length ? Math.floor(Math.min(...below.map(s => lines(s)[0] - s.ssPx))) : MH;
+    const ss = own[0].ssPx, gx = Math.round(zv.musicX0Px) - 2;
+    out[e.name] = { lo: 0, hi: MH, y0: Math.round((hi - lo <= H ? (lo + hi) / 2 : (gTop + gBot) / 2) - H / 2), top: e.top, bot: e.bot, band: hi - lo, keep: ps,
+      gutterX: gx, gutterRows: [Math.floor(gTop - 1.5 * ss), Math.ceil(gBot + 1.5 * ss)] };
   });
   // [the Switch~ piece §468] A FRAMED CLOSE-UP: { rows: [a, b], at: y, paste: [c, d], pasteAt: y2 } — the master's rows a … b stand at y, and rows c … d (the ELEC lane) at y2; the rest is paper
   Object.entries(hv).filter(([, v]) => !Array.isArray(v)).forEach(([name, v]) => { out[name] = v; });
   return out;
 })();
+if (arg('groupDebug') != null) {   // [§469] the close-up geometry, for a look
+  const zv = Coords.makeView(Coords.zoomCfg(baseCfgFor(0), Z, pageT0Of(0)));
+  console.log(JSON.stringify(zv.systems.map(s => ({ p: s.part, top: Math.round(s.yTopPx), mid: Math.round(s.yMidPx), bot: Math.round(s.yBotPx), ss: +s.ssPx.toFixed(2), keys: Object.keys(s).filter(k => typeof s[k] !== 'function').join(',') }))));
+  console.log(JSON.stringify((ENS.parts || []).map(p => [p.part, p.staff || null])));
+  console.log(JSON.stringify(HALVES));
+  process.exit(0);
+}
+if (arg('groupBands') != null) {   // [§469] each group's band at x1, then stop
+  console.log(JSON.stringify(Object.fromEntries(Object.entries(HALVES || {}).filter(([, h]) => h.band).map(([n, h]) => [n, Math.round(h.band / Z)]))));
+  process.exit(0);
+}
 function cropHalf(px, h) {
   const rowBytes = W * 4, MH = px.length / rowBytes, out = Buffer.alloc(H * rowBytes, 255);
   if (h.rows) {
     const put = (a, b, y) => { for (let r = a; r < b && r < MH; r++) { const q = y + r - a; if (q >= 0 && q < H) out.set(px.subarray(r * rowBytes, (r + 1) * rowBytes), q * rowBytes); } };
     put(h.rows[0], h.rows[1], h.at);
     // the gutter (clefs and names) keeps only the group's own: a neighbor's clef reaches further than its staff
-    if (h.gutter) for (let y = h.at; y < h.at + h.rows[1] - h.rows[0] && y < H; y++) if (y < h.gutter.rows[0] || y >= h.gutter.rows[1]) out.fill(255, y * rowBytes, y * rowBytes + h.gutter.x * 4);
+    // [§469] several columns, the widest first: [{ x, rows }] — the names and the braces keep only the group's own; the clefs may keep more
+    for (const gc of [].concat(h.gutter || [])) for (let y = h.at; y < h.at + h.rows[1] - h.rows[0] && y < H; y++) if (y < gc.rows[0] || y >= gc.rows[1]) out.fill(255, y * rowBytes, y * rowBytes + gc.x * 4);
     if (h.paste) put(h.paste[0], h.paste[1], h.pasteAt);
     return out;
   }
@@ -417,6 +462,7 @@ function cropHalf(px, h) {
     const sy = h.y0 + y;
     if (sy < h.lo || sy >= h.hi || sy < 0 || sy >= MH) continue;
     out.set(px.subarray(sy * rowBytes, (sy + 1) * rowBytes), y * rowBytes);
+    if (h.gutterRows && (sy < h.gutterRows[0] || sy >= h.gutterRows[1])) out.fill(255, y * rowBytes, y * rowBytes + h.gutterX * 4);
   }
   return out;
 }
@@ -580,7 +626,7 @@ function blendAt(k) {
 }
 function srcBuf(src, t) {
   if (src === 'V-MAIN') return frameRGBA(t, 'video');
-  const full = frameRGBA(t, 'zoom');
+  const full = frameRGBA(t, 'zoom', HALVES && HALVES[src] && HALVES[src].keep);
   if (HALVES && !HALVES[src]) throw new Error('video-cut half ' + src + ' names no drawn part');
   return HALVES ? cropHalf(full, HALVES[src]) : cropRows(full, src === 'V-BOT' ? H : 0, H);   // the tuba: the y=1080 gap, measured
 }

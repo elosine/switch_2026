@@ -20,10 +20,18 @@ const stemsDir = JSON.parse(fs.readFileSync(path.join(ROOT, 'midi', score, 'stem
 const DIR = path.join(path.dirname(stemsDir), 'film');
 
 // the close-ups, by seated group. V-SOLO: the piano large, the ELEC lane under it (rows of the x2 master, measured on the page)
-const GROUPS = { 'V-TOP': [0, 1, 2], 'V-MID': [3, 4, 5], 'V-BOT': [6, 7, 8], 'V-SOLO': { rows: [1078, 1592], at: 205, gutter: { x: 222, rows: [225, 685] }, paste: [2010, 2160], pasteAt: 925 } };
+// [§469 — his "the Zoom for the piano is cutting off … the tops of the flags" · "quite a bit is cut off at the top" · "keep the staff lines"] the solo's frame reaches
+// up into the percussion's staff (the solo's flags rise to 953 at the highest, measured on every screen it shows); that staff's clef stays, its name and brace do not.
+// V-SOLO-OUT is the same frame at x1.4 (every row and column x0.7).
+const GROUPS = { 'V-TOP': [0, 1, 2], 'V-MID': [3, 4, 5], 'V-BOT': [6, 7, 8],
+  'V-SOLO': { rows: [940, 1592], at: 109, gutter: [{ x: 222, rows: [144, 727] }, { x: 165, rows: [267, 727] }], paste: [2010, 2160], pasteAt: 821 },
+  'V-SOLO-OUT': { rows: [658, 1114], at: 240, gutter: [{ x: 155, rows: [264, 672] }, { x: 115, rows: [350, 672] }], paste: [1407, 1512], pasteAt: 736 } };
 const SECTIONS = [
   { id: 'sines', ir: 's1-sines', from: 0, to: 146, z: 2.4, close: { n: 2, groups: ['V-TOP', 'V-BOT'], min: 20, max: 28, lead: 34, tail: 16, gap: 24 } },   // the piano does not play here: no V-MID
-  { id: 'solo', ir: 's2-piano-solo-final', from: 146, to: 199, z: 2, whole: 'V-SOLO' },
+  // [§469 — his "zoom in all the way to that point and then zoom out so that you see the entire long, last long curve in frame"] the ribbon of 186.79 … 191.46 in one
+  // screen: from 186.5 the solo at x1.4 with a 5.4 s screen (pace 7.56 s a page), the screens anchored to open at 186.5
+  { id: 'solo', ir: 's2-piano-solo-final', from: 146, to: 186.5, z: 2, whole: 'V-SOLO' },
+  { id: 'solo-out', ir: 's2-piano-solo-final', from: 186.5, to: 199, z: 1.4, pageSeconds: 7.56, zoomAnchor: 186.5, whole: 'V-SOLO-OUT' },
   { id: 'counterpoint', ir: 's2-ctpt-heads', from: 199, to: 254, z: 2.4, close: { n: 1, groups: ['V-MID', 'V-TOP', 'V-BOT'], min: 16, max: 20, lead: 16, tail: 12, gap: 0 } },
   { id: 'phase', ir: 's3-phase', from: 254, to: END, z: 2.4, close: { n: 3, groups: ['V-TOP', 'V-BOT', 'V-MID'], min: 20, max: 30, lead: 24, tail: 34, gap: 26 } },   // closes wide
 ];
@@ -55,14 +63,14 @@ const final = path.join(DIR, name + '.mp4');
 if (fs.existsSync(final)) { console.error('already there, nothing overwritten: ' + final); process.exit(1); }
 const parts = [], t0 = Date.now();
 for (const S of plan) {
-  const key = crypto.createHash('sha1').update(JSON.stringify([S.ir, S.from, S.to, S.z, S.timeline, GROUPS])).digest('hex').slice(0, 10);
+  const key = crypto.createHash('sha1').update(JSON.stringify([S.ir, S.from, S.to, S.z, S.pageSeconds, S.zoomAnchor, S.timeline, GROUPS, fs.statSync(path.join(ROOT, 'notation', 'lib', 'elec_wave.js')).mtimeMs, fs.statSync(path.join(__dirname, 'export_video.js')).mtimeMs])).digest('hex').slice(0, 10);
   const out = path.join(DIR, 'part-' + S.id + '-' + key + '.mp4'), done = out + '.done', cut = path.join(DIR, 'cut-' + S.id + '.json');
   parts.push(out);
   if (fs.existsSync(done) && fs.existsSync(out)) { console.log(S.id + ': already rendered'); continue; }
   try { fs.unlinkSync(out); } catch (e) { /* none */ }
   fs.writeFileSync(cut, JSON.stringify({ fps: FPS, seed: SEED, timeline: S.timeline }));
   console.log('rendering ' + S.id + ' (' + S.from + ' to ' + S.to + ' s)');
-  const r = spawnSync(process.execPath, ['--max-old-space-size=6000', path.join(__dirname, 'export_video.js'), '--ir', S.ir, '--view', 'video', '--fps', String(FPS), '--z', String(S.z), '--groups', JSON.stringify(GROUPS), '--cut', cut, '--t0', String(S.from), '--t1', String(S.to), '--out', out], { stdio: ['ignore', 'inherit', 'ignore'] });
+  const r = spawnSync(process.execPath, ['--max-old-space-size=6000', path.join(__dirname, 'export_video.js'), '--ir', S.ir, '--view', 'video', '--fps', String(FPS), '--z', String(S.z), '--groups', JSON.stringify(GROUPS), '--cut', cut, '--t0', String(S.from), '--t1', String(S.to), '--out', out, ...(S.pageSeconds ? ['--pageSeconds', String(S.pageSeconds)] : []), ...(S.zoomAnchor != null ? ['--zoomAnchor', String(S.zoomAnchor)] : [])], { stdio: ['ignore', 'inherit', 'ignore'] });
   if (r.status !== 0 || !fs.existsSync(out)) { console.error(S.id + ': the render failed (' + r.status + ')'); process.exit(1); }
   fs.writeFileSync(done, new Date().toISOString());
 }
