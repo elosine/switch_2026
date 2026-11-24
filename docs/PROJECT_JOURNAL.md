@@ -61,6 +61,12 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+### 2026-11-23 — THE DEMO'S MIX PROJECT IS BUILT (PLAN § 2r step 2, RUNNING_LOG §457) — ► NEXT: STEP 4, THE ELECTRONICS STEMS
+
+- **DONE:** `node tools/build_mix.js --score piece-FirstDraft-Final-D-ctptCello` → `H:/switch_2026/audio/demo/piece-FirstDraft-Final-D-ctptCello/piece-FirstDraft-Final-D-ctptCello-mix.rpp`: 254 tracks, 120 audio stems, each stem's muted MIDI under it, eight instrument buses under INSTRUMENTS, ELEC with four empty lanes. Opened in Reaper and read through the bridge: nothing offline. Reaper is open on this project, not on the rack.
+- **NOT CHECKED:** not listened to; the MIDI's alignment against its audio not measured.
+- **THE NEXT CONCRETE STEP:** step 4, the four electronics lanes as stems (the material bricks are audio files; the sine tones: ONE question to him if they cannot be recorded without him). The bridge's guard needs `REAPER_PROJECT=piece-FirstDraft-Final-D-ctptCello-mix` while this project is open.
+
 ### CHECKPOINT 2026-11-22 (near midnight; mid-session checkpoint, written by `/checkpoint`) — THE DEMO RECORDING: 120 STEMS OF AUDIO ARE ON DISK (RUNNING_LOG §455 · §456) — ► NEXT: THE MIX PROJECT
 
 - **DONE:** PLAN § 2r step 1 (`node tools/stems_plan.js --score piece-FirstDraft-Final-D-ctptCello` — 120 stems of MIDI, a stem = a rack track · a technique · a written dynamic; `midi/<save>/stems.json`) and step 3 (`node tools/render_stems.js --score <save>` — each stem as audio, 19 passes, 12.7 minutes, none silent; `H:/switch_2026/audio/demo/<save>/stems/`, 3.2 GB; `midi/<save>/stems_audio.json` = each file, where it starts, its length).

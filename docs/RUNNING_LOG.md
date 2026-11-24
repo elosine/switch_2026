@@ -6443,3 +6443,13 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 - A `\s` lost its backslash in a script written through a heredoc (the standing memory note; the Edit tool put it back) — it hid fix (b) for one try.
 **ALSO SETTLED:** a re-capture is never needed for a note fix (72 minutes, §455) — the stem's MIDI is edited and that stem rendered again (about 25 s once the tab is open; the tab's opening is the cost, 7 minutes).
 **NEXT (not built):** the recording project — a track per stem under a bus per instrument, the audio at its place, the MIDI beside it; the four electronics lanes; then the measurement and the faders (step 5).
+
+## §457 · 2026-11-23 · the demo recording — step 2: the mix project built and opened in Reaper
+
+**Prompted by:** his "yes pls" to building the mix project (PLAN § 2r step 2).
+**BUILT:** `node tools/build_mix.js --score piece-FirstDraft-Final-D-ctptCello` writes a NEW Reaper project as text, next to the stems on `H:` (`…/piece-FirstDraft-Final-D-ctptCello-mix.rpp`). The rack is neither read nor written. The tool refuses to overwrite an existing mix, because that file will hold his faders.
+**THE SHAPE:** INSTRUMENTS (the bus for step 5's level line) → eight instrument folders (flute · clarinet · alto sax · percussion · mallets · piano · violin · cello) → a track per stem with its audio at its place → under each, a thin muted track with the stem's MIDI, hidden from the mixer. ELEC holds the four empty lanes for step 4. 254 tracks.
+**DECIDED, and why:** the percussion and the mallets are separate buses, because the score gives the percussionist those two lanes. The MIDI sits directly under its stem rather than in a far-off folder, so a note can be spotted beside its sound. The project runs at 60 BPM because the stems' MIDI files are written at 60, so one beat is one second.
+**PROVEN ONCE, in Reaper itself (the project opened, read through the bridge):** 254 tracks · 120 audio items · 120 MIDI items · none offline · every audio item's length equal to its file · all 120 MIDI tracks muted · the folders close correctly · tempo 60.
+**NOT CHECKED:** nobody has listened to it, and the MIDI's alignment against its audio was not measured.
+**NEXT (not built):** step 4, the four electronics lanes as stems.
