@@ -63,7 +63,7 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 
 ### 2026-11-23 — HIS MIX IS UNDER WAY (PLAN § 2r step 6, RUNNING_LOG §460 · §461)
 
-- **THE LIVE PROJECT IS NOW THE TRUTH, not `build_mix.js`:** his ELEC fader −19.65 dB · a SINES folder (0 dB) with each sine set equal to its player's partial (`tools/sine_match.js`) · Realphones ON in the Monitoring FX. All of it is in the saved project. **`build_mix.js --force` would erase it: never run it here.** Changes go through the bridge (`REAPER_PROJECT=piece-FirstDraft-Final-D-ctptCello-mix`).
+- **THE LIVE PROJECT IS NOW THE TRUTH, not `build_mix.js`:** his ELEC fader −13 dB · the Piano folder −4 dB for the solo only, by a volume line back to 0 at 200 s (§462) · a SINES folder (his +2 dB) with each sine set equal to its player's partial (`tools/sine_match.js`) · Realphones ON in the Monitoring FX. All of it is in the saved project. **`build_mix.js --force` would erase it: never run it here.** Changes go through the bridge (`REAPER_PROJECT=piece-FirstDraft-Final-D-ctptCello-mix`).
 - **NOT CHECKED:** the beating not yet listened to. The violin and the cello match least well over a note.
 
 ### 2026-11-23 — THE FIRST BALANCE IS IN THE MIX PROJECT (PLAN § 2r step 5, RUNNING_LOG §459) — ► NEXT: STEP 6, HIS EARS

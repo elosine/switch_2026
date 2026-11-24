@@ -6500,3 +6500,9 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **WHAT ONE FADER CANNOT DO:** the player's partial moves against the sine through each note. Share of the time within 3 dB of equal, after the move: alto sax 83 % · flute 77 % · clarinet 64 % · crotales 61 % · cello 55 % · violin 48 %. The violin swings most (10 … 90 % of the time −4.3 … +11.4 dB). Closer would need the sine's level to follow the note, which is an automation per note, not done.
 **A FAULT ON THE WAY:** a newline escape written through a heredoc collapsed and the Lua did not load (the standing memory note). Nothing had run; fixed.
 **NOT CHECKED:** the beating has not been listened to, by anyone. Equal level is the physics of the deepest beat, not a claim about how deep he wants it.
+
+## §462 · 2026-11-23 · the demo recording — the piano's -4 dB for the solo only
+
+**Prompted by:** *"I just moved the electronics and the piano for the piano solo. Let's hold those levels for now. But then I guess reset the piano for the next section. So it's maybe just, I don't know if it was -3 or -4 dB just for the solo. And then the ensemble seems like much louder. Well, I'll just use the master fader, that's fine."*
+**READ IN THE LIVE PROJECT:** the Piano folder -4.00 dB (it was 0) · ELEC -13.00 (it was -19.65) · SINES +2.00 (it was 0) · the master unchanged at +7.47.
+**DONE:** his -4 dB became a volume line on the Piano folder: -4 dB up to 199 s, a one-second ramp, 0 dB from 200 s. The folder's fader is back at 0. The solo's last note ends at 196.28 and the piano's next note is at 201.18, so the ramp crosses no note. ELEC and SINES are held where he put them, for the whole piece. The master is his to move. Read back in Reaper; project saved.
