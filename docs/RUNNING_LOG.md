@@ -6518,3 +6518,13 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 4. **ONE FADER CANNOT LEVEL A STEM WHOSE NOTES DIFFER.** Inside single stems the notes differ by up to 13.2 dB.
 5. **THE SECTION WAS ALREADY LEVELED.** All 333 notes carry the composing pass's parity (§152). §459 moved them a second time, on the faulty reading: 27 stems up 3 dB or more, 20 down.
 **RECOMMENDED, NOT DONE, PUT TO HIM:** the counterpoint on its own values, each NOTE measured over its whole sound by its loudest 100 ms and given its own gain on the audio, raises capped at +6 dB. What is uncertain: 100 ms is the AI's stand-in for the ear.
+
+## §464 · 2026-11-23 · the demo recording — the counterpoint rebalanced note by note
+
+**Prompted by:** his "yes pls" to §463's recommendation.
+**BUILT:** `tools/ctpt_balance.js`. Each onset of 200 … 253 s read by its loudest 100 ms, K-weighted, anywhere in its whole sound (to the stem's next note, 3 s at most). One target per written dynamic, the middle of the stems in THIS section: p -35.19 · f -31.84 · fff -28.83. Within 1.5 dB left alone; no raise over +6 dB. The gain is a take volume line on the audio item, a 10 ms ramp before each note whose gain differs.
+**THE STEM FADERS ARE ALL BACK AT 0 dB.** A stem's notes outside this section keep, on the same line, the gain §459's fader gave them, so the other sections do not change.
+**RESULT, by the new reading:** the spread inside one dynamic fell from 17.6 / 22.6 / 22.2 dB (p / f / fff) to 4.6 / 4.6 / 4.8. 261 notes moved, 72 left alone, 19 held at +6 dB. The china scrape, by the middle of its notes: f and fff about 16 dB lower than §459 had them, p 6.6 dB lower.
+**HIS MOVES, KEPT:** he had taken the INSTRUMENTS fader to -6 dB, unsaved, while this was computed. It stayed, and is now saved. ELEC -13 · SINES +2 · the piano's solo line · the master +7.47 all as he left them.
+**PROVEN ONCE:** the lines read back in Reaper at all 5315 onsets of the 115 stems changed, against the computed gains (error under 0.001 dB). The project saved. The state before it: `…-mix.before-464.rpp` beside the project.
+**NOT CHECKED:** nobody has listened. The final section still carries §459's faders and so very likely the same fault.

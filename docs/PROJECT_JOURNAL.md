@@ -63,6 +63,8 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 
 ### 2026-11-23 — HIS MIX IS UNDER WAY (PLAN § 2r step 6, RUNNING_LOG §460 · §461)
 
+- **§464 THE COUNTERPOINT IS BALANCED NOTE BY NOTE** (`tools/ctpt_balance.js`; gains on the audio items as take volume lines; every stem fader at 0 dB; his INSTRUMENTS -6 dB kept; the copy before it `…-mix.before-464.rpp`). **► NEXT: his listen to 200 … 253 s.** The phase section still has the old §459 gains on those lines.
+
 - **THE LIVE PROJECT IS NOW THE TRUTH, not `build_mix.js`:** his ELEC fader −13 dB · the Piano folder −4 dB for the solo only, by a volume line back to 0 at 200 s (§462) · a SINES folder (his +2 dB) with each sine set equal to its player's partial (`tools/sine_match.js`) · Realphones ON in the Monitoring FX. All of it is in the saved project. **`build_mix.js --force` would erase it: never run it here.** Changes go through the bridge (`REAPER_PROJECT=piece-FirstDraft-Final-D-ctptCello-mix`).
 - **NOT CHECKED:** the beating not yet listened to. The violin and the cello match least well over a note.
 
