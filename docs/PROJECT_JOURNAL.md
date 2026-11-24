@@ -61,6 +61,12 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+### 2026-11-23 — THE ELECTRONICS ARE STEMS, IN THE MIX PROJECT (PLAN § 2r step 4, RUNNING_LOG §458) — ► NEXT: STEP 5, THE FIRST BALANCE
+
+- **DONE:** `node tools/elec_stems.js --score piece-FirstDraft-Final-D-ctptCello` — four electronics lanes + six sine stems (one per player's lane), rendered offline through the engine's own code, DRY (before its master bus), on `H:/…/<save>/elec/`; list `midi/<save>/elec_stems.json`. The mix project rebuilt and reloaded: 260 tracks, opened in Reaper on it.
+- **NOT CHECKED:** not listened to; not compared against the live engine; the four lanes peak near −1 dB each, so their sum can pass 0 dB until the faders are set.
+- **THE NEXT CONCRETE STEP:** step 5, each stem measured and its fader set (PLAN § 2r). `build_mix.js --force` overwrites the project, so never use it once he has mixed in it.
+
 ### 2026-11-23 — THE DEMO'S MIX PROJECT IS BUILT (PLAN § 2r step 2, RUNNING_LOG §457) — ► NEXT: STEP 4, THE ELECTRONICS STEMS
 
 - **DONE:** `node tools/build_mix.js --score piece-FirstDraft-Final-D-ctptCello` → `H:/switch_2026/audio/demo/piece-FirstDraft-Final-D-ctptCello/piece-FirstDraft-Final-D-ctptCello-mix.rpp`: 254 tracks, 120 audio stems, each stem's muted MIDI under it, eight instrument buses under INSTRUMENTS, ELEC with four empty lanes. Opened in Reaper and read through the bridge: nothing offline. Reaper is open on this project, not on the rack.

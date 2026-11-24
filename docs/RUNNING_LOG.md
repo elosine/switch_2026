@@ -6453,3 +6453,19 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **PROVEN ONCE, in Reaper itself (the project opened, read through the bridge):** 254 tracks · 120 audio items · 120 MIDI items · none offline · every audio item's length equal to its file · all 120 MIDI tracks muted · the folders close correctly · tempo 60.
 **NOT CHECKED:** nobody has listened to it, and the MIDI's alignment against its audio was not measured.
 **NEXT (not built):** step 4, the four electronics lanes as stems.
+
+## §458 · 2026-11-23 · the demo recording — step 4: the electronics as ten stems, rendered offline (23 s), in the mix project
+
+**Prompted by:** his "yes pls" to going on to the electronics stems (PLAN § 2r step 4).
+**WHAT THE SAVE HOLDS:** 12 material bricks on the four electronics lanes, and 37 sine bricks on the players' lanes (flute · clarinet · alto sax · the mallets' lane · violin · cello; all of them end by 144.45 s). No sine follows a player, so none depends on a live ear.
+**THE QUESTION THE PLAN HELD OPEN, SETTLED:** the sine tones CAN be recorded without him. No live engine, no Reaper, no hand step.
+**BUILT:** `node tools/elec_stems.js --score <save>` builds each brick's message the way the page does and `tools/elec_stems.scd` renders them in SuperCollider's offline mode, through the engine's own `materialSpec` · `sineSpec` · `\leSine`, with the piece's level ladder from `bank/elec_route.json`. Out: `H:/switch_2026/audio/demo/<save>/elec/` (ten files) and `midi/<save>/elec_stems.json`. `tools/build_mix.js` now places them in ELEC.
+**DECIDED, and why:**
+- the sine tones are six stems, one per player's lane, because each is the tone that player beats against, so its balance is that player's.
+- the stems are DRY, before the engine's master bus (its high-pass, glue and limiter), because that bus acts on a whole mix and would print its reaction to one lane into that lane. Step 7 decides what stands in for it.
+- a material is played by PlayBuf from a buffer holding its stretch, where the live engine streams it with VDiskIn. Same rate and interpolation, same envelopes. A long stream in offline mode was never proven; the engine's test only runs one second.
+**THE RUN:** 23 s. Peaks: Elec 1 … 4 at −0.9 … −1.1 dB · the sines at −15.1 … −18.5 dB. Read back from the files.
+**A FAULT ON THE WAY:** the first try stopped at its own count (37 of 49 bricks), because the save's track entries are objects, not names. Fixed in one line.
+**THE MIX PROJECT REBUILT** after checking Reaper showed no unsaved change and the file was still the tool's own; reloaded, 260 tracks.
+**NOT CHECKED:** nobody has listened; the render was not compared against the live engine's output. The four lanes each peak near −1 dB, so their sum can pass 0 dB until step 5's faders and the master.
+**NEXT (not built):** step 5, the measurement and the first balance.

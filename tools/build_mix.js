@@ -72,7 +72,13 @@ for (const ins of INSTRUMENTS) {
   }
 }
 rows.push({ name: 'ELEC', level: 0, color: [100, 100, 100] });
-for (let i = 1; i <= 4; i++) rows.push({ name: 'Elec ' + i, level: 1, color: [100, 100, 100] });
+const elecFile = path.join(dir, 'elec_stems.json');   // step 4 (tools/elec_stems.js): the four lanes and the sine tones; absent = the four lanes empty
+if (fs.existsSync(elecFile)) {
+  for (const s of JSON.parse(fs.readFileSync(elecFile, 'utf8')).stems) {
+    if (!fs.existsSync(s.file)) { console.error('audio missing: ' + s.file); process.exit(1); }
+    rows.push({ name: s.name, level: 1, color: s.kind === 'sine' ? [130, 150, 170] : [100, 100, 100], item: { pos: s.at, len: s.len, name: s.name, kind: 'WAVE', file: s.file } });
+  }
+} else for (let i = 1; i <= 4; i++) rows.push({ name: 'Elec ' + i, level: 1, color: [100, 100, 100] });
 
 const out = ['<REAPER_PROJECT 0.1 "7.82/win64" ' + Math.floor(Date.now() / 1000) + ' 0', '  SAMPLERATE 48000 0 0', '  TEMPO 60 4 4 0'];
 rows.forEach((r, i) => {
