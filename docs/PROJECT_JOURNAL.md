@@ -61,6 +61,11 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+### 2026-11-23 — THE DEMO FILM IS PRINTED (RUNNING_LOG §468)
+
+- **The file:** `H:/switch_2026/audio/demo/piece-FirstDraft-Final-D-ctptCello/film/switch-demo-film1.mp4` (487 s, 1080p, the bounce under it). Made by `node tools/make_film.js --score <save> --audio <bounce> --name <a new name> [--seed N]` (`--plan` prints the cut). The ELEC waveform is in the score (`tools/elec_wave.js` · `bank/elec_wave.json`; run it again if the electronics' levels change).
+- **NOT CHECKED:** nobody has watched it; the AI saw stills only. **► NEXT: his watch.**
+
 ### 2026-11-23 — THE DEMO IS BOUNCED (PLAN § 2r step 7, RUNNING_LOG §467)
 
 - **The file:** `H:/switch_2026/audio/demo/piece-FirstDraft-Final-D-ctptCello/bounce/switch-demo-mix1.wav` · 24-bit, 48 kHz, no metadata · 487 s · peak -4.55 dB · -21.5 LUFS. A re-bounce: `node tools/bounce_mix.js --score piece-FirstDraft-Final-D-ctptCello --name <a new name>` (it refuses to overwrite). Reaper is open on the mix project.

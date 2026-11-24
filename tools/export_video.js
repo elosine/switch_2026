@@ -75,7 +75,7 @@ try { score = rd(path.join('scores', ir.source.score + '.json')); } catch (e) { 
 // sparse-lane path (PP fix B). DEFAULT = the jury frame: every part.
 // [PLAN 2i.10.1, the septet frame — 2026-09-16, RUNNING_LOG §558] the frame's parts, weights and staves come from the ensemble
 // registry exactly as notation.html fills FRAME_PARTS at init (the probe of §556 drew the tuba's T1–T10 and no piano).
-const ENS = Layout.ensembleFor(ens, (C.realizations || {})['video-jury']);
+const ENS = Layout.ensembleForPage(Layout.ensembleFor(ens, (C.realizations || {})['video-jury']), ir);   // [the Switch~ piece §468] a page's omitParts, as the app reads them
 const ensPart = p => (ENS && ENS.parts.find(q => q.part === p)) || null;
 const FRAME_PARTS = (arg('parts', '') || '').split(',').filter(Boolean).map(Number);
 if (!FRAME_PARTS.length) FRAME_PARTS.push(...(ENS ? ENS.parts.map(p => p.part) : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]));
@@ -217,13 +217,62 @@ const segAt = t => segAtIn(segments, t);
 // The page itself lives in notation/lib/static_page.js so the PRINT exporter
 // draws the identical page (day 37). Proven: all 64 db1 static SVGs are
 // byte-identical across this change.
+// [the Switch~ piece §468 — his "we need the waveform of the demo in the score"] THE ELEC LANE'S WAVEFORM (notation/lib/elec_wave.js, bank/elec_wave.json), on every page
+const ElecWave = require(path.join(ROOT, 'notation', 'lib', 'elec_wave.js'));
+const ELEC_WAVE = (() => { try { return { wave: rd('bank/elec_wave.json'), rule: rd('notation/registry/rules.json').objects.elecWave }; } catch (e) { return null; } })();
+// [§468] THE PAGE'S FURNITURE in the film (layoutPolicy.furniture — the piano solo's ribbons, curtains, repeats, chord symbols; §361 had them in the app only): asked of the
+// workshop's own code for the window, as the app's server route does; drawn in the frame's coordinates and scaled with the zoom
+const FURN = ir.layoutPolicy && ir.layoutPolicy.furniture;
+const furnCache = new Map();
+function furnitureOf(view, zoomed) {
+  if (!FURN) return null;
+  const key = (zoomed ? 'z' : 'v') + view.window[0];
+  if (furnCache.has(key)) return furnCache.get(key);
+  const Zf = zoomed ? Z : 1, v = require('./notation_workshop.js').viewOf(FURN, view.window[0], view.window[1] - view.window[0], W / Zf, { real: true });
+  const clip = '<defs><clipPath id="wkclip"><rect x="' + (v.x0 - 2).toFixed(1) + '" y="0" width="' + (v.w - v.x0 + 2).toFixed(1) + '" height="4000"/></clipPath></defs>';
+  const add = '<g class="furniture"' + (Zf !== 1 ? ' transform="scale(' + Zf + ')"' : '') + '>' + clip + (v.adds || []).map(a => '<g clip-path="url(#wkclip)">' + a + '</g>').join('') + '</g>';
+  const out = { Z: Zf, add, protos: v.protos || [], strikes: v.strikes || [] };
+  furnCache.set(key, out);
+  return out;
+}
 function staticSvg(i, list) {
-  const seg = (list || segments)[i];
+  const seg = (list || segments)[i], zoomed = (list || segments) === SEGS.zoom || (!list && viewMode === 'zoom'), F = furnitureOf(seg.view, zoomed);
+  const wave = ELEC_WAVE ? ElecWave.svg(seg.view, ELEC_WAVE.wave, ELEC_WAVE.rule) : '';
   return StaticPage.staticPageSvg({
     model, view: seg.view, glyphs, C, srcEnd,
     reshow: seg.reshow, ownsEnd: seg.ownsEnd, ensemble: ENS,   // [2i.10.1] the labels, brackets and brace
     screenEdges: seg.screenEdges,   // [2c.2] a tiled screen page's edge rules (undefined off the tile plan)
+    append: (wave + (F ? F.add : '')) || undefined,
   });
+}
+// [§468] THE FURNITURE'S MOTION: the ball on the ribbons and the thrown pebbles — notation.html's furnitureFrameSvg, the same curves
+function furnitureFrameSvg(F, view, t) {
+  if (!F || !((F.protos && F.protos.length) || (F.strikes && F.strikes.length))) return '';
+  const Z = F.Z || 1, cl = u => Math.max(0, Math.min(1, u)), out = [];
+  for (const K of F.strikes || []) { const e = K.bounce;
+    for (const p of K.rocks) {
+      const tl = p.tl != null ? p.tl : K.impact - K.flightS + p.dly, u = (t - tl) / p.T, yl = p.yl || 0; let x, y, air;
+      if (u < 0) { x = p.xh; y = K.floor - p.yh; air = 0; }
+      else if (u <= 1) { x = p.xh + (p.xl - p.xh) * u; y = K.floor - yl - p.H * 4 * u * (1 - u); air = t - tl; }
+      else { const tb = t - tl - p.T, Tb = p.T * e, ub = tb / Tb, dx = (p.xl - p.xh) * e * 0.5;
+        if (ub < 1) { x = p.xl + dx * ub; y = K.floor - yl - p.H * e * e * 4 * ub * (1 - ub); air = p.T + tb; } else { x = p.xl + dx; y = K.floor - yl; air = p.T + Tb; } }
+      const c = 'rgb(' + p.gray + ',' + p.gray + ',' + p.gray + ')';
+      out.push('<path d="' + p.d + '" transform="translate(' + x.toFixed(1) + ' ' + (y - p.r * 0.6).toFixed(1) + ') rotate(' + (p.spin * air).toFixed(0) + ')" ' + (K.stroked ? 'fill="none" stroke="' + c + '" stroke-width="0.6"' : 'fill="' + c + '"') + '/>');
+    } }
+  for (const p of F.protos || []) { const a = p.arc; if (t < a.t0 || t > a.t1 || !p.arcY) continue;
+    const pr = p.preset, dp = 1 + (pr.ictus / 1000) * 20, ap = 1 + pr.stiffness / 50, rb = pr.damping / 100; let fr;
+    if (p.wave) { const wkA = [].concat(p.sharp || 1), shpK = (h, wk) => wk === 1 ? h : Math.pow(h, wk) / (Math.pow(h, wk) + Math.pow(1 - h, wk));
+      if (t <= a.bounce) { const d = a.bounce - a.t0; fr = shpK((1 + Math.cos(Math.PI * cl(d > 0 ? (t - a.t0) / d : 1))) / 2, wkA[0]); }
+      else { const d2 = a.t1 - a.bounce; fr = rb * shpK((1 - Math.cos(Math.PI * cl(d2 > 0 ? (t - a.bounce) / d2 : 1))) / 2, wkA[wkA.length - 1]); } }
+    else if (t <= a.bounce) { const d = a.bounce - a.t0; fr = 1 - Math.pow(cl(d > 0 ? (t - a.t0) / d : 1), dp); }
+    else { const d = a.t1 - a.bounce; fr = rb * (1 - Math.pow(1 - cl(d > 0 ? (t - a.bounce) / d : 1), ap)); }
+    let r = p.look.ballRadiusPx; const rbn = p.ribbon;
+    if (rbn && rbn.length) { let h = rbn[rbn.length - 1][1]; for (let i = 1; i < rbn.length; i++) if (t <= rbn[i][0]) { const q0 = rbn[i - 1], q1 = rbn[i], u2 = q1[0] > q0[0] ? (t - q0[0]) / (q1[0] - q0[0]) : 0; h = q0[1] + (q1[1] - q0[1]) * cl(u2); break; }
+      r = Math.max(r, ((p.flow && p.flow.ballOverRibbon) || 1.35) * h + 2); }
+    out.push('<circle cx="' + (view.xOfSeconds(t) / Z).toFixed(1) + '" cy="' + (p.arcY.imp - fr * (p.arcY.imp - p.arcY.apex)).toFixed(1) + '" r="' + r.toFixed(1) + '" fill="' + p.look.color + '" stroke="#fff" stroke-width="1.6"/>'); }
+  // a pebble in flight stays in the music's area, off the clefs (the page's own signs are clipped the same way)
+  const cx = view.musicX0Px / Z - 2;
+  return '<defs><clipPath id="fmclip"><rect x="' + cx.toFixed(1) + '" y="0" width="' + (view.widthPx / Z - cx).toFixed(1) + '" height="4000"/></clipPath></defs><g class="furniture-motion" clip-path="url(#fmclip)"' + (Z !== 1 ? ' transform="scale(' + Z + ')"' : '') + '>' + out.join('') + '</g>';
 }
 
 // ---------------------------------------------------------------- rasterizer
@@ -254,8 +303,8 @@ const animInstances = AnimObj.collect(ir, score, C.animated, {
   // one source) — the video stays pixel-congruent with the app by sharing it
   drawnOf: e => Layout.drawnLevelSamples(e, _dev(e) || {}),
 }).filter(i => i.part === undefined || FRAME_PARTS.includes(i.part));   // day 40: no instance may reference an undrawn lane
-function overlaySvg(view, t) {
-  const inner = AnimObj.frameSvg(animInstances, view, t, C.animated, ANIM_EDGE ? { edge: ANIM_EDGE } : undefined);
+function overlaySvg(view, t, furn) {
+  const inner = AnimObj.frameSvg(animInstances, view, t, C.animated, ANIM_EDGE ? { edge: ANIM_EDGE } : undefined) + (furn ? furnitureFrameSvg(furn, view, t) : '');
   return '<svg xmlns="http://www.w3.org/2000/svg" width="' + view.widthPx + '" height="' + view.heightPx +
     '" viewBox="0 0 ' + view.widthPx + ' ' + view.heightPx + '">' + inner + '</svg>';
 }
@@ -315,7 +364,7 @@ function frameRGBA(tIn, mode) {
   const m = mode || viewMode;
   const list = segsOf(m);
   const { px, view } = pageFor(segAtIn(list, t), m);
-  const ov = raster(overlaySvg(view, t), null);
+  const ov = raster(overlaySvg(view, t, furnitureOf(view, m === 'zoom')), null);
   return composite(px, ov.px);
 }
 // take rows [y0, y0+h) out of a W-wide RGBA buffer — the zoom master's halves
@@ -328,12 +377,13 @@ function cropRows(px, y0, h) {
 // its lanes are centred in the frame, and every row outside the group — above its top neighbour's lane bottom, or from its own lane
 // bottom down — is paper. The zoom master's geometry is page-invariant (only the window moves), so the rows are fixed for the film.
 const HALVES = (() => {
-  const hv = CUT_RZ && CUT_RZ.halves;
+  // [the Switch~ piece §468] --groups '{"V-TOP":[0,1,2]}': the close-ups of THIS section (tools/make_film.js)
+  const hv = arg('groups') ? JSON.parse(arg('groups')) : (CUT_RZ && CUT_RZ.halves);
   if (!hv) return null;
   const zv = Coords.makeView(Coords.zoomCfg(baseCfgFor(0), Z, pageT0Of(0)));
   const MH = Math.round(H * Z);
   // [PLAN 2h.7.1 — 2026-09-17] a --parts subset can leave a half with no drawn part (Vn1 + Va: both V-BOT): skip it here, fail only if a cut uses it
-  const ext = Object.entries(hv).map(([name, ps]) => {
+  const ext = Object.entries(hv).filter(([, ps]) => Array.isArray(ps)).map(([name, ps]) => {
     const ss = zv.systems.filter(s => ps.includes(s.part));
     if (!ss.length) return null;
     return { name, top: Math.min(...ss.map(s => s.yTopPx)), bot: Math.max(...ss.map(s => s.yBotPx)) };
@@ -349,10 +399,20 @@ const HALVES = (() => {
     out[e.name] = { lo: above.length ? Math.ceil(Math.max(...above.map(s => s.yBotPx))) : 0, hi: below ? Math.ceil(e.bot) : MH,
       y0: Math.round((e.top + e.bot) / 2 - H / 2), top: e.top, bot: e.bot };
   });
+  // [the Switch~ piece §468] A FRAMED CLOSE-UP: { rows: [a, b], at: y, paste: [c, d], pasteAt: y2 } — the master's rows a … b stand at y, and rows c … d (the ELEC lane) at y2; the rest is paper
+  Object.entries(hv).filter(([, v]) => !Array.isArray(v)).forEach(([name, v]) => { out[name] = v; });
   return out;
 })();
 function cropHalf(px, h) {
   const rowBytes = W * 4, MH = px.length / rowBytes, out = Buffer.alloc(H * rowBytes, 255);
+  if (h.rows) {
+    const put = (a, b, y) => { for (let r = a; r < b && r < MH; r++) { const q = y + r - a; if (q >= 0 && q < H) out.set(px.subarray(r * rowBytes, (r + 1) * rowBytes), q * rowBytes); } };
+    put(h.rows[0], h.rows[1], h.at);
+    // the gutter (clefs and names) keeps only the group's own: a neighbor's clef reaches further than its staff
+    if (h.gutter) for (let y = h.at; y < h.at + h.rows[1] - h.rows[0] && y < H; y++) if (y < h.gutter.rows[0] || y >= h.gutter.rows[1]) out.fill(255, y * rowBytes, y * rowBytes + h.gutter.x * 4);
+    if (h.paste) put(h.paste[0], h.paste[1], h.pasteAt);
+    return out;
+  }
   for (let y = 0; y < H; y++) {
     const sy = h.y0 + y;
     if (sy < h.lo || sy >= h.hi || sy < 0 || sy >= MH) continue;

@@ -139,6 +139,7 @@
 
 <script src="/notation/lib/coords.js"></script>
 <script src="/notation/lib/rules.js"></script>
+<script src="/notation/lib/elec_wave.js"></script>
 <script src="/notation/lib/fit.js"></script><!-- [LGMF 2e.4] the ladder's fit: the frame's lane boxes --><!-- [LGMF 2e.1] the engraving rules: container.json's pointers compiled from rules.json -->
 <script src="/notation/lib/stamps.js"></script>
 <script src="/notation/lib/chord_column.js"></script>
@@ -886,6 +887,12 @@
       state.furniture = null;
       svg = svg.replace('</svg>', metaOverlaySvg(view) + endBar + '</svg>');
       $('sheet').innerHTML = svg;
+      // [§468] THE ELEC LANE'S WAVEFORM (bank/elec_wave.json; the look is rules.json objects.elecWave): asked for once, added after the page is drawn
+      if (state.rules && state.rules.objects && state.rules.objects.elecWave) {
+        state.elecWaveP = state.elecWaveP || fetch('/bank/elec_wave.json', { cache: 'no-store' }).then(r => (r.ok ? r.json() : null)).catch(() => null);
+        const waveTok = furnTok;
+        state.elecWaveP.then(w => { if (!w || state.furnTok !== waveTok) return; const pg = $('sheet').querySelector('svg'); if (pg) pg.insertAdjacentHTML('beforeend', NotationElecWave.svg(view, w, state.rules.objects.elecWave)); });
+      }
       if (FURN) fetch('/api/notation/furniture?page=' + encodeURIComponent(FURN) + '&t0=' + view.window[0] + '&span=' + (view.window[1] - view.window[0]) + '&w=' + (W / Z)).then(r => r.json()).then(fr => {
         if (state.furnTok !== furnTok) return;   // another page has been drawn since
         if (!fr.success) { $('err').textContent = 'furniture: ' + fr.error; return; }
