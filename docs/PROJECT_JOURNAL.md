@@ -61,6 +61,12 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+### 2026-11-23 — THE FIRST BALANCE IS IN THE MIX PROJECT (PLAN § 2r step 5, RUNNING_LOG §459) — ► NEXT: STEP 6, HIS EARS
+
+- **DONE:** every stem measured, its fader set; one rising ladder of dynamics; the sine tones kept matched to their players; the level line per section on INSTRUMENTS; the ELEC bus −26.21 dB; the master +7.47 dB (mix peak −1 dB). Read back in Reaper. The card: `docs/DEMO_MIX_CARD.md`. Reaper is open on the mix project.
+- **NOT CHECKED:** nobody has listened. The electronics may read as too quiet (players about 20 dB further above them than in the rack); the ELEC bus fader is the one control.
+- **THE NEXT CONCRETE STEP:** his listen in Reaper, then his word on what to move. **FROM NOW ON THE PROJECT MAY HOLD HIS FADERS: never run `build_mix.js --force` on it** without his word; a change goes through the bridge.
+
 ### 2026-11-23 — THE ELECTRONICS ARE STEMS, IN THE MIX PROJECT (PLAN § 2r step 4, RUNNING_LOG §458) — ► NEXT: STEP 5, THE FIRST BALANCE
 
 - **DONE:** `node tools/elec_stems.js --score piece-FirstDraft-Final-D-ctptCello` — four electronics lanes + six sine stems (one per player's lane), rendered offline through the engine's own code, DRY (before its master bus), on `H:/…/<save>/elec/`; list `midi/<save>/elec_stems.json`. The mix project rebuilt and reloaded: 260 tracks, opened in Reaper on it.

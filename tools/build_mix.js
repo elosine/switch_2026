@@ -59,36 +59,44 @@ const guid = () => '{' + crypto.randomUUID().toUpperCase() + '}';
 const q = s => '"' + String(s).replace(/"/g, "'") + '"';
 const col = ([r, g, b]) => 0x1000000 | (b << 16) | (g << 8) | r;
 
+// step 5 (tools/mix_balance.js): the faders, the level line on INSTRUMENTS, the master; absent = every fader at 0 dB
+const balFile = path.join(dir, 'mix_balance.json');
+const bal = fs.existsSync(balFile) ? JSON.parse(fs.readFileSync(balFile, 'utf8')) : null;
+const stemDb = n => { const s = bal && bal.stems.find(x => x.n === n); return s ? s.faderDb : 0; };
+const elecDb = name => { const s = bal && bal.elecFaders.find(x => x.name === name); return s ? s.faderDb : 0; };
+const amp = db => Math.pow(10, db / 20).toFixed(8);
 const rows = [];
-rows.push({ name: 'INSTRUMENTS', level: 0, color: [170, 170, 170] });
+rows.push({ name: 'INSTRUMENTS', level: 0, color: [170, 170, 170], line: bal ? bal.instrumentsLine : null });
 for (const ins of INSTRUMENTS) {
   const mine = stems.filter(s => owns(ins, s.track));
   if (!mine.length) continue;
   rows.push({ name: ins.name, level: 1, color: ins.color, collapsed: true });
   for (const s of mine) {
-    rows.push({ name: s.name, level: 2, color: ins.color, item: { pos: s.at, len: s.len, name: s.name, kind: 'WAVE', file: s.file } });
+    rows.push({ name: s.name, level: 2, color: ins.color, db: stemDb(s.n), item: { pos: s.at, len: s.len, name: s.name, kind: 'WAVE', file: s.file } });
     rows.push({ name: 'MIDI - ' + s.name, level: 2, color: ins.color, midi: true,
       item: { pos: 0, len: end, name: 'MIDI - ' + s.name, kind: 'MIDI', file: path.join(ROOT, planBy.get(s.n).file) } });
   }
 }
-rows.push({ name: 'ELEC', level: 0, color: [100, 100, 100] });
+rows.push({ name: 'ELEC', level: 0, color: [100, 100, 100], db: bal ? bal.elecBusDb : 0 });
 const elecFile = path.join(dir, 'elec_stems.json');   // step 4 (tools/elec_stems.js): the four lanes and the sine tones; absent = the four lanes empty
 if (fs.existsSync(elecFile)) {
   for (const s of JSON.parse(fs.readFileSync(elecFile, 'utf8')).stems) {
     if (!fs.existsSync(s.file)) { console.error('audio missing: ' + s.file); process.exit(1); }
-    rows.push({ name: s.name, level: 1, color: s.kind === 'sine' ? [130, 150, 170] : [100, 100, 100], item: { pos: s.at, len: s.len, name: s.name, kind: 'WAVE', file: s.file } });
+    rows.push({ name: s.name, level: 1, color: s.kind === 'sine' ? [130, 150, 170] : [100, 100, 100], db: elecDb(s.name), item: { pos: s.at, len: s.len, name: s.name, kind: 'WAVE', file: s.file } });
   }
 } else for (let i = 1; i <= 4; i++) rows.push({ name: 'Elec ' + i, level: 1, color: [100, 100, 100] });
 
-const out = ['<REAPER_PROJECT 0.1 "7.82/win64" ' + Math.floor(Date.now() / 1000) + ' 0', '  SAMPLERATE 48000 0 0', '  TEMPO 60 4 4 0'];
+const out = ['<REAPER_PROJECT 0.1 "7.82/win64" ' + Math.floor(Date.now() / 1000) + ' 0', '  SAMPLERATE 48000 0 0', '  TEMPO 60 4 4 0', '  MASTER_VOLUME ' + amp(bal ? bal.masterDb : 0) + ' 0 -1 -1 1'];
 rows.forEach((r, i) => {
   const next = i + 1 < rows.length ? rows[i + 1].level : 0;
   const d = next - r.level;
   const isbus = d > 0 ? '1 1' : d < 0 ? '2 ' + d : '0 0';
-  out.push('  <TRACK ' + guid(), '    NAME ' + q(r.name), '    PEAKCOL ' + col(r.color), '    VOLPAN 1 0 -1 -1 1',
+  out.push('  <TRACK ' + guid(), '    NAME ' + q(r.name), '    PEAKCOL ' + col(r.color), '    VOLPAN ' + amp(r.db || 0) + ' 0 -1 -1 1',
     '    MUTESOLO ' + (r.midi ? 1 : 0) + ' 0 0', '    SHOWINMIX ' + (r.midi ? 0 : 1) + ' 0.6667 0.5 1 0.5 0 0 0');
   if (r.midi) out.push('    TRACKHEIGHT 24 0 0 0 0 0');
   out.push('    ISBUS ' + isbus, '    BUSCOMP ' + (r.collapsed ? 2 : 0) + ' 0 0 0 0', '    NCHAN 2', '    MAINSEND 1 0', '    TRACKID ' + guid());
+  if (r.line) out.push('    <VOLENV2', '      EGUID ' + guid(), '      ACT 1 -1', '      VIS 1 1 1', '      LANEHEIGHT 0 0', '      ARM 0', '      DEFSHAPE 0 -1 -1',
+    ...r.line.map(([t, db]) => '      PT ' + t.toFixed(6) + ' ' + amp(db) + ' 0'), '    >');
   if (r.item) {
     out.push('    <ITEM', '      POSITION ' + r.item.pos.toFixed(6), '      LENGTH ' + r.item.len.toFixed(6), '      NAME ' + q(r.item.name),
       '      IGUID ' + guid(), '      GUID ' + guid(), '      <SOURCE ' + r.item.kind, '        FILE ' + q(r.item.file), '      >', '    >');

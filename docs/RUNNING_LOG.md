@@ -6469,3 +6469,18 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **THE MIX PROJECT REBUILT** after checking Reaper showed no unsaved change and the file was still the tool's own; reloaded, 260 tracks.
 **NOT CHECKED:** nobody has listened; the render was not compared against the live engine's output. The four lanes each peak near −1 dB, so their sum can pass 0 dB until step 5's faders and the master.
 **NEXT (not built):** step 5, the measurement and the first balance.
+
+## §459 · 2026-11-23 · the demo recording — step 5: the first balance, by measurement, in the mix project
+
+**Prompted by:** his "yes pls" to going on to the first balance (PLAN § 2r step 5; his requirements SW-166 · SW-167).
+**MEASURED:** `node tools/mix_measure.js --score <save>` (54 s) — every note of every stem, its loudest 400 ms, K-weighted, the stem's middle value; the four material lanes summed, their usual level per section (at or under it 75 % of the time they sound).
+**WHAT THE PLAN'S TARGET GAVE, AND WHY IT WAS CHANGED:** "the middle of the stems at that dynamic" fell out of order: ppp −33.7 · pp −32.1 · p −38.5 · mp −26.4 · mf −27.5 · f −34.4 · ff −31.0 · fff −32.0. The cause is who plays each mark. ppp, pp, mp and mf are ONE stem each (the piano, which sits hot), ff is seven, while p, f and fff are 33 … 36 stems across the whole ensemble. Applied as written, a ppp in the solo would have sounded louder than a p.
+**DECIDED (the AI's, by his standing rule that the volume is the AI's, §159):** ONE RISING LADDER. The plan's middle is kept for p (−38.46), f (−34.37) and fff (−31.95); the other five are read off the straight lines through those three. Rejected: pooling the out-of-order marks (it flattens the dynamics to nearly one level) · a fixed 4 dB a step (it would move almost every stem far from where it stands, for a contrast nobody asked for). The ladder spans 9.2 dB from ppp to fff; the piano's own span was 10.7.
+**THE SHAPED LONG NOTES** have no written dynamic: the six are leveled among themselves (−27.87).
+**THE SINE TONES MOVE WITH THEIR PLAYERS:** the beating depends on the tone and the long note being matched. So each sine keeps the level it had against its player's long note in the rack (ELEC RETURN's −5 dB counted), and the "usual level of the electronics" is measured on the four material lanes alone.
+**THE LEVEL LINE:** the section's lowest dynamic 3 dB above the electronics' usual level. Players against the electronics: sine section +14.34 · solo +25.20 · counterpoint +24.63 · phase section +26.21 dB. Built as the ELEC bus at −26.21 dB and a line on INSTRUMENTS at or under 0 dB (−11.87 · −1.01 · −1.58 · 0), so no fader or envelope runs past its range; each step is a one-second ramp in the gap before its section.
+**THE MASTER:** the whole mix summed in the tool, peak −8.47 dB at 243.45 s, master +7.47 dB for a peak of −1 dB.
+**THE LARGEST MOVES:** the violin's staccato −14 … −15 dB (390 notes at f, the one real outlier) · the china scrape and the flute's tongue ram up to +11.9 dB.
+**APPLIED AND READ BACK IN REAPER:** the project rebuilt (it had no unsaved change), reloaded: 94 faders moved (87 stems · the ELEC bus · six sines), the line's four values, the master, each as computed. The card: `docs/DEMO_MIX_CARD.md`.
+**NOT CHECKED:** nobody has listened. **THE RISK, plainly:** his 3 dB rule puts the players about 20 dB further above the electronics than the rack had them, because the electronics are mastered files and the softest written notes are far below them. The electronics may read as too quiet; the ELEC bus fader is the one control for it.
+**NEXT:** step 6, his ears.
