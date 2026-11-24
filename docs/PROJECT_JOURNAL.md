@@ -63,6 +63,8 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 
 ### 2026-11-23 — HIS MIX IS UNDER WAY (PLAN § 2r step 6, RUNNING_LOG §460 · §461)
 
+- **§466 THE MASTER:** fader +7.47, with a line of 0 · -4 dB from 200 s · -6 dB from 277.8 s (net +7.47 · +3.47 · +1.47). This carries out his note of §465.
+
 - **§465 HIS LEVELS, THE FIRST TWO SECTIONS DONE:** SINES +3 · ELEC -13 · the piano -2.2 dB for the solo, 0 dB from 200 s · INSTRUMENTS fader 0 · master +7.47. **HIS NOTE, NOT YET ACTED ON:** the whole volume should come down for the last two sections (from 200 s).
 
 - **§464 THE COUNTERPOINT IS BALANCED NOTE BY NOTE** (`tools/ctpt_balance.js`; gains on the audio items as take volume lines; every stem fader at 0 dB; his INSTRUMENTS -6 dB kept; the copy before it `…-mix.before-464.rpp`). **► NEXT: his listen to 200 … 253 s.** The phase section still has the old §459 gains on those lines.

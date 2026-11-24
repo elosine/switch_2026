@@ -6536,3 +6536,10 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **DONE:** the piano's line from 200 s set to 0 dB. The solo stays at his -2.2. Project saved.
 **SETTLED BY HIS WORD:** the sine-tone section and the piano solo are DONE for the demo.
 **HIS NOTE, NOT ACTED ON:** the whole volume needs to come down for the last two sections (the counterpoint, 200 ... 253 s, and the phase section, 277.8 ... 480 s).
+
+## §466 · 2026-11-23 · the demo recording — the master steps down for the last two sections
+
+**His words:** *"the penultimate section, everything should come down 4 dB. It's already messed with the master fader there, so you can put it back. I think it was at 7.47, but it's got to come down to, I guess, 3.47, and then the final section all together 6 dB, so whatever, 1.47."*
+**READ:** the master fader stood at +4.00 dB (his move while listening). Put back to +7.47.
+**DONE:** a volume line on the master: 0 dB to 199 s, -4 dB from 200 s, -6 dB from 277.8 s, each step a one-second ramp before its section. So the master is +7.47 for the first two sections, +3.47 for the counterpoint, +1.47 for the phase section. Read back in Reaper; project saved.
+**NOTE:** the master's fader now moves the whole piece, the steps riding on it.
