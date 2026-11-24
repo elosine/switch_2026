@@ -61,6 +61,11 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+### 2026-11-23 — HIS MIX IS UNDER WAY (PLAN § 2r step 6, RUNNING_LOG §460 · §461)
+
+- **THE LIVE PROJECT IS NOW THE TRUTH, not `build_mix.js`:** his ELEC fader −19.65 dB · a SINES folder (0 dB) with each sine set equal to its player's partial (`tools/sine_match.js`) · Realphones ON in the Monitoring FX. All of it is in the saved project. **`build_mix.js --force` would erase it: never run it here.** Changes go through the bridge (`REAPER_PROJECT=piece-FirstDraft-Final-D-ctptCello-mix`).
+- **NOT CHECKED:** the beating not yet listened to. The violin and the cello match least well over a note.
+
 ### 2026-11-23 — THE FIRST BALANCE IS IN THE MIX PROJECT (PLAN § 2r step 5, RUNNING_LOG §459) — ► NEXT: STEP 6, HIS EARS
 
 - **DONE:** every stem measured, its fader set; one rising ladder of dynamics; the sine tones kept matched to their players; the level line per section on INSTRUMENTS; the ELEC bus −26.21 dB; the master +7.47 dB (mix peak −1 dB). Read back in Reaper. The card: `docs/DEMO_MIX_CARD.md`. Reaper is open on the mix project.
