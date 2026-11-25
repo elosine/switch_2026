@@ -166,5 +166,17 @@ for (const [name, layers] of GROUPS) {
   const n = {}; ev.forEach(e => n[e.k] = (n[e.k] || 0) + 1);
   console.log('the solo          ' + Object.entries(n).map(([k, c]) => c + ' ' + k).join(' · '));
 }
+// ---------------------------------------------------------------- THE GRAINS (§536; his SW-170, "yes, try B4 on one rope")
+// A granular bed's grains as they sounded (tools/grain_list.py → bank/grains/<bed>-seed1.json), moved onto the score's clock by the brick that
+// plays the bed: score t = the brick's start + (the bed's t − its offset), only while the brick sounds. Each: [t, player, hit, ratio, length, dB, pan].
+out.grains = [];
+for (const b of bricks) {
+  const m = /^granular-([A-Z]\d+)-/.exec(b.elec.name); if (!m) continue;
+  const gf = path.join(ROOT, 'bank', 'grains', m[1] + '-seed1.json'); if (!fs.existsSync(gf)) continue;
+  const G = JSON.parse(fs.readFileSync(gf, 'utf8')), off = (+b.elec.offsetMs || 0) / 1000, list = [];
+  for (const g of G.grains) { const ts = b.startTime + g[0] - off; if (ts >= b.startTime && ts <= b.endTime) list.push([r3(ts), g[1], g[2], g[3], g[4], g[5], g[6]]); }
+  out.grains.push({ bed: m[1], lane: b.layer - 7, t0: r3(b.startTime), t1: r3(b.endTime), players: G.players, list });
+  console.log(('grains ' + m[1]).padEnd(18) + 'Elec ' + (b.layer - 7) + ' · ' + list.length + ' grains · ' + b.startTime.toFixed(1) + ' … ' + b.endTime.toFixed(1) + ' s');
+}
 fs.writeFileSync(path.join(ROOT, 'bank', 'video_data.json'), JSON.stringify(out));
 console.log('→ bank/video_data.json (' + (fs.statSync(path.join(ROOT, 'bank', 'video_data.json')).size / 1024).toFixed(0) + ' KB)');

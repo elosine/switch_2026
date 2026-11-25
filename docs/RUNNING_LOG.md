@@ -6948,3 +6948,9 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 ## §535 — 2026-11-25 — his note for a future visual sandbox (SW-171)
 
 - His note verbatim in COMPOSITION_NOTES SW-171: a counterpoint audio part derived from the piece; non-humanoid characters that take dancers' shapes; a choreography shape to shape, accented by the counterpoint part — "not like a visualizer … a counterpoint to the music". Recorded only; nothing built, nothing decided.
+
+## §536 — 2026-11-25 — the video workshop: B4's grains on one rope
+
+- His word: *"yes, try B4 on one rope"* (§534's proposal).
+- `tools/grain_list.py` (new): walks granular_bed.py's SAME random draws in the same order with the same seed — scatter, length, pitch, envelope, level, pan, gap — and the same head (the hits' LENGTHS read from the hit files decide when it moves on), writing no audio, only the list → `bank/grains/B4-seed1.json`. It imports the recipes and the head from the engine's own file (read only). CHECKED: 9 537 grains over 55 hits — the manifest's own count, exactly. `tools/video_data.js` puts a bed's grains on the score's clock by its brick (score t = the brick's start + the bed's t − its offset): B4 on Elec 2, 4 761 grains, 147.0 … 266.5 s.
+- The page: an electronics lane's rope is the session player that lane carried in the opening (Elec 2 → the archtop rope). Each grain lands at its PAN along that rope (the length is the stereo field, left end the left speaker) and OPENS the tumbleweed there — it grows by 1.6 x its level ÷ √pitch (higher, smaller) and falls back over 4 x the grain's length (the grain's percussive shape, slowed for the eye), brighter by its level; a small tap on the rope there (260); when the head moves on to the next hit, a broad swell along the rope (700). Knobs in "Grains". The data checked loading (B4, lane 2, 4 761 grains; rope 0 the archtop); not seen moving — the AI's pane was hidden.

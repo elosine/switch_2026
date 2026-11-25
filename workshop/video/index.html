@@ -119,6 +119,13 @@ const KNOBS = [
     ['settle', 'Settle at rest (how soon the leftovers die away)', 0, 3, 0.01, 0.03],
     ['soloPull', 'In the solo: ends pulled apart (+) or brought closer (−)', -150, 150, 1, -45],
     ['freeEnds', 'Ends slide on a pole (1 = free, 0 = pinned)', 0, 1, 0.01, 1],
+  ]],
+  ['Grains — the granular bed on its electronics rope (B4 on the archtop rope for now)', [
+    ['grainBloom', 'A grain opens its tumbleweed (how much)', 0, 4, 0.05, 1.6],
+    ['grainHold', 'How long it stays open (× the grain)', 0.5, 20, 0.5, 4],
+    ['grainGlow', 'A grain brightens its tumbleweed', 0, 1, 0.01, 0.6],
+    ['grainKick', 'A grain taps the rope where it lands', 0, 1500, 10, 260],
+    ['grainSwell', 'The head moves to the next hit: a swell along the rope', 0, 3000, 10, 700],
     ['loopiness', 'A pulse is a loop (its sideways turn)', 0, 1.5, 0.01, 0.7],
     ['kick', 'Kick strength', 0, 3000, 10, 900],
     ['kickRate', 'Random kicks per rope per second', 0, 4, 0.05, 0],
@@ -318,6 +325,35 @@ function kick(r, at, strength) {
   }
 }
 
+// ------------------------------------------------------------------ THE GRAINS (§536 — his SW-170: "the length of the rope correspond to the
+// spatialization … correspond each node, so each shifting polygon there, to some of the grain behavior"; "yes, try B4 on one rope")
+// Each grain of a bed (bank/video_data.json grains, as it sounded) lands on its lane's electronics rope at its PAN — the rope's length is the
+// stereo field, left end the left speaker — and OPENS the tumbleweed there: a snap, then a fall over the grain's length × grainHold (the
+// grain's own percussive shape, slowed for the eye); smaller for a higher pitch; brighter for a louder grain; a small tap on the rope there.
+// When the read head moves on to the next hit, a broad swell runs along the rope.
+const LANE_ROPE = { 1: 3, 2: 0, 3: 1, 4: 2 };   // an electronics lane's rope: the session player that lane carried in the opening (Elec 2 the archtop …)
+const grainPtr = {};
+function grainsFrame(t0, t1, jumped) {
+  if (!D || !D.grains) return;
+  for (const G of D.grains) {
+    const r = ropes[LANE_ROPE[G.lane]]; if (!r) continue;
+    let i = grainPtr[G.bed] ?? 0;
+    if (jumped || i > G.list.length || (i > 0 && G.list[i - 1][0] > t1)) { i = 0; while (i < G.list.length && G.list[i][0] <= t1) i++; grainPtr[G.bed] = i; continue; }
+    let lastHit = r.lastHit;
+    while (i < G.list.length && G.list[i][0] <= t1) {
+      const [tg, pl, hit, ratio, len, db, pan] = G.list[i++]; if (tg <= t0) continue;
+      const j = Math.max(0, Math.min(r.n - 1, Math.round((pan + 1) / 2 * (r.n - 1)))), w = r.weeds[j];
+      const lv = Math.pow(10, db / 20);                                      // 0.79 … 1.26
+      const amp = S.grainBloom * lv / Math.sqrt(ratio);                       // higher pitch, smaller
+      w.gAmp = Math.max(w.gAmp || 0, amp); w.gTau = Math.max(0.06, len * S.grainHold); w.gGlow = Math.max(w.gGlow || 0, S.grainGlow * lv);
+      if (S.grainKick) kick(r, j, S.grainKick * lv * 0.5);
+      if (lastHit != null && hit !== lastHit && S.grainSwell) { const save = S.kickWidth; S.kickWidth = r.n / 3; kick(r, (r.n - 1) / 2, S.grainSwell); S.kickWidth = save; }
+      lastHit = hit;
+    }
+    r.lastHit = lastHit; grainPtr[G.bed] = i;
+  }
+}
+
 // ------------------------------------------------------------------ THE PIANO SOLO'S CHAIN (§529 — his SW-169: "one long rope … daisy chain … always
 // from left to right … a bounce … from the very end of the whole … the pulse is based on all the things from the piano")
 // One long string made of every rope end to end: the ensemble piano rope first, then the others from the top of the frame down. A 1-D wave
@@ -411,6 +447,7 @@ function tick(now) {
       if (S.accentKick) kick(r, R(live, 3, r.n - 4), S.accentKick * hn);
     }
   }
+  if (playing) grainsFrame(tPrev, tNow, jump);
   tPrev = tNow;
   // the stirred air: each shown rope's activity, 0 … 1 — a cranked rope its turning against the fastest, a shaken one its shaking times its size
   { let a = 0, nShown = 0;
@@ -447,6 +484,11 @@ function tick(now) {
       let cy = 0, cz = 0; if (soloK > 0 && r.off != null && uy) { const e = ((1 - S.freeEnds) * Math.min(1, 3 * Math.sin(Math.PI * j / (r.n - 1))) + S.freeEnds) * soloK; cy = uy[r.off + j * WK] * e; cz = uz[r.off + j * WK] * e; }   // [§530] ends free: the pulse passes through them
       const w = r.weeds[j], x = r.q[3 * j] + (r.p[3 * j] - r.q[3 * j]) * al, y = r.q[3 * j + 1] + (r.p[3 * j + 1] - r.q[3 * j + 1]) * al + cy, z = r.q[3 * j + 2] + (r.p[3 * j + 2] - r.q[3 * j + 2]) * al + cz;
       w.mesh.position.set(x, y, z); lp[3 * j] = x; lp[3 * j + 1] = y; lp[3 * j + 2] = z;
+      if (w.gAmp) {                                                          // [§536] a grain's bloom: open, then fall
+        w.mesh.scale.setScalar(1 + w.gAmp); w.mesh.material.opacity = Math.min(1, S.opacity * r.ch.op * (1 + w.gGlow));
+        const k = Math.exp(-dt / w.gTau); w.gAmp *= k; w.gGlow *= k;
+        if (w.gAmp < 0.01) { w.gAmp = 0; w.gGlow = 0; w.mesh.scale.setScalar(1); w.mesh.material.opacity = S.opacity * r.ch.op; }
+      }
       if (w.to) {
         w.k = Math.min(1, w.k + 1 / Math.max(1, S.morph * r.ch.morph)); const e = w.k * w.k * (3 - 2 * w.k);
         for (let m = 0; m < w.pos.length; m++) w.pos[m] = w.from[m] + (w.to[m] - w.from[m]) * e;
