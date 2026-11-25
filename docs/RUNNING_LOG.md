@@ -6748,3 +6748,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 ## §499 · 2026-11-24 · the instructions: the bowed crotales
 
 **His words:** *"The bowed crotales will hold their pitch, the sine tone is changing pitch and will create beating against the held pitch in the bowed crotales."* — set as *The bowed crotales hold their pitch. The sine tone changes pitch and creates beating against the held pitch of the bowed crotales.* (his sentence in the present tense, split in two), replacing the AI's line.
+
+## §500 · 2026-11-24 · the instructions: no section numbers
+
+**His words:** *"Can you take out all the section 1, section 2, anytime we refer to a section? We don't need to do that."* — the four headings lose their "(Section …)"; "In section one," goes; "The final section consists of …" becomes *Every part plays a steady pulse, each in its own changing tempo. Each part's tempo is marked in its own lane …* (no "your", his §496 wish); "The section is f throughout" becomes *The dynamic is f throughout*; the two notes at the bottom named by their material. The quoted words of earlier pages are left verbatim.
