@@ -27,6 +27,16 @@
     if (!lane) return '';
     const P = wave.peaks, R = wave.rate, F = wave.full;
     const peak = (a, b) => { let p = 0; for (let k = Math.max(0, Math.floor(a * R)), e = Math.min(P.length, Math.max(k + 1, Math.ceil(b * R))); k < e; k++) if (P[k] > p) p = P[k]; return p / F; };
+    // [§486 — his "lets try bars if we have to reprint the film"] style 'bars' (his E): one bar every rule.barSeconds, a gap between, mirrored round the lane's middle
+    if (rule.style === 'bars') {
+      const t0 = view.window[0], t1 = view.window[1], mid = (lane.yTopPx + lane.yBotPx) / 2, half = (lane.yBotPx - lane.yTopPx) / 2 * rule.heightFrac, bs = rule.barSeconds || 0.1, out = [];
+      for (let a = Math.floor(t0 / bs) * bs; a < t1; a += bs) {
+        const x0 = view.xOfSeconds(Math.max(t0, a)), x1 = view.xOfSeconds(Math.min(t1, a + bs)), w = (x1 - x0) * (1 - (rule.barGapFrac || 0.25));
+        const h = Math.pow(peak(a, a + bs), rule.curve) * half;
+        if (w > 0.2 && h > 0.3) out.push('<rect x="' + x0.toFixed(1) + '" y="' + (mid - h).toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + (2 * h).toFixed(1) + '"/>');
+      }
+      return '<g class="elec-wave elec-wave-bars" fill="' + rule.color + '">' + out.join('') + '</g>';
+    }
     // [§473 — his "lets try the outline"] style 'outline' (his B): the same shape, its edge only
     if (rule.style === 'outline') return '<path class="elec-wave elec-wave-outline" d="' + shape(view, lane, rule, peak, 1) + '" fill="none" stroke="' + rule.color + '" stroke-width="' + rule.strokePx + '" stroke-linejoin="round"/>';
     if (rule.style !== 'peakBody') return '<path class="elec-wave" d="' + shape(view, lane, rule, peak, 1) + '" fill="' + rule.color + '" stroke="none"/>';

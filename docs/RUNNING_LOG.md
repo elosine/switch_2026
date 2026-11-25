@@ -6680,3 +6680,8 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **THE WAVEFORM:** `tools/elec_wave.js` now reads each folder's own volume line too (ELEC's last-section step, §475), then `bank/elec_wave.json` remade; drawn as the outline (§473).
 **THE PRINT:** `print/score/Multiplicity-score.pdf` — 2 front pages + 51 of music (the counterpoint 5 pages, was 6); every change since §471 in it: the outline, the curves behind the notation, no bar but the final double, crotales (bowed), the pizz. centered and ord. in three figures, the overpressure's go line and curve, no tempo bar lines, the 8va restated across a page.
 **THE FILM:** `…/film/switch-demo-film3.mp4` — 487.000 s, 14,610 frames, picture and sound equal and from 0, 8.9 minutes; the solo zoomed out throughout, the new bounce under it. Six frames read back.
+
+## §486 · 2026-11-24 · the waveform as bars — ready, used at the next film only
+
+**His words:** *"lets try bars if we have to reprint the film, otherwise we'll leave for now"*.
+**DONE:** `notation/lib/elec_wave.js` draws style `bars` (his E: a bar every 0.1 s, a quarter of each bar's width a gap, mirrored); `rules.json objects.elecWave` carries `barSeconds` · `barGapFrac` and a note `styleNext`. **The style stays `outline`** in the delivered film3 and the print: switch `style` to `bars` only when the film is rendered again.

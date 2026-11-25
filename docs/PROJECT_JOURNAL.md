@@ -66,6 +66,7 @@ reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, 
 - **The current files:** the print `print/score/Multiplicity-score.pdf` (53 pages, 11 x 17) · the film `H:/…/film/switch-demo-film3.mp4` · the bounce `H:/…/bounce/switch-demo-mix2.wav` · the instructions edit sheet `docs/notation_instructions/index.html` · the posting order `docs/submission/POSTING.md` (local). Title: *Multiplicity*.
 - **Known, his to raise:** the phase section's printed pages stay 1 … 6 s short (no moment there where no part is mid-group; a group is never split across pages). The instructions page still has its bracketed gaps and its Notes section.
 - **► NEXT:** his watch of film3 and look at the print; then the instructions; then posting (POSTING.md).
+- **IF THE FILM IS RENDERED AGAIN:** first set `rules.json objects.elecWave.style` to `bars` (his §486), then the print and the film.
 
 ### 2026-11-24 — THE DEMO FILM, SECOND CUT (RUNNING_LOG §469)
 
