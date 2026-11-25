@@ -303,7 +303,8 @@ const inkEndOf = (i, view) => SCREEN_PLAN ? view.window[1] : Math.min(view.windo
 //   · --folio0 N: the first page's number less one, so the four sections of the score number on through one book
 const FOLIO0 = +arg('folio0', 0) || 0;
 const ElecWave = require(path.join(ROOT, 'notation', 'lib', 'elec_wave.js'));
-const ELEC_WAVE = (() => { try { return { wave: JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'elec_wave.json'), 'utf8')), rule: JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'rules.json'), 'utf8')).objects.elecWave }; } catch (e) { return null; } })();
+// [§487 — his "a hold on the print score … we'll put the bars in for when I have the performance notes"] --waveStyle <style>: the print's own waveform style for now (the rule's style is the film's)
+const ELEC_WAVE = (() => { try { const rule = Object.assign({}, JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'rules.json'), 'utf8')).objects.elecWave); if (arg('waveStyle', null)) rule.style = arg('waveStyle', null); return { wave: JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'elec_wave.json'), 'utf8')), rule }; } catch (e) { return null; } })();
 const FURN = ir.layoutPolicy && ir.layoutPolicy.furniture;
 function furniturePrint(view) {
   if (!FURN) return '';

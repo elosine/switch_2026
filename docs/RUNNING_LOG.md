@@ -6685,3 +6685,8 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 
 **His words:** *"lets try bars if we have to reprint the film, otherwise we'll leave for now"*.
 **DONE:** `notation/lib/elec_wave.js` draws style `bars` (his E: a bar every 0.1 s, a quarter of each bar's width a gap, mirrored); `rules.json objects.elecWave` carries `barSeconds` · `barGapFrac` and a note `styleNext`. **The style stays `outline`** in the delivered film3 and the print: switch `style` to `bars` only when the film is rendered again.
+
+## §487 · 2026-11-24 · the waveform as bars in the film; the print held
+
+**His words:** *"Actually, go ahead and switch to bars and reprint the film, please."* · then *"a hold on the print score, and we'll put the bars in for when I have the performance notes and if there's any additional corrections."* · then *"That's okay, then just leave it. We'll reprint it. I just meant you didn't have to reprint it now."*
+**DONE:** `rules.json objects.elecWave.style` = `bars`; the film rendered again as `…/film/switch-demo-film4.mp4` (mix2 under it). The print had been rebuilt with the bars before his hold; the AI added `--waveStyle` to `export_print.js` and `print_book.js` and rebuilt it with the outline, as he had it — his "leave it" came while that ran. **The print in hand now carries the outline;** the next `node tools/print_book.js` (no --waveStyle) draws the bars.

@@ -19,7 +19,8 @@ const FORMAT = arg('format', 'tabloid-landscape');
 const INS = arg('instructions', fs.existsSync(path.join(ROOT, 'docs', 'notation_instructions', 'index.html')) ? 'on' : 'off');
 const SECTIONS = ['s1-sines', 's2-piano-solo-final', 's2-ctpt-heads', 's3-phase'];
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'print-book-'));
-const run = a => { const r = spawnSync(process.execPath, [path.join(__dirname, 'export_print.js'), '--format', FORMAT, ...a], { encoding: 'utf8', cwd: ROOT }); if (r.status !== 0) { console.error(r.stdout + r.stderr); process.exit(1); } return r.stdout; };
+const WAVE = arg('waveStyle', null);   // [§487] the print's waveform style, if not the rule's (the outline until the performance notes)
+const run = a => { const r = spawnSync(process.execPath, [path.join(__dirname, 'export_print.js'), '--format', FORMAT, ...(WAVE ? ['--waveStyle', WAVE] : []), ...a], { encoding: 'utf8', cwd: ROOT }); if (r.status !== 0) { console.error(r.stdout + r.stderr); process.exit(1); } return r.stdout; };
 
 const parts = [];
 // the front matter: the cover, and the instructions when the page exists (drawn with the first section's frame, its music pages dropped)
