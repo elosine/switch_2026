@@ -6769,3 +6769,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 
 - His words: *"since I talked about the [chord] symbol above, you can get rid of that sentence. move the dynamics or relative sentence somewhere, maybe at the top. That's more of a general instruction for the whole piece. And you can get rid of the whole counterpoint section. It's all in the notation."* · *"Take out the tempo mark. That's self-explanatory in the notation. Take out the [dynamic] is f throughout … the number group over [tuplet] … the technical requirements. We'll work all that out if it gets accepted … how to present the electronics … multi-channel … how to sync with the score. But you can leave that out of this presentation first score."*
 - Done: the chord-symbol line gone (his opening paragraph of the solo covers the boxes) · "Dynamics are relative" moved to the top, after the opening paragraph, as a rule for the whole piece · the Counterpoint section gone whole (the technique key included) · Multiple Tempos keeps only its first paragraph (no "your" in it) · Technical Requirements gone — the house, the electronics' format and sync are for after acceptance.
+
+## §504 — 2026-11-24 — the instructions: "ripple marks"
+
+- His word: *"You can use ripple marks."* — "shake marks" replaced on the page. The name for "repeat" still open: he wants *"something like rapid repeat, but that conveys the pecking more"*; not "peck", not "rattle repeat"; new options given in the chat.
