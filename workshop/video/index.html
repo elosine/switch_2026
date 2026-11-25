@@ -77,6 +77,7 @@ const KNOBS = [
     ['spreadZ', 'Depth spread', 0, 400, 5, 150],
     ['slack', 'Slack (1 = taut)', 1, 1.3, 0.005, 1.04],
     ['seed', 'Layout seed', 1, 99, 1, 7],
+    ['frameY', 'Frame: look lower (−) or higher (+)', -500, 300, 5, -160],
   ]],
   ['Tumbleweeds', [
     ['sizeL', 'Size, smallest', 1, 60, 1, 5],
@@ -103,7 +104,7 @@ const KNOBS = [
     ['kickRate', 'Random kicks per rope per second', 0, 4, 0.05, 0],
     ['kickWidth', 'Kick width (points)', 0.5, 12, 0.5, 4],
   ]],
-  ['Tremolo — ropes 1 … 4 are the four players (the data sets these; the knobs set only the scale)', [
+  ['Tremolo — ropes 1 … 4 are the session’s four players, ropes 5 … 9 the ensemble (the data sets these; the knobs set only the scale)', [
     ['turnMin', 'Slowest turn (turns a second)', 0, 2, 0.05, 0.35],
     ['turnMax', 'Fastest turn (turns a second)', 0.5, 5, 0.05, 2.4],
     ['crankR', 'Crank size', 0, 120, 1, 38],
@@ -113,6 +114,7 @@ const KNOBS = [
     ['ropeAir', 'Jump-rope air (1 = none)', 0.97, 1, 0.001, 0.996],
     ['accentPush', 'Accent push (extra turns a second)', 0, 3, 0.05, 0.8],
     ['accentKick', 'Accent kick', 0, 3000, 10, 250],
+    ['ensPush', 'Ensemble accents: share of the push', 0, 1, 0.01, 0.3],
     ['roomDepth', 'Place in the room → depth', 0, 800, 10, 300],
     ['agitate', 'Busy player → tumbleweeds stir', 0, 1, 0.01, 0.7],
   ]],
@@ -123,6 +125,8 @@ try { Object.assign(S, await (await fetch('/settings')).json()); } catch (e) {}
 // [§519] THE DATA (tools/video_data.js): per player, at D.rate a second of score time — on · speed · depth · hardness · azimuth · accents
 let D = null; try { D = await (await fetch('/data')).json(); } catch (e) {}
 const PLAYER_NAMES = { archtop: 'archtop', 'baritone-guitar': 'baritone guitar', drums: 'drums', piano: 'piano' };
+// [§521] ropes 1 … 4 the session's players (the electronics' tremolo), ropes 5 … 9 the ensemble in five groups (the score's notes)
+const sourceOf = i => !D ? null : i < 4 ? (D.players[i] ? { ...D.players[i], kind: 'session' } : null) : (D.groups && D.groups[i - 4] ? { ...D.groups[i - 4], kind: 'ensemble' } : null);
 const at = (arr, t) => { const x = t * D.rate, i = Math.floor(x); if (i < 0) return arr[0]; if (i >= arr.length - 1) return arr[arr.length - 1]; return arr[i] + (arr[i + 1] - arr[i]) * (x - i); };
 
 // ------------------------------------------------------------------ a seeded random (the layout repeats; the motion is the input's)
@@ -137,7 +141,8 @@ document.getElementById('stage').appendChild(renderer.domElement);
 const scene = new THREE.Scene(); scene.background = new THREE.Color(0x000000);
 const camera = new THREE.PerspectiveCamera(50, 16 / 9, 1, 10000);
 const controls = new OrbitControls(camera, renderer.domElement);
-function homeCamera() { const z = (W / 2) / Math.tan(THREE.MathUtils.degToRad(50) / 2) / (16 / 9) * 1.02; camera.position.set(0, 0, z); controls.target.set(0, 0, 0); controls.update(); }
+// [§521 — his "center it better so the lowest one doesn't hang down below the bottom, and there's not as much black space on the top"]
+function homeCamera() { const z = (W / 2) / Math.tan(THREE.MathUtils.degToRad(50) / 2) / (16 / 9) * 1.02; camera.position.set(0, S.frameY, z); controls.target.set(0, S.frameY, 0); controls.update(); }
 homeCamera();
 const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
@@ -177,7 +182,7 @@ function build() {
   const lay = rng(S.seed), sph = sphereEdges(S.res), pal = PALETTES[S.palette] || PALETTES.dekooning;
   for (let i = 0; i < S.ropes; i++) {
     const y = R(lay, -S.spreadY, S.spreadY), z = R(lay, -S.spreadZ, S.spreadZ), n = S.nodes;
-    const span = W, len = span * (D && D.players[i] ? S.ropeSlack : S.slack), seg = len / (n - 1);
+    const span = W, len = span * (sourceOf(i) ? S.ropeSlack : S.slack), seg = len / (n - 1);
     const p = new Float32Array(3 * n), q = new Float32Array(3 * n);
     // start hanging in a shallow arc so the slack is already taken up
     const sag = Math.sqrt(Math.max(0, (len * len - span * span))) * 0.5;
@@ -194,7 +199,7 @@ function build() {
     // [his "the polygons don't feel part of the rope"] a faint line through the points, the rope's own colour
     const lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(3 * n), 3));
     const line = new THREE.Line(lg, new THREE.LineBasicMaterial({ color: colour, transparent: true, opacity: S.spine })); scene.add(line);
-    ropes.push({ pl: D && D.players[i] ? D.players[i] : null, th: R(lay, 0, Math.PI * 2), w: 0, wT: 0, pullC: 0, pullT: 0, zt: z, ze: z, st: null, p, q, n, seg, y, z, weeds, line, ph: R(lay, 0, Math.PI * 2), ph2: R(lay, 0, Math.PI * 2), timer: Math.round(R(live, S.scrL, S.scrH)) });
+    ropes.push({ pl: sourceOf(i), th: R(lay, 0, Math.PI * 2), w: 0, wT: 0, pullC: 0, pullT: 0, zt: z, ze: z, st: null, p, q, n, seg, y, z, weeds, line, ph: R(lay, 0, Math.PI * 2), ph2: R(lay, 0, Math.PI * 2), timer: Math.round(R(live, S.scrL, S.scrH)) });
   }
 }
 
@@ -258,7 +263,7 @@ function tick(now) {
     r.pullT = playing ? S.pull * sounding * busy : 0;
     if (playing && !jump) for (const a of P.accents) if (a > tPrev && a <= tNow) {
       const hn = 0.5 + 0.5 * Math.max(0, Math.min(1, (hd - 1.5) / 3));
-      r.w += S.accentPush * hn;                                              // an accent PUSHES the crank, like a push on a swing
+      r.w += S.accentPush * hn * (P.kind === 'ensemble' ? S.ensPush : 1);                                              // an accent PUSHES the crank, like a push on a swing
       if (S.accentKick) kick(r, R(live, 3, r.n - 4), S.accentKick * hn);
     }
   }
@@ -298,7 +303,7 @@ function tick(now) {
   bloom.strength = S.bloom; bloom.radius = S.radius; bloom.threshold = S.thresh;
   controls.update(); composer.render();
   const t = audio.currentTime; timeEl.textContent = fmt(t); if (!scrubbing) scrub.value = t;
-  if (frame % 6 === 0) legend.innerHTML = ropes.filter(r => r.pl).map(r => '<div><span style="color:#' + r.line.material.color.getHexString() + '">■</span> ' + PLAYER_NAMES[r.pl.part] + (r.st && r.st.on > 0.05 ? ' · tremolo ' + r.st.sp.toFixed(1) + ' Hz · turning ' + r.w.toFixed(2) + ' a second' : ' · silent') + '</div>').join('');
+  if (frame % 6 === 0) legend.innerHTML = ropes.filter(r => r.pl).map(r => '<div><span style="color:#' + r.line.material.color.getHexString() + '">■</span> ' + (r.pl.kind === 'session' ? 'electronics · ' + PLAYER_NAMES[r.pl.part] : 'ensemble · ' + r.pl.part) + (r.st && r.st.on > 0.05 ? (r.pl.kind === 'session' ? ' · tremolo ' + r.st.sp.toFixed(1) + ' Hz' : ' · busy ' + Math.round((r.st.sp - 2) / 18 * 100) + '%') + ' · turning ' + r.w.toFixed(2) + ' a second' : ' · silent') + '</div>').join('');
   requestAnimationFrame(tick);
 }
 
@@ -322,6 +327,7 @@ panel.addEventListener('input', e => {
   if (id === 'opacity') ropes.forEach(r => r.weeds.forEach(w => w.mesh.material.opacity = S.opacity));
   if (id === 'spine') ropes.forEach(r => r.line.material.opacity = S.spine);
   if (REBUILD.has(id)) build();
+  if (id === 'frameY') homeCamera();
 });
 panel.addEventListener('click', async e => {
   if (e.target.id !== 'save') return;

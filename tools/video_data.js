@@ -75,5 +75,49 @@ for (const part of PLAYERS) {
   out.players.push({ part, on, speed, depth, hardness: hard, azimuth: az, accents });
   console.log(part.padEnd(16) + 'sounds ' + (on.filter(v => v > 0.3).length / RATE).toFixed(0) + ' s · ' + accents.length + ' accents · speed ' + Math.min(...speed.filter(v => v)).toFixed(1) + ' … ' + Math.max(...speed).toFixed(1) + ' Hz');
 }
+// ---------------------------------------------------------------- THE INSTRUMENTS (§521; his "let's do the other five following the instruments")
+// Read from the SCORE, not the audio: the save's notes are exact and the same every time. Five ropes, the ensemble in five groups:
+// the winds (flute · clarinet · alto sax) · the percussion (the battery and the mallets) · the piano · the violin · the cello.
+// Their "speed", like a tremolo's: in Section 1 the BEATING against the sine (the beats a second of the note's own breath, its cents
+// from the sine tone, the sine's pitch from its brick); elsewhere how BUSY the group is (onsets a second over 1.5 s, against the group's own
+// busiest). Their "depth" the written velocity; their accents the notes written f and up (velocity 96+), their hardness the velocity.
+// Kept in the players' shape (speed 2 … 20, depth 0.65 … 1, hardness 1.5 … 4.5) so the page drives them as it drives the tremolo.
+const GROUPS = [['winds', [0, 1, 2]], ['percussion', [3, 4]], ['piano', [5]], ['violin', [6]], ['cello', [7]]];
+const notes = save.objects.filter(o => o.type === 'waveCurve');
+const vel = o => +(o.recVel || o.velAbs || (o.properties && o.properties.parity && o.properties.parity.written) || 80);
+const beatsAt = (o, tt) => {
+  const sn = o.properties && o.properties.sine; if (!sn || !sn.breath) return null;
+  const br = save.objects.find(z => z.id === sn.brick); if (!br || !br.elec) return null;
+  const u = Math.max(0, Math.min(1, (tt - o.startSeconds) / Math.max(0.01, o.endSeconds - o.startSeconds)));
+  const c = sn.breath.fromCents + (sn.breath.toCents - sn.breath.fromCents) * u, fs0 = 440 * Math.pow(2, (+br.elec.midi - 69) / 12);
+  return fs0 * Math.abs(Math.pow(2, c / 1200) - 1);
+};
+out.groups = [];
+for (const [name, layers] of GROUPS) {
+  const mine = notes.filter(o => layers.includes(o.layer)).sort((a, b) => a.startSeconds - b.startSeconds);
+  const rate = new Float32Array(N);
+  for (const o of mine) { const i0 = Math.round((o.startSeconds - 0.75) * RATE), i1 = Math.round((o.startSeconds + 0.75) * RATE); for (let i = Math.max(0, i0); i <= Math.min(N - 1, i1); i++) rate[i] += 1 / 1.5; }
+  const sorted = Array.from(rate).filter(v => v > 0).sort((a, b) => a - b), top = sorted[Math.floor(sorted.length * 0.95)] || 1;
+  const on = [], speed = [], depth = [], hard = [], az = [];
+  let k0 = 0;
+  for (let i = 0; i < N; i++) {
+    const tt = i / RATE;
+    while (k0 < mine.length && mine[k0].endSeconds + 1 < tt) k0++;
+    let sounding = 0, v = 0, beat = null;
+    for (let k = k0; k < mine.length && mine[k].startSeconds <= tt; k++) {
+      const o = mine[k]; if (tt > o.endSeconds + 1) continue;
+      const lvl = tt <= o.endSeconds ? 1 : 1 - (tt - o.endSeconds);       // a second's release after the note
+      sounding = Math.max(sounding, lvl); v = Math.max(v, vel(o) * lvl);
+      const b = tt <= o.endSeconds ? beatsAt(o, tt) : null; if (b != null) beat = Math.max(beat || 0, b);
+    }
+    const busy = beat != null ? Math.min(1, beat / 10) : Math.min(1, rate[i] / top);
+    on.push(r3(sounding)); speed.push(r3(sounding ? 2 + 18 * busy : 0));
+    depth.push(r3(sounding ? 0.65 + 0.35 * Math.min(1, v / 127) : 0)); hard.push(r3(sounding ? 1.5 + 3 * Math.min(1, v / 127) : 0)); az.push(0);
+  }
+  const accents = [];
+  for (const o of mine) if (vel(o) >= 96 && !accents.some(x => Math.abs(x - o.startSeconds) < 0.12)) accents.push(r3(o.startSeconds));
+  out.groups.push({ part: name, on, speed, depth, hardness: hard, azimuth: az, accents });
+  console.log(name.padEnd(16) + 'sounds ' + (on.filter(x => x > 0.3).length / RATE).toFixed(0) + ' s · ' + accents.length + ' accents (f and up) · busiest ' + top.toFixed(1) + ' onsets a second');
+}
 fs.writeFileSync(path.join(ROOT, 'bank', 'video_data.json'), JSON.stringify(out));
 console.log('→ bank/video_data.json (' + (fs.statSync(path.join(ROOT, 'bank', 'video_data.json')).size / 1024).toFixed(0) + ' KB)');
