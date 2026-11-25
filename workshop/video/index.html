@@ -276,6 +276,10 @@ const W = 1600, H = 900;                                // the world's frame: 16
 // by frame on the score's clock, draws each frame at w × h and sends it to the render tool, which encodes them with the recording
 const QS = new URLSearchParams(location.search);
 const RENDER = QS.get('render') ? { t0: +QS.get('t0'), t1: +QS.get('t1'), fps: +(QS.get('fps') || 30), w: +(QS.get('w') || 3840), h: +(QS.get('h') || 2160), warm: +(QS.get('warm') || 6) } : null;
+// [§587] REPEATABLE: in render mode every random draw comes from one seeded sequence, and every chunk of the render starts from the same moment
+// (−6 s) and runs forward through the same steps (drawing nothing until its first frame) — so a chunk begins in exactly the state the last one ended in
+if (RENDER) { let s = 987654321 >>> 0; Math.random = () => { s |= 0; s = s + 0x6D2B79F5 | 0; let q = Math.imul(s ^ s >>> 15, 1 | s); q = q + Math.imul(q ^ q >>> 7, 61 | q) ^ q; return ((q ^ q >>> 14) >>> 0) / 4294967296; }; }
+let NODRAW = false;
 const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: !!RENDER });
 renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
 document.getElementById('stage').appendChild(renderer.domElement);
@@ -964,7 +968,7 @@ function tick(now) {
   // their highest and lowest points, eased slowly, the view moved by the difference (a turned view stays turned)
   let lo = Infinity, hi = -Infinity; for (const r of ropes) if (r.line.visible) for (let j = 0; j < r.n; j += 2) { const y = r.p[3 * j + 1]; if (y < lo) lo = y; if (y > hi) hi = y; }
   if (isFinite(lo)) { const want = (lo + hi) / 2 + S.frameY, dy = (want - controls.target.y) * Math.min(1, dt * 0.6); controls.target.y += dy; camera.position.y += dy; }
-  controls.update(); composer.render();
+  controls.update(); if (!NODRAW) composer.render();
   const t = audio.currentTime; timeEl.textContent = fmt(t); if (!scrubbing) scrub.value = t;
   if (frame % 6 === 0) legend.innerHTML = ropes.filter(r => r.pl).map(r => '<div><span style="color:#' + r.line.material.color.getHexString() + '">■</span> ' + (r.pl.kind === 'session' ? 'electronics · ' + PLAYER_NAMES[r.pl.part] : 'ensemble · ' + r.pl.part) + (r.st && r.st.on > 0.05 ? (r.pl.kind === 'session' ? ' · tremolo ' + r.st.sp.toFixed(1) + ' Hz' : ' · busy ' + Math.round((r.st.sp - 2) / 18 * 100) + '%') + (r.pl.kind === 'ensemble' ? ' · shaking ' + r.sf.toFixed(2) + ' a second' : ' · turning ' + r.w.toFixed(2) + ' a second') : ' · silent') + '</div>').join('');
   requestAnimationFrame(tick);
@@ -1036,12 +1040,14 @@ else {
   window.requestAnimationFrame = () => 0;                                 // tick asks for the next frame itself; here the loop below drives it
   for (const id of ['bar', 'panel', 'legend']) { const el = document.getElementById(id); if (el) el.style.display = 'none'; }
   (async () => {
-    const { t0, t1, fps, warm } = RENDER; let vnow = 0; last = 0;
+    const { t0, t1, fps } = RENDER, excl = QS.get('excl') === '1', from = +(QS.get('from') ?? -6); let vnow = 0; last = 0;
     try {
-      for (let tt = t0 - warm; tt < t0 - 1e-9; tt += 1 / fps) { audio.currentTime = tt; vnow += 1000 / fps; tick(vnow); }   // settle the physics first
+      NODRAW = true; const nWarm = Math.round((t0 - from) * fps);
+      for (let k = 0; k < nWarm; k++) { audio.currentTime = from + k / fps; vnow += 1000 / fps; tick(vnow); }   // [§587] the same steps from −6 s, drawing nothing
+      NODRAW = false;
       await fetch('/render/start', { method: 'POST' });
       for (let k = 0; ; k++) {
-        const tt = t0 + k / fps; if (tt > t1 + 1e-9) break;
+        const tt = t0 + k / fps; if (excl ? tt >= t1 - 1e-9 : tt > t1 + 1e-9) break;
         audio.currentTime = tt; vnow += 1000 / fps; tick(vnow);
         let blob = renderer.domElement.toDataURL('image/jpeg', 0.96); window.__rk = k; window.__rb = blob.length;   // [§586] a text frame (Chrome kept every Blob's memory until it ran out, at frame ~100 as PNG and ~290 as JPEG)   // [§586] JPEG at 0.96: a tenth of a PNG, so Chrome's memory keeps up
         if (k % 15 === 0 && window.gc) window.gc();                         // [§586] free the sent frames' memory as it goes
