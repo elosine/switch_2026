@@ -10,6 +10,14 @@
       "port": 5600
     },
     {
+      "name": "video-workshop",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "tools/video_workshop.js"
+      ],
+      "port": 5660
+    },
+    {
       "name": "sandbox",
       "runtimeExecutable": "node",
       "runtimeArgs": [

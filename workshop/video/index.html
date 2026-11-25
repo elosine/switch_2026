@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video Workshop — Multiplicity</title>
+<!-- THE VIDEO WORKSHOP, step 1 (the Switch~ piece SW-168, RUNNING_LOG §517): double Dutch's look in the browser — the ropes, the tumbleweeds,
+     the bloom, the painters' palettes — with the demo recording and a time slider. Served by tools/video_workshop.js on 5660.
+     The rope is its own (Verlet, fixed step), not Bullet: the same input gives the same motion, so the video can be rendered offline later. -->
+<style>
+  :root { --ink: #ddd; --dim: #888; --panel: rgba(18,18,20,0.92); --line: #333; --accent: #e0b200; }
+  html, body { margin: 0; height: 100%; background: #000; color: var(--ink); font: 13px/1.35 system-ui, sans-serif; overflow: hidden; }
+  #stage { position: fixed; inset: 0; }
+  #bar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; gap: 10px; align-items: center; padding: 8px 12px; background: var(--panel); border-top: 1px solid var(--line); }
+  #bar button { background: #222; color: var(--ink); border: 1px solid #444; border-radius: 4px; padding: 4px 10px; cursor: pointer; }
+  #bar button:hover { border-color: var(--accent); }
+  #time { width: 110px; font-variant-numeric: tabular-nums; }
+  #scrub { flex: 1; }
+  #panel { position: fixed; top: 0; right: 0; bottom: 46px; width: 290px; overflow-y: auto; background: var(--panel); border-left: 1px solid var(--line); padding: 10px 12px; box-sizing: border-box; }
+  #panel.hidden { display: none; }
+  #panel h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--dim); margin: 14px 0 6px; font-weight: 600; }
+  #panel h2:first-child { margin-top: 0; }
+  .row { display: grid; grid-template-columns: 1fr 70px; gap: 2px 8px; align-items: center; margin: 5px 0; }
+  .row label { grid-column: 1 / 3; color: var(--ink); }
+  .row input[type=range] { width: 100%; }
+  .row output { text-align: right; color: var(--dim); font-variant-numeric: tabular-nums; }
+  select { width: 100%; background: #222; color: var(--ink); border: 1px solid #444; padding: 3px; }
+  #save { margin-top: 12px; width: 100%; background: #2a2a2a; color: var(--ink); border: 1px solid #555; padding: 6px; border-radius: 4px; cursor: pointer; }
+  #msg { color: var(--accent); min-height: 1.3em; margin-top: 6px; }
+  .hint { color: var(--dim); font-size: 12px; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div id="stage"></div>
+<div id="panel"></div>
+<div id="bar">
+  <button id="play">Play</button>
+  <span id="time">0:00.0</span>
+  <input id="scrub" type="range" min="0" max="487" step="0.1" value="0">
+  <button id="kick" title="kick every rope once">Kick all</button>
+  <button id="toggle">Knobs</button>
+</div>
+<audio id="audio" src="/audio" preload="auto"></audio>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+// ------------------------------------------------------------------ the palettes, double Dutch's own (sketch 006, ofApp.cpp)
+const PALETTES = {
+  dekooning: [[176,30,7],[196,0,0],[185,103,10],[235,225,136],[21,149,102],[111,166,21],[203,133,28],[224,178,0],[106,150,36]],
+  kandinsky: [[49,47,165],[124,145,252],[134,96,200],[119,115,206],[143,108,53],[176,158,92],[29,21,50],[38,11,22],[165,152,208]],
+  johns:     [[195,14,22],[10,99,225],[244,197,9],[21,133,78],[245,81,0],[120,51,255],[203,50,39],[0,64,190],[251,206,0]],
+  klee:      [[174,42,6],[224,183,54],[44,150,115],[157,122,43],[207,222,195],[204,43,0],[215,157,20],[0,158,95],[198,125,0]],
+  white:     Array(9).fill([255,255,255]),
+};
+const PALETTE_NAMES = { dekooning: 'de Kooning · Seated Woman', kandinsky: 'Kandinsky · yellow-red-blue', johns: 'Jasper Johns · Target', klee: 'Klee · Southern Tunisian Gardens', white: 'white' };
+
+// ------------------------------------------------------------------ the knobs (defaults = sketch 006's numbers where it had them)
+const KNOBS = [
+  ['Ropes', [
+    ['ropes', 'Number of ropes', 1, 9, 1, 9],
+    ['nodes', 'Points per rope', 8, 60, 1, 27],
+    ['spreadY', 'Height spread', 0, 400, 5, 170],
+    ['spreadZ', 'Depth spread', 0, 400, 5, 150],
+    ['slack', 'Slack (1 = taut)', 1, 1.3, 0.005, 1.04],
+    ['seed', 'Layout seed', 1, 99, 1, 7],
+  ]],
+  ['Tumbleweeds', [
+    ['sizeL', 'Size, smallest', 1, 60, 1, 5],
+    ['sizeH', 'Size, largest', 1, 120, 1, 50],
+    ['res', 'Detail (sphere resolution)', 3, 16, 1, 8],
+    ['scrL', 'Re-scramble, soonest (frames)', 5, 200, 1, 30],
+    ['scrH', 'Re-scramble, latest (frames)', 5, 400, 1, 120],
+    ['opacity', 'Line opacity', 0.05, 1, 0.01, 0.75],
+  ]],
+  ['Glow', [
+    ['bloom', 'Bloom strength', 0, 3, 0.01, 0.5],
+    ['radius', 'Bloom radius', 0, 1.5, 0.01, 0.25],
+    ['thresh', 'Bloom threshold', 0, 1, 0.01, 0.35],
+  ]],
+  ['Motion (step 1: kicks at random)', [
+    ['gravity', 'Gravity', 0, 2000, 10, 600],
+    ['damping', 'Damping', 0.9, 1, 0.001, 0.992],
+    ['kick', 'Kick strength', 0, 3000, 10, 900],
+    ['kickRate', 'Kicks per rope per second', 0, 4, 0.05, 0.5],
+    ['kickWidth', 'Kick width (points)', 0.5, 12, 0.5, 4],
+  ]],
+];
+const S = {}; KNOBS.forEach(([, rows]) => rows.forEach(r => S[r[0]] = r[5]));
+S.palette = 'dekooning';
+try { Object.assign(S, await (await fetch('/settings')).json()); } catch (e) {}
+
+// ------------------------------------------------------------------ a seeded random (the layout repeats; the motion is the input's)
+function rng(seed) { let a = seed >>> 0; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const R = (rand, a, b) => a + (b - a) * rand();
+
+// ------------------------------------------------------------------ the scene
+const W = 1600, H = 900;                                // the world's frame: 16:9, the ropes run from -W/2 to W/2
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
+document.getElementById('stage').appendChild(renderer.domElement);
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x000000);
+const camera = new THREE.PerspectiveCamera(50, 16 / 9, 1, 10000);
+const controls = new OrbitControls(camera, renderer.domElement);
+function homeCamera() { const z = (W / 2) / Math.tan(THREE.MathUtils.degToRad(50) / 2) / (16 / 9) * 1.02; camera.position.set(0, 0, z); controls.target.set(0, 0, 0); controls.update(); }
+homeCamera();
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), S.bloom, S.radius, S.thresh);
+composer.addPass(bloom);
+composer.addPass(new OutputPass());
+
+function resize() {
+  const w = window.innerWidth, h = window.innerHeight - 46;
+  renderer.setSize(w, h); composer.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix();
+  renderer.domElement.style.height = h + 'px';
+}
+window.addEventListener('resize', resize);
+
+// ------------------------------------------------------------------ a tumbleweed: a sphere's triangles, its points scattered (ofApp: verts = ctr + random(-rad, rad))
+function sphereEdges(res) {
+  const g = new THREE.SphereGeometry(1, res, Math.max(3, Math.round(res * 0.75)));
+  const idx = g.index.array, n = g.attributes.position.count, seen = new Set(), pairs = [];
+  for (let i = 0; i < idx.length; i += 3) for (const [a, b] of [[idx[i], idx[i + 1]], [idx[i + 1], idx[i + 2]], [idx[i + 2], idx[i]]]) {
+    const k = a < b ? a * 65536 + b : b * 65536 + a; if (!seen.has(k)) { seen.add(k); pairs.push(a, b); }
+  }
+  g.dispose(); return { n, pairs };
+}
+function scramble(pos, n, rad, rand) { for (let k = 0; k < n; k++) { pos[3 * k] = R(rand, -rad, rad); pos[3 * k + 1] = R(rand, -rad, rad); pos[3 * k + 2] = R(rand, -rad, rad); } }
+
+// ------------------------------------------------------------------ the ropes (Verlet: positions now and before; the ends pinned)
+let ropes = [], live = rng(12345);
+function build() {
+  ropes.forEach(r => r.weeds.forEach(w => { scene.remove(w.mesh); w.mesh.geometry.dispose(); w.mesh.material.dispose(); }));
+  ropes = [];
+  const lay = rng(S.seed), sph = sphereEdges(S.res), pal = PALETTES[S.palette] || PALETTES.dekooning;
+  for (let i = 0; i < S.ropes; i++) {
+    const y = R(lay, -S.spreadY, S.spreadY), z = R(lay, -S.spreadZ, S.spreadZ), n = S.nodes;
+    const span = W, len = span * S.slack, seg = len / (n - 1);
+    const p = new Float32Array(3 * n), q = new Float32Array(3 * n);
+    // start hanging in a shallow arc so the slack is already taken up
+    const sag = Math.sqrt(Math.max(0, (len * len - span * span))) * 0.5;
+    for (let j = 0; j < n; j++) { const u = j / (n - 1); p[3 * j] = -W / 2 + span * u; p[3 * j + 1] = y - sag * Math.sin(Math.PI * u); p[3 * j + 2] = z; }
+    q.set(p);
+    const c = pal[i % pal.length], colour = new THREE.Color(c[0] / 255, c[1] / 255, c[2] / 255);
+    const weeds = [];
+    for (let j = 0; j < n; j++) {
+      const pos = new Float32Array(3 * sph.n); scramble(pos, sph.n, R(live, S.sizeL, Math.max(S.sizeL, S.sizeH)), live);
+      const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos, 3)); g.setIndex(sph.pairs);
+      const mesh = new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color: colour, transparent: true, opacity: S.opacity }));
+      scene.add(mesh); weeds.push({ mesh, pos, n: sph.n });
+    }
+    ropes.push({ p, q, n, seg, y, z, weeds, timer: Math.round(R(live, S.scrL, S.scrH)) });
+  }
+}
+
+const STEP = 1 / 120, ITER = 24;
+function stepRope(r, dt) {
+  const { p, q, n } = r, g = S.gravity * dt * dt, d = S.damping;
+  for (let j = 1; j < n - 1; j++) for (let a = 0; a < 3; a++) {
+    const k = 3 * j + a, v = (p[k] - q[k]) * d; q[k] = p[k]; p[k] += v + (a === 1 ? -g : 0);
+  }
+  for (let it = 0; it < ITER; it++) for (let j = 0; j < n - 1; j++) {
+    const a = 3 * j, b = a + 3, dx = p[b] - p[a], dy = p[b + 1] - p[a + 1], dz = p[b + 2] - p[a + 2];
+    const L = Math.hypot(dx, dy, dz) || 1e-6, diff = (L - r.seg) / L;
+    const wa = j === 0 ? 0 : 0.5, wb = j + 1 === n - 1 ? 0 : 0.5, s = wa + wb; if (!s) continue;
+    p[a] += dx * diff * wa / s * (s > 0.5 ? 1 : 1); p[a + 1] += dy * diff * wa / s; p[a + 2] += dz * diff * wa / s;
+    p[b] -= dx * diff * wb / s; p[b + 1] -= dy * diff * wb / s; p[b + 2] -= dz * diff * wb / s;
+  }
+}
+// a kick: a push up and toward the viewer, strongest at a point, falling off either side (double Dutch: addForce(0, 15000, 7500) at node 15)
+function kick(r, at, strength) {
+  const { p, q, n } = r, w = S.kickWidth;
+  for (let j = 1; j < n - 1; j++) {
+    const f = Math.exp(-((j - at) ** 2) / (2 * w * w)) * strength * STEP;
+    q[3 * j + 1] -= f; q[3 * j + 2] -= f * 0.5;
+  }
+}
+
+// ------------------------------------------------------------------ the loop
+let acc = 0, last = performance.now(), frame = 0;
+function tick(now) {
+  const dt = Math.min(0.1, (now - last) / 1000); last = now; acc += dt;
+  while (acc >= STEP) {
+    for (const r of ropes) {
+      if (live() < S.kickRate * STEP) kick(r, R(live, 2, r.n - 3), S.kick * R(live, 0.6, 1.2));
+      stepRope(r, STEP);
+    }
+    acc -= STEP;
+  }
+  frame++;
+  for (const r of ropes) {
+    if (--r.timer <= 0) {                                   // ofApp: every aniT frames, re-scatter a random number of the rope's tumbleweeds
+      r.timer = Math.round(R(live, S.scrL, Math.max(S.scrL, S.scrH)));
+      const many = Math.round(R(live, 1, r.n - 1));
+      for (let k = 0; k < many; k++) { const w = r.weeds[Math.floor(live() * r.n)]; scramble(w.pos, w.n, R(live, S.sizeL, Math.max(S.sizeL, S.sizeH)), live); w.mesh.geometry.attributes.position.needsUpdate = true; }
+    }
+    for (let j = 0; j < r.n; j++) r.weeds[j].mesh.position.set(r.p[3 * j], r.p[3 * j + 1], r.p[3 * j + 2]);
+  }
+  bloom.strength = S.bloom; bloom.radius = S.radius; bloom.threshold = S.thresh;
+  controls.update(); composer.render();
+  const t = audio.currentTime; timeEl.textContent = fmt(t); if (!scrubbing) scrub.value = t;
+  requestAnimationFrame(tick);
+}
+
+// ------------------------------------------------------------------ the knobs panel
+const panel = document.getElementById('panel');
+const REBUILD = new Set(['ropes', 'nodes', 'spreadY', 'spreadZ', 'slack', 'seed', 'res', 'palette']);
+function knobsHtml() {
+  let h = '<h2>Palette</h2><select id="k-palette">' + Object.keys(PALETTES).map(k => '<option value="' + k + '"' + (k === S.palette ? ' selected' : '') + '>' + PALETTE_NAMES[k] + '</option>').join('') + '</select>';
+  for (const [title, rows] of KNOBS) {
+    h += '<h2>' + title + '</h2>';
+    for (const [k, label, a, b, st] of rows) h += '<div class="row"><label for="k-' + k + '">' + label + '</label><input id="k-' + k + '" type="range" min="' + a + '" max="' + b + '" step="' + st + '" value="' + S[k] + '"><output id="o-' + k + '">' + S[k] + '</output></div>';
+  }
+  h += '<button id="save">Save this look</button><div id="msg"></div><p class="hint">Drag on the picture to turn the view · scroll to zoom · double-click to go back to the front view.</p>';
+  return h;
+}
+panel.innerHTML = knobsHtml();
+panel.addEventListener('input', e => {
+  const id = e.target.id.replace(/^k-/, ''); if (!(id in S)) return;
+  S[id] = id === 'palette' ? e.target.value : +e.target.value;
+  const o = document.getElementById('o-' + id); if (o) o.textContent = S[id];
+  if (id === 'opacity') ropes.forEach(r => r.weeds.forEach(w => w.mesh.material.opacity = S.opacity));
+  if (REBUILD.has(id)) build();
+});
+panel.addEventListener('click', async e => {
+  if (e.target.id !== 'save') return;
+  const r = await fetch('/settings', { method: 'POST', body: JSON.stringify(S) });
+  document.getElementById('msg').textContent = r.ok ? 'Saved.' : 'Not saved.';
+});
+document.getElementById('toggle').onclick = () => panel.classList.toggle('hidden');
+renderer.domElement.addEventListener('dblclick', homeCamera);
+
+// ------------------------------------------------------------------ the audio and the time
+const audio = document.getElementById('audio'), playBtn = document.getElementById('play'), scrub = document.getElementById('scrub'), timeEl = document.getElementById('time');
+const fmt = t => Math.floor(t / 60) + ':' + (t % 60).toFixed(1).padStart(4, '0');
+let scrubbing = false;
+playBtn.onclick = () => { if (audio.paused) audio.play(); else audio.pause(); };
+audio.onplay = () => playBtn.textContent = 'Pause'; audio.onpause = () => playBtn.textContent = 'Play';
+audio.onloadedmetadata = () => scrub.max = audio.duration.toFixed(1);
+scrub.oninput = () => { scrubbing = true; timeEl.textContent = fmt(+scrub.value); };
+scrub.onchange = () => { audio.currentTime = +scrub.value; scrubbing = false; };
+document.getElementById('kick').onclick = () => ropes.forEach(r => kick(r, R(live, 3, r.n - 4), S.kick * 1.5));
+window.addEventListener('keydown', e => { if (e.code === 'Space' && e.target.tagName !== 'INPUT') { e.preventDefault(); playBtn.click(); } });
+
+resize(); build(); requestAnimationFrame(tick);
+</script>
+</body>
+</html>
