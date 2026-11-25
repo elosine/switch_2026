@@ -98,6 +98,7 @@
  "engraving": {
   "_status": "CENSUS DONE 2026-08-20 (V0.10) — every look number that lived in layout.js/render.js code, consolidated here. Line/dot THICKNESSES stay in glyphs.json `standards` (glyph-family metrics, single source — edit there); this block is the single edit point for everything else. All values = the code's previous defaults, so adopting the registry changed no pixel.",
   "layout": {
+   "textAboveAlign": "@objects.techWordAbove.align",
    "colours": { "number": "@objects.number.colour", "instruction": "@objects.instruction.colour", "dynamicText": "@objects.dynamicText.colour", "tempoText": "@objects.tempoText.colour", "readThrough": "@objects.readThrough.colour", "alert": "@objects.alertText.colour" },
    "italic": { "instruction": "@objects.instruction.italic", "number": "@objects.number.italic" },
    "pitchPicture": { "edgeCents": "@pitchPicture.edgeCents", "signs": "@pitchPicture.signs" },

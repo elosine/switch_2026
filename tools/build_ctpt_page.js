@@ -119,6 +119,25 @@ for (const part of AUTO_PARTS) {
 // §418: a BEAMED overpressure note keeps the beam's stem and §416's figure (the down-bows over the beam, the marcato under the head) — the local rule is for the lone ones
 for (const [a, b, part] of BEAMS) for (const o of save.objects) if (OP_LOCAL.has(o.id) && o.layer === part && o.startSeconds >= a - 1e-9 && o.startSeconds <= b + 1e-9) { delete HANDS[o.id].nhStemDir; delete HANDS[o.id].chainSide; }
 
+// [§480 — his: "we should do ord for the next note if it's like pizz and then a non-pizz after"] THE RETURN WORD (rules.json objects.returnWord): on the piano, the
+// first ordinary note after a plucked or a muted one carries ord. — notes at one instant count as one moment
+{ const RW = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'registry', 'rules.json'), 'utf8')).objects.returnWord;
+  for (const part of RW.parts) {
+    const ns = save.objects.filter(o => o.type === 'waveCurve' && o.layer === part && o.sonifyNote != null && o.startSeconds >= W0 && o.startSeconds < W1).sort((a, b) => a.startSeconds - b.startSeconds);
+    // [§480, narrowed — his "only the ones … in the same grouping, either tied to each other or beamed together"] the two notes must be ONE FIGURE
+    const pair = (x, y) => [x.id, y.id].sort().join('|');
+    const figure = new Set([...GRACES.map(g => pair({ id: g[0] }, { id: g[1] })), ...tiedPairs.map(g => pair({ id: g[0] }, { id: g[1] })),
+      ...Object.entries(HANDS).filter(([, h]) => h && h.pickupTo).map(([id, h]) => pair({ id }, { id: h.pickupTo }))]);
+    const sameBeam = (x, y) => BEAMS.some(([a, b, p]) => p === part && x.startSeconds >= a - 1e-9 && x.startSeconds <= b + 1e-9 && y.startSeconds >= a - 1e-9 && y.startSeconds <= b + 1e-9);
+    let n = 0;
+    for (let i = 1; i < ns.length; i++) {
+      const o = ns[i], p = ns[i - 1];
+      if (!RW.after.includes(p.technique) || RW.after.includes(o.technique)) continue;
+      if (figure.has(pair(p, o)) || sameBeam(p, o)) { HANDS[o.id] = Object.assign({}, HANDS[o.id] || {}, { instrText: RW.word }); n++; }
+    }
+    console.log('  the return word "' + RW.word + '" on part ' + part + ': ' + n + ' note(s)');
+  }
+}
 const args = ['tools/notate_section.js', '--score', SCORE, '--w0', String(W0), '--w1', String(W1), '--parts', '0-7', '--alone', W0 + '-' + W1, '--exp', '--noFitMark', '--timeSpacing',
   '--partName', '4:Glock', '--id', 's2-ctpt-heads', '--label', 'Section 2 - THE COUNTERPOINT, draft (200 to 253 s)'];
 const graceIds = new Set(GRACES.map(g => g[0]));

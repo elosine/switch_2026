@@ -2826,7 +2826,7 @@
                   pairC.tips.set(e.id, { t: tU, dxSs: headDx + att.dx });
                   if (onTop) inkTopY = Math.max(inkTopY, pairC.beamY);
                   // [2e.3 (4), §427] "pizz." a LIVE instruction (the 1.0998 bake retired), centred where the bake was, its baseline a stack gap over the beam
-                  if (dev.textAbove) items.push(Object.assign({ k: 'text', t: tU, dxSs: chromeDx({ wSs: String(dev.textAbove).length * 0.5 * TS.instruction * (o.textEmScale != null ? o.textEmScale : 1.3) }),
+                  if (dev.textAbove) items.push(Object.assign({ k: 'text', t: tU, dxSs: o.textAboveAlign === 'headCenter' ? headDx : chromeDx({ wSs: String(dev.textAbove).length * 0.5 * TS.instruction * (o.textEmScale != null ? o.textEmScale : 1.3) }),   // [the Switch~ piece §480] objects.techWordAbove.align
                     ySs: pairC.beamY + stackGap, text: dev.textAbove, anchor: 'middle', seq: 'techText' }, WORD, onTop ? {} : { sys: pairC.topKey }));
                 }
                 if (dev.textAbove && !pairC && (!chordC || e.id === chordC.top)) {
@@ -2834,7 +2834,7 @@
                     const pzEm = TS.instruction * (o.textEmScale != null ? o.textEmScale : 1.3);
                     let yBot = Math.max(chainTopY, inkTopY) + stackGap;
                     if (lvTopY != null) yBot = Math.max(yBot, lvTopY + 2 * stackGap);
-                    items.push(Object.assign({ k: 'text', t: tU, dxSs: chromeDx({ wSs: String(dev.textAbove).length * 0.5 * pzEm }), ySs: yBot, text: dev.textAbove, anchor: 'middle', seq: 'techText' }, WORD));
+                    items.push(Object.assign({ k: 'text', t: tU, dxSs: o.textAboveAlign === 'headCenter' ? headDx : chromeDx({ wSs: String(dev.textAbove).length * 0.5 * pzEm }), ySs: yBot, text: dev.textAbove, anchor: 'middle', seq: 'techText' }, WORD));   // [§480] centred on the head when objects.techWordAbove.align says so
                     recChrome(items[items.length - 1], 'above', pzEm * 0.8, 0);
                     chainTopY = yBot + pzEm * 0.8;
                   }
