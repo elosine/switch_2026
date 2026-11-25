@@ -217,6 +217,7 @@ const KNOBS = [
     ['fLong', 'The others: the longest (× the flute'+"'"+'s length)', 0.2, 1, 0.01, 0.94],
     ['fSpread', 'Their humps spread across (share of the width)', 0, 1, 0.01, 0.86],
     ['fCxMax', 'No hump further from the centre than', 0, 800, 5, 505],
+    ['fEdge', 'Their ends stay inside the frame by', -200, 200, 5, 20],
     ['fRadLo', 'Their loops: the smallest (× the depth)', 0.2, 2, 0.01, 0.55],
     ['fRadHi', 'Their loops: the largest (× the depth)', 0.2, 2, 0.01, 1.25],
     ['fCrank', 'The crank'+"'"+'s size', 0, 120, 1, 45],
@@ -663,10 +664,13 @@ function tick(now) {
       // tempo a tighter, shallower loop. It eases in from the physics with the section's weight.
       if (r.pl && r.pl.kind === 'ensemble' && r.fin && finalK > 0) {
         const e = finalK * finalK * (3 - 2 * finalK), n = r.n, th = 2 * Math.PI * r.fin.beats * S.turnsPerBeat, dep = S.fDepth * (r.fLen < 1 ? (r.fRad ?? 1) : 1) * Math.pow(60 / Math.max(20, r.fin.bpm), S.fTight);   // [§567] each its own radius
-        const L = W * r.fLen, cx = r.fLen >= 1 ? 0 : Math.max(-S.fCxMax, Math.min(S.fCxMax, r.fCx ?? 0));   // [§566 · §568] its length and its centre (the centre kept: a long rope may run past the edge)
+        const L = W * r.fLen, cx = r.fLen >= 1 ? 0 : Math.max(-S.fCxMax, Math.min(S.fCxMax, r.fCx ?? 0));
+        // [§569 — his "the gold yellow one is off screen, the right node. So if we can bring it back on screen"] the rope's ends kept inside the frame;
+        // its hump stays at its place, the loop rising to it from each end (two quarter-sines), so a rope cut short on one side leans, not moves
+        const lft = r.fLen >= 1 ? -W / 2 : Math.max(-W / 2 + S.fEdge, cx - L / 2), rgt = r.fLen >= 1 ? W / 2 : Math.min(W / 2 - S.fEdge, cx + L / 2);   // (the flute as it was)   // [§566 · §568] its length and its centre (the centre kept: a long rope may run past the edge)
         const c = Math.cos(th), s = Math.sin(th);
         for (let j = 0; j < n; j++) {
-          const u = j / (n - 1), d = dep * Math.sin(Math.PI * u), tx = cx - L / 2 + L * u, ty = r.y - d * c, tz = r.z + d * s;
+          const u = j / (n - 1), tx = lft + (rgt - lft) * u, d = dep * Math.sin(Math.PI / 2 * (tx < cx ? (tx - lft) / Math.max(1, cx - lft) : (rgt - tx) / Math.max(1, rgt - cx))), ty = r.y - d * c, tz = r.z + d * s;
           for (const [a, v] of [[0, tx], [1, ty], [2, tz]]) { const k = 3 * j + a, was = r.fp ? r.fp[k] : r.p[k], now = r.p[k] + (v - r.p[k]) * e; r.q[k] = was; r.p[k] = now; (r.fp || (r.fp = new Float32Array(3 * n)))[k] = now; }
         }
       } else if (r.fp) r.fp = null;
