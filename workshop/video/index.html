@@ -133,6 +133,7 @@ const KNOBS = [
     ['singleBead', 'One bead only, following where the sound is (1 = on)', 0, 1, 1, 1],
     ['beadFollow', 'How quickly the bead follows the sound (seconds)', 0.02, 1, 0.01, 0.12],
     ['beadSize', 'The bead’s size (× a tumbleweed)', 0.5, 4, 0.05, 1.8],
+    ['beadSpread', 'Spread the bead to the ends (0 = as measured)', 0, 5, 0.05, 2],
     ['flow', 'The shower’s motion drives the beads along the rope', 0, 20000, 100, 6000],
     ['jolt', 'Each grain jolts its bead', 0, 200, 1, 30],
     ['homeHz', 'How firmly a bead returns to its place (a second)', 0.1, 4, 0.05, 0.5],
@@ -486,7 +487,9 @@ function tick(now) {
   if (D && D.pan) for (const lane of [1, 2, 3, 4]) {
     const r = ropes[LANE_ROPE[lane]], P = D.pan.lanes && D.pan.lanes[lane]; if (!r || !P) continue;
     const i = Math.round((tNow - P.t0) * D.pan.rate), b = i >= 0 && i < P.n ? P.b[i] : null;
-    if (b != null) r.beadT = (b + 1) / 2;
+    // [§543 — his "increase the range … it mostly hovers about … a quarter in to about three quarters … along the full span of the rope"] the
+    // balance spread out with a soft S-curve (tanh): a half-left balance now reaches near the end, the ends themselves reached at full left or right
+    const k = Math.max(0.01, S.beadSpread); if (b != null) r.beadT = 0.5 + 0.5 * Math.tanh(k * b) / Math.tanh(k);
     if (r.beadU == null || jump) { r.beadU = r.beadT ?? 0.5; r.beadV = 0; }
     const wn = 2 / Math.max(0.02, S.beadFollow), a = wn * wn * ((r.beadT ?? r.beadU) - r.beadU) - 2 * wn * r.beadV;
     r.beadV += a * dt; r.beadU = Math.max(0, Math.min(1, r.beadU + r.beadV * dt));
