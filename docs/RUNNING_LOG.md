@@ -6729,3 +6729,8 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 ## §495 · 2026-11-24 · the instructions: the electronics in one line
 
 **His words:** *"For the electronics, you can just say electronics is fixed media synced with the animated score."* — the section now reads *The electronics are fixed media, synced with the animated score.* The AI's two paragraphs went (the second described the waveform as style F, no longer the drawn style). Asked in passing whether orange pitch curves are used: only in Section One's beating glissandos; the line stays (his "just leave it").
+
+## §496 · 2026-11-24 · the instructions: Audible Beats in his own words, no second person
+
+**His words:** *"Each player holds its long tones against a sine tone, creates audible beating against it, and then end the sentence there. Get rid of using small glissandos. I'm trying to avoid … the you. Is this the way I stated it in the other instructions, a useful analogy, you play two strings? … If it is, then you can keep that you. And then just get rid of that whole sentence, you're not listening for tiny change. But better to replicate my language that I used in previous piece."*
+**FOUND:** his Recombination page (`septet_LGMF_2026`) has the analogy with "You would play two strings …"; Scattered Substance and the tubas put it without "you". **DONE:** the first sentence ends at "against it"; the analogy is Recombination's first two sentences verbatim; the "not listening" sentence gone; the curves' paragraph without your/you ("the lane · the glissando · the distance from the sine's pitch · the volume").
