@@ -6712,3 +6712,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 ## §491 · 2026-11-24 · film4: the waveform as bars
 
 `…/film/switch-demo-film4.mp4` (§487's render) — 487.000 s, 14,610 frames, picture and sound equal and from 0, 9.2 minutes; mix2 under it; the ELEC lane as bars. Three frames read back (60 · 170 · 310 s). It is the current film. The print is held (§487) and will take the bars, the pebbles at rest (§488), the 0.5 s push limit (§489) and the split arms (§490) at its next build.
+
+## §492 · 2026-11-24 · the print rebuilt now (his: "if you need to reprint it now, that's fine … We'll eventually reprint the final version with the instructions"); the beams left as they are
+
+`print/score/Multiplicity-score.pdf` — with the bars, the pebbles at rest, the 0.5 s push limit and the split arms. His word on the phase section's short pages: *"okay, leave the beams"* — a beamed group or tuplet is still never split across a page. The final reprint comes with the performance instructions.
