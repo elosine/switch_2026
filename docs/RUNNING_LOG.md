@@ -6721,3 +6721,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 
 **His words:** *"For the percussion, take out the scraped and take out the poly beater and rubber mallets and for bass drum, you can put rute. And I don't know if what typically if you see mallet or just rute, whatever the convention is. And then take away crotales bowed and the hard mallets from glock."*
 **DONE:** the Instrumentation line now reads *spring coil, China cymbal, brake drums, bass drum (with rute), crotales, glockenspiel*. **THE CONVENTION (the AI's answer):** an instrument list names a beater only when it is not the instrument's usual one — the felt mallet on a bass drum is, the rute is not — so "with rute" alone tells the player what to bring.
+
+## §494 · 2026-11-24 · the instructions: the piano line out of the instrumentation
+
+**His words:** *"piano, just take the whole piano thing away."* — read as the Instrumentation section's piano line (keys, muted and plucked strings, no preparation): removed. The counterpoint's key of words (pizz. · (mute)) stays.
