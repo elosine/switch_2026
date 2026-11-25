@@ -6708,3 +6708,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **HIS NEW RULE, AS A ROW:** `page_rules.json edge.gc.print` "arms" (was "whole"). **The planner** (`splice.js`): an arms-GC holds only its impact (padded) — the note, its words and its go line stay one whole unit of their own. **The print** (`render.js`): the arc is drawn on every page it crosses, clipped to the page's music; the impact dot only on its own page. The screen and the film are unchanged (they already cut the arc).
 **MEASURED:** the counterpoint's pages no longer open early (the reach-back was the whole-GC rule) and end within 0.6 s of the edge (0.59 · 0.10 · 0.18 · 0.21). Seen at the turn 209.81: the flute's descending arm cut at page 24's edge, page 25 opening on its impact and rising arm.
 **WHAT ELSE HOLDS A PAGE SHORT (his question):** only in the phase section — a beamed group, a tuplet bracket and the IR's beam-adjacent pairs are never split across a page, and with seven parts in seven tempos one of them is almost always open. Pages 32 … 50 there stay 1.1 … 6.1 s short. Not reprinted (his hold).
+
+## §491 · 2026-11-24 · film4: the waveform as bars
+
+`…/film/switch-demo-film4.mp4` (§487's render) — 487.000 s, 14,610 frames, picture and sound equal and from 0, 9.2 minutes; mix2 under it; the ELEC lane as bars. Three frames read back (60 · 170 · 310 s). It is the current film. The print is held (§487) and will take the bars, the pebbles at rest (§488), the 0.5 s push limit (§489) and the split arms (§490) at its next build.
