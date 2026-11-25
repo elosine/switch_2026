@@ -24,7 +24,9 @@ for (const s of stems) {
   for (let w = 0; w < nWin; w++) { let a = 0, b = 0; for (let i = w * win; i < (w + 1) * win; i++) { a += x[2 * i] ** 2; b += x[2 * i + 1] ** 2; } eL[w] = a; eR[w] = b; top = Math.max(top, a + b); }
   const floor = top * 1e-6, bal = [];
   for (let w = 0; w < nWin; w++) bal.push(eL[w] + eR[w] < floor ? null : Math.round(((eR[w] - eL[w]) / (eR[w] + eL[w])) * 1000) / 1000);
-  out.lanes[lane] = { t0: s.at, n: nWin, b: bal };
+  // [§577 — his "a rope only follows the one stem"] and each window's LOUDNESS, in dB under the lane's loudest window
+  const db = []; for (let w = 0; w < nWin; w++) db.push(Math.round(10 * Math.log10((eL[w] + eR[w]) / top + 1e-12)));
+  out.lanes[lane] = { t0: s.at, n: nWin, b: bal, db };
   const v = bal.filter(b => b != null), mean = v.reduce((a, b) => a + b, 0) / v.length, sd = Math.sqrt(v.reduce((a, b) => a + (b - mean) ** 2, 0) / v.length);
   console.log(s.name.padEnd(8) + ' from ' + s.at + ' s · ' + nWin + ' windows · balance mean ' + mean.toFixed(2) + ' spread ' + sd.toFixed(2) + ' · range ' + Math.min(...v).toFixed(2) + ' … ' + Math.max(...v).toFixed(2));
 }
