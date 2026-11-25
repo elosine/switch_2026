@@ -6642,3 +6642,10 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **THE CAUSE:** `export_print.js` drew the final bar line at the end of EVERY page set it was given, and the book prints the score as four sets.
 **DONE:** `--finalBar off`; `tools/print_book.js` gives it to the first three sections, so the thin-and-thick bar stands only at the end of the phase section. Checked on the two ends: none at 145 s, one at 480 s.
 **NOT DONE (his "wait to redraw"):** the print and the film are not made again yet.
+
+## §479 · 2026-11-24 · no bar line anywhere but the final double at the end of the piece
+
+**His words:** *"Same with section 2 and any other sections that you draw double bar. Just the end of the piece. And I guess no bar at all, right? It looks like every page is just open staff lines. So the only bar you'll draw is at the end of the piece, and it'll be a double."*
+**WHAT WAS LEFT AFTER §478:** a single thin line at the end of each section's material (`static_page.js`, and the app's own copy), in the film, the app and the print alike.
+**DONE:** `container.json systemEndBar.atMaterialEnd false` (his word in its note); `static_page.js` and `notation.html` read it; the film draws the final double bar on the section that ends the piece (`export_video.js --finalBar on`, given by `make_film.js`). Checked: Section 1's end in the film and the print — no bar; the phase section's end in the film — the double bar.
+**STILL HIS TO SAY:** the short bar lines Section 3 draws before each new tempo mark (§433's "a bar line and ♩ = N").

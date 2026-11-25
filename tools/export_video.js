@@ -261,6 +261,7 @@ function staticSvg(i, list, keep) {
     reshow: seg.reshow, ownsEnd: seg.ownsEnd, ensemble: ENS,   // [2i.10.1] the labels, brackets and brace
     screenEdges: seg.screenEdges,   // [2c.2] a tiled screen page's edge rules (undefined off the tile plan)
     append: ((keep && !keep.includes(8) ? '' : wave) + (F ? F.add : '')) || undefined,
+    finalBar: arg('finalBar', 'off') === 'on',   // [§479] the piece's final double bar, on the section that ends the piece (tools/make_film.js)
   }), keep);
 }
 // [§468] THE FURNITURE'S MOTION: the ball on the ribbons and the thrown pebbles — notation.html's furnitureFrameSvg, the same curves

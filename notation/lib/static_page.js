@@ -91,7 +91,7 @@
       const thin = fb.thinSs * ss, gap = fb.gapSs * ss, thick = fb.thickSs * ss;
       const bar = (x, w) => '<rect x="' + x.toFixed(2) + '" y="' + ys.toFixed(2) + '" width="' + w.toFixed(2) + '" height="' + (ye - ys).toFixed(2) + '" fill="' + fb.colour + '"/>';
       endBar = '<g class="final-barline">' + bar(xEnd - thick - gap - thin, thin) + bar(xEnd - thick, thick) + '</g>';
-    } else if (eb && view.systems.length && (endInWindow || edgeBar)
+    } else if (eb && view.systems.length && ((endInWindow && eb.atMaterialEnd !== false) || (edgeBar && !endInWindow))   // [the Switch~ piece §479] atMaterialEnd false: no line at a section's end
       // [decibel §412, DEC-182] a FINAL BAR LINE of the notation's own (an item `finalbar`) ends the piece: no edge bar on the page the material ends on
       && !(endInWindow && ((o.model && o.model.systems) || []).some(sm => (sm.items || []).some(it => it.k === 'finalbar')))) {
       const ys = view.systems[0].yTopPx, ye = view.systems[view.systems.length - 1].yBotPx;

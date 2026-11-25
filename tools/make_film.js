@@ -70,7 +70,7 @@ for (const S of plan) {
   try { fs.unlinkSync(out); } catch (e) { /* none */ }
   fs.writeFileSync(cut, JSON.stringify({ fps: FPS, seed: SEED, timeline: S.timeline }));
   console.log('rendering ' + S.id + ' (' + S.from + ' to ' + S.to + ' s)');
-  const r = spawnSync(process.execPath, ['--max-old-space-size=6000', path.join(__dirname, 'export_video.js'), '--ir', S.ir, '--view', 'video', '--fps', String(FPS), '--z', String(S.z), '--groups', JSON.stringify(GROUPS), '--cut', cut, '--t0', String(S.from), '--t1', String(S.to), '--out', out, ...(S.pageSeconds ? ['--pageSeconds', String(S.pageSeconds)] : []), ...(S.zoomAnchor != null ? ['--zoomAnchor', String(S.zoomAnchor)] : [])], { stdio: ['ignore', 'inherit', 'ignore'] });
+  const r = spawnSync(process.execPath, ['--max-old-space-size=6000', path.join(__dirname, 'export_video.js'), '--ir', S.ir, '--view', 'video', '--fps', String(FPS), '--z', String(S.z), '--groups', JSON.stringify(GROUPS), '--cut', cut, '--t0', String(S.from), '--t1', String(S.to), '--out', out, ...(S.to >= END ? ['--finalBar', 'on'] : []), ...(S.pageSeconds ? ['--pageSeconds', String(S.pageSeconds)] : []), ...(S.zoomAnchor != null ? ['--zoomAnchor', String(S.zoomAnchor)] : [])], { stdio: ['ignore', 'inherit', 'ignore'] });
   if (r.status !== 0 || !fs.existsSync(out)) { console.error(S.id + ': the render failed (' + r.status + ')'); process.exit(1); }
   fs.writeFileSync(done, new Date().toISOString());
 }

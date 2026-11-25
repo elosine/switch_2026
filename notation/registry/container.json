@@ -1159,6 +1159,8 @@
    },
    "systemEndBar": {
     "everyPage": false,
+    "atMaterialEnd": false,
+    "_atMaterialEndNote": "THE SWITCH~ PIECE (2026-11-24, RUNNING_LOG §479, his word: 'the only bar you'll draw is at the end of the piece, and it'll be a double'): false = no single line where a page's material ends (a section's end); the piece ends on the final double bar (`final`, drawn where the caller says the piece ends). true (or absent) = the line at the material's end, as before.",
     "_everyPageNote": "THE SWITCH~ PIECE (2026-11-19, his word: 'I don't think I need to see a line on every page'): false = the line stands only at the END of the material, not at every page's right edge; true (or absent) = at every page's edge, as the earlier pieces' screens and films.",
     "wPx": 1.5,
     "opacity": 0.55,
