@@ -272,7 +272,11 @@ const R = (rand, a, b) => a + (b - a) * rand();
 
 // ------------------------------------------------------------------ the scene
 const W = 1600, H = 900;                                // the world's frame: 16:9, the ropes run from -W/2 to W/2
-const renderer = new THREE.WebGLRenderer({ antialias: true });
+// [§585] RENDER MODE (tools/video_render.js opens the page with ?render=1&t0=&t1=&fps=&w=&h=): no live playback — the page steps itself frame
+// by frame on the score's clock, draws each frame at w × h and sends it to the render tool, which encodes them with the recording
+const QS = new URLSearchParams(location.search);
+const RENDER = QS.get('render') ? { t0: +QS.get('t0'), t1: +QS.get('t1'), fps: +(QS.get('fps') || 30), w: +(QS.get('w') || 3840), h: +(QS.get('h') || 2160), warm: +(QS.get('warm') || 6) } : null;
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: !!RENDER });
 renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
 document.getElementById('stage').appendChild(renderer.domElement);
 const scene = new THREE.Scene(); scene.background = new THREE.Color(0x000000);
@@ -290,7 +294,8 @@ composer.addPass(bloom);
 composer.addPass(new OutputPass());
 
 function resize() {
-  const w = window.innerWidth, h = window.innerHeight - 46;
+  const w = RENDER ? RENDER.w : window.innerWidth, h = RENDER ? RENDER.h : window.innerHeight - 46;
+  if (RENDER) renderer.setPixelRatio(1);
   renderer.setSize(w, h); composer.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix();
   for (const r of (typeof ropes !== 'undefined' ? ropes : [])) if (r.shadow) r.shadow.material.resolution.set(w, h);
   renderer.domElement.style.height = h + 'px';
@@ -999,7 +1004,7 @@ document.getElementById('labels').onclick = () => document.getElementById('legen
 renderer.domElement.addEventListener('dblclick', homeCamera);
 
 // ------------------------------------------------------------------ the audio and the time
-const legend = document.getElementById('legend'), audio = document.getElementById('audio'), playBtn = document.getElementById('play'), scrub = document.getElementById('scrub'), timeEl = document.getElementById('time');
+const legend = document.getElementById('legend'), audio = RENDER ? { currentTime: 0, paused: false, play() {}, pause() {} } : document.getElementById('audio'), playBtn = document.getElementById('play'), scrub = document.getElementById('scrub'), timeEl = document.getElementById('time');
 const fmt = t => Math.floor(t / 60) + ':' + (t % 60).toFixed(1).padStart(4, '0');
 let scrubbing = false;
 playBtn.onclick = () => { if (audio.paused) audio.play(); else audio.pause(); };
@@ -1025,7 +1030,26 @@ document.getElementById('onlyGrain').onclick = () => { S.onlyGrain = S.onlyGrain
 document.getElementById('kick').onclick = () => ropes.forEach(r => kick(r, R(live, 3, r.n - 4), S.kick * 1.5));
 window.addEventListener('keydown', e => { if (e.code === 'Space' && e.target.tagName !== 'INPUT') { e.preventDefault(); playBtn.click(); } });
 
-resize(); build(); applyShow(); buildChain(); dealCentres(); requestAnimationFrame(tick);
+resize(); build(); applyShow(); buildChain(); dealCentres();
+if (!RENDER) requestAnimationFrame(tick);
+else {
+  window.requestAnimationFrame = () => 0;                                 // tick asks for the next frame itself; here the loop below drives it
+  for (const id of ['bar', 'panel', 'legend']) { const el = document.getElementById(id); if (el) el.style.display = 'none'; }
+  (async () => {
+    const { t0, t1, fps, warm } = RENDER; let vnow = 0; last = 0;
+    try {
+      for (let tt = t0 - warm; tt < t0 - 1e-9; tt += 1 / fps) { audio.currentTime = tt; vnow += 1000 / fps; tick(vnow); }   // settle the physics first
+      await fetch('/render/start', { method: 'POST' });
+      for (let k = 0; ; k++) {
+        const tt = t0 + k / fps; if (tt > t1 + 1e-9) break;
+        audio.currentTime = tt; vnow += 1000 / fps; tick(vnow);
+        const blob = await new Promise(res => renderer.domElement.toBlob(res, 'image/png'));
+        await fetch('/render/frame?k=' + k, { method: 'POST', body: blob });
+      }
+      await fetch('/render/end', { method: 'POST' });
+    } catch (e) { await fetch('/render/error', { method: 'POST', body: String(e && e.stack || e) }); }
+  })();
+}
 window.__V = { get ropes() { return ropes; }, camera, S, get uy() { return uy; }, get soloK() { return soloK; }, hand: t => hand(t) };   // for inspection only
 </script>
 </body>
