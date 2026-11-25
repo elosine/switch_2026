@@ -6813,3 +6813,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 ## §513 — 2026-11-24 — the instructions: copy edits 1 · 2 · 3 · 6
 
 - His word: *"go ahead with 1, 2, 3, 6"*. Applied: "should be heard above the electronics" · "For example, ppp with an arrow to f means the volume change for that curve spans from ppp to f" · "should happen at the line" · "Gradient Curves:" (colon, as the others). Item 4 (hashes at the top of the staff) not taken up; item 5 (shaking stutter) — he asked for the two versions in full, given in the chat.
+
+## §514 — 2026-11-24 — the instructions: "rapid-fire stutter"
+
+- His word: *"go ahead with the rapid-fire stutter"* — copy edit 5: "a quick, shaking stutter" → "a quick, rapid-fire stutter", to match the name. (§513's check of the opening sentence: verbatim Approaching's final page, title changed; Recombination had the earlier "served from the cloud" wording.)
