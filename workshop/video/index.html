@@ -210,6 +210,9 @@ const KNOBS = [
   ]],
   ['The final section — each instrument rope turned like a jump rope, one turn per beat of its own tempo', [
     ['turnsPerBeat', 'Turns per beat', 0.25, 2, 0.25, 1],
+    ['fDepth', 'The loop'+"'"+'s depth at 60 beats a minute (faster is tighter, shallower)', 20, 500, 5, 230],
+    ['fTight', 'How much faster tightens it (1 = depth in proportion to 60 ÷ tempo)', 0, 2, 0.05, 1],
+    ['oneRope', 'Only one instrument rope (1 = the flute)', 0, 1, 1, 1],
     ['fCrank', 'The crank'+"'"+'s size', 0, 120, 1, 45],
     ['fSlack', 'Ends brought in (a looser rope, a rounder loop)', 0, 300, 5, 110],
     ['fPull', 'Faster tempo pulls the ends apart by (at the fastest)', 0, 300, 5, 120],
@@ -398,6 +401,7 @@ function stepRope(r, dt) {
   // per beat of its own tempo)] BOTH ENDS turn together on the rope's own beat (the phase locked to the beat count, so a beat is a turn); the
   // faster the tempo, the further the ends pull apart (the rubber band: tighter, narrower); the rope swings round from the physics
   if (r.pl && r.pl.kind === 'ensemble' && finalK > 0 && r.fin) {
+    if (r.fin.live) r.fin.beats += (r.fin.bpm / 60) * dt;                   // [§565] between frames the beat count runs on at the tempo (the loop turns smoothly)
     const want = 2 * Math.PI * r.fin.beats * S.turnsPerBeat; if (r.fth == null) r.fth = want;
     let diff = want - r.fth; diff -= 2 * Math.PI * Math.round(diff / (2 * Math.PI));
     r.fth += 2 * Math.PI * (r.fin.bpm / 60) * S.turnsPerBeat * dt + diff * Math.min(1, dt * 2);
@@ -597,7 +601,7 @@ function tick(now) {
     const T = D.tempo; finalK += ((tNow >= T.t0 && tNow <= T.t1 + 2 ? 1 : 0) - finalK) * Math.min(1, dt / 1.5); if (jump) finalK = tNow >= T.t0 && tNow <= T.t1 + 2 ? 1 : 0;
     const x = Math.max(0, Math.min((T.t1 - T.t0) * T.rate, (tNow - T.t0) * T.rate)), i = Math.floor(x), fr = x - i;
     for (const r of ropes) { if (!r.pl || r.pl.kind !== 'ensemble') continue; const Q = T.ropes[r.pl.part]; if (!Q) continue; const i1 = Math.min(Q.bpm.length - 1, i + 1);
-      r.fin = { bpm: Q.bpm[i] + (Q.bpm[i1] - Q.bpm[i]) * fr, beats: Q.beats[i] + (Q.beats[i1] - Q.beats[i]) * fr + (tNow > T.t1 ? (tNow - T.t1) * Q.bpm[Q.bpm.length - 1] / 60 : 0) }; }
+      r.fin = { live: playing, bpm: Q.bpm[i] + (Q.bpm[i1] - Q.bpm[i]) * fr, beats: Q.beats[i] + (Q.beats[i1] - Q.beats[i]) * fr + (tNow > T.t1 ? (tNow - T.t1) * Q.bpm[Q.bpm.length - 1] / 60 : 0) }; }
   }
   stateK += ((tNow >= STATE_AT && tNow <= STATE_END ? 1 : 0) - stateK) * Math.min(1, dt / 1.5); if (jump) stateK = tNow >= STATE_AT && tNow <= STATE_END ? 1 : 0;
   // [§542 — his "a single bead that follows the panning data that goes from left node to right node and back and forth"] THE BEAD: where the
@@ -629,6 +633,19 @@ function tick(now) {
     for (const r of ropes) {
       if (live() < S.kickRate * STEP) kick(r, R(live, 2, r.n - 3), S.kick * R(live, 0.6, 1.2));
       stepRope(r, STEP);
+      // [§565 — his "let's just do one row. Let's get the basic motion good. I think too many modes … just one hump … one rotation per beat, and we
+      // get speed or slow down by decreasing tension … at least the look of decreasing or increasing tension"] THE FINAL SECTION'S ROPE: no longer the
+      // physics (a cranked physical rope at these speeds folds into two, three humps); ONE LOOP — a half-sine, deepest mid-rope — turning round the line
+      // between its ends EXACTLY one turn per beat (its angle the beat count), its DEPTH the tension: depth = fDepth · (60 ÷ tempo)^fTight — a faster
+      // tempo a tighter, shallower loop. It eases in from the physics with the section's weight.
+      if (r.pl && r.pl.kind === 'ensemble' && r.fin && finalK > 0) {
+        const e = finalK * finalK * (3 - 2 * finalK), n = r.n, th = 2 * Math.PI * r.fin.beats * S.turnsPerBeat, dep = S.fDepth * Math.pow(60 / Math.max(20, r.fin.bpm), S.fTight);
+        const c = Math.cos(th), s = Math.sin(th);
+        for (let j = 0; j < n; j++) {
+          const u = j / (n - 1), d = dep * Math.sin(Math.PI * u), tx = -W / 2 + W * u, ty = r.y - d * c, tz = r.z + d * s;
+          for (const [a, v] of [[0, tx], [1, ty], [2, tz]]) { const k = 3 * j + a, was = r.fp ? r.fp[k] : r.p[k], now = r.p[k] + (v - r.p[k]) * e; r.q[k] = was; r.p[k] = now; (r.fp || (r.fp = new Float32Array(3 * n)))[k] = now; }
+        }
+      } else if (r.fp) r.fp = null;
       // [§555 — his "make the jump rope motion independent … almost more like a rotisserie … slightly less tension … a jump rope loop that goes relatively
       // smoothly up and then down … still responding to the electronics, and the line is too straight"] THE ROTISSERIE: in the state the bead rope is
       // no longer simulated — it is a loop of fixed depth (deepest mid-rope) turning steadily round the line between its ends; it eases in over 1.5 s
@@ -832,6 +849,7 @@ panel.addEventListener('input', e => {
   if (id === 'spine') ropes.forEach(r => r.line.material.opacity = S.spine);
   if (REBUILD.has(id)) { build(); applyShow(); buildChain(); }
   if (id === 'frameY') homeCamera();
+  if (id === 'oneRope') applyShow();
 });
 panel.addEventListener('click', async e => {
   if (e.target.id !== 'save') return;
@@ -856,7 +874,8 @@ S.showElec = S.showElec ?? 0; S.showEns = S.showEns ?? 1;      // [§564 — his
 function applyShow() {
   // [§537 — his "can you take all the other ropes out or just hide them?"] ONLY THE GRAIN ROPE: every other rope hidden (they still move)
   const grainRope = ropes[LANE_ROPE[2]];
-  for (const r of ropes) { const on = S.onlyGrain ? r === grainRope : !r.pl ? true : r.pl.kind === 'session' ? !!S.showElec : !!S.showEns; r.weeds.forEach(w => w.mesh.visible = on); r.line.visible = on; }
+  const oneRope = ropes.find(r => r.pl && r.pl.kind === 'ensemble' && r.pl.part === 'flute');   // [§565 — his "let's just do one row"]
+  for (const r of ropes) { const on = S.oneRope ? r === oneRope : S.onlyGrain ? r === grainRope : !r.pl ? true : r.pl.kind === 'session' ? !!S.showElec : !!S.showEns; r.weeds.forEach(w => w.mesh.visible = on); r.line.visible = on; }
   document.getElementById('onlyGrain').textContent = 'Grain rope only: ' + (S.onlyGrain ? 'on' : 'off');
   document.getElementById('showElec').textContent = 'Electronics: ' + (S.showElec ? 'on' : 'off');
   document.getElementById('showEns').textContent = 'Ensemble: ' + (S.showEns ? 'on' : 'off');
