@@ -23,20 +23,20 @@ const send = (res, code, body, type) => { res.writeHead(code, { 'Content-Type': 
 let ff = null, frames = 0, chrome = null, started = Date.now();
 const body = req => new Promise(r => { const c = []; req.on('data', d => c.push(d)); req.on('end', () => r(Buffer.concat(c))); });
 
-http.createServer(async (req, res) => {
+const server = http.createServer(async (req, res) => {
   const url = req.url.split('?')[0];
   if (url === '/' || url === '/index.html') return send(res, 200, fs.readFileSync(path.join(ROOT, 'workshop', 'video', 'index.html')), 'text/html; charset=utf-8');
   if (url === '/data') return send(res, 200, fs.readFileSync(path.join(ROOT, 'bank', 'video_data.json')), 'application/json');
   if (url === '/settings') return send(res, 200, fs.existsSync(path.join(ROOT, 'bank', 'video_look.json')) ? fs.readFileSync(path.join(ROOT, 'bank', 'video_look.json')) : '{}', 'application/json');
   if (url === '/audio') return send(res, 404, '');
   if (url === '/render/start') {
-    ff = spawn('ffmpeg', ['-y', '-v', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-vcodec', 'png', '-i', '-', '-c:v', 'libx264', '-preset', 'medium', '-crf', '16', '-pix_fmt', 'yuv420p', SILENT], { stdio: ['pipe', 'inherit', 'inherit'] });
+    ff = spawn('ffmpeg', ['-y', '-v', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-vcodec', 'mjpeg', '-i', '-', '-c:v', 'libx264', '-preset', 'medium', '-crf', '16', '-pix_fmt', 'yuv420p', SILENT], { stdio: ['pipe', 'inherit', 'inherit'] });
     console.log('rendering ' + T0 + ' … ' + T1 + ' s at ' + WID + ' x ' + HEI + ', ' + FPS + ' fps → ' + OUT);
     return send(res, 200, 'ok');
   }
   if (url === '/render/frame') {
-    const b = await body(req); frames++;
-    if (!ff.stdin.write(b)) await new Promise(r => ff.stdin.once('drain', r));
+    const raw = (await body(req)).toString('latin1'), comma = raw.indexOf(','), b = Buffer.from(comma >= 0 ? raw.slice(comma + 1) : raw, 'base64'); if (!b.length) return send(res, 400, 'empty'); frames++;   // [§586] a data-URL frame
+    try { if (!ff.stdin.write(b)) await new Promise(r => ff.stdin.once('drain', r)); } catch (e) { console.error('\nthe encoder refused frame ' + frames + ': ' + e.message); return send(res, 500, 'encoder'); }
     if (frames % FPS === 0) { const el = (Date.now() - started) / 1000; process.stdout.write('\r  ' + (frames / FPS).toFixed(0) + ' s of ' + (T1 - T0) + ' · ' + (el / frames).toFixed(2) + ' s a frame   '); }
     return send(res, 200, 'ok');
   }
@@ -50,10 +50,12 @@ http.createServer(async (req, res) => {
     return;
   }
   send(res, 404, 'no route');
-}).listen(PORT, () => {
+});
+server.requestTimeout = 0; server.headersTimeout = 0; server.keepAliveTimeout = 120000;   // [§586] a long frame or a slow encoder never cuts the page off
+server.listen(PORT, () => {
   const u = 'http://localhost:' + PORT + '/?render=1&t0=' + T0 + '&t1=' + T1 + '&fps=' + FPS + '&w=' + WID + '&h=' + HEI;
   chrome = spawn(CHROME, ['--headless=new', '--disable-gpu-sandbox', '--ignore-gpu-blocklist', '--enable-gpu', '--use-angle=d3d11', '--window-size=' + WID + ',' + HEI,
-    '--user-data-dir=' + path.join(require('os').tmpdir(), 'video-render-chrome'), '--autoplay-policy=no-user-gesture-required', u], { stdio: 'ignore' });
+    '--user-data-dir=' + path.join(require('os').tmpdir(), 'video-render-chrome'), '--autoplay-policy=no-user-gesture-required', '--js-flags=--expose-gc', u], { stdio: 'ignore' });
   console.log('opened the page in a hidden Chrome: ' + u);
 });
 function finish(code) { try { chrome && chrome.kill(); } catch (e) {} setTimeout(() => process.exit(code || 0), 300); }

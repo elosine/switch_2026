@@ -1043,11 +1043,12 @@ else {
       for (let k = 0; ; k++) {
         const tt = t0 + k / fps; if (tt > t1 + 1e-9) break;
         audio.currentTime = tt; vnow += 1000 / fps; tick(vnow);
-        const blob = await new Promise(res => renderer.domElement.toBlob(res, 'image/png'));
-        await fetch('/render/frame?k=' + k, { method: 'POST', body: blob });
+        let blob = renderer.domElement.toDataURL('image/jpeg', 0.96); window.__rk = k; window.__rb = blob.length;   // [§586] a text frame (Chrome kept every Blob's memory until it ran out, at frame ~100 as PNG and ~290 as JPEG)   // [§586] JPEG at 0.96: a tenth of a PNG, so Chrome's memory keeps up
+        if (k % 15 === 0 && window.gc) window.gc();                         // [§586] free the sent frames' memory as it goes
+        for (let tries = 0; ; tries++) { try { const r = await fetch('/render/frame?k=' + k, { method: 'POST', body: blob }); if (r.ok) break; } catch (e) { if (tries >= 6) throw e; } await new Promise(r => setTimeout(r, 400 * (tries + 1))); }   // [§586] a failed hand-off retried
       }
       await fetch('/render/end', { method: 'POST' });
-    } catch (e) { await fetch('/render/error', { method: 'POST', body: String(e && e.stack || e) }); }
+    } catch (e) { await fetch('/render/error', { method: 'POST', body: 'frame ' + window.__rk + ' (' + window.__rb + ' bytes): ' + String(e && e.stack || e) }); }
   })();
 }
 window.__V = { get ropes() { return ropes; }, camera, S, get uy() { return uy; }, get soloK() { return soloK; }, hand: t => hand(t) };   // for inspection only
