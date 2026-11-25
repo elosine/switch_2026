@@ -7027,3 +7027,9 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 
 - His words: *"Okay, that is good. Now, instead of the rope, let's make a chain of balls without any connections. We'll start at that thickness, and then we'll see."* (Read as the SHADOW rope of §547 — the one with "that thickness"; the main rope and its beads unchanged.)
 - Done: the shadow drawn as 90 round balls (Three.js points, a round dot, 4 px — the line's thickness), evenly placed along the shadow's own path, so they ride its swing and its wiggle across; no line between them. A knob turns it back into the line (0), and sets the number of balls. Loaded on the throwaway 5661 (four ball chains built); not seen moving — the pane hidden.
+
+## §550 — 2026-11-25 — the video workshop: bigger, fewer balls; the shadow held closer; no rope line in the state
+
+- His words (with a screenshot of the counterpoint's archtop rope): *"make the balls bigger, maybe even further apart, like less dense, and no interconnected line. Like I still see a continuous rope. And then can you make its maximum displacement a little less? … the radius of displacement away from the other rope … not quite as much as it is now."*
+- The AI's reading of the screenshot: the "continuous rope" was the rope's own thin line plus the 113 small resting beads packed along it; the balls (90 at 4 px, about one ball-width apart) read as part of it.
+- Done: the balls 9 px (was 4), 36 of them (was 90) — about two and a half times further apart; the rope's own line HIDDEN in the new state (a knob brings it back); the shadow's kicks smaller (25, was 45) and its wiggle never further than 45 from its path. Not seen: the pane hidden.

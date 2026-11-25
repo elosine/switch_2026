@@ -143,14 +143,16 @@ const KNOBS = [
     ['beadJitter', 'The beads not evenly spaced (share of their gap)', 0, 2, 0.01, 0.8],
     ['grainPull', 'Under the grains the rope'+"'"+'s ends pull apart (a smaller swing)', 0, 200, 1, 70],
     ['shadow', 'The shadow rope: the grains as a wiggle across it (1 = on)', 0, 1, 1, 1],
-    ['shadowWidth', 'The shadow rope'+"'"+'s thickness (pixels)', 1, 12, 0.5, 4],
+    ['shadowWidth', 'The shadow rope'+"'"+'s thickness (pixels)', 1, 30, 0.5, 9],
     ['shadowOp', 'The shadow rope'+"'"+'s strength', 0, 1, 0.01, 0.55],
-    ['shadowKick', 'Each grain kicks the shadow rope where the sound is', 0, 200, 1, 45],
+    ['shadowKick', 'Each grain kicks the shadow rope where the sound is', 0, 200, 1, 25],
+    ['shadowMax', 'The shadow never strays further than', 5, 300, 1, 45],
+    ['spineInState', 'In the new state, the rope line shows (1) or not (0)', 0, 1, 1, 0],
     ['shadowTravel', 'Seconds for a kick to cross the shadow rope', 0.1, 3, 0.05, 0.7],
     ['shadowDamp', 'How soon its wiggles die', 0, 10, 0.05, 2.5],
     ['shadowZ', 'The shadow rope sits behind (+ in front)', -200, 200, 1, -25],
     ['shadowBalls', 'The shadow as a chain of balls, unconnected (1) or a line (0)', 0, 1, 1, 1],
-    ['ballCount', 'How many balls in the chain', 10, 300, 1, 90],
+    ['ballCount', 'How many balls in the chain', 10, 300, 1, 36],
     ['beadFollow', 'How quickly the bead follows the sound (seconds)', 0.02, 1, 0.01, 0.12],
     ['beadSize', 'The bead’s size (× a tumbleweed)', 0.5, 4, 0.05, 1.8],
     ['beadSpread', 'Spread the bead to the ends (1 = as measured; beyond the end it stops there)', 1, 5, 0.05, 2],
@@ -680,11 +682,13 @@ function tick(now) {
       }
       if (!on) for (const w of r.weeds) if (r.line.visible && !w.mesh.visible && !(S.singleBead && r.grainOn)) w.mesh.visible = true;
     }
+    // [§550 — his "no interconnected line. Like I still see a continuous rope"] in the new state the rope's own line is hidden (a knob brings it back)
+    if (r.dense) r.line.material.opacity = (r.grainOn && !S.spineInState) ? 0 : S.spine;
     if (r.shadow) {
       const on = !!(S.shadow && r.grainOn && r.line.visible); r.shadow.visible = on;
       if (on) {
         const pts = r.shPts || (r.shPts = new Float32Array(3 * r.n));
-        for (let j = 0; j < r.n; j++) { pts[3 * j] = lp[3 * j]; pts[3 * j + 1] = lp[3 * j + 1] + r.tw[j]; pts[3 * j + 2] = lp[3 * j + 2] + S.shadowZ; }
+        for (let j = 0; j < r.n; j++) { pts[3 * j] = lp[3 * j]; pts[3 * j + 1] = lp[3 * j + 1] + Math.max(-S.shadowMax, Math.min(S.shadowMax, r.tw[j])); pts[3 * j + 2] = lp[3 * j + 2] + S.shadowZ; }
         r.shadow.geometry.setPositions(pts); r.shadow.material.linewidth = S.shadowWidth; r.shadow.material.opacity = S.shadowOp;
       }
       const B = r.shadow.balls, bon = on && !!S.shadowBalls; B.visible = bon; if (bon) r.shadow.visible = false;
