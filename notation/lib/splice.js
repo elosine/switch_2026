@@ -312,7 +312,7 @@
     // an object is this page's when its onset is before the cut — by RENDER'S OWN tolerance (render.js owns: t < cut − 1e-9), not the
     // planner's EPS: db1 p3 cut at a unit's t + 1e-6, and a GC at that t was drawn on the page but not counted in its ink end
     const ownedBefore = (x, c) => x.t < c - 1e-9;
-    const desc = x => x.kind + ' part ' + x.part + ' @' + x.t.toFixed(3);
+    const desc = x => x.kind + ' part ' + x.part + ' @' + x.t.toFixed(3) + ' [' + x.a.toFixed(2) + ' … ' + x.b.toFixed(2) + ']';   // [§482] the span, for the plan dump
     const pages = [];
     let t = w0, w = w0, guard = 0;
     if (opts && opts.firstByObjects && intervals.length) w = Math.min(w0, ...intervals.map(x => x.a));
@@ -355,7 +355,7 @@
         if (c.tempo && e[0] < t - EPS && t < e[1] - EPS)
           reshow.push({ part: c.part, text: rules.continuationPrefix + c.tempo.label });
       }
-      pages.push({ t0: t, t1: cut, w0: w, inkEnd, kind, blank: Math.max(0, target - cut), pushed: pushed.map(desc), forced: forced.map(desc),
+      pages.push({ t0: t, t1: cut, w0: w, inkEnd, kind, blank: Math.max(0, target - cut), pushed: pushed.map(desc), forced: forced.map(desc), blockers: kind === 'forced' ? intervals.filter(x => x.t > cut + EPS && x.t < w + S && x.b > w + S + EPS).map(desc) : [],   // [§482] what kept the cut from coming later
         interrupted: inter.map(c => c.id), offGrid: offGridChunks(inter, cut), severed, reshow });
       t = cut; w = nextW;
     }

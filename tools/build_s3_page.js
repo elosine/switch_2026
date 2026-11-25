@@ -137,7 +137,7 @@ const BARE_FILE = path.join(ROOT, 'notation', 'hand', ID + '.bare.json'), BARE =
 // ---- THE OVERLAYS, into the page the extractor wrote
 const irPath = path.join(ROOT, 'notation', 'ir', ID + '.ir.json'), ir = JSON.parse(fs.readFileSync(irPath, 'utf8'));
 ir.overlays = ir.overlays.filter(o => !/^ov-s3-/.test(o.id)).concat(overlays);
-ir.layoutPolicy = Object.assign(ir.layoutPolicy || {}, { tempoRowSs: TS.rowSs, tupletBeamSide: true, ottavaRuns: true, clefs: CLEFS, omitParts: OMIT_PARTS, ottavaCrowd: true, ottavaBare: BARE });   // §451: the standard ottava on every part; only a sign with no room is treated   // §442: the number always on the beam side · one ottava bracket over a run of the part's notes   // the tempo row on top of everything, one height (§438)
+ir.layoutPolicy = Object.assign(ir.layoutPolicy || {}, { tempoBars: false /* §484, his: 'remove them' — no bar line at a new tempo */, tempoRowSs: TS.rowSs, tupletBeamSide: true, ottavaRuns: true, clefs: CLEFS, omitParts: OMIT_PARTS, ottavaCrowd: true, ottavaBare: BARE });   // §451: the standard ottava on every part; only a sign with no room is treated   // §442: the number always on the beam side · one ottava bracket over a run of the part's notes   // the tempo row on top of everything, one height (§438)
 // THE GROUPS AS CLUSTERS (#4 day 23, figures.cluster — the one figure that carries a tuplet). Each group its own cluster on a grid of sixteenths:
 // 4 to the beat, or 8 over two beats. HIS RULES (SW-164, §436): a group inside one beat takes the PLAIN number (5); a group over two beats the RATIO
 // (3:2 · 5:4 · 7:4 · 9:8 · 11:8); no bracket, the number centered over the group (rules.json objects.tuplet.look.bracket). 2, 4 and 8 to the beat take none.

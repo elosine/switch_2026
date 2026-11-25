@@ -951,16 +951,23 @@
           // label · dashes RIGHT-ALIGNED stepping back from the hook (p2's
           // emitDashes — the connecting dash meets the hook, forming the L),
           // hook at the head's right edge. Geometry: glyphs.standards.ottava.
-          if (!owns(it.t)) continue;
+          // [the Switch~ piece §482 — his "yes" to breaking a long octave bracket at the page's end] ON PAPER (opts.printEdges) A RUN'S BRACKET CROSSES THE
+          // PAGE: on the page that owns its start it runs to the system's end with NO hook; on each following page it is RESTATED — the label again at the
+          // music's start, its line on to the run's end (the hook there), or again open at that page's end. Engraving practice (Gould: an ottava line is
+          // restated at a new system). The screen and the film (no printEdges) are untouched.
+          const contd = !owns(it.t) && !!PRE && it.t1 != null && !it.bare && OWN && it.t < OWN[0] - 1e-9 && it.t1 > OWN[0] + 1e-9;
+          if (!owns(it.t) && !contd) continue;
+          const openEnd = !!PRE && it.t1 != null && !it.bare && it.t1 > wInk + 1e-9;
           const O = stds.ottava || {};
           const lg = glyphs.ottavaText && glyphs.ottavaText[it.label];
           const yLine = Y(it.ySs);
-          let xLabel = X(it.t, it.dx0Ss || 0);
-          const xHook = X(it.t1 != null ? it.t1 : it.t, it.dx1Ss || 0);   // [§438] t1: one bracket over a run of a group's notes
+          let xLabel = contd ? X(OWN[0], 0.3) : X(it.t, it.dx0Ss || 0);
+          const xHook = openEnd ? X(wInk, 0) : X(it.t1 != null ? it.t1 : it.t, it.dx1Ss || 0);   // [§438] t1: one bracket over a run of a group's notes
           // a too-narrow unit widens the bracket leftward to its minimum span
           const minSpan = (O.minBracketSpanSs || 1.37) * ssPx;
           const lgW = lg ? (lg.wSs + (O.textGapBeforeLineSs || 0.1)) * ssPx : 0;
-          if (xHook - (xLabel + lgW) < minSpan) xLabel = xHook - minSpan - lgW;
+          if (!contd && !openEnd && xHook - (xLabel + lgW) < minSpan) xLabel = xHook - minSpan - lgW;
+          if ((contd || openEnd) && xHook - (xLabel + lgW) < 0) continue;   // [§482] no room for even the label: nothing drawn
           // [§451] THE SIGN ALONE (it.bare): centered on its note head, no dashes, no hook
           if (it.bare && lg) { const tyB = yLine + (O.lineAttachAboveBaselineSs || 0.32) * ssPx - lg.hSs * ssPx;
             parts.push('<g transform="translate(' + (X(it.t, it.cxSs || 0) - lg.wSs * ssPx / 2).toFixed(2) + ',' + tyB.toFixed(2) + ') scale(' + ssPx + ')"><path d="' + lg.path + '"/></g>'); continue; }
@@ -980,9 +987,9 @@
               '" y2="' + yLine.toFixed(2) + '" stroke="' + o.ink + '" stroke-width="' + thick.toFixed(2) + '"/>');
             xEnd -= dashLen + dashGap;
           }
-          // hook extends from the line BACK TOWARD the staff
+          // hook extends from the line BACK TOWARD the staff — [§482] none where the bracket runs on past the page
           const hook = (O.hookLengthSs || 0.8) * ssPx * (it.dir === 'above' ? 1 : -1);
-          parts.push('<line x1="' + xHook.toFixed(2) + '" y1="' + yLine.toFixed(2) + '" x2="' + xHook.toFixed(2) +
+          if (!openEnd) parts.push('<line x1="' + xHook.toFixed(2) + '" y1="' + yLine.toFixed(2) + '" x2="' + xHook.toFixed(2) +
             '" y2="' + (yLine + hook).toFixed(2) + '" stroke="' + o.ink + '" stroke-width="' + thick.toFixed(2) + '"/>');
         } else if (it.k === 'lvslur') {
           // [2h.5] the let-ring slur (§486): piece #2's baked l.v. crescent —

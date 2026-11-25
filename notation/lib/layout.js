@@ -1088,7 +1088,7 @@
         const dx = auto
           ? -(o.stackGapSs != null ? o.stackGapSs : 0.45)
           : -(o.gapMediumSs || 0.3);
-        items.push({ k: 'barline', t: tp.t, dxSs: dx, autoClear: auto });
+        if (POL.tempoBars !== false) items.push({ k: 'barline', t: tp.t, dxSs: dx, autoClear: auto });   // [the Switch~ piece §484 — his: no bar line but the piece's final double] layoutPolicy.tempoBars false: the tempo mark alone
         if (first && (auto || part === (o.frameParts || ir.source.parts)[0]))
           items.push(Object.assign({ k: 'tempotext', t: tp.t, dxSs: dx, bpm: tp.bpm, autoClear: auto }, POL.tempoRowSs > 0 ? { ySs: POL.tempoRowSs } : {}));   // [§438] the tempo row on top of everything, one height
       }

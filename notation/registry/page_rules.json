@@ -44,7 +44,7 @@
     "hairpin": { "screen": "clamp", "print": "whole" },
     "tempospan": { "screen": "cut", "print": "stub", "_note": "the Switch~ piece §433: accel. / decel. with its dashed line spans the time of the change — a spanning graphic, so it takes the timed hairpin's classes (the AI's placing, his to move): cut like paper on screen, a stub at a print cut; the word on the page that owns its start. The standing rule for a text instruction over a cut (restated in parentheses at the next page's start) is NOT built for it yet" },
     "hairpin-timed": { "screen": "cut", "print": "stub", "_note": "LGMF PLAN 2g (§466): the vibraphone's TIMED hairpin spans the time of its movement — a spanning graphic like the ring bar it lies under, so it takes the ring bar's classes: cut like paper on screen, a stub at a print cut; the 2f `hairpin` (a fixed-length symbol) keeps clamp · whole" },
-    "ottava": { "screen": "clamp", "print": "whole" },
+    "ottava":{"screen":"clamp","print":"continue","_printNote":"the Switch~ piece §482 (2026-11-24, his yes to breaking a long octave bracket at the page end and restating it): on paper a run's bracket no longer holds a page back — render.js draws it open to the system's end and restates it on the next page. Was 'whole'."},
     "lvslur": { "screen": "clamp", "print": "whole" },
   "slash": { "screen": "clamp", "print": "whole", "_note": "§550: the grace note's stroke — a point kind on the grace's stem" },
   "squiggle": { "screen": "clamp", "print": "whole", "_note": "§557: the uneven-group sign's wavy stroke — a point kind at the group's first stub" },
