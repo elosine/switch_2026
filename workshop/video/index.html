@@ -46,6 +46,8 @@
   <span id="time">0:00.0</span>
   <input id="scrub" type="range" min="0" max="487" step="0.1" value="0">
   <button id="kick" title="kick every rope once">Kick all</button>
+  <button id="showElec" title="the four electronics ropes (the session's tremolo)">Electronics: off</button>
+  <button id="showEns" title="the five ensemble ropes (the score's notes)">Ensemble: on</button>
   <button id="toggle">Knobs</button>
 </div>
 <audio id="audio" src="/audio" preload="auto"></audio>
@@ -177,9 +179,27 @@ function sphereEdges(res) {
 }
 // [his "big polygons come out of the attachment points"] a tumbleweed's size: random in the knobs' range, smaller toward the pinned ends
 // (taper 1 = nothing at the ends), and never wider than the gap to its neighbours
-function weedRad(j, n, seg) {
+// [§525 — his "change something about each instrument's rope's behavior a little bit … blinking speed … type of motion … number of nodes
+// … smoothness … amplitude … each … a different kind of feel … subtle"] THE CHARACTERS of the ensemble's five ropes, as multipliers of the
+// shared knobs (1 = as the knobs say). The AI's first reading of each instrument, his to change:
+//   winds      airy: smoother, smaller tumbleweeds, a slow glide, a sway sideways as well as up and down, a little paler
+//   percussion crisp: few angular lines, quick re-scrambles that snap rather than glide, the snap dying fast
+//   piano      struck: rounder (more detail), the strongest snap, a medium glide
+//   violin     fine and quick: more, smaller points, a faster shake of smaller size
+//   cello      heavy: fewer, larger points, a slower and wider shake, a long glide
+const CHAR = {
+  winds:      { nodes: 1,    size: 0.8,  res: 1,    morph: 2.2, scr: 1.2,  shake: 1,    amp: 0.9,  snap: 0.7, snapFade: 2,   sway: 0.9,  op: 0.85 },
+  percussion: { nodes: 0.85, size: 0.9,  res: 0.6,  morph: 0.12, scr: 0.4, shake: 1.1,  amp: 0.85, snap: 1.2, snapFade: 6,   sway: 0.1,  op: 1 },
+  piano:      { nodes: 1,    size: 1,    res: 1.35, morph: 0.6, scr: 0.8,  shake: 1,    amp: 1,    snap: 1.5, snapFade: 3.5, sway: 0.2,  op: 1 },
+  violin:     { nodes: 1.3,  size: 0.65, res: 1,    morph: 0.8, scr: 0.7,  shake: 1.3,  amp: 0.7,  snap: 0.9, snapFade: 3,   sway: 0.3,  op: 0.95 },
+  cello:      { nodes: 0.75, size: 1.35, res: 1,    morph: 1.8, scr: 1.4,  shake: 0.7,  amp: 1.35, snap: 1,   snapFade: 1.8, sway: 0.35, op: 1 },
+};
+const PLAIN = { nodes: 1, size: 1, res: 1, morph: 1, scr: 1, shake: 1, amp: 1, snap: 1, snapFade: 2.5, sway: 0.25, op: 1 };
+const charOf = src => (src && src.kind === 'ensemble' && CHAR[src.part]) || PLAIN;
+const edgeCache = {}; const edgesFor = res => edgeCache[res] || (edgeCache[res] = sphereEdges(res));
+function weedRad(j, n, seg, mul = 1) {
   const u = j / (n - 1), env = (1 - S.taper) + S.taper * Math.pow(Math.sin(Math.PI * u), 0.7);
-  return Math.min(seg * 0.9, R(live, S.sizeL, Math.max(S.sizeL, S.sizeH)) * env);
+  return Math.min(seg * 0.9, R(live, S.sizeL, Math.max(S.sizeL, S.sizeH)) * env * mul);
 }
 function scramble(pos, n, rad, rand) { for (let k = 0; k < n; k++) { pos[3 * k] = R(rand, -rad, rad); pos[3 * k + 1] = R(rand, -rad, rad); pos[3 * k + 2] = R(rand, -rad, rad); } }
 
@@ -188,10 +208,11 @@ let ropes = [], live = rng(12345);
 function build() {
   ropes.forEach(r => { r.weeds.forEach(w => { scene.remove(w.mesh); w.mesh.geometry.dispose(); w.mesh.material.dispose(); }); scene.remove(r.line); r.line.geometry.dispose(); r.line.material.dispose(); });
   ropes = [];
-  const lay = rng(S.seed), sph = sphereEdges(S.res), pal = PALETTES[S.palette] || PALETTES.dekooning;
+  const lay = rng(S.seed), pal = PALETTES[S.palette] || PALETTES.dekooning;
   for (let i = 0; i < S.ropes; i++) {
-    const y = R(lay, -S.spreadY, S.spreadY), z = R(lay, -S.spreadZ, S.spreadZ), n = S.nodes;
-    const src = sourceOf(i), span = W, len = span * (src ? (src.kind === 'ensemble' ? S.ensSlack : S.ropeSlack) : S.slack), seg = len / (n - 1);
+    const src0 = sourceOf(i), ch = charOf(src0), y = R(lay, -S.spreadY, S.spreadY), z = R(lay, -S.spreadZ, S.spreadZ), n = Math.max(6, Math.round(S.nodes * ch.nodes));
+    const sph = edgesFor(Math.max(3, Math.round(S.res * ch.res)));
+    const src = src0, span = W, len = span * (src ? (src.kind === 'ensemble' ? S.ensSlack : S.ropeSlack) : S.slack), seg = len / (n - 1);
     const p = new Float32Array(3 * n), q = new Float32Array(3 * n);
     // start hanging in a shallow arc so the slack is already taken up
     const sag = Math.sqrt(Math.max(0, (len * len - span * span))) * 0.5;
@@ -200,15 +221,15 @@ function build() {
     const c = pal[i % pal.length], colour = new THREE.Color(c[0] / 255, c[1] / 255, c[2] / 255);
     const weeds = [];
     for (let j = 0; j < n; j++) {
-      const pos = new Float32Array(3 * sph.n); scramble(pos, sph.n, weedRad(j, n, seg), live);
+      const pos = new Float32Array(3 * sph.n); scramble(pos, sph.n, weedRad(j, n, seg, ch.size), live);
       const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos, 3)); g.setIndex(sph.pairs);
-      const mesh = new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color: colour, transparent: true, opacity: S.opacity }));
+      const mesh = new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color: colour, transparent: true, opacity: S.opacity * ch.op }));
       scene.add(mesh); weeds.push({ mesh, pos, n: sph.n, from: null, to: null, k: 0 });
     }
     // [his "the polygons don't feel part of the rope"] a faint line through the points, the rope's own colour
     const lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(3 * n), 3));
     const line = new THREE.Line(lg, new THREE.LineBasicMaterial({ color: colour, transparent: true, opacity: S.spine })); scene.add(line);
-    ropes.push({ pl: src, side: i % 2 ? n - 1 : 0, sf: 0, sfT: 0, sa: 0, saT: 0, sph: 0, snapK: 0, th: R(lay, 0, Math.PI * 2), w: 0, wT: 0, pullC: 0, pullT: 0, zt: z, ze: z, st: null, p, q, n, seg, y, z, weeds, line, ph: R(lay, 0, Math.PI * 2), ph2: R(lay, 0, Math.PI * 2), timer: Math.round(R(live, S.scrL, S.scrH)) });
+    ropes.push({ ch, pl: src, side: i % 2 ? n - 1 : 0, sf: 0, sfT: 0, sa: 0, saT: 0, sph: 0, snapK: 0, th: R(lay, 0, Math.PI * 2), w: 0, wT: 0, pullC: 0, pullT: 0, zt: z, ze: z, st: null, p, q, n, seg, y, z, weeds, line, ph: R(lay, 0, Math.PI * 2), ph2: R(lay, 0, Math.PI * 2), timer: Math.round(R(live, S.scrL, S.scrH)) });
   }
 }
 
@@ -234,11 +255,13 @@ function stepRope(r, dt) {
   // rope. The shaking speeds up EVENLY (its own, slower inertia); its size the written velocity; an accent a SNAP — a moment of extra size
   if (r.pl && r.pl.kind === 'ensemble') {
     const k = Math.min(1, S.ensInertia * dt);
-    r.sf += (r.sfT - r.sf) * k; r.sa += (r.saT - r.sa) * Math.min(1, 3 * dt); r.snapK *= Math.exp(-dt * 2.5); r.pullC += (r.pullT - r.pullC) * k;
+    r.sf += (r.sfT - r.sf) * k; r.sa += (r.saT - r.sa) * Math.min(1, 3 * dt); r.snapK *= Math.exp(-dt * r.ch.snapFade); r.pullC += (r.pullT - r.pullC) * k;
     r.sph += 2 * Math.PI * r.sf * dt;
     const amp = r.sa * (1 + r.snapK), hand = r.side, fixed = hand === 0 ? n - 1 : 0;
+    // [§525 — his "slightly more breeze motion, so it's not completely static"] a silent rope's hand drifts slowly with the breeze
+    const drift = S.breeze * 0.35 * Math.max(0, 1 - r.sa / 20) * Math.sin(2 * Math.PI * S.breezeHz * simT + r.ph);
     q[3 * hand] = p[3 * hand]; q[3 * hand + 1] = p[3 * hand + 1]; q[3 * hand + 2] = p[3 * hand + 2];
-    p[3 * hand] = hand === 0 ? -W / 2 : W / 2; p[3 * hand + 1] = r.y + amp * Math.sin(r.sph); p[3 * hand + 2] = r.z + amp * 0.25 * Math.sin(r.sph * 0.5);
+    p[3 * hand] = hand === 0 ? -W / 2 : W / 2; p[3 * hand + 1] = r.y + amp * Math.sin(r.sph) + drift; p[3 * hand + 2] = r.z + amp * r.ch.sway * Math.sin(r.sph * 0.5) + drift * 0.6;
     q[3 * fixed] = p[3 * fixed]; q[3 * fixed + 1] = p[3 * fixed + 1]; q[3 * fixed + 2] = p[3 * fixed + 2];
     p[3 * fixed] = (fixed === 0 ? -1 : 1) * (W / 2 + r.pullC); p[3 * fixed + 1] = r.y; p[3 * fixed + 2] = r.z;
   } else if (r.pl) {
@@ -281,10 +304,10 @@ function tick(now) {
     r.zt = r.z + (at(P.azimuth, tNow) / 90) * S.roomDepth;
     const busy = Math.max(0, Math.min(1, (sp - 2) / 18)), sounding = Math.min(1, on * 1.5);
     if (P.kind === 'ensemble') {
-      r.sfT = playing && sounding > 0.05 ? S.shakeMin + (S.shakeMax - S.shakeMin) * busy : 0;
-      r.saT = playing ? S.shakeAmp * sounding * (0.45 + 0.55 * Math.max(0, Math.min(1, (dp - 0.65) / 0.35))) : 0;
+      r.sfT = playing && sounding > 0.05 ? (S.shakeMin + (S.shakeMax - S.shakeMin) * busy) * r.ch.shake : 0;
+      r.saT = playing ? S.shakeAmp * r.ch.amp * sounding * (0.45 + 0.55 * Math.max(0, Math.min(1, (dp - 0.65) / 0.35))) : 0;
       r.pullT = playing ? S.ensPull * sounding * busy : 0;
-      if (playing && !jump) for (const a of P.accents) if (a > tPrev && a <= tNow) r.snapK = Math.min(2.5, r.snapK + S.snap * (0.5 + 0.5 * Math.max(0, Math.min(1, (hd - 1.5) / 3))));
+      if (playing && !jump) for (const a of P.accents) if (a > tPrev && a <= tNow) r.snapK = Math.min(2.5, r.snapK + S.snap * r.ch.snap * (0.5 + 0.5 * Math.max(0, Math.min(1, (hd - 1.5) / 3))));
       continue;
     }
     r.wT = playing ? sounding * (S.turnMin + (S.turnMax - S.turnMin) * busy) * (0.75 + 0.25 * Math.max(0, Math.min(1, (dp - 0.65) / 0.35))) : 0;
@@ -306,12 +329,12 @@ function tick(now) {
   frame++;
   for (const r of ropes) {
     if (--r.timer <= 0) {                                   // ofApp: every aniT frames, re-scatter a random number of the rope's tumbleweeds
-      r.timer = Math.round(R(live, S.scrL, Math.max(S.scrL, S.scrH)) * (r.st ? 1 - S.agitate * r.st.on * Math.max(0, r.st.sp - 2) / 18 * 0.85 : 1));
+      r.timer = Math.round(R(live, S.scrL, Math.max(S.scrL, S.scrH)) * r.ch.scr * (r.st ? 1 - S.agitate * r.st.on * Math.max(0, r.st.sp - 2) / 18 * 0.85 : 1));
       const many = Math.round(R(live, 1, r.n - 1));
       for (let k = 0; k < many; k++) {
         const j = Math.floor(live() * r.n), w = r.weeds[j];
         // [his "less agitated"] a re-scramble GLIDES from the old shape to the new one over S.morph frames instead of snapping
-        w.from = Float32Array.from(w.pos); w.to = new Float32Array(w.pos.length); scramble(w.to, w.n, weedRad(j, r.n, r.seg), live); w.k = 0;
+        w.from = Float32Array.from(w.pos); w.to = new Float32Array(w.pos.length); scramble(w.to, w.n, weedRad(j, r.n, r.seg, r.ch.size), live); w.k = 0;
       }
     }
     const al = acc / STEP, lp = r.line.geometry.attributes.position.array;     // drawn between the last two physics steps: no judder
@@ -321,7 +344,7 @@ function tick(now) {
       const w = r.weeds[j], x = r.q[3 * j] + (r.p[3 * j] - r.q[3 * j]) * al, y = r.q[3 * j + 1] + (r.p[3 * j + 1] - r.q[3 * j + 1]) * al + qv, z = r.q[3 * j + 2] + (r.p[3 * j + 2] - r.q[3 * j + 2]) * al + qv * 0.4;
       w.mesh.position.set(x, y, z); lp[3 * j] = x; lp[3 * j + 1] = y; lp[3 * j + 2] = z;
       if (w.to) {
-        w.k = Math.min(1, w.k + 1 / Math.max(1, S.morph)); const e = w.k * w.k * (3 - 2 * w.k);
+        w.k = Math.min(1, w.k + 1 / Math.max(1, S.morph * r.ch.morph)); const e = w.k * w.k * (3 - 2 * w.k);
         for (let m = 0; m < w.pos.length; m++) w.pos[m] = w.from[m] + (w.to[m] - w.from[m]) * e;
         w.mesh.geometry.attributes.position.needsUpdate = true; if (w.k >= 1) w.to = w.from = null;
       }
@@ -331,7 +354,7 @@ function tick(now) {
   bloom.strength = S.bloom; bloom.radius = S.radius; bloom.threshold = S.thresh;
   // [§524 — his "the center is perhaps a little too high … a way to get it pretty centered"] THE FRAME FOLLOWS THE ROPES: the middle of
   // their highest and lowest points, eased slowly, the view moved by the difference (a turned view stays turned)
-  let lo = Infinity, hi = -Infinity; for (const r of ropes) for (let j = 0; j < r.n; j += 2) { const y = r.p[3 * j + 1]; if (y < lo) lo = y; if (y > hi) hi = y; }
+  let lo = Infinity, hi = -Infinity; for (const r of ropes) if (r.line.visible) for (let j = 0; j < r.n; j += 2) { const y = r.p[3 * j + 1]; if (y < lo) lo = y; if (y > hi) hi = y; }
   if (isFinite(lo)) { const want = (lo + hi) / 2 + S.frameY, dy = (want - controls.target.y) * Math.min(1, dt * 0.6); controls.target.y += dy; camera.position.y += dy; }
   controls.update(); composer.render();
   const t = audio.currentTime; timeEl.textContent = fmt(t); if (!scrubbing) scrub.value = t;
@@ -356,9 +379,9 @@ panel.addEventListener('input', e => {
   const id = e.target.id.replace(/^k-/, ''); if (!(id in S)) return;
   S[id] = id === 'palette' ? e.target.value : +e.target.value;
   const o = document.getElementById('o-' + id); if (o) o.textContent = S[id];
-  if (id === 'opacity') ropes.forEach(r => r.weeds.forEach(w => w.mesh.material.opacity = S.opacity));
+  if (id === 'opacity') ropes.forEach(r => r.weeds.forEach(w => w.mesh.material.opacity = S.opacity * r.ch.op));
   if (id === 'spine') ropes.forEach(r => r.line.material.opacity = S.spine);
-  if (REBUILD.has(id)) build();
+  if (REBUILD.has(id)) { build(); applyShow(); }
   if (id === 'frameY') homeCamera();
 });
 panel.addEventListener('click', async e => {
@@ -378,10 +401,19 @@ audio.onplay = () => playBtn.textContent = 'Pause'; audio.onpause = () => playBt
 audio.onloadedmetadata = () => scrub.max = audio.duration.toFixed(1);
 scrub.oninput = () => { scrubbing = true; timeEl.textContent = fmt(+scrub.value); };
 scrub.onchange = () => { audio.currentTime = +scrub.value; scrubbing = false; };
+// [§525 — his "can we just turn off the tremolo ones for now? … so I can just see the instruments"] show or hide each family of ropes
+S.showElec = S.showElec ?? 0; S.showEns = S.showEns ?? 1;
+function applyShow() {
+  for (const r of ropes) { const on = !r.pl ? true : r.pl.kind === 'session' ? !!S.showElec : !!S.showEns; r.weeds.forEach(w => w.mesh.visible = on); r.line.visible = on; }
+  document.getElementById('showElec').textContent = 'Electronics: ' + (S.showElec ? 'on' : 'off');
+  document.getElementById('showEns').textContent = 'Ensemble: ' + (S.showEns ? 'on' : 'off');
+}
+document.getElementById('showElec').onclick = () => { S.showElec = S.showElec ? 0 : 1; applyShow(); };
+document.getElementById('showEns').onclick = () => { S.showEns = S.showEns ? 0 : 1; applyShow(); };
 document.getElementById('kick').onclick = () => ropes.forEach(r => kick(r, R(live, 3, r.n - 4), S.kick * 1.5));
 window.addEventListener('keydown', e => { if (e.code === 'Space' && e.target.tagName !== 'INPUT') { e.preventDefault(); playBtn.click(); } });
 
-resize(); build(); requestAnimationFrame(tick);
+resize(); build(); applyShow(); requestAnimationFrame(tick);
 window.__V = { get ropes() { return ropes; }, camera, S };   // for inspection only
 </script>
 </body>
