@@ -503,6 +503,13 @@ const STATE_END = 277.8;   // [§579 — his "the transition between the counter
 // [§570] THE FINAL SECTION'S ELECTRONICS: every lane has its own bed there — each rope its own: the archtop rope Elec 2 (G9, the stuttering one) ·
 // the baritone-guitar rope Elec 3 (G8) · the drums rope Elec 4 (B2, the pebbly grind — kept like the counterpoint) · the piano rope Elec 1 (G5)
 const STATE2_AT = 277.8, STATE2_END = 480, FINAL_SRC = [{ bed: 'G9', lane: 2 }, { bed: 'G8', lane: 3 }, { bed: 'B2', lane: 4 }, { bed: 'G5', lane: 1 }];
+// [§581 — his "transition back and forth with the electronics to the counterpuntal paradigm and then back … at some of those hinge points … when
+// unisons or … a certain multi-tempo"; his "yes, build it that way"] THE GATHERINGS (bank/phase_form.json: the holds where the tempos ARRIVE — a
+// swarm, a unison, the lock): there the electronics return to the counterpoint's look; in the drifts and glides between, the final look. Each rope
+// eases between the two (r.fb: 1 the final look, 0 the counterpoint's) over FB_EASE seconds; a look's on/off parts switch at the halfway point.
+const GATHER = [[324.27, 330.27], [341.08, 350.89], [383.0, 388.7], [400.3, 402.3], [435.4, 439.4]], FB_EASE = 1.5;
+const finalTarget = t => t >= STATE2_AT && !GATHER.some(([a, b]) => t >= a && t <= b) ? 1 : 0;
+const fin = r => (r.fb ?? 0) > 0.5;
 const STUTTER = { 0: true, 1: true, 2: true, 3: true };   // [§570 · §577 — his "make them all look like the one we worked on"] all four in the final section
 function srcOf(ri, t) {
   if (t >= STATE2_AT - 10) return { ...FINAL_SRC[ri], delay: 0, mirror: false };
@@ -535,7 +542,7 @@ function grainsFrame(t0, t1, jumped) {
       // [§570 — his "grow a little bit, but also displace a little bit … horizontally along the rope … reflects the sort of stutteriness … the grains
       // combined with the grain gap"] on a stutter rope each grain SHOVES the beads at its own place along the rope (its own pan, spread like the bead),
       // the shove HELD while the grain sounds and let go in the gap — so the beads jump and fall back with the grains' own on and off
-      if (STUTTER[ri] && t1 >= STATE2_AT) { const pu = 0.5 + 0.5 * Math.max(-1, Math.min(1, S.beadSpread * g[6])); (r.stut || (r.stut = [])).push({ t0: g[0] + src.delay, len: g[4], u: pu, from: r.lastPu ?? pu, dir: Math.random() < 0.5 ? -1 : 1, a: lv }); r.lastPu = pu; if (r.stut.length > 64) r.stut.shift(); }
+      if (STUTTER[ri] && fin(r)) { const pu = 0.5 + 0.5 * Math.max(-1, Math.min(1, S.beadSpread * g[6])); (r.stut || (r.stut = [])).push({ t0: g[0] + src.delay, len: g[4], u: pu, from: r.lastPu ?? pu, dir: Math.random() < 0.5 ? -1 : 1, a: lv }); r.lastPu = pu; if (r.stut.length > 64) r.stut.shift(); }
       if (S.shadow && r.beadU != null) { const js = Math.round(r.beadU * (r.n - 1)); if (js > 0 && js < r.n - 1) { const ang = Math.random() * Math.PI * 2, k = S.shadowKick * lv * 0.5; r.two[js] -= Math.cos(ang) * k; r.tzo[js] -= Math.sin(ang) * k; } }
     }
     grainPtr[key] = i;
@@ -663,6 +670,7 @@ function tick(now) {
       if (S.accentKick) kick(r, R(live, 3, r.n - 4), S.accentKick * hn);
     }
   }
+  for (const r of ropes) { if (!r.dense) continue; const tg = finalTarget(tNow), cur = r.fb ?? 0; r.fb = jump ? tg : cur + Math.sign(tg - cur) * Math.min(Math.abs(tg - cur), dt / FB_EASE); }   // [§581] each rope eases toward its look
   for (let ri = 0; ri < ropes.length; ri++) ropes[ri].grainOn = !!(D && D.grains && ri < 4 && ropes[ri].dense && ((tNow >= STATE_AT && tNow <= STATE_END) || (tNow >= STATE2_AT && tNow <= STATE2_END)));   // [§556] all four
   if (playing) grainsFrame(tPrev, tNow, jump);
   // [§558] the counterpoint state's weight 0 … 1, eased over 1.5 s either side (it lightens the ensemble's ropes and widens their shake)
@@ -745,14 +753,14 @@ function tick(now) {
           // [§576 — his "let me see all the electronics ropes … each have a similar sort of amplitude of gentle swing … each … a distinct … vertical
           // location, but not equally spaced … one more towards the bottom, one more towards the top, a couple in between"] all four in the final section
           // take the stutter rope's gentle swing, each at its own height (dealt unevenly: one high, one low, two between) and its own slight pace
-          const stillHang = tNow >= STATE2_AT, yF = { 0: 145, 1: 335, 2: -165, 3: -345 }[ropes.indexOf(r)] ?? r.y;   // [§579] spread further: red near the top, the pale one near the bottom, the two between at the instruments' top and bottom
+          const stillHang = (r.fb ?? 0) > 0, yF = { 0: 145, 1: 335, 2: -165, 3: -345 }[ropes.indexOf(r)] ?? r.y;   // [§579] spread further: red near the top, the pale one near the bottom, the two between at the instruments' top and bottom
           // [§573 — his "bring a little bit of motion back into the rope … not so many modes … some sort of uniform motion"] the AI's pick: the same
           // one loop, much shallower, turning slowly and evenly — life without a second mode; and the rope as wide as the screen
           // [§578 — his "a little bit more different or more out of phase … slightly more different paces"] each its own pace, and a quarter-turn apart as they enter
           if (stillHang) { const ri = ropes.indexOf(r); r.rot = (r.rot || 0); r.rot += 2 * Math.PI * S.stTurn * ([1, 0.68, 1.4, 0.84][ri] ?? 1) * STEP; } else if (r.fPh) r.fPh = false; else if (r.grainOn) r.rot = (r.rot ?? r.ph) + 2 * Math.PI * S.rotTurn * r.rotF * STEP;
           const e = r.kin * r.kin * (3 - 2 * r.kin), n = r.n, c = Math.cos(r.rot ?? 0), s = Math.sin(r.rot ?? 0);
           for (let j = 0; j < n; j++) {
-            const fe = stillHang ? Math.min(1, (tNow - STATE2_AT) / 2) : 0, fs = fe * fe * (3 - 2 * fe);   // [§579] the counterpoint loop eases into the final one over 2 s
+            const fe = r.fb ?? 0, fs = fe * fe * (3 - 2 * fe);   // [§581] the counterpoint loop and the final one, eased both ways   // [§579] the counterpoint loop eases into the final one over 2 s
             const u = j / (n - 1), dep = (S.loopDepth * r.depF + (S.stSag - S.loopDepth * r.depF) * fs) * Math.sin(Math.PI * u), tx = (-W / 2 + W * u) + ((u - 0.5) * viewW() * S.stFill - (-W / 2 + W * u)) * fs, ty = (r.y + (yF - r.y) * fs) - dep * c, tz = r.z + dep * s;
             for (const [a, v] of [[0, tx], [1, ty], [2, tz]]) { const k = 3 * j + a, was = r.kp ? r.kp[k] : r.p[k], now = r.p[k] + (v - r.p[k]) * e; r.q[k] = was; r.p[k] = now; (r.kp || (r.kp = new Float32Array(3 * n)))[k] = now; }   // [§561] q = the last PLACED point (it was the physics' fresh guess: the drawn rope wavered between the two every frame)
           }
@@ -869,17 +877,17 @@ function tick(now) {
       for (const d of r.dense) {
         d.mesh.visible = on; if (!on) { d.gr = null; continue; }
         let du = 0;
-        if (r.stut && STUTTER[ropes.indexOf(r)] && tNow >= STATE2_AT) for (const s of r.stut) {
+        if (r.stut && STUTTER[ropes.indexOf(r)] && fin(r)) for (const s of r.stut) {
           const age = tNow - s.t0; if (age < 0 || age > s.len + S.stEdge) continue;
           const env = Math.min(1, age / S.stEdge, (s.len + S.stEdge - age) / S.stEdge);
           du += s.dir * s.a * env * Math.exp(-((d.u - s.u) ** 2) / (2 * S.stWidth ** 2));
         }
         // [§574 — his "they slide a little bit to the left, maybe bounce around … or slide to the right … put some jitter so they're not equally spaced"]
         // on the stutter rope: each shown bead its own extra offset (fixed, seeded) and a SLIDE — a spring along the rope, pushed by the passing light
-        let ex = 0; if (r.stut && STUTTER[ropes.indexOf(r)] && tNow >= STATE2_AT) { if (d.j2 == null) d.j2 = Math.random() - 0.5; ex = d.j2 * S.stJit * Math.max(1, Math.round(S.ledEvery)) / r.dense.length + (d.sx || 0) / (viewW() * S.stFill); }
+        let ex = 0; if (r.stut && STUTTER[ropes.indexOf(r)] && fin(r)) { if (d.j2 == null) d.j2 = Math.random() - 0.5; ex = d.j2 * S.stJit * Math.max(1, Math.round(S.ledEvery)) / r.dense.length + (d.sx || 0) / (viewW() * S.stFill); }
         const uj = Math.max(0, Math.min(r.n - 1, (d.u + ex + du * S.stShift / W) * (r.n - 1))), a = Math.min(r.n - 2, Math.floor(uj)), f = uj - a;
         d.mesh.position.set(lp[3 * a] + (lp[3 * a + 3] - lp[3 * a]) * f, lp[3 * a + 1] + (lp[3 * a + 4] - lp[3 * a + 1]) * f, lp[3 * a + 2] + (lp[3 * a + 5] - lp[3 * a + 2]) * f);
-        const bell = Math.exp(-((d.u - r.beadU) ** 2) / (2 * S.growWidth ** 2)), stR = STUTTER[ropes.indexOf(r)] && tNow >= STATE2_AT, tgt = stR ? S.stBead + (S.stGrowMax - S.stBead) * Math.max(Math.pow(Math.exp(-((d.u - r.beadU) ** 2) / (2 * S.stGrowWidth ** 2)), 1 / Math.max(0.2, S.stSens)) * stemLevel(srcOf(ropes.indexOf(r), tNow).lane, tNow), d.boost || 0) : S.growSmall + (S.growBig - S.growSmall) * bell;   // [§573] the growth back on the stutter rope, up to stGrowMax   // [§571 — his "let's not have those grow at all"] the stutter rope's beads one fixed size
+        const bell = Math.exp(-((d.u - r.beadU) ** 2) / (2 * S.growWidth ** 2)), stR = STUTTER[ropes.indexOf(r)] && fin(r), tgt = stR ? S.stBead + (S.stGrowMax - S.stBead) * Math.max(Math.pow(Math.exp(-((d.u - r.beadU) ** 2) / (2 * S.stGrowWidth ** 2)), 1 / Math.max(0.2, S.stSens)) * stemLevel(srcOf(ropes.indexOf(r), tNow).lane, tNow), d.boost || 0) : S.growSmall + (S.growBig - S.growSmall) * bell;   // [§573] the growth back on the stutter rope, up to stGrowMax   // [§571 — his "let's not have those grow at all"] the stutter rope's beads one fixed size
         if (d.gr == null) d.gr = S.growSmall;
         d.gr += (tgt - d.gr) * Math.min(1, dt / (tgt > d.gr ? S.growAttack : S.growRelease));
         d.mesh.scale.setScalar(d.gr);
@@ -906,7 +914,7 @@ function tick(now) {
     // [§550 — his "no interconnected line. Like I still see a continuous rope"] in the new state the rope's own line is hidden (a knob brings it back)
     if (r.dense) r.line.material.opacity = (r.grainOn && !S.spineInState) ? 0 : S.spine;
     if (r.shadow) {
-      const on = !!(S.shadow && r.grainOn && r.line.visible && !(STUTTER[ropes.indexOf(r)] && tNow >= STATE2_AT));   // [§571] no shadow on the stutter rope r.shadow.visible = on;
+      const on = !!(S.shadow && r.grainOn && r.line.visible && !(STUTTER[ropes.indexOf(r)] && fin(r)));   // [§571] no shadow on the stutter rope r.shadow.visible = on;
       if (on) {
         const pts = r.shPts || (r.shPts = new Float32Array(3 * r.n));
         for (let j = 0; j < r.n; j++) { pts[3 * j] = lp[3 * j]; const sm = Math.max(1, S.shadowMax); const twj = r.two[j] + (r.tw[j] - r.two[j]) * al, tzj = r.tzo[j] + (r.tz[j] - r.tzo[j]) * al; pts[3 * j + 1] = lp[3 * j + 1] + sm * Math.tanh(twj / sm); pts[3 * j + 2] = lp[3 * j + 2] + S.shadowZ + sm * Math.tanh(tzj / sm); }   // [§561] between its last two steps   // [§551] a soft limit: the motion keeps its shape, only its farthest swings are held in
