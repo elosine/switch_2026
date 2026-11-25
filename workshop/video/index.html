@@ -129,17 +129,19 @@ const KNOBS = [
     ['gEase', 'How slowly it follows (seconds)', 0.05, 3, 0.05, 0.8],
     ['grainGlow', 'A fuller tumbleweed is brighter', 0, 1, 0.01, 0.4],
     ['grainMorph', 'Its re-scramble glide, slower by', 1, 8, 0.5, 3],
-    ['lAmp', 'A grain pushes the tumbleweeds along the rope (how far)', 0, 200, 1, 40],
-    ['lTravel', 'Seconds for that push to cross the rope', 0.1, 3, 0.05, 0.5],
-    ['lDamp', 'How soon the push dies', 0, 10, 0.05, 4],
-    ['homeHz', 'How firmly a tumbleweed returns to its place (a second)', 0.5, 8, 0.1, 3],
-    ['flow', 'The shower’s motion: tumbleweeds lean the way it travels', 0, 300, 1, 40],
+    ['grainTurn', 'Under the grains the rope turns slowly by itself (turns a second)', 0, 1.5, 0.01, 0.22],
+    ['flow', 'The shower’s motion drives the beads along the rope', 0, 20000, 100, 6000],
+    ['jolt', 'Each grain jolts its bead', 0, 200, 1, 30],
+    ['homeHz', 'How firmly a bead returns to its place (a second)', 0.1, 4, 0.05, 0.5],
+    ['beadDamp', 'How soon a bead slows', 0, 6, 0.05, 1.2],
+    ['bounce2', 'How hard the beads bounce off each other (1 = fully)', 0, 1, 0.01, 0.8],
+    ['minGap', 'How close two beads come before they hit (share of their gap)', 0.1, 0.9, 0.01, 0.5],
     ['showerWidth', 'The shower’s width (share of the rope)', 0.05, 0.6, 0.01, 0.22],
     ['showerStir', 'Inside the shower, the stir', 0, 0.4, 0.005, 0.1],
     ['pivot', 'The tumbleweeds pivot as the push passes', 0, 0.05, 0.001, 0.012],
     ['tumble', 'The push stirs them inside (their turning)', 0, 0.5, 0.005, 0.12],
-    ['grainKick', 'A grain taps the rope where it lands', 0, 1500, 10, 260],
-    ['grainSwell', 'The head moves to the next hit: a swell along the rope', 0, 3000, 10, 700],
+    ['grainKick', 'A grain taps the rope where it lands', 0, 1500, 10, 0],
+    ['grainSwell', 'The head moves to the next hit: a swell along the rope', 0, 3000, 10, 0],
     ['loopiness', 'A pulse is a loop (its sideways turn)', 0, 1.5, 0.01, 0.7],
     ['kick', 'Kick strength', 0, 3000, 10, 900],
     ['kickRate', 'Random kicks per rope per second', 0, 4, 0.05, 0],
@@ -368,7 +370,7 @@ function grainsFrame(t0, t1, jumped) {
       // [§540 — his "as the grain moves across space … that sort of longitudinal wave … the nodes … shift a little bit on the rope axis … a little
       // bit of pivot … the grain pulse … move throughout the rope"] a grain gives the tumbleweed at its place a push ALONG the rope; the push runs
       // both ways as a wave (an even sign per grain at random, so they do not all drift one way)
-      r.lwo[j] -= (Math.random() < 0.5 ? -1 : 1) * S.lAmp * lv * STEP * 20;
+      r.lwo[j] += (Math.random() < 0.5 ? -1 : 1) * S.jolt * lv;              // [§541] a jolt to the bead (r.lwo is the beads' speed)
       // [§540 — his "it's kind of rain stick like. So you can hear the shower, and that might be the internal movement, but you can also feel and
       // hear the motion of the shower"] THE SHOWER: where the grains are falling, a running mean of their places (each grain moves it an eighth of
       // the way to its own place)
@@ -465,7 +467,7 @@ function tick(now) {
       if (playing && !jump) for (const a of P.accents) if (a > tPrev && a <= tNow) r.snapK = Math.min(2.5, r.snapK + S.snap * r.ch.snap * (0.5 + 0.5 * Math.max(0, Math.min(1, (hd - 1.5) / 3))));
       continue;
     }
-    r.wT = playing ? sounding * (S.turnMin + (S.turnMax - S.turnMin) * busy) * (0.75 + 0.25 * Math.max(0, Math.min(1, (dp - 0.65) / 0.35))) : 0;
+    r.wT = r.grainOn ? (playing ? S.grainTurn : 0) : playing ? sounding * (S.turnMin + (S.turnMax - S.turnMin) * busy) * (0.75 + 0.25 * Math.max(0, Math.min(1, (dp - 0.65) / 0.35))) : 0;
     r.pullT = playing ? S.pull * sounding * busy : 0;
     if (playing && !jump) for (const a of P.accents) if (a > tPrev && a <= tNow) {
       const hn = 0.5 + 0.5 * Math.max(0, Math.min(1, (hd - 1.5) / 3));
@@ -490,17 +492,27 @@ function tick(now) {
     for (const r of ropes) {
       if (live() < S.kickRate * STEP) kick(r, R(live, 2, r.n - 3), S.kick * R(live, 0.6, 1.2));
       stepRope(r, STEP);
-      if (r.grainOn || r.lwE) {                                              // [§540] the push along the rope: a wave, its ends free, dying at lDamp a second
-        // [§540] each tumbleweed is tied to its place (homeHz): measured offline on B4's grains, without it the pushes piled up into drifts of
-        // 400 against a gap of 39 between tumbleweeds; with it at 3 a second and the push at 40 they stay about 4, at most about 30
-        const { lw, lwo, n } = r, c = Math.min(0.9, (n / Math.max(0.05, S.lTravel)) * STEP), c2 = c * c, g = Math.min(0.5, S.lDamp * STEP), kh = (2 * Math.PI * S.homeHz * STEP) ** 2;
-        let e = 0;
-        for (let i = 0; i < n; i++) {
-          const L = lw[i > 0 ? i - 1 : 1], Rr = lw[i < n - 1 ? i + 1 : n - 2];
-          const nu = 2 * lw[i] - lwo[i] + c2 * (L - 2 * lw[i] + Rr) - g * (lw[i] - lwo[i]) - kh * lw[i];
-          lwo[i] = lw[i]; r.tmpL = r.tmpL || new Float32Array(n); r.tmpL[i] = nu; e += Math.abs(nu);
+      if (r.grainOn || r.lwE) {
+        // [§541 — his "slide them then on the rope and see them bump into each other … the motion equivalent of the spatialization … a longitudinal
+        // pulse … nodes banging into each other according to the movement of the panner along the rope"] THE BEADS: each tumbleweed slides on
+        // the rope (r.lw its offset from its place, r.lwo its speed); where the shower is (a bell round the running mean of the grains' places)
+        // the shower's motion drives them along; they are tied loosely to their places, slow down, and BOUNCE off each other and off the ends.
+        // Tuned offline on B4's grains (§541): at flow 6000 · home 0.5 · damping 1.2 · jolt 30 the beads shift ~50 typical and knock ~15 a second.
+        const { lw, lwo, n } = r, sp = W / (n - 1), kh = (2 * Math.PI * S.homeHz) ** 2;
+        for (let j = 0; j < n; j++) {
+          const b = r.cen == null ? 0 : Math.exp(-((j / (n - 1) - (r.cen + 1) / 2) ** 2) / (2 * S.showerWidth ** 2));
+          lwo[j] += (S.flow * (r.cenV || 0) * b * (r.grainOn ? 1 : 0) - kh * lw[j] - S.beadDamp * lwo[j]) * STEP;
+          lw[j] += lwo[j] * STEP;
         }
-        lw.set(r.tmpL); r.lwE = e > 0.01 * n;
+        const gapMin = S.minGap * sp; let e = 0;
+        for (let j = 0; j < n - 1; j++) {
+          const gap = sp + lw[j + 1] - lw[j];
+          if (gap < gapMin) { if (lwo[j] > lwo[j + 1]) { const a = lwo[j]; lwo[j] = lwo[j + 1] * S.bounce2; lwo[j + 1] = a * S.bounce2; } const fix = (gapMin - gap) / 2; lw[j] -= fix; lw[j + 1] += fix; }
+        }
+        if (lw[0] < -sp * 0.4) { lw[0] = -sp * 0.4; lwo[0] = Math.abs(lwo[0]) * S.bounce2; }                 // the ends are walls
+        if (lw[n - 1] > sp * 0.4) { lw[n - 1] = sp * 0.4; lwo[n - 1] = -Math.abs(lwo[n - 1]) * S.bounce2; }
+        for (let j = 0; j < n; j++) e += Math.abs(lw[j]) + Math.abs(lwo[j]);
+        r.lwE = e > 0.5 * n;
       }
     }
     simT += STEP; acc -= STEP;
@@ -523,15 +535,15 @@ function tick(now) {
       // [§529] the chain's wave on top, faded toward this rope's own pinned ends (the pulse leaves one rope and appears on the next)
       let cy = 0, cz = 0; if (soloK > 0 && r.off != null && uy) { const e = ((1 - S.freeEnds) * Math.min(1, 3 * Math.sin(Math.PI * j / (r.n - 1))) + S.freeEnds) * soloK; cy = uy[r.off + j * WK] * e; cz = uz[r.off + j * WK] * e; }   // [§530] ends free: the pulse passes through them
       const w = r.weeds[j], x = r.q[3 * j] + (r.p[3 * j] - r.q[3 * j]) * al, y = r.q[3 * j + 1] + (r.p[3 * j + 1] - r.q[3 * j + 1]) * al + cy, z = r.q[3 * j + 2] + (r.p[3 * j + 2] - r.q[3 * j + 2]) * al + cz;
-      let xs = x;
-      if (r.lwE || r.grainOn) {                                              // [§540] the push: a shift along the rope, a small pivot, and a stir inside
-        const d = r.lw[j], v = d - r.lwo[j], slope = (r.lw[Math.min(r.n - 1, j + 1)] - r.lw[Math.max(0, j - 1)]) / 2;
-        // the shower: a bell around its place; inside it the tumbleweeds lean the way it is travelling, and stir
-        const sh = r.cen == null ? 0 : Math.exp(-((j / (r.n - 1) - (r.cen + 1) / 2) ** 2) / (2 * S.showerWidth ** 2));
-        xs = x + d + S.flow * (r.cenV || 0) * sh; w.mesh.rotation.z = slope * S.pivot * 40;
-        const stir = Math.min(0.6, Math.abs(v) * S.tumble + sh * S.showerStir); w.mesh.rotation.x += stir; w.mesh.rotation.y += stir * 0.7;
+      let bx = x, by = y, bz = z;
+      if (r.lwE || r.grainOn) {                                              // [§541] the bead slides ON the rope: its place read between the rope's points
+        const u = Math.max(0, Math.min(r.n - 1, j + r.lw[j] / (W / (r.n - 1)))), a = Math.floor(u), b2 = Math.min(r.n - 1, a + 1), f = u - a;
+        bx = r.p[3 * a] + (r.p[3 * b2] - r.p[3 * a]) * f; by = r.p[3 * a + 1] + (r.p[3 * b2 + 1] - r.p[3 * a + 1]) * f + cy; bz = r.p[3 * a + 2] + (r.p[3 * b2 + 2] - r.p[3 * a + 2]) * f + cz;
+        const v = r.lwo[j], sh = r.cen == null ? 0 : Math.exp(-((j / (r.n - 1) - (r.cen + 1) / 2) ** 2) / (2 * S.showerWidth ** 2));
+        w.mesh.rotation.z = v * S.pivot * 0.05;                              // it tips as it slides
+        const stir = Math.min(0.6, Math.abs(v) * S.tumble * 0.01 + sh * S.showerStir); w.mesh.rotation.x += stir; w.mesh.rotation.y += stir * 0.7;
       }
-      w.mesh.position.set(xs, y, z); lp[3 * j] = xs; lp[3 * j + 1] = y; lp[3 * j + 2] = z;
+      w.mesh.position.set(bx, by, bz); lp[3 * j] = x; lp[3 * j + 1] = y; lp[3 * j + 2] = z;
       if (r.grainOn || w.gS != null) {                                       // [§538] the grain rope's tumbleweeds: inflate on grains, deflate between
         if (r.grainOn) w.gT = Math.max(S.gMin, (w.gT ?? S.gMin) - S.gFall * dt); else w.gT = 1;
         if (w.gS == null || !isFinite(w.gS)) w.gS = 1;                     // [§539] a size starts at its normal 1 (undefined made it NaN: the tumbleweeds vanished)
