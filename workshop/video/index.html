@@ -601,12 +601,13 @@ function tick(now) {
       // no longer simulated — it is a loop of fixed depth (deepest mid-rope) turning steadily round the line between its ends; it eases in over 1.5 s
       if (r.dense) {
         r.kin = Math.max(0, Math.min(1, (r.kin || 0) + (r.grainOn ? 1 : -1) * STEP / 1.5));
+        if (r.kin <= 0 && r.kp) r.kp = null;
         if (r.kin > 0) {
           if (r.grainOn) r.rot = (r.rot ?? r.ph) + 2 * Math.PI * S.rotTurn * r.rotF * STEP;
           const e = r.kin * r.kin * (3 - 2 * r.kin), n = r.n, c = Math.cos(r.rot ?? 0), s = Math.sin(r.rot ?? 0);
           for (let j = 0; j < n; j++) {
             const u = j / (n - 1), dep = S.loopDepth * r.depF * Math.sin(Math.PI * u), tx = -W / 2 + W * u, ty = r.y - dep * c, tz = r.z + dep * s;
-            for (const [a, v] of [[0, tx], [1, ty], [2, tz]]) { const k = 3 * j + a; r.q[k] = r.p[k]; r.p[k] += (v - r.p[k]) * e; }
+            for (const [a, v] of [[0, tx], [1, ty], [2, tz]]) { const k = 3 * j + a, was = r.kp ? r.kp[k] : r.p[k], now = r.p[k] + (v - r.p[k]) * e; r.q[k] = was; r.p[k] = now; (r.kp || (r.kp = new Float32Array(3 * n)))[k] = now; }   // [§561] q = the last PLACED point (it was the physics' fresh guess: the drawn rope wavered between the two every frame)
           }
         }
       }
@@ -661,7 +662,7 @@ function tick(now) {
     for (let j = 0; j < r.n; j++) {
       // [§520] the quiver of §519 (a drawn standing wave) is gone — his "stiff … almost like it's wire"; the crank above moves the rope now
       // [§529] the chain's wave on top, faded toward this rope's own pinned ends (the pulse leaves one rope and appears on the next)
-      let cy = 0, cz = 0; if (soloK > 0 && r.off != null && uy) { const e = ((1 - S.freeEnds) * Math.min(1, 3 * Math.sin(Math.PI * j / (r.n - 1))) + S.freeEnds) * soloK; cy = uy[r.off + j * WK] * e; cz = uz[r.off + j * WK] * e; }   // [§530] ends free: the pulse passes through them
+      let cy = 0, cz = 0; if (soloK > 0 && r.off != null && uy) { const e = ((1 - S.freeEnds) * Math.min(1, 3 * Math.sin(Math.PI * j / (r.n - 1))) + S.freeEnds) * soloK; const ix = r.off + j * WK; cy = (uyo[ix] + (uy[ix] - uyo[ix]) * al) * e; cz = (uzo[ix] + (uz[ix] - uzo[ix]) * al) * e; }   // [§561] the wave between its last two steps, as the ropes are (a frame takes 1, 2 or 3 steps: unsmoothed, it advanced in uneven jumps)   // [§530] ends free: the pulse passes through them
       const w = r.weeds[j], x = r.q[3 * j] + (r.p[3 * j] - r.q[3 * j]) * al, y = r.q[3 * j + 1] + (r.p[3 * j + 1] - r.q[3 * j + 1]) * al + cy, z = r.q[3 * j + 2] + (r.p[3 * j + 2] - r.q[3 * j + 2]) * al + cz;
       let bx = x, by = y, bz = z;
       if (r.pl && r.pl.kind === 'ensemble') {                                // [§558 — his "lighten the instrument ropes"] smaller and dimmer in the counterpoint
@@ -735,7 +736,7 @@ function tick(now) {
       const on = !!(S.shadow && r.grainOn && r.line.visible); r.shadow.visible = on;
       if (on) {
         const pts = r.shPts || (r.shPts = new Float32Array(3 * r.n));
-        for (let j = 0; j < r.n; j++) { pts[3 * j] = lp[3 * j]; const sm = Math.max(1, S.shadowMax); pts[3 * j + 1] = lp[3 * j + 1] + sm * Math.tanh(r.tw[j] / sm); pts[3 * j + 2] = lp[3 * j + 2] + S.shadowZ + sm * Math.tanh(r.tz[j] / sm); }   // [§551] a soft limit: the motion keeps its shape, only its farthest swings are held in
+        for (let j = 0; j < r.n; j++) { pts[3 * j] = lp[3 * j]; const sm = Math.max(1, S.shadowMax); const twj = r.two[j] + (r.tw[j] - r.two[j]) * al, tzj = r.tzo[j] + (r.tz[j] - r.tzo[j]) * al; pts[3 * j + 1] = lp[3 * j + 1] + sm * Math.tanh(twj / sm); pts[3 * j + 2] = lp[3 * j + 2] + S.shadowZ + sm * Math.tanh(tzj / sm); }   // [§561] between its last two steps   // [§551] a soft limit: the motion keeps its shape, only its farthest swings are held in
         r.shadow.geometry.setPositions(pts); r.shadow.material.linewidth = S.shadowWidth; r.shadow.material.opacity = S.shadowOp;
       }
       const B = r.shadow.balls, bon = on && !!S.shadowBalls; B.visible = bon; if (bon) r.shadow.visible = false;
