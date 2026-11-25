@@ -157,7 +157,9 @@ const KNOBS = [
     ['stSag', 'Stutter: the rope'+"'"+'s loop, this deep', 0, 300, 5, 100],
     ['stTurn', 'Stutter: the rope turns slowly (turns a second)', 0, 1, 0.01, 0.12],
     ['stFill', 'Stutter: the rope spans the screen'+"'"+'s width (× that width)', 0.5, 1.2, 0.01, 0.97],
-    ['stGrowMax', 'Stutter: beads grow where the sound is, up to (× their size)', 0.5, 4, 0.05, 2.6],
+    ['stGrowMax', 'Stutter: beads grow where the sound is, up to (× their size)', 0.5, 10, 0.05, 5.2],
+    ['stGrowWidth', 'Stutter: how wide the growing place is (share of the rope)', 0.005, 0.3, 0.005, 0.04],
+    ['stGrowFall', 'Stutter: a grain-grown bead shrinks back over (seconds)', 0.05, 3, 0.05, 0.45],
     ['stJit', 'Stutter: the beads unevenly spaced (share of their gap)', 0, 1.5, 0.01, 0.7],
     ['stSens', 'Stutter: how strongly it answers the sound (1 = as is)', 0.3, 4, 0.05, 1.7],
     ['stSlide', 'Stutter: the passing light pushes a bead along the rope by', 0, 120, 1, 26],
@@ -845,7 +847,7 @@ function tick(now) {
         let ex = 0; if (r.stut && STUTTER[ropes.indexOf(r)] && tNow >= STATE2_AT - 10) { if (d.j2 == null) d.j2 = Math.random() - 0.5; ex = d.j2 * S.stJit * Math.max(1, Math.round(S.ledEvery)) / r.dense.length + (d.sx || 0) / (viewW() * S.stFill); }
         const uj = Math.max(0, Math.min(r.n - 1, (d.u + ex + du * S.stShift / W) * (r.n - 1))), a = Math.min(r.n - 2, Math.floor(uj)), f = uj - a;
         d.mesh.position.set(lp[3 * a] + (lp[3 * a + 3] - lp[3 * a]) * f, lp[3 * a + 1] + (lp[3 * a + 4] - lp[3 * a + 1]) * f, lp[3 * a + 2] + (lp[3 * a + 5] - lp[3 * a + 2]) * f);
-        const bell = Math.exp(-((d.u - r.beadU) ** 2) / (2 * S.growWidth ** 2)), stR = STUTTER[ropes.indexOf(r)] && tNow >= STATE2_AT - 10, tgt = stR ? S.stBead + (S.stGrowMax - S.stBead) * Math.pow(bell, 1 / Math.max(0.2, S.stSens)) : S.growSmall + (S.growBig - S.growSmall) * bell;   // [§573] the growth back on the stutter rope, up to stGrowMax   // [§571 — his "let's not have those grow at all"] the stutter rope's beads one fixed size
+        const bell = Math.exp(-((d.u - r.beadU) ** 2) / (2 * S.growWidth ** 2)), stR = STUTTER[ropes.indexOf(r)] && tNow >= STATE2_AT - 10, tgt = stR ? S.stBead + (S.stGrowMax - S.stBead) * Math.max(Math.pow(Math.exp(-((d.u - r.beadU) ** 2) / (2 * S.stGrowWidth ** 2)), 1 / Math.max(0.2, S.stSens)), d.boost || 0) : S.growSmall + (S.growBig - S.growSmall) * bell;   // [§573] the growth back on the stutter rope, up to stGrowMax   // [§571 — his "let's not have those grow at all"] the stutter rope's beads one fixed size
         if (d.gr == null) d.gr = S.growSmall;
         d.gr += (tgt - d.gr) * Math.min(1, dt / (tgt > d.gr ? S.growAttack : S.growRelease));
         d.mesh.scale.setScalar(d.gr);
@@ -860,7 +862,9 @@ function tick(now) {
             if (Math.abs(d.u - head) < S.ledWidth) { const sa = Math.pow(s.a, 2) * S.stSens; d.lit = Math.max(d.lit || 0, Math.min(1, sa)); if (!d.pushed || d.pushed !== s) { d.pushed = s; d.sv = (d.sv || 0) + Math.sign(s.u - s.from || s.dir) * S.stSlide * 2 * Math.PI * S.stSlideHz * sa; } }   // [§574] more sensitive: the grain's level squared, times stSens
           }
           { const w0 = 2 * Math.PI * S.stSlideHz, z = 1 - S.stBounce; d.sv = (d.sv || 0) + (-w0 * w0 * (d.sx || 0) - 2 * z * w0 * (d.sv || 0)) * dt; d.sx = (d.sx || 0) + d.sv * dt; }   // the slide springs back, bouncing
-          d.lit = (d.lit || 0) * Math.exp(-dt / S.ledTail);
+          d.lit = (d.lit || 0) * Math.exp(-dt / S.ledTail); d.boost = (d.boost || 0) * Math.exp(-dt / S.stGrowFall);
+          // [§575 — his "they don't grow very often or enough"] every grain also GROWS the beads at its own place (not only the followed place)
+          for (const s of (r.stut || [])) { const age = tNow - s.t0; if (age >= 0 && age < dt * 1.5) { const b = Math.exp(-((d.u - s.u) ** 2) / (2 * S.stGrowWidth ** 2)); d.boost = Math.max(d.boost, Math.min(1, b * Math.pow(s.a, 2) * S.stSens)); } }
           d.mesh.material.opacity = Math.min(1, S.opacity * (S.ledBase + (1 - S.ledBase) * d.lit) * 1.3);
           d.mesh.scale.setScalar(d.gr * (1 + S.ledGrow * d.lit));
         } else if (d.lit != null) { d.lit = null; d.mesh.material.opacity = S.opacity; }
