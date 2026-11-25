@@ -148,6 +148,8 @@ const KNOBS = [
     ['growRelease', 'How slowly it shrinks back (seconds)', 0.02, 2, 0.01, 0.14],
     ['beadJitter', 'The beads not evenly spaced (share of their gap)', 0, 2, 0.01, 0.8],
     ['stShift', 'Stutter: how far a grain shoves the beads along the rope', 0, 200, 1, 46],
+    ['stBead', 'Stutter: the beads'+"'"+' size, fixed (× their size)', 0.1, 4, 0.05, 0.7],
+    ['stSag', 'Stutter: the rope hangs still, this deep', 0, 300, 5, 40],
     ['stWidth', 'Stutter: how wide the shoved place is (share of the rope)', 0.005, 0.3, 0.005, 0.045],
     ['stGrow', 'Stutter: how big the beads grow where the sound is (× their size)', 0.5, 8, 0.05, 2],
     ['stEdge', 'Stutter: how sharp the grain'+"'"+'s on and off (seconds)', 0.002, 0.2, 0.002, 0.018],
@@ -695,10 +697,12 @@ function tick(now) {
         r.kin = Math.max(0, Math.min(1, (r.kin || 0) + (r.grainOn ? 1 : -1) * STEP / 1.5));
         if (r.kin <= 0 && r.kp) r.kp = null;
         if (r.kin > 0) {
-          if (r.grainOn) r.rot = (r.rot ?? r.ph) + 2 * Math.PI * S.rotTurn * r.rotF * STEP;
+          // [§571 — his "tamp the rope sort of gradual swing … start with straight for now. Or, hanging at a pretty good tension"] the stutter rope does not turn: it hangs
+          const stillHang = STUTTER[ropes.indexOf(r)] && tNow >= STATE2_AT - 10;
+          if (stillHang) r.rot = 0; else if (r.grainOn) r.rot = (r.rot ?? r.ph) + 2 * Math.PI * S.rotTurn * r.rotF * STEP;
           const e = r.kin * r.kin * (3 - 2 * r.kin), n = r.n, c = Math.cos(r.rot ?? 0), s = Math.sin(r.rot ?? 0);
           for (let j = 0; j < n; j++) {
-            const u = j / (n - 1), dep = S.loopDepth * r.depF * Math.sin(Math.PI * u), tx = -W / 2 + W * u, ty = r.y - dep * c, tz = r.z + dep * s;
+            const u = j / (n - 1), dep = (stillHang ? S.stSag : S.loopDepth * r.depF) * Math.sin(Math.PI * u), tx = -W / 2 + W * u, ty = r.y - dep * c, tz = r.z + dep * s;
             for (const [a, v] of [[0, tx], [1, ty], [2, tz]]) { const k = 3 * j + a, was = r.kp ? r.kp[k] : r.p[k], now = r.p[k] + (v - r.p[k]) * e; r.q[k] = was; r.p[k] = now; (r.kp || (r.kp = new Float32Array(3 * n)))[k] = now; }   // [§561] q = the last PLACED point (it was the physics' fresh guess: the drawn rope wavered between the two every frame)
           }
         }
@@ -821,7 +825,7 @@ function tick(now) {
         }
         const uj = Math.max(0, Math.min(r.n - 1, (d.u + du * S.stShift / W) * (r.n - 1))), a = Math.min(r.n - 2, Math.floor(uj)), f = uj - a;
         d.mesh.position.set(lp[3 * a] + (lp[3 * a + 3] - lp[3 * a]) * f, lp[3 * a + 1] + (lp[3 * a + 4] - lp[3 * a + 1]) * f, lp[3 * a + 2] + (lp[3 * a + 5] - lp[3 * a + 2]) * f);
-        const bell = Math.exp(-((d.u - r.beadU) ** 2) / (2 * S.growWidth ** 2)), big = STUTTER[ropes.indexOf(r)] && tNow >= STATE2_AT - 10 ? S.stGrow : S.growBig, tgt = S.growSmall + (big - S.growSmall) * bell;
+        const bell = Math.exp(-((d.u - r.beadU) ** 2) / (2 * S.growWidth ** 2)), stR = STUTTER[ropes.indexOf(r)] && tNow >= STATE2_AT - 10, tgt = stR ? S.stBead : S.growSmall + (S.growBig - S.growSmall) * bell;   // [§571 — his "let's not have those grow at all"] the stutter rope's beads one fixed size
         if (d.gr == null) d.gr = S.growSmall;
         d.gr += (tgt - d.gr) * Math.min(1, dt / (tgt > d.gr ? S.growAttack : S.growRelease));
         d.mesh.scale.setScalar(d.gr);
@@ -831,7 +835,7 @@ function tick(now) {
     // [§550 — his "no interconnected line. Like I still see a continuous rope"] in the new state the rope's own line is hidden (a knob brings it back)
     if (r.dense) r.line.material.opacity = (r.grainOn && !S.spineInState) ? 0 : S.spine;
     if (r.shadow) {
-      const on = !!(S.shadow && r.grainOn && r.line.visible); r.shadow.visible = on;
+      const on = !!(S.shadow && r.grainOn && r.line.visible && !(STUTTER[ropes.indexOf(r)] && tNow >= STATE2_AT - 10));   // [§571] no shadow on the stutter rope r.shadow.visible = on;
       if (on) {
         const pts = r.shPts || (r.shPts = new Float32Array(3 * r.n));
         for (let j = 0; j < r.n; j++) { pts[3 * j] = lp[3 * j]; const sm = Math.max(1, S.shadowMax); const twj = r.two[j] + (r.tw[j] - r.two[j]) * al, tzj = r.tzo[j] + (r.tz[j] - r.tzo[j]) * al; pts[3 * j + 1] = lp[3 * j + 1] + sm * Math.tanh(twj / sm); pts[3 * j + 2] = lp[3 * j + 2] + S.shadowZ + sm * Math.tanh(tzj / sm); }   // [§561] between its last two steps   // [§551] a soft limit: the motion keeps its shape, only its farthest swings are held in
