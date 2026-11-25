@@ -738,7 +738,10 @@ function tick(now) {
           lft = Math.max(lo, Math.min(hi - minL, lft)); rgt = Math.min(hi, Math.max(lo + minL, rgt));
           if (rgt - lft < minL) { const m = (lft + rgt) / 2; lft = Math.max(lo, m - minL / 2); rgt = Math.min(hi, lft + minL); lft = rgt - minL; }
           dcx = (lft + rgt) / 2;
-        }   // (the flute as it was)   // [§566 · §568] its length and its centre (the centre kept: a long rope may run past the edge)
+        }
+        // [§583 — his "over that whole unison period … the whole last section … both nodes are moving out gradually until the very end where they're all
+        // the way out"] THE LAST GLIDE (460.4 … 480, toward the unison at 120): every instrument rope's ends ease out to the full width, all the way out at 480
+        if (r.fLen < 1) { const k = Math.max(0, Math.min(1, (tNow - 460.4) / (480 - 460.4))), o = k * k * (3 - 2 * k); if (o > 0) { lft += (-W / 2 - lft) * o; rgt += (W / 2 - rgt) * o; dcx = (lft + rgt) / 2; } }   // (the flute as it was)   // [§566 · §568] its length and its centre (the centre kept: a long rope may run past the edge)
         const c = Math.cos(th), s = Math.sin(th);
         for (let j = 0; j < n; j++) {
           const u = j / (n - 1), tx = lft + (rgt - lft) * u, d = dep * Math.sin(Math.PI / 2 * (tx < dcx ? (tx - lft) / Math.max(1, dcx - lft) : (rgt - tx) / Math.max(1, rgt - dcx))), ty = r.y - d * c, tz = r.z + d * s;
