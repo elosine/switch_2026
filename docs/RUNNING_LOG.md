@@ -6785,3 +6785,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 ## §507 — 2026-11-24 — the instructions: the pebble drop in his words
 
 - His words: *"The pebble drop will be produce a clustered impulse, and the rest of the sentence."* Read as: the paragraph starts at "Produce a clustered impulse"; the Approaching sentence about the ensemble language type dropped.
+
+## §508 — 2026-11-24 — the instructions: the rapid-fire repeat picture whole
+
+- His word: *"A rapid fire repeat image is cut off a bit. Can you get a full one, please?"* The old crop (frame 180.5) cut the last ripple marks and had the go line through them. Re-made from frame 179.6 (the go line not yet at the figure), crop viewBox 1482 770 181 330: the box, its sharps and the full row of ripple marks.
