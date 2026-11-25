@@ -133,10 +133,10 @@ const KNOBS = [
     ['singleBead', 'One bead only, following where the sound is (1 = on)', 0, 1, 1, 0],
     ['growMode', 'Where the sound is, the beads grow (1 = on)', 0, 1, 1, 1],
     ['growSmall', 'A bead at rest (× its size)', 0.02, 1, 0.01, 0.15],
-    ['growBig', 'A bead where the sound is (× its size)', 0.5, 8, 0.05, 3],
-    ['growWidth', 'How wide the growing place is (share of the rope)', 0.005, 0.3, 0.005, 0.05],
+    ['growBig', 'A bead where the sound is (× its size)', 0.5, 12, 0.05, 5],
+    ['growWidth', 'How wide the growing place is (share of the rope)', 0.002, 0.3, 0.001, 0.018],
     ['growAttack', 'How fast a bead grows (seconds)', 0.005, 0.5, 0.005, 0.03],
-    ['growRelease', 'How slowly it shrinks back (seconds)', 0.02, 2, 0.01, 0.35],
+    ['growRelease', 'How slowly it shrinks back (seconds)', 0.02, 2, 0.01, 0.14],
     ['beadJitter', 'The beads not evenly spaced (share of their gap)', 0, 2, 0.01, 0.8],
     ['beadFollow', 'How quickly the bead follows the sound (seconds)', 0.02, 1, 0.01, 0.12],
     ['beadSize', 'The bead’s size (× a tumbleweed)', 0.5, 4, 0.05, 1.8],
@@ -251,7 +251,7 @@ const CHAR = {
 };
 const PLAIN = { nodes: 1, size: 1, res: 1, morph: 1, scr: 1, shake: 1, amp: 1, snap: 1, snapFade: 2.5, sway: 0.25, op: 1 };
 // [§540 — his "a slightly higher density of nodes for the electronic parts … keep their maximum size maybe kind of small"]
-const ELEC = { ...PLAIN, nodes: 4.2, size: 0.55 };   // [§545 — his "twice or even 3 times as dense … they could be sitting on top of each other"] was 1.7
+const ELEC = { ...PLAIN, nodes: 4.2, size: 0.55, res: 0.6 };   // [§546 — his "the actual wireframe density is a lot … bring that down"] res 0.6: fewer lines in each   // [§545 — his "twice or even 3 times as dense … they could be sitting on top of each other"] was 1.7
 const charOf = src => (src && src.kind === 'ensemble' && CHAR[src.part]) || (src && src.kind === 'session' ? ELEC : PLAIN);
 const edgeCache = {}; const edgesFor = res => edgeCache[res] || (edgeCache[res] = sphereEdges(res));
 function weedRad(j, n, seg, mul = 1) {
