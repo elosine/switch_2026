@@ -353,7 +353,10 @@ function build() {
         dense.push({ mesh, u: Math.max(0, Math.min(1, (k + (k > 0 && k < K - 1 ? (dr() - 0.5) * S.beadJitter : 0)) / (K - 1))), gr: null });
       }
     }
-    ropes.push({ tz: new Float32Array(n), tzo: new Float32Array(n), dense, shadow, tw: new Float32Array(n), two: new Float32Array(n), jit, lw: new Float32Array(n), lwo: new Float32Array(n), ch, pl: src, side: i % 2 ? n - 1 : 0, sf: 0, sfT: 0, sa: 0, saT: 0, sph: 0, snapK: 0, th: R(lay, 0, Math.PI * 2), w: 0, wT: 0, pullC: 0, pullT: 0, zt: z, ze: z, st: null, p, q, n, seg, y, z, weeds, line, ph: R(lay, 0, Math.PI * 2), ph2: R(lay, 0, Math.PI * 2), timer: Math.round(R(live, S.scrL, S.scrH)) });
+    // [§556 — his "a variety of amplitudes and rates … not … that dramatically … not quite max rate … a little bit of jitter … some … slightly
+    // bigger … mostly ones that are smaller"] the first rope keeps the rate and depth he set; the others a little slower or a touch faster, mostly shallower
+    const vr = rng(S.seed * 977 + i), rotF = i === 0 ? 1 : 0.72 + 0.36 * vr(), depF = i === 0 ? 1 : 0.62 + 0.52 * Math.pow(vr(), 1.7);
+    ropes.push({ rotF, depF, tz: new Float32Array(n), tzo: new Float32Array(n), dense, shadow, tw: new Float32Array(n), two: new Float32Array(n), jit, lw: new Float32Array(n), lwo: new Float32Array(n), ch, pl: src, side: i % 2 ? n - 1 : 0, sf: 0, sfT: 0, sa: 0, saT: 0, sph: 0, snapK: 0, th: R(lay, 0, Math.PI * 2), w: 0, wT: 0, pullC: 0, pullT: 0, zt: z, ze: z, st: null, p, q, n, seg, y, z, weeds, line, ph: R(lay, 0, Math.PI * 2), ph2: R(lay, 0, Math.PI * 2), timer: Math.round(R(live, S.scrL, S.scrH)) });
   }
 }
 
@@ -428,38 +431,34 @@ function kick(r, at, strength) {
 // grain's own percussive shape, slowed for the eye); smaller for a higher pitch; brighter for a louder grain; a small tap on the rope there.
 // When the read head moves on to the next hit, a broad swell runs along the rope.
 const LANE_ROPE = { 1: 3, 2: 0, 3: 1, 4: 2 };   // an electronics lane's rope: the session player that lane carried in the opening (Elec 2 the archtop …)
+// [§556 — his "a variety of amplitudes and rates for the other ones … see just the electronics ones … find a way to create enough for all of the
+// electronics ropes … a variation on the input or use a different parameter, but the same graphic and paradigm"] THE SOURCES: in the counterpoint
+// only Elec 2 (B4) sounds all through and Elec 3 (B6) from 231.6 s; a rope with no sound of its own takes B4 IN CANON — the same grains and the same
+// heard places, later by its own delay, some mirrored left for right. Rope 0 the archtop (Elec 2) · 1 the baritone guitar (Elec 3) · 2 the drums
+// (Elec 4) · 3 the piano (Elec 1).
+const STATE_END = 266.5;                       // B4's last second: the state holds while the counterpoint's bed sounds
+function srcOf(ri, t) {
+  if (ri === 0) return { bed: 'B4', lane: 2, delay: 0, mirror: false };
+  if (ri === 1 && t >= 231.6) return { bed: 'B6', lane: 3, delay: 0, mirror: false };
+  const v = { 1: [0.8, true], 2: [2.4, true], 3: [1.6, false] }[ri] || [0, false];
+  return { bed: 'B4', lane: 2, delay: v[0], mirror: v[1] };
+}
 const grainPtr = {};
 function grainsFrame(t0, t1, jumped) {
   if (!D || !D.grains) return;
-  for (const G of D.grains) {
-    const r = ropes[LANE_ROPE[G.lane]]; if (!r) continue;
-    let i = grainPtr[G.bed] ?? 0;
-    if (jumped || i > G.list.length || (i > 0 && G.list[i - 1][0] > t1)) { i = 0; while (i < G.list.length && G.list[i][0] <= t1) i++; grainPtr[G.bed] = i; continue; }
-    let lastHit = r.lastHit;
-    while (i < G.list.length && G.list[i][0] <= t1) {
-      const [tg, pl, hit, ratio, len, db, pan] = G.list[i++]; if (tg <= t0) continue;
-      const j = Math.max(0, Math.min(r.n - 1, Math.round((pan + 1) / 2 * (r.n - 1)))), w = r.weeds[j];
-      const lv = Math.pow(10, db / 20);                                      // 0.79 … 1.26
-      // [§538 — his "too big and staying big too long … a smoother transition … an inflate or deflate … the grain triggers one of those … from
-      // quite small to maybe not quite as big"] a grain INFLATES its tumbleweed a step (higher pitch a smaller step, louder a larger); between
-      // grains it DEFLATES; the size follows slowly — the density of grains at a place becomes how full the tumbleweed there is
-      w.gT = Math.min(S.gMax, (w.gT ?? S.gMin) + S.gStep * lv / Math.sqrt(ratio));
-      if (S.grainKick) kick(r, j, S.grainKick * lv * 0.5);
-      // [§540 — his "as the grain moves across space … that sort of longitudinal wave … the nodes … shift a little bit on the rope axis … a little
-      // bit of pivot … the grain pulse … move throughout the rope"] a grain gives the tumbleweed at its place a push ALONG the rope; the push runs
-      // both ways as a wave (an even sign per grain at random, so they do not all drift one way)
-      r.lwo[j] += (Math.random() < 0.5 ? -1 : 1) * S.jolt * lv;              // [§541] a jolt to the bead (r.lwo is the beads' speed)
-      // [§540 — his "it's kind of rain stick like. So you can hear the shower, and that might be the internal movement, but you can also feel and
-      // hear the motion of the shower"] THE SHOWER: where the grains are falling, a running mean of their places (each grain moves it an eighth of
-      // the way to its own place)
-      r.cen = r.cen == null ? pan : r.cen + (pan - r.cen) * 0.12;
-      // [§547 — his "a second shadow rope … wiggling along with the electronics … the transverse version of the longitudinal wave"] each grain
-      // kicks the shadow rope across, at the place the sound is heard (the bead's place), so its wiggles run out from where the beads swell
-      if (S.shadow && r.beadU != null) { const js = Math.round(r.beadU * (r.n - 1)); if (js > 0 && js < r.n - 1) { const ang = Math.random() * Math.PI * 2, k = S.shadowKick * lv * 0.5; r.two[js] -= Math.cos(ang) * k; r.tzo[js] -= Math.sin(ang) * k; } }   // [§551] each kick in its own direction round the rope: the shadow curls
-      if (lastHit != null && hit !== lastHit && S.grainSwell) { const save = S.kickWidth; S.kickWidth = r.n / 3; kick(r, (r.n - 1) / 2, S.grainSwell); S.kickWidth = save; }
-      lastHit = hit;
+  for (let ri = 0; ri < 4; ri++) {
+    const r = ropes[ri]; if (!r || !r.grainOn) continue;
+    const src = srcOf(ri, t1), G = D.grains.find(g => g.bed === src.bed); if (!G) continue;
+    const a = t0 - src.delay, b = t1 - src.delay, key = ri + ':' + src.bed;
+    let i = grainPtr[key] ?? 0;
+    if (jumped || i > G.list.length || (i > 0 && G.list[i - 1][0] > b)) { i = 0; while (i < G.list.length && G.list[i][0] <= b) i++; grainPtr[key] = i; continue; }
+    while (i < G.list.length && G.list[i][0] <= b) {
+      const g = G.list[i++]; if (g[0] <= a) continue;
+      const lv = Math.pow(10, g[5] / 20);
+      // [§547 · §551] each grain kicks the shadow chain across, in its own direction round the rope, at the place the sound is heard
+      if (S.shadow && r.beadU != null) { const js = Math.round(r.beadU * (r.n - 1)); if (js > 0 && js < r.n - 1) { const ang = Math.random() * Math.PI * 2, k = S.shadowKick * lv * 0.5; r.two[js] -= Math.cos(ang) * k; r.tzo[js] -= Math.sin(ang) * k; } }
     }
-    r.lastHit = lastHit; grainPtr[G.bed] = i;
+    grainPtr[key] = i;
   }
 }
 
@@ -560,14 +559,14 @@ function tick(now) {
       if (S.accentKick) kick(r, R(live, 3, r.n - 4), S.accentKick * hn);
     }
   }
-  if (D && D.grains) { for (const r of ropes) r.grainOn = false; for (const G of D.grains) { const r = ropes[LANE_ROPE[G.lane]]; if (r && tNow >= Math.max(G.t0, STATE_AT) && tNow <= G.t1) r.grainOn = true; } }
+  for (let ri = 0; ri < ropes.length; ri++) ropes[ri].grainOn = !!(D && D.grains && ri < 4 && ropes[ri].dense && tNow >= STATE_AT && tNow <= STATE_END);   // [§556] all four
   if (playing) grainsFrame(tPrev, tNow, jump);
   // [§542 — his "a single bead that follows the panning data that goes from left node to right node and back and forth"] THE BEAD: where the
   // lane sounds, left to right, as heard (bank/elec_pan.json, its stem's channel balance 30 times a second), the rope's left end the left speaker;
   // the bead TRAVELS there (a spring that neither lags nor overshoots, its time beadFollow) and holds while the lane is too quiet to place
-  if (D && D.pan) for (const lane of [1, 2, 3, 4]) {
-    const r = ropes[LANE_ROPE[lane]], P = D.pan.lanes && D.pan.lanes[lane]; if (!r || !P) continue;
-    const i = Math.round((tNow - P.t0) * D.pan.rate), b = i >= 0 && i < P.n ? P.b[i] : null;
+  if (D && D.pan) for (let ri = 0; ri < 4; ri++) {
+    const r = ropes[ri], src = srcOf(ri, tNow), P = D.pan.lanes && D.pan.lanes[src.lane]; if (!r || !P) continue;
+    const i = Math.round((tNow - src.delay - P.t0) * D.pan.rate), b0 = i >= 0 && i < P.n ? P.b[i] : null, b = b0 == null ? null : src.mirror ? -b0 : b0;   // [§556] its source, delayed, mirrored
     // [§543 — his "increase the range … it mostly hovers about … a quarter in to about three quarters … along the full span of the rope"] the
     // balance spread out with a soft S-curve (tanh): a half-left balance now reaches near the end, the ends themselves reached at full left or right
     // [§544 — his "push it a little bit more so that it really goes from node to node … the outliers … clamped … okay"] a straight gain, clamped at the ends
@@ -597,10 +596,10 @@ function tick(now) {
       if (r.dense) {
         r.kin = Math.max(0, Math.min(1, (r.kin || 0) + (r.grainOn ? 1 : -1) * STEP / 1.5));
         if (r.kin > 0) {
-          if (r.grainOn) r.rot = (r.rot || 0) + 2 * Math.PI * S.rotTurn * STEP;
-          const e = r.kin * r.kin * (3 - 2 * r.kin), n = r.n, c = Math.cos(r.rot || 0), s = Math.sin(r.rot || 0);
+          if (r.grainOn) r.rot = (r.rot ?? r.ph) + 2 * Math.PI * S.rotTurn * r.rotF * STEP;
+          const e = r.kin * r.kin * (3 - 2 * r.kin), n = r.n, c = Math.cos(r.rot ?? 0), s = Math.sin(r.rot ?? 0);
           for (let j = 0; j < n; j++) {
-            const u = j / (n - 1), dep = S.loopDepth * Math.sin(Math.PI * u), tx = -W / 2 + W * u, ty = r.y - dep * c, tz = r.z + dep * s;
+            const u = j / (n - 1), dep = S.loopDepth * r.depF * Math.sin(Math.PI * u), tx = -W / 2 + W * u, ty = r.y - dep * c, tz = r.z + dep * s;
             for (const [a, v] of [[0, tx], [1, ty], [2, tz]]) { const k = 3 * j + a; r.q[k] = r.p[k]; r.p[k] += (v - r.p[k]) * e; }
           }
         }
@@ -810,7 +809,7 @@ audio.onloadedmetadata = () => scrub.max = audio.duration.toFixed(1);
 scrub.oninput = () => { scrubbing = true; timeEl.textContent = fmt(+scrub.value); };
 scrub.onchange = () => { audio.currentTime = +scrub.value; scrubbing = false; };
 // [§525 — his "can we just turn off the tremolo ones for now? … so I can just see the instruments"] show or hide each family of ropes
-S.showElec = S.showElec ?? 1; S.showEns = S.showEns ?? 1;      // [§528 — his "Let's see all the ropes now, please."] (§527 showed the tremolo ones alone)
+S.showElec = S.showElec ?? 1; S.showEns = S.showEns ?? 0;      // [§556 — his "let's see just the electronics ones"]      // [§528 — his "Let's see all the ropes now, please."] (§527 showed the tremolo ones alone)
 function applyShow() {
   // [§537 — his "can you take all the other ropes out or just hide them?"] ONLY THE GRAIN ROPE: every other rope hidden (they still move)
   const grainRope = ropes[LANE_ROPE[2]];
@@ -821,7 +820,7 @@ function applyShow() {
 }
 document.getElementById('showElec').onclick = () => { S.showElec = S.showElec ? 0 : 1; applyShow(); };
 document.getElementById('showEns').onclick = () => { S.showEns = S.showEns ? 0 : 1; applyShow(); };
-S.onlyGrain = S.onlyGrain ?? 1;
+S.onlyGrain = S.onlyGrain ?? 0;
 document.getElementById('onlyGrain').onclick = () => { S.onlyGrain = S.onlyGrain ? 0 : 1; applyShow(); };
 document.getElementById('kick').onclick = () => ropes.forEach(r => kick(r, R(live, 3, r.n - 4), S.kick * 1.5));
 window.addEventListener('keydown', e => { if (e.code === 'Space' && e.target.tagName !== 'INPUT') { e.preventDefault(); playBtn.click(); } });
