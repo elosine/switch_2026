@@ -213,9 +213,10 @@ const KNOBS = [
     ['fDepth', 'The loop'+"'"+'s depth at 60 beats a minute (faster is tighter, shallower)', 20, 500, 5, 230],
     ['fTight', 'How much faster tightens it (1 = depth in proportion to 60 ÷ tempo)', 0, 2, 0.05, 1],
     ['oneRope', 'Only one instrument rope (1 = the flute)', 0, 1, 1, 0],
-    ['fShort', 'The others shorter: the shortest (× the flute'+"'"+'s length)', 0.2, 1, 0.01, 0.36],
-    ['fLong', 'The others shorter: the longest (× the flute'+"'"+'s length)', 0.2, 1, 0.01, 0.52],
+    ['fShort', 'The others: the shortest (× the flute'+"'"+'s length)', 0.2, 1, 0.01, 0.37],
+    ['fLong', 'The others: the longest (× the flute'+"'"+'s length)', 0.2, 1, 0.01, 0.94],
     ['fSpread', 'Their humps spread across (share of the width)', 0, 1, 0.01, 0.86],
+    ['fCxMax', 'No hump further from the centre than', 0, 800, 5, 505],
     ['fRadLo', 'Their loops: the smallest (× the depth)', 0.2, 2, 0.01, 0.55],
     ['fRadHi', 'Their loops: the largest (× the depth)', 0.2, 2, 0.01, 1.25],
     ['fCrank', 'The crank'+"'"+'s size', 0, 120, 1, 45],
@@ -509,6 +510,11 @@ function dealCentres() {                                                    // [
   // seeded order, evenly from fRadLo to fRadHi, so neighbours across the width do not share a size
   const rr = [...rs].sort((a, b) => ((a.fSlot * 7.31) % 1) - ((b.fSlot * 7.31) % 1));
   rr.forEach((r, i) => { r.fRad = k > 1 ? S.fRadLo + (S.fRadHi - S.fRadLo) * i / (k - 1) : 1; });
+  // [§568 — his "lengthen all of them … keep the horizontal displacement … a little bit more weave … a greater variety … of lengths … keep one of the
+  // shorter versions … the rest … up to just under the main … rope … keeping the center point … offsets"] lengths dealt evenly from fShort to fLong
+  // in a third order; the centres stay as dealt
+  const rl = [...rs].sort((a, b) => ((a.fSlot * 3.77) % 1) - ((b.fSlot * 3.77) % 1));
+  rl.forEach((r, i) => { r.fLen = k > 1 ? S.fShort + (S.fLong - S.fShort) * i / (k - 1) : S.fShort; });
 }
 function buildChain() {
   if (!D || !D.solo) { chain = []; return; }
@@ -657,7 +663,7 @@ function tick(now) {
       // tempo a tighter, shallower loop. It eases in from the physics with the section's weight.
       if (r.pl && r.pl.kind === 'ensemble' && r.fin && finalK > 0) {
         const e = finalK * finalK * (3 - 2 * finalK), n = r.n, th = 2 * Math.PI * r.fin.beats * S.turnsPerBeat, dep = S.fDepth * (r.fLen < 1 ? (r.fRad ?? 1) : 1) * Math.pow(60 / Math.max(20, r.fin.bpm), S.fTight);   // [§567] each its own radius
-        const L = W * r.fLen, room = (W - L) / 2, cx = r.fLen >= 1 ? 0 : Math.max(-room, Math.min(room, r.fCx ?? 0));   // [§566] its length and its centre
+        const L = W * r.fLen, cx = r.fLen >= 1 ? 0 : Math.max(-S.fCxMax, Math.min(S.fCxMax, r.fCx ?? 0));   // [§566 · §568] its length and its centre (the centre kept: a long rope may run past the edge)
         const c = Math.cos(th), s = Math.sin(th);
         for (let j = 0; j < n; j++) {
           const u = j / (n - 1), d = dep * Math.sin(Math.PI * u), tx = cx - L / 2 + L * u, ty = r.y - d * c, tz = r.z + d * s;
@@ -848,7 +854,7 @@ function tick(now) {
 
 // ------------------------------------------------------------------ the knobs panel
 const panel = document.getElementById('panel');
-const REBUILD = new Set(['fLong', 'fShort', 'satCount', 'ballCount', 'beadJitter', 'ropes', 'nodes', 'spreadY', 'spreadZ', 'slack', 'ropeSlack', 'ensSlack', 'seed', 'res', 'palette', 'taper', 'sizeL', 'sizeH']);
+const REBUILD = new Set([ 'satCount', 'ballCount', 'beadJitter', 'ropes', 'nodes', 'spreadY', 'spreadZ', 'slack', 'ropeSlack', 'ensSlack', 'seed', 'res', 'palette', 'taper', 'sizeL', 'sizeH']);
 function knobsHtml() {
   let h = '<h2>Palette</h2><select id="k-palette">' + Object.keys(PALETTES).map(k => '<option value="' + k + '"' + (k === S.palette ? ' selected' : '') + '>' + PALETTE_NAMES[k] + '</option>').join('') + '</select>';
   for (const [title, rows] of KNOBS) {
@@ -866,7 +872,7 @@ panel.addEventListener('input', e => {
   if (id === 'opacity') ropes.forEach(r => r.weeds.forEach(w => w.mesh.material.opacity = S.opacity * r.ch.op));
   if (id === 'spine') ropes.forEach(r => r.line.material.opacity = S.spine);
   if (REBUILD.has(id)) { build(); applyShow(); buildChain(); dealCentres(); }
-  if (['fSpread', 'fRadLo', 'fRadHi'].includes(id)) dealCentres();
+  if (['fSpread', 'fRadLo', 'fRadHi', 'fShort', 'fLong'].includes(id)) dealCentres();
   if (id === 'frameY') homeCamera();
   if (id === 'oneRope') applyShow();
 });
