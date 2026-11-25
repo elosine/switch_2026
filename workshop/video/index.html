@@ -77,7 +77,7 @@ const KNOBS = [
     ['spreadZ', 'Depth spread', 0, 400, 5, 150],
     ['slack', 'Slack (1 = taut)', 1, 1.3, 0.005, 1.04],
     ['seed', 'Layout seed', 1, 99, 1, 7],
-    ['frameY', 'Frame: look lower (−) or higher (+)', -500, 300, 5, -160],
+    ['frameY', 'Frame: nudge lower (−) or higher (+) — the frame follows the ropes', -300, 300, 5, 0],
   ]],
   ['Tumbleweeds', [
     ['sizeL', 'Size, smallest', 1, 60, 1, 5],
@@ -119,11 +119,11 @@ const KNOBS = [
   ['Ensemble ropes 5 … 9 — shaken from one end, waves running along a tauter rope', [
     ['shakeMin', 'Slowest shake (a second)', 0.1, 3, 0.05, 0.7],
     ['shakeMax', 'Fastest shake (a second)', 0.5, 8, 0.1, 4.2],
-    ['shakeAmp', 'Shake size', 0, 250, 1, 95],
+    ['shakeAmp', 'Shake size', 0, 250, 1, 130],
     ['ensSlack', 'Ensemble rope slack', 1, 1.2, 0.005, 1.035],
     ['ensPull', 'Tension: far end pulls away at full speed', 0, 150, 1, 45],
     ['snap', 'Accent: a snap (extra size for a moment)', 0, 3, 0.05, 1.3],
-    ['ensInertia', 'How evenly the shaking speeds up', 0.1, 6, 0.05, 0.8],
+    ['ensInertia', 'How evenly the shaking speeds up', 0.1, 6, 0.05, 1.6],
     ['roomDepth', 'Place in the room → depth', 0, 800, 10, 300],
     ['agitate', 'Busy player → tumbleweeds stir', 0, 1, 0.01, 0.7],
   ]],
@@ -151,7 +151,7 @@ const scene = new THREE.Scene(); scene.background = new THREE.Color(0x000000);
 const camera = new THREE.PerspectiveCamera(50, 16 / 9, 1, 10000);
 const controls = new OrbitControls(camera, renderer.domElement);
 // [§521 — his "center it better so the lowest one doesn't hang down below the bottom, and there's not as much black space on the top"]
-function homeCamera() { const z = (W / 2) / Math.tan(THREE.MathUtils.degToRad(50) / 2) / (16 / 9) * 1.02; camera.position.set(0, S.frameY, z); controls.target.set(0, S.frameY, 0); controls.update(); }
+function homeCamera() { const z = (W / 2) / Math.tan(THREE.MathUtils.degToRad(50) / 2) / (16 / 9) * 1.02, y = controls.target ? controls.target.y : 0; camera.position.set(0, y, z); controls.target.set(0, y, 0); controls.update(); }
 homeCamera();
 const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
@@ -329,6 +329,10 @@ function tick(now) {
     r.line.geometry.attributes.position.needsUpdate = true;
   }
   bloom.strength = S.bloom; bloom.radius = S.radius; bloom.threshold = S.thresh;
+  // [§524 — his "the center is perhaps a little too high … a way to get it pretty centered"] THE FRAME FOLLOWS THE ROPES: the middle of
+  // their highest and lowest points, eased slowly, the view moved by the difference (a turned view stays turned)
+  let lo = Infinity, hi = -Infinity; for (const r of ropes) for (let j = 0; j < r.n; j += 2) { const y = r.p[3 * j + 1]; if (y < lo) lo = y; if (y > hi) hi = y; }
+  if (isFinite(lo)) { const want = (lo + hi) / 2 + S.frameY, dy = (want - controls.target.y) * Math.min(1, dt * 0.6); controls.target.y += dy; camera.position.y += dy; }
   controls.update(); composer.render();
   const t = audio.currentTime; timeEl.textContent = fmt(t); if (!scrubbing) scrub.value = t;
   if (frame % 6 === 0) legend.innerHTML = ropes.filter(r => r.pl).map(r => '<div><span style="color:#' + r.line.material.color.getHexString() + '">■</span> ' + (r.pl.kind === 'session' ? 'electronics · ' + PLAYER_NAMES[r.pl.part] : 'ensemble · ' + r.pl.part) + (r.st && r.st.on > 0.05 ? (r.pl.kind === 'session' ? ' · tremolo ' + r.st.sp.toFixed(1) + ' Hz' : ' · busy ' + Math.round((r.st.sp - 2) / 18 * 100) + '%') + (r.pl.kind === 'ensemble' ? ' · shaking ' + r.sf.toFixed(2) + ' a second' : ' · turning ' + r.w.toFixed(2) + ' a second') : ' · silent') + '</div>').join('');

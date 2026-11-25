@@ -107,17 +107,24 @@ for (const [name, layers] of GROUPS) {
   for (let i = 0; i < N; i++) {
     const tt = i / RATE;
     while (k0 < mine.length && mine[k0].endSeconds + 1 < tt) k0++;
-    let sounding = 0, v = 0, beat = null;
+    let sounding = 0, v = 0, beat = null, dyn = 0;
     for (let k = k0; k < mine.length && mine[k].startSeconds <= tt; k++) {
       const o = mine[k]; if (tt > o.endSeconds + 1) continue;
       const lvl = tt <= o.endSeconds ? 1 : 1 - (tt - o.endSeconds);       // a second's release after the note
       sounding = Math.max(sounding, lvl); v = Math.max(v, vel(o) * lvl);
+      // [§524 — his "especially for the crescendos … the ropes hardly move at all"] the note's own written dynamic curve (its nodes, 0 … 10:
+      // p is 2.9, fff 10), read where the note is — a crescendo grows as the note goes
+      const u = Math.max(0, Math.min(1, (tt - o.startSeconds) / Math.max(0.01, o.endSeconds - o.startSeconds))), nd = o.nodes || [];
+      let y = nd.length ? nd[0].y : 7; for (let q = 0; q + 1 < nd.length; q++) if (u >= nd[q].pos && u <= nd[q + 1].pos) y = nd[q].y + (nd[q + 1].y - nd[q].y) * (u - nd[q].pos) / Math.max(1e-6, nd[q + 1].pos - nd[q].pos);
+      if (nd.length && u >= nd[nd.length - 1].pos) y = nd[nd.length - 1].y;
+      dyn = Math.max(dyn, y / 10 * lvl);
       const b = tt <= o.endSeconds ? beatsAt(o, tt) : null; if (b != null) beat = Math.max(beat || 0, b);
     }
     // [§522 — his "the instrumental ones barely move"] full speed at 7 beats a second (was 10), and the busyness lifted by a square root
-    const busy = Math.sqrt(beat != null ? Math.min(1, beat / 7) : Math.min(1, rate[i] / top));
+    // [§524] the beating: a floor of a quarter the moment a pair sounds, full at 6 beats a second; and a crescendo drives the speed too
+    const busy = beat != null ? Math.max(0.25 + 0.75 * Math.sqrt(Math.min(1, beat / 6)), dyn * 0.9) : Math.max(Math.sqrt(Math.min(1, rate[i] / top)), dyn * 0.6);
     on.push(r3(sounding)); speed.push(r3(sounding ? 2 + 18 * busy : 0));
-    depth.push(r3(sounding ? 0.65 + 0.35 * Math.min(1, v / 127) : 0)); hard.push(r3(sounding ? 1.5 + 3 * Math.min(1, v / 127) : 0)); az.push(0);
+    depth.push(r3(sounding ? 0.65 + 0.35 * Math.min(1, dyn || v / 127) : 0)); hard.push(r3(sounding ? 1.5 + 3 * Math.min(1, v / 127) : 0)); az.push(0);
   }
   const accents = [];
   for (const o of mine) if (vel(o) >= 96 && !accents.some(x => Math.abs(x - o.startSeconds) < 0.12)) accents.push(r3(o.startSeconds));
