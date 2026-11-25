@@ -7083,3 +7083,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 ## §559 — 2026-11-25 — the video workshop: the instrument ropes lighter still
 
 - His words: *"Let's make them even lighter. So you went to 60%. What if we took it to 45%?"* — the ensemble's tumbleweeds in the counterpoint at 0.45 x their size (smaller by 0.55, was 0.4); the dimming and the wider shake unchanged.
+
+## §560 — 2026-11-25 — the video workshop: the instrument ropes dimmer, not smaller
+
+- His words: *"No, sorry, I misunderstood. The size, we can put them back to 60%, but it's the brightness … maybe like about 25% less bright."* — size back to 0.6 x; brightness 25 % under what it was (0.65 → 0.49 of normal: dimmer by 0.51, was 0.35).
