@@ -325,7 +325,9 @@
         const lo = Math.max(t + minPage, w + minPage);
         const m = blockAt(target);
         if (!m) { cut = target; kind = 'full'; }
-        else if (m.a >= lo - EPS) { cut = m.a; kind = 'pushed'; pushed = m.objs.filter(x => x.b > m.a + EPS && x.a < target - EPS); }
+        // [the Switch~ piece §481 — his "we should try to go to the end of the page if we can"] a block is PUSHED whole to the next page only when that leaves at most
+        // rules.pushMaxBlankSeconds of the page blank; past that the cut is placed INSIDE the block (the 'forced' branch: every object kept whole on one page or the next)
+        else if (m.a >= lo - EPS && !(rules.pushMaxBlankSeconds >= 0 && target - m.a > rules.pushMaxBlankSeconds + EPS)) { cut = m.a; kind = 'pushed'; pushed = m.objs.filter(x => x.b > m.a + EPS && x.a < target - EPS); }
         else {
           const cands = new Set([target]);
           for (const x of m.objs) for (const e of [x.a, x.b, x.t]) if (e >= lo - EPS && e <= target + EPS) cands.add(e);
