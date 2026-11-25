@@ -6958,3 +6958,9 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 ## §537 — 2026-11-25 — the video workshop: the grain rope alone
 
 - His words: *"Can you take all the other ropes out or just hide them?"* — hidden, not removed: a button "Grain rope only" (on at the start) shows only the rope the grains play on (the archtop rope, Elec 2's); the others still move unseen, and the frame centres on the one shown. Off, the Electronics and Ensemble buttons rule as before.
+
+## §538 — 2026-11-25 — the video workshop: the grains inflate and deflate, slowly
+
+- His words: *"they're getting too big and staying big too long … I mostly just see the big shapes … a smoother transition … like on an inflate or deflate … the grain triggers one of those … more states … in the rest phase, it blinks and it just changes state … a much slower transition … from quite small to maybe not quite as big."*
+- Rejected: §536's bloom (each grain opened its tumbleweed to 1 + 1.6 x and let it fall over 4 x the grain) — at about 40 grains a second on 27 tumbleweeds each one was re-opened before it fell, so the rope sat at its biggest.
+- Done: each tumbleweed of the grain rope has a SIZE that a grain INFLATES by a step (0.15, smaller for a higher pitch, larger for a louder grain) and that DEFLATES between grains (0.2 a second), held between 0.3 (quite small) and 1.1 (not as big as before) of its size, and FOLLOWED SLOWLY (0.8 s) — so the density of grains at a place becomes how full the tumbleweed there is, with no snap; fuller is a little brighter. The re-scramble glide on that rope 3 x slower while its bed plays (the blink at rest). Outside the bed the sizes ease back to normal. The arithmetic of the defaults (not seen — the pane hidden): ~1.5 grains a tumbleweed a second x 0.15 x ~0.75 ≈ 0.17 up against 0.2 down, so the sizes wander around the middle with the grains' local thickening.

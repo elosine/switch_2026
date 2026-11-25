@@ -122,9 +122,13 @@ const KNOBS = [
     ['freeEnds', 'Ends slide on a pole (1 = free, 0 = pinned)', 0, 1, 0.01, 1],
   ]],
   ['Grains — the granular bed on its electronics rope (B4 on the archtop rope for now)', [
-    ['grainBloom', 'A grain opens its tumbleweed (how much)', 0, 4, 0.05, 1.6],
-    ['grainHold', 'How long it stays open (× the grain)', 0.5, 20, 0.5, 4],
-    ['grainGlow', 'A grain brightens its tumbleweed', 0, 1, 0.01, 0.6],
+    ['gMin', 'Smallest a tumbleweed gets (× its size)', 0.05, 1, 0.01, 0.3],
+    ['gMax', 'Largest a tumbleweed gets (× its size)', 0.5, 3, 0.01, 1.1],
+    ['gStep', 'Each grain inflates it by', 0, 1, 0.01, 0.15],
+    ['gFall', 'It deflates (a second, between grains)', 0, 2, 0.01, 0.2],
+    ['gEase', 'How slowly it follows (seconds)', 0.05, 3, 0.05, 0.8],
+    ['grainGlow', 'A fuller tumbleweed is brighter', 0, 1, 0.01, 0.4],
+    ['grainMorph', 'Its re-scramble glide, slower by', 1, 8, 0.5, 3],
     ['grainKick', 'A grain taps the rope where it lands', 0, 1500, 10, 260],
     ['grainSwell', 'The head moves to the next hit: a swell along the rope', 0, 3000, 10, 700],
     ['loopiness', 'A pulse is a loop (its sideways turn)', 0, 1.5, 0.01, 0.7],
@@ -345,8 +349,10 @@ function grainsFrame(t0, t1, jumped) {
       const [tg, pl, hit, ratio, len, db, pan] = G.list[i++]; if (tg <= t0) continue;
       const j = Math.max(0, Math.min(r.n - 1, Math.round((pan + 1) / 2 * (r.n - 1)))), w = r.weeds[j];
       const lv = Math.pow(10, db / 20);                                      // 0.79 … 1.26
-      const amp = S.grainBloom * lv / Math.sqrt(ratio);                       // higher pitch, smaller
-      w.gAmp = Math.max(w.gAmp || 0, amp); w.gTau = Math.max(0.06, len * S.grainHold); w.gGlow = Math.max(w.gGlow || 0, S.grainGlow * lv);
+      // [§538 — his "too big and staying big too long … a smoother transition … an inflate or deflate … the grain triggers one of those … from
+      // quite small to maybe not quite as big"] a grain INFLATES its tumbleweed a step (higher pitch a smaller step, louder a larger); between
+      // grains it DEFLATES; the size follows slowly — the density of grains at a place becomes how full the tumbleweed there is
+      w.gT = Math.min(S.gMax, (w.gT ?? S.gMin) + S.gStep * lv / Math.sqrt(ratio));
       if (S.grainKick) kick(r, j, S.grainKick * lv * 0.5);
       if (lastHit != null && hit !== lastHit && S.grainSwell) { const save = S.kickWidth; S.kickWidth = r.n / 3; kick(r, (r.n - 1) / 2, S.grainSwell); S.kickWidth = save; }
       lastHit = hit;
@@ -448,6 +454,7 @@ function tick(now) {
       if (S.accentKick) kick(r, R(live, 3, r.n - 4), S.accentKick * hn);
     }
   }
+  if (D && D.grains) { for (const r of ropes) r.grainOn = false; for (const G of D.grains) { const r = ropes[LANE_ROPE[G.lane]]; if (r && tNow >= G.t0 && tNow <= G.t1) r.grainOn = true; } }
   if (playing) grainsFrame(tPrev, tNow, jump);
   tPrev = tNow;
   // the stirred air: each shown rope's activity, 0 … 1 — a cranked rope its turning against the fastest, a shaken one its shaking times its size
@@ -485,13 +492,16 @@ function tick(now) {
       let cy = 0, cz = 0; if (soloK > 0 && r.off != null && uy) { const e = ((1 - S.freeEnds) * Math.min(1, 3 * Math.sin(Math.PI * j / (r.n - 1))) + S.freeEnds) * soloK; cy = uy[r.off + j * WK] * e; cz = uz[r.off + j * WK] * e; }   // [§530] ends free: the pulse passes through them
       const w = r.weeds[j], x = r.q[3 * j] + (r.p[3 * j] - r.q[3 * j]) * al, y = r.q[3 * j + 1] + (r.p[3 * j + 1] - r.q[3 * j + 1]) * al + cy, z = r.q[3 * j + 2] + (r.p[3 * j + 2] - r.q[3 * j + 2]) * al + cz;
       w.mesh.position.set(x, y, z); lp[3 * j] = x; lp[3 * j + 1] = y; lp[3 * j + 2] = z;
-      if (w.gAmp) {                                                          // [§536] a grain's bloom: open, then fall
-        w.mesh.scale.setScalar(1 + w.gAmp); w.mesh.material.opacity = Math.min(1, S.opacity * r.ch.op * (1 + w.gGlow));
-        const k = Math.exp(-dt / w.gTau); w.gAmp *= k; w.gGlow *= k;
-        if (w.gAmp < 0.01) { w.gAmp = 0; w.gGlow = 0; w.mesh.scale.setScalar(1); w.mesh.material.opacity = S.opacity * r.ch.op; }
+      if (r.grainOn || w.gS != null) {                                       // [§538] the grain rope's tumbleweeds: inflate on grains, deflate between
+        if (r.grainOn) w.gT = Math.max(S.gMin, (w.gT ?? S.gMin) - S.gFall * dt); else w.gT = 1;
+        w.gS = (w.gS ?? 1) + (w.gT - w.gS) * Math.min(1, dt / S.gEase);
+        w.mesh.scale.setScalar(w.gS);
+        const full = Math.max(0, Math.min(1, (w.gS - S.gMin) / Math.max(0.01, S.gMax - S.gMin)));
+        w.mesh.material.opacity = Math.min(1, S.opacity * r.ch.op * (1 + S.grainGlow * full));
+        if (!r.grainOn && Math.abs(w.gS - 1) < 0.005) { w.gS = null; w.gT = null; w.mesh.scale.setScalar(1); w.mesh.material.opacity = S.opacity * r.ch.op; }
       }
       if (w.to) {
-        w.k = Math.min(1, w.k + 1 / Math.max(1, S.morph * r.ch.morph)); const e = w.k * w.k * (3 - 2 * w.k);
+        w.k = Math.min(1, w.k + 1 / Math.max(1, S.morph * r.ch.morph * (r.grainOn ? S.grainMorph : 1))); const e = w.k * w.k * (3 - 2 * w.k);
         for (let m = 0; m < w.pos.length; m++) w.pos[m] = w.from[m] + (w.to[m] - w.from[m]) * e;
         w.mesh.geometry.attributes.position.needsUpdate = true; if (w.k >= 1) w.to = w.from = null;
       }
