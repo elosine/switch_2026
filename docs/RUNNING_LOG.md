@@ -6797,3 +6797,8 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 ## §510 — 2026-11-24 — the instructions: the percussion line
 
 - His words: *"bass drum with [rute] for rim shot. And then a final sentence can be all other mallets are at the player's discretion."* Applied to the Instrumentation's percussion line ("root" heard as rute).
+
+## §511 — 2026-11-24 — the instructions: the curve's dynamic header; the anonymity scan
+
+- His words: *"In the audible beats section, it says the green curve represents volume. The notation header indicates the dynamic range, and just that whole rest of that part from recombination, but don't include, sometimes there is a fade in or fade out."* Added after "represents volume": Recombination's two sentences (the header; ppp → f), the fade sentence left out.
+- The anonymity scan he asked for: the visible text above the Notes for Revision names no person, no other piece, no account, no link; the title is "Performance Instructions — Multiplicity"; the four pictures carry only the lane labels. Flagged: the Notes for Revision name his earlier pieces (deleted before print, as planned); the HTML comments name pieces and paths (not printed; the page source is never sent).
