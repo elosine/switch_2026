@@ -320,7 +320,18 @@ function furniturePrint(view) {
   const tx = view.xOfSeconds(t0) - s * wv.xOfSeconds(t0), ty = pp.yMidPx - s * pw.yMidPx;
   const v = WS.viewOf(FURN, t0, span, w, { real: true });
   const clip = '<defs><clipPath id="wkclipP"><rect x="' + (v.x0 - 2).toFixed(1) + '" y="-200" width="' + (v.w - v.x0 + 2).toFixed(1) + '" height="4000"/></clipPath></defs>';
-  return '<g class="furniture" transform="translate(' + tx.toFixed(2) + ' ' + ty.toFixed(2) + ') scale(' + s.toFixed(5) + ')">' + clip + (v.adds || []).map(a => '<g clip-path="url(#wkclipP)">' + a + '</g>').join('') + '</g>';
+  // [§488 — his "Can you put the pebbles into the piano solo boxes just at the bottom?"] THE PEBBLES AT REST: each pebble drop's pebbles drawn where the
+  // film's motion leaves them (notation.html furnitureFrameSvg's last state: landed, its one small bounce done, still on the box's floor), the same shapes
+  const rest = [];
+  for (const K of v.strikes || []) {
+    const e = K.bounce;
+    for (const p of K.rocks || []) {
+      const Tb = p.T * e, x = p.xl + (p.xl - p.xh) * e * 0.5, y = K.floor - (p.yl || 0), air = p.T + Tb, c = 'rgb(' + p.gray + ',' + p.gray + ',' + p.gray + ')';
+      rest.push('<path d="' + p.d + '" transform="translate(' + x.toFixed(1) + ' ' + (y - p.r * 0.6).toFixed(1) + ') rotate(' + (p.spin * air).toFixed(0) + ')" ' + (K.stroked ? 'fill="none" stroke="' + c + '" stroke-width="0.6"' : 'fill="' + c + '"') + '/>');
+    }
+  }
+  return '<g class="furniture" transform="translate(' + tx.toFixed(2) + ' ' + ty.toFixed(2) + ') scale(' + s.toFixed(5) + ')">' + clip + (v.adds || []).map(a => '<g clip-path="url(#wkclipP)">' + a + '</g>').join('') +
+    (rest.length ? '<g class="pebbles-at-rest" clip-path="url(#wkclipP)">' + rest.join('') + '</g>' : '') + '</g>';
 }
 function printAdds(view) {
   return (ELEC_WAVE ? ElecWave.svg(view, ELEC_WAVE.wave, ELEC_WAVE.rule) : '') + furniturePrint(view);

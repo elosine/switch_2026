@@ -6690,3 +6690,8 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 
 **His words:** *"Actually, go ahead and switch to bars and reprint the film, please."* · then *"a hold on the print score, and we'll put the bars in for when I have the performance notes and if there's any additional corrections."* · then *"That's okay, then just leave it. We'll reprint it. I just meant you didn't have to reprint it now."*
 **DONE:** `rules.json objects.elecWave.style` = `bars`; the film rendered again as `…/film/switch-demo-film4.mp4` (mix2 under it). The print had been rebuilt with the bars before his hold; the AI added `--waveStyle` to `export_print.js` and `print_book.js` and rebuilt it with the outline, as he had it — his "leave it" came while that ran. **The print in hand now carries the outline;** the next `node tools/print_book.js` (no --waveStyle) draws the bars.
+
+## §488 · 2026-11-24 · the solo's pebbles at rest on paper
+
+**His words:** *"Can you put the pebbles into the piano solo boxes just at the bottom?"*
+**DONE:** `tools/export_print.js` (the solo's signs on paper, §471) draws each pebble drop's pebbles where the film's motion leaves them — landed, the small bounce done, on the box's floor; the same shapes and grays as the film (notation.html's last state). The film is untouched. Seen on one page (the drop at ~170.3): the heap along the bottom of its box. **Not reprinted** (his hold, §487): the next `node tools/print_book.js` carries it.
