@@ -122,13 +122,22 @@ const KNOBS = [
     ['freeEnds', 'Ends slide on a pole (1 = free, 0 = pinned)', 0, 1, 0.01, 1],
   ]],
   ['Grains — the granular bed on its electronics rope (B4 on the archtop rope for now)', [
-    ['gMin', 'Smallest a tumbleweed gets (× its size)', 0.05, 1, 0.01, 0.3],
-    ['gMax', 'Largest a tumbleweed gets (× its size)', 0.5, 3, 0.01, 1.1],
-    ['gStep', 'Each grain inflates it by', 0, 1, 0.01, 0.15],
+    ['gMin', 'Smallest a tumbleweed gets (× its size)', 0.05, 1, 0.01, 0.7],
+    ['gMax', 'Largest a tumbleweed gets (× its size)', 0.5, 3, 0.01, 1],
+    ['gStep', 'Each grain inflates it by', 0, 1, 0.01, 0.06],
     ['gFall', 'It deflates (a second, between grains)', 0, 2, 0.01, 0.2],
     ['gEase', 'How slowly it follows (seconds)', 0.05, 3, 0.05, 0.8],
     ['grainGlow', 'A fuller tumbleweed is brighter', 0, 1, 0.01, 0.4],
     ['grainMorph', 'Its re-scramble glide, slower by', 1, 8, 0.5, 3],
+    ['lAmp', 'A grain pushes the tumbleweeds along the rope (how far)', 0, 200, 1, 40],
+    ['lTravel', 'Seconds for that push to cross the rope', 0.1, 3, 0.05, 0.5],
+    ['lDamp', 'How soon the push dies', 0, 10, 0.05, 4],
+    ['homeHz', 'How firmly a tumbleweed returns to its place (a second)', 0.5, 8, 0.1, 3],
+    ['flow', 'The shower’s motion: tumbleweeds lean the way it travels', 0, 300, 1, 40],
+    ['showerWidth', 'The shower’s width (share of the rope)', 0.05, 0.6, 0.01, 0.22],
+    ['showerStir', 'Inside the shower, the stir', 0, 0.4, 0.005, 0.1],
+    ['pivot', 'The tumbleweeds pivot as the push passes', 0, 0.05, 0.001, 0.012],
+    ['tumble', 'The push stirs them inside (their turning)', 0, 0.5, 0.005, 0.12],
     ['grainKick', 'A grain taps the rope where it lands', 0, 1500, 10, 260],
     ['grainSwell', 'The head moves to the next hit: a swell along the rope', 0, 3000, 10, 700],
     ['loopiness', 'A pulse is a loop (its sideways turn)', 0, 1.5, 0.01, 0.7],
@@ -228,7 +237,9 @@ const CHAR = {
   cello:      { nodes: 0.75, size: 1.35, res: 1,    morph: 1.8, scr: 1.4,  shake: 0.7,  amp: 1.35, snap: 1,   snapFade: 1.8, sway: 0.35, op: 1 },
 };
 const PLAIN = { nodes: 1, size: 1, res: 1, morph: 1, scr: 1, shake: 1, amp: 1, snap: 1, snapFade: 2.5, sway: 0.25, op: 1 };
-const charOf = src => (src && src.kind === 'ensemble' && CHAR[src.part]) || PLAIN;
+// [§540 — his "a slightly higher density of nodes for the electronic parts … keep their maximum size maybe kind of small"]
+const ELEC = { ...PLAIN, nodes: 1.7, size: 0.55 };
+const charOf = src => (src && src.kind === 'ensemble' && CHAR[src.part]) || (src && src.kind === 'session' ? ELEC : PLAIN);
 const edgeCache = {}; const edgesFor = res => edgeCache[res] || (edgeCache[res] = sphereEdges(res));
 function weedRad(j, n, seg, mul = 1) {
   const u = j / (n - 1), env = (1 - S.taper) + S.taper * Math.pow(Math.sin(Math.PI * u), 0.7);
@@ -262,7 +273,7 @@ function build() {
     // [his "the polygons don't feel part of the rope"] a faint line through the points, the rope's own colour
     const lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(3 * n), 3));
     const line = new THREE.Line(lg, new THREE.LineBasicMaterial({ color: colour, transparent: true, opacity: S.spine })); scene.add(line);
-    ropes.push({ ch, pl: src, side: i % 2 ? n - 1 : 0, sf: 0, sfT: 0, sa: 0, saT: 0, sph: 0, snapK: 0, th: R(lay, 0, Math.PI * 2), w: 0, wT: 0, pullC: 0, pullT: 0, zt: z, ze: z, st: null, p, q, n, seg, y, z, weeds, line, ph: R(lay, 0, Math.PI * 2), ph2: R(lay, 0, Math.PI * 2), timer: Math.round(R(live, S.scrL, S.scrH)) });
+    ropes.push({ lw: new Float32Array(n), lwo: new Float32Array(n), ch, pl: src, side: i % 2 ? n - 1 : 0, sf: 0, sfT: 0, sa: 0, saT: 0, sph: 0, snapK: 0, th: R(lay, 0, Math.PI * 2), w: 0, wT: 0, pullC: 0, pullT: 0, zt: z, ze: z, st: null, p, q, n, seg, y, z, weeds, line, ph: R(lay, 0, Math.PI * 2), ph2: R(lay, 0, Math.PI * 2), timer: Math.round(R(live, S.scrL, S.scrH)) });
   }
 }
 
@@ -354,6 +365,14 @@ function grainsFrame(t0, t1, jumped) {
       // grains it DEFLATES; the size follows slowly — the density of grains at a place becomes how full the tumbleweed there is
       w.gT = Math.min(S.gMax, (w.gT ?? S.gMin) + S.gStep * lv / Math.sqrt(ratio));
       if (S.grainKick) kick(r, j, S.grainKick * lv * 0.5);
+      // [§540 — his "as the grain moves across space … that sort of longitudinal wave … the nodes … shift a little bit on the rope axis … a little
+      // bit of pivot … the grain pulse … move throughout the rope"] a grain gives the tumbleweed at its place a push ALONG the rope; the push runs
+      // both ways as a wave (an even sign per grain at random, so they do not all drift one way)
+      r.lwo[j] -= (Math.random() < 0.5 ? -1 : 1) * S.lAmp * lv * STEP * 20;
+      // [§540 — his "it's kind of rain stick like. So you can hear the shower, and that might be the internal movement, but you can also feel and
+      // hear the motion of the shower"] THE SHOWER: where the grains are falling, a running mean of their places (each grain moves it an eighth of
+      // the way to its own place)
+      r.cen = r.cen == null ? pan : r.cen + (pan - r.cen) * 0.12;
       if (lastHit != null && hit !== lastHit && S.grainSwell) { const save = S.kickWidth; S.kickWidth = r.n / 3; kick(r, (r.n - 1) / 2, S.grainSwell); S.kickWidth = save; }
       lastHit = hit;
     }
@@ -471,6 +490,18 @@ function tick(now) {
     for (const r of ropes) {
       if (live() < S.kickRate * STEP) kick(r, R(live, 2, r.n - 3), S.kick * R(live, 0.6, 1.2));
       stepRope(r, STEP);
+      if (r.grainOn || r.lwE) {                                              // [§540] the push along the rope: a wave, its ends free, dying at lDamp a second
+        // [§540] each tumbleweed is tied to its place (homeHz): measured offline on B4's grains, without it the pushes piled up into drifts of
+        // 400 against a gap of 39 between tumbleweeds; with it at 3 a second and the push at 40 they stay about 4, at most about 30
+        const { lw, lwo, n } = r, c = Math.min(0.9, (n / Math.max(0.05, S.lTravel)) * STEP), c2 = c * c, g = Math.min(0.5, S.lDamp * STEP), kh = (2 * Math.PI * S.homeHz * STEP) ** 2;
+        let e = 0;
+        for (let i = 0; i < n; i++) {
+          const L = lw[i > 0 ? i - 1 : 1], Rr = lw[i < n - 1 ? i + 1 : n - 2];
+          const nu = 2 * lw[i] - lwo[i] + c2 * (L - 2 * lw[i] + Rr) - g * (lw[i] - lwo[i]) - kh * lw[i];
+          lwo[i] = lw[i]; r.tmpL = r.tmpL || new Float32Array(n); r.tmpL[i] = nu; e += Math.abs(nu);
+        }
+        lw.set(r.tmpL); r.lwE = e > 0.01 * n;
+      }
     }
     simT += STEP; acc -= STEP;
   }
@@ -485,13 +516,22 @@ function tick(now) {
         w.from = Float32Array.from(w.pos); w.to = new Float32Array(w.pos.length); scramble(w.to, w.n, weedRad(j, r.n, r.seg, r.ch.size), live); w.k = 0;
       }
     }
+    if (r.cen != null) { const v = (r.cen - (r.cenP ?? r.cen)) / Math.max(1e-3, dt); r.cenV = (r.cenV || 0) + (v - (r.cenV || 0)) * Math.min(1, dt * 3); r.cenP = r.cen; }   // [§540] the shower's speed, eased
     const al = acc / STEP, lp = r.line.geometry.attributes.position.array;     // drawn between the last two physics steps: no judder
     for (let j = 0; j < r.n; j++) {
       // [§520] the quiver of §519 (a drawn standing wave) is gone — his "stiff … almost like it's wire"; the crank above moves the rope now
       // [§529] the chain's wave on top, faded toward this rope's own pinned ends (the pulse leaves one rope and appears on the next)
       let cy = 0, cz = 0; if (soloK > 0 && r.off != null && uy) { const e = ((1 - S.freeEnds) * Math.min(1, 3 * Math.sin(Math.PI * j / (r.n - 1))) + S.freeEnds) * soloK; cy = uy[r.off + j * WK] * e; cz = uz[r.off + j * WK] * e; }   // [§530] ends free: the pulse passes through them
       const w = r.weeds[j], x = r.q[3 * j] + (r.p[3 * j] - r.q[3 * j]) * al, y = r.q[3 * j + 1] + (r.p[3 * j + 1] - r.q[3 * j + 1]) * al + cy, z = r.q[3 * j + 2] + (r.p[3 * j + 2] - r.q[3 * j + 2]) * al + cz;
-      w.mesh.position.set(x, y, z); lp[3 * j] = x; lp[3 * j + 1] = y; lp[3 * j + 2] = z;
+      let xs = x;
+      if (r.lwE || r.grainOn) {                                              // [§540] the push: a shift along the rope, a small pivot, and a stir inside
+        const d = r.lw[j], v = d - r.lwo[j], slope = (r.lw[Math.min(r.n - 1, j + 1)] - r.lw[Math.max(0, j - 1)]) / 2;
+        // the shower: a bell around its place; inside it the tumbleweeds lean the way it is travelling, and stir
+        const sh = r.cen == null ? 0 : Math.exp(-((j / (r.n - 1) - (r.cen + 1) / 2) ** 2) / (2 * S.showerWidth ** 2));
+        xs = x + d + S.flow * (r.cenV || 0) * sh; w.mesh.rotation.z = slope * S.pivot * 40;
+        const stir = Math.min(0.6, Math.abs(v) * S.tumble + sh * S.showerStir); w.mesh.rotation.x += stir; w.mesh.rotation.y += stir * 0.7;
+      }
+      w.mesh.position.set(xs, y, z); lp[3 * j] = xs; lp[3 * j + 1] = y; lp[3 * j + 2] = z;
       if (r.grainOn || w.gS != null) {                                       // [§538] the grain rope's tumbleweeds: inflate on grains, deflate between
         if (r.grainOn) w.gT = Math.max(S.gMin, (w.gT ?? S.gMin) - S.gFall * dt); else w.gT = 1;
         if (w.gS == null || !isFinite(w.gS)) w.gS = 1;                     // [§539] a size starts at its normal 1 (undefined made it NaN: the tumbleweeds vanished)
