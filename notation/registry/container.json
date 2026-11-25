@@ -1108,6 +1108,8 @@
   },
   "render": {
    "gcLayer": "@objects.gc.layer",
+   "curvesLayer": "@objects.layers.curves",
+   "badgeLayer": "@objects.layers.badge",
    "staffFull": true,
    "_staffFullNote": "2026-09-11 (RUNNING_LOG §401b, the composer: 'put the staff lines to the end of the page'): the staff is furniture in every view — drawn to the page edges, not cut at the material's end (the tuba's day-22 verdict cut them short). false = the tuba look.",
    "ink": "@colours.ink.value",

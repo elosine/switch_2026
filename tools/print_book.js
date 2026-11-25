@@ -30,7 +30,8 @@ parts.push({ file: front, keep: nFront });
 let folio = 0;
 SECTIONS.forEach((id, i) => {
   const f = path.join(tmp, (i + 1) + '-' + id + '.pdf');
-  const o = run(['--ir', id, '--folio0', String(folio), '--out', f]);
+  // [§478] the final bar line only at the end of the piece, never at the end of a section
+  const o = run(['--ir', id, '--folio0', String(folio), '--finalBar', i === SECTIONS.length - 1 ? 'on' : 'off', '--out', f]);
   const n = +((/(\d+) of music/.exec(o) || [])[1] || 0);
   if (!n) { console.error(id + ': no pages written\n' + o); process.exit(1); }
   console.log(id.padEnd(22) + n + ' pages, numbered ' + (folio + 1) + ' to ' + (folio + n));

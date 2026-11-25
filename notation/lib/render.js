@@ -474,7 +474,13 @@
       // The moving ball is the animation's own layer, over the page either way.
       const GC_TOP = ((opts && opts.engraving) || {}).gcLayer === 'top';   // RULES MIRROR (objects.gc.layer "behind")
       const ELEC_LAYER = it => (it.k === 'elecwin' ? -3 : (it.k === 'elecret' || (it.k === 'wedge' && it.row === 'elec')) ? -2 : (it.k === 'badge' && it.row === 'elec') ? -1 : null);
-      const LAYER = it => { const e = ELEC_LAYER(it); return e != null ? e : it.k === 'envcurve' ? 1 : it.k === 'goline' ? 2 : it.k === 'gc' ? (GC_TOP ? 3 : -0.5) : 0; };   // [decibel §411, DEC-181 — his "on everywhere in the score, let's put the GCs on top"] the GC is drawn LAST, over every other mark of its lane
+      // [the Switch~ piece §477 — HIS RULE 2026-11-24: "all the notation is on top, especially … the Audible Beats badges"] rules.json objects.layers:
+      // curves "behind" = every drawn curve (the pitch curve, the sine tone's line, a crescendo curve, a volume curve) under the notation, beside the GC's
+      // still curve; badge "top" = a player's badge drawn last in its lane, over the curves and the go lines. Absent = the order as it was.
+      const CURVES_BEHIND = ((opts && opts.engraving) || {}).curvesLayer === 'behind';   // RULES MIRROR (objects.layers.curves "behind")
+      const BADGE_TOP = ((opts && opts.engraving) || {}).badgeLayer === 'top';          // RULES MIRROR (objects.layers.badge "top")
+      const CURVE_KINDS = { envcurve: 1, glisscurve: 1, sineline: 1, cresccurve: 1 };
+      const LAYER = it => { const e = ELEC_LAYER(it); if (e != null) return e; if (CURVES_BEHIND && CURVE_KINDS[it.k]) return -0.4; if (BADGE_TOP && it.k === 'badge') return 4; return it.k === 'envcurve' ? 1 : it.k === 'goline' ? 2 : it.k === 'gc' ? (GC_TOP ? 3 : -0.5) : 0; };   // [decibel §411, DEC-181 — his "on everywhere in the score, let's put the GCs on top"] the GC is drawn LAST, over every other mark of its lane
       const itemsInLayers = [...sysModel.items, ...addGo].sort((a, b) => LAYER(a) - LAYER(b));
       for (const it of itemsInLayers) {
         // [2c.3] a cut kind's ink goes inside the page's clip — wrapped in `finally`, so every branch's `continue` is honoured

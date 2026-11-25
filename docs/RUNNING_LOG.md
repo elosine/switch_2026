@@ -6628,3 +6628,17 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **His words:** *"For the opening section, the announcement of the Crotales, the first one, we should say bowed too."*
 **DONE:** `tools/notate_section.js` writes "crotales (bowed)" at the crotales' first entry in Section 1 (piece 2's rule of the name at the first entry, §251, now with how it is played; the same wording as the instructions page). The page `s1-sines` rebuilt by its own recorded command: compared with the page before, identical but for the build date and the word.
 **NOT DONE:** the print and the film are not made again yet (his "wait to redraw").
+
+## §477 · 2026-11-24 · the notation on top: every curve behind, the badges last
+
+**His words:** *"Can you double check and see that all the notation is on top, especially when it comes to the Audible Beats badges? They might be, but if they're not, let's make sure they get printed on top of them."*
+**WHAT THE CHECK FOUND (read in `render.js`):** the renderer draws a lane's marks in layers. The Audible Beats badge, the pitch curve (orange), the sine tone's line (purple) and Section 3's crescendo curves all sat in ONE layer, so the order of the list decided which lay on top. The volume curve sat ABOVE the notation (its layer 1). Only the GC's still curve was already behind (§383).
+**HIS RULE, AS A ROW:** `rules.json objects.layers` — curves "behind" (every drawn curve under the notation, beside the GC's still curve) · badge "top" (a player's badge drawn last in its lane, over the curves and the go lines); `container.json` render.curvesLayer · badgeLayer; `render.js` reads them. The film, the print and the app share it.
+**MEASURED ONCE:** on a page of Section 1 every badge is drawn after every curve in its system (3 systems of 3).
+
+## §478 · 2026-11-24 · the double bar only at the end of the piece
+
+**His words:** *"Not meant to be a double bar at the end of section 1, just at the end of the piece."* (with a picture of the print's last page of Section 1)
+**THE CAUSE:** `export_print.js` drew the final bar line at the end of EVERY page set it was given, and the book prints the score as four sets.
+**DONE:** `--finalBar off`; `tools/print_book.js` gives it to the first three sections, so the thin-and-thick bar stands only at the end of the phase section. Checked on the two ends: none at 145 s, one at 480 s.
+**NOT DONE (his "wait to redraw"):** the print and the film are not made again yet.

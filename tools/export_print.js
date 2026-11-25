@@ -741,7 +741,7 @@ function buildHtml() {
       // composer, day 37: no bar line at the right of every page. On paper the
       // page edge is not a musical event; the bar draws only at the true end.
       edgeBar: false,
-      finalBar: true,       // [2b-P step 5, §772] the print's thin + thick final barline at the piece's end (rules.json objects.finalBarLine)
+      finalBar: arg('finalBar', 'on') !== 'off',   // [the Switch~ piece §478, his: 'Not meant to be a double bar at the end of section 1, just at the end of the piece'] --finalBar off for a section that is not the last · [2b-P step 5, §772] the print's thin + thick final barline at the piece's end (rules.json objects.finalBarLine)
     });
     // [decibel PLAN 2.16 step 1, RUNNING_LOG §476] ON PAPER THE ELECTRONICS' PANE HAS NO GRAIN. The grain (rules.json objects.elecWindow.grain)
     // is an SVG noise FILTER, and Chrome's print-to-pdf turns a filtered shape into a PICTURE — the delivered file must hold no raster
