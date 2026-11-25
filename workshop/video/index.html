@@ -157,7 +157,7 @@ const KNOBS = [
     ['stSag', 'Stutter: the rope'+"'"+'s loop, this deep', 0, 300, 5, 100],
     ['stTurn', 'Stutter: the rope turns slowly (turns a second)', 0, 1, 0.01, 0.12],
     ['stFill', 'Stutter: the rope spans the screen'+"'"+'s width (× that width)', 0.5, 1.2, 0.01, 0.97],
-    ['stGrowMax', 'Stutter: beads grow where the sound is, up to (× their size)', 0.5, 10, 0.05, 5.2],
+    ['stGrowMax', 'Stutter: beads grow where the sound is, up to (× their size)', 0.5, 10, 0.05, 3.9],
     ['stGrowWidth', 'Stutter: how wide the growing place is (share of the rope)', 0.005, 0.3, 0.005, 0.04],
     ['stGrowFall', 'Stutter: a grain-grown bead shrinks back over (seconds)', 0.05, 3, 0.05, 0.45],
     ['stJit', 'Stutter: the beads unevenly spaced (share of their gap)', 0, 1.5, 0.01, 0.7],
@@ -168,7 +168,7 @@ const KNOBS = [
     ['stWidth', 'Stutter: how wide the shoved place is (share of the rope)', 0.005, 0.3, 0.005, 0.045],
     ['stGrow', 'Stutter: how big the beads grow where the sound is (× their size)', 0.5, 8, 0.05, 2],
     ['stEdge', 'Stutter: how sharp the grain'+"'"+'s on and off (seconds)', 0.002, 0.2, 0.002, 0.018],
-    ['oneElec', 'Only the stuttering electronics rope (1 = on)', 0, 1, 1, 1],
+    ['oneElec', 'Only the stuttering electronics rope (1 = on)', 0, 1, 1, 0],
     ['grainPull', 'Under the grains the rope'+"'"+'s ends pull apart (a smaller swing)', 0, 200, 1, 95],
     ['shadow', 'The shadow rope: the grains as a wiggle across it (1 = on)', 0, 1, 1, 1],
     ['shadowWidth', 'The shadow rope'+"'"+'s thickness (pixels)', 1, 30, 0.25, 6.25],
@@ -715,13 +715,16 @@ function tick(now) {
         if (r.kin <= 0 && r.kp) r.kp = null;
         if (r.kin > 0) {
           // [§571 — his "tamp the rope sort of gradual swing … start with straight for now. Or, hanging at a pretty good tension"] the stutter rope does not turn: it hangs
-          const stillHang = STUTTER[ropes.indexOf(r)] && tNow >= STATE2_AT - 10;
+          // [§576 — his "let me see all the electronics ropes … each have a similar sort of amplitude of gentle swing … each … a distinct … vertical
+          // location, but not equally spaced … one more towards the bottom, one more towards the top, a couple in between"] all four in the final section
+          // take the stutter rope's gentle swing, each at its own height (dealt unevenly: one high, one low, two between) and its own slight pace
+          const stillHang = tNow >= STATE2_AT - 10, yF = { 0: 40, 1: 250, 2: -75, 3: -275 }[ropes.indexOf(r)] ?? r.y;
           // [§573 — his "bring a little bit of motion back into the rope … not so many modes … some sort of uniform motion"] the AI's pick: the same
           // one loop, much shallower, turning slowly and evenly — life without a second mode; and the rope as wide as the screen
-          if (stillHang) r.rot = (r.rot || 0) + 2 * Math.PI * S.stTurn * STEP; else if (r.grainOn) r.rot = (r.rot ?? r.ph) + 2 * Math.PI * S.rotTurn * r.rotF * STEP;
+          if (stillHang) r.rot = (r.rot || 0) + 2 * Math.PI * S.stTurn * r.rotF * STEP; else if (r.grainOn) r.rot = (r.rot ?? r.ph) + 2 * Math.PI * S.rotTurn * r.rotF * STEP;
           const e = r.kin * r.kin * (3 - 2 * r.kin), n = r.n, c = Math.cos(r.rot ?? 0), s = Math.sin(r.rot ?? 0);
           for (let j = 0; j < n; j++) {
-            const u = j / (n - 1), dep = (stillHang ? S.stSag : S.loopDepth * r.depF) * Math.sin(Math.PI * u), tx = stillHang ? (u - 0.5) * viewW() * S.stFill : -W / 2 + W * u, ty = r.y - dep * c, tz = r.z + dep * s;
+            const u = j / (n - 1), dep = (stillHang ? S.stSag : S.loopDepth * r.depF) * Math.sin(Math.PI * u), tx = stillHang ? (u - 0.5) * viewW() * S.stFill : -W / 2 + W * u, ty = (stillHang ? yF : r.y) - dep * c, tz = r.z + dep * s;
             for (const [a, v] of [[0, tx], [1, ty], [2, tz]]) { const k = 3 * j + a, was = r.kp ? r.kp[k] : r.p[k], now = r.p[k] + (v - r.p[k]) * e; r.q[k] = was; r.p[k] = now; (r.kp || (r.kp = new Float32Array(3 * n)))[k] = now; }   // [§561] q = the last PLACED point (it was the physics' fresh guess: the drawn rope wavered between the two every frame)
           }
         }
@@ -962,7 +965,7 @@ audio.onloadedmetadata = () => scrub.max = audio.duration.toFixed(1);
 scrub.oninput = () => { scrubbing = true; timeEl.textContent = fmt(+scrub.value); };
 scrub.onchange = () => { audio.currentTime = +scrub.value; scrubbing = false; };
 // [§525 — his "can we just turn off the tremolo ones for now? … so I can just see the instruments"] show or hide each family of ropes
-S.showElec = S.showElec ?? 0; S.showEns = S.showEns ?? 1;      // [§564 — his "let's see just the instrumental ones"]      // [§557 — his "let's see all the ropes together now"]      // [§528 — his "Let's see all the ropes now, please."] (§527 showed the tremolo ones alone)
+S.showElec = S.showElec ?? 1; S.showEns = S.showEns ?? 0;      // [§576 — his "let me see all the electronics ropes"]      // [§564 — his "let's see just the instrumental ones"]      // [§557 — his "let's see all the ropes together now"]      // [§528 — his "Let's see all the ropes now, please."] (§527 showed the tremolo ones alone)
 function applyShow() {
   // [§537 — his "can you take all the other ropes out or just hide them?"] ONLY THE GRAIN ROPE: every other rope hidden (they still move)
   const grainRope = ropes[LANE_ROPE[2]];
