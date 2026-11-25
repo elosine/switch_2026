@@ -6773,3 +6773,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 ## §504 — 2026-11-24 — the instructions: "ripple marks"
 
 - His word: *"You can use ripple marks."* — "shake marks" replaced on the page. The name for "repeat" still open: he wants *"something like rapid repeat, but that conveys the pecking more"*; not "peck", not "rattle repeat"; new options given in the chat.
+
+## §505 — 2026-11-24 — the instructions: "Rapid-fire repeat"
+
+- His word: *"let's go with rapid-fire repeat"* — the piano solo figure "Repeat" is named **Rapid-fire repeat** on the page; its sentence ("Repeat the boxed notes …") kept, at his word §502.
