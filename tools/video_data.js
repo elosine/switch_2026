@@ -178,5 +178,7 @@ for (const b of bricks) {
   out.grains.push({ bed: m[1], lane: b.layer - 7, t0: r3(b.startTime), t1: r3(b.endTime), players: G.players, list });
   console.log(('grains ' + m[1]).padEnd(18) + 'Elec ' + (b.layer - 7) + ' · ' + list.length + ' grains · ' + b.startTime.toFixed(1) + ' … ' + b.endTime.toFixed(1) + ' s');
 }
+// [§542] each electronics lane's left-right balance as heard (tools/elec_pan.js → bank/elec_pan.json), carried as it is
+if (fs.existsSync(path.join(ROOT, 'bank', 'elec_pan.json'))) out.pan = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'elec_pan.json'), 'utf8'));
 fs.writeFileSync(path.join(ROOT, 'bank', 'video_data.json'), JSON.stringify(out));
 console.log('→ bank/video_data.json (' + (fs.statSync(path.join(ROOT, 'bank', 'video_data.json')).size / 1024).toFixed(0) + ' KB)');
