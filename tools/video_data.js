@@ -86,7 +86,11 @@ const GROUPS = [['winds', [0, 1, 2]], ['percussion', [3, 4]], ['piano', [5]], ['
 const notes = save.objects.filter(o => o.type === 'waveCurve');
 const vel = o => +(o.recVel || o.velAbs || (o.properties && o.properties.parity && o.properties.parity.written) || 80);
 const beatsAt = (o, tt) => {
-  const sn = o.properties && o.properties.sine; if (!sn || !sn.breath) return null;
+  const sn = o.properties && o.properties.sine; if (!sn) return null;
+  if (!sn.breath) {                                           // [§522] no breath written: the note's own text, "0 → 6.4 beats/s", ramped across the note
+    const m = /([\d.]+)\s*beats\/s/.exec(o.performanceNotes || ''); if (!m) return null;
+    return +m[1] * Math.max(0, Math.min(1, (tt - o.startSeconds) / Math.max(0.01, o.endSeconds - o.startSeconds)));
+  }
   const br = save.objects.find(z => z.id === sn.brick); if (!br || !br.elec) return null;
   const u = Math.max(0, Math.min(1, (tt - o.startSeconds) / Math.max(0.01, o.endSeconds - o.startSeconds)));
   const c = sn.breath.fromCents + (sn.breath.toCents - sn.breath.fromCents) * u, fs0 = 440 * Math.pow(2, (+br.elec.midi - 69) / 12);
@@ -110,7 +114,8 @@ for (const [name, layers] of GROUPS) {
       sounding = Math.max(sounding, lvl); v = Math.max(v, vel(o) * lvl);
       const b = tt <= o.endSeconds ? beatsAt(o, tt) : null; if (b != null) beat = Math.max(beat || 0, b);
     }
-    const busy = beat != null ? Math.min(1, beat / 10) : Math.min(1, rate[i] / top);
+    // [§522 — his "the instrumental ones barely move"] full speed at 7 beats a second (was 10), and the busyness lifted by a square root
+    const busy = Math.sqrt(beat != null ? Math.min(1, beat / 7) : Math.min(1, rate[i] / top));
     on.push(r3(sounding)); speed.push(r3(sounding ? 2 + 18 * busy : 0));
     depth.push(r3(sounding ? 0.65 + 0.35 * Math.min(1, v / 127) : 0)); hard.push(r3(sounding ? 1.5 + 3 * Math.min(1, v / 127) : 0)); az.push(0);
   }

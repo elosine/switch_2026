@@ -115,6 +115,15 @@ const KNOBS = [
     ['accentPush', 'Accent push (extra turns a second)', 0, 3, 0.05, 0.8],
     ['accentKick', 'Accent kick', 0, 3000, 10, 250],
     ['ensPush', 'Ensemble accents: share of the push', 0, 1, 0.01, 0.3],
+  ]],
+  ['Ensemble ropes 5 … 9 — shaken from one end, waves running along a tauter rope', [
+    ['shakeMin', 'Slowest shake (a second)', 0.1, 3, 0.05, 0.7],
+    ['shakeMax', 'Fastest shake (a second)', 0.5, 8, 0.1, 4.2],
+    ['shakeAmp', 'Shake size', 0, 250, 1, 95],
+    ['ensSlack', 'Ensemble rope slack', 1, 1.2, 0.005, 1.035],
+    ['ensPull', 'Tension: far end pulls away at full speed', 0, 150, 1, 45],
+    ['snap', 'Accent: a snap (extra size for a moment)', 0, 3, 0.05, 1.3],
+    ['ensInertia', 'How evenly the shaking speeds up', 0.1, 6, 0.05, 0.8],
     ['roomDepth', 'Place in the room → depth', 0, 800, 10, 300],
     ['agitate', 'Busy player → tumbleweeds stir', 0, 1, 0.01, 0.7],
   ]],
@@ -182,7 +191,7 @@ function build() {
   const lay = rng(S.seed), sph = sphereEdges(S.res), pal = PALETTES[S.palette] || PALETTES.dekooning;
   for (let i = 0; i < S.ropes; i++) {
     const y = R(lay, -S.spreadY, S.spreadY), z = R(lay, -S.spreadZ, S.spreadZ), n = S.nodes;
-    const span = W, len = span * (sourceOf(i) ? S.ropeSlack : S.slack), seg = len / (n - 1);
+    const src = sourceOf(i), span = W, len = span * (src ? (src.kind === 'ensemble' ? S.ensSlack : S.ropeSlack) : S.slack), seg = len / (n - 1);
     const p = new Float32Array(3 * n), q = new Float32Array(3 * n);
     // start hanging in a shallow arc so the slack is already taken up
     const sag = Math.sqrt(Math.max(0, (len * len - span * span))) * 0.5;
@@ -199,7 +208,7 @@ function build() {
     // [his "the polygons don't feel part of the rope"] a faint line through the points, the rope's own colour
     const lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(3 * n), 3));
     const line = new THREE.Line(lg, new THREE.LineBasicMaterial({ color: colour, transparent: true, opacity: S.spine })); scene.add(line);
-    ropes.push({ pl: sourceOf(i), th: R(lay, 0, Math.PI * 2), w: 0, wT: 0, pullC: 0, pullT: 0, zt: z, ze: z, st: null, p, q, n, seg, y, z, weeds, line, ph: R(lay, 0, Math.PI * 2), ph2: R(lay, 0, Math.PI * 2), timer: Math.round(R(live, S.scrL, S.scrH)) });
+    ropes.push({ pl: src, side: i % 2 ? n - 1 : 0, sf: 0, sfT: 0, sa: 0, saT: 0, sph: 0, snapK: 0, th: R(lay, 0, Math.PI * 2), w: 0, wT: 0, pullC: 0, pullT: 0, zt: z, ze: z, st: null, p, q, n, seg, y, z, weeds, line, ph: R(lay, 0, Math.PI * 2), ph2: R(lay, 0, Math.PI * 2), timer: Math.round(R(live, S.scrL, S.scrH)) });
   }
 }
 
@@ -220,7 +229,19 @@ function stepRope(r, dt) {
   // [§520 — his "more of a jump rope swing … a cranking motion … the tremolo acceleration achieved through tautness"] THE CRANK: both ends
   // turn in a small circle together (a jump rope's two handles); the turning speed follows the tremolo with inertia (it is pushed up to speed,
   // it coasts down); THE TENSION: the faster it turns, the further the ends pull apart, so the loop narrows as it speeds up
-  if (r.pl) {
+  // [§522 — his "more vigorous, but still give it a different feel … than the ones based on the tremolo"] THE ENSEMBLE'S ROPES ARE SHAKEN:
+  // one end moves up and down (alternate ropes from alternate ends), the other is pinned and pulls away with speed; the waves run along the
+  // rope. The shaking speeds up EVENLY (its own, slower inertia); its size the written velocity; an accent a SNAP — a moment of extra size
+  if (r.pl && r.pl.kind === 'ensemble') {
+    const k = Math.min(1, S.ensInertia * dt);
+    r.sf += (r.sfT - r.sf) * k; r.sa += (r.saT - r.sa) * Math.min(1, 3 * dt); r.snapK *= Math.exp(-dt * 2.5); r.pullC += (r.pullT - r.pullC) * k;
+    r.sph += 2 * Math.PI * r.sf * dt;
+    const amp = r.sa * (1 + r.snapK), hand = r.side, fixed = hand === 0 ? n - 1 : 0;
+    q[3 * hand] = p[3 * hand]; q[3 * hand + 1] = p[3 * hand + 1]; q[3 * hand + 2] = p[3 * hand + 2];
+    p[3 * hand] = hand === 0 ? -W / 2 : W / 2; p[3 * hand + 1] = r.y + amp * Math.sin(r.sph); p[3 * hand + 2] = r.z + amp * 0.25 * Math.sin(r.sph * 0.5);
+    q[3 * fixed] = p[3 * fixed]; q[3 * fixed + 1] = p[3 * fixed + 1]; q[3 * fixed + 2] = p[3 * fixed + 2];
+    p[3 * fixed] = (fixed === 0 ? -1 : 1) * (W / 2 + r.pullC); p[3 * fixed + 1] = r.y; p[3 * fixed + 2] = r.z;
+  } else if (r.pl) {
     const k = Math.min(1, S.inertia * dt);
     r.w += (r.wT - r.w) * k; r.pullC += (r.pullT - r.pullC) * k; r.ze += (r.zt - r.ze) * 0.01;
     r.th += 2 * Math.PI * r.w * dt;
@@ -259,6 +280,13 @@ function tick(now) {
     r.st = { on, sp, dp, hd };
     r.zt = r.z + (at(P.azimuth, tNow) / 90) * S.roomDepth;
     const busy = Math.max(0, Math.min(1, (sp - 2) / 18)), sounding = Math.min(1, on * 1.5);
+    if (P.kind === 'ensemble') {
+      r.sfT = playing && sounding > 0.05 ? S.shakeMin + (S.shakeMax - S.shakeMin) * busy : 0;
+      r.saT = playing ? S.shakeAmp * sounding * (0.45 + 0.55 * Math.max(0, Math.min(1, (dp - 0.65) / 0.35))) : 0;
+      r.pullT = playing ? S.ensPull * sounding * busy : 0;
+      if (playing && !jump) for (const a of P.accents) if (a > tPrev && a <= tNow) r.snapK = Math.min(2.5, r.snapK + S.snap * (0.5 + 0.5 * Math.max(0, Math.min(1, (hd - 1.5) / 3))));
+      continue;
+    }
     r.wT = playing ? sounding * (S.turnMin + (S.turnMax - S.turnMin) * busy) * (0.75 + 0.25 * Math.max(0, Math.min(1, (dp - 0.65) / 0.35))) : 0;
     r.pullT = playing ? S.pull * sounding * busy : 0;
     if (playing && !jump) for (const a of P.accents) if (a > tPrev && a <= tNow) {
@@ -303,13 +331,13 @@ function tick(now) {
   bloom.strength = S.bloom; bloom.radius = S.radius; bloom.threshold = S.thresh;
   controls.update(); composer.render();
   const t = audio.currentTime; timeEl.textContent = fmt(t); if (!scrubbing) scrub.value = t;
-  if (frame % 6 === 0) legend.innerHTML = ropes.filter(r => r.pl).map(r => '<div><span style="color:#' + r.line.material.color.getHexString() + '">■</span> ' + (r.pl.kind === 'session' ? 'electronics · ' + PLAYER_NAMES[r.pl.part] : 'ensemble · ' + r.pl.part) + (r.st && r.st.on > 0.05 ? (r.pl.kind === 'session' ? ' · tremolo ' + r.st.sp.toFixed(1) + ' Hz' : ' · busy ' + Math.round((r.st.sp - 2) / 18 * 100) + '%') + ' · turning ' + r.w.toFixed(2) + ' a second' : ' · silent') + '</div>').join('');
+  if (frame % 6 === 0) legend.innerHTML = ropes.filter(r => r.pl).map(r => '<div><span style="color:#' + r.line.material.color.getHexString() + '">■</span> ' + (r.pl.kind === 'session' ? 'electronics · ' + PLAYER_NAMES[r.pl.part] : 'ensemble · ' + r.pl.part) + (r.st && r.st.on > 0.05 ? (r.pl.kind === 'session' ? ' · tremolo ' + r.st.sp.toFixed(1) + ' Hz' : ' · busy ' + Math.round((r.st.sp - 2) / 18 * 100) + '%') + (r.pl.kind === 'ensemble' ? ' · shaking ' + r.sf.toFixed(2) + ' a second' : ' · turning ' + r.w.toFixed(2) + ' a second') : ' · silent') + '</div>').join('');
   requestAnimationFrame(tick);
 }
 
 // ------------------------------------------------------------------ the knobs panel
 const panel = document.getElementById('panel');
-const REBUILD = new Set(['ropes', 'nodes', 'spreadY', 'spreadZ', 'slack', 'ropeSlack', 'seed', 'res', 'palette', 'taper', 'sizeL', 'sizeH']);
+const REBUILD = new Set(['ropes', 'nodes', 'spreadY', 'spreadZ', 'slack', 'ropeSlack', 'ensSlack', 'seed', 'res', 'palette', 'taper', 'sizeL', 'sizeH']);
 function knobsHtml() {
   let h = '<h2>Palette</h2><select id="k-palette">' + Object.keys(PALETTES).map(k => '<option value="' + k + '"' + (k === S.palette ? ' selected' : '') + '>' + PALETTE_NAMES[k] + '</option>').join('') + '</select>';
   for (const [title, rows] of KNOBS) {
