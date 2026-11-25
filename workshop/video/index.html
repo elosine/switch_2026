@@ -148,16 +148,21 @@ const KNOBS = [
     ['growRelease', 'How slowly it shrinks back (seconds)', 0.02, 2, 0.01, 0.14],
     ['beadJitter', 'The beads not evenly spaced (share of their gap)', 0, 2, 0.01, 0.8],
     ['stShift', 'Stutter: how far a grain shoves the beads along the rope', 0, 200, 1, 0],
-    ['ledEvery', 'Running lights: show every …th bead (fewer beads)', 1, 10, 1, 5],
+    ['ledEvery', 'Running lights: show every …th bead (fewer beads)', 1, 10, 1, 4],
     ['ledBase', 'Running lights: an unlit bead'+"'"+'s brightness', 0, 1, 0.01, 0.18],
     ['ledWidth', 'Running lights: how many beads light at once (share of the rope)', 0.005, 0.2, 0.005, 0.03],
     ['ledTail', 'Running lights: how quickly a lit bead goes dark (seconds)', 0.01, 1, 0.01, 0.12],
     ['ledGrow', 'Running lights: a lit bead is bigger by', 0, 2, 0.05, 0.3],
-    ['stBead', 'Stutter: the beads'+"'"+' size, fixed (× their size)', 0.1, 4, 0.05, 0.7],
-    ['stSag', 'Stutter: the rope'+"'"+'s loop, this deep', 0, 300, 5, 60],
+    ['stBead', 'Stutter: the beads'+"'"+' size, fixed (× their size)', 0.1, 4, 0.05, 1],
+    ['stSag', 'Stutter: the rope'+"'"+'s loop, this deep', 0, 300, 5, 100],
     ['stTurn', 'Stutter: the rope turns slowly (turns a second)', 0, 1, 0.01, 0.12],
     ['stFill', 'Stutter: the rope spans the screen'+"'"+'s width (× that width)', 0.5, 1.2, 0.01, 0.97],
-    ['stGrowMax', 'Stutter: beads grow where the sound is, up to (× their size)', 0.5, 4, 0.05, 1.9],
+    ['stGrowMax', 'Stutter: beads grow where the sound is, up to (× their size)', 0.5, 4, 0.05, 2.6],
+    ['stJit', 'Stutter: the beads unevenly spaced (share of their gap)', 0, 1.5, 0.01, 0.7],
+    ['stSens', 'Stutter: how strongly it answers the sound (1 = as is)', 0.3, 4, 0.05, 1.7],
+    ['stSlide', 'Stutter: the passing light pushes a bead along the rope by', 0, 120, 1, 26],
+    ['stSlideHz', 'Stutter: its springing back (a second)', 0.5, 10, 0.1, 3.2],
+    ['stBounce', 'Stutter: how much it bounces before it settles (0 none … 1 a lot)', 0, 0.95, 0.01, 0.7],
     ['stWidth', 'Stutter: how wide the shoved place is (share of the rope)', 0.005, 0.3, 0.005, 0.045],
     ['stGrow', 'Stutter: how big the beads grow where the sound is (× their size)', 0.5, 8, 0.05, 2],
     ['stEdge', 'Stutter: how sharp the grain'+"'"+'s on and off (seconds)', 0.002, 0.2, 0.002, 0.018],
@@ -835,9 +840,12 @@ function tick(now) {
           const env = Math.min(1, age / S.stEdge, (s.len + S.stEdge - age) / S.stEdge);
           du += s.dir * s.a * env * Math.exp(-((d.u - s.u) ** 2) / (2 * S.stWidth ** 2));
         }
-        const uj = Math.max(0, Math.min(r.n - 1, (d.u + du * S.stShift / W) * (r.n - 1))), a = Math.min(r.n - 2, Math.floor(uj)), f = uj - a;
+        // [§574 — his "they slide a little bit to the left, maybe bounce around … or slide to the right … put some jitter so they're not equally spaced"]
+        // on the stutter rope: each shown bead its own extra offset (fixed, seeded) and a SLIDE — a spring along the rope, pushed by the passing light
+        let ex = 0; if (r.stut && STUTTER[ropes.indexOf(r)] && tNow >= STATE2_AT - 10) { if (d.j2 == null) d.j2 = Math.random() - 0.5; ex = d.j2 * S.stJit * Math.max(1, Math.round(S.ledEvery)) / r.dense.length + (d.sx || 0) / (viewW() * S.stFill); }
+        const uj = Math.max(0, Math.min(r.n - 1, (d.u + ex + du * S.stShift / W) * (r.n - 1))), a = Math.min(r.n - 2, Math.floor(uj)), f = uj - a;
         d.mesh.position.set(lp[3 * a] + (lp[3 * a + 3] - lp[3 * a]) * f, lp[3 * a + 1] + (lp[3 * a + 4] - lp[3 * a + 1]) * f, lp[3 * a + 2] + (lp[3 * a + 5] - lp[3 * a + 2]) * f);
-        const bell = Math.exp(-((d.u - r.beadU) ** 2) / (2 * S.growWidth ** 2)), stR = STUTTER[ropes.indexOf(r)] && tNow >= STATE2_AT - 10, tgt = stR ? S.stBead + (S.stGrowMax - S.stBead) * bell : S.growSmall + (S.growBig - S.growSmall) * bell;   // [§573] the growth back on the stutter rope, up to stGrowMax   // [§571 — his "let's not have those grow at all"] the stutter rope's beads one fixed size
+        const bell = Math.exp(-((d.u - r.beadU) ** 2) / (2 * S.growWidth ** 2)), stR = STUTTER[ropes.indexOf(r)] && tNow >= STATE2_AT - 10, tgt = stR ? S.stBead + (S.stGrowMax - S.stBead) * Math.pow(bell, 1 / Math.max(0.2, S.stSens)) : S.growSmall + (S.growBig - S.growSmall) * bell;   // [§573] the growth back on the stutter rope, up to stGrowMax   // [§571 — his "let's not have those grow at all"] the stutter rope's beads one fixed size
         if (d.gr == null) d.gr = S.growSmall;
         d.gr += (tgt - d.gr) * Math.min(1, dt / (tgt > d.gr ? S.growAttack : S.growRelease));
         d.mesh.scale.setScalar(d.gr);
@@ -849,8 +857,9 @@ function tick(now) {
           for (const s of (r.stut || [])) {
             const age = tNow - s.t0; if (age < 0 || age > s.len) continue;
             const head = s.from + (s.u - s.from) * Math.min(1, age / Math.max(0.02, s.len));
-            if (Math.abs(d.u - head) < S.ledWidth) d.lit = Math.max(d.lit || 0, Math.min(1, s.a));
+            if (Math.abs(d.u - head) < S.ledWidth) { const sa = Math.pow(s.a, 2) * S.stSens; d.lit = Math.max(d.lit || 0, Math.min(1, sa)); if (!d.pushed || d.pushed !== s) { d.pushed = s; d.sv = (d.sv || 0) + Math.sign(s.u - s.from || s.dir) * S.stSlide * 2 * Math.PI * S.stSlideHz * sa; } }   // [§574] more sensitive: the grain's level squared, times stSens
           }
+          { const w0 = 2 * Math.PI * S.stSlideHz, z = 1 - S.stBounce; d.sv = (d.sv || 0) + (-w0 * w0 * (d.sx || 0) - 2 * z * w0 * (d.sv || 0)) * dt; d.sx = (d.sx || 0) + d.sv * dt; }   // the slide springs back, bouncing
           d.lit = (d.lit || 0) * Math.exp(-dt / S.ledTail);
           d.mesh.material.opacity = Math.min(1, S.opacity * (S.ledBase + (1 - S.ledBase) * d.lit) * 1.3);
           d.mesh.scale.setScalar(d.gr * (1 + S.ledGrow * d.lit));
