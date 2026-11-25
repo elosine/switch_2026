@@ -6899,3 +6899,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 - Kept as it is: the ensemble ropes of §526. Noted, not acted on: the drift to the right (his "leave it for now").
 - The page opens on the ELECTRONICS ropes alone (the buttons the other way round: electronics on, ensemble off).
 - THE STIRRED AIR: each shown rope's activity, 0 … 1 (a cranked rope its turning against the fastest turn; a shaken rope its shaking against the fastest times its size), averaged over the shown ropes, doubled, capped at 1, eased over about two seconds — added to EVERY rope's breeze as a quicker, less regular push (2.3 x the breeze's speed, its strength wavering), the knob "The air the moving ropes stir" at 90. A still rope among busy ones stirs, gently. Loaded once on the throwaway 5661 at 40 … 46 s: the four electronics ropes turning 0.34 … 0.59 a second.
+
+## §528 — 2026-11-24 — the video workshop: all the ropes shown
+
+- His words: *"Okay, good. That's pretty good. Let's see all the ropes now, please."* — the page opens with both families shown again (electronics on · ensemble on); the stirred air of §527 now counts all eleven.
