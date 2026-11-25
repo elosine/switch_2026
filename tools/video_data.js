@@ -135,5 +135,36 @@ for (const [name, layers] of GROUPS) {
   out.groups.push({ part: name, on, speed, depth, hardness: hard, azimuth: az, accents });
   console.log(name.padEnd(16) + 'sounds ' + (on.filter(x => x > 0.3).length / RATE).toFixed(0) + ' s · ' + accents.length + ' accents (f and up) · busiest ' + top.toFixed(1) + ' onsets a second');
 }
+// ---------------------------------------------------------------- THE PIANO SOLO'S EVENTS (§529; his SW-169 and "the pulse is based on all the
+// things from the piano. So every like strike is sending a kind of slightly different pulse … the ribbons … a wider, broader motion for the
+// curve parts. And then the pulse comes on the impact … the repeated ones are … shakes … the falling pebbles … a bigger, slower upswing and then a whip")
+// From bank/piano_solo_done.json (the figures as he settled them) and the save's piano notes: each event a kind, its times, its strength 0 … 1.
+{
+  const solo = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'piano_solo_done.json'), 'utf8')), G = solo.gestures;
+  const pn = notes.filter(o => o.layer === 5 && o.startSeconds >= 147 && o.startSeconds <= 197).sort((a, b) => a.startSeconds - b.startSeconds);
+  const v01 = o => Math.min(1, vel(o) / 127), within = (o, a, b) => o.startSeconds >= a - 0.05 && o.startSeconds <= b + 0.05;
+  const strength = (a, b) => { const m = pn.filter(o => within(o, a, b)); return m.length ? Math.max(...m.map(v01)) : 0.7; };
+  const ev = [];
+  for (const g of G) {
+    if (g.kind === 'ribbon') ev.push({ k: 'ribbon', t0: r3(g.t0), t1: r3(g.t1), hit: g.bounce != null ? r3(g.bounce) : null, s: r3(strength(g.t0, g.t1)) });
+    if (g.kind === 'stutter') ev.push({ k: 'shake', t0: r3(g.t0), t1: r3(g.t1), hand: g.hand, s: r3(strength(g.t0, g.t1)) });
+    if (g.kind === 'strike') {                                   // the pebbles land where the run is loudest: its notes' times weighted by velocity squared
+      const m = pn.filter(o => within(o, g.t0, g.t1)); let sw = 0, st = 0; for (const o of m) { const w = v01(o) ** 2; sw += w; st += w * o.startSeconds; }
+      ev.push({ k: 'pebbles', t0: r3(g.t0), t1: r3(g.t1), hit: r3(g.impact || (sw ? st / sw : (g.t0 + g.t1) / 2)), s: r3(strength(g.t0, g.t1)) });
+    }
+  }
+  // the standard figures: every onset outside a gesture, a chord (onsets within 40 ms) one pulse, its strength the loudest note
+  const inGesture = o => G.some(g => ['ribbon', 'stutter', 'strike'].includes(g.kind) && within(o, g.t0, g.t1));
+  let last = null;
+  for (const o of pn) {
+    if (inGesture(o)) continue;
+    if (last && o.startSeconds - last.t < 0.04) { last.s = Math.max(last.s, r3(v01(o))); continue; }
+    last = { k: 'note', t: r3(o.startSeconds), s: r3(v01(o)) }; ev.push(last);
+  }
+  ev.sort((a, b) => (a.t0 ?? a.t) - (b.t0 ?? b.t));
+  out.solo = { t0: 148.2, t1: 196.3, events: ev };
+  const n = {}; ev.forEach(e => n[e.k] = (n[e.k] || 0) + 1);
+  console.log('the solo          ' + Object.entries(n).map(([k, c]) => c + ' ' + k).join(' · '));
+}
 fs.writeFileSync(path.join(ROOT, 'bank', 'video_data.json'), JSON.stringify(out));
 console.log('→ bank/video_data.json (' + (fs.statSync(path.join(ROOT, 'bank', 'video_data.json')).size / 1024).toFixed(0) + ' KB)');

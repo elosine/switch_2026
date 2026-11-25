@@ -103,6 +103,18 @@ const KNOBS = [
     ['breeze', 'Breeze at rest', 0, 200, 1, 40],
     ['breezeHz', 'Breeze speed (cycles a second)', 0.02, 1, 0.01, 0.12],
     ['collective', 'The air the moving ropes stir (all ropes feel it)', 0, 400, 1, 90],
+  ]],
+  ['Piano solo — one long rope, the piano rope first, pulses sent from its left end', [
+    ['travel', 'Seconds for a pulse to cross one rope', 0.2, 3, 0.05, 0.75],
+    ['pulseAmp', 'Pulse size (a note)', 0, 250, 1, 80],
+    ['pulseMs', 'Pulse width (milliseconds)', 15, 200, 1, 55],
+    ['ribbonAmp', 'Ribbon: the broad swing', 0, 300, 1, 110],
+    ['pebbleAmp', 'Pebbles: the slow upswing', 0, 300, 1, 120],
+    ['shakeShare', 'Rapid-fire: each small pulse (share of a note)', 0, 1, 0.01, 0.4],
+    ['shakeRate', 'Rapid-fire: pulses a second', 2, 30, 0.5, 12],
+    ['bounce', 'Bounce back from the far end (1 = yes)', 0, 1, 1, 1],
+    ['waveDamp', 'How quickly the pulses fade', 0, 2, 0.01, 0.18],
+    ['soloPull', 'The ropes pulled taut in the solo', 0, 150, 1, 50],
     ['kick', 'Kick strength', 0, 3000, 10, 900],
     ['kickRate', 'Random kicks per rope per second', 0, 4, 0.05, 0],
     ['kickWidth', 'Kick width (points)', 0.5, 12, 0.5, 4],
@@ -271,14 +283,15 @@ function stepRope(r, dt) {
     q[3 * hand] = p[3 * hand]; q[3 * hand + 1] = p[3 * hand + 1]; q[3 * hand + 2] = p[3 * hand + 2];
     p[3 * hand] = hand === 0 ? -W / 2 : W / 2; p[3 * hand + 1] = r.y + amp * Math.sin(r.sph) + drift; p[3 * hand + 2] = r.z + amp * r.ch.sway * Math.sin(r.sph * 0.5) + drift * 0.6;
     q[3 * fixed] = p[3 * fixed]; q[3 * fixed + 1] = p[3 * fixed + 1]; q[3 * fixed + 2] = p[3 * fixed + 2];
-    p[3 * fixed] = (fixed === 0 ? -1 : 1) * (W / 2 + r.pullC); p[3 * fixed + 1] = r.y; p[3 * fixed + 2] = r.z;
+    p[3 * fixed] = (fixed === 0 ? -1 : 1) * (W / 2 + r.pullC + S.soloPull * soloK); p[3 * fixed + 1] = r.y; p[3 * fixed + 2] = r.z;
+    p[3 * hand] += (hand === 0 ? -1 : 1) * S.soloPull * soloK;
   } else if (r.pl) {
     const k = Math.min(1, S.inertia * dt);
     r.w += (r.wT - r.w) * k; r.pullC += (r.pullT - r.pullC) * k; r.ze += (r.zt - r.ze) * 0.01;
     r.th += 2 * Math.PI * r.w * dt;
     const c = S.crankR * Math.min(1, r.w / Math.max(0.05, S.turnMin));       // a still crank is at rest, not held in a circle
     const ey = r.y + c * Math.sin(r.th), ez = r.ze - c * Math.cos(r.th);
-    for (const [j, x] of [[0, -W / 2 - r.pullC], [n - 1, W / 2 + r.pullC]]) {
+    for (const [j, x] of [[0, -W / 2 - r.pullC - S.soloPull * soloK], [n - 1, W / 2 + r.pullC + S.soloPull * soloK]]) {
       q[3 * j] = p[3 * j]; q[3 * j + 1] = p[3 * j + 1]; q[3 * j + 2] = p[3 * j + 2];
       p[3 * j] = x; p[3 * j + 1] = ey; p[3 * j + 2] = ez;
     }
@@ -300,6 +313,58 @@ function kick(r, at, strength) {
   }
 }
 
+// ------------------------------------------------------------------ THE PIANO SOLO'S CHAIN (§529 — his SW-169: "one long rope … daisy chain … always
+// from left to right … a bounce … from the very end of the whole … the pulse is based on all the things from the piano")
+// One long string made of every rope end to end: the ensemble piano rope first, then the others from the top of the frame down. A 1-D wave
+// (up-down and toward-away) runs along it at a rope's length per S.travel seconds; its head is the HAND, moved by the solo's figures; its far end
+// is tied (a bounce, inverted) or lets the wave go. Drawn ON TOP of each rope's own motion, fading toward each rope's pinned ends so a pulse
+// leaves one rope and appears on the next.
+let chain = [], M = 0, uy, uyo, uz, uzo, soloK = 0, waveT = -1, waveTmp = new Float32Array(0);
+function buildChain() {
+  if (!D || !D.solo) { chain = []; return; }
+  const first = ropes.find(r => r.pl && r.pl.kind === 'ensemble' && r.pl.part === 'piano');
+  const rest = ropes.filter(r => r !== first).sort((a, b) => b.y - a.y);
+  chain = []; M = 0; for (const r of (first ? [first, ...rest] : rest)) { r.off = M; chain.push(r); M += r.n; }
+  uy = new Float32Array(M); uyo = new Float32Array(M); uz = new Float32Array(M); uzo = new Float32Array(M);
+}
+// the hand at score time t: [up-down, toward-away], the sum of the figures near t
+const gauss = (x, w) => Math.exp(-(x * x) / (2 * w * w));
+const evRand = e => { if (e.rv == null) { const r = rng(Math.round((e.t ?? e.t0) * 1000)); e.rv = [r(), r(), r()]; } return e.rv; };
+function hand(t) {
+  let y = 0, z = 0; const w = S.pulseMs / 1000;
+  for (const e of D.solo.events) {
+    const a = e.t ?? e.t0, b = e.t1 ?? e.t; if (t < a - 1.2 || t > b + 0.6) continue;
+    const rv = evRand(e);
+    if (e.k === 'note') {                    // a whip: one quick pulse, each a little different in width and lean
+      const ww = w * (0.7 + 0.6 * rv[0]); y += S.pulseAmp * (0.4 + 0.6 * e.s) * gauss(t - e.t, ww); z += S.pulseAmp * 0.35 * (rv[1] - 0.5) * gauss(t - e.t, ww);
+    } else if (e.k === 'shake') {             // rapid-fire: small pulses, quick and even, for the length of the marks
+      const step = 1 / S.shakeRate; for (let s = a; s <= b + 1e-6; s += step) y += S.pulseAmp * S.shakeShare * (0.5 + 0.5 * e.s) * (e.hand === 'L' ? -1 : 1) * gauss(t - s, w * 0.6);
+    } else if (e.k === 'ribbon') {            // the curve: a broad swing down and round (a loop), the whip on its impact
+      const u = (t - a) / Math.max(0.05, b - a);
+      if (u > 0 && u < 1) { const env = Math.sin(Math.PI * u); y -= S.ribbonAmp * (0.5 + 0.5 * e.s) * env * env; z += S.ribbonAmp * 0.6 * env * Math.sin(2 * Math.PI * u); }
+      if (e.hit != null) y += S.pulseAmp * 1.25 * (0.5 + 0.5 * e.s) * gauss(t - e.hit, w);
+    } else if (e.k === 'pebbles') {           // the falling pebbles: a big slow upswing to the landing, then the whip
+      const up = 0.55; if (t < e.hit && t > e.hit - up * 1.6) y += S.pebbleAmp * (0.5 + 0.5 * e.s) * gauss(t - (e.hit - up * 0.5), up * 0.35);
+      y -= S.pulseAmp * 1.4 * (0.5 + 0.5 * e.s) * gauss(t - e.hit, w * 0.8);
+    }
+  }
+  return [y, z];
+}
+function waveStep(ts, dt) {
+  if (!chain.length) return;
+  const nAvg = M / chain.length, c = Math.min(0.95, (nAvg / Math.max(0.05, S.travel)) * dt), c2 = c * c, g = S.waveDamp * dt;
+  const [hy, hz] = soloK > 0 ? hand(ts) : [0, 0];
+  for (const [u, uo] of [[uy, uyo], [uz, uzo]]) {
+    // every new value from the OLD neighbours only (an in-place update read already-new neighbours and blew up — §529's first try)
+    const nu = waveTmp.length === M ? waveTmp : (waveTmp = new Float32Array(M));
+    for (let i = 1; i < M - 1; i++) nu[i] = 2 * u[i] - uo[i] + c2 * (u[i + 1] - 2 * u[i] + u[i - 1]) - g * (u[i] - uo[i]);
+    nu[M - 1] = S.bounce ? 0 : u[M - 2] + ((c - 1) / (c + 1)) * (nu[M - 2] - u[M - 1]);   // tied (a bounce) or open (Mur's boundary lets it out)
+    for (let i = 1; i < M; i++) { uo[i] = u[i]; u[i] = nu[i]; }
+    uo[0] = u[0];
+  }
+  uy[0] = hy; uz[0] = hz;
+}
+
 // ------------------------------------------------------------------ the loop
 let acc = 0, last = performance.now(), frame = 0, tPrev = 0;
 function tick(now) {
@@ -313,7 +378,8 @@ function tick(now) {
     const busy = Math.max(0, Math.min(1, (sp - 2) / 18)), sounding = Math.min(1, on * 1.5);
     if (P.kind === 'ensemble') {
       r.sfT = playing && sounding > 0.05 ? (S.shakeMin + (S.shakeMax - S.shakeMin) * busy) * r.ch.shake : 0;
-      r.saT = playing ? S.shakeAmp * r.ch.amp * sounding * (0.45 + 0.55 * Math.max(0, Math.min(1, (dp - 0.65) / 0.35))) : 0;
+      // [§529 — his "instead of moving the whole rope in a way the ropes have been doing … sending a pulse"] in the solo the chain carries the piano, not the shake
+      r.saT = playing ? (1 - soloK) * S.shakeAmp * r.ch.amp * sounding * (0.45 + 0.55 * Math.max(0, Math.min(1, (dp - 0.65) / 0.35))) : 0;
       r.pullT = playing ? S.ensPull * sounding * busy : 0;
       if (playing && !jump) for (const a of P.accents) if (a > tPrev && a <= tNow) r.snapK = Math.min(2.5, r.snapK + S.snap * r.ch.snap * (0.5 + 0.5 * Math.max(0, Math.min(1, (hd - 1.5) / 3))));
       continue;
@@ -332,7 +398,12 @@ function tick(now) {
     for (const r of ropes) { if (!r.line.visible || !r.pl) continue; nShown++;
       a += r.pl.kind === 'ensemble' ? Math.min(1, (r.sf / Math.max(0.1, S.shakeMax)) * (r.sa / Math.max(1, S.shakeAmp))) : Math.min(1, r.w / Math.max(0.1, S.turnMax)); }
     const want = nShown ? Math.min(1, 2 * a / nShown) : 0; air += (want - air) * Math.min(1, dt * 0.5); }
+  // [§529] the solo's weight 0 … 1 (in over 1.5 s before its first note, out over 2 s after its end); a jump of the time clears the wave
+  if (D && D.solo) { const s0 = D.solo.t0, s1 = D.solo.t1; soloK = tNow < s0 - 1.5 || tNow > s1 + 2 ? 0 : tNow < s0 ? (tNow - s0 + 1.5) / 1.5 : tNow > s1 ? 1 - (tNow - s1) / 2 : 1; }
+  if (jump && uy) { uy.fill(0); uyo.fill(0); uz.fill(0); uzo.fill(0); }
+  const nSteps = Math.floor(acc / STEP), tFrom = waveT < 0 || jump ? tNow : waveT; let si = 0; waveT = tNow;
   while (acc >= STEP) {
+    waveStep(tFrom + (tNow - tFrom) * (++si / Math.max(1, nSteps)), STEP);
     for (const r of ropes) {
       if (live() < S.kickRate * STEP) kick(r, R(live, 2, r.n - 3), S.kick * R(live, 0.6, 1.2));
       stepRope(r, STEP);
@@ -353,8 +424,9 @@ function tick(now) {
     const al = acc / STEP, lp = r.line.geometry.attributes.position.array;     // drawn between the last two physics steps: no judder
     for (let j = 0; j < r.n; j++) {
       // [§520] the quiver of §519 (a drawn standing wave) is gone — his "stiff … almost like it's wire"; the crank above moves the rope now
-      const qv = 0;
-      const w = r.weeds[j], x = r.q[3 * j] + (r.p[3 * j] - r.q[3 * j]) * al, y = r.q[3 * j + 1] + (r.p[3 * j + 1] - r.q[3 * j + 1]) * al + qv, z = r.q[3 * j + 2] + (r.p[3 * j + 2] - r.q[3 * j + 2]) * al + qv * 0.4;
+      // [§529] the chain's wave on top, faded toward this rope's own pinned ends (the pulse leaves one rope and appears on the next)
+      let cy = 0, cz = 0; if (soloK > 0 && r.off != null && uy) { const e = Math.min(1, 3 * Math.sin(Math.PI * j / (r.n - 1))) * soloK; cy = uy[r.off + j] * e; cz = uz[r.off + j] * e; }
+      const w = r.weeds[j], x = r.q[3 * j] + (r.p[3 * j] - r.q[3 * j]) * al, y = r.q[3 * j + 1] + (r.p[3 * j + 1] - r.q[3 * j + 1]) * al + cy, z = r.q[3 * j + 2] + (r.p[3 * j + 2] - r.q[3 * j + 2]) * al + cz;
       w.mesh.position.set(x, y, z); lp[3 * j] = x; lp[3 * j + 1] = y; lp[3 * j + 2] = z;
       if (w.to) {
         w.k = Math.min(1, w.k + 1 / Math.max(1, S.morph * r.ch.morph)); const e = w.k * w.k * (3 - 2 * w.k);
@@ -394,7 +466,7 @@ panel.addEventListener('input', e => {
   const o = document.getElementById('o-' + id); if (o) o.textContent = S[id];
   if (id === 'opacity') ropes.forEach(r => r.weeds.forEach(w => w.mesh.material.opacity = S.opacity * r.ch.op));
   if (id === 'spine') ropes.forEach(r => r.line.material.opacity = S.spine);
-  if (REBUILD.has(id)) { build(); applyShow(); }
+  if (REBUILD.has(id)) { build(); applyShow(); buildChain(); }
   if (id === 'frameY') homeCamera();
 });
 panel.addEventListener('click', async e => {
@@ -426,8 +498,8 @@ document.getElementById('showEns').onclick = () => { S.showEns = S.showEns ? 0 :
 document.getElementById('kick').onclick = () => ropes.forEach(r => kick(r, R(live, 3, r.n - 4), S.kick * 1.5));
 window.addEventListener('keydown', e => { if (e.code === 'Space' && e.target.tagName !== 'INPUT') { e.preventDefault(); playBtn.click(); } });
 
-resize(); build(); applyShow(); requestAnimationFrame(tick);
-window.__V = { get ropes() { return ropes; }, camera, S };   // for inspection only
+resize(); build(); applyShow(); buildChain(); requestAnimationFrame(tick);
+window.__V = { get ropes() { return ropes; }, camera, S, get uy() { return uy; }, get soloK() { return soloK; }, hand: t => hand(t) };   // for inspection only
 </script>
 </body>
 </html>
