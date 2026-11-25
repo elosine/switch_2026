@@ -513,7 +513,10 @@ if (dumpPage != null) {
   const i = parseInt(dumpPage, 10);
   const out = arg('dumpTo', path.join(probeDir, irId + '-page' + i + '.svg'));
   fs.mkdirSync(path.dirname(out), { recursive: true });
-  fs.writeFileSync(out, staticSvg(i));
+  // [the Switch~ piece §502] --frameAt T: the page WITH its moving layer at T (the ball, the pebbles in flight) — an instructions image of the motion
+  let dumped = staticSvg(i);
+  if (arg('frameAt') != null) { const sg = segments[i], ov = overlaySvg(sg.view, +arg('frameAt'), furnitureOf(sg.view, viewMode === 'zoom')); dumped = dumped.replace(/<\/svg>\s*$/, ov.replace(/^<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '') + '</svg>'); }
+  fs.writeFileSync(out, dumped);
   const seg = segments[i];
   console.log('segment ' + i + '  window ' + seg.view.window[0].toFixed(2) + '–' + seg.view.window[1].toFixed(2) +
     ' s  held ' + seg.t0.toFixed(2) + '–' + seg.t1.toFixed(2) + ' s  reshow ' + (seg.reshow ? seg.reshow.length : 0) +
