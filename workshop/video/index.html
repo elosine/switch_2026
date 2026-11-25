@@ -148,13 +148,16 @@ const KNOBS = [
     ['growRelease', 'How slowly it shrinks back (seconds)', 0.02, 2, 0.01, 0.14],
     ['beadJitter', 'The beads not evenly spaced (share of their gap)', 0, 2, 0.01, 0.8],
     ['stShift', 'Stutter: how far a grain shoves the beads along the rope', 0, 200, 1, 0],
-    ['ledEvery', 'Running lights: show every …th bead (fewer beads)', 1, 8, 1, 3],
+    ['ledEvery', 'Running lights: show every …th bead (fewer beads)', 1, 10, 1, 5],
     ['ledBase', 'Running lights: an unlit bead'+"'"+'s brightness', 0, 1, 0.01, 0.18],
     ['ledWidth', 'Running lights: how many beads light at once (share of the rope)', 0.005, 0.2, 0.005, 0.03],
     ['ledTail', 'Running lights: how quickly a lit bead goes dark (seconds)', 0.01, 1, 0.01, 0.12],
-    ['ledGrow', 'Running lights: a lit bead is bigger by', 0, 2, 0.05, 0.4],
+    ['ledGrow', 'Running lights: a lit bead is bigger by', 0, 2, 0.05, 0.3],
     ['stBead', 'Stutter: the beads'+"'"+' size, fixed (× their size)', 0.1, 4, 0.05, 0.7],
-    ['stSag', 'Stutter: the rope hangs still, this deep', 0, 300, 5, 40],
+    ['stSag', 'Stutter: the rope'+"'"+'s loop, this deep', 0, 300, 5, 60],
+    ['stTurn', 'Stutter: the rope turns slowly (turns a second)', 0, 1, 0.01, 0.12],
+    ['stFill', 'Stutter: the rope spans the screen'+"'"+'s width (× that width)', 0.5, 1.2, 0.01, 0.97],
+    ['stGrowMax', 'Stutter: beads grow where the sound is, up to (× their size)', 0.5, 4, 0.05, 1.9],
     ['stWidth', 'Stutter: how wide the shoved place is (share of the rope)', 0.005, 0.3, 0.005, 0.045],
     ['stGrow', 'Stutter: how big the beads grow where the sound is (× their size)', 0.5, 8, 0.05, 2],
     ['stEdge', 'Stutter: how sharp the grain'+"'"+'s on and off (seconds)', 0.002, 0.2, 0.002, 0.018],
@@ -264,6 +267,8 @@ const scene = new THREE.Scene(); scene.background = new THREE.Color(0x000000);
 const camera = new THREE.PerspectiveCamera(50, 16 / 9, 1, 10000);
 const controls = new OrbitControls(camera, renderer.domElement);
 // [§521 — his "center it better so the lowest one doesn't hang down below the bottom, and there's not as much black space on the top"]
+// [§573] the width the camera sees at the ropes' depth
+function viewW() { const dist = camera.position.distanceTo(controls.target); return 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) * dist * camera.aspect; }
 function homeCamera() { const z = (W / 2) / Math.tan(THREE.MathUtils.degToRad(50) / 2) / (16 / 9) * 1.02, y = controls.target ? controls.target.y : 0; camera.position.set(0, y, z); controls.target.set(0, y, 0); controls.update(); }
 homeCamera();
 const composer = new EffectComposer(renderer);
@@ -704,10 +709,12 @@ function tick(now) {
         if (r.kin > 0) {
           // [§571 — his "tamp the rope sort of gradual swing … start with straight for now. Or, hanging at a pretty good tension"] the stutter rope does not turn: it hangs
           const stillHang = STUTTER[ropes.indexOf(r)] && tNow >= STATE2_AT - 10;
-          if (stillHang) r.rot = 0; else if (r.grainOn) r.rot = (r.rot ?? r.ph) + 2 * Math.PI * S.rotTurn * r.rotF * STEP;
+          // [§573 — his "bring a little bit of motion back into the rope … not so many modes … some sort of uniform motion"] the AI's pick: the same
+          // one loop, much shallower, turning slowly and evenly — life without a second mode; and the rope as wide as the screen
+          if (stillHang) r.rot = (r.rot || 0) + 2 * Math.PI * S.stTurn * STEP; else if (r.grainOn) r.rot = (r.rot ?? r.ph) + 2 * Math.PI * S.rotTurn * r.rotF * STEP;
           const e = r.kin * r.kin * (3 - 2 * r.kin), n = r.n, c = Math.cos(r.rot ?? 0), s = Math.sin(r.rot ?? 0);
           for (let j = 0; j < n; j++) {
-            const u = j / (n - 1), dep = (stillHang ? S.stSag : S.loopDepth * r.depF) * Math.sin(Math.PI * u), tx = -W / 2 + W * u, ty = r.y - dep * c, tz = r.z + dep * s;
+            const u = j / (n - 1), dep = (stillHang ? S.stSag : S.loopDepth * r.depF) * Math.sin(Math.PI * u), tx = stillHang ? (u - 0.5) * viewW() * S.stFill : -W / 2 + W * u, ty = r.y - dep * c, tz = r.z + dep * s;
             for (const [a, v] of [[0, tx], [1, ty], [2, tz]]) { const k = 3 * j + a, was = r.kp ? r.kp[k] : r.p[k], now = r.p[k] + (v - r.p[k]) * e; r.q[k] = was; r.p[k] = now; (r.kp || (r.kp = new Float32Array(3 * n)))[k] = now; }   // [§561] q = the last PLACED point (it was the physics' fresh guess: the drawn rope wavered between the two every frame)
           }
         }
@@ -830,7 +837,7 @@ function tick(now) {
         }
         const uj = Math.max(0, Math.min(r.n - 1, (d.u + du * S.stShift / W) * (r.n - 1))), a = Math.min(r.n - 2, Math.floor(uj)), f = uj - a;
         d.mesh.position.set(lp[3 * a] + (lp[3 * a + 3] - lp[3 * a]) * f, lp[3 * a + 1] + (lp[3 * a + 4] - lp[3 * a + 1]) * f, lp[3 * a + 2] + (lp[3 * a + 5] - lp[3 * a + 2]) * f);
-        const bell = Math.exp(-((d.u - r.beadU) ** 2) / (2 * S.growWidth ** 2)), stR = STUTTER[ropes.indexOf(r)] && tNow >= STATE2_AT - 10, tgt = stR ? S.stBead : S.growSmall + (S.growBig - S.growSmall) * bell;   // [§571 — his "let's not have those grow at all"] the stutter rope's beads one fixed size
+        const bell = Math.exp(-((d.u - r.beadU) ** 2) / (2 * S.growWidth ** 2)), stR = STUTTER[ropes.indexOf(r)] && tNow >= STATE2_AT - 10, tgt = stR ? S.stBead + (S.stGrowMax - S.stBead) * bell : S.growSmall + (S.growBig - S.growSmall) * bell;   // [§573] the growth back on the stutter rope, up to stGrowMax   // [§571 — his "let's not have those grow at all"] the stutter rope's beads one fixed size
         if (d.gr == null) d.gr = S.growSmall;
         d.gr += (tgt - d.gr) * Math.min(1, dt / (tgt > d.gr ? S.growAttack : S.growRelease));
         d.mesh.scale.setScalar(d.gr);
