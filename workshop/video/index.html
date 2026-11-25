@@ -102,6 +102,7 @@ const KNOBS = [
     ['damping', 'Damping', 0.9, 1, 0.001, 0.985],
     ['breeze', 'Breeze at rest', 0, 200, 1, 40],
     ['breezeHz', 'Breeze speed (cycles a second)', 0.02, 1, 0.01, 0.12],
+    ['collective', 'The air the moving ropes stir (all ropes feel it)', 0, 400, 1, 90],
     ['kick', 'Kick strength', 0, 3000, 10, 900],
     ['kickRate', 'Random kicks per rope per second', 0, 4, 0.05, 0],
     ['kickWidth', 'Kick width (points)', 0.5, 12, 0.5, 4],
@@ -237,14 +238,18 @@ function build() {
 }
 
 const STEP = 1 / 120, ITER = 24;
-let simT = 0;
+let simT = 0, air = 0;
 function stepRope(r, dt) {
   const { p, q, n } = r, g = S.gravity * dt * dt, d = r.pl ? S.ropeAir : S.damping;
   // [his "pretty subtle motion at rest"] a breeze: a slow, smooth push that drifts along the rope — two sines, the rope's own phases
-  const w = 2 * Math.PI * S.breezeHz, bz = S.breeze * dt * dt;
+  // [§527 — his "a very light breeze from the spinning ropes … something so that that static rope gets pushed just a little bit based on the
+  // activity going on amongst all the ropes"] THE STIRRED AIR: the shown ropes' activity (eased, see tick) adds to every rope's breeze, a
+  // little quicker and less regular than the breeze itself; a still rope among busy ones stirs, gently
+  const w = 2 * Math.PI * S.breezeHz, bz = S.breeze * dt * dt, ga = S.collective * air * dt * dt, wa = w * 2.3;
   for (let j = 1; j < n - 1; j++) {
     const u = j / (n - 1), env = Math.sin(Math.PI * u);
-    const fy = bz * env * Math.sin(w * simT + r.ph + 2.1 * u), fz = bz * env * 1.4 * Math.sin(w * 0.73 * simT + r.ph2 - 1.7 * u);
+    const fy = bz * env * Math.sin(w * simT + r.ph + 2.1 * u) + ga * env * Math.sin(wa * simT + r.ph2 + 3.3 * u) * (0.6 + 0.4 * Math.sin(wa * 0.37 * simT + r.ph)),
+          fz = bz * env * 1.4 * Math.sin(w * 0.73 * simT + r.ph2 - 1.7 * u) + ga * env * 1.3 * Math.sin(wa * 0.81 * simT + r.ph - 2.6 * u);
     for (let a = 0; a < 3; a++) {
       const k = 3 * j + a, v = (p[k] - q[k]) * d; q[k] = p[k]; p[k] += v + (a === 1 ? fy - g : a === 2 ? fz : 0);
     }
@@ -322,6 +327,11 @@ function tick(now) {
     }
   }
   tPrev = tNow;
+  // the stirred air: each shown rope's activity, 0 … 1 — a cranked rope its turning against the fastest, a shaken one its shaking times its size
+  { let a = 0, nShown = 0;
+    for (const r of ropes) { if (!r.line.visible || !r.pl) continue; nShown++;
+      a += r.pl.kind === 'ensemble' ? Math.min(1, (r.sf / Math.max(0.1, S.shakeMax)) * (r.sa / Math.max(1, S.shakeAmp))) : Math.min(1, r.w / Math.max(0.1, S.turnMax)); }
+    const want = nShown ? Math.min(1, 2 * a / nShown) : 0; air += (want - air) * Math.min(1, dt * 0.5); }
   while (acc >= STEP) {
     for (const r of ropes) {
       if (live() < S.kickRate * STEP) kick(r, R(live, 2, r.n - 3), S.kick * R(live, 0.6, 1.2));
@@ -405,7 +415,7 @@ audio.onloadedmetadata = () => scrub.max = audio.duration.toFixed(1);
 scrub.oninput = () => { scrubbing = true; timeEl.textContent = fmt(+scrub.value); };
 scrub.onchange = () => { audio.currentTime = +scrub.value; scrubbing = false; };
 // [§525 — his "can we just turn off the tremolo ones for now? … so I can just see the instruments"] show or hide each family of ropes
-S.showElec = S.showElec ?? 0; S.showEns = S.showEns ?? 1;
+S.showElec = S.showElec ?? 1; S.showEns = S.showEns ?? 0;      // [§527 — his "can you just show me just the tremolo ones now?"]
 function applyShow() {
   for (const r of ropes) { const on = !r.pl ? true : r.pl.kind === 'session' ? !!S.showElec : !!S.showEns; r.weeds.forEach(w => w.mesh.visible = on); r.line.visible = on; }
   document.getElementById('showElec').textContent = 'Electronics: ' + (S.showElec ? 'on' : 'off');
