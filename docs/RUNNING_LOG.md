@@ -7070,3 +7070,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 - What sounds in the counterpoint (200 … 266.5 s): Elec 2 (B4) all through; Elec 3 (B6) from 231.6; Elec 1 and Elec 4 nothing. B6's grains listed by `tools/grain_list.py` — 23 784 over 83 hits, the manifest's own count, exactly; 3 409 of them on the score's clock.
 - THE SOURCES (a variation on the input): the archtop rope (Elec 2) its own B4; the baritone-guitar rope (Elec 3) B4 in CANON 0.8 s later and mirrored left for right until 231.6, then its own B6; the piano rope (Elec 1) B4 1.6 s later; the drums rope (Elec 4) B4 2.4 s later, mirrored — the same grains kicking the ball chain and the same heard places driving the beads, displaced in time and space. The state now holds on all four, 200 … 266.5 s.
 - THE ROTISSERIES: the archtop rope keeps his rate and depth; the others seeded — rate x 0.83 · 0.92 · 1.08, depth x 1.04 · 0.65 · 0.95 (the baritone guitar · drums · piano ropes): one a touch faster, one a touch deeper, mostly slower and shallower. The page opens on the electronics ropes alone (ensemble off; "grain rope only" off). Loaded on the throwaway 5661; not seen moving — the pane hidden.
+
+## §557 — 2026-11-25 — the video workshop: all the ropes together
+
+- His words: *"that's great. Yeah, let's see all the ropes together now, please."* — the page opens with both families shown (electronics on · ensemble on · grain rope only off).

@@ -809,7 +809,7 @@ audio.onloadedmetadata = () => scrub.max = audio.duration.toFixed(1);
 scrub.oninput = () => { scrubbing = true; timeEl.textContent = fmt(+scrub.value); };
 scrub.onchange = () => { audio.currentTime = +scrub.value; scrubbing = false; };
 // [§525 — his "can we just turn off the tremolo ones for now? … so I can just see the instruments"] show or hide each family of ropes
-S.showElec = S.showElec ?? 1; S.showEns = S.showEns ?? 0;      // [§556 — his "let's see just the electronics ones"]      // [§528 — his "Let's see all the ropes now, please."] (§527 showed the tremolo ones alone)
+S.showElec = S.showElec ?? 1; S.showEns = S.showEns ?? 1;      // [§557 — his "let's see all the ropes together now"]      // [§528 — his "Let's see all the ropes now, please."] (§527 showed the tremolo ones alone)
 function applyShow() {
   // [§537 — his "can you take all the other ropes out or just hide them?"] ONLY THE GRAIN ROPE: every other rope hidden (they still move)
   const grainRope = ropes[LANE_ROPE[2]];
