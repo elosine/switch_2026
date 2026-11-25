@@ -6809,3 +6809,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 - *"I think all the notes are done, just delete those."* The Notes for Revision section removed from the instructions page.
 - A slip: my first cut matched the page's top comment and emptied the body; restored from the commit (§511 — no saves from the page since, no versions folder) and cut again at the right place. Nothing of his lost.
 - His ask for a top-level copy edit: given in the chat, nothing changed on the page.
+
+## §513 — 2026-11-24 — the instructions: copy edits 1 · 2 · 3 · 6
+
+- His word: *"go ahead with 1, 2, 3, 6"*. Applied: "should be heard above the electronics" · "For example, ppp with an arrow to f means the volume change for that curve spans from ppp to f" · "should happen at the line" · "Gradient Curves:" (colon, as the others). Item 4 (hashes at the top of the staff) not taken up; item 5 (shaking stutter) — he asked for the two versions in full, given in the chat.
