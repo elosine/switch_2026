@@ -243,6 +243,8 @@ const KNOBS = [
     ['fSpread', 'Their humps spread across (share of the width)', 0, 1, 0.01, 0.86],
     ['fCxMax', 'No hump further from the centre than', 0, 800, 5, 505],
     ['fEdge', 'Their ends stay inside the frame by', -200, 200, 5, 20],
+    ['dAmp', 'Their ends drift slowly, as far as (share of the width)', 0, 0.5, 0.01, 0.22],
+    ['dMin', 'A rope never shorter than (share of the width)', 0.1, 0.9, 0.01, 0.3],
     ['fRadLo', 'Their loops: the smallest (× the depth)', 0.2, 2, 0.01, 0.55],
     ['fRadHi', 'Their loops: the largest (× the depth)', 0.2, 2, 0.01, 1.25],
     ['fCrank', 'The crank'+"'"+'s size', 0, 120, 1, 45],
@@ -711,10 +713,24 @@ function tick(now) {
         const L = W * r.fLen, cx = r.fLen >= 1 ? 0 : Math.max(-S.fCxMax, Math.min(S.fCxMax, r.fCx ?? 0));
         // [§569 — his "the gold yellow one is off screen, the right node. So if we can bring it back on screen"] the rope's ends kept inside the frame;
         // its hump stays at its place, the loop rising to it from each end (two quarter-sines), so a rope cut short on one side leans, not moves
-        const lft = r.fLen >= 1 ? -W / 2 : Math.max(-W / 2 + S.fEdge, cx - L / 2), rgt = r.fLen >= 1 ? W / 2 : Math.min(W / 2 - S.fEdge, cx + L / 2);   // (the flute as it was)   // [§566 · §568] its length and its centre (the centre kept: a long rope may run past the edge)
+        let lft = r.fLen >= 1 ? -W / 2 : Math.max(-W / 2 + S.fEdge, cx - L / 2), rgt = r.fLen >= 1 ? W / 2 : Math.min(W / 2 - S.fEdge, cx + L / 2);
+        // [§580 — his "their endpoints drift horizontally … very slowly … on separate tracks … the rope doesn't ever get too short. It can go as long as
+        // the screen … one node might close toward another node and then reverse … the center point of the rope is changing its location, but also the
+        // string is changing its length"] EACH END on its own slow track (its own period, 30 … 75 s, its own phase, seeded per rope), about the place it
+        // was dealt; never closer together than dMin of the width (pushed apart evenly), never past the frame's edge; the hump then sits midway
+        let dcx = cx;
+        if (r.fLen < 1 && S.dAmp > 0) {
+          if (!r.dr) { const q = rng(S.seed * 389 + ropes.indexOf(r)); r.dr = [30 + 45 * q(), 30 + 45 * q(), q() * 6.283, q() * 6.283]; }
+          const tt = tNow - STATE2_AT, A = S.dAmp * W;
+          lft += A * Math.sin(2 * Math.PI * tt / r.dr[0] + r.dr[2]); rgt += A * Math.sin(2 * Math.PI * tt / r.dr[1] + r.dr[3]);
+          const lo = -W / 2 + S.fEdge, hi = W / 2 - S.fEdge, minL = S.dMin * W;
+          lft = Math.max(lo, Math.min(hi - minL, lft)); rgt = Math.min(hi, Math.max(lo + minL, rgt));
+          if (rgt - lft < minL) { const m = (lft + rgt) / 2; lft = Math.max(lo, m - minL / 2); rgt = Math.min(hi, lft + minL); lft = rgt - minL; }
+          dcx = (lft + rgt) / 2;
+        }   // (the flute as it was)   // [§566 · §568] its length and its centre (the centre kept: a long rope may run past the edge)
         const c = Math.cos(th), s = Math.sin(th);
         for (let j = 0; j < n; j++) {
-          const u = j / (n - 1), tx = lft + (rgt - lft) * u, d = dep * Math.sin(Math.PI / 2 * (tx < cx ? (tx - lft) / Math.max(1, cx - lft) : (rgt - tx) / Math.max(1, rgt - cx))), ty = r.y - d * c, tz = r.z + d * s;
+          const u = j / (n - 1), tx = lft + (rgt - lft) * u, d = dep * Math.sin(Math.PI / 2 * (tx < dcx ? (tx - lft) / Math.max(1, dcx - lft) : (rgt - tx) / Math.max(1, rgt - dcx))), ty = r.y - d * c, tz = r.z + d * s;
           for (const [a, v] of [[0, tx], [1, ty], [2, tz]]) { const k = 3 * j + a, was = r.fp ? r.fp[k] : r.p[k], now = r.p[k] + (v - r.p[k]) * e; r.q[k] = was; r.p[k] = now; (r.fp || (r.fp = new Float32Array(3 * n)))[k] = now; }
         }
       } else if (r.fp) r.fp = null;
