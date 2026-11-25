@@ -33,6 +33,7 @@ http.createServer((req, res) => {
   const url = req.url.split('?')[0];
   if (url === '/' || url === '/index.html') return sendFile(req, res, path.join(DIR, 'index.html'), 'text/html; charset=utf-8');
   if (url === '/audio') return sendFile(req, res, AUDIO, /\.wav$/i.test(AUDIO) ? 'audio/wav' : 'audio/mpeg');
+  if (url === '/data') return sendFile(req, res, path.join(ROOT, 'bank', 'video_data.json'), 'application/json');   // tools/video_data.js (§519)
   if (url === '/settings' && req.method === 'GET') return send(res, 200, fs.existsSync(LOOK) ? fs.readFileSync(LOOK) : '{}');
   if (url === '/settings' && req.method === 'POST') {
     const chunks = []; req.on('data', c => chunks.push(c));
