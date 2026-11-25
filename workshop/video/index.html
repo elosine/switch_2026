@@ -133,6 +133,8 @@ const KNOBS = [
     ['grainGlow', 'A fuller tumbleweed is brighter', 0, 1, 0.01, 0.4],
     ['grainMorph', 'Its re-scramble glide, slower by', 1, 8, 0.5, 3],
     ['grainTurn', 'Under the grains the rope turns slowly by itself (turns a second)', 0, 1.5, 0.01, 0.34],
+    ['rotTurn', 'The rotisserie: turns a second', 0, 2, 0.01, 0.28],
+    ['loopDepth', 'The rotisserie: how deep the loop is', 0, 500, 5, 210],
     ['swingPush', 'Now and then a push on the swing (extra turns a second)', 0, 3, 0.05, 0.55],
     ['swingEvery', 'About how often (seconds)', 0.5, 20, 0.1, 5],
     ['swingCoast', 'How slowly it coasts back after a push', 0.02, 3, 0.01, 0.25],
@@ -589,6 +591,20 @@ function tick(now) {
     for (const r of ropes) {
       if (live() < S.kickRate * STEP) kick(r, R(live, 2, r.n - 3), S.kick * R(live, 0.6, 1.2));
       stepRope(r, STEP);
+      // [§555 — his "make the jump rope motion independent … almost more like a rotisserie … slightly less tension … a jump rope loop that goes relatively
+      // smoothly up and then down … still responding to the electronics, and the line is too straight"] THE ROTISSERIE: in the state the bead rope is
+      // no longer simulated — it is a loop of fixed depth (deepest mid-rope) turning steadily round the line between its ends; it eases in over 1.5 s
+      if (r.dense) {
+        r.kin = Math.max(0, Math.min(1, (r.kin || 0) + (r.grainOn ? 1 : -1) * STEP / 1.5));
+        if (r.kin > 0) {
+          if (r.grainOn) r.rot = (r.rot || 0) + 2 * Math.PI * S.rotTurn * STEP;
+          const e = r.kin * r.kin * (3 - 2 * r.kin), n = r.n, c = Math.cos(r.rot || 0), s = Math.sin(r.rot || 0);
+          for (let j = 0; j < n; j++) {
+            const u = j / (n - 1), dep = S.loopDepth * Math.sin(Math.PI * u), tx = -W / 2 + W * u, ty = r.y - dep * c, tz = r.z + dep * s;
+            for (const [a, v] of [[0, tx], [1, ty], [2, tz]]) { const k = 3 * j + a; r.q[k] = r.p[k]; r.p[k] += (v - r.p[k]) * e; }
+          }
+        }
+      }
       if (r.shadow && (r.grainOn || r.twE)) {                               // [§547] the shadow rope's wave: across the rope, ends tied
         const { tw, two, n } = r, c = Math.min(0.9, (n / Math.max(0.05, S.shadowTravel)) * STEP), c2 = c * c, g = Math.min(0.5, S.shadowDamp * STEP);
         const nu = r.tmpT || (r.tmpT = new Float32Array(n)); let e = 0;
