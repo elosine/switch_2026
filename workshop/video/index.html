@@ -507,7 +507,7 @@ const STATE2_AT = 277.8, STATE2_END = 480, FINAL_SRC = [{ bed: 'G9', lane: 2 }, 
 // unisons or … a certain multi-tempo"; his "yes, build it that way"] THE GATHERINGS (bank/phase_form.json: the holds where the tempos ARRIVE — a
 // swarm, a unison, the lock): there the electronics return to the counterpoint's look; in the drifts and glides between, the final look. Each rope
 // eases between the two (r.fb: 1 the final look, 0 the counterpoint's) over FB_EASE seconds; a look's on/off parts switch at the halfway point.
-const GATHER = [[324.27, 330.27], [341.08, 350.89], [383.0, 388.7], [400.3, 402.3], [435.4, 439.4]], FB_EASE = 1.5;
+const GATHER = [[324.27, 330.27], [341.08, 350.89], [383.0, 388.7], [400.3, 402.3], [435.4, 460.4]], FB_EASE = 1.5;   // [§582] the last held until 7:40.4 (F5 swarm v reached), then B to the end
 const finalTarget = t => t >= STATE2_AT && !GATHER.some(([a, b]) => t >= a && t <= b) ? 1 : 0;
 const fin = r => (r.fb ?? 0) > 0.5;
 const STUTTER = { 0: true, 1: true, 2: true, 3: true };   // [§570 · §577 — his "make them all look like the one we worked on"] all four in the final section
@@ -730,7 +730,10 @@ function tick(now) {
         if (r.fLen < 1 && S.dAmp > 0) {
           if (!r.dr) { const q = rng(S.seed * 389 + ropes.indexOf(r)); r.dr = [30 + 45 * q(), 30 + 45 * q(), q() * 6.283, q() * 6.283]; }
           const tt = tNow - STATE2_AT, A = S.dAmp * W;
-          lft += A * Math.sin(2 * Math.PI * tt / r.dr[0] + r.dr[2]); rgt += A * Math.sin(2 * Math.PI * tt / r.dr[1] + r.dr[3]);
+          // [§582 — his "the yellow one on top seems the right endpoint's not drifting at all"] an end dealt at the frame's edge was clamped there all the
+          // time; each end's track is now centred far enough inside that the whole swing fits
+          const lo0 = -W / 2 + S.fEdge, hi0 = W / 2 - S.fEdge;
+          lft = Math.max(lo0 + A, Math.min(hi0 - A, lft)) + A * Math.sin(2 * Math.PI * tt / r.dr[0] + r.dr[2]); rgt = Math.max(lo0 + A, Math.min(hi0 - A, rgt)) + A * Math.sin(2 * Math.PI * tt / r.dr[1] + r.dr[3]);
           const lo = -W / 2 + S.fEdge, hi = W / 2 - S.fEdge, minL = S.dMin * W;
           lft = Math.max(lo, Math.min(hi - minL, lft)); rgt = Math.min(hi, Math.max(lo + minL, rgt));
           if (rgt - lft < minL) { const m = (lft + rgt) / 2; lft = Math.max(lo, m - minL / 2); rgt = Math.min(hi, lft + minL); lft = rgt - minL; }
