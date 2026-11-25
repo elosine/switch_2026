@@ -178,6 +178,33 @@ for (const b of bricks) {
   out.grains.push({ bed: m[1], lane: b.layer - 7, t0: r3(b.startTime), t1: r3(b.endTime), players: G.players, list });
   console.log(('grains ' + m[1]).padEnd(18) + 'Elec ' + (b.layer - 7) + ' · ' + list.length + ' grains · ' + b.startTime.toFixed(1) + ' … ' + b.endTime.toFixed(1) + ' s');
 }
+// ---------------------------------------------------------------- THE FINAL SECTION'S TEMPOS (§564; his "let's look at the final section"; the
+// proposal: each instrument rope turned one turn per beat of its own tempo). From the page notation/ir/s3-phase.ir.json: each part's tempo marks;
+// a tempo HOLDS from its mark, and where a span (accel. / decel.) is written it RAMPS in a straight line across the span to the next mark's tempo.
+// Out, at 20 a second from the first mark: per rope (the ensemble's order) its tempo (bpm) and its beat count (the integral, 0 at the first mark).
+// [the AI's simplification: the phase machine's glides land on the beat with a bulge (§185); a straight ramp is close, not exact]
+{
+  const ir = JSON.parse(fs.readFileSync(path.join(ROOT, 'notation', 'ir', 's3-phase.ir.json'), 'utf8'));
+  const PART = { flute: 0, clarinet: 1, 'alto sax': 2, percussion: 4, piano: 5, violin: 6, cello: 7 }, RATE2 = 20;
+  const marks = ir.overlays.filter(o => o.kind === 'tempo'), spans = ir.overlays.filter(o => o.kind === 'tempoSpan');
+  const t0 = Math.min(...marks.map(m => m.target.t)), t1 = Math.max(...marks.map(m => m.target.t));
+  const ropes = {};
+  for (const [name, p] of Object.entries(PART)) {
+    const m = marks.filter(o => o.target.part === p).sort((a, b) => a.target.t - b.target.t), sp = spans.filter(o => o.target.part === p);
+    const bpmAt = tt => {
+      let k = 0; while (k + 1 < m.length && m[k + 1].target.t <= tt) k++;
+      const here = m[k], next = m[k + 1]; if (!next) return here.value.bpm;
+      const s = sp.find(o => o.target.span[0] >= here.target.t - 0.05 && o.target.span[1] <= next.target.t + 0.05);
+      if (s && tt >= s.target.span[0]) { const u = Math.min(1, (tt - s.target.span[0]) / Math.max(0.01, s.target.span[1] - s.target.span[0])); return here.value.bpm + (next.value.bpm - here.value.bpm) * u; }
+      return here.value.bpm;
+    };
+    const bpm = [], beats = []; let b = 0;
+    for (let tt = t0; tt <= t1 + 1e-9; tt += 1 / RATE2) { const v = bpmAt(tt); bpm.push(r3(v)); beats.push(r3(b)); b += v / 60 / RATE2; }
+    ropes[name] = { bpm, beats };
+  }
+  out.tempo = { t0: r3(t0), t1: r3(t1), rate: RATE2, ropes };
+  console.log('tempos            ' + Object.keys(ropes).length + ' ropes · ' + t0 + ' … ' + t1 + ' s · beats in the section: ' + Object.entries(ropes).map(([k, v]) => k + ' ' + Math.round(v.beats[v.beats.length - 1])).join(', '));
+}
 // [§542] each electronics lane's left-right balance as heard (tools/elec_pan.js → bank/elec_pan.json), carried as it is
 if (fs.existsSync(path.join(ROOT, 'bank', 'elec_pan.json'))) out.pan = JSON.parse(fs.readFileSync(path.join(ROOT, 'bank', 'elec_pan.json'), 'utf8'));
 fs.writeFileSync(path.join(ROOT, 'bank', 'video_data.json'), JSON.stringify(out));

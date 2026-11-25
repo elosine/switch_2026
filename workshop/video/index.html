@@ -207,6 +207,12 @@ const KNOBS = [
     ['snap', 'Accent: a snap (extra size for a moment)', 0, 3, 0.05, 1.3],
     ['ensInertia', 'How quickly the shaking follows the music', 0.1, 6, 0.05, 3],
     ['ensSmall', 'In the counterpoint: their tumbleweeds smaller by', 0, 0.9, 0.01, 0.4],
+  ]],
+  ['The final section — each instrument rope turned like a jump rope, one turn per beat of its own tempo', [
+    ['turnsPerBeat', 'Turns per beat', 0.25, 2, 0.25, 1],
+    ['fCrank', 'The crank'+"'"+'s size', 0, 120, 1, 45],
+    ['fSlack', 'Ends brought in (a looser rope, a rounder loop)', 0, 300, 5, 110],
+    ['fPull', 'Faster tempo pulls the ends apart by (at the fastest)', 0, 300, 5, 120],
     ['ensDim', 'In the counterpoint: dimmer by', 0, 0.9, 0.01, 0.51],
     ['ensWide', 'In the counterpoint: their shake wider by', 0, 2, 0.01, 0.6],
     ['roomDepth', 'Place in the room → depth', 0, 800, 10, 300],
@@ -365,7 +371,7 @@ function build() {
 }
 
 const STEP = 1 / 120, ITER = 24;
-let simT = 0, air = 0, stateK = 0;
+let simT = 0, air = 0, stateK = 0, finalK = 0;
 function stepRope(r, dt) {
   const { p, q, n } = r, g = S.gravity * dt * dt, d = r.pl ? S.ropeAir : S.damping;
   // [his "pretty subtle motion at rest"] a breeze: a slow, smooth push that drifts along the rope — two sines, the rope's own phases
@@ -388,7 +394,16 @@ function stepRope(r, dt) {
   // [§522 — his "more vigorous, but still give it a different feel … than the ones based on the tremolo"] THE ENSEMBLE'S ROPES ARE SHAKEN:
   // one end moves up and down (alternate ropes from alternate ends), the other is pinned and pulls away with speed; the waves run along the
   // rope. The shaking speeds up EVENLY (its own, slower inertia); its size the written velocity; an accent a SNAP — a moment of extra size
-  if (r.pl && r.pl.kind === 'ensemble') {
+  // [§564 — the final section (his "let's look at the final section"; the proposal he took: each instrument rope cranked like a jump rope, one turn
+  // per beat of its own tempo)] BOTH ENDS turn together on the rope's own beat (the phase locked to the beat count, so a beat is a turn); the
+  // faster the tempo, the further the ends pull apart (the rubber band: tighter, narrower); the rope swings round from the physics
+  if (r.pl && r.pl.kind === 'ensemble' && finalK > 0 && r.fin) {
+    const want = 2 * Math.PI * r.fin.beats * S.turnsPerBeat; if (r.fth == null) r.fth = want;
+    let diff = want - r.fth; diff -= 2 * Math.PI * Math.round(diff / (2 * Math.PI));
+    r.fth += 2 * Math.PI * (r.fin.bpm / 60) * S.turnsPerBeat * dt + diff * Math.min(1, dt * 2);
+    const c = S.fCrank * finalK, ex = W / 2 + finalK * (S.fPull * Math.max(0, Math.min(1, (r.fin.bpm - 55) / 78)) - S.fSlack);
+    for (const [j, x] of [[0, -ex], [n - 1, ex]]) { q[3 * j] = p[3 * j]; q[3 * j + 1] = p[3 * j + 1]; q[3 * j + 2] = p[3 * j + 2]; p[3 * j] = x; p[3 * j + 1] = r.y + c * Math.sin(r.fth); p[3 * j + 2] = r.z - c * Math.cos(r.fth); }
+  } else if (r.pl && r.pl.kind === 'ensemble') {
     const k = Math.min(1, S.ensInertia * dt);
     r.sf += (r.sfT - r.sf) * k; r.sa += (r.saT - r.sa) * Math.min(1, 3 * dt); r.snapK *= Math.exp(-dt * r.ch.snapFade); r.pullC += (r.pullT - r.pullC) * k;
     r.sph += 2 * Math.PI * r.sf * dt;
@@ -577,6 +592,13 @@ function tick(now) {
   for (let ri = 0; ri < ropes.length; ri++) ropes[ri].grainOn = !!(D && D.grains && ri < 4 && ropes[ri].dense && tNow >= STATE_AT && tNow <= STATE_END);   // [§556] all four
   if (playing) grainsFrame(tPrev, tNow, jump);
   // [§558] the counterpoint state's weight 0 … 1, eased over 1.5 s either side (it lightens the ensemble's ropes and widens their shake)
+  // [§564] the final section's weight (eased 1.5 s in) and each instrument rope's tempo and beat count now
+  if (D && D.tempo) {
+    const T = D.tempo; finalK += ((tNow >= T.t0 && tNow <= T.t1 + 2 ? 1 : 0) - finalK) * Math.min(1, dt / 1.5); if (jump) finalK = tNow >= T.t0 && tNow <= T.t1 + 2 ? 1 : 0;
+    const x = Math.max(0, Math.min((T.t1 - T.t0) * T.rate, (tNow - T.t0) * T.rate)), i = Math.floor(x), fr = x - i;
+    for (const r of ropes) { if (!r.pl || r.pl.kind !== 'ensemble') continue; const Q = T.ropes[r.pl.part]; if (!Q) continue; const i1 = Math.min(Q.bpm.length - 1, i + 1);
+      r.fin = { bpm: Q.bpm[i] + (Q.bpm[i1] - Q.bpm[i]) * fr, beats: Q.beats[i] + (Q.beats[i1] - Q.beats[i]) * fr + (tNow > T.t1 ? (tNow - T.t1) * Q.bpm[Q.bpm.length - 1] / 60 : 0) }; }
+  }
   stateK += ((tNow >= STATE_AT && tNow <= STATE_END ? 1 : 0) - stateK) * Math.min(1, dt / 1.5); if (jump) stateK = tNow >= STATE_AT && tNow <= STATE_END ? 1 : 0;
   // [§542 — his "a single bead that follows the panning data that goes from left node to right node and back and forth"] THE BEAD: where the
   // lane sounds, left to right, as heard (bank/elec_pan.json, its stem's channel balance 30 times a second), the rope's left end the left speaker;
@@ -830,7 +852,7 @@ audio.onloadedmetadata = () => scrub.max = audio.duration.toFixed(1);
 scrub.oninput = () => { scrubbing = true; timeEl.textContent = fmt(+scrub.value); };
 scrub.onchange = () => { audio.currentTime = +scrub.value; scrubbing = false; };
 // [§525 — his "can we just turn off the tremolo ones for now? … so I can just see the instruments"] show or hide each family of ropes
-S.showElec = S.showElec ?? 1; S.showEns = S.showEns ?? 1;      // [§557 — his "let's see all the ropes together now"]      // [§528 — his "Let's see all the ropes now, please."] (§527 showed the tremolo ones alone)
+S.showElec = S.showElec ?? 0; S.showEns = S.showEns ?? 1;      // [§564 — his "let's see just the instrumental ones"]      // [§557 — his "let's see all the ropes together now"]      // [§528 — his "Let's see all the ropes now, please."] (§527 showed the tremolo ones alone)
 function applyShow() {
   // [§537 — his "can you take all the other ropes out or just hide them?"] ONLY THE GRAIN ROPE: every other rope hidden (they still move)
   const grainRope = ropes[LANE_ROPE[2]];
