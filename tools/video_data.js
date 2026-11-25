@@ -82,7 +82,9 @@ for (const part of PLAYERS) {
 // from the sine tone, the sine's pitch from its brick); elsewhere how BUSY the group is (onsets a second over 1.5 s, against the group's own
 // busiest). Their "depth" the written velocity; their accents the notes written f and up (velocity 96+), their hardness the velocity.
 // Kept in the players' shape (speed 2 … 20, depth 0.65 … 1, hardness 1.5 … 4.5) so the page drives them as it drives the tremolo.
-const GROUPS = [['winds', [0, 1, 2]], ['percussion', [3, 4]], ['piano', [5]], ['violin', [6]], ['cello', [7]]];
+// [§526 — his "let's make sure we give a rope to every instrument"] seven: each instrument its own rope; the percussion's two lanes (the
+// battery and the mallets — the crotales in Section 1) one rope
+const GROUPS = [['flute', [0]], ['clarinet', [1]], ['alto sax', [2]], ['percussion', [3, 4]], ['piano', [5]], ['violin', [6]], ['cello', [7]]];
 const notes = save.objects.filter(o => o.type === 'waveCurve');
 const vel = o => +(o.recVel || o.velAbs || (o.properties && o.properties.parity && o.properties.parity.written) || 80);
 const beatsAt = (o, tt) => {
@@ -122,7 +124,9 @@ for (const [name, layers] of GROUPS) {
     }
     // [§522 — his "the instrumental ones barely move"] full speed at 7 beats a second (was 10), and the busyness lifted by a square root
     // [§524] the beating: a floor of a quarter the moment a pair sounds, full at 6 beats a second; and a crescendo drives the speed too
-    const busy = beat != null ? Math.max(0.25 + 0.75 * Math.sqrt(Math.min(1, beat / 6)), dyn * 0.9) : Math.max(Math.sqrt(Math.min(1, rate[i] / top)), dyn * 0.6);
+    // [§526 — his "less vigorous … more corresponding to the increasing beating … so you can see the change"] the beating drives the speed
+    // ALONE and IN PROPORTION: 0 … 8 beats a second is 0.05 … 1 of full speed, a straight line; the crescendo now drives only the size
+    const busy = beat != null ? Math.min(1, 0.05 + beat / 8) : Math.max(Math.sqrt(Math.min(1, rate[i] / top)), dyn * 0.6);
     on.push(r3(sounding)); speed.push(r3(sounding ? 2 + 18 * busy : 0));
     depth.push(r3(sounding ? 0.65 + 0.35 * Math.min(1, dyn || v / 127) : 0)); hard.push(r3(sounding ? 1.5 + 3 * Math.min(1, v / 127) : 0)); az.push(0);
   }
