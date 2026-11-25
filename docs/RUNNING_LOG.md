@@ -6993,3 +6993,8 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 
 - His words: *"that's better. Can we just increase the range so it mostly hovers about maybe a quarter in to about three quarters? So it's missing about a quarter from each [end] … go all the way and then clamp … that entire movement … but along the full span of the rope."*
 - Done: the balance spread with a soft S-curve, place = ½ + ½ · tanh(2 · balance) ÷ tanh(2) — no hard clamp, so it never sticks at an end; full left or right still the very end (a knob, 0 = as measured). Measured on Elec 2, 200 … 260 s, the bead's place on the rope at the 10 / 25 / 75 / 90 percentiles: as measured 0.13 · 0.28 · 0.73 · 0.89 — spread 0.03 · 0.13 · 0.87 · 0.97.
+
+## §544 — 2026-11-25 — the video workshop: the bead end to end
+
+- His words: *"push it a little bit more so that it really goes from node to node … if it's a clamping kind of thing, that's fine … the majority of the movement should be from node to node … if the outliers are clamped, that's okay too."* ("node" here = the rope's end.)
+- Done: §543's S-curve replaced by a straight GAIN of 2, CLAMPED at the ends. Measured on Elec 2, 200 … 260 s (place on the rope at 10 / 25 / 50 / 75 / 90 %): gain 2 → 0.00 · 0.06 · 0.49 · 0.95 · 1.00, 45 % of the time at an end; gain 2.5 → 55 %; gain 3 → 62 %. Set at 2: the middle half of the movement spans 0.06 … 0.95 of the rope.
