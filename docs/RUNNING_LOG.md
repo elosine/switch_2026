@@ -6793,3 +6793,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 ## §509 — 2026-11-24 — the instructions: Multiple Tempos in the tubas' words, his edit
 
 - His words: *"replace that paragraph with the 7 tubas, the final section of the piece … The pulse you are playing in is marked with hashes at the top of the staff. And the animated bouncing ball provides a conducted pulse to assist with accelerations, decelerations, and rapidly changing tempos."* The paragraph now: the tubas' first sentence ("of the piece"), then his new second sentence.
+
+## §510 — 2026-11-24 — the instructions: the percussion line
+
+- His words: *"bass drum with [rute] for rim shot. And then a final sentence can be all other mallets are at the player's discretion."* Applied to the Instrumentation's percussion line ("root" heard as rute).
