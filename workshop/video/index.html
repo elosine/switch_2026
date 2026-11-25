@@ -147,7 +147,12 @@ const KNOBS = [
     ['growAttack', 'How fast a bead grows (seconds)', 0.005, 0.5, 0.005, 0.03],
     ['growRelease', 'How slowly it shrinks back (seconds)', 0.02, 2, 0.01, 0.14],
     ['beadJitter', 'The beads not evenly spaced (share of their gap)', 0, 2, 0.01, 0.8],
-    ['stShift', 'Stutter: how far a grain shoves the beads along the rope', 0, 200, 1, 46],
+    ['stShift', 'Stutter: how far a grain shoves the beads along the rope', 0, 200, 1, 0],
+    ['ledEvery', 'Running lights: show every …th bead (fewer beads)', 1, 8, 1, 3],
+    ['ledBase', 'Running lights: an unlit bead'+"'"+'s brightness', 0, 1, 0.01, 0.18],
+    ['ledWidth', 'Running lights: how many beads light at once (share of the rope)', 0.005, 0.2, 0.005, 0.03],
+    ['ledTail', 'Running lights: how quickly a lit bead goes dark (seconds)', 0.01, 1, 0.01, 0.12],
+    ['ledGrow', 'Running lights: a lit bead is bigger by', 0, 2, 0.05, 0.4],
     ['stBead', 'Stutter: the beads'+"'"+' size, fixed (× their size)', 0.1, 4, 0.05, 0.7],
     ['stSag', 'Stutter: the rope hangs still, this deep', 0, 300, 5, 40],
     ['stWidth', 'Stutter: how wide the shoved place is (share of the rope)', 0.005, 0.3, 0.005, 0.045],
@@ -505,7 +510,7 @@ function grainsFrame(t0, t1, jumped) {
       // [§570 — his "grow a little bit, but also displace a little bit … horizontally along the rope … reflects the sort of stutteriness … the grains
       // combined with the grain gap"] on a stutter rope each grain SHOVES the beads at its own place along the rope (its own pan, spread like the bead),
       // the shove HELD while the grain sounds and let go in the gap — so the beads jump and fall back with the grains' own on and off
-      if (STUTTER[ri] && t1 >= STATE2_AT - 10) { const pu = 0.5 + 0.5 * Math.max(-1, Math.min(1, S.beadSpread * g[6])); (r.stut || (r.stut = [])).push({ t0: g[0] + src.delay, len: g[4], u: pu, dir: Math.random() < 0.5 ? -1 : 1, a: lv }); if (r.stut.length > 64) r.stut.shift(); }
+      if (STUTTER[ri] && t1 >= STATE2_AT - 10) { const pu = 0.5 + 0.5 * Math.max(-1, Math.min(1, S.beadSpread * g[6])); (r.stut || (r.stut = [])).push({ t0: g[0] + src.delay, len: g[4], u: pu, from: r.lastPu ?? pu, dir: Math.random() < 0.5 ? -1 : 1, a: lv }); r.lastPu = pu; if (r.stut.length > 64) r.stut.shift(); }
       if (S.shadow && r.beadU != null) { const js = Math.round(r.beadU * (r.n - 1)); if (js > 0 && js < r.n - 1) { const ang = Math.random() * Math.PI * 2, k = S.shadowKick * lv * 0.5; r.two[js] -= Math.cos(ang) * k; r.tzo[js] -= Math.sin(ang) * k; } }
     }
     grainPtr[key] = i;
@@ -829,6 +834,20 @@ function tick(now) {
         if (d.gr == null) d.gr = S.growSmall;
         d.gr += (tgt - d.gr) * Math.min(1, dt / (tgt > d.gr ? S.growAttack : S.growRelease));
         d.mesh.scale.setScalar(d.gr);
+        if (stR) {
+          // [§572 — his "like those running LED lights that flash in one direction … might still be able to follow the spatialization"] THE RUNNING
+          // LIGHTS: each grain sends a light running along the rope from where the sound was (the last grain's place) to where it is now, across the
+          // grain's own length; a bead lights as the light passes and goes dark quickly behind it; every ledEvery-th bead shown
+          const k = r.dense.indexOf(d); if (k % Math.max(1, Math.round(S.ledEvery))) { d.mesh.visible = false; continue; }
+          for (const s of (r.stut || [])) {
+            const age = tNow - s.t0; if (age < 0 || age > s.len) continue;
+            const head = s.from + (s.u - s.from) * Math.min(1, age / Math.max(0.02, s.len));
+            if (Math.abs(d.u - head) < S.ledWidth) d.lit = Math.max(d.lit || 0, Math.min(1, s.a));
+          }
+          d.lit = (d.lit || 0) * Math.exp(-dt / S.ledTail);
+          d.mesh.material.opacity = Math.min(1, S.opacity * (S.ledBase + (1 - S.ledBase) * d.lit) * 1.3);
+          d.mesh.scale.setScalar(d.gr * (1 + S.ledGrow * d.lit));
+        } else if (d.lit != null) { d.lit = null; d.mesh.material.opacity = S.opacity; }
       }
       if (!on) for (const w of r.weeds) if (r.line.visible && !w.mesh.visible && !(S.singleBead && r.grainOn)) w.mesh.visible = true;
     }
