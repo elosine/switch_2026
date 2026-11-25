@@ -104,9 +104,15 @@ const KNOBS = [
     ['kickWidth', 'Kick width (points)', 0.5, 12, 0.5, 4],
   ]],
   ['Tremolo — ropes 1 … 4 are the four players (the data sets these; the knobs set only the scale)', [
-    ['quiver', 'Quiver size', 0, 200, 1, 45],
-    ['qMaxHz', 'Fastest quiver shown (a second)', 1, 15, 0.5, 7],
-    ['accentKick', 'Accent kick', 0, 3000, 10, 1100],
+    ['turnMin', 'Slowest turn (turns a second)', 0, 2, 0.05, 0.35],
+    ['turnMax', 'Fastest turn (turns a second)', 0.5, 5, 0.05, 2.4],
+    ['crankR', 'Crank size', 0, 120, 1, 38],
+    ['ropeSlack', 'Jump-rope slack (at rest)', 1, 1.4, 0.005, 1.1],
+    ['pull', 'Tension: how far the ends pull apart at full speed', 0, 200, 1, 70],
+    ['inertia', 'How quickly the turning follows the tremolo', 0.1, 6, 0.05, 1.2],
+    ['ropeAir', 'Jump-rope air (1 = none)', 0.97, 1, 0.001, 0.996],
+    ['accentPush', 'Accent push (extra turns a second)', 0, 3, 0.05, 0.8],
+    ['accentKick', 'Accent kick', 0, 3000, 10, 250],
     ['roomDepth', 'Place in the room → depth', 0, 800, 10, 300],
     ['agitate', 'Busy player → tumbleweeds stir', 0, 1, 0.01, 0.7],
   ]],
@@ -171,7 +177,7 @@ function build() {
   const lay = rng(S.seed), sph = sphereEdges(S.res), pal = PALETTES[S.palette] || PALETTES.dekooning;
   for (let i = 0; i < S.ropes; i++) {
     const y = R(lay, -S.spreadY, S.spreadY), z = R(lay, -S.spreadZ, S.spreadZ), n = S.nodes;
-    const span = W, len = span * S.slack, seg = len / (n - 1);
+    const span = W, len = span * (D && D.players[i] ? S.ropeSlack : S.slack), seg = len / (n - 1);
     const p = new Float32Array(3 * n), q = new Float32Array(3 * n);
     // start hanging in a shallow arc so the slack is already taken up
     const sag = Math.sqrt(Math.max(0, (len * len - span * span))) * 0.5;
@@ -188,14 +194,14 @@ function build() {
     // [his "the polygons don't feel part of the rope"] a faint line through the points, the rope's own colour
     const lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(3 * n), 3));
     const line = new THREE.Line(lg, new THREE.LineBasicMaterial({ color: colour, transparent: true, opacity: S.spine })); scene.add(line);
-    ropes.push({ pl: D && D.players[i] ? D.players[i] : null, qph: 0, A: 0, zt: z, ze: z, st: null, p, q, n, seg, y, z, weeds, line, ph: R(lay, 0, Math.PI * 2), ph2: R(lay, 0, Math.PI * 2), timer: Math.round(R(live, S.scrL, S.scrH)) });
+    ropes.push({ pl: D && D.players[i] ? D.players[i] : null, th: R(lay, 0, Math.PI * 2), w: 0, wT: 0, pullC: 0, pullT: 0, zt: z, ze: z, st: null, p, q, n, seg, y, z, weeds, line, ph: R(lay, 0, Math.PI * 2), ph2: R(lay, 0, Math.PI * 2), timer: Math.round(R(live, S.scrL, S.scrH)) });
   }
 }
 
 const STEP = 1 / 120, ITER = 24;
 let simT = 0;
 function stepRope(r, dt) {
-  const { p, q, n } = r, g = S.gravity * dt * dt, d = S.damping;
+  const { p, q, n } = r, g = S.gravity * dt * dt, d = r.pl ? S.ropeAir : S.damping;
   // [his "pretty subtle motion at rest"] a breeze: a slow, smooth push that drifts along the rope — two sines, the rope's own phases
   const w = 2 * Math.PI * S.breezeHz, bz = S.breeze * dt * dt;
   for (let j = 1; j < n - 1; j++) {
@@ -206,7 +212,20 @@ function stepRope(r, dt) {
     }
   }
   // [§519] the player's place in the room moves the rope's pinned ends forward and back, smoothly
-  if (r.pl) { r.ze += (r.zt - r.ze) * 0.01; for (const j of [0, n - 1]) { q[3 * j + 2] = p[3 * j + 2]; p[3 * j + 2] = r.ze; } }
+  // [§520 — his "more of a jump rope swing … a cranking motion … the tremolo acceleration achieved through tautness"] THE CRANK: both ends
+  // turn in a small circle together (a jump rope's two handles); the turning speed follows the tremolo with inertia (it is pushed up to speed,
+  // it coasts down); THE TENSION: the faster it turns, the further the ends pull apart, so the loop narrows as it speeds up
+  if (r.pl) {
+    const k = Math.min(1, S.inertia * dt);
+    r.w += (r.wT - r.w) * k; r.pullC += (r.pullT - r.pullC) * k; r.ze += (r.zt - r.ze) * 0.01;
+    r.th += 2 * Math.PI * r.w * dt;
+    const c = S.crankR * Math.min(1, r.w / Math.max(0.05, S.turnMin));       // a still crank is at rest, not held in a circle
+    const ey = r.y + c * Math.sin(r.th), ez = r.ze - c * Math.cos(r.th);
+    for (const [j, x] of [[0, -W / 2 - r.pullC], [n - 1, W / 2 + r.pullC]]) {
+      q[3 * j] = p[3 * j]; q[3 * j + 1] = p[3 * j + 1]; q[3 * j + 2] = p[3 * j + 2];
+      p[3 * j] = x; p[3 * j + 1] = ey; p[3 * j + 2] = ez;
+    }
+  }
   for (let it = 0; it < ITER; it++) for (let j = 0; j < n - 1; j++) {
     const a = 3 * j, b = a + 3, dx = p[b] - p[a], dy = p[b + 1] - p[a + 1], dz = p[b + 2] - p[a + 2];
     const L = Math.hypot(dx, dy, dz) || 1e-6, diff = (L - r.seg) / L;
@@ -234,11 +253,14 @@ function tick(now) {
     const P = r.pl, on = at(P.on, tNow), sp = at(P.speed, tNow), dp = at(P.depth, tNow), hd = at(P.hardness, tNow);
     r.st = { on, sp, dp, hd };
     r.zt = r.z + (at(P.azimuth, tNow) / 90) * S.roomDepth;
-    const fvis = 1 + Math.max(0, sp - 2) / 18 * (S.qMaxHz - 1);
-    if (playing) r.qph += fvis * dt;
-    const A = S.quiver * on * (0.3 + 0.7 * Math.max(0, Math.min(1, (dp - 0.65) / 0.35)));
-    r.A += (A - r.A) * Math.min(1, dt * 6);
-    if (playing && !jump) for (const a of P.accents) if (a > tPrev && a <= tNow) kick(r, R(live, 3, r.n - 4), S.accentKick * (0.5 + 0.5 * Math.max(0, Math.min(1, (hd - 1.5) / 3))));
+    const busy = Math.max(0, Math.min(1, (sp - 2) / 18)), sounding = Math.min(1, on * 1.5);
+    r.wT = playing ? sounding * (S.turnMin + (S.turnMax - S.turnMin) * busy) * (0.75 + 0.25 * Math.max(0, Math.min(1, (dp - 0.65) / 0.35))) : 0;
+    r.pullT = playing ? S.pull * sounding * busy : 0;
+    if (playing && !jump) for (const a of P.accents) if (a > tPrev && a <= tNow) {
+      const hn = 0.5 + 0.5 * Math.max(0, Math.min(1, (hd - 1.5) / 3));
+      r.w += S.accentPush * hn;                                              // an accent PUSHES the crank, like a push on a swing
+      if (S.accentKick) kick(r, R(live, 3, r.n - 4), S.accentKick * hn);
+    }
   }
   tPrev = tNow;
   while (acc >= STEP) {
@@ -261,9 +283,8 @@ function tick(now) {
     }
     const al = acc / STEP, lp = r.line.geometry.attributes.position.array;     // drawn between the last two physics steps: no judder
     for (let j = 0; j < r.n; j++) {
-      // [§519] THE QUIVER: the player's tremolo as a standing wave on the rope — its speed the tremolo's (scaled to what a picture can show),
-      // its size the tremolo's depth, zero while the player is silent; a second, faster shape on top so it is not a plain sine
-      const u = j / (r.n - 1), qv = r.A ? r.A * (Math.sin(2 * Math.PI * r.qph) * Math.sin(Math.PI * u) + 0.35 * Math.sin(2 * Math.PI * 1.7 * r.qph + 1) * Math.sin(2 * Math.PI * u)) : 0;
+      // [§520] the quiver of §519 (a drawn standing wave) is gone — his "stiff … almost like it's wire"; the crank above moves the rope now
+      const qv = 0;
       const w = r.weeds[j], x = r.q[3 * j] + (r.p[3 * j] - r.q[3 * j]) * al, y = r.q[3 * j + 1] + (r.p[3 * j + 1] - r.q[3 * j + 1]) * al + qv, z = r.q[3 * j + 2] + (r.p[3 * j + 2] - r.q[3 * j + 2]) * al + qv * 0.4;
       w.mesh.position.set(x, y, z); lp[3 * j] = x; lp[3 * j + 1] = y; lp[3 * j + 2] = z;
       if (w.to) {
@@ -277,13 +298,13 @@ function tick(now) {
   bloom.strength = S.bloom; bloom.radius = S.radius; bloom.threshold = S.thresh;
   controls.update(); composer.render();
   const t = audio.currentTime; timeEl.textContent = fmt(t); if (!scrubbing) scrub.value = t;
-  if (frame % 6 === 0) legend.innerHTML = ropes.filter(r => r.pl).map(r => '<div><span style="color:#' + r.line.material.color.getHexString() + '">■</span> ' + PLAYER_NAMES[r.pl.part] + (r.st && r.st.on > 0.05 ? ' · ' + r.st.sp.toFixed(1) + ' Hz · depth ' + r.st.dp.toFixed(2) : ' · silent') + '</div>').join('');
+  if (frame % 6 === 0) legend.innerHTML = ropes.filter(r => r.pl).map(r => '<div><span style="color:#' + r.line.material.color.getHexString() + '">■</span> ' + PLAYER_NAMES[r.pl.part] + (r.st && r.st.on > 0.05 ? ' · tremolo ' + r.st.sp.toFixed(1) + ' Hz · turning ' + r.w.toFixed(2) + ' a second' : ' · silent') + '</div>').join('');
   requestAnimationFrame(tick);
 }
 
 // ------------------------------------------------------------------ the knobs panel
 const panel = document.getElementById('panel');
-const REBUILD = new Set(['ropes', 'nodes', 'spreadY', 'spreadZ', 'slack', 'seed', 'res', 'palette', 'taper', 'sizeL', 'sizeH']);
+const REBUILD = new Set(['ropes', 'nodes', 'spreadY', 'spreadZ', 'slack', 'ropeSlack', 'seed', 'res', 'palette', 'taper', 'sizeL', 'sizeH']);
 function knobsHtml() {
   let h = '<h2>Palette</h2><select id="k-palette">' + Object.keys(PALETTES).map(k => '<option value="' + k + '"' + (k === S.palette ? ' selected' : '') + '>' + PALETTE_NAMES[k] + '</option>').join('') + '</select>';
   for (const [title, rows] of KNOBS) {
@@ -323,6 +344,7 @@ document.getElementById('kick').onclick = () => ropes.forEach(r => kick(r, R(liv
 window.addEventListener('keydown', e => { if (e.code === 'Space' && e.target.tagName !== 'INPUT') { e.preventDefault(); playBtn.click(); } });
 
 resize(); build(); requestAnimationFrame(tick);
+window.__V = { get ropes() { return ropes; }, camera, S };   // for inspection only
 </script>
 </body>
 </html>
