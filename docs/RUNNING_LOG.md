@@ -6744,3 +6744,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 
 **His words:** *"the dotted vertical go lines, all that. Just, can you grab my language from before? And let's just use the precise language I used before in the most recent version of this concept."*
 **FOUND:** the concept in four pages — the tubas (08-31) · Scattered Substance (09-17) · Recombination (10-03, the latest) · not in Approaching. **DONE:** Recombination's sentence verbatim: *During the gradient curves, the dotted vertical go-lines are rearticulation points — the rearticulation should happen at the go-line: breathe or retake the bow before, and rearticulate at the line.* Its second sentence (the animated dial counting down) left out: this score draws no dial (the opening's animated kinds are the curve meters only, measured). The AI's sentence on the pitch curve across a breath went with the paragraph.
+
+## §499 · 2026-11-24 · the instructions: the bowed crotales
+
+**His words:** *"The bowed crotales will hold their pitch, the sine tone is changing pitch and will create beating against the held pitch in the bowed crotales."* — set as *The bowed crotales hold their pitch. The sine tone changes pitch and creates beating against the held pitch of the bowed crotales.* (his sentence in the present tense, split in two), replacing the AI's line.
