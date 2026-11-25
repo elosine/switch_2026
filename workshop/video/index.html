@@ -132,7 +132,10 @@ const KNOBS = [
     ['gEase', 'How slowly it follows (seconds)', 0.05, 3, 0.05, 0.8],
     ['grainGlow', 'A fuller tumbleweed is brighter', 0, 1, 0.01, 0.4],
     ['grainMorph', 'Its re-scramble glide, slower by', 1, 8, 0.5, 3],
-    ['grainTurn', 'Under the grains the rope turns slowly by itself (turns a second)', 0, 1.5, 0.01, 0.22],
+    ['grainTurn', 'Under the grains the rope turns slowly by itself (turns a second)', 0, 1.5, 0.01, 0.34],
+    ['swingPush', 'Now and then a push on the swing (extra turns a second)', 0, 3, 0.05, 0.55],
+    ['swingEvery', 'About how often (seconds)', 0.5, 20, 0.1, 5],
+    ['swingCoast', 'How slowly it coasts back after a push', 0.02, 3, 0.01, 0.25],
     ['singleBead', 'One bead only, following where the sound is (1 = on)', 0, 1, 1, 0],
     ['growMode', 'Where the sound is, the beads grow (1 = on)', 0, 1, 1, 1],
     ['growSmall', 'A bead at rest (× its size)', 0.02, 1, 0.01, 0.15],
@@ -141,12 +144,12 @@ const KNOBS = [
     ['growAttack', 'How fast a bead grows (seconds)', 0.005, 0.5, 0.005, 0.03],
     ['growRelease', 'How slowly it shrinks back (seconds)', 0.02, 2, 0.01, 0.14],
     ['beadJitter', 'The beads not evenly spaced (share of their gap)', 0, 2, 0.01, 0.8],
-    ['grainPull', 'Under the grains the rope'+"'"+'s ends pull apart (a smaller swing)', 0, 200, 1, 70],
+    ['grainPull', 'Under the grains the rope'+"'"+'s ends pull apart (a smaller swing)', 0, 200, 1, 95],
     ['shadow', 'The shadow rope: the grains as a wiggle across it (1 = on)', 0, 1, 1, 1],
     ['shadowWidth', 'The shadow rope'+"'"+'s thickness (pixels)', 1, 30, 0.25, 6.25],
     ['shadowOp', 'The shadow rope'+"'"+'s strength', 0, 1, 0.01, 0.55],
     ['shadowKick', 'Each grain kicks the shadow rope where the sound is', 0, 200, 1, 45],
-    ['shadowMax', 'The shadow strays at most about (a soft limit)', 5, 400, 1, 110],
+    ['shadowMax', 'The shadow strays at most about (a soft limit)', 5, 400, 1, 75],
     ['spineInState', 'In the new state, the rope line shows (1) or not (0)', 0, 1, 1, 0],
     ['shadowTravel', 'Seconds for a kick to cross the shadow rope', 0.1, 3, 0.05, 0.7],
     ['shadowDamp', 'How soon its wiggles die', 0, 10, 0.05, 2.5],
@@ -389,7 +392,7 @@ function stepRope(r, dt) {
     p[3 * fixed] = (fixed === 0 ? -1 : 1) * (W / 2 + r.pullC + S.soloPull * soloK); p[3 * fixed + 1] = r.y; p[3 * fixed + 2] = r.z;
     p[3 * hand] += (hand === 0 ? -1 : 1) * S.soloPull * soloK;
   } else if (r.pl) {
-    const k = Math.min(1, S.inertia * dt);
+    const k = Math.min(1, (r.grainOn ? S.swingCoast : S.inertia) * dt);   // [§554] in the state the swing coasts slowly between pushes
     r.w += (r.wT - r.w) * k; r.pullC += (r.pullT - r.pullC) * k; r.ze += (r.zt - r.ze) * 0.01;
     r.th += 2 * Math.PI * r.w * dt;
     const c = S.crankR * Math.min(1, r.w / Math.max(0.05, S.turnMin));       // a still crank is at rest, not held in a circle
@@ -543,6 +546,9 @@ function tick(now) {
       if (playing && !jump) for (const a of P.accents) if (a > tPrev && a <= tNow) r.snapK = Math.min(2.5, r.snapK + S.snap * r.ch.snap * (0.5 + 0.5 * Math.max(0, Math.min(1, (hd - 1.5) / 3))));
       continue;
     }
+    // [§554 — his "give it a swing, like a jump rope, but not too much excursion … like a crank every once in a while, like a push on a swing. So
+    // it swings all the way around and then slowly, but on its own sort of pace"] a PUSH now and then on the rope's own clock; between pushes it coasts
+    if (r.grainOn && playing) { if (r.swingNext == null || tNow > r.swingNext + 30 || tNow < r.swingNext - 30) r.swingNext = tNow + 0.5; if (tNow >= r.swingNext) { r.w += S.swingPush; r.swingNext = tNow + R(live, 0.6, 1.4) * S.swingEvery; } }
     r.wT = r.grainOn ? (playing ? S.grainTurn : 0) : playing ? sounding * (S.turnMin + (S.turnMax - S.turnMin) * busy) * (0.75 + 0.25 * Math.max(0, Math.min(1, (dp - 0.65) / 0.35))) : 0;
     // [§547 — his "the amplitude … is a bit too much … a little bit more like a medium amplitude and just gently swing independent"]
     r.pullT = r.grainOn ? S.grainPull : playing ? S.pull * sounding * busy : 0;
