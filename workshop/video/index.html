@@ -17,7 +17,7 @@
   #time { width: 110px; font-variant-numeric: tabular-nums; }
   #scrub { flex: 1; }
   #panel { position: fixed; top: 0; right: 0; bottom: 46px; width: 290px; overflow-y: auto; background: var(--panel); border-left: 1px solid var(--line); padding: 10px 12px; box-sizing: border-box; }
-  #panel.hidden { display: none; }
+  #panel.hidden, #legend.hidden { display: none; }
   #legend { position: fixed; left: 12px; top: 10px; font-size: 12px; color: var(--dim); font-variant-numeric: tabular-nums; pointer-events: none; }
   #panel h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--dim); margin: 14px 0 6px; font-weight: 600; }
   #panel h2:first-child { margin-top: 0; }
@@ -39,8 +39,8 @@
 </head>
 <body>
 <div id="stage"></div>
-<div id="panel"></div>
-<div id="legend"></div>
+<div id="panel" class="hidden"></div>
+<div id="legend" class="hidden"></div>
 <div id="bar">
   <button id="play">Play</button>
   <span id="time">0:00.0</span>
@@ -48,6 +48,7 @@
   <button id="kick" title="kick every rope once">Kick all</button>
   <button id="showElec" title="the four electronics ropes (the session's tremolo)">Electronics: off</button>
   <button id="showEns" title="the five ensemble ropes (the score's notes)">Ensemble: on</button>
+  <button id="labels" title="the names and readings at the top left">Labels</button>
   <button id="toggle">Knobs</button>
 </div>
 <audio id="audio" src="/audio" preload="auto"></audio>
@@ -113,9 +114,9 @@ const KNOBS = [
     ['shakeShare', 'Rapid-fire: each small pulse (share of a note)', 0, 1, 0.01, 0.4],
     ['shakeRate', 'Rapid-fire: pulses a second', 2, 30, 0.5, 12],
     ['bounce', 'Bounce back from the far end (1 = yes)', 0, 1, 1, 1],
-    ['waveDamp', 'How quickly the pulses fade', 0, 2, 0.01, 0.25],
+    ['waveDamp', 'How quickly the pulses fade', 0, 2, 0.01, 0.08],
     ['smooth', 'Calm the jitter (smooths the wave\u2019s fine ripples)', 0, 0.25, 0.01, 0],
-    ['settle', 'Settle at rest (how soon the leftovers die away)', 0, 3, 0.01, 0.2],
+    ['settle', 'Settle at rest (how soon the leftovers die away)', 0, 3, 0.01, 0.03],
     ['soloPull', 'In the solo: ends pulled apart (+) or brought closer (−)', -150, 150, 1, -45],
     ['freeEnds', 'Ends slide on a pole (1 = free, 0 = pinned)', 0, 1, 0.01, 1],
     ['loopiness', 'A pulse is a loop (its sideways turn)', 0, 1.5, 0.01, 0.7],
@@ -492,7 +493,8 @@ panel.addEventListener('click', async e => {
   const r = await fetch('/settings', { method: 'POST', body: JSON.stringify(S) });
   document.getElementById('msg').textContent = r.ok ? 'Saved.' : 'Not saved.';
 });
-document.getElementById('toggle').onclick = () => panel.classList.toggle('hidden');
+document.getElementById('toggle').onclick = () => { panel.classList.toggle('hidden'); resize(); };
+document.getElementById('labels').onclick = () => document.getElementById('legend').classList.toggle('hidden');
 renderer.domElement.addEventListener('dblclick', homeCamera);
 
 // ------------------------------------------------------------------ the audio and the time
