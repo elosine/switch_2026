@@ -106,14 +106,16 @@ const KNOBS = [
   ]],
   ['Piano solo — one long rope, the piano rope first, pulses sent from its left end', [
     ['travel', 'Seconds for a pulse to cross one rope', 0.2, 3, 0.05, 1],
-    ['pulseAmp', 'Pulse size (a note)', 0, 250, 1, 80],
+    ['pulseAmp', 'Pulse size (a note)', 0, 250, 1, 120],
     ['pulseMs', 'Pulse width (milliseconds)', 15, 200, 1, 40],
     ['ribbonAmp', 'Ribbon: the broad swing', 0, 300, 1, 75],
     ['pebbleAmp', 'Pebbles: the slow upswing', 0, 300, 1, 120],
     ['shakeShare', 'Rapid-fire: each small pulse (share of a note)', 0, 1, 0.01, 0.4],
     ['shakeRate', 'Rapid-fire: pulses a second', 2, 30, 0.5, 12],
     ['bounce', 'Bounce back from the far end (1 = yes)', 0, 1, 1, 1],
-    ['waveDamp', 'How quickly the pulses fade', 0, 2, 0.01, 0.45],
+    ['waveDamp', 'How quickly the pulses fade', 0, 2, 0.01, 0.25],
+    ['smooth', 'Calm the jitter (smooths the wave\u2019s fine ripples)', 0, 0.25, 0.01, 0],
+    ['settle', 'Settle at rest (how soon the leftovers die away)', 0, 3, 0.01, 0.2],
     ['soloPull', 'In the solo: ends pulled apart (+) or brought closer (−)', -150, 150, 1, -45],
     ['freeEnds', 'Ends slide on a pole (1 = free, 0 = pinned)', 0, 1, 0.01, 1],
     ['loopiness', 'A pulse is a loop (its sideways turn)', 0, 1.5, 0.01, 0.7],
@@ -362,19 +364,30 @@ function waveStep(ts, dt) {
   for (const [u, uo] of [[uy, uyo], [uz, uzo]]) {
     // every new value from the OLD neighbours only (an in-place update read already-new neighbours and blew up — §529's first try)
     const nu = waveTmp.length === M ? waveTmp : (waveTmp = new Float32Array(M));
-    for (let i = 1; i < M - 1; i++) nu[i] = 2 * u[i] - uo[i] + c2 * (u[i + 1] - 2 * u[i] + u[i - 1]) - g * (u[i] - uo[i]);
+    // [§532 — his "a shaky jitter, like they're nervous ropes … if there's not an actual pulse going through it … more at rest"] a grid's wave
+    // trails fine ripples behind a sharp pulse; a damping that acts only on the FINE ripples (the velocity's own curvature, Kelvin–Voigt)
+    // calms them and leaves the pulse; and everything left over settles away at S.settle a second
+    const kv = Math.min(S.smooth, 0.9 * (1 - c2) / 2);   // above this the wave grows without bound (measured offline, §532)
+    for (let i = 1; i < M - 1; i++) nu[i] = 2 * u[i] - uo[i] + c2 * (u[i + 1] - 2 * u[i] + u[i - 1]) - g * (u[i] - uo[i])
+      + kv * ((u[i + 1] - uo[i + 1]) - 2 * (u[i] - uo[i]) + (u[i - 1] - uo[i - 1]));
     nu[M - 1] = S.bounce ? 0 : u[M - 2] + ((c - 1) / (c + 1)) * (nu[M - 2] - u[M - 1]);   // tied (a bounce) or open (Mur's boundary lets it out)
-    for (let i = 1; i < M; i++) { uo[i] = u[i]; u[i] = nu[i]; }
+    const keep = 1 - S.settle * dt;
+    for (let i = 1; i < M; i++) { uo[i] = u[i] * keep; u[i] = nu[i] * keep; }
     uo[0] = u[0];
   }
   uy[0] = hy; uz[0] = hz;
 }
 
 // ------------------------------------------------------------------ the loop
-let acc = 0, last = performance.now(), frame = 0, tPrev = 0;
+let acc = 0, last = performance.now(), frame = 0, tPrev = 0, clk = 0;
 function tick(now) {
   const dt = Math.min(0.1, (now - last) / 1000); last = now; acc += dt;
-  const tNow = audio.currentTime, playing = !audio.paused, jump = Math.abs(tNow - tPrev) > 0.5;
+  // [§532 — his "a shaky jitter, like they're nervous ropes"] A SMOOTH CLOCK: the audio's own clock moves in uneven steps (it is updated in
+  // chunks), and the hand read from it came out jagged — the jitter. The page keeps its own clock, running with the frames and eased toward the
+  // audio's; a jump (a seek) is taken at once
+  const playing = !audio.paused, at0 = audio.currentTime;
+  if (!playing || Math.abs(at0 - clk) > 0.25) clk = at0; else clk += dt + (at0 - clk) * Math.min(1, dt * 2);
+  const tNow = clk, jump = Math.abs(tNow - tPrev) > 0.5;
   if (D) for (const r of ropes) {
     if (!r.pl) continue;
     const P = r.pl, on = at(P.on, tNow), sp = at(P.speed, tNow), dp = at(P.depth, tNow), hd = at(P.hardness, tNow);
