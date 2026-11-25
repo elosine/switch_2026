@@ -149,6 +149,8 @@ const KNOBS = [
     ['shadowTravel', 'Seconds for a kick to cross the shadow rope', 0.1, 3, 0.05, 0.7],
     ['shadowDamp', 'How soon its wiggles die', 0, 10, 0.05, 2.5],
     ['shadowZ', 'The shadow rope sits behind (+ in front)', -200, 200, 1, -25],
+    ['shadowBalls', 'The shadow as a chain of balls, unconnected (1) or a line (0)', 0, 1, 1, 1],
+    ['ballCount', 'How many balls in the chain', 10, 300, 1, 90],
     ['beadFollow', 'How quickly the bead follows the sound (seconds)', 0.02, 1, 0.01, 0.12],
     ['beadSize', 'The bead’s size (× a tumbleweed)', 0.5, 4, 0.05, 1.8],
     ['beadSpread', 'Spread the bead to the ends (1 = as measured; beyond the end it stops there)', 1, 5, 0.05, 2],
@@ -276,10 +278,13 @@ function weedRad(j, n, seg, mul = 1) {
 }
 function scramble(pos, n, rad, rand) { for (let k = 0; k < n; k++) { pos[3 * k] = R(rand, -rad, rad); pos[3 * k + 1] = R(rand, -rad, rad); pos[3 * k + 2] = R(rand, -rad, rad); } }
 
+// [§549] a round dot for the ball chain: a small canvas drawn once, used as the points' shape
+const DOT = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'); g.fillStyle = '#fff'; g.beginPath(); g.arc(32, 32, 30, 0, Math.PI * 2); g.fill(); const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; return tx; })();
+
 // ------------------------------------------------------------------ the ropes (Verlet: positions now and before; the ends pinned)
 let ropes = [], live = rng(12345);
 function build() {
-  ropes.forEach(r => { if (r.dense) r.dense.forEach(d => { scene.remove(d.mesh); d.mesh.geometry.dispose(); d.mesh.material.dispose(); }); if (r.shadow) { scene.remove(r.shadow); r.shadow.geometry.dispose(); r.shadow.material.dispose(); } r.weeds.forEach(w => { scene.remove(w.mesh); w.mesh.geometry.dispose(); w.mesh.material.dispose(); }); scene.remove(r.line); r.line.geometry.dispose(); r.line.material.dispose(); });
+  ropes.forEach(r => { if (r.shadow && r.shadow.balls) { scene.remove(r.shadow.balls); r.shadow.balls.geometry.dispose(); r.shadow.balls.material.dispose(); } if (r.dense) r.dense.forEach(d => { scene.remove(d.mesh); d.mesh.geometry.dispose(); d.mesh.material.dispose(); }); if (r.shadow) { scene.remove(r.shadow); r.shadow.geometry.dispose(); r.shadow.material.dispose(); } r.weeds.forEach(w => { scene.remove(w.mesh); w.mesh.geometry.dispose(); w.mesh.material.dispose(); }); scene.remove(r.line); r.line.geometry.dispose(); r.line.material.dispose(); });
   ropes = [];
   const lay = rng(S.seed), pal = PALETTES[S.palette] || PALETTES.dekooning;
   for (let i = 0; i < S.ropes; i++) {
@@ -309,6 +314,10 @@ function build() {
       const sm = new LineMaterial({ color: colour.getHex(), linewidth: S.shadowWidth, transparent: true, opacity: S.shadowOp, worldUnits: false });
       sm.resolution.set(window.innerWidth, window.innerHeight - 46);
       shadow = new Line2(new LineGeometry(), sm); shadow.visible = false; scene.add(shadow);
+      // [§549 — his "instead of the rope, let's make a chain of balls without any connections. We'll start at that thickness"] the shadow as balls
+      const NB = Math.max(2, Math.round(S.ballCount)), bg = new THREE.BufferGeometry(); bg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(3 * NB), 3));
+      shadow.balls = new THREE.Points(bg, new THREE.PointsMaterial({ color: colour, size: S.shadowWidth, sizeAttenuation: false, map: DOT, transparent: true, alphaTest: 0.4, opacity: S.shadowOp }));
+      shadow.balls.visible = false; scene.add(shadow.balls);
     }
     // [§548] THE DENSE BEADS (an electronics rope only): K of them at uneven places along the rope, the ELEC look; hidden until the state
     let dense = null;
@@ -678,6 +687,15 @@ function tick(now) {
         for (let j = 0; j < r.n; j++) { pts[3 * j] = lp[3 * j]; pts[3 * j + 1] = lp[3 * j + 1] + r.tw[j]; pts[3 * j + 2] = lp[3 * j + 2] + S.shadowZ; }
         r.shadow.geometry.setPositions(pts); r.shadow.material.linewidth = S.shadowWidth; r.shadow.material.opacity = S.shadowOp;
       }
+      const B = r.shadow.balls, bon = on && !!S.shadowBalls; B.visible = bon; if (bon) r.shadow.visible = false;
+      if (bon) {                                                             // [§549] the balls at even places along the shadow (between its points)
+        const bp = B.geometry.attributes.position.array, NB = bp.length / 3, pts = r.shPts;
+        for (let k = 0; k < NB; k++) {
+          const u = k / (NB - 1) * (r.n - 1), a = Math.min(r.n - 2, Math.floor(u)), f = u - a;
+          for (let c = 0; c < 3; c++) bp[3 * k + c] = pts[3 * a + c] + (pts[3 * a + 3 + c] - pts[3 * a + c]) * f;
+        }
+        B.geometry.attributes.position.needsUpdate = true; B.material.size = S.shadowWidth; B.material.opacity = S.shadowOp;
+      }
     }
   }
   bloom.strength = S.bloom; bloom.radius = S.radius; bloom.threshold = S.thresh;
@@ -693,7 +711,7 @@ function tick(now) {
 
 // ------------------------------------------------------------------ the knobs panel
 const panel = document.getElementById('panel');
-const REBUILD = new Set(['beadJitter', 'ropes', 'nodes', 'spreadY', 'spreadZ', 'slack', 'ropeSlack', 'ensSlack', 'seed', 'res', 'palette', 'taper', 'sizeL', 'sizeH']);
+const REBUILD = new Set(['ballCount', 'beadJitter', 'ropes', 'nodes', 'spreadY', 'spreadZ', 'slack', 'ropeSlack', 'ensSlack', 'seed', 'res', 'palette', 'taper', 'sizeL', 'sizeH']);
 function knobsHtml() {
   let h = '<h2>Palette</h2><select id="k-palette">' + Object.keys(PALETTES).map(k => '<option value="' + k + '"' + (k === S.palette ? ' selected' : '') + '>' + PALETTE_NAMES[k] + '</option>').join('') + '</select>';
   for (const [title, rows] of KNOBS) {
