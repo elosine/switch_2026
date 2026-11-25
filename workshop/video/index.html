@@ -212,7 +212,9 @@ const KNOBS = [
     ['turnsPerBeat', 'Turns per beat', 0.25, 2, 0.25, 1],
     ['fDepth', 'The loop'+"'"+'s depth at 60 beats a minute (faster is tighter, shallower)', 20, 500, 5, 230],
     ['fTight', 'How much faster tightens it (1 = depth in proportion to 60 ÷ tempo)', 0, 2, 0.05, 1],
-    ['oneRope', 'Only one instrument rope (1 = the flute)', 0, 1, 1, 1],
+    ['oneRope', 'Only one instrument rope (1 = the flute)', 0, 1, 1, 0],
+    ['fShort', 'The others shorter: the shortest (× the flute'+"'"+'s length)', 0.3, 1, 0.01, 0.62],
+    ['fSpread', 'Their humps spread across (share of the width)', 0, 1, 0.01, 0.62],
     ['fCrank', 'The crank'+"'"+'s size', 0, 120, 1, 45],
     ['fSlack', 'Ends brought in (a looser rope, a rounder loop)', 0, 300, 5, 110],
     ['fPull', 'Faster tempo pulls the ends apart by (at the fastest)', 0, 300, 5, 120],
@@ -369,7 +371,11 @@ function build() {
     // [§556 — his "a variety of amplitudes and rates … not … that dramatically … not quite max rate … a little bit of jitter … some … slightly
     // bigger … mostly ones that are smaller"] the first rope keeps the rate and depth he set; the others a little slower or a touch faster, mostly shallower
     const vr = rng(S.seed * 977 + i), rotF = i === 0 ? 1 : 0.72 + 0.36 * vr(), depF = i === 0 ? 1 : 0.62 + 0.52 * Math.pow(vr(), 1.7);
-    ropes.push({ rotF, depF, tz: new Float32Array(n), tzo: new Float32Array(n), dense, shadow, tw: new Float32Array(n), two: new Float32Array(n), jit, lw: new Float32Array(n), lwo: new Float32Array(n), ch, pl: src, side: i % 2 ? n - 1 : 0, sf: 0, sfT: 0, sa: 0, saT: 0, sph: 0, snapK: 0, th: R(lay, 0, Math.PI * 2), w: 0, wT: 0, pullC: 0, pullT: 0, zt: z, ze: z, st: null, p, q, n, seg, y, z, weeds, line, ph: R(lay, 0, Math.PI * 2), ph2: R(lay, 0, Math.PI * 2), timer: Math.round(R(live, S.scrL, S.scrH)) });
+    // [§566 — his "shorten … the other instrument ones of various lengths … not that much shorter, but not all the same length … displace them so
+    // you're seeing the humps at slightly different horizontal locations. They can overlap"] each instrument rope but the flute: its own length and
+    // its hump's place across the width (seeded; the places dealt out across the spread so no two humps sit together)
+    const fr = rng(S.seed * 613 + i), fLen = src && src.kind === 'ensemble' && src.part !== 'flute' ? S.fShort + (1 - S.fShort) * 0.85 * fr() : 1;
+    ropes.push({ fLen, fSlot: fr(), rotF, depF, tz: new Float32Array(n), tzo: new Float32Array(n), dense, shadow, tw: new Float32Array(n), two: new Float32Array(n), jit, lw: new Float32Array(n), lwo: new Float32Array(n), ch, pl: src, side: i % 2 ? n - 1 : 0, sf: 0, sfT: 0, sa: 0, saT: 0, sph: 0, snapK: 0, th: R(lay, 0, Math.PI * 2), w: 0, wT: 0, pullC: 0, pullT: 0, zt: z, ze: z, st: null, p, q, n, seg, y, z, weeds, line, ph: R(lay, 0, Math.PI * 2), ph2: R(lay, 0, Math.PI * 2), timer: Math.round(R(live, S.scrL, S.scrH)) });
   }
 }
 
@@ -493,6 +499,10 @@ function grainsFrame(t0, t1, jumped) {
 // leaves one rope and appears on the next.
 const WK = 3;   // [§531] wave points per rope point
 let chain = [], M = 0, uy, uyo, uz, uzo, soloK = 0, waveT = -1, waveTmp = new Float32Array(0);
+function dealCentres() {                                                    // [§566] the shortened ropes' humps dealt across the width
+  const rs = ropes.filter(r => r.fLen < 1).sort((a, b) => a.fSlot - b.fSlot), k = rs.length;
+  rs.forEach((r, i) => { r.fCx = k > 1 ? (-0.5 + i / (k - 1)) * W * S.fSpread : 0; });
+}
 function buildChain() {
   if (!D || !D.solo) { chain = []; return; }
   const first = ropes.find(r => r.pl && r.pl.kind === 'ensemble' && r.pl.part === 'piano');
@@ -639,10 +649,11 @@ function tick(now) {
       // between its ends EXACTLY one turn per beat (its angle the beat count), its DEPTH the tension: depth = fDepth · (60 ÷ tempo)^fTight — a faster
       // tempo a tighter, shallower loop. It eases in from the physics with the section's weight.
       if (r.pl && r.pl.kind === 'ensemble' && r.fin && finalK > 0) {
-        const e = finalK * finalK * (3 - 2 * finalK), n = r.n, th = 2 * Math.PI * r.fin.beats * S.turnsPerBeat, dep = S.fDepth * Math.pow(60 / Math.max(20, r.fin.bpm), S.fTight);
+        const e = finalK * finalK * (3 - 2 * finalK), n = r.n, th = 2 * Math.PI * r.fin.beats * S.turnsPerBeat, dep = S.fDepth * Math.sqrt(r.fLen) * Math.pow(60 / Math.max(20, r.fin.bpm), S.fTight);
+        const L = W * r.fLen, room = (W - L) / 2, cx = r.fLen >= 1 ? 0 : Math.max(-room, Math.min(room, r.fCx ?? 0));   // [§566] its length and its centre
         const c = Math.cos(th), s = Math.sin(th);
         for (let j = 0; j < n; j++) {
-          const u = j / (n - 1), d = dep * Math.sin(Math.PI * u), tx = -W / 2 + W * u, ty = r.y - d * c, tz = r.z + d * s;
+          const u = j / (n - 1), d = dep * Math.sin(Math.PI * u), tx = cx - L / 2 + L * u, ty = r.y - d * c, tz = r.z + d * s;
           for (const [a, v] of [[0, tx], [1, ty], [2, tz]]) { const k = 3 * j + a, was = r.fp ? r.fp[k] : r.p[k], now = r.p[k] + (v - r.p[k]) * e; r.q[k] = was; r.p[k] = now; (r.fp || (r.fp = new Float32Array(3 * n)))[k] = now; }
         }
       } else if (r.fp) r.fp = null;
@@ -830,7 +841,7 @@ function tick(now) {
 
 // ------------------------------------------------------------------ the knobs panel
 const panel = document.getElementById('panel');
-const REBUILD = new Set(['satCount', 'ballCount', 'beadJitter', 'ropes', 'nodes', 'spreadY', 'spreadZ', 'slack', 'ropeSlack', 'ensSlack', 'seed', 'res', 'palette', 'taper', 'sizeL', 'sizeH']);
+const REBUILD = new Set(['fShort', 'satCount', 'ballCount', 'beadJitter', 'ropes', 'nodes', 'spreadY', 'spreadZ', 'slack', 'ropeSlack', 'ensSlack', 'seed', 'res', 'palette', 'taper', 'sizeL', 'sizeH']);
 function knobsHtml() {
   let h = '<h2>Palette</h2><select id="k-palette">' + Object.keys(PALETTES).map(k => '<option value="' + k + '"' + (k === S.palette ? ' selected' : '') + '>' + PALETTE_NAMES[k] + '</option>').join('') + '</select>';
   for (const [title, rows] of KNOBS) {
@@ -847,7 +858,8 @@ panel.addEventListener('input', e => {
   const o = document.getElementById('o-' + id); if (o) o.textContent = S[id];
   if (id === 'opacity') ropes.forEach(r => r.weeds.forEach(w => w.mesh.material.opacity = S.opacity * r.ch.op));
   if (id === 'spine') ropes.forEach(r => r.line.material.opacity = S.spine);
-  if (REBUILD.has(id)) { build(); applyShow(); buildChain(); }
+  if (REBUILD.has(id)) { build(); applyShow(); buildChain(); dealCentres(); }
+  if (id === 'fSpread') dealCentres();
   if (id === 'frameY') homeCamera();
   if (id === 'oneRope') applyShow();
 });
@@ -887,7 +899,7 @@ document.getElementById('onlyGrain').onclick = () => { S.onlyGrain = S.onlyGrain
 document.getElementById('kick').onclick = () => ropes.forEach(r => kick(r, R(live, 3, r.n - 4), S.kick * 1.5));
 window.addEventListener('keydown', e => { if (e.code === 'Space' && e.target.tagName !== 'INPUT') { e.preventDefault(); playBtn.click(); } });
 
-resize(); build(); applyShow(); buildChain(); requestAnimationFrame(tick);
+resize(); build(); applyShow(); buildChain(); dealCentres(); requestAnimationFrame(tick);
 window.__V = { get ropes() { return ropes; }, camera, S, get uy() { return uy; }, get soloK() { return soloK; }, hand: t => hand(t) };   // for inspection only
 </script>
 </body>
