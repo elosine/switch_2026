@@ -130,7 +130,14 @@ const KNOBS = [
     ['grainGlow', 'A fuller tumbleweed is brighter', 0, 1, 0.01, 0.4],
     ['grainMorph', 'Its re-scramble glide, slower by', 1, 8, 0.5, 3],
     ['grainTurn', 'Under the grains the rope turns slowly by itself (turns a second)', 0, 1.5, 0.01, 0.22],
-    ['singleBead', 'One bead only, following where the sound is (1 = on)', 0, 1, 1, 1],
+    ['singleBead', 'One bead only, following where the sound is (1 = on)', 0, 1, 1, 0],
+    ['growMode', 'Where the sound is, the beads grow (1 = on)', 0, 1, 1, 1],
+    ['growSmall', 'A bead at rest (× its size)', 0.02, 1, 0.01, 0.15],
+    ['growBig', 'A bead where the sound is (× its size)', 0.5, 8, 0.05, 3],
+    ['growWidth', 'How wide the growing place is (share of the rope)', 0.005, 0.3, 0.005, 0.05],
+    ['growAttack', 'How fast a bead grows (seconds)', 0.005, 0.5, 0.005, 0.03],
+    ['growRelease', 'How slowly it shrinks back (seconds)', 0.02, 2, 0.01, 0.35],
+    ['beadJitter', 'The beads not evenly spaced (share of their gap)', 0, 2, 0.01, 0.8],
     ['beadFollow', 'How quickly the bead follows the sound (seconds)', 0.02, 1, 0.01, 0.12],
     ['beadSize', 'The bead’s size (× a tumbleweed)', 0.5, 4, 0.05, 1.8],
     ['beadSpread', 'Spread the bead to the ends (1 = as measured; beyond the end it stops there)', 1, 5, 0.05, 2],
@@ -244,7 +251,7 @@ const CHAR = {
 };
 const PLAIN = { nodes: 1, size: 1, res: 1, morph: 1, scr: 1, shake: 1, amp: 1, snap: 1, snapFade: 2.5, sway: 0.25, op: 1 };
 // [§540 — his "a slightly higher density of nodes for the electronic parts … keep their maximum size maybe kind of small"]
-const ELEC = { ...PLAIN, nodes: 1.7, size: 0.55 };
+const ELEC = { ...PLAIN, nodes: 4.2, size: 0.55 };   // [§545 — his "twice or even 3 times as dense … they could be sitting on top of each other"] was 1.7
 const charOf = src => (src && src.kind === 'ensemble' && CHAR[src.part]) || (src && src.kind === 'session' ? ELEC : PLAIN);
 const edgeCache = {}; const edgesFor = res => edgeCache[res] || (edgeCache[res] = sphereEdges(res));
 function weedRad(j, n, seg, mul = 1) {
@@ -279,7 +286,8 @@ function build() {
     // [his "the polygons don't feel part of the rope"] a faint line through the points, the rope's own colour
     const lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(3 * n), 3));
     const line = new THREE.Line(lg, new THREE.LineBasicMaterial({ color: colour, transparent: true, opacity: S.spine })); scene.add(line);
-    ropes.push({ lw: new Float32Array(n), lwo: new Float32Array(n), ch, pl: src, side: i % 2 ? n - 1 : 0, sf: 0, sfT: 0, sa: 0, saT: 0, sph: 0, snapK: 0, th: R(lay, 0, Math.PI * 2), w: 0, wT: 0, pullC: 0, pullT: 0, zt: z, ze: z, st: null, p, q, n, seg, y, z, weeds, line, ph: R(lay, 0, Math.PI * 2), ph2: R(lay, 0, Math.PI * 2), timer: Math.round(R(live, S.scrL, S.scrH)) });
+    const jr = rng(S.seed * 131 + i), jit = new Float32Array(n); for (let j = 1; j < n - 1; j++) jit[j] = (jr() - 0.5) * S.beadJitter;   // [§545] each bead's own place, a little off the even spacing
+    ropes.push({ jit, lw: new Float32Array(n), lwo: new Float32Array(n), ch, pl: src, side: i % 2 ? n - 1 : 0, sf: 0, sfT: 0, sa: 0, saT: 0, sph: 0, snapK: 0, th: R(lay, 0, Math.PI * 2), w: 0, wT: 0, pullC: 0, pullT: 0, zt: z, ze: z, st: null, p, q, n, seg, y, z, weeds, line, ph: R(lay, 0, Math.PI * 2), ph2: R(lay, 0, Math.PI * 2), timer: Math.round(R(live, S.scrL, S.scrH)) });
   }
 }
 
@@ -554,7 +562,19 @@ function tick(now) {
       let cy = 0, cz = 0; if (soloK > 0 && r.off != null && uy) { const e = ((1 - S.freeEnds) * Math.min(1, 3 * Math.sin(Math.PI * j / (r.n - 1))) + S.freeEnds) * soloK; cy = uy[r.off + j * WK] * e; cz = uz[r.off + j * WK] * e; }   // [§530] ends free: the pulse passes through them
       const w = r.weeds[j], x = r.q[3 * j] + (r.p[3 * j] - r.q[3 * j]) * al, y = r.q[3 * j + 1] + (r.p[3 * j + 1] - r.q[3 * j + 1]) * al + cy, z = r.q[3 * j + 2] + (r.p[3 * j + 2] - r.q[3 * j + 2]) * al + cz;
       let bx = x, by = y, bz = z;
-      if (S.singleBead && r.grainOn && r.beadU != null) {
+      if (S.growMode && !S.singleBead && r.grainOn && r.beadU != null) {
+        // [§545 — his "turn that motion into longitudinal motion … the pulse will be the beads or the nodes growing. They'll be static … they'll
+        // need to start pretty small"] THE BEADS STAY PUT (each at its own slightly uneven place on the rope); THE PLACE THE SOUND IS (the bead of
+        // §542, followed as before) becomes a swelling: the beads near it grow quickly to growBig, and shrink back slowly to growSmall behind it
+        const uj = Math.max(0, Math.min(r.n - 1, j + r.jit[j])), a = Math.min(r.n - 2, Math.floor(uj)), f = uj - a;
+        bx = r.p[3 * a] + (r.p[3 * a + 3] - r.p[3 * a]) * f; by = r.p[3 * a + 1] + (r.p[3 * a + 4] - r.p[3 * a + 1]) * f; bz = r.p[3 * a + 2] + (r.p[3 * a + 5] - r.p[3 * a + 2]) * f;
+        const bell = Math.exp(-((uj / (r.n - 1) - r.beadU) ** 2) / (2 * S.growWidth ** 2)), tgt = S.growSmall + (S.growBig - S.growSmall) * bell;
+        if (w.gr == null) w.gr = S.growSmall;
+        w.gr += (tgt - w.gr) * Math.min(1, dt / (tgt > w.gr ? S.growAttack : S.growRelease));
+        if (!w.mesh.visible && r.line.visible) w.mesh.visible = true;
+        w.mesh.scale.setScalar(w.gr); w.mesh.position.set(bx, by, bz); lp[3 * j] = x; lp[3 * j + 1] = y; lp[3 * j + 2] = z;
+        w.gS = 1;                                                          // the §538 size eases back to normal when the bed ends
+      } else if (S.singleBead && r.grainOn && r.beadU != null) {
         const jb = Math.floor(r.n / 2); w.mesh.visible = j === jb && r.line.visible;
         if (j === jb) {
           const u = r.beadU * (r.n - 1), a = Math.min(r.n - 2, Math.floor(u)), f = u - a;
@@ -564,15 +584,15 @@ function tick(now) {
         w.mesh.position.set(bx, by, bz); lp[3 * j] = x; lp[3 * j + 1] = y; lp[3 * j + 2] = z;
         continue;
       } else if (r.line.visible && !w.mesh.visible) w.mesh.visible = true;
-      if (r.lwE || r.grainOn) {                                              // [§541] the bead slides ON the rope: its place read between the rope's points
+      if (S.growMode && !S.singleBead && r.grainOn && r.beadU != null) { /* §545 drawn above */ } else if (r.lwE || r.grainOn) {   // [§541] the bead slides ON the rope
         const u = Math.max(0, Math.min(r.n - 1, j + r.lw[j] / (W / (r.n - 1)))), a = Math.floor(u), b2 = Math.min(r.n - 1, a + 1), f = u - a;
         bx = r.p[3 * a] + (r.p[3 * b2] - r.p[3 * a]) * f; by = r.p[3 * a + 1] + (r.p[3 * b2 + 1] - r.p[3 * a + 1]) * f + cy; bz = r.p[3 * a + 2] + (r.p[3 * b2 + 2] - r.p[3 * a + 2]) * f + cz;
         const v = r.lwo[j], sh = r.cen == null ? 0 : Math.exp(-((j / (r.n - 1) - (r.cen + 1) / 2) ** 2) / (2 * S.showerWidth ** 2));
         w.mesh.rotation.z = v * S.pivot * 0.05;                              // it tips as it slides
         const stir = Math.min(0.6, Math.abs(v) * S.tumble * 0.01 + sh * S.showerStir); w.mesh.rotation.x += stir; w.mesh.rotation.y += stir * 0.7;
       }
-      w.mesh.position.set(bx, by, bz); lp[3 * j] = x; lp[3 * j + 1] = y; lp[3 * j + 2] = z;
-      if (r.grainOn || w.gS != null) {                                       // [§538] the grain rope's tumbleweeds: inflate on grains, deflate between
+      if (!(S.growMode && !S.singleBead && r.grainOn && r.beadU != null)) w.mesh.position.set(bx, by, bz), lp[3 * j] = x, lp[3 * j + 1] = y, lp[3 * j + 2] = z;
+      if (!(S.growMode && !S.singleBead && r.grainOn && r.beadU != null) && (r.grainOn || w.gS != null)) {                                       // [§538] the grain rope's tumbleweeds: inflate on grains, deflate between
         if (r.grainOn) w.gT = Math.max(S.gMin, (w.gT ?? S.gMin) - S.gFall * dt); else w.gT = 1;
         if (w.gS == null || !isFinite(w.gS)) w.gS = 1;                     // [§539] a size starts at its normal 1 (undefined made it NaN: the tumbleweeds vanished)
         w.gS += (w.gT - w.gS) * Math.min(1, dt / S.gEase);
@@ -602,7 +622,7 @@ function tick(now) {
 
 // ------------------------------------------------------------------ the knobs panel
 const panel = document.getElementById('panel');
-const REBUILD = new Set(['ropes', 'nodes', 'spreadY', 'spreadZ', 'slack', 'ropeSlack', 'ensSlack', 'seed', 'res', 'palette', 'taper', 'sizeL', 'sizeH']);
+const REBUILD = new Set(['beadJitter', 'ropes', 'nodes', 'spreadY', 'spreadZ', 'slack', 'ropeSlack', 'ensSlack', 'seed', 'res', 'palette', 'taper', 'sizeL', 'sizeH']);
 function knobsHtml() {
   let h = '<h2>Palette</h2><select id="k-palette">' + Object.keys(PALETTES).map(k => '<option value="' + k + '"' + (k === S.palette ? ' selected' : '') + '>' + PALETTE_NAMES[k] + '</option>').join('') + '</select>';
   for (const [title, rows] of KNOBS) {
