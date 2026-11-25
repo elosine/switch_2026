@@ -153,6 +153,13 @@ const KNOBS = [
     ['shadowZ', 'The shadow rope sits behind (+ in front)', -200, 200, 1, -25],
     ['shadowBalls', 'The shadow as a chain of balls, unconnected (1) or a line (0)', 0, 1, 1, 1],
     ['ballCount', 'How many balls in the chain', 10, 600, 1, 220],
+    ['satCount', 'Satellites round each ball', 0, 8, 1, 3],
+    ['satSize', 'A satellite’s size (pixels)', 1, 20, 0.5, 3],
+    ['satReach', 'How far the satellites fly out at most', 0, 120, 1, 28],
+    ['satSpeed', 'The ball’s speed that flings them all the way out', 10, 2000, 10, 180],
+    ['satSpin', 'How fast they whirl at that speed (turns a second)', 0, 8, 0.05, 2.5],
+    ['satOut', 'How quickly they fly out (seconds)', 0.01, 1, 0.01, 0.08],
+    ['satIn', 'How slowly they come back in (seconds)', 0.02, 3, 0.01, 0.6],
     ['beadFollow', 'How quickly the bead follows the sound (seconds)', 0.02, 1, 0.01, 0.12],
     ['beadSize', 'The bead’s size (× a tumbleweed)', 0.5, 4, 0.05, 1.8],
     ['beadSpread', 'Spread the bead to the ends (1 = as measured; beyond the end it stops there)', 1, 5, 0.05, 2],
@@ -286,7 +293,7 @@ const DOT = (() => { const c = document.createElement('canvas'); c.width = c.hei
 // ------------------------------------------------------------------ the ropes (Verlet: positions now and before; the ends pinned)
 let ropes = [], live = rng(12345);
 function build() {
-  ropes.forEach(r => { if (r.shadow && r.shadow.balls) { scene.remove(r.shadow.balls); r.shadow.balls.geometry.dispose(); r.shadow.balls.material.dispose(); } if (r.dense) r.dense.forEach(d => { scene.remove(d.mesh); d.mesh.geometry.dispose(); d.mesh.material.dispose(); }); if (r.shadow) { scene.remove(r.shadow); r.shadow.geometry.dispose(); r.shadow.material.dispose(); } r.weeds.forEach(w => { scene.remove(w.mesh); w.mesh.geometry.dispose(); w.mesh.material.dispose(); }); scene.remove(r.line); r.line.geometry.dispose(); r.line.material.dispose(); });
+  ropes.forEach(r => { if (r.shadow && r.shadow.sats) { scene.remove(r.shadow.sats); r.shadow.sats.geometry.dispose(); r.shadow.sats.material.dispose(); } if (r.shadow && r.shadow.balls) { scene.remove(r.shadow.balls); r.shadow.balls.geometry.dispose(); r.shadow.balls.material.dispose(); } if (r.dense) r.dense.forEach(d => { scene.remove(d.mesh); d.mesh.geometry.dispose(); d.mesh.material.dispose(); }); if (r.shadow) { scene.remove(r.shadow); r.shadow.geometry.dispose(); r.shadow.material.dispose(); } r.weeds.forEach(w => { scene.remove(w.mesh); w.mesh.geometry.dispose(); w.mesh.material.dispose(); }); scene.remove(r.line); r.line.geometry.dispose(); r.line.material.dispose(); });
   ropes = [];
   const lay = rng(S.seed), pal = PALETTES[S.palette] || PALETTES.dekooning;
   for (let i = 0; i < S.ropes; i++) {
@@ -320,6 +327,13 @@ function build() {
       const NB = Math.max(2, Math.round(S.ballCount)), bg = new THREE.BufferGeometry(); bg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(3 * NB), 3));
       shadow.balls = new THREE.Points(bg, new THREE.PointsMaterial({ color: colour, size: S.shadowWidth, sizeAttenuation: false, map: DOT, transparent: true, alphaTest: 0.4, opacity: S.shadowOp }));
       shadow.balls.visible = false; scene.add(shadow.balls);
+      // [§552 — his "those balls have like 3 or 4 smaller balls … if I spin the stick, those balls kind of fly … out … and then they come back
+      // into the ball … the string one is a better motion … don't draw the strings"] THE SATELLITES: satCount small balls round each ball
+      const NS = NB * Math.max(0, Math.round(S.satCount)), sg = new THREE.BufferGeometry(); sg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(3 * Math.max(1, NS)), 3));
+      shadow.sats = new THREE.Points(sg, new THREE.PointsMaterial({ color: colour, size: S.satSize, sizeAttenuation: false, map: DOT, transparent: true, alphaTest: 0.4, opacity: S.shadowOp }));
+      shadow.sats.visible = false; scene.add(shadow.sats);
+      shadow.th = new Float32Array(NB); shadow.rho = new Float32Array(NB); shadow.ph = new Float32Array(NB);
+      for (let k = 0; k < NB; k++) { shadow.th[k] = Math.random() * Math.PI * 2; shadow.ph[k] = Math.random() * Math.PI * 2; }
     }
     // [§548] THE DENSE BEADS (an electronics rope only): K of them at uneven places along the rope, the ELEC look; hidden until the state
     let dense = null;
@@ -702,7 +716,24 @@ function tick(now) {
           for (let c = 0; c < 3; c++) bp[3 * k + c] = pts[3 * a + c] + (pts[3 * a + 3 + c] - pts[3 * a + c]) * f;
         }
         B.geometry.attributes.position.needsUpdate = true; B.material.size = S.shadowWidth; B.material.opacity = S.shadowOp;
-      }
+        // the satellites: each ball's speed (from the shadow's own waves, now against a moment ago) spins them and flings them out; they fly
+        // out quickly and come back in slowly; they whirl round the rope's line (in the up-down / toward-away plane)
+        const Sa = r.shadow.sats, ns = Math.max(0, Math.round(S.satCount)), sp = Sa.geometry.attributes.position.array, sh = r.shadow;
+        Sa.visible = ns > 0; if (ns > 0) {
+          for (let k = 0; k < NB; k++) {
+            const u = k / (NB - 1) * (r.n - 1), a = Math.min(r.n - 2, Math.floor(u)), f = u - a;
+            const vy = ((r.tw[a] - r.two[a]) * (1 - f) + (r.tw[a + 1] - r.two[a + 1]) * f) / STEP, vz = ((r.tz[a] - r.tzo[a]) * (1 - f) + (r.tz[a + 1] - r.tzo[a + 1]) * f) / STEP;
+            const spd = Math.min(2, Math.hypot(vy, vz) / S.satSpeed), want = S.satReach * Math.min(1, spd);
+            sh.rho[k] += (want - sh.rho[k]) * Math.min(1, dt / (want > sh.rho[k] ? S.satOut : S.satIn));
+            sh.th[k] += 2 * Math.PI * S.satSpin * spd * dt;
+            for (let s = 0; s < ns; s++) {
+              const ang = sh.th[k] + sh.ph[k] + s * 2 * Math.PI / ns, o = 3 * (k * ns + s);
+              sp[o] = bp[3 * k]; sp[o + 1] = bp[3 * k + 1] + sh.rho[k] * Math.cos(ang); sp[o + 2] = bp[3 * k + 2] + sh.rho[k] * Math.sin(ang);
+            }
+          }
+          Sa.geometry.attributes.position.needsUpdate = true; Sa.material.size = S.satSize; Sa.material.opacity = S.shadowOp;
+        }
+      } else if (r.shadow.sats) r.shadow.sats.visible = false;
     }
   }
   bloom.strength = S.bloom; bloom.radius = S.radius; bloom.threshold = S.thresh;
@@ -718,7 +749,7 @@ function tick(now) {
 
 // ------------------------------------------------------------------ the knobs panel
 const panel = document.getElementById('panel');
-const REBUILD = new Set(['ballCount', 'beadJitter', 'ropes', 'nodes', 'spreadY', 'spreadZ', 'slack', 'ropeSlack', 'ensSlack', 'seed', 'res', 'palette', 'taper', 'sizeL', 'sizeH']);
+const REBUILD = new Set(['satCount', 'ballCount', 'beadJitter', 'ropes', 'nodes', 'spreadY', 'spreadZ', 'slack', 'ropeSlack', 'ensSlack', 'seed', 'res', 'palette', 'taper', 'sizeL', 'sizeH']);
 function knobsHtml() {
   let h = '<h2>Palette</h2><select id="k-palette">' + Object.keys(PALETTES).map(k => '<option value="' + k + '"' + (k === S.palette ? ' selected' : '') + '>' + PALETTE_NAMES[k] + '</option>').join('') + '</select>';
   for (const [title, rows] of KNOBS) {
