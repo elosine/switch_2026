@@ -38,6 +38,8 @@
       return '<g class="elec-wave elec-wave-bars" fill="' + rule.color + '">' + out.join('') + '</g>';
     }
     // [§473 — his "lets try the outline"] style 'outline' (his B): the same shape, its edge only
+    // [§512 — his "let's try light fill with an edge"] style 'lightFill' (his C): the same shape, a pale body and a darker edge
+    if (rule.style === 'lightFill') return '<path class="elec-wave elec-wave-light" d="' + shape(view, lane, rule, peak, 1) + '" fill="' + rule.fillColor + '" stroke="' + rule.color + '" stroke-width="' + rule.edgePx + '" stroke-linejoin="round"/>';
     if (rule.style === 'outline') return '<path class="elec-wave elec-wave-outline" d="' + shape(view, lane, rule, peak, 1) + '" fill="none" stroke="' + rule.color + '" stroke-width="' + rule.strokePx + '" stroke-linejoin="round"/>';
     if (rule.style !== 'peakBody') return '<path class="elec-wave" d="' + shape(view, lane, rule, peak, 1) + '" fill="' + rule.color + '" stroke="none"/>';
     const r = rule.bodySmoothS;

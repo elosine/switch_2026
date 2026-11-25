@@ -6802,3 +6802,10 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 
 - His words: *"In the audible beats section, it says the green curve represents volume. The notation header indicates the dynamic range, and just that whole rest of that part from recombination, but don't include, sometimes there is a fade in or fade out."* Added after "represents volume": Recombination's two sentences (the header; ppp → f), the fade sentence left out.
 - The anonymity scan he asked for: the visible text above the Notes for Revision names no person, no other piece, no account, no link; the title is "Performance Instructions — Multiplicity"; the four pictures carry only the lane labels. Flagged: the Notes for Revision name his earlier pieces (deleted before print, as planned); the HTML comments name pieces and paths (not printed; the page source is never sent).
+
+## §512 — 2026-11-24 — the waveform as light fill with an edge (print); the notes deleted
+
+- His words: *"let's try light fill with an edge. If you can update the print score with that, then I'll just take a look at how it looks in there before we redo the film."* New style `lightFill` (his C of the six) in `notation/lib/elec_wave.js`: the same shape, a pale body `#C9CFD4` and a 1 px edge in the wave's gray; `rules.json objects.elecWave.style` = `lightFill` (was bars, kept in styleWas3). The print rebuilt (`node tools/print_book.js`: 2 front pages + 51 music pages, 3.9 MB). The film is NOT re-rendered — at his word after he sees the print.
+- *"I think all the notes are done, just delete those."* The Notes for Revision section removed from the instructions page.
+- A slip: my first cut matched the page's top comment and emptied the body; restored from the commit (§511 — no saves from the page since, no versions folder) and cut again at the right place. Nothing of his lost.
+- His ask for a top-level copy edit: given in the chat, nothing changed on the page.
