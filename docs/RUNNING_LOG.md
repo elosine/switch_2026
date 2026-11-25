@@ -6622,3 +6622,9 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **DONE (Reaper was closed; the AI opened it on the mix project):** the INSTRUMENTS line from 277.8 s at −1 dB (it was 0 there), and a new line on the ELEC folder, 0 dB to 276.8 s, +1 dB from 277.8 s, each a one-second glide in the gap before the section. Saved.
 **A FAULT OF THE AI's, FOUND AND MENDED THE SAME TURN:** making the ELEC line (action 40406) moved the folder's fader into the line and set the fader to 0 dB; the script then wrote its own points, so his −13 dB was lost. Read back, seen, the fader set back to −13. ELEC now: −13 dB to 276.8 s, −12 dB in the last section. A memory note now says to read a fader before making its line.
 **NOT DONE:** no new bounce, print or film; the ELEC waveform for the score is made from the folder's fader, not its new line, so it does not show this 1 dB yet.
+
+## §476 · 2026-11-24 · the crotales' first word: "crotales (bowed)"
+
+**His words:** *"For the opening section, the announcement of the Crotales, the first one, we should say bowed too."*
+**DONE:** `tools/notate_section.js` writes "crotales (bowed)" at the crotales' first entry in Section 1 (piece 2's rule of the name at the first entry, §251, now with how it is played; the same wording as the instructions page). The page `s1-sines` rebuilt by its own recorded command: compared with the page before, identical but for the build date and the word.
+**NOT DONE:** the print and the film are not made again yet (his "wait to redraw").
