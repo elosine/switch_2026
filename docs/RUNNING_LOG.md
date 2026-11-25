@@ -7079,3 +7079,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 
 - His words: *"I can't see the electronic ropes so good here. They're sort of hidden by the instrumental ropes … I'll take suggestions"* → the AI's analysis (in the chat): it is VISUAL WEIGHT — tiny resting beads and a fine ball chain against big bright tumbleweeds — not place; moving them apart splits the picture into two groups, wider swings clear the way only at their widest; recommended: lighten the instrument ropes in the counterpoint state only. His word: *"let's lighten the instrument ropes and let's make their excursions a little bit bigger. So they have a bigger radius than the electronics ropes."*
 - Done: a state weight (0 … 1, eased over 1.5 s at 200 and at 266.5) — in it the ensemble's tumbleweeds are 0.6 x their size and 0.65 x as bright, and their shake 1.6 x as wide. The opening and the solo untouched. Not seen: the pane hidden.
+
+## §559 — 2026-11-25 — the video workshop: the instrument ropes lighter still
+
+- His words: *"Let's make them even lighter. So you went to 60%. What if we took it to 45%?"* — the ensemble's tumbleweeds in the counterpoint at 0.45 x their size (smaller by 0.55, was 0.4); the dimming and the wider shake unchanged.
