@@ -6817,3 +6817,8 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 ## §514 — 2026-11-24 — the instructions: "rapid-fire stutter"
 
 - His word: *"go ahead with the rapid-fire stutter"* — copy edit 5: "a quick, shaking stutter" → "a quick, rapid-fire stutter", to match the name. (§513's check of the opening sentence: verbatim Approaching's final page, title changed; Recombination had the earlier "served from the cloud" wording.)
+
+## §515 — 2026-11-24 — the waveform fit to each page; the media made again
+
+- His words: *"the humps that come out of the big gray line are too slight … can you advise about if more contrast can be made in the … more consistently loud sections?"* The AI's read, measured from bank/elec_wave.json: every page was scaled to the WHOLE PIECE's peak; page 38 reaches about 40% of it, drawn at 13 … 59% of the lane through the curve 0.6; page 13 reads well because the solo has real silences. Recommended: each page fit to its own loudest moment, the gain capped at 4x. His: *"ok with your recommendation let me see a sample first pls"* — the sample (page 13 unchanged; page 38 about a third taller), then *"that's all good."*
+- Built: `elec_wave.js` rule `fit: page` · `fitMaxGain 4` (rules.json elecWave). The print and the film (switch-demo-film5) made again at his word *"regenerate all the media, new film and the new print score"*.

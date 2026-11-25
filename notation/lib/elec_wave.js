@@ -25,7 +25,11 @@
     if (!view || !wave || !rule || !Array.isArray(wave.peaks)) return '';
     const lane = (view.systems || []).find(s => s.part === rule.part);
     if (!lane) return '';
-    const P = wave.peaks, R = wave.rate, F = wave.full;
+    const P = wave.peaks, R = wave.rate;
+    // [§515 — his "the humps … are too slight … more contrast … in the more consistently loud sections"] fit 'page': each view's waveform scaled to its OWN loudest moment
+    // (the window's highest peak fills the lane), the gain capped at rule.fitMaxGain so a near-silent page never blows its hiss up; else the whole piece's peak (wave.full)
+    let F = wave.full;
+    if (rule.fit === 'page') { let m = 0; for (let k = Math.max(0, Math.floor(view.window[0] * R)), e = Math.min(P.length, Math.ceil(view.window[1] * R)); k < e; k++) if (P[k] > m) m = P[k]; if (m > 0) F = Math.max(m, wave.full / (rule.fitMaxGain || 4)); }
     const peak = (a, b) => { let p = 0; for (let k = Math.max(0, Math.floor(a * R)), e = Math.min(P.length, Math.max(k + 1, Math.ceil(b * R))); k < e; k++) if (P[k] > p) p = P[k]; return p / F; };
     // [§486 — his "lets try bars if we have to reprint the film"] style 'bars' (his E): one bar every rule.barSeconds, a gap between, mirrored round the lane's middle
     if (rule.style === 'bars') {
