@@ -6695,3 +6695,9 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 
 **His words:** *"Can you put the pebbles into the piano solo boxes just at the bottom?"*
 **DONE:** `tools/export_print.js` (the solo's signs on paper, §471) draws each pebble drop's pebbles where the film's motion leaves them — landed, the small bounce done, on the box's floor; the same shapes and grays as the film (notation.html's last state). The film is untouched. Seen on one page (the drop at ~170.3): the heap along the bottom of its box. **Not reprinted** (his hold, §487): the next `node tools/print_book.js` carries it.
+
+## §489 · 2026-11-24 · pages 25 and 27: the push limit to 0.5 s
+
+**His words:** *"And can you explain to me why page 25 is short?"* · *"27 also"*.
+**THE CAUSE (read from the plan):** page 25 — a block of ball curves crossing its end was pushed whole, leaving 0.97 s blank, just under §481's 1 s limit; and the page starts 0.64 s before its first owned moment, because page 24 was cut inside a block and the next page shows those curves' approach whole. Page 27 — the same, 0.67 s blank.
+**DONE (under his §481 "go to the end of the page if we can"):** `page_rules.json pushMaxBlankSeconds` 1.0 → 0.5. Measured: the counterpoint's blank at a page's end now 0.47 · 0.31 · 0.08 · 0.03 s (pages 24 … 27); each page still opens 0.64 s early for the curves' approach — that is the curve's own reach, not blank. Not reprinted (his hold).

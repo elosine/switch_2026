@@ -1,7 +1,8 @@
 {
   "_contract": "Page-edge decision rules (accommodation strategy 'page-edge-rules', NOTATION_ARCHITECTURE §3 item 5): stored as RULES, not baked positions (P6). The splicer (notation/lib/splice.js) consults these; changing a rule re-plans every page on the next render.",
   "version": "0.1",
-  "pushMaxBlankSeconds": 1.0,
+  "pushMaxBlankSeconds": 0.5,
+  "_pushMaxBlankWas": "1.0 until §489 (his, pages 25 and 27 of the print: 0.97 s and 0.67 s blank, each a block pushed whole under the 1 s limit)",
   "_doc_pushMaxBlankSeconds": "THE SWITCH~ PIECE §481 (2026-11-24, his: 'Same strange page cut on 36 … In general, we should try to go to the end of the page if we can with these'): on paper (printPlan objects) a block of objects that crosses the page's end is pushed WHOLE to the next page only when that leaves at most this many seconds of the page blank; otherwise the cut goes inside the block where it breaks the fewest beams and tuplets, each object drawn whole on one page or the next. Absent = always pushed, as before.",
   "cutSlackSeconds": 2,
   "minPageSeconds": 3,
