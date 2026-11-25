@@ -6789,3 +6789,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 ## §508 — 2026-11-24 — the instructions: the rapid-fire repeat picture whole
 
 - His word: *"A rapid fire repeat image is cut off a bit. Can you get a full one, please?"* The old crop (frame 180.5) cut the last ripple marks and had the go line through them. Re-made from frame 179.6 (the go line not yet at the figure), crop viewBox 1482 770 181 330: the box, its sharps and the full row of ripple marks.
+
+## §509 — 2026-11-24 — the instructions: Multiple Tempos in the tubas' words, his edit
+
+- His words: *"replace that paragraph with the 7 tubas, the final section of the piece … The pulse you are playing in is marked with hashes at the top of the staff. And the animated bouncing ball provides a conducted pulse to assist with accelerations, decelerations, and rapidly changing tempos."* The paragraph now: the tubas' first sentence ("of the piece"), then his new second sentence.
