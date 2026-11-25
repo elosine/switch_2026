@@ -61,6 +61,12 @@ lineage's pattern (piece 6: `decibel` · `piece-decibel` · `decibel-tenor-2026`
 play back, then **STOP and ask**. No edits, no builds, no tool calls beyond the resume
 reads. Start only on his word. *(At `/session-start`: orient, agree the agenda, then work.)*
 
+### 2026-11-24 — HIS PROOF'S CORRECTIONS IN; ALL REDRAWN (RUNNING_LOG §470 … §485)
+
+- **The current files:** the print `print/score/Multiplicity-score.pdf` (53 pages, 11 x 17) · the film `H:/…/film/switch-demo-film3.mp4` · the bounce `H:/…/bounce/switch-demo-mix2.wav` · the instructions edit sheet `docs/notation_instructions/index.html` · the posting order `docs/submission/POSTING.md` (local). Title: *Multiplicity*.
+- **Known, his to raise:** the phase section's printed pages stay 1 … 6 s short (no moment there where no part is mid-group; a group is never split across pages). The instructions page still has its bracketed gaps and its Notes section.
+- **► NEXT:** his watch of film3 and look at the print; then the instructions; then posting (POSTING.md).
+
 ### 2026-11-24 — THE DEMO FILM, SECOND CUT (RUNNING_LOG §469)
 
 - **The file:** `H:/switch_2026/audio/demo/piece-FirstDraft-Final-D-ctptCello/film/switch-demo-film2.mp4`. Waveform style F (his pick); the solo zooms out at 186.5 for its last long curve; no close-up cuts anything off (a group draws only its own parts). **► NEXT: his watch.**
