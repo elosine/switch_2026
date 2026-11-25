@@ -1042,7 +1042,11 @@
           // the note gated on inWin and the arc on range intersection, so a
           // strike just BEFORE the window left its arc behind. With no owned
           // span the old range test stands: the film's approach is deliberate.
-          if (OWN) { if (!owns(it.t)) continue; }
+          // [the Switch~ piece §490] ON PAPER WITH ARMS (page_rules edge.gc.print 'arms'): the arc is drawn on every page it crosses, clipped to the
+          // page's music span (the Matisse cut, as the film's); its impact only on the page that owns it
+          const ARMS = !!(PRE && PRE.gc && PRE.gc.print === 'arms' && OWN);
+          if (ARMS) { if (it.t + P.post < OWN[0] - 1e-9 || it.t - P.pre > wInk + 1e-9) continue; }
+          else if (OWN) { if (!owns(it.t)) continue; }
           else if (it.t + P.post < w0 || it.t - P.pre > w1) continue;
           // §401e: the GC's own system (the first staff of a multi-staff part) — a single lane's height, the
           // impact between the piano's staves; the go line above keeps the whole lane
@@ -1051,8 +1055,11 @@
           const d = GC.trajectory(P).map((p, i) =>
             (i ? 'L' : 'M') + view.xOfSeconds(it.t + p.dt).toFixed(2) + ' ' + (G.impactY - p.frac * G.h).toFixed(2)).join(' ');
           const arc = '<path class="gc-arc" d="' + d + '" stroke="' + color + '" stroke-width="' + (G.look.arcStrokePx * G.k).toFixed(2) + '" fill="none"/>';
-          parts.push(cutKind('gc') ? clipOpen + arc + '</g>' : arc);   // [2c.3] the arc cut like paper; the impact below is a point
-          if (OWN || (boundaryBefore('gc') ? ownsBefore(it.t) : inWin(it.t))) parts.push('<circle class="gc-impact"' + GO(it.t) + ' cx="' + view.xOfSeconds(it.t).toFixed(2) + '" cy="' + G.impactY.toFixed(2) +
+          if (ARMS) {
+            const cid = 'pgc-' + Math.round(OWN[0] * 1000), xa = view.xOfSeconds(owns(it.t) ? Math.max(w0, Math.min(OWN[0], it.t - P.pre)) : OWN[0]), xb = view.xOfSeconds(wInk);
+            parts.push('<defs><clipPath id="' + cid + '-' + parts.length + '"><rect x="' + xa.toFixed(2) + '" y="-2000" width="' + Math.max(0, xb - xa).toFixed(2) + '" height="6000"/></clipPath></defs><g clip-path="url(#' + cid + '-' + parts.length + ')">' + arc + '</g>');
+          } else parts.push(cutKind('gc') ? clipOpen + arc + '</g>' : arc);   // [2c.3] the arc cut like paper; the impact below is a point
+          if (ARMS ? owns(it.t) : (OWN || (boundaryBefore('gc') ? ownsBefore(it.t) : inWin(it.t)))) parts.push('<circle class="gc-impact"' + GO(it.t) + ' cx="' + view.xOfSeconds(it.t).toFixed(2) + '" cy="' + G.impactY.toFixed(2) +
             '" r="' + (G.look.impactRadiusPx * G.k).toFixed(2) + '" fill="' + color + '"/>');
         } else if (it.k === 'bowlead') {
           // [§495, 2i.7] THE BOW LEAD: a dotted vertical line at the head's left edge from the head's centre to the far edge of its seat's

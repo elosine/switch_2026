@@ -53,7 +53,7 @@
     "attackline": { "screen": "atomic", "print": "whole" },
     "tick": { "screen": "atomic", "print": "whole" },
     "goline": { "screen": "atomic", "print": "whole" },
-    "gc": { "screen": "cut", "print": "whole", "boundary": "before", "_note": "the ARC is cut like paper; the IMPACT is a go-time indicator at x(t), owned (t0, tω] — at exactly tω on the page before" },
+    "gc": {"screen":"cut","print":"arms","_printArms":"the Switch~ piece §490 (2026-11-24, his: 'okay to split curves on paper, but … only let's split the arms of the arc … you wouldn't want to split any of the … notation words … or split the notation on the go line … and you wouldn't want to split the impact point. But the tails after and before the curve, you can split'): on paper the arc's arms take the cut like the film's Matisse cut; the impact is held whole, the note, its words and its go line are their own whole unit. Was 'whole' (Recombination §340: the whole GC pushed to the next page).","_printWas":"whole", "boundary": "before", "_note": "the ARC is cut like paper; the IMPACT is a go-time indicator at x(t), owned (t0, tω] — at exactly tω on the page before" },
     "beam": { "screen": "cut", "print": "never-sever", "_note": "drawn through every tip on a page it crosses, clipped; each tip follows its unit's clamp" },
     "tuplet": { "screen": "cut", "print": "never-sever" },
     "envcurve": { "screen": "cut", "print": "continue" },

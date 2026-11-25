@@ -240,7 +240,11 @@
       for (const u of units.values()) out.push({ a: u.a, b: Math.max(u.b, u.t + EPS), kind: 'unit', part: sys.part, t: u.t });
       for (const it of items) {
         const pv = P(it.k);
-        if (it.k === 'gc' && pv === 'whole') {
+        if (it.k === 'gc' && pv === 'arms') {
+          // [the Switch~ piece §490 — his "okay to split curves on paper … only … the arms of the arc … you wouldn't want to split the impact point"] the
+          // arc's arms may take the cut; only the impact (its dot, padded) is held whole — the note, its words and its go line are their own unit
+          out.push({ a: it.t - o.gcPadSec, b: it.t + o.gcPadSec, kind: 'gc (impact)', part: sys.part, t: it.t });
+        } else if (it.k === 'gc' && pv === 'whole') {
           const [pre, post] = o.gcPrePost(it);
           out.push({ a: it.t - pre - o.gcPadSec, b: it.t + post + o.gcPadSec, kind: 'gc', part: sys.part, t: it.t });
         } else if (pv === 'never-sever') {
