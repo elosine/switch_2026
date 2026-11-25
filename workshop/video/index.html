@@ -494,7 +494,8 @@ function tick(now) {
       w.mesh.position.set(x, y, z); lp[3 * j] = x; lp[3 * j + 1] = y; lp[3 * j + 2] = z;
       if (r.grainOn || w.gS != null) {                                       // [§538] the grain rope's tumbleweeds: inflate on grains, deflate between
         if (r.grainOn) w.gT = Math.max(S.gMin, (w.gT ?? S.gMin) - S.gFall * dt); else w.gT = 1;
-        w.gS = (w.gS ?? 1) + (w.gT - w.gS) * Math.min(1, dt / S.gEase);
+        if (w.gS == null || !isFinite(w.gS)) w.gS = 1;                     // [§539] a size starts at its normal 1 (undefined made it NaN: the tumbleweeds vanished)
+        w.gS += (w.gT - w.gS) * Math.min(1, dt / S.gEase);
         w.mesh.scale.setScalar(w.gS);
         const full = Math.max(0, Math.min(1, (w.gS - S.gMin) / Math.max(0.01, S.gMax - S.gMin)));
         w.mesh.material.opacity = Math.min(1, S.opacity * r.ch.op * (1 + S.grainGlow * full));
