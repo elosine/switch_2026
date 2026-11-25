@@ -6716,3 +6716,8 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 ## §492 · 2026-11-24 · the print rebuilt now (his: "if you need to reprint it now, that's fine … We'll eventually reprint the final version with the instructions"); the beams left as they are
 
 `print/score/Multiplicity-score.pdf` — with the bars, the pebbles at rest, the 0.5 s push limit and the split arms. His word on the phase section's short pages: *"okay, leave the beams"* — a beamed group or tuplet is still never split across a page. The final reprint comes with the performance instructions.
+
+## §493 · 2026-11-24 · the instructions: the percussion line pared
+
+**His words:** *"For the percussion, take out the scraped and take out the poly beater and rubber mallets and for bass drum, you can put rute. And I don't know if what typically if you see mallet or just rute, whatever the convention is. And then take away crotales bowed and the hard mallets from glock."*
+**DONE:** the Instrumentation line now reads *spring coil, China cymbal, brake drums, bass drum (with rute), crotales, glockenspiel*. **THE CONVENTION (the AI's answer):** an instrument list names a beater only when it is not the instrument's usual one — the felt mallet on a bass drum is, the rute is not — so "with rute" alone tells the player what to bring.
