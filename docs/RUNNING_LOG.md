@@ -6725,3 +6725,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 ## §494 · 2026-11-24 · the instructions: the piano line out of the instrumentation
 
 **His words:** *"piano, just take the whole piano thing away."* — read as the Instrumentation section's piano line (keys, muted and plucked strings, no preparation): removed. The counterpoint's key of words (pizz. · (mute)) stays.
+
+## §495 · 2026-11-24 · the instructions: the electronics in one line
+
+**His words:** *"For the electronics, you can just say electronics is fixed media synced with the animated score."* — the section now reads *The electronics are fixed media, synced with the animated score.* The AI's two paragraphs went (the second described the waveform as style F, no longer the drawn style). Asked in passing whether orange pitch curves are used: only in Section One's beating glissandos; the line stays (his "just leave it").
