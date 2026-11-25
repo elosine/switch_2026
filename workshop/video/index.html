@@ -121,6 +121,7 @@ const KNOBS = [
     ['waveDamp', 'How quickly the pulses fade', 0, 2, 0.01, 0.08],
     ['smooth', 'Calm the jitter (smooths the wave\u2019s fine ripples)', 0, 0.25, 0.01, 0],
     ['settle', 'Settle at rest (how soon the leftovers die away)', 0, 3, 0.01, 0.03],
+    ['calmBelow', 'Small leftovers ease to stillness below about', 0, 40, 0.5, 8],
     ['soloPull', 'In the solo: ends pulled apart (+) or brought closer (−)', -150, 150, 1, -45],
     ['freeEnds', 'Ends slide on a pole (1 = free, 0 = pinned)', 0, 1, 0.01, 1],
   ]],
@@ -480,6 +481,16 @@ function buildChain() {
   chain = []; M = 0; for (const r of (first ? [first, ...rest] : rest)) { r.off = M; chain.push(r); M += (r.n - 1) * WK + 1; }
   uy = new Float32Array(M); uyo = new Float32Array(M); uz = new Float32Array(M); uzo = new Float32Array(M);
 }
+// [§562 — his "at the small excursion amount, it turns into sort of a jitter or a rattle … like a ping pong ball … pressed down … rattles until it
+// goes still … maybe if the pulse just, as it passes through, it just relaxes the rope"] HOW THE WAVE IS DRAWN (its travel untouched): read SMOOTHED
+// along the chain (a 5-point binomial, so the grid's finest ripples — the rattle — do not show) and with a soft DEAD BAND, so a displacement much
+// smaller than calmBelow eases to nothing instead of trembling, while a pulse passes whole
+function waveAt(u, uo, ix, al) {
+  let s = 0, wsum = 0; const W5 = [1, 4, 6, 4, 1];
+  for (let d = -2; d <= 2; d++) { const k = ix + d; if (k < 0 || k >= M) continue; const w = W5[d + 2]; s += w * (uo[k] + (u[k] - uo[k]) * al); wsum += w; }
+  return wsum ? s / wsum : 0;
+}
+const calm = v => { const c = S.calmBelow; return c > 0 ? v * (v * v) / (v * v + c * c) : v; };
 // the hand at score time t: [up-down, toward-away], the sum of the figures near t
 const gauss = (x, w) => Math.exp(-(x * x) / (2 * w * w));
 const evRand = e => { if (e.rv == null) { const r = rng(Math.round((e.t ?? e.t0) * 1000)); e.rv = [r(), r(), r()]; } return e.rv; };
@@ -662,7 +673,7 @@ function tick(now) {
     for (let j = 0; j < r.n; j++) {
       // [§520] the quiver of §519 (a drawn standing wave) is gone — his "stiff … almost like it's wire"; the crank above moves the rope now
       // [§529] the chain's wave on top, faded toward this rope's own pinned ends (the pulse leaves one rope and appears on the next)
-      let cy = 0, cz = 0; if (soloK > 0 && r.off != null && uy) { const e = ((1 - S.freeEnds) * Math.min(1, 3 * Math.sin(Math.PI * j / (r.n - 1))) + S.freeEnds) * soloK; const ix = r.off + j * WK; cy = (uyo[ix] + (uy[ix] - uyo[ix]) * al) * e; cz = (uzo[ix] + (uz[ix] - uzo[ix]) * al) * e; }   // [§561] the wave between its last two steps, as the ropes are (a frame takes 1, 2 or 3 steps: unsmoothed, it advanced in uneven jumps)   // [§530] ends free: the pulse passes through them
+      let cy = 0, cz = 0; if (soloK > 0 && r.off != null && uy) { const e = ((1 - S.freeEnds) * Math.min(1, 3 * Math.sin(Math.PI * j / (r.n - 1))) + S.freeEnds) * soloK; const ix = r.off + j * WK; cy = calm(waveAt(uy, uyo, ix, al)) * e; cz = calm(waveAt(uz, uzo, ix, al)) * e; }   // [§561] the wave between its last two steps, as the ropes are (a frame takes 1, 2 or 3 steps: unsmoothed, it advanced in uneven jumps)   // [§530] ends free: the pulse passes through them
       const w = r.weeds[j], x = r.q[3 * j] + (r.p[3 * j] - r.q[3 * j]) * al, y = r.q[3 * j + 1] + (r.p[3 * j + 1] - r.q[3 * j + 1]) * al + cy, z = r.q[3 * j + 2] + (r.p[3 * j + 2] - r.q[3 * j + 2]) * al + cz;
       let bx = x, by = y, bz = z;
       if (r.pl && r.pl.kind === 'ensemble') {                                // [§558 — his "lighten the instrument ropes"] smaller and dimmer in the counterpoint
