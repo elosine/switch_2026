@@ -80,8 +80,11 @@ const KNOBS = [
     ['sizeL', 'Size, smallest', 1, 60, 1, 5],
     ['sizeH', 'Size, largest', 1, 120, 1, 50],
     ['res', 'Detail (sphere resolution)', 3, 16, 1, 8],
-    ['scrL', 'Re-scramble, soonest (frames)', 5, 200, 1, 30],
-    ['scrH', 'Re-scramble, latest (frames)', 5, 400, 1, 120],
+    ['scrL', 'Re-scramble, soonest (frames)', 5, 400, 1, 90],
+    ['scrH', 'Re-scramble, latest (frames)', 5, 800, 1, 300],
+    ['morph', 'Re-scramble glide (frames)', 1, 120, 1, 40],
+    ['taper', 'Smaller toward the ends', 0, 1, 0.01, 0.8],
+    ['spine', 'Rope line', 0, 1, 0.01, 0.3],
     ['opacity', 'Line opacity', 0.05, 1, 0.01, 0.75],
   ]],
   ['Glow', [
@@ -89,11 +92,13 @@ const KNOBS = [
     ['radius', 'Bloom radius', 0, 1.5, 0.01, 0.25],
     ['thresh', 'Bloom threshold', 0, 1, 0.01, 0.35],
   ]],
-  ['Motion (step 1: kicks at random)', [
-    ['gravity', 'Gravity', 0, 2000, 10, 600],
-    ['damping', 'Damping', 0.9, 1, 0.001, 0.992],
+  ['Motion', [
+    ['gravity', 'Gravity', 0, 2000, 10, 500],
+    ['damping', 'Damping', 0.9, 1, 0.001, 0.985],
+    ['breeze', 'Breeze at rest', 0, 200, 1, 40],
+    ['breezeHz', 'Breeze speed (cycles a second)', 0.02, 1, 0.01, 0.12],
     ['kick', 'Kick strength', 0, 3000, 10, 900],
-    ['kickRate', 'Kicks per rope per second', 0, 4, 0.05, 0.5],
+    ['kickRate', 'Random kicks per rope per second', 0, 4, 0.05, 0],
     ['kickWidth', 'Kick width (points)', 0.5, 12, 0.5, 4],
   ]],
 ];
@@ -137,12 +142,18 @@ function sphereEdges(res) {
   }
   g.dispose(); return { n, pairs };
 }
+// [his "big polygons come out of the attachment points"] a tumbleweed's size: random in the knobs' range, smaller toward the pinned ends
+// (taper 1 = nothing at the ends), and never wider than the gap to its neighbours
+function weedRad(j, n, seg) {
+  const u = j / (n - 1), env = (1 - S.taper) + S.taper * Math.pow(Math.sin(Math.PI * u), 0.7);
+  return Math.min(seg * 0.9, R(live, S.sizeL, Math.max(S.sizeL, S.sizeH)) * env);
+}
 function scramble(pos, n, rad, rand) { for (let k = 0; k < n; k++) { pos[3 * k] = R(rand, -rad, rad); pos[3 * k + 1] = R(rand, -rad, rad); pos[3 * k + 2] = R(rand, -rad, rad); } }
 
 // ------------------------------------------------------------------ the ropes (Verlet: positions now and before; the ends pinned)
 let ropes = [], live = rng(12345);
 function build() {
-  ropes.forEach(r => r.weeds.forEach(w => { scene.remove(w.mesh); w.mesh.geometry.dispose(); w.mesh.material.dispose(); }));
+  ropes.forEach(r => { r.weeds.forEach(w => { scene.remove(w.mesh); w.mesh.geometry.dispose(); w.mesh.material.dispose(); }); scene.remove(r.line); r.line.geometry.dispose(); r.line.material.dispose(); });
   ropes = [];
   const lay = rng(S.seed), sph = sphereEdges(S.res), pal = PALETTES[S.palette] || PALETTES.dekooning;
   for (let i = 0; i < S.ropes; i++) {
@@ -156,20 +167,30 @@ function build() {
     const c = pal[i % pal.length], colour = new THREE.Color(c[0] / 255, c[1] / 255, c[2] / 255);
     const weeds = [];
     for (let j = 0; j < n; j++) {
-      const pos = new Float32Array(3 * sph.n); scramble(pos, sph.n, R(live, S.sizeL, Math.max(S.sizeL, S.sizeH)), live);
+      const pos = new Float32Array(3 * sph.n); scramble(pos, sph.n, weedRad(j, n, seg), live);
       const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos, 3)); g.setIndex(sph.pairs);
       const mesh = new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color: colour, transparent: true, opacity: S.opacity }));
-      scene.add(mesh); weeds.push({ mesh, pos, n: sph.n });
+      scene.add(mesh); weeds.push({ mesh, pos, n: sph.n, from: null, to: null, k: 0 });
     }
-    ropes.push({ p, q, n, seg, y, z, weeds, timer: Math.round(R(live, S.scrL, S.scrH)) });
+    // [his "the polygons don't feel part of the rope"] a faint line through the points, the rope's own colour
+    const lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(3 * n), 3));
+    const line = new THREE.Line(lg, new THREE.LineBasicMaterial({ color: colour, transparent: true, opacity: S.spine })); scene.add(line);
+    ropes.push({ p, q, n, seg, y, z, weeds, line, ph: R(lay, 0, Math.PI * 2), ph2: R(lay, 0, Math.PI * 2), timer: Math.round(R(live, S.scrL, S.scrH)) });
   }
 }
 
 const STEP = 1 / 120, ITER = 24;
+let simT = 0;
 function stepRope(r, dt) {
   const { p, q, n } = r, g = S.gravity * dt * dt, d = S.damping;
-  for (let j = 1; j < n - 1; j++) for (let a = 0; a < 3; a++) {
-    const k = 3 * j + a, v = (p[k] - q[k]) * d; q[k] = p[k]; p[k] += v + (a === 1 ? -g : 0);
+  // [his "pretty subtle motion at rest"] a breeze: a slow, smooth push that drifts along the rope — two sines, the rope's own phases
+  const w = 2 * Math.PI * S.breezeHz, bz = S.breeze * dt * dt;
+  for (let j = 1; j < n - 1; j++) {
+    const u = j / (n - 1), env = Math.sin(Math.PI * u);
+    const fy = bz * env * Math.sin(w * simT + r.ph + 2.1 * u), fz = bz * env * 1.4 * Math.sin(w * 0.73 * simT + r.ph2 - 1.7 * u);
+    for (let a = 0; a < 3; a++) {
+      const k = 3 * j + a, v = (p[k] - q[k]) * d; q[k] = p[k]; p[k] += v + (a === 1 ? fy - g : a === 2 ? fz : 0);
+    }
   }
   for (let it = 0; it < ITER; it++) for (let j = 0; j < n - 1; j++) {
     const a = 3 * j, b = a + 3, dx = p[b] - p[a], dy = p[b + 1] - p[a + 1], dz = p[b + 2] - p[a + 2];
@@ -197,16 +218,30 @@ function tick(now) {
       if (live() < S.kickRate * STEP) kick(r, R(live, 2, r.n - 3), S.kick * R(live, 0.6, 1.2));
       stepRope(r, STEP);
     }
-    acc -= STEP;
+    simT += STEP; acc -= STEP;
   }
   frame++;
   for (const r of ropes) {
     if (--r.timer <= 0) {                                   // ofApp: every aniT frames, re-scatter a random number of the rope's tumbleweeds
       r.timer = Math.round(R(live, S.scrL, Math.max(S.scrL, S.scrH)));
       const many = Math.round(R(live, 1, r.n - 1));
-      for (let k = 0; k < many; k++) { const w = r.weeds[Math.floor(live() * r.n)]; scramble(w.pos, w.n, R(live, S.sizeL, Math.max(S.sizeL, S.sizeH)), live); w.mesh.geometry.attributes.position.needsUpdate = true; }
+      for (let k = 0; k < many; k++) {
+        const j = Math.floor(live() * r.n), w = r.weeds[j];
+        // [his "less agitated"] a re-scramble GLIDES from the old shape to the new one over S.morph frames instead of snapping
+        w.from = Float32Array.from(w.pos); w.to = new Float32Array(w.pos.length); scramble(w.to, w.n, weedRad(j, r.n, r.seg), live); w.k = 0;
+      }
     }
-    for (let j = 0; j < r.n; j++) r.weeds[j].mesh.position.set(r.p[3 * j], r.p[3 * j + 1], r.p[3 * j + 2]);
+    const al = acc / STEP, lp = r.line.geometry.attributes.position.array;     // drawn between the last two physics steps: no judder
+    for (let j = 0; j < r.n; j++) {
+      const w = r.weeds[j], x = r.q[3 * j] + (r.p[3 * j] - r.q[3 * j]) * al, y = r.q[3 * j + 1] + (r.p[3 * j + 1] - r.q[3 * j + 1]) * al, z = r.q[3 * j + 2] + (r.p[3 * j + 2] - r.q[3 * j + 2]) * al;
+      w.mesh.position.set(x, y, z); lp[3 * j] = x; lp[3 * j + 1] = y; lp[3 * j + 2] = z;
+      if (w.to) {
+        w.k = Math.min(1, w.k + 1 / Math.max(1, S.morph)); const e = w.k * w.k * (3 - 2 * w.k);
+        for (let m = 0; m < w.pos.length; m++) w.pos[m] = w.from[m] + (w.to[m] - w.from[m]) * e;
+        w.mesh.geometry.attributes.position.needsUpdate = true; if (w.k >= 1) w.to = w.from = null;
+      }
+    }
+    r.line.geometry.attributes.position.needsUpdate = true;
   }
   bloom.strength = S.bloom; bloom.radius = S.radius; bloom.threshold = S.thresh;
   controls.update(); composer.render();
@@ -216,7 +251,7 @@ function tick(now) {
 
 // ------------------------------------------------------------------ the knobs panel
 const panel = document.getElementById('panel');
-const REBUILD = new Set(['ropes', 'nodes', 'spreadY', 'spreadZ', 'slack', 'seed', 'res', 'palette']);
+const REBUILD = new Set(['ropes', 'nodes', 'spreadY', 'spreadZ', 'slack', 'seed', 'res', 'palette', 'taper', 'sizeL', 'sizeH']);
 function knobsHtml() {
   let h = '<h2>Palette</h2><select id="k-palette">' + Object.keys(PALETTES).map(k => '<option value="' + k + '"' + (k === S.palette ? ' selected' : '') + '>' + PALETTE_NAMES[k] + '</option>').join('') + '</select>';
   for (const [title, rows] of KNOBS) {
@@ -232,6 +267,7 @@ panel.addEventListener('input', e => {
   S[id] = id === 'palette' ? e.target.value : +e.target.value;
   const o = document.getElementById('o-' + id); if (o) o.textContent = S[id];
   if (id === 'opacity') ropes.forEach(r => r.weeds.forEach(w => w.mesh.material.opacity = S.opacity));
+  if (id === 'spine') ropes.forEach(r => r.line.material.opacity = S.spine);
   if (REBUILD.has(id)) build();
 });
 panel.addEventListener('click', async e => {
