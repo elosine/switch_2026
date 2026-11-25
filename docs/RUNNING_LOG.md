@@ -6615,3 +6615,10 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 **His words:** *"And actually, the whole piano solo can be the zoomed out version. We don't need to zoom in for the piano solo."*
 **DONE:** `tools/make_film.js` — the solo is one render, 146 … 199 s, at x1.4 with a 5.4 s screen (the V-SOLO-OUT frame of §469), the screens still anchored to open at 186.5 so the ribbon of 186.79 … 191.46 stays whole on one screen. The x2 close-up (V-SOLO) stays defined, unused. This also removes the hard cut at 186.5.
 **NOT DONE, AT HIS WORD ("wait to redraw"):** the film is not rendered again yet.
+
+## §475 · 2026-11-24 · the last section: the ensemble 1 dB down, the electronics 1 dB up (in the mix project; nothing rendered)
+
+**His words:** *"and then lets try for the last section The ensemble down 1 dB and electronics up 1 dB, just for that section."*
+**DONE (Reaper was closed; the AI opened it on the mix project):** the INSTRUMENTS line from 277.8 s at −1 dB (it was 0 there), and a new line on the ELEC folder, 0 dB to 276.8 s, +1 dB from 277.8 s, each a one-second glide in the gap before the section. Saved.
+**A FAULT OF THE AI's, FOUND AND MENDED THE SAME TURN:** making the ELEC line (action 40406) moved the folder's fader into the line and set the fader to 0 dB; the script then wrote its own points, so his −13 dB was lost. Read back, seen, the fader set back to −13. ELEC now: −13 dB to 276.8 s, −12 dB in the last section. A memory note now says to read a fader before making its line.
+**NOT DONE:** no new bounce, print or film; the ELEC waveform for the score is made from the folder's fader, not its new line, so it does not show this 1 dB yet.
