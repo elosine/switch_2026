@@ -7250,3 +7250,8 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 - The cause: at the last hit the final section's looks were HANDED BACK to the plain physics (the instrument ropes after 482, the electronics after 480), which jumped from the loops' shapes and speeds to its own — the jolt.
 - Done: the final looks HOLD past the last hit; from 480 each turning loop is LET GO — its angle a pendulum that keeps the speed it had, slows (air 1.1), swings and comes to rest hanging (0.45 a second), the tight loops loosening to 0.7 of the depth at 60 over 5 s. Simulated first: a loop at 2 turns a second makes about one more turn, swings back once and rests within ~8 s. The render tool pads the sound with silence so the picture can run on past it.
 - The clip `H:/switch_2026/video/ending-clip.mp4` (472 … 495, 4K) and a 1080p copy; MEASURED, the change from frame to frame each second: 15 … 16 through 477 … 480, then 6.0 · 4.8 · 1.8 · 1.0 · 0.8 · 0.6 · 0.4 … 0.1 by 490 — no spike: it winds down and settles in about 10 s. A slip on the way (an inline comment swallowed the end of a line in the tool) found by `node --check`.
+
+## §591 — 2026-11-26 — the visual video rendered again, with the settling ending; the YouTube copy
+
+- His word: *"good ty, go ahead and render the full and do a yt compressed version pls"* (after the ending clip of §590).
+- `H:/switch_2026/video/Multiplicity-visual.mp4` — 0 … 492 s (the last hit at 480, then 12 s of settling in silence), 4K, 30 fps, 9 chunks with the watchdog, 41.9 min, no chunk retried; 8.8 GB (~143 Mbps). `Multiplicity-visual-upload.mp4` — the YouTube copy, 45 Mbps, 2.76 GB, faststart, the tags cleared. Both replace the 2026-11-25 renders.
