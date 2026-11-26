@@ -7235,3 +7235,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 - His words: *"go ahead and render the full piece"*, then *"can you update status of the video?"* · *"status pls"*.
 - The first full render STALLED silently at 67 s (frame ~2 010): the server and the encoder alive and idle, the hidden Chrome no longer sending, no error — two hours lost before his second "status" showed it. Rendered alone, 60 … 75 s was clean: the stall comes with LENGTH, not with that moment.
 - Built: the render in CHUNKS (60 s), a fresh hidden Chrome each; the page made REPEATABLE in render mode (one seeded random sequence for every draw; every chunk starts at −6 s and runs the same steps forward drawing nothing until its first frame — `NODRAW`), so a chunk begins exactly where the last ended; a WATCHDOG (no frame for 120 s = a stall; three tries a chunk); a rerun RESUMES (rendered chunks kept); the chunks joined without re-encoding, then the bounce laid under. CHECKED on 50 … 60 s in two 5 s chunks: the change from frame to frame across the seam 7.05 against 6.9 … 8.6 on either side — the seam does not show. The full render restarted: 0 … 487 s, 9 chunks, CRF 20.
+
+## §588 — 2026-11-25 — the visual video rendered whole
+
+- `H:/switch_2026/video/Multiplicity-visual.mp4` — 0 … 487 s, 3840 x 2160, 30 fps, the bounce under it (AAC 320k), the tags cleared; 9 chunks of 60 s, 39.2 min in all, no chunk retried. 8.8 GB (CRF 20 on fine wireframes runs ~145 Mbps; YouTube asks ~35 … 45 for 4K at 30) — an upload copy at ~45 Mbps (~2.7 GB) offered, not made.
