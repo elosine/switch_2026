@@ -7239,3 +7239,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 ## §588 — 2026-11-25 — the visual video rendered whole
 
 - `H:/switch_2026/video/Multiplicity-visual.mp4` — 0 … 487 s, 3840 x 2160, 30 fps, the bounce under it (AAC 320k), the tags cleared; 9 chunks of 60 s, 39.2 min in all, no chunk retried. 8.8 GB (CRF 20 on fine wireframes runs ~145 Mbps; YouTube asks ~35 … 45 for 4K at 30) — an upload copy at ~45 Mbps (~2.7 GB) offered, not made.
+
+## §589 — 2026-11-25 — the visual video's upload copy
+
+- His word: *"yes, make the upload copy"*. `H:/switch_2026/video/Multiplicity-visual-upload.mp4` — H.264 at 45 Mbps (peaks 50), the slow preset, the audio copied, the tags cleared, set to start playing before it has all loaded (faststart).
