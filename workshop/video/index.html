@@ -243,6 +243,10 @@ const KNOBS = [
     ['fSpread', 'Their humps spread across (share of the width)', 0, 1, 0.01, 0.86],
     ['fCxMax', 'No hump further from the centre than', 0, 800, 5, 505],
     ['fEdge', 'Their ends stay inside the frame by', -200, 200, 5, 20],
+    ['endHz', 'The ending: the swing as it settles (a second)', 0.1, 2, 0.01, 0.45],
+    ['endAir', 'The ending: how quickly it slows', 0.1, 5, 0.05, 1.1],
+    ['endRelax', 'The ending: the loops loosen over (seconds)', 0.5, 15, 0.5, 5],
+    ['endLoose', 'The ending: their looser depth (× the depth at 60)', 0.2, 1.5, 0.01, 0.7],
     ['dAmp', 'Their ends drift slowly, as far as (share of the width)', 0, 0.5, 0.01, 0.22],
     ['dMin', 'A rope never shorter than (share of the width)', 0.1, 0.9, 0.01, 0.3],
     ['fRadLo', 'Their loops: the smallest (× the depth)', 0.2, 2, 0.01, 0.55],
@@ -424,6 +428,15 @@ function build() {
 
 const STEP = 1 / 120, ITER = 24;
 let simT = 0, air = 0, stateK = 0, finalK = 0;
+// [§590 — his "let the ending run after the sound until the ropes settle … instead of getting that final jolt, they just settle"] THE SETTLE: from the
+// last hit each turning loop is let go — its angle a pendulum: it keeps the speed it had, gravity and air slow it, it swings and comes to rest hanging
+// (angle 0 = the loop at the bottom); a tight loop also relaxes to its looser depth over a few seconds
+function settleStep(r, wNow, dt) {
+  if (!r.endS) r.endS = { th: r.endTh ?? 0, w: wNow };
+  const K = (2 * Math.PI * S.endHz) ** 2, s = r.endS;
+  s.w += (-K * Math.sin(s.th) - S.endAir * s.w) * dt; s.th += s.w * dt;
+  return s.th;
+}
 function stepRope(r, dt) {
   const { p, q, n } = r, g = S.gravity * dt * dt, d = r.pl ? S.ropeAir : S.damping;
   // [his "pretty subtle motion at rest"] a breeze: a slow, smooth push that drifts along the rope — two sines, the rope's own phases
@@ -511,7 +524,8 @@ const LANE_ROPE = { 1: 3, 2: 0, 3: 1, 4: 2 };   // an electronics lane's rope: t
 const STATE_END = 277.8;   // [§579 — his "the transition between the counterpoint and this section, the electronics should just maintain the counterpoint look"] was 266.5 (B4's end): the look now holds until the final section begins                       // B4's last second: the state holds while the counterpoint's bed sounds
 // [§570] THE FINAL SECTION'S ELECTRONICS: every lane has its own bed there — each rope its own: the archtop rope Elec 2 (G9, the stuttering one) ·
 // the baritone-guitar rope Elec 3 (G8) · the drums rope Elec 4 (B2, the pebbly grind — kept like the counterpoint) · the piano rope Elec 1 (G5)
-const STATE2_AT = 277.8, STATE2_END = 480, FINAL_SRC = [{ bed: 'G9', lane: 2 }, { bed: 'G8', lane: 3 }, { bed: 'B2', lane: 4 }, { bed: 'G5', lane: 1 }];
+const STATE2_AT = 277.8, STATE2_END = 1e9,   // [§590] the electronics keep their final look after the last hit (was 480: the hand-back jolted)
+      END_AT = 480, FINAL_SRC = [{ bed: 'G9', lane: 2 }, { bed: 'G8', lane: 3 }, { bed: 'B2', lane: 4 }, { bed: 'G5', lane: 1 }];
 // [§581 — his "transition back and forth with the electronics to the counterpuntal paradigm and then back … at some of those hinge points … when
 // unisons or … a certain multi-tempo"; his "yes, build it that way"] THE GATHERINGS (bank/phase_form.json: the holds where the tempos ARRIVE — a
 // swarm, a unison, the lock): there the electronics return to the counterpoint's look; in the drifts and glides between, the final look. Each rope
@@ -685,7 +699,7 @@ function tick(now) {
   // [§558] the counterpoint state's weight 0 … 1, eased over 1.5 s either side (it lightens the ensemble's ropes and widens their shake)
   // [§564] the final section's weight (eased 1.5 s in) and each instrument rope's tempo and beat count now
   if (D && D.tempo) {
-    const T = D.tempo; finalK += ((tNow >= T.t0 && tNow <= T.t1 + 2 ? 1 : 0) - finalK) * Math.min(1, dt / 1.5); if (jump) finalK = tNow >= T.t0 && tNow <= T.t1 + 2 ? 1 : 0;
+    const T = D.tempo; finalK += ((tNow >= T.t0 ? 1 : 0) - finalK) * Math.min(1, dt / 1.5); if (jump) finalK = tNow >= T.t0 ? 1 : 0;   // [§590] held after the last hit (it handed back to the physics: the jolt)
     const x = Math.max(0, Math.min((T.t1 - T.t0) * T.rate, (tNow - T.t0) * T.rate)), i = Math.floor(x), fr = x - i;
     for (const r of ropes) { if (!r.pl || r.pl.kind !== 'ensemble') continue; const Q = T.ropes[r.pl.part]; if (!Q) continue; const i1 = Math.min(Q.bpm.length - 1, i + 1);
       r.fin = { live: playing, bpm: Q.bpm[i] + (Q.bpm[i1] - Q.bpm[i]) * fr, beats: Q.beats[i] + (Q.beats[i1] - Q.beats[i]) * fr + (tNow > T.t1 ? (tNow - T.t1) * Q.bpm[Q.bpm.length - 1] / 60 : 0) }; }
@@ -726,7 +740,10 @@ function tick(now) {
       // between its ends EXACTLY one turn per beat (its angle the beat count), its DEPTH the tension: depth = fDepth · (60 ÷ tempo)^fTight — a faster
       // tempo a tighter, shallower loop. It eases in from the physics with the section's weight.
       if (r.pl && r.pl.kind === 'ensemble' && r.fin && finalK > 0) {
-        const e = finalK * finalK * (3 - 2 * finalK), n = r.n, th = 2 * Math.PI * r.fin.beats * S.turnsPerBeat, dep = S.fDepth * (r.fLen < 1 ? (r.fRad ?? 1) : 1) * Math.pow(60 / Math.max(20, r.fin.bpm), S.fTight);   // [§567] each its own radius
+        const e = finalK * finalK * (3 - 2 * finalK), n = r.n, thBeat = 2 * Math.PI * r.fin.beats * S.turnsPerBeat;
+        let th = thBeat, dep = S.fDepth * (r.fLen < 1 ? (r.fRad ?? 1) : 1) * Math.pow(60 / Math.max(20, r.fin.bpm), S.fTight);
+        if (tNow > END_AT) { if (!r.endS) r.endTh = thBeat; th = settleStep(r, 2 * Math.PI * (r.fin.bpm / 60) * S.turnsPerBeat, STEP); const k = Math.min(1, (tNow - END_AT) / S.endRelax); dep += (S.fDepth * (r.fLen < 1 ? (r.fRad ?? 1) : 1) * S.endLoose - dep) * k * k * (3 - 2 * k); }
+        else r.endS = null;   // [§567] each its own radius
         const L = W * r.fLen, cx = r.fLen >= 1 ? 0 : Math.max(-S.fCxMax, Math.min(S.fCxMax, r.fCx ?? 0));
         // [§569 — his "the gold yellow one is off screen, the right node. So if we can bring it back on screen"] the rope's ends kept inside the frame;
         // its hump stays at its place, the loop rising to it from each end (two quarter-sines), so a rope cut short on one side leans, not moves
@@ -772,7 +789,8 @@ function tick(now) {
           // [§573 — his "bring a little bit of motion back into the rope … not so many modes … some sort of uniform motion"] the AI's pick: the same
           // one loop, much shallower, turning slowly and evenly — life without a second mode; and the rope as wide as the screen
           // [§578 — his "a little bit more different or more out of phase … slightly more different paces"] each its own pace, and a quarter-turn apart as they enter
-          if (stillHang) { const ri = ropes.indexOf(r); r.rot = (r.rot || 0); r.rot += 2 * Math.PI * S.stTurn * ([1, 0.68, 1.4, 0.84][ri] ?? 1) * STEP; } else if (r.fPh) r.fPh = false; else if (r.grainOn) r.rot = (r.rot ?? r.ph) + 2 * Math.PI * S.rotTurn * r.rotF * STEP;
+          if (stillHang && tNow > END_AT) { const ri = ropes.indexOf(r); if (!r.endS) r.endTh = r.rot || 0; r.rot = settleStep(r, 2 * Math.PI * S.stTurn * ([1, 0.68, 1.4, 0.84][ri] ?? 1), STEP); }   // [§590] the settle
+          else if (stillHang) { const ri = ropes.indexOf(r); r.endS = null; r.rot = (r.rot || 0); r.rot += 2 * Math.PI * S.stTurn * ([1, 0.68, 1.4, 0.84][ri] ?? 1) * STEP; } else if (r.fPh) r.fPh = false; else if (r.grainOn) r.rot = (r.rot ?? r.ph) + 2 * Math.PI * S.rotTurn * r.rotF * STEP;
           const e = r.kin * r.kin * (3 - 2 * r.kin), n = r.n, c = Math.cos(r.rot ?? 0), s = Math.sin(r.rot ?? 0);
           for (let j = 0; j < n; j++) {
             const fe = r.fb ?? 0, fs = fe * fe * (3 - 2 * fe);   // [§581] the counterpoint loop and the final one, eased both ways   // [§579] the counterpoint loop eases into the final one over 2 s

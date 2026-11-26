@@ -7243,3 +7243,10 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 ## §589 — 2026-11-25 — the visual video's upload copy
 
 - His word: *"yes, make the upload copy"*. `H:/switch_2026/video/Multiplicity-visual-upload.mp4` — H.264 at 45 Mbps (peaks 50), the slow preset, the audio copied, the tags cleared, set to start playing before it has all loaded (faststart).
+
+## §590 — 2026-11-26 — the visual video: the ending settles instead of jolting; a clip of it
+
+- His words: *"Can we rerun the video … the big and the compressed … let the ending run after the sound until the ropes settle? … they get an extra sort of jolt at the very end … they change modes or something. Instead of getting that final jolt, they just settle. And then we can end the video after settle … show that to me first … in the workshop or a small clip. And then let's rerun the video … batch it and put a watchdog on it."*
+- The cause: at the last hit the final section's looks were HANDED BACK to the plain physics (the instrument ropes after 482, the electronics after 480), which jumped from the loops' shapes and speeds to its own — the jolt.
+- Done: the final looks HOLD past the last hit; from 480 each turning loop is LET GO — its angle a pendulum that keeps the speed it had, slows (air 1.1), swings and comes to rest hanging (0.45 a second), the tight loops loosening to 0.7 of the depth at 60 over 5 s. Simulated first: a loop at 2 turns a second makes about one more turn, swings back once and rests within ~8 s. The render tool pads the sound with silence so the picture can run on past it.
+- The clip `H:/switch_2026/video/ending-clip.mp4` (472 … 495, 4K) and a 1080p copy; MEASURED, the change from frame to frame each second: 15 … 16 through 477 … 480, then 6.0 · 4.8 · 1.8 · 1.0 · 0.8 · 0.6 · 0.4 … 0.1 by 490 — no spike: it winds down and settles in about 10 s. A slip on the way (an inline comment swallowed the end of a line in the tool) found by `node --check`.

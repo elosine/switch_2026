@@ -86,7 +86,7 @@ server.listen(PORT, async () => {
   const list = path.join(PARTS, 'list.txt');
   fs.writeFileSync(list, chunks.map((_, i) => "file '" + path.join(PARTS, String(i).padStart(3, '0') + '.mp4').split(path.sep).join('/') + "'").join('\n') + '\n');
   const r = spawnSync('ffmpeg', ['-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', list, '-ss', String(T0), '-t', String(T1 - T0), '-i', AUDIO,
-    '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '320k', '-map_metadata', '-1', '-shortest', OUT], { stdio: 'inherit' });
+    '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-af', 'apad', '-c:a', 'aac', '-b:a', '320k', '-map_metadata', '-1', '-t', String(T1 - T0), OUT], { stdio: 'inherit' });   // [§590] the sound padded with silence when the picture runs on past it
   if (r.status) { console.error('the join failed'); process.exit(1); }
   fs.rmSync(PARTS, { recursive: true, force: true });
   console.log('done in ' + ((Date.now() - started) / 60000).toFixed(1) + ' min: ' + OUT);
