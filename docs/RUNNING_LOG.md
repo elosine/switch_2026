@@ -7261,3 +7261,8 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 - His question: *"for the video in the title would we say cello, electronics and video? How do most people do it?"* — the AI's answer (in the chat): the instruments in score order, then the electronics, then the video; "video" the usual word for a projected part (not "live video", which is made in real time); the serial comma. His word: *"let's go with that and let's update the print cover."*
 - Done: `print/cover/cover.json` — "for flute, clarinet, alto saxophone, / percussion, piano, violin, cello, / electronics, and video" — the cover redrawn (`make_cover.ps1`, the title at the house size 93 pt, the widest line 996 of 1 116 pt); the instructions page's title block the same line, and its Instrumentation "…, cello, electronics, video." The print itself waits for the YouTube link (the demo line).
 - Also: the ending clips and the 20 s sample deleted at his word; the form's links laid out for him — Score Link = the PDF on OSF; Recording Link = the score-following video on YouTube; the visual video's link in "additional information" with the tech and the percussion.
+
+## §593 — 2026-11-27 — the score video posted; the score printed with its link
+
+- His message: the score-following video is up on YouTube, unlisted (the link kept in the gitignored `docs/submission/POSTING.md` only — this repo is public and the submission anonymous).
+- Done: the link put into the instructions page's demo line ONLY FOR THE PRINT — the score printed (53 pages) with it, then the page restored to its placeholder, so the link is in no committed file; the PDF (gitignored, both copies) checked: the link in, no placeholder left.
