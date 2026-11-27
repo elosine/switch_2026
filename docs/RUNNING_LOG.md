@@ -7266,3 +7266,7 @@ Each pair is the same pitch in two ways of playing: one player cannot do both.
 
 - His message: the score-following video is up on YouTube, unlisted (the link kept in the gitignored `docs/submission/POSTING.md` only — this repo is public and the submission anonymous).
 - Done: the link put into the instructions page's demo line ONLY FOR THE PRINT — the score printed (53 pages) with it, then the page restored to its placeholder, so the link is in no committed file; the PDF (gitignored, both copies) checked: the link in, no placeholder left.
+
+## §594 — 2026-11-27 — Multiplicity submitted
+
+- His screenshot: the call's "Thank you for your submission!" page — submitted 2026-11-27, four days before the deadline (December 1). One work, no fee. Their word: reviews in December, a selection in early January, for April 8, 2027. The links and the record of it in the gitignored `docs/submission/POSTING.md` only (the repo is public; the submission anonymous).
